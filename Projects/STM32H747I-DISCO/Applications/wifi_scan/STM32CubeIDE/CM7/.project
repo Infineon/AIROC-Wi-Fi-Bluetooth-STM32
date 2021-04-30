@@ -222,19 +222,24 @@
 			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/CM7/Core/Src/main.c</locationURI>
 		</link>
 		<link>
-			<name>Application/User/Core/wifi_task.c</name>
-			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/CM7/Core/Src/wifi_task.c</locationURI>
-		</link>
-		<link>
 			<name>Application/User/Core/stm32h7xx_hal_msp.c</name>
 			<type>1</type>
 			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/CM7/Core/Src/stm32h7xx_hal_msp.c</locationURI>
 		</link>
 		<link>
+			<name>Application/User/Core/stm32h7xx_hal_timebase_tim.c</name>
+			<type>1</type>
+			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/CM7/Core/Src/stm32h7xx_hal_timebase_tim.c</locationURI>
+		</link>
+		<link>
 			<name>Application/User/Core/stm32h7xx_it.c</name>
 			<type>1</type>
 			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/CM7/Core/Src/stm32h7xx_it.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/Core/wifi_task.c</name>
+			<type>1</type>
+			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/CM7/Core/Src/wifi_task.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Platform/abstraction-rtos/cy_worker_thread.c</name>
@@ -435,6 +440,11 @@
 			<name>Middlewares/Connectivity/Wireless/Platform/pal/cyhal_wdt.h</name>
 			<type>1</type>
 			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/cyhal_wdt.h</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/Connectivity/Wireless/Platform/pal/stm32_cyhal_common.h</name>
+			<type>1</type>
+			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/stm32_cyhal_common.h</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Platform/pal/stm32_cyhal_gpio.c</name>
@@ -1524,7 +1534,7 @@
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_utils.c</name>
 			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/WiFi_Host_Driver/src/whd_utils.c</locationURI>
+			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_utils.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_utils.h</name>
@@ -1630,11 +1640,6 @@
 			<name>Middlewares/Connectivity/Wireless/Platform/device/CYW43012/resources.h</name>
 			<type>1</type>
 			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/resources.h</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/device/CYW43012/w_bt_firmware_controller.c</name>
-			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/firmware/COMPONENT_43012/TARGET_CY8CKIT_062S2_43012/w_bt_firmware_controller.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Platform/device/CYW43012/whd_resource_api.h</name>

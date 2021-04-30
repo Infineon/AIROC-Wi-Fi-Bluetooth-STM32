@@ -24,8 +24,8 @@ The STM32 Connectivity Expansion Pack includes the following libraries and middl
 | [core-lib](https://github.com/cypresssemiconductorco/core-lib)                             |  1.1.4    |        
 | [abstraction-rtos](https://github.com/cypresssemiconductorco/abstraction-rtos)             |  1.3.0    |
 | [LwIP](https://git.savannah.nongnu.org/cgit/lwip.git)                                      |  2.1.2    |             
-| PAL          	                                                                             |  1.0.0    |
-| Device                                                                                     |  1.0.0    |
+| PAL          	                                                                             |  1.0.1    |
+| Device                                                                                     |  1.0.1    |
 
 ## Additional details
 The pack is compliant with the full CMSIS-Pack standard, with additional requirements/restrictions on the final pack to meet the STM standard.

@@ -17,10 +17,15 @@ This pack uses libraries from the ModusToolbox environment.
 | [core-lib](https://github.com/cypresssemiconductorco/core-lib)                             |  1.1.4    |        
 | [abstraction-rtos](https://github.com/cypresssemiconductorco/abstraction-rtos)             |  1.3.0    |
 | [LwIP](https://git.savannah.nongnu.org/cgit/lwip.git)                                      |  2.1.2    |             
-| PAL          	                                                                             |  1.0.0    |
-| Device                                                                                     |  1.0.0    |
+| PAL          	                                                                             |  1.0.1    |
+| Device                                                                                     |  1.0.1    |
 
 ## What Changed?
+ v1.0.1
+* PAL updates:
+ - SDIO: fixed memory corruption bug;
+ - SDIO, GPIO: fixed functional issues found by static analysis;
+ - Fixed Wi-Fi Scan warnings about invalid project paths in STM32CubeIDE
 
  v1.0.0
 * Initial Release with support for STM32H7xx MCUs with Infineon’s CYW43xxx Wi-Fi-BT combo chip family listed below.

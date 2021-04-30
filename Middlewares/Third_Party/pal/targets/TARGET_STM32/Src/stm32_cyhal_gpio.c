@@ -247,7 +247,6 @@ cy_rslt_t cyhal_gpio_init(cyhal_gpio_t pin, cyhal_gpio_direction_t direction,
         /* No Pull-up or pull-down resistors. Input and output.
          * Input init value(s): 0 or 1, output value(s): 0 or 1 */
         case CYHAL_GPIO_DRIVE_PULL_NONE:
-            gpio_init.Mode = GPIO_MODE_ANALOG;
             if ((direction == CYHAL_GPIO_DIR_OUTPUT) || (direction == CYHAL_GPIO_DIR_BIDIRECTIONAL))
             {
                 gpio_init.Mode = GPIO_MODE_OUTPUT_PP;
@@ -289,7 +288,7 @@ cy_rslt_t cyhal_gpio_init(cyhal_gpio_t pin, cyhal_gpio_direction_t direction,
                 /* wait for the state of the GPIO pin to be updated */
             }
 
-            assert_param(timeout > 0);
+            assert_param(timeout > 0u);
         }
     }
 
@@ -306,7 +305,7 @@ void cyhal_gpio_free(cyhal_gpio_t pin)
     uint32_t pin_number = CYHAL_GET_PIN_NUMBER(CYHAL_GET_PIN(pin));
 
     /* Check the parameters */
-    assert_param(pin_number < CYHAL_MAX_GPIOX_NUMBER);
+    assert_param(pin_number < CYHAL_MAX_EXTI_NUMBER);
 
     /* Clean callback information */
     uint32_t savedIntrStatus = cyhal_system_critical_section_enter();
@@ -349,6 +348,10 @@ void cyhal_gpio_enable_event(cyhal_gpio_t pin, cyhal_gpio_event_t event, uint8_t
     /* Get gpio port and pin from cyhal_gpio_t */
     GPIO_TypeDef* gpio_port = CYHAL_GET_PORT(pin);
     uint32_t      gpio_pin  = CYHAL_GET_PIN(pin);
+    uint32_t      pin_number = CYHAL_GET_PIN_NUMBER(gpio_pin);
+
+    /* Check the parameters */
+    assert_param(pin_number < CYHAL_MAX_EXTI_NUMBER);
 
     /* Get current configuration */
     GPIO_InitTypeDef gpio_init = _stm32_cyhal_gpio_get_configuration(gpio_port, gpio_pin);
@@ -369,10 +372,10 @@ void cyhal_gpio_enable_event(cyhal_gpio_t pin, cyhal_gpio_event_t event, uint8_t
     HAL_GPIO_Init(gpio_port, &gpio_init);
 
     /* Enable/disable IRQ for appropriate EXTI lines */
-    _stm32_cyhal_gpio_enable_irq(CYHAL_GET_PIN_NUMBER(gpio_pin), intr_priority, enable);
+    _stm32_cyhal_gpio_enable_irq(pin_number, intr_priority, enable);
 
     /* Update callback info */
-    _exti_callbacks_info[CYHAL_GET_PIN_NUMBER(gpio_pin)].enable = enable;
+    _exti_callbacks_info[pin_number].enable = enable;
 }
 
 
@@ -432,6 +435,9 @@ GPIO_InitTypeDef _stm32_cyhal_gpio_get_configuration(GPIO_TypeDef* port, uint32_
     GPIO_InitTypeDef gpio_init;
     uint32_t         temp;
     uint32_t         position = CYHAL_GET_PIN_NUMBER(pin);
+
+    /* Check the parameters */
+    assert_param(position < CYHAL_MAX_EXTI_NUMBER);
 
     /* Store Pin */
     gpio_init.Pin = pin;

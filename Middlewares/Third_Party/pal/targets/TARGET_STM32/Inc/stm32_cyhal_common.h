@@ -64,9 +64,9 @@
 /* D-cache maintenance for DMA buffers */
 #if defined (__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
     #define _CYHAL_DCACHE_MAINTENCE
-    #define _CYHAL_DMA_BUFFER_ALIGN_BYTES      (32)
+    #define _CYHAL_DMA_BUFFER_ALIGN_BYTES      (32u)
 #else
-    #define _CYHAL_DMA_BUFFER_ALIGN_BYTES      (4)
+    #define _CYHAL_DMA_BUFFER_ALIGN_BYTES      (4u)
 #endif /* defined (__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U) */
 
 /* Macro to ALIGN */
