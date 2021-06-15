@@ -6,7 +6,7 @@
  *
  ***************************************************************************************************
  * \copyright
- * Copyright 2018-2020 Cypress Semiconductor Corporation
+ * Copyright 2018-2021 Cypress Semiconductor Corporation
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +30,6 @@
 
 static const uint32_t WRAPPER_IDENT          = 0xABCDEF01U;
 static const uint32_t MAX_QUEUE_MESSAGE_SIZE = 16;
-#define MAX_32_BIT (0xFFFFFFFFU)
 #define ALL_EVENT_FLAGS (0xFFFFFFFFU)
 #define MILLISECONDS_PER_SECOND (1000)
 
@@ -57,11 +56,11 @@ static cy_time_t convert_ms_to_ticks(cy_time_t timeout_ms)
         {
             ticks = 1;
         }
-        else if (ticks > MAX_32_BIT)
+        else if (ticks >= UINT32_MAX)
         {
             // if ticks if more than 32 bits, change ticks to max possible value that isn't
             // TX_WAIT_FOREVER.
-            ticks = MAX_32_BIT - 1;
+            ticks = UINT32_MAX - 1;
         }
         return ticks;
     }
@@ -354,6 +353,48 @@ cy_rslt_t cy_rtos_get_thread_handle(cy_thread_t* thread)
 {
     *thread = tx_thread_identify();
     return CY_RSLT_SUCCESS;
+}
+
+
+//--------------------------------------------------------------------------------------------------
+// cy_rtos_wait_thread_notification
+//--------------------------------------------------------------------------------------------------
+cy_rslt_t cy_rtos_wait_thread_notification(cy_time_t num_ms)
+{
+    UINT ret;
+    cy_rslt_t status = CY_RSLT_SUCCESS;
+
+    ret = tx_thread_sleep(convert_ms_to_ticks(num_ms));
+    /* Update the last known error status */
+    last_error = (cy_rtos_error_t)ret;
+
+    if (ret == TX_SUCCESS)
+    {
+        status = CY_RTOS_TIMEOUT;
+    }
+    else if (ret != TX_WAIT_ABORTED)
+    {
+        status = CY_RTOS_GENERAL_ERROR;
+    }
+    return status;
+}
+
+
+//--------------------------------------------------------------------------------------------------
+// cy_rtos_set_thread_notification
+//--------------------------------------------------------------------------------------------------
+cy_rslt_t cy_rtos_set_thread_notification(cy_thread_t* thread, bool in_isr)
+{
+    (void)in_isr;
+
+    if (thread == NULL)
+    {
+        return CY_RTOS_BAD_PARAM;
+    }
+    /* According to ThreadX user guide, this function allowed to
+     * be called from ISR
+     */
+    return convert_error(tx_thread_wait_abort(*thread));
 }
 
 
@@ -860,7 +901,7 @@ cy_rslt_t cy_rtos_delay_milliseconds(cy_time_t num_ms)
 
     while (ticks > 0)
     {
-        cy_time_t wait_ticks = (ticks >= MAX_32_BIT) ? (MAX_32_BIT - 1) : ticks;
+        cy_time_t wait_ticks = (ticks >= UINT32_MAX) ? (UINT32_MAX - 1) : ticks;
         cy_rslt_t rslt       = convert_error(tx_thread_sleep(wait_ticks));
         if (CY_RSLT_SUCCESS != rslt)
         {

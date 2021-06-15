@@ -1,41 +1,41 @@
-/*******************************************************************************
-* File Name: stm32_cyhal_sdio.c
-*
-* Description:
-* Provides a high level interface for interacting with STM32 SDIO.
-* This is a wrapper around the lower level STM32 SDIO HAL API.
-*
-*******************************************************************************
-* \copyright
-* Copyright 2021 Cypress Semiconductor Corporation
-* This software, including source code, documentation and related materials
-* ("Software"), is owned by Cypress Semiconductor Corporation or one of its
-* subsidiaries ("Cypress") and is protected by and subject to worldwide patent
-* protection (United States and foreign), United States copyright laws and
-* international treaty provisions. Therefore, you may use this Software only
-* as provided in the license agreement accompanying the software package from
-* which you obtained this Software ("EULA").
-*
-* If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
-* non-transferable license to copy, modify, and compile the Software source
-* code solely for use in connection with Cypress's integrated circuit products.
-* Any reproduction, modification, translation, compilation, or representation
-* of this Software except as specified above is prohibited without the express
-* written permission of Cypress.
-*
-* Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND,
-* EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED
-* WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Cypress
-* reserves the right to make changes to the Software without notice. Cypress
-* does not assume any liability arising out of the application or use of the
-* Software or any product or circuit described in the Software. Cypress does
-* not authorize its products for use in any products where a malfunction or
-* failure of the Cypress product may reasonably be expected to result in
-* significant property damage, injury or death ("High Risk Product"). By
-* including Cypress's product in a High Risk Product, the manufacturer of such
-* system or application assumes all risk of such use and in doing so agrees to
-* indemnify Cypress against all liability.
-*******************************************************************************/
+/***************************************************************************************************
+ * \file stm32_cyhal_sdio.c
+ *
+ * \brief
+ * Provides a high level interface for interacting with STM32 SDIO.
+ * This is a wrapper around the lower level STM32 SDIO HAL API.
+ *
+ ***************************************************************************************************
+ * \copyright
+ * Copyright 2021 Cypress Semiconductor Corporation
+ * This software, including source code, documentation and related materials
+ * ("Software"), is owned by Cypress Semiconductor Corporation or one of its
+ * subsidiaries ("Cypress") and is protected by and subject to worldwide patent
+ * protection (United States and foreign), United States copyright laws and
+ * international treaty provisions. Therefore, you may use this Software only
+ * as provided in the license agreement accompanying the software package from
+ * which you obtained this Software ("EULA").
+ *
+ * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
+ * non-transferable license to copy, modify, and compile the Software source
+ * code solely for use in connection with Cypress's integrated circuit products.
+ * Any reproduction, modification, translation, compilation, or representation
+ * of this Software except as specified above is prohibited without the express
+ * written permission of Cypress.
+ *
+ * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Cypress
+ * reserves the right to make changes to the Software without notice. Cypress
+ * does not assume any liability arising out of the application or use of the
+ * Software or any product or circuit described in the Software. Cypress does
+ * not authorize its products for use in any products where a malfunction or
+ * failure of the Cypress product may reasonably be expected to result in
+ * significant property damage, injury or death ("High Risk Product"). By
+ * including Cypress's product in a High Risk Product, the manufacturer of such
+ * system or application assumes all risk of such use and in doing so agrees to
+ * indemnify Cypress against all liability.
+ **************************************************************************************************/
 
 #if defined(__cplusplus)
 extern "C"
@@ -50,13 +50,12 @@ extern "C"
 #if defined(HAL_SD_MODULE_ENABLED)
 
 
-/*******************************************************************************
-*      Private macros
-*******************************************************************************/
+/***************************************************************************************************
+ *      Private macros
+ **************************************************************************************************/
 
 /* Number of cycles for read/write operation complete */
-#define _CYHAL_SDIO_RW_RETRY_CYCLES             (1000u)
-#define _CYHAL_SDIO_DMA_BUFFER_SIZE             (1024)
+#define _CYHAL_SDIO_RW_RETRY_CYCLES             (1000U)
 
 #define _CYHAL_SDIO_400KHZ                      (400000U)
 
@@ -73,35 +72,43 @@ extern "C"
                                                  SDMMC_R5_FUNCTION_NUMBER | \
                                                  SDMMC_R5_OUT_OF_RANGE)
 /* Data Block Size */
-#define _CYHAL_SDIO_DATA_BLOCK_SIZE_2B          (2)
-#define _CYHAL_SDIO_DATA_BLOCK_SIZE_4B          (4)
-#define _CYHAL_SDIO_DATA_BLOCK_SIZE_8B          (8)
-#define _CYHAL_SDIO_DATA_BLOCK_SIZE_16B         (16)
-#define _CYHAL_SDIO_DATA_BLOCK_SIZE_32B         (32)
-#define _CYHAL_SDIO_DATA_BLOCK_SIZE_64B         (64)
-#define _CYHAL_SDIO_DATA_BLOCK_SIZE_128B        (128)
-#define _CYHAL_SDIO_DATA_BLOCK_SIZE_256B        (256)
-#define _CYHAL_SDIO_DATA_BLOCK_SIZE_512B        (512)
+#define _CYHAL_SDIO_DATA_BLOCK_SIZE_2B          (2U)
+#define _CYHAL_SDIO_DATA_BLOCK_SIZE_4B          (4U)
+#define _CYHAL_SDIO_DATA_BLOCK_SIZE_8B          (8U)
+#define _CYHAL_SDIO_DATA_BLOCK_SIZE_16B         (16U)
+#define _CYHAL_SDIO_DATA_BLOCK_SIZE_32B         (32U)
+#define _CYHAL_SDIO_DATA_BLOCK_SIZE_64B         (64U)
+#define _CYHAL_SDIO_DATA_BLOCK_SIZE_128B        (128U)
+#define _CYHAL_SDIO_DATA_BLOCK_SIZE_256B        (256U)
+#define _CYHAL_SDIO_DATA_BLOCK_SIZE_512B        (512U)
 
 /* Set default SDIO priority */
 #if !defined (CYHAL_SDIO_IRQ_PRIORITY)
     #define CYHAL_SDIO_IRQ_PRIORITY             (5U)
 #endif /* !defined (CYHAL_SDIO_IRQ_PRIORITY) */
 
-/*******************************************************************************
-*      Private variables
-*******************************************************************************/
+/* SDIO DMA buffer used in cyhal_sdio_bulk_transfer function. The default value
+ * is 1568 bytes, it required by WHD as max backplane transfer size.
+ * Overwrite _CYHAL_SDIO_DMA_BUFFER_SIZE in cybsp.h if need to increase the
+ * SDIO DMA buffer size */
+#if !defined (_CYHAL_SDIO_DMA_BUFFER_SIZE)
+    #define _CYHAL_SDIO_DMA_BUFFER_SIZE         (1568 / 4)  /* size in words */
+#endif /* !defined (_CYHAL_SDIO_DMA_BUFFER_SIZE) */
+
+
+/***************************************************************************************************
+ *      Private variables
+ **************************************************************************************************/
 
 static SD_HandleTypeDef* _cyhal_sdio_handle = NULL;
 
-CYHAL_ALIGN_DMA_BUFFER(static uint8_t  _temp_dma_buffer[_CYHAL_SDIO_DMA_BUFFER_SIZE]);
+/***************************************************************************************************
+ *      Private functions
+ **************************************************************************************************/
 
-/*******************************************************************************
-*      Private functions
-*******************************************************************************/
-
-uint32_t _stm32_sdio_cmd_rw_extended(SDMMC_TypeDef* SDMMCx, uint32_t argument, uint32_t* response);
-uint32_t _stm32_sdio_cmd_send_op_cond(SDMMC_TypeDef* SDMMCx);
+static uint32_t _stm32_sdio_cmd_rw_extended(SDMMC_TypeDef* SDMMCx, uint32_t argument,
+                                            uint32_t* response);
+static uint32_t _stm32_sdio_cmd_send_op_cond(SDMMC_TypeDef* SDMMCx);
 
 static uint32_t _stm32_sdio_cmd_rw_direct(SDMMC_TypeDef* SDMMCx, uint32_t argument,
                                           uint32_t* response);
@@ -118,9 +125,9 @@ static uint32_t _stm32_sdio_get_cmd_resp5(SDMMC_TypeDef* SDMMCx, uint8_t SD_CMD,
 static uint32_t _stm32_safe_divide(uint32_t num, uint32_t denom);
 
 
-//--------------------------------------------------------------------------------------------------
-// stm32_cypal_sdio_hw_init
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * stm32_cypal_sdio_hw_init
+ **************************************************************************************************/
 uint32_t stm32_cypal_sdio_hw_init(SD_HandleTypeDef* hsd)
 {
     /* Check the parameters */
@@ -131,9 +138,9 @@ uint32_t stm32_cypal_sdio_hw_init(SD_HandleTypeDef* hsd)
 }
 
 
-//--------------------------------------------------------------------------------------------------
-// cyhal_sdio_init
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * cyhal_sdio_init
+ **************************************************************************************************/
 cy_rslt_t cyhal_sdio_init(cyhal_sdio_t* obj, cyhal_gpio_t cmd, cyhal_gpio_t clk, cyhal_gpio_t data0,
                           cyhal_gpio_t data1, cyhal_gpio_t data2, cyhal_gpio_t data3)
 {
@@ -154,7 +161,7 @@ cy_rslt_t cyhal_sdio_init(cyhal_sdio_t* obj, cyhal_gpio_t cmd, cyhal_gpio_t clk,
     /* Check the SD handle allocation */
     if (obj->hsd == NULL)
     {
-        return HAL_ERROR;
+        return (cy_rslt_t)HAL_ERROR;
     }
 
     /* Init the low level hardware : GPIO, CLOCK, CORTEX...etc */
@@ -173,10 +180,10 @@ cy_rslt_t cyhal_sdio_init(cyhal_sdio_t* obj, cyhal_gpio_t cmd, cyhal_gpio_t clk,
     obj->hsd->Init.HardwareFlowControl = SDMMC_HARDWARE_FLOW_CONTROL_DISABLE;
 
     /* Init Clock should be less or equal to 400Khz */
-    sdmmc_clk               = HAL_RCCEx_GetPeriphCLKFreq(STM32_RCC_PERIPHCLK_SDMMC);
+    sdmmc_clk = HAL_RCCEx_GetPeriphCLKFreq(STM32_RCC_PERIPHCLK_SDMMC);
 
     obj->hsd->Init.ClockDiv = _stm32_safe_divide(sdmmc_clk, 2U * _CYHAL_SDIO_400KHZ);
-    obj->hsd->State = HAL_SD_STATE_BUSY;
+    obj->hsd->State         = HAL_SD_STATE_BUSY;
 
     /* Enable SDIO block */
     _stm32_sdio_enable_hw_block(obj);
@@ -196,9 +203,9 @@ cy_rslt_t cyhal_sdio_init(cyhal_sdio_t* obj, cyhal_gpio_t cmd, cyhal_gpio_t clk,
 }
 
 
-//--------------------------------------------------------------------------------------------------
-// cyhal_sdio_configure
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * cyhal_sdio_configure
+ **************************************************************************************************/
 cy_rslt_t cyhal_sdio_configure(cyhal_sdio_t* obj, const cyhal_sdio_cfg_t* config)
 {
     uint32_t clk_freq;
@@ -243,16 +250,18 @@ cy_rslt_t cyhal_sdio_configure(cyhal_sdio_t* obj, const cyhal_sdio_cfg_t* config
 }
 
 
-//--------------------------------------------------------------------------------------------------
-// cyhal_sdio_send_cmd
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * cyhal_sdio_send_cmd
+ **************************************************************************************************/
 cy_rslt_t cyhal_sdio_send_cmd(const cyhal_sdio_t* obj, cyhal_transfer_t direction,
                               cyhal_sdio_command_t command, uint32_t argument, uint32_t* response)
 {
     (void)direction;
     uint32_t ret;
+
     /* Check the parameters */
     assert_param(obj != NULL);
+    assert_param(obj->hsd != NULL);
 
     switch (command)
     {
@@ -263,9 +272,13 @@ cy_rslt_t cyhal_sdio_send_cmd(const cyhal_sdio_t* obj, cyhal_transfer_t directio
 
         /* CMD3 */
         case CYHAL_SDIO_CMD_SEND_RELATIVE_ADDR:
+        {
+            uint16_t resp;
             assert_param(response != NULL);
-            ret = SDMMC_CmdSetRelAdd(obj->hsd->Instance, (uint16_t*)response);
+            ret       = SDMMC_CmdSetRelAdd(obj->hsd->Instance, &resp);
+            *response = resp;
             break;
+        }
 
         /* CMD5 */
         case CYHAL_SDIO_CMD_IO_SEND_OP_COND:
@@ -298,13 +311,14 @@ cy_rslt_t cyhal_sdio_send_cmd(const cyhal_sdio_t* obj, cyhal_transfer_t directio
 }
 
 
-//--------------------------------------------------------------------------------------------------
-// cyhal_sdio_bulk_transfer
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * cyhal_sdio_bulk_transfer
+ **************************************************************************************************/
 cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t* obj, cyhal_transfer_t direction, uint32_t argument,
                                    const uint32_t* data, uint16_t length, uint32_t* response)
 {
     cy_rslt_t result = CYHAL_SDIO_RSLT_CANCELED;
+    CYHAL_ALIGN_DMA_BUFFER(static uint32_t  _temp_dma_buffer[_CYHAL_SDIO_DMA_BUFFER_SIZE]);
 
     /* Check data buffer if aligned on 32-bytes (needed for cache maintenance purpose),
      * and Length is multiple by block size. If NOT, use internal buffer for DMA */
@@ -313,7 +327,8 @@ cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t* obj, cyhal_transfer_t direction
 
     /* Check the parameters */
     assert_param(NULL != obj);
-    assert_param((0u != length) && (!use_temp_dma_buffer || (length <= sizeof(_temp_dma_buffer))));
+    assert_param(0u != length);
+    assert_param(!use_temp_dma_buffer || (length <= sizeof(_temp_dma_buffer)));
 
     SDMMC_DataInitTypeDef config;
     sdio_cmd_argument_t   arg = { .value = argument };
@@ -327,9 +342,9 @@ cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t* obj, cyhal_transfer_t direction
     if (obj->hsd->State == HAL_SD_STATE_READY)
     {
         /* Block size not initialized */
-        if (obj->block_size == 0u)
+        if (obj->block_size == 0U)
         {
-            obj->block_size = 64u;
+            obj->block_size = _CYHAL_SDIO_DATA_BLOCK_SIZE_64B;
         }
 
         /* Block mode */
@@ -345,10 +360,11 @@ cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t* obj, cyhal_transfer_t direction
             number_of_blocks = 1UL;
         }
 
-        /* Dodgy STM32 hack to set the CMD53 byte mode size to be the same as the block size */
-        if (arg.cmd53.block_mode == 0u)
+        /* Set the CMD53 byte mode size to be the same as the block size */
+        if (arg.cmd53.block_mode == 0U)
         {
-            if (_stm32_sdio_find_optimal_block_size(arg.cmd53.count) < 512u)
+            if (_stm32_sdio_find_optimal_block_size(arg.cmd53.count) <
+                _CYHAL_SDIO_DATA_BLOCK_SIZE_512B)
             {
                 arg.cmd53.count = _stm32_sdio_find_optimal_block_size(arg.cmd53.count);
             }
@@ -366,12 +382,23 @@ cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t* obj, cyhal_transfer_t direction
 
         if (use_temp_dma_buffer)
         {
+            if ((length == 0) || (length > sizeof(_temp_dma_buffer)))
+            {
+                obj->hsd->State = HAL_SD_STATE_READY;
+                return CYHAL_SDIO_BAD_ARGUMENT;
+            }
+
             /* Using internal buffer */
-            p_dma_buffer = (uint32_t*)_temp_dma_buffer;
+            p_dma_buffer = _temp_dma_buffer;
 
             /* Clean internal buffer and copy data */
             (void)memcpy((void*)_temp_dma_buffer, (void*)data, length);
-            (void)memset((void*)&_temp_dma_buffer[length], 0u, sizeof(_temp_dma_buffer) - length);
+
+            if (length != sizeof(_temp_dma_buffer))
+            {
+                (void)memset((void*)&((uint8_t*)_temp_dma_buffer)[length], 0,
+                             sizeof(_temp_dma_buffer) - length);
+            }
         }
         else
         {
@@ -379,8 +406,8 @@ cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t* obj, cyhal_transfer_t direction
             p_dma_buffer = (uint32_t*)data;
         }
 
-        /* Maintence D-cache for DMA buffers */
-        #if defined(_CYHAL_DCACHE_MAINTENCE)
+        /* Maintenance D-cache for DMA buffers */
+        #if defined(_CYHAL_DCACHE_MAINTENANCE)
         if (direction == CYHAL_WRITE)
         {
             SCB_CleanDCache_by_Addr((uint32_t*)p_dma_buffer, block_size * number_of_blocks);
@@ -390,7 +417,7 @@ cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t* obj, cyhal_transfer_t direction
             /* Cache-Invalidate the output from DMA */
             SCB_InvalidateDCache_by_Addr((uint32_t*)p_dma_buffer, block_size * number_of_blocks);
         }
-        #endif /* if defined(_CYHAL_DCACHE_MAINTENCE) */
+        #endif /* if defined(_CYHAL_DCACHE_MAINTENANCE) */
 
         /* DMA configuration (use single buffer) */
         obj->hsd->Instance->IDMACTRL  = SDMMC_ENABLE_IDMA_SINGLE_BUFF;
@@ -435,6 +462,7 @@ cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t* obj, cyhal_transfer_t direction
             timeout--;
             if (timeout == 0u)
             {
+                obj->hsd->State = HAL_SD_STATE_READY;
                 return CYHAL_SDIO_RET_CMD_TIMEOUT;
             }
         }
@@ -470,7 +498,7 @@ cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t* obj, cyhal_transfer_t direction
             /* Nothing to do */
         }
 
-        /* Set SDIO to init state*/
+        /* Set SDIO to init state */
         __HAL_SD_DISABLE_IT(obj->hsd, SDMMC_IT_IDMABTC);
         __SDMMC_CMDTRANS_DISABLE(obj->hsd->Instance);
 
@@ -480,17 +508,17 @@ cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t* obj, cyhal_transfer_t direction
         obj->hsd->Instance->CMD      = 0;
         obj->hsd->Instance->DCTRL   |= SDMMC_DCTRL_FIFORST;
 
-        /* Set the SD state to ready to be able to start again the process */
-        _cyhal_sdio_handle->State = HAL_SD_STATE_READY;
-
         /* Clear all the static flags */
         __HAL_SD_CLEAR_FLAG(obj->hsd, SDMMC_STATIC_DATA_FLAGS);
 
         /* Copy received data to user */
         if ((direction == CYHAL_READ) && (use_temp_dma_buffer) && (!obj->hsd->ErrorCode))
         {
-            (void)memcpy((void*)data, _temp_dma_buffer, (size_t)length);
+            (void)memcpy((void*)data, (void*)_temp_dma_buffer, (size_t)length);
         }
+
+        /* Set the SD state to ready to be able to start again the process */
+        _cyhal_sdio_handle->State = HAL_SD_STATE_READY;
 
         /* This interrupt is disabled in interrupt handler so need to enable it here */
         if (0U != ((uint32_t)CYHAL_SDIO_CARD_INTERRUPT & obj->irq))
@@ -516,9 +544,9 @@ cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t* obj, cyhal_transfer_t direction
 }
 
 
-//--------------------------------------------------------------------------------------------------
-// cyhal_sdio_register_callback
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * cyhal_sdio_register_callback
+ **************************************************************************************************/
 void cyhal_sdio_register_callback(cyhal_sdio_t* obj, cyhal_sdio_event_callback_t callback,
                                   void* callback_arg)
 {
@@ -532,9 +560,9 @@ void cyhal_sdio_register_callback(cyhal_sdio_t* obj, cyhal_sdio_event_callback_t
 }
 
 
-//--------------------------------------------------------------------------------------------------
-// cyhal_sdio_enable_event
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * cyhal_sdio_enable_event
+ **************************************************************************************************/
 void cyhal_sdio_enable_event(cyhal_sdio_t* obj, cyhal_sdio_event_t event, uint8_t intr_priority,
                              bool enable)
 {
@@ -552,9 +580,9 @@ void cyhal_sdio_enable_event(cyhal_sdio_t* obj, cyhal_sdio_event_t event, uint8_
 }
 
 
-//--------------------------------------------------------------------------------------------------
-// stm32_cyhal_sdio_irq_handler
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * stm32_cyhal_sdio_irq_handler
+ **************************************************************************************************/
 void stm32_cyhal_sdio_irq_handler(void)
 {
     if ((_cyhal_sdio_handle != NULL) &&
@@ -575,13 +603,13 @@ void stm32_cyhal_sdio_irq_handler(void)
 }
 
 
-//--------------------------------------------------------------------------------------------------
-// Private Functions
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * Private Functions
+ **************************************************************************************************/
 
-//--------------------------------------------------------------------------------------------------
-// _stm32_safe_divide
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * _stm32_safe_divide
+ **************************************************************************************************/
 static uint32_t _stm32_safe_divide(uint32_t num, uint32_t denom)
 {
     /* Safe divide */
@@ -598,9 +626,9 @@ static uint32_t _stm32_safe_divide(uint32_t num, uint32_t denom)
 }
 
 
-//--------------------------------------------------------------------------------------------------
-// _stm32_sdio_enable_hw_block
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * _stm32_sdio_enable_hw_block
+ **************************************************************************************************/
 static void _stm32_sdio_enable_hw_block(cyhal_sdio_t* obj)
 {
     /* Disable/reset SDIO Block */
@@ -629,12 +657,13 @@ static void _stm32_sdio_enable_hw_block(cyhal_sdio_t* obj)
     /* Wait clock */
     (void)SDMMC_SetSDMMCReadWaitMode(obj->hsd->Instance, SDMMC_READ_WAIT_MODE_CLK);
 
-    /* Wait 74 Cycles: required power up waiting time before starting
-       the SD initialization sequence */
+
     uint32_t sdmmc_clk = HAL_RCCEx_GetPeriphCLKFreq(STM32_RCC_PERIPHCLK_SDMMC) /
                          (2U * obj->hsd->Init.ClockDiv);
     if (sdmmc_clk != 0U)
     {
+        /* Wait 74 Cycles: required power up waiting time
+         * before starting the SD initialization sequence */
         HAL_Delay(1U + (74U * 1000U / (sdmmc_clk)));
     }
     else
@@ -644,9 +673,9 @@ static void _stm32_sdio_enable_hw_block(cyhal_sdio_t* obj)
 }
 
 
-//--------------------------------------------------------------------------------------------------
-// _stm32_sdio_disable_hw_block
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * _stm32_sdio_disable_hw_block
+ **************************************************************************************************/
 static void _stm32_sdio_disable_hw_block(const cyhal_sdio_t* obj)
 {
     /* Reset SDIO Block */
@@ -668,9 +697,9 @@ static void _stm32_sdio_disable_hw_block(const cyhal_sdio_t* obj)
 }
 
 
-//--------------------------------------------------------------------------------------------------
-// _stm32_sdio_find_optimal_block_size
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * _stm32_sdio_find_optimal_block_size
+ **************************************************************************************************/
 static  uint32_t _stm32_sdio_find_optimal_block_size(uint32_t data_size)
 {
     if (data_size > (uint32_t)_CYHAL_SDIO_DATA_BLOCK_SIZE_256B)
@@ -709,9 +738,9 @@ static  uint32_t _stm32_sdio_find_optimal_block_size(uint32_t data_size)
 }
 
 
-//--------------------------------------------------------------------------------------------------
-// _stm32_sdio_convert_block_size
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * _stm32_sdio_convert_block_size
+ **************************************************************************************************/
 static uint32_t _stm32_sdio_convert_block_size(uint16_t block_size)
 {
     switch (block_size)
@@ -768,9 +797,9 @@ static uint32_t _stm32_sdio_convert_block_size(uint16_t block_size)
 }
 
 
-//--------------------------------------------------------------------------------------------------
-// _stm32_sdio_enable_irq
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * _stm32_sdio_enable_irq
+ **************************************************************************************************/
 static void _stm32_sdio_enable_irq(const SD_TypeDef* instance, uint32_t priority, bool en_irq)
 {
     IRQn_Type IRQn = (IRQn_Type)0;
@@ -806,9 +835,9 @@ static void _stm32_sdio_enable_irq(const SD_TypeDef* instance, uint32_t priority
 }
 
 
-//--------------------------------------------------------------------------------------------------
-// _stm32_sdio_get_cmd_resp4
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * _stm32_sdio_get_cmd_resp4
+ **************************************************************************************************/
 static uint32_t _stm32_sdio_get_cmd_resp4(SDMMC_TypeDef* SDMMCx)
 {
     uint32_t sta_reg;
@@ -842,10 +871,10 @@ static uint32_t _stm32_sdio_get_cmd_resp4(SDMMC_TypeDef* SDMMCx)
 }
 
 
-//--------------------------------------------------------------------------------------------------
-// _stm32_sdio_cmd_send_op_cond
-//--------------------------------------------------------------------------------------------------
-uint32_t _stm32_sdio_cmd_send_op_cond(SDMMC_TypeDef* SDMMCx)
+/***************************************************************************************************
+ * _stm32_sdio_cmd_send_op_cond
+ **************************************************************************************************/
+static uint32_t _stm32_sdio_cmd_send_op_cond(SDMMC_TypeDef* SDMMCx)
 {
     SDMMC_CmdInitTypeDef sdmmc_cmdinit;
     uint32_t             errorstate;
@@ -864,9 +893,9 @@ uint32_t _stm32_sdio_cmd_send_op_cond(SDMMC_TypeDef* SDMMCx)
 }
 
 
-//--------------------------------------------------------------------------------------------------
-// _stm32_sdio_get_cmd_resp5
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * _stm32_sdio_get_cmd_resp5
+ **************************************************************************************************/
 static uint32_t _stm32_sdio_get_cmd_resp5(SDMMC_TypeDef* SDMMCx, uint8_t SD_CMD, uint32_t* data)
 {
     uint32_t response_r1;
@@ -953,9 +982,9 @@ static uint32_t _stm32_sdio_get_cmd_resp5(SDMMC_TypeDef* SDMMCx, uint8_t SD_CMD,
 }
 
 
-//--------------------------------------------------------------------------------------------------
-// _stm32_sdio_cmd_rw_direct
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * _stm32_sdio_cmd_rw_direct
+ **************************************************************************************************/
 static uint32_t _stm32_sdio_cmd_rw_direct(SDMMC_TypeDef* SDMMCx, uint32_t argument,
                                           uint32_t* response)
 {
@@ -975,10 +1004,11 @@ static uint32_t _stm32_sdio_cmd_rw_direct(SDMMC_TypeDef* SDMMCx, uint32_t argume
 }
 
 
-//--------------------------------------------------------------------------------------------------
-// _stm32_sdio_cmd_rw_extended
-//--------------------------------------------------------------------------------------------------
-uint32_t _stm32_sdio_cmd_rw_extended(SDMMC_TypeDef* SDMMCx, uint32_t argument, uint32_t* response)
+/***************************************************************************************************
+ * _stm32_sdio_cmd_rw_extended
+ **************************************************************************************************/
+static uint32_t _stm32_sdio_cmd_rw_extended(SDMMC_TypeDef* SDMMCx, uint32_t argument,
+                                            uint32_t* response)
 {
     SDMMC_CmdInitTypeDef sdmmc_cmdinit;
     uint32_t             errorstate;

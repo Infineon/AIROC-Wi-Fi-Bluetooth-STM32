@@ -4,6 +4,11 @@
 See the [README.md](./README.md) for a complete description of the Wi-Fi Middleware Core Library.
 
 ## Changelog
+### v3.1.0
+* Updated FreeRTOS and LwIP reference config files.
+* Added support for ARMC6 build.
+* Added a function for notifying network activity to Low Power Assistant(LPA) middleware library.
+
 ### v3.0.0
 * Added support for SoftAP network interface.
 * Added support for simultaneous working of multiple network interfaces such as STA and AP (Concurrent mode).
@@ -27,12 +32,13 @@ This version of the library was validated for compatibility with the following s
 
 | Software and Tools                                      | Version |
 | :---                                                    | :----:  |
-| ModusToolbox Software Environment                       | 2.2     |
-| - ModusToolbox Device Configurator                      | 2.20    |
-| - ModusToolbox CapSense Configurator / Tuner tools      | 3.10    |
-| PSoC 6 Peripheral Driver Library (PDL)                  | 2.0.0   |
+| ModusToolbox Software Environment                       | 2.3     |
+| - ModusToolbox Device Configurator                      | 3.0     |
+| - ModusToolbox CapSense Configurator / Tuner tools      | 3.15    |
+| PSoC 6 Peripheral Driver Library (PDL)                  | 2.2.0   |
 | GCC Compiler                                            | 9.3.1   |
 | IAR Compiler                                            | 8.32    |
+| Arm Compiler 6                                          | 6.14    |
 
 ## Additional Information
 * [Wi-Fi Middleware Core README.md](./README.md)

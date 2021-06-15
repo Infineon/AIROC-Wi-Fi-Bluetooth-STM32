@@ -73,19 +73,21 @@ This library and its features are supported on the following PSoC 6 platforms:
 
 2. Secure Sockets, lwIP, and mbed TLS libraries contain reference and test applications. To ensure that these applications do not conflict with the code examples, a *.cyignore* file is also included with this library.
 
-3. Add the following to COMPONENTS in the code example project's Makefile - `FREERTOS`, `PSOC6HAL`, `LWIP`, `MBEDTLS`, and either `4343W` or `43012` depending on the platform.
+3. Add the following to COMPONENTS in the code example project's Makefile - `FREERTOS`, `LWIP`, and `MBEDTLS`.
 
-   For example, if your target is CY8CKIT-062S2-43012, the Makefile entry would look like as follows:
+   For example:
 
    ```
-   COMPONENTS=FREERTOS PSOC6HAL LWIP MBEDTLS 43012
+   COMPONENTS=FREERTOS LWIP MBEDTLS
    ```
+   **Note**: `PSOC6HAL` and either `43012` or `4343W` are necessary for the library depending on the platform used, but these are already included in BSP's Makefile. Hence no need to include them here again.
+
 4. wifi-mw-core library disables all the debug log messages by default. To enable log messages, the application must perform the following:
- - Add `ENABLE_WIFI_MIDDLEWARE_LOGS` macro to the *DEFINES* in the code example's Makefile. The Makefile entry would look like as follows:
-  ```
-  DEFINES+=ENABLE_WIFI_MIDDLEWARE_LOGS
-  ```
- - Call the `cy_log_init()` function provided by the *cy-log* module. cy-log is part of the *connectivity-utilities* library. See [connectivity-utilities library API documentation](https://cypresssemiconductorco.github.io/connectivity-utilities/api_reference_manual/html/group__logging__utils.html) for cy-log details.
+   - Add `ENABLE_WIFI_MIDDLEWARE_LOGS` macro to the *DEFINES* in the code example's Makefile. The Makefile entry would look like as follows:
+       ```
+       DEFINES+=ENABLE_WIFI_MIDDLEWARE_LOGS
+       ```
+   - Call the `cy_log_init()` function provided by the *cy-log* module. cy-log is part of the *connectivity-utilities* library. See [connectivity-utilities library API documentation](https://cypresssemiconductorco.github.io/connectivity-utilities/api_reference_manual/html/group__logging__utils.html) for cy-log details.
 
 ## Additional Information
 * [Wi-Fi Middleware Core RELEASE.md](./RELEASE.md)

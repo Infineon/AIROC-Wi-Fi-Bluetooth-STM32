@@ -1,4 +1,6 @@
-/*
+/***************************************************************************************************
+ * File Name: wifi_bt_if.h
+ ***************************************************************************************************
  * \copyright
  * Copyright 2021 Cypress Semiconductor Corporation
  * This software, including source code, documentation and related materials
@@ -28,7 +30,7 @@
  * including Cypress's product in a High Risk Product, the manufacturer of such
  * system or application assumes all risk of such use and in doing so agrees to
  * indemnify Cypress against all liability.
- *******************************************************************************/
+ **************************************************************************************************/
 
 #pragma once
 
@@ -42,9 +44,9 @@ extern "C"
 #endif
 
 
-/******************************************************
-*             Function declarations
-******************************************************/
+/***************************************************************************************************
+ *             Function declarations
+ **************************************************************************************************/
 
 /** Initialize the Wi-Fi SPI interface
  *
@@ -76,6 +78,27 @@ cy_rslt_t stm32_cypal_wifi_sdio_init(SD_HandleTypeDef* hsdio);
 #endif /* defined(HAL_SD_MODULE_ENABLED) */
 
 
+/** Initialize the BT interface
+ *
+ *  @param huart               The handle for the UART hardware to use with the BT HCI interface.
+ *
+ *  @param lptimer             The handle for the LP timer hardware to use with the BT HCI
+ *                             interface.
+ *  @return The status of the init request
+ *
+ * Note:
+ *  The macros CYBSP_BT_UART_TX, CYBSP_BT_UART_RX in cybsp.h associate UART pin (RX or TX).
+ *  This pin is used to match cyhal_uart object with UART handle during cyhal_uart_init
+ *  function.
+ *  If CYHAL_UART_MAX_INSTANCES = 1 (default), defining CYBSP_BT_UART_TX/RX is optional.
+ */
+#if defined(HAL_UART_MODULE_ENABLED) && defined(HAL_LPTIM_MODULE_ENABLED)
+cy_rslt_t stm32_cypal_bt_init(UART_HandleTypeDef* huart, LPTIM_HandleTypeDef* lptimer);
+#endif /* defined(HAL_UART_MODULE_ENABLED) && defined(HAL_LPTIM_MODULE_ENABLED) */
+
+
 #ifdef __cplusplus
 } /* extern "C" */
+
+
 #endif

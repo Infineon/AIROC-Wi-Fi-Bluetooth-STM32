@@ -222,24 +222,19 @@
 			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/CM7/Core/Src/main.c</locationURI>
 		</link>
 		<link>
+			<name>Application/User/Core/wifi_task.c</name>
+			<type>1</type>
+			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/CM7/Core/Src/wifi_task.c</locationURI>
+		</link>
+		<link>
 			<name>Application/User/Core/stm32h7xx_hal_msp.c</name>
 			<type>1</type>
 			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/CM7/Core/Src/stm32h7xx_hal_msp.c</locationURI>
 		</link>
 		<link>
-			<name>Application/User/Core/stm32h7xx_hal_timebase_tim.c</name>
-			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/CM7/Core/Src/stm32h7xx_hal_timebase_tim.c</locationURI>
-		</link>
-		<link>
 			<name>Application/User/Core/stm32h7xx_it.c</name>
 			<type>1</type>
 			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/CM7/Core/Src/stm32h7xx_it.c</locationURI>
-		</link>
-		<link>
-			<name>Application/User/Core/wifi_task.c</name>
-			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/CM7/Core/Src/wifi_task.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Platform/abstraction-rtos/cy_worker_thread.c</name>
@@ -440,11 +435,6 @@
 			<name>Middlewares/Connectivity/Wireless/Platform/pal/cyhal_wdt.h</name>
 			<type>1</type>
 			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/cyhal_wdt.h</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/pal/stm32_cyhal_common.h</name>
-			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/stm32_cyhal_common.h</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Platform/pal/stm32_cyhal_gpio.c</name>
@@ -1569,7 +1559,7 @@
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-mw-core/cc.h</name>
 			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mw-core/lwip-whd-port/arch/cc.h</locationURI>
+			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mw-core/lwip-whd-port/COMPONENT_FREERTOS/arch/cc.h</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-mw-core/cy_lwip.c</name>
@@ -1604,57 +1594,12 @@
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-mw-core/sys_arch.c</name>
 			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mw-core/lwip-whd-port/arch/sys_arch.c</locationURI>
+			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mw-core/lwip-whd-port/COMPONENT_FREERTOS/arch/sys_arch.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-mw-core/sys_arch.h</name>
 			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mw-core/lwip-whd-port/arch/sys_arch.h</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/device/CYW43012/43012C0-mfgtest_bin.c</name>
-			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0-mfgtest_bin.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/device/CYW43012/43012C0-mfgtest_clm_blob.c</name>
-			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0-mfgtest_clm_blob.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/device/CYW43012/43012C0_bin.c</name>
-			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0_bin.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/device/CYW43012/43012C0_clm_blob.c</name>
-			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0_clm_blob.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/device/CYW43012/cy_chip_constants.h</name>
-			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_43012/cy_chip_constants.h</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/device/CYW43012/resources.h</name>
-			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/resources.h</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/device/CYW43012/whd_resource_api.h</name>
-			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc/whd_resource_api.h</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/device/CYW43012/wiced_resource.h</name>
-			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp/wiced_resource.h</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/device/CYW43012/wifi_nvram_image.h</name>
-			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/nvram/TARGET_CY8CKIT_062S2_43012/wifi_nvram_image.h</locationURI>
+			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mw-core/lwip-whd-port/COMPONENT_FREERTOS/arch/sys_arch.h</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wcm/LWIP/cy_wcm.c</name>

@@ -1,10 +1,10 @@
 /*
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
- * Cypress Semiconductor Corporation. All Rights Reserved.
+ * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
- * materials ("Software"), is owned by Cypress Semiconductor Corporation
- * or one of its subsidiaries ("Cypress") and is protected by and subject to
+ * materials ("Software") is owned by Cypress Semiconductor Corporation
+ * or one of its affiliates ("Cypress") and is protected by and subject to
  * worldwide patent protection (United States and foreign),
  * United States copyright laws and international treaty provisions.
  * Therefore, you may use this Software only as provided in the license
@@ -13,7 +13,7 @@
  * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
  * non-transferable license to copy, modify, and compile the Software
  * source code solely for use in connection with Cypress's
- * integrated circuit products. Any reproduction, modification, translation,
+ * integrated circuit products.  Any reproduction, modification, translation,
  * compilation, or representation of this Software except as specified
  * above is prohibited without the express written permission of Cypress.
  *
@@ -59,6 +59,7 @@
 #include "whd_int.h"
 #include "whd_debug.h"
 #include "cy_lwip.h"
+#include "cy_wifimwcore_eapol.h"
 
 /******************************************************
  *             Constants
@@ -148,7 +149,7 @@ static void           cy_wps_thread                    ( cy_thread_arg_t arg );
 static void           cy_wps_whd_scan_result_handler   ( whd_scan_result_t** result_ptr, void* user_data, whd_scan_status_t status );
 static void*          cy_wps_softap_event_handler      ( whd_interface_t interface, const whd_event_header_t* event_header, const uint8_t* event_data, /*@returned@*/ void* handler_user_data );
 static cy_rslt_t      cy_wps_internal_pbc_overlap_check( const whd_mac_t* mac );
-static void           cy_network_process_wps_eapol_data( /*@only@*/ whd_buffer_t buffer, whd_interface_t interface );
+static void           cy_network_process_wps_eapol_data( /*@only@*/ whd_interface_t interface, whd_buffer_t buffer );
 static tlv8_header_t* cy_wps_parse_dot11_tlvs          ( const tlv8_header_t* tlv_buf, uint32_t buflen, dot11_ie_id_t key );
 
 /******************************************************
@@ -203,7 +204,7 @@ cy_rslt_t cy_wps_init(cy_wps_agent_t* workspace, const cy_wps_device_detail_t* d
 
     cy_wps_init_workspace( workspace );
 
-    cy_eapol_register_receive_handler( cy_network_process_wps_eapol_data );
+    cy_wifimwcore_eapol_register_receive_handler( (cy_wifimwcore_eapol_packet_handler_t) cy_network_process_wps_eapol_data );
 
     return CY_RSLT_SUCCESS;
 }
@@ -275,7 +276,7 @@ cy_rslt_t cy_wps_deinit( cy_wps_agent_t* workspace )
         cy_wps_free( host_workspace );
         workspace->wps_host_workspace = NULL;
     }
-    cy_eapol_register_receive_handler( NULL );
+    cy_wifimwcore_eapol_register_receive_handler( NULL );
     return CY_RSLT_SUCCESS;
 }
 
@@ -414,39 +415,6 @@ cy_rslt_t cy_wps_abort( cy_wps_agent_t* workspace )
     return (cy_rslt_t) cy_rtos_put_queue( &host_workspace->event_queue, &message, CY_RTOS_NEVER_TIMEOUT, false );
 }
 
-
-cy_rslt_t cy_wps_scan( cy_wps_agent_t* workspace, cy_wps_ap_t** ap_array, uint16_t* ap_array_size, whd_interface_t interface )
-{
-    cy_rslt_t          result;
-    cy_event_message_t   message;
-    cy_wps_workspace_t* host = (cy_wps_workspace_t*) workspace->wps_host_workspace;
-
-    /* Verify that WPS hasn't started */
-    if ( workspace->wps_result != CY_RSLT_WPS_NOT_STARTED )
-    {
-        return CY_RSLT_WPS_ERROR_ALREADY_STARTED;
-    }
-
-    IF_TO_WORKSPACE( interface ) = workspace;
-    memset(host->stuff.enrollee.ap_list, 0, sizeof(host->stuff.enrollee.ap_list));
-    cy_wps_host_scan( workspace, cy_wps_scan_result_handler, interface );
-
-    do
-    {
-        result = cy_rtos_get_queue(&host->host_workspace.event_queue, &message, 5000, false);
-    } while ( result == CY_RSLT_SUCCESS && message.event_type != CY_WPS_EVENT_DISCOVER_COMPLETE );
-
-    IF_TO_WORKSPACE( interface ) = NULL;
-
-    if ( result == CY_RSLT_SUCCESS )
-    {
-        *ap_array = host->stuff.enrollee.ap_list;
-        *ap_array_size = host->stuff.enrollee.ap_list_counter;
-    }
-
-    return (cy_rslt_t) result;
-}
-
 void cy_wps_scan_result_handler( whd_scan_result_t* result, void* user_data )
 {
     /* Process scan result */
@@ -568,7 +536,7 @@ void cy_wps_scan_result_handler( whd_scan_result_t* result, void* user_data )
          * it will be a 20 MHz wide channel. If it's an 802.11n AP then we need to examine the HT operations element to find the primary 20 MHz channel
          * since the chanspec may report the center frequency if it's an 802.11n 40MHz or wider channel, which is not the same as the 20 MHz channel that the
          * beacons are on. */
-        if ( ( dsie == NULL ) )
+        if ( dsie == NULL )
         {
             /* Find the primary channel */
             ht_operation_ie = (cy_ht_operation_ie_t*)cy_wps_parse_dot11_tlvs( (tlv8_header_t*)data, length, DOT11_IE_ID_HT_OPERATION );
@@ -741,7 +709,7 @@ void cy_wps_thread_main( cy_thread_arg_t arg )
     }
 }
 
-static void cy_network_process_wps_eapol_data( /*@only@*/ whd_buffer_t buffer, whd_interface_t interface )
+static void cy_network_process_wps_eapol_data( /*@only@*/ whd_interface_t interface, whd_buffer_t buffer )
 {
     cy_wps_agent_t* workspace = IF_TO_WORKSPACE( interface );
     if ( workspace != NULL )

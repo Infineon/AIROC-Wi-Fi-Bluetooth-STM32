@@ -1,5 +1,6 @@
-/*
- *******************************************************************************
+/***************************************************************************************************
+ * File Name: wifi_bt_if.c
+ ***************************************************************************************************
  * \copyright
  * Copyright 2021 Cypress Semiconductor Corporation
  * This software, including source code, documentation and related materials
@@ -29,7 +30,7 @@
  * including Cypress's product in a High Risk Product, the manufacturer of such
  * system or application assumes all risk of such use and in doing so agrees to
  * indemnify Cypress against all liability.
- *******************************************************************************/
+ **************************************************************************************************/
 
 /** @file
  *  Prototypes of functions for initializing the Wi-Fi/BT interface
@@ -41,7 +42,6 @@
 
 #include "wifi_bt_if.h"
 #include "cybsp.h"
-
 #include "cyhal_sdio.h"
 #include "stm32_cyhal_sdio_ex.h"
 #include "stm32_cyhal_spi_ex.h"
@@ -55,49 +55,98 @@ extern "C"
 {
 #endif
 
-cyhal_sdio_t sdio_obj;
+static cyhal_sdio_t sdio_obj;
 
 
-//--------------------------------------------------------------------------------------------------
-// cybsp_get_wifi_sdio_obj
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * cybsp_get_wifi_sdio_obj
+ **************************************************************************************************/
 cyhal_sdio_t* cybsp_get_wifi_sdio_obj(void)
 {
     return &sdio_obj;
 }
 
 
-//--------------------------------------------------------------------------------------------------
-// stm32_cypal_wifi_spi_init
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * stm32_cypal_wifi_spi_init
+ **************************************************************************************************/
 #if defined(HAL_SPI_MODULE_ENABLED)
 void stm32_cypal_wifi_spi_init(SPI_HandleTypeDef* hspi, cyhal_gpio_t spi_cs,
                                cyhal_gpio_t wifi_reset, cyhal_gpio_t wifi_host_wake)
 {
-    stm32_cypal_spi_hw_init(hspi, spi_cs);
+    (void)wifi_reset;
+    (void)wifi_host_wake;
+    (void)stm32_cypal_spi_hw_init(hspi, spi_cs);
 }
 
 
 #endif /* defined(HAL_SPI_MODULE_ENABLED) */
 
 
-//--------------------------------------------------------------------------------------------------
-// stm32_cypal_wifi_sdio_init
-//--------------------------------------------------------------------------------------------------
+/***************************************************************************************************
+ * stm32_cypal_wifi_sdio_init
+ **************************************************************************************************/
 #if defined(HAL_SD_MODULE_ENABLED)
 cy_rslt_t stm32_cypal_wifi_sdio_init(SD_HandleTypeDef* hsdio)
 {
-    // Set SDIO handle in to hal.
-    stm32_cypal_sdio_hw_init(hsdio);
+    cy_rslt_t rslt = (uint32_t)CY_RSLT_TYPE_ERROR;
 
-    sdio_obj.hsd = hsdio;
+    /* Set SDIO handle in to hal. */
+    if (stm32_cypal_sdio_hw_init(hsdio) == 0u)
+    {
+        sdio_obj.hsd = hsdio;
 
-    // Init SDIO
-    return cyhal_sdio_init(&sdio_obj, NC, NC, NC, NC, NC, NC);
+        /* Init SDIO */
+        rslt = cyhal_sdio_init(&sdio_obj, NC, NC, NC, NC, NC, NC);
+    }
+    return rslt;
 }
 
 
 #endif /* defined(HAL_SD_MODULE_ENABLED) */
+
+
+/***************************************************************************************************
+ * stm32_cypal_bt_init
+ **************************************************************************************************/
+#if defined(HAL_UART_MODULE_ENABLED) && defined(HAL_LPTIM_MODULE_ENABLED)
+cy_rslt_t stm32_cypal_bt_init(UART_HandleTypeDef* huart, LPTIM_HandleTypeDef* lptimer)
+{
+    cyhal_gpio_t uart_associate_pin = NC;
+    uint32_t     status;
+
+    /* Get associate pin */
+    #if defined(CYBSP_BT_UART_TX)
+    uart_associate_pin = CYBSP_BT_UART_TX;
+
+    #elif defined(CYBSP_BT_UART_RX)
+    uart_associate_pin = CYBSP_BT_UART_RX;
+
+    #elif (CYHAL_UART_MAX_INSTANCES > 1)
+    /* Return error if associate pin is wrong  */
+    {
+        /* If CYHAL_UART_MAX_INSTANCES > 1, one of the macros - CYBSP_BT_UART_TX or
+         * CYBSP_BT_UART_RX - must be defined in cybsp.h to have the correct
+         * associate pin information for the UART instance used by BT HCI interface */
+        assert_param(false);
+        return CY_RSLT_TYPE_ERROR;
+    }
+    #endif /* defined(CYBSP_BT_UART_TX) */
+
+    /* Set UART handle in to hal.*/
+    status = stm32_cypal_uart_hw_init(huart, uart_associate_pin);
+
+    /* Set LP timer handle in to hal.*/
+    if (status == 0)
+    {
+        status = stm32_cypal_lptimer_hw_init(lptimer);
+    }
+
+    return ((status == 0u) ? CY_RSLT_SUCCESS : CY_RSLT_TYPE_ERROR);
+}
+
+
+#endif /* defined(HAL_UART_MODULE_ENABLED) && defined(HAL_LPTIM_MODULE_ENABLED) */
 
 
 #ifdef __cplusplus

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>WiFi middleware core: Functions</title>
+<title>WiFi middleware core: Port Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -84,16 +84,13 @@ $(document).ready(function(){initNavTree('group__group__lwip__whd__port__functio
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Functions<div class="ingroups"><a class="el" href="group__group__lwip__whd__port.html">lwIP and WHD port</a></div></div>  </div>
+<div class="title">Port Functions<div class="ingroups"><a class="el" href="group__group__lwip__whd__port.html">lwIP and WHD port</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">General Description</h2>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:gab2eff4fe44d6eeb7e4de75d6dc47ed57"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__lwip__whd__port__functions.html#gab2eff4fe44d6eeb7e4de75d6dc47ed57">cy_eapol_packet_handler_t</a>) (whd_buffer_t buffer, whd_interface_t whd_iface)</td></tr>
-<tr class="memdesc:gab2eff4fe44d6eeb7e4de75d6dc47ed57"><td class="mdescLeft">&#160;</td><td class="mdescRight">EAPOL handler to receive EAPOL data.  <a href="#gab2eff4fe44d6eeb7e4de75d6dc47ed57">More...</a><br /></td></tr>
-<tr class="separator:gab2eff4fe44d6eeb7e4de75d6dc47ed57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac1287ee1b07381abccf600602f4ba6b3"><td class="memItemLeft" align="right" valign="top"><a id="gac1287ee1b07381abccf600602f4ba6b3"></a>
 typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__lwip__whd__port__functions.html#gac1287ee1b07381abccf600602f4ba6b3">cy_network_activity_event_callback_t</a>) (bool callback_arg)</td></tr>
 <tr class="memdesc:gac1287ee1b07381abccf600602f4ba6b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Network activity callback function prototype Callback function which can be registered/unregistered for any network activity needs to be of this prototype. <br /></td></tr>
@@ -126,38 +123,13 @@ Functions</h2></td></tr>
 <tr class="memitem:ga239cf5cd46a186ee0dfe28b659b5a9f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__lwip__whd__port__functions.html#ga239cf5cd46a186ee0dfe28b659b5a9f0">cy_network_activity_register_cb</a> (<a class="el" href="group__group__lwip__whd__port__functions.html#gac1287ee1b07381abccf600602f4ba6b3">cy_network_activity_event_callback_t</a> cb)</td></tr>
 <tr class="memdesc:ga239cf5cd46a186ee0dfe28b659b5a9f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function helps to register/unregister callback fn for any TX/RX packets.  <a href="#ga239cf5cd46a186ee0dfe28b659b5a9f0">More...</a><br /></td></tr>
 <tr class="separator:ga239cf5cd46a186ee0dfe28b659b5a9f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac0882cbd33e9886b2b24152fe85a57f6"><td class="memItemLeft" align="right" valign="top">cy_rslt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__lwip__whd__port__functions.html#gac0882cbd33e9886b2b24152fe85a57f6">cy_network_activity_notify</a> (<a class="el" href="group__group__lwip__whd__enums.html#gaf3eda6c4137ea81555d91cf114a6dc84">cy_network_activity_type_t</a> activity_type)</td></tr>
+<tr class="memdesc:gac0882cbd33e9886b2b24152fe85a57f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function notifies network activity to Low Power Assistant(LPA) module.  <a href="#gac0882cbd33e9886b2b24152fe85a57f6">More...</a><br /></td></tr>
+<tr class="separator:gac0882cbd33e9886b2b24152fe85a57f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaaf4ad625fee4fe84caec404b453e9224"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__lwip__whd__port__functions.html#gaaf4ad625fee4fe84caec404b453e9224">cy_lwip_register_ip_change_cb</a> (<a class="el" href="group__group__lwip__whd__port__functions.html#ga7b229101bd63cde13ec6d3e856b64227">cy_lwip_ip_change_callback_t</a> cb)</td></tr>
 <tr class="memdesc:gaaf4ad625fee4fe84caec404b453e9224"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function helps to register/unregister for any IP changes from LwIP.  <a href="#gaaf4ad625fee4fe84caec404b453e9224">More...</a><br /></td></tr>
 <tr class="separator:gaaf4ad625fee4fe84caec404b453e9224"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga427efdf94cc9b0482e20e1fbbe04a8e0"><td class="memItemLeft" align="right" valign="top">whd_result_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__lwip__whd__port__functions.html#ga427efdf94cc9b0482e20e1fbbe04a8e0">cy_eapol_register_receive_handler</a> (<a class="el" href="group__group__lwip__whd__port__functions.html#gab2eff4fe44d6eeb7e4de75d6dc47ed57">cy_eapol_packet_handler_t</a> eapol_packet_handler)</td></tr>
-<tr class="memdesc:ga427efdf94cc9b0482e20e1fbbe04a8e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This API allows registering callback functions to receive EAPOL packets from WHD.  <a href="#ga427efdf94cc9b0482e20e1fbbe04a8e0">More...</a><br /></td></tr>
-<tr class="separator:ga427efdf94cc9b0482e20e1fbbe04a8e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a id="gab2eff4fe44d6eeb7e4de75d6dc47ed57"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab2eff4fe44d6eeb7e4de75d6dc47ed57">&#9670;&nbsp;</a></span>cy_eapol_packet_handler_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef void(* cy_eapol_packet_handler_t) (whd_buffer_t buffer, whd_interface_t whd_iface)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>EAPOL handler to receive EAPOL data. </p>
-<p>buffer should be freed by EAPOL handler</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">buffer</td><td>buffer received from WHD. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">interface</td><td>WHD interface. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gaa92d2b029f1719d65c8e45bf4633033e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaa92d2b029f1719d65c8e45bf4633033e">&#9670;&nbsp;</a></span>cy_lwip_add_interface()</h2>
@@ -334,7 +306,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function takes packets from the radio driver and passes them into the lwIP stack. </p>
-<p>If the stack is not initialized, or if the LwIP stack does not accept the packet, the packet is freed (dropped). This function will be registered as part of the whd_netif_funcs defined in whd.h of the WiFi Host Driver.</p>
+<p>If the stack is not initialized, or if the LwIP stack does not accept the packet, the packet is freed (dropped). This function will be registered as part of the whd_netif_funcs defined in whd.h of the Wi-Fi Host Driver.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">iface</td><td>WiFi interface. </td></tr>
@@ -372,6 +344,33 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="gac0882cbd33e9886b2b24152fe85a57f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac0882cbd33e9886b2b24152fe85a57f6">&#9670;&nbsp;</a></span>cy_network_activity_notify()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">cy_rslt_t cy_network_activity_notify </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__lwip__whd__enums.html#gaf3eda6c4137ea81555d91cf114a6dc84">cy_network_activity_type_t</a>&#160;</td>
+          <td class="paramname"><em>activity_type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function notifies network activity to Low Power Assistant(LPA) module. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">activity_type</td><td>Network activity type <a class="el" href="group__group__lwip__whd__enums.html#gaf3eda6c4137ea81555d91cf114a6dc84">cy_network_activity_type_t</a> to be notified to Low Power Assistant(LPA) module.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>CY_RSLT_SUCCESS if successful, failure code otherwise. </dd></dl>
+
+</div>
+</div>
 <a id="gaaf4ad625fee4fe84caec404b453e9224"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaaf4ad625fee4fe84caec404b453e9224">&#9670;&nbsp;</a></span>cy_lwip_register_ip_change_cb()</h2>
 
@@ -396,34 +395,6 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="ga427efdf94cc9b0482e20e1fbbe04a8e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga427efdf94cc9b0482e20e1fbbe04a8e0">&#9670;&nbsp;</a></span>cy_eapol_register_receive_handler()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">whd_result_t cy_eapol_register_receive_handler </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group__group__lwip__whd__port__functions.html#gab2eff4fe44d6eeb7e4de75d6dc47ed57">cy_eapol_packet_handler_t</a>&#160;</td>
-          <td class="paramname"><em>eapol_packet_handler</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This API allows registering callback functions to receive EAPOL packets from WHD. </p>
-<p>If callback is registered and received packet is EAPOL packet then it will be directly redirected to registered callback. passing "NULL" as handler will de-register the previously registered callback</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">eapol_packet_handler</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>whd_result_t </dd></dl>
 
 </div>
 </div>

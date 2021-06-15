@@ -1424,14 +1424,13 @@
                     <state>$PROJ_DIR$/../Drivers/BSP/STM32H747I-DISCO</state>
                     <state>$PROJ_DIR$/../Drivers/BSP/Components/Common</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mw-core/lwip-whd-port/</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mw-core/lwip-whd-port/arch/</state>
+                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mw-core/lwip-whd-port/COMPONENT_FREERTOS/</state>
+                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mw-core/lwip-whd-port/COMPONENT_FREERTOS/arch/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/include/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mw-core/lwip-whd-port/arch</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mw-core/lwip-whd-port</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string</state>
@@ -1448,7 +1447,6 @@
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/apps</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/priv</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/prot</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_43012/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_FREERTOS/</state>
@@ -1456,7 +1454,6 @@
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_43012</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc</state>
@@ -1475,12 +1472,8 @@
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/include</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/nvram/TARGET_CY8CKIT_062S2_43012/</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/nvram/TARGET_CY8CKIT_062S2_43012</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2405,66 +2398,6 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\pal\abstraction-rtos\source\COMPONENT_FREERTOS\cyabs_rtos_freertos.c</name>
-                    <excluded>
-                        <configuration>wifi_scan_CM4</configuration>
-                    </excluded>
-                </file>
-            </group>
-            <group>
-                <name>Wireless/Platform/device/CYW43012</name>
-                <excluded>
-                    <configuration>wifi_scan_CM4</configuration>
-                </excluded>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\resources\firmware\COMPONENT_43012\43012C0-mfgtest_bin.c</name>
-                    <excluded>
-                        <configuration>wifi_scan_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\resources\firmware\COMPONENT_43012\43012C0-mfgtest_clm_blob.c</name>
-                    <excluded>
-                        <configuration>wifi_scan_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\resources\firmware\COMPONENT_43012\43012C0_bin.c</name>
-                    <excluded>
-                        <configuration>wifi_scan_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\resources\firmware\COMPONENT_43012\43012C0_clm_blob.c</name>
-                    <excluded>
-                        <configuration>wifi_scan_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-connection-manager\source\COMPONENT_43012\cy_chip_constants.h</name>
-                    <excluded>
-                        <configuration>wifi_scan_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\resources\firmware\COMPONENT_43012\resources.h</name>
-                    <excluded>
-                        <configuration>wifi_scan_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\inc\whd_resource_api.h</name>
-                    <excluded>
-                        <configuration>wifi_scan_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\resources\resource_imp\wiced_resource.h</name>
-                    <excluded>
-                        <configuration>wifi_scan_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\resources\nvram\TARGET_CY8CKIT_062S2_43012\wifi_nvram_image.h</name>
                     <excluded>
                         <configuration>wifi_scan_CM4</configuration>
                     </excluded>
@@ -4192,7 +4125,7 @@
                     <configuration>wifi_scan_CM4</configuration>
                 </excluded>
                 <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-mw-core\lwip-whd-port\arch\cc.h</name>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-mw-core\lwip-whd-port\COMPONENT_FREERTOS\arch\cc.h</name>
                     <excluded>
                         <configuration>wifi_scan_CM4</configuration>
                     </excluded>
@@ -4234,13 +4167,13 @@
                     </excluded>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-mw-core\lwip-whd-port\arch\sys_arch.c</name>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-mw-core\lwip-whd-port\COMPONENT_FREERTOS\arch\sys_arch.c</name>
                     <excluded>
                         <configuration>wifi_scan_CM4</configuration>
                     </excluded>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-mw-core\lwip-whd-port\arch\sys_arch.h</name>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-mw-core\lwip-whd-port\COMPONENT_FREERTOS\arch\sys_arch.h</name>
                     <excluded>
                         <configuration>wifi_scan_CM4</configuration>
                     </excluded>

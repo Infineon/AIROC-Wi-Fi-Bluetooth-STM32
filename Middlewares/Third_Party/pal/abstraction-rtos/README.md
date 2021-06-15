@@ -108,4 +108,4 @@ Finally, the following macros need to be defined for memory allocations:
 * [ModusToolbox](https://www.cypress.com/products/modustoolbox-software-environment)
 
 ---
-© Cypress Semiconductor Corporation, 2019-2020.
+© Cypress Semiconductor Corporation, 2019-2021.

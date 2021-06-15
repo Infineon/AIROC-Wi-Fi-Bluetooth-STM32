@@ -157,14 +157,14 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__utils.html#ga6873efbed50e1e0485e5f3279f193aa2">CY_REG32_CLR_SET</a>(reg,  field,  value)&#160;&#160;&#160;((reg) = <a class="el" href="group__group__utils.html#ga7dfff5dad289133d84f2c1caddd0382e">_CLR_SET_FLD32U</a>((reg), field, (value)))</td></tr>
 <tr class="memdesc:ga6873efbed50e1e0485e5f3279f193aa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses _CLR_SET_FLD32U macro for providing get-clear-modify-write operations with a name field and value and writes a resulting value to the 32-bit register. <br /></td></tr>
 <tr class="separator:ga6873efbed50e1e0485e5f3279f193aa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga10a2bdfbcf75aed8d292209057b0ee6b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__utils.html#ga10a2bdfbcf75aed8d292209057b0ee6b">_CLR_SET_FLD16U</a>(reg,  field,  value)</td></tr>
+<tr class="memitem:ga10a2bdfbcf75aed8d292209057b0ee6b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__utils.html#ga10a2bdfbcf75aed8d292209057b0ee6b">_CLR_SET_FLD16U</a>(reg,  field,  value)&#160;&#160;&#160;((uint16_t)(((reg) &amp; ((uint16_t)(~(field ## _Msk)))) | ((uint16_t)_VAL2FLD(field, value))))</td></tr>
 <tr class="memdesc:ga10a2bdfbcf75aed8d292209057b0ee6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The macro for setting a 16-bit register with a name field and value for providing get-clear-modify-write operations.  <a href="#ga10a2bdfbcf75aed8d292209057b0ee6b">More...</a><br /></td></tr>
 <tr class="separator:ga10a2bdfbcf75aed8d292209057b0ee6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab2b4fa8f484a8308eadec61e80e82623"><td class="memItemLeft" align="right" valign="top"><a id="gab2b4fa8f484a8308eadec61e80e82623"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__utils.html#gab2b4fa8f484a8308eadec61e80e82623">CY_REG16_CLR_SET</a>(reg,  field,  value)&#160;&#160;&#160;((reg) = <a class="el" href="group__group__utils.html#ga10a2bdfbcf75aed8d292209057b0ee6b">_CLR_SET_FLD16U</a>((reg), field, (value)))</td></tr>
 <tr class="memdesc:gab2b4fa8f484a8308eadec61e80e82623"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses _CLR_SET_FLD16U macro for providing get-clear-modify-write operations with a name field and value and writes a resulting value to the 16-bit register. <br /></td></tr>
 <tr class="separator:gab2b4fa8f484a8308eadec61e80e82623"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5e3bafb985f38613bde1147dc73fcf65"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__utils.html#ga5e3bafb985f38613bde1147dc73fcf65">_CLR_SET_FLD8U</a>(reg,  field,  value)</td></tr>
+<tr class="memitem:ga5e3bafb985f38613bde1147dc73fcf65"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__utils.html#ga5e3bafb985f38613bde1147dc73fcf65">_CLR_SET_FLD8U</a>(reg,  field,  value)&#160;&#160;&#160;((uint8_t)(((reg) &amp; ((uint8_t)(~(field ## _Msk)))) | ((uint8_t)_VAL2FLD(field, value))))</td></tr>
 <tr class="memdesc:ga5e3bafb985f38613bde1147dc73fcf65"><td class="mdescLeft">&#160;</td><td class="mdescRight">The macro for setting a 8-bit register with a name field and value for providing get-clear-modify-write operations.  <a href="#ga5e3bafb985f38613bde1147dc73fcf65">More...</a><br /></td></tr>
 <tr class="separator:ga5e3bafb985f38613bde1147dc73fcf65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac927ea147352133e7a1ead8913247d90"><td class="memItemLeft" align="right" valign="top"><a id="gac927ea147352133e7a1ead8913247d90"></a>
@@ -329,7 +329,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">((uint32_t)((((x) &gt;&gt; 24U) &amp; 0x000000FFU) | (((x) &amp; 0x00FF0000U) &gt;&gt; 8U) | \</div><div class="line">                                (((x) &amp; 0x0000FF00U) &lt;&lt; 8U) | ((x) &lt;&lt; 24U)))</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line">((uint32_t)((((x) &gt;&gt; 24U) &amp; 0x000000FFU) | (((x) &amp; 0x00FF0000U) &gt;&gt; 8U) | \</div><div class="line">                (((x) &amp; 0x0000FF00U) &lt;&lt; 8U) | ((x) &lt;&lt; 24U)))</div></div><!-- fragment -->
 <p>Swap the byte ordering of a 32-bit value. </p>
 
 </div>
@@ -349,7 +349,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">((uint64_t) (((uint64_t) <a class="code" href="group__group__utils.html#ga97584523775e03eb4b9443b2c6db1ca9">CY_SWAP_ENDIAN32</a>((uint32_t)(x)) &lt;&lt; 32U) | \</div><div class="line">                                CY_SWAP_ENDIAN32((uint32_t)((x) &gt;&gt; 32U))))</div><div class="ttc" id="group__group__utils_html_ga97584523775e03eb4b9443b2c6db1ca9"><div class="ttname"><a href="group__group__utils.html#ga97584523775e03eb4b9443b2c6db1ca9">CY_SWAP_ENDIAN32</a></div><div class="ttdeci">#define CY_SWAP_ENDIAN32(x)</div><div class="ttdoc">Swap the byte ordering of a 32-bit value. </div><div class="ttdef"><b>Definition:</b> cy_utils.h:85</div></div>
+<b>Value:</b><div class="fragment"><div class="line">((uint64_t) (((uint64_t) <a class="code" href="group__group__utils.html#ga97584523775e03eb4b9443b2c6db1ca9">CY_SWAP_ENDIAN32</a>((uint32_t)(x)) &lt;&lt; 32U) | \</div><div class="line">                                CY_SWAP_ENDIAN32((uint32_t)((x) &gt;&gt; 32U))))</div><div class="ttc" id="group__group__utils_html_ga97584523775e03eb4b9443b2c6db1ca9"><div class="ttname"><a href="group__group__utils.html#ga97584523775e03eb4b9443b2c6db1ca9">CY_SWAP_ENDIAN32</a></div><div class="ttdeci">#define CY_SWAP_ENDIAN32(x)</div><div class="ttdoc">Swap the byte ordering of a 32-bit value. </div><div class="ttdef"><b>Definition:</b> cy_utils.h:89</div></div>
 </div><!-- fragment -->
 <p>Swap the byte ordering of a 64-bit value. </p>
 
@@ -500,7 +500,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(((uint32_t) (*((<span class="keyword">const</span> <span class="keyword">volatile</span> uint8_t *)(addr)))) | \</div><div class="line">                                    (((uint32_t) (*((<span class="keyword">const</span> <span class="keyword">volatile</span> uint8_t *)(addr) + 1))) &lt;&lt; 8U) | \</div><div class="line">                                    (((uint32_t) (*((<span class="keyword">const</span> <span class="keyword">volatile</span> uint8_t *)(addr) + 2))) &lt;&lt; 16U))</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line">(((uint32_t) (*((<span class="keyword">const</span> <span class="keyword">volatile</span> uint8_t *)(addr)))) | \</div><div class="line">                            (((uint32_t) (*((<span class="keyword">const</span> <span class="keyword">volatile</span> uint8_t *)(addr) + 1))) &lt;&lt; 8U) | \</div><div class="line">                            (((uint32_t) (*((<span class="keyword">const</span> <span class="keyword">volatile</span> uint8_t *)(addr) + 2))) &lt;&lt; 16U))</div></div><!-- fragment -->
 <p>Reads the 24-bit value from the specified address. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -537,7 +537,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span>  \</div><div class="line">                                    {   \</div><div class="line">                                        (*((<span class="keyword">volatile</span> uint8_t *) (addr))) = (uint8_t)(value);                \</div><div class="line">                                        (*((<span class="keyword">volatile</span> uint8_t *) (addr) + 1)) = (uint8_t)((value) &gt;&gt; 8U);    \</div><div class="line">                                        (*((<span class="keyword">volatile</span> uint8_t *) (addr) + 2)) = (uint8_t)((value) &gt;&gt; 16U);   \</div><div class="line">                                    }   \</div><div class="line">                                    while(0)</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span>  \</div><div class="line">    {   \</div><div class="line">        (*((<span class="keyword">volatile</span> uint8_t *) (addr))) = (uint8_t)(value);                \</div><div class="line">        (*((<span class="keyword">volatile</span> uint8_t *) (addr) + 1)) = (uint8_t)((value) &gt;&gt; 8U);    \</div><div class="line">        (*((<span class="keyword">volatile</span> uint8_t *) (addr) + 2)) = (uint8_t)((value) &gt;&gt; 16U);   \</div><div class="line">    }   \</div><div class="line">    while(0)</div></div><!-- fragment -->
 <p>Writes the 24-bit value to the specified address. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -679,11 +679,11 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td>&#160;&#160;&#160;((uint16_t)(((reg) &amp; ((uint16_t)(~(field ## _Msk)))) | ((uint16_t)_VAL2FLD(field, value))))</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">((uint16_t)(((reg) &amp; ((uint16_t)(~(field ## _Msk)))) |   \</div><div class="line">                                                       ((uint16_t)_VAL2FLD(field, value))))</div></div><!-- fragment -->
+
 <p>The macro for setting a 16-bit register with a name field and value for providing get-clear-modify-write operations. </p>
 <p>Returns a resulting value to be assigned to the 16-bit register. </p>
 
@@ -716,11 +716,11 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td>&#160;&#160;&#160;((uint8_t)(((reg) &amp; ((uint8_t)(~(field ## _Msk)))) | ((uint8_t)_VAL2FLD(field, value))))</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">((uint8_t)(((reg) &amp; ((uint8_t)(~(field ## _Msk)))) |  \</div><div class="line">                                                     ((uint8_t)_VAL2FLD(field, value))))</div></div><!-- fragment -->
+
 <p>The macro for setting a 8-bit register with a name field and value for providing get-clear-modify-write operations. </p>
 <p>Returns a resulting value to be assigned to the 8-bit register. </p>
 

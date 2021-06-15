@@ -1,6 +1,7 @@
 var modules =
 [
     [ "Common", "group__group__abstraction__rtos__common.html", "group__group__abstraction__rtos__common" ],
+    [ "Events", "group__group__abstraction__rtos__event.html", "group__group__abstraction__rtos__event" ],
     [ "Mutex", "group__group__abstraction__rtos__mutex.html", "group__group__abstraction__rtos__mutex" ],
     [ "Queue", "group__group__abstraction__rtos__queue.html", "group__group__abstraction__rtos__queue" ],
     [ "Semaphore", "group__group__abstraction__rtos__semaphore.html", "group__group__abstraction__rtos__semaphore" ],

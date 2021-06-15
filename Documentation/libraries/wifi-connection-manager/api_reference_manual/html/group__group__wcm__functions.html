@@ -965,12 +965,12 @@ Functions</h2></td></tr>
 <p>Gets the MAC address of the clients associated with the SoftAP. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">sta_list</td><td>: Pointer to MAC address (or) array of MAC addresses.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">sta_list</td><td>: Pointer to MAC address (or) array of MAC addresses. The client's (STA) MAC address is stored on this array before the function returns.</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">num_clients</td><td>: Length of the array passed in sta_list.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Maximum number of supported client list varies for different Wi-Fi chips.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If the number of connected client are less than the num_clients, then elements of sta_list beyond number of connected clients will be set to zero. Maximum number of supported client list varies for different Wi-Fi chips.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>CY_RSLT_SUCCESS If getting the client list is successful; returns <a href="./cy_wcm_error.h">WCM-specific error codes</a> otherwise. </dd></dl>
 
 </div>

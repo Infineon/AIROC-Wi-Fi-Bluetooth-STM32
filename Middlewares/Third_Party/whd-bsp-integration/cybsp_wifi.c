@@ -6,7 +6,7 @@
  *
  ***************************************************************************************************
  * \copyright
- * Copyright 2018-2020 Cypress Semiconductor Corporation
+ * Copyright 2018-2021 Cypress Semiconductor Corporation
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,6 +41,7 @@ extern "C" {
 #define COUNTRY                         WHD_COUNTRY_AUSTRALIA
 #define DEFAULT_OOB_PIN                 0
 #define WLAN_POWER_UP_DELAY_MS          250
+#define WLAN_CBUCK_DISCHARGE_MS         10
 
 #define SDIO_ENUMERATION_TRIES          500
 #define SDIO_RETRY_DELAY_MS             1
@@ -173,9 +174,11 @@ static cy_rslt_t reset_wifi_chip(void)
 {
     // WiFi into reset
     cy_rslt_t result = cyhal_gpio_init(CYBSP_WIFI_WL_REG_ON, CYHAL_GPIO_DIR_OUTPUT,
-                                       CYHAL_GPIO_DRIVE_PULLUP, 0);
+                                       CYHAL_GPIO_DRIVE_PULLUP, false);
     if (result == CY_RSLT_SUCCESS)
     {
+        // Allow CBUCK regulator to discharge
+        cyhal_system_delay_ms(WLAN_CBUCK_DISCHARGE_MS);
         // WiFi out of reset
         cyhal_gpio_write(CYBSP_WIFI_WL_REG_ON, true);
         cyhal_system_delay_ms(WLAN_POWER_UP_DELAY_MS);
@@ -287,12 +290,9 @@ cy_rslt_t cybsp_wifi_deinit(whd_interface_t interface)
     cy_rslt_t result = whd_wifi_off(interface);
     if (result == CY_RSLT_SUCCESS)
     {
+        whd_bus_sdio_detach(whd_drv);
+        cyhal_gpio_free(CYBSP_WIFI_WL_REG_ON);
         result = whd_deinit(interface);
-        if (result == CY_RSLT_SUCCESS)
-        {
-            whd_bus_sdio_detach(whd_drv);
-            cyhal_gpio_free(CYBSP_WIFI_WL_REG_ON);
-        }
     }
     return result;
 }

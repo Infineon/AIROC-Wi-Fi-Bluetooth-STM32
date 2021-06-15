@@ -1,19 +1,35 @@
 /*
- * Copyright 2020 Cypress Semiconductor Corporation
- * SPDX-License-Identifier: Apache-2.0
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *     http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+ * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
+ *
+ * This software, including source code, documentation and related
+ * materials ("Software") is owned by Cypress Semiconductor Corporation
+ * or one of its affiliates ("Cypress") and is protected by and subject to
+ * worldwide patent protection (United States and foreign),
+ * United States copyright laws and international treaty provisions.
+ * Therefore, you may use this Software only as provided in the license
+ * agreement accompanying the software package from which you
+ * obtained this Software ("EULA").
+ * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
+ * non-transferable license to copy, modify, and compile the Software
+ * source code solely for use in connection with Cypress's
+ * integrated circuit products.  Any reproduction, modification, translation,
+ * compilation, or representation of this Software except as specified
+ * above is prohibited without the express written permission of Cypress.
+ *
+ * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Cypress
+ * reserves the right to make changes to the Software without notice. Cypress
+ * does not assume any liability arising out of the application or use of the
+ * Software or any product or circuit described in the Software. Cypress does
+ * not authorize its products for use in any products where a malfunction or
+ * failure of the Cypress product may reasonably be expected to result in
+ * significant property damage, injury or death ("High Risk Product"). By
+ * including Cypress's product in a High Risk Product, the manufacturer
+ * of such system or application assumes all risk of such use and in doing
+ * so agrees to indemnify Cypress against all liability.
+*/
 
 #include <string.h>
 #include <stdint.h>
@@ -44,6 +60,12 @@
 #include "whd_network_types.h"
 #include "whd_buffer_api.h"
 #include "cy_lwip_log.h"
+#include "cy_wifimwcore_eapol.h"
+
+/* While using lwip/sockets errno is required. Since IAR and ARMC6 doesn't define errno variable, the below definition is required for building it successfully. */
+#if !( (defined(__GNUC__) && !defined(__ARMCC_VERSION)) )
+int errno;
+#endif
 
 #define EAPOL_PACKET_TYPE                        0x888E
 
@@ -76,7 +98,7 @@ struct  netif                                    *cy_lwip_ip_handle[MAX_NW_INTER
  ******************************************************/
 static cy_network_activity_event_callback_t activity_callback = NULL;
 static bool is_dhcp_client_required = false;
-static cy_eapol_packet_handler_t internal_eapol_packet_handler = NULL;
+static cy_wifimwcore_eapol_packet_handler_t internal_eapol_packet_handler = NULL;
 static cy_lwip_ip_change_callback_t ip_change_callback = NULL;
 
 #if LWIP_IPV4
@@ -145,7 +167,7 @@ void cy_network_process_ethernet_data(whd_interface_t iface, whd_buffer_t buf)
     {
         if( internal_eapol_packet_handler != NULL )
         {
-            internal_eapol_packet_handler(buf, iface);
+            internal_eapol_packet_handler(iface, buf);
         }
         else
         {
@@ -162,7 +184,8 @@ void cy_network_process_ethernet_data(whd_interface_t iface, whd_buffer_t buf)
             activity_callback(false);
         }
 
-        if (net_interface->input(buf, net_interface) != ERR_OK)
+        /* If the interface is not yet setup we drop the packet here */
+        if (net_interface->input == NULL || net_interface->input(buf, net_interface) != ERR_OK)
         {
             cy_buffer_release(buf, WHD_NETWORK_RX) ;
         }
@@ -192,7 +215,7 @@ static err_t wifioutput(struct netif *iface, struct pbuf *p)
 {
     if (whd_wifi_is_ready_to_transceive((whd_interface_t)iface->state) != WHD_SUCCESS)
     {
-        wm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "wifi is not ready, packet not sent\n");
+        wm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Wi-Fi is not ready, packet not sent\n");
         return ERR_INPROGRESS ;
     }
 
@@ -295,7 +318,7 @@ static err_t mld_mac_filter(struct netif *iface, const ip6_addr_t *group, enum n
 #endif
 
 /*
- * This function is called when adding the wifi network interface to LwIP,
+ * This function is called when adding the Wi-Fi network interface to LwIP,
  * it actually performs the initialization for the netif interface.
  */
 static err_t wifiinit(struct netif *iface)
@@ -727,6 +750,31 @@ void cy_network_activity_register_cb(cy_network_activity_event_callback_t cb)
     /* update the activity callback with the argument passed */
     activity_callback = cb;
 }
+
+/*
+ * This function notifies network activity to LPA module.
+ */
+cy_rslt_t cy_network_activity_notify(cy_network_activity_type_t activity_type)
+{
+    if(activity_callback)
+    {
+        if(activity_type == CY_NETWORK_ACTIVITY_TX)
+        {
+            activity_callback(true);
+        }
+        else if(activity_type == CY_NETWORK_ACTIVITY_RX)
+        {
+            activity_callback(false);
+        }
+        else
+        {
+            wm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Invalid network activity type\n");
+            return CY_RSLT_LWIP_BAD_ARG;
+        }
+    }
+
+    return CY_RSLT_SUCCESS;
+}
 #if LWIP_IPV4
 cy_rslt_t cy_lwip_dhcp_renew(cy_lwip_nw_interface_t *iface)
 {
@@ -756,10 +804,10 @@ static void invalidate_all_arp_entries(struct netif *netif)
 #endif
 
 /* Used to register callback for EAPOL packets */
-whd_result_t cy_eapol_register_receive_handler( cy_eapol_packet_handler_t eapol_packet_handler )
+cy_rslt_t cy_wifimwcore_eapol_register_receive_handler( cy_wifimwcore_eapol_packet_handler_t eapol_packet_handler )
 {
     internal_eapol_packet_handler = eapol_packet_handler;
-    return WHD_SUCCESS;
+    return CY_RSLT_SUCCESS;
 }
 
 static void internal_ip_change_callback (struct netif *netif)

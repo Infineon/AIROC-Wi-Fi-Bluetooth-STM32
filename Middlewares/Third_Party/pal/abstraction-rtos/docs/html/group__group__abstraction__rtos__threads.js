@@ -15,5 +15,7 @@ var group__group__abstraction__rtos__threads =
     [ "cy_rtos_join_thread", "group__group__abstraction__rtos__threads.html#ga0baae5db6b3b3c342fee92af38d4da7b", null ],
     [ "cy_rtos_is_thread_running", "group__group__abstraction__rtos__threads.html#ga4c65be97daa12d333854e1a79194b573", null ],
     [ "cy_rtos_get_thread_state", "group__group__abstraction__rtos__threads.html#ga2a0ab5f6b16adadd4ea34365b4f73d58", null ],
-    [ "cy_rtos_get_thread_handle", "group__group__abstraction__rtos__threads.html#gac0d712da15dd0ee02f9b53dbca584e29", null ]
+    [ "cy_rtos_get_thread_handle", "group__group__abstraction__rtos__threads.html#gac0d712da15dd0ee02f9b53dbca584e29", null ],
+    [ "cy_rtos_wait_thread_notification", "group__group__abstraction__rtos__threads.html#gad488ec8dc0085478ace55553cd4539da", null ],
+    [ "cy_rtos_set_thread_notification", "group__group__abstraction__rtos__threads.html#ga5a1bb5c7acdf518f7f31266d0efd4ea5", null ]
 ];

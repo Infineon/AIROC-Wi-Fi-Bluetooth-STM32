@@ -1,10 +1,10 @@
 /*
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
- * Cypress Semiconductor Corporation. All Rights Reserved.
+ * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
- * materials ("Software"), is owned by Cypress Semiconductor Corporation
- * or one of its subsidiaries ("Cypress") and is protected by and subject to
+ * materials ("Software") is owned by Cypress Semiconductor Corporation
+ * or one of its affiliates ("Cypress") and is protected by and subject to
  * worldwide patent protection (United States and foreign),
  * United States copyright laws and international treaty provisions.
  * Therefore, you may use this Software only as provided in the license
@@ -13,7 +13,7 @@
  * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
  * non-transferable license to copy, modify, and compile the Software
  * source code solely for use in connection with Cypress's
- * integrated circuit products. Any reproduction, modification, translation,
+ * integrated circuit products.  Any reproduction, modification, translation,
  * compilation, or representation of this Software except as specified
  * above is prohibited without the express written permission of Cypress.
  *
@@ -460,6 +460,11 @@ static cy_rslt_t cy_wps_common_event_handler(cy_wps_agent_t* workspace, cy_event
 
             packet_header            = (cy_wps_msg_packet_t*)wps_packet_data;
             wps_packet_data          = cy_get_wps_packet_data( packet_header );
+            if (wps_packet_data == NULL)
+            {
+                result = CY_RSLT_WPS_ERROR_INCORRECT_MESSAGE;
+                goto return_with_packet_and_maybe_fragment;
+            }
             wps_packet_data_size     = (uint16_t)(wps_packet_data_size - (wps_packet_data - (uint8_t*)packet_header));
 
             /* Check if it is a packet we care about */

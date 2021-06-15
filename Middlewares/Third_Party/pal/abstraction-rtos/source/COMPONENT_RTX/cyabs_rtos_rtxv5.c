@@ -6,7 +6,7 @@
  *
  ***************************************************************************************************
  * \copyright
- * Copyright 2018-2020 Cypress Semiconductor Corporation
+ * Copyright 2018-2021 Cypress Semiconductor Corporation
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,6 +30,7 @@
 extern "C" {
 #endif
 
+#define CY_RTOS_THREAD_FLAG 0x01
 
 /******************************************************
 *                 Error Converter
@@ -86,6 +87,40 @@ static cy_rslt_t error_converter(cy_rtos_error_t internalError)
     // Update the last known error status
     dbgErr = internalError;
     return value;
+}
+
+
+//--------------------------------------------------------------------------------------------------
+// convert_ms_to_ticks
+//--------------------------------------------------------------------------------------------------
+static uint32_t convert_ms_to_ticks(cy_time_t timeout_ms)
+{
+    if (timeout_ms == CY_RTOS_NEVER_TIMEOUT)
+    {
+        return osWaitForever;
+    }
+    else if (timeout_ms == 0)
+    {
+        return 0;
+    }
+    else
+    {
+        // Get number of ticks per second
+        uint32_t tick_freq = osKernelGetTickFreq();
+        uint32_t ticks = (uint32_t)(((uint64_t)timeout_ms * tick_freq) / 1000);
+
+        if (ticks == 0)
+        {
+            ticks = 1;
+        }
+        else if (ticks >= UINT32_MAX)
+        {
+            // if ticks if more than 32 bits, change ticks to max possible value that isn't
+            // osWaitForever.
+            ticks = UINT32_MAX - 1;
+        }
+        return ticks;
+    }
 }
 
 
@@ -298,6 +333,54 @@ cy_rslt_t cy_rtos_get_thread_handle(cy_thread_t* thread)
         *thread = osThreadGetId();
     }
 
+    return status;
+}
+
+
+//--------------------------------------------------------------------------------------------------
+// cy_rtos_wait_thread_notification
+//--------------------------------------------------------------------------------------------------
+cy_rslt_t cy_rtos_wait_thread_notification(cy_time_t num_ms)
+{
+    uint32_t ret;
+    cy_rslt_t status = CY_RSLT_SUCCESS;
+    ret = osThreadFlagsWait(CY_RTOS_THREAD_FLAG, osFlagsWaitAll, convert_ms_to_ticks(num_ms));
+    if (ret & osFlagsError)
+    {
+        status = (ret == osFlagsErrorTimeout) ? CY_RTOS_TIMEOUT : CY_RTOS_GENERAL_ERROR;
+        // Update the last known error status
+        dbgErr = (cy_rtos_error_t)ret;
+    }
+    return status;
+}
+
+
+//--------------------------------------------------------------------------------------------------
+// cy_rtos_set_thread_notification
+//--------------------------------------------------------------------------------------------------
+cy_rslt_t cy_rtos_set_thread_notification(cy_thread_t* thread, bool in_isr)
+{
+    cy_rslt_t status = CY_RSLT_SUCCESS;
+    uint32_t ret;
+
+    (void)in_isr;
+    if (thread == NULL)
+    {
+        status = CY_RTOS_BAD_PARAM;
+    }
+    else
+    {
+        /* According to the description of CMSIS-RTOS v2
+         * osThreadFlagsSet() can be called inside ISR
+         */
+        ret = osThreadFlagsSet(*thread, CY_RTOS_THREAD_FLAG);
+        if (ret & osFlagsError)
+        {
+            status = CY_RTOS_GENERAL_ERROR;
+            // Update the last known error status
+            dbgErr = (cy_rtos_error_t)ret;
+        }
+    }
     return status;
 }
 
@@ -987,20 +1070,8 @@ cy_rslt_t cy_rtos_start_timer(cy_timer_t* timer, cy_time_t num_ms)
     }
     else
     {
-        // Get Number of ticks per second
-        uint32_t tick_freq = osKernelGetTickFreq();
-
-        // Convert ticks count to time in milliseconds
-        if (tick_freq != 0)
-        {
-            uint32_t ticks = ((num_ms * tick_freq) / 1000);
-            statusInternal = osTimerStart(*timer, ticks);
-            status         = error_converter(statusInternal);
-        }
-        else
-        {
-            status = CY_RTOS_GENERAL_ERROR;
-        }
+        statusInternal = osTimerStart(*timer, convert_ms_to_ticks(num_ms));
+        status         = error_converter(statusInternal);
     }
 
     return status;

@@ -1,10 +1,10 @@
 /*
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
- * Cypress Semiconductor Corporation. All Rights Reserved.
+ * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
- * materials ("Software"), is owned by Cypress Semiconductor Corporation
- * or one of its subsidiaries ("Cypress") and is protected by and subject to
+ * materials ("Software") is owned by Cypress Semiconductor Corporation
+ * or one of its affiliates ("Cypress") and is protected by and subject to
  * worldwide patent protection (United States and foreign),
  * United States copyright laws and international treaty provisions.
  * Therefore, you may use this Software only as provided in the license
@@ -13,7 +13,7 @@
  * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
  * non-transferable license to copy, modify, and compile the Software
  * source code solely for use in connection with Cypress's
- * integrated circuit products. Any reproduction, modification, translation,
+ * integrated circuit products.  Any reproduction, modification, translation,
  * compilation, or representation of this Software except as specified
  * above is prohibited without the express written permission of Cypress.
  *
@@ -75,13 +75,6 @@
 
 #include "whd_debug.h"
 
-/* While using lwip/sockets errno is required. Since IAR doesn't define errno, the below definition is required for IAR build */
-#if defined(__ICCARM__)
-#ifndef errno
-int errno;
-#endif
-#endif
-
 /**
  *  Macro for comparing MAC addresses
  */
@@ -125,46 +118,75 @@ int errno;
 #define TX_BIT_RATE_CONVERTER                       (500)
 #define PING_IF_NAME_LEN                            (6)
 #define PING_RESPONSE_LEN                           (64)
+#define SCAN_BSSID_ARR_LENGTH                       (50)
+
+/* Macro for 43012 statistics */
+#define WL_CNT_VER_30                               (30)
+#define WL_CNT_VER_10                               (10) 
+#define CHK_CNTBUF_DATALEN(cntbuf, ioctl_buflen) do { \
+if (((wl_cnt_info_t *)cntbuf)->datalen + \
+OFFSETOF(wl_cnt_info_t, data) > ioctl_buflen) \
+printf("%s: IOVAR buffer short!\n", __FUNCTION__); \
+} while (0)
+
+#define NEVER_TIMEOUT                              ((uint32_t) 0xFFFFFFFF)
+#define MAX_SEMA_COUNT                             (1)
+#define XTLV_OPTION_ALIGN32                        0x0001 /* 32bit alignment of type.len.data */
+#define XTLV_OPTION_IDU8                           0x0002 /* shorter id */
+#define XTLV_OPTION_LENU8                          0x0004 /* shorted length */
+#define ALIGN_SIZE(size, boundary) (((size) + (boundary) - 1) \
+                                             & ~((boundary) - 1))
+#define OFFSETOF(type, member)  ( (uintptr_t)&( (type *)0 )->member )
+#define _LTOH16_UA(cp) ((cp)[0] | ((cp)[1] << 8))
 
 /******************************************************
  *             Structures
  ******************************************************/
 typedef struct
 {
-    cy_wcm_scan_result_callback_t p_scan_calback;
-    void*                         user_data;
-    whd_scan_result_t             scan_res;
-    whd_scan_status_t             scan_status;
-    cy_wcm_scan_filter_t          scan_filter;
-    bool                          is_scanning;
+    cy_wcm_scan_result_callback_t p_scan_calback;       /* Callback handler to be invoked to inform caller */
+    void*                         user_data;            /* Argument to be passed back to the user while invoking the callback */
+    whd_scan_result_t             scan_res;             /* Scan result */
+    whd_scan_status_t             scan_status;          /* Scan status */
+    cy_wcm_scan_filter_t          scan_filter;          /* Scan filtering type */
+    bool                          is_scanning;          /* Indicates if scanning is ongoing */
+    bool                          is_stop_scan_req;     /* Indicates if stop scan was requested */
 }wcm_internal_scan_t;
 
 struct icmp_packet
 {
-    struct icmp_echo_hdr hdr;
-    uint8_t data[PING_DATA_SIZE];
+    struct   icmp_echo_hdr hdr;
+    uint8_t  data[PING_DATA_SIZE];
 };
 
 static wcm_internal_scan_t scan_handler;
 
 typedef struct
 {
-    whd_ssid_t SSID;
-    whd_mac_t sta_mac;
+    whd_ssid_t         SSID;
+    whd_mac_t          sta_mac;
     cy_wcm_wifi_band_t band;
-    uint8_t key[CY_WCM_MAX_PASSPHRASE_LEN];
-    uint8_t keylen;
-    whd_security_t security;
-    ip_static_addr_t static_ip;
+    uint8_t            key[CY_WCM_MAX_PASSPHRASE_LEN];
+    uint8_t            keylen;
+    whd_security_t     security;
+    ip_static_addr_t   static_ip;
 }wcm_ap_details;
 
 static wcm_ap_details connected_ap_details;
 
 typedef struct
 {
-  cy_wcm_event_t event;
-  cy_wcm_mac_t   mac_addr;
+  cy_wcm_event_t   event;
+  cy_wcm_mac_t     mac_addr;
 } wcm_ap_link_event;
+
+
+typedef struct xtlv
+{
+    uint16_t    id;
+    uint16_t    len;
+    uint8_t     data[1];
+} xtlv_t;
 
 /******************************************************
  *               Variable Definitions
@@ -182,8 +204,8 @@ static bool wcm_sta_link_up            = false;
 static bool is_soft_ap_up              = false;
 static bool is_sta_network_up          = false;
 static bool is_ap_network_up           = false;
-static whd_security_t                  sta_security_type;
-static cy_worker_thread_info_t         cy_wcm_worker_thread;
+static whd_security_t                    sta_security_type;
+static cy_worker_thread_info_t           cy_wcm_worker_thread;
 static bool is_olm_initialized         = false;
 static void *olm_instance              = NULL;
 
@@ -202,6 +224,12 @@ static bool too_many_ie_error          = false;
 static bool link_up_event_received     = false;
 static uint32_t retry_backoff_timeout  = DEFAULT_RETRY_BACKOFF_TIMEOUT_IN_MS;
 
+static whd_mac_t *mac_addr_arr = NULL;
+static int current_bssid_arr_length = 0;
+static cy_semaphore_t stop_scan_semaphore;
+
+typedef uint16_t xtlv_opts_t;
+
 /******************************************************
  *               Static Function Declarations
  ******************************************************/
@@ -211,7 +239,6 @@ static void donothing(void *arg);
 static bool is_connected_to_same_ap(const cy_wcm_connect_params_t *connect_params);
 static bool check_wcm_security(cy_wcm_security_t sec);
 static void internal_scan_callback(whd_scan_result_t **result_ptr, void *user_data, whd_scan_status_t status);
-static void notify_scan_event(void *arg);
 static void *link_events_handler(whd_interface_t ifp, const whd_event_header_t *event_header, const uint8_t *event_data, void *handler_user_data);
 static void link_up(void);
 static void link_down(void);
@@ -242,7 +269,18 @@ static cy_rslt_t check_soft_ap_config(const cy_wcm_ap_config_t *ap_config_params
 static void read_ap_config(const cy_wcm_ap_config_t *ap_config, whd_ssid_t *ssid, uint8_t **key, uint8_t *keylen, whd_security_t *security, ip_static_addr_t *static_ip_addr);
 static void* ap_link_events_handler(whd_interface_t ifp, const whd_event_header_t *event_header, const uint8_t *event_data, void *handler_user_data);
 static cy_rslt_t init_whd_wifi_interface(cy_wcm_interface_t iface_type);
+static bool check_if_ent_auth_types(cy_wcm_security_t auth_type);
 
+static void unpack_xtlv_buf(const uint8_t *tlv_buf, uint16_t buflen,cy_wcm_wlan_statistics_t *stat);
+static cy_rslt_t wl_counters(const uint8_t *data, cy_wcm_wlan_statistics_t *stat);
+static void xtlv_unpack_xtlv(const xtlv_t *xtlv, uint16_t *type, uint16_t *len, const uint8_t **data, xtlv_opts_t opts);
+static int xtlv_hdr_size(xtlv_opts_t opts, const uint8_t **data);
+static int xtlv_id(const xtlv_t *elt, xtlv_opts_t opts);
+static int xtlv_len(const xtlv_t *elt, xtlv_opts_t opts);
+static int xtlv_size_for_data(int dlen, xtlv_opts_t opts, const uint8_t **data);
+static int ltoh16_ua(const uint8_t * bytes);
+static void process_scan_data(void *arg);
+static void notify_scan_completed(void *arg);
 /******************************************************
  *               Function Definitions
  ******************************************************/
@@ -325,6 +363,11 @@ cy_rslt_t cy_wcm_init(cy_wcm_config_t *config)
     if (cy_rtos_init_mutex(&wcm_mutex) != CY_RSLT_SUCCESS)
     {
         return CY_RSLT_WCM_MUTEX_ERROR;
+    }
+
+    if(cy_rtos_init_semaphore(&stop_scan_semaphore, MAX_SEMA_COUNT, 0) != CY_RSLT_SUCCESS)
+    {
+        return CY_RSLT_WCM_SEMAPHORE_ERROR;
     }
 
     if((res = init_whd_wifi_interface(config->interface)) != CY_RSLT_SUCCESS)
@@ -458,6 +501,7 @@ cy_rslt_t cy_wcm_start_scan(cy_wcm_scan_result_callback_t callback, void *user_d
         return CY_RSLT_WCM_BAD_ARG;
     }
 
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex locked %s %d\r\n", __FILE__, __LINE__);
     if(cy_rtos_get_mutex(&wcm_mutex, CY_WCM_MAX_MUTEX_WAIT_TIME_MS) != CY_RSLT_SUCCESS)
     {
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Unable to acquire WCM mutex \n");
@@ -469,11 +513,21 @@ cy_rslt_t cy_wcm_start_scan(cy_wcm_scan_result_callback_t callback, void *user_d
         res = CY_RSLT_WCM_SCAN_IN_PROGRESS;
         goto exit;
     }
+    
+    /* Reset mac_addr_arr before each scan and set current_bssid_arr_length to 0 */
+    mac_addr_arr = (whd_mac_t *)malloc(SCAN_BSSID_ARR_LENGTH * sizeof(whd_mac_t) );
+    if (mac_addr_arr == NULL)
+    {
+        res = CY_RSLT_WCM_OUT_OF_MEMORY;
+        goto exit;
+    }
+    current_bssid_arr_length = 0;
 
     /* reset previous filter and by default set band to AUTO */
     memset(&scan_handler.scan_filter, 0, sizeof(cy_wcm_scan_filter_t));
     whd_wifi_set_ioctl_value(whd_ifs[CY_WCM_INTERFACE_TYPE_STA], WLC_SET_BAND, WLC_BAND_AUTO);
 
+    /* Store the scan callback and user data */
     scan_handler.p_scan_calback = callback;
     scan_handler.user_data = user_data;
     if(scan_filter != NULL)
@@ -535,14 +589,17 @@ cy_rslt_t cy_wcm_start_scan(cy_wcm_scan_result_callback_t callback, void *user_d
                 break;
         }
     }
+
     res = whd_wifi_scan(whd_ifs[CY_WCM_INTERFACE_TYPE_STA], WHD_SCAN_TYPE_ACTIVE, WHD_BSS_TYPE_ANY,
                                  ssid, mac, NULL, NULL, internal_scan_callback, &scan_result, user_data);
     if(res != CY_RSLT_SUCCESS)
     {
+    	cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "whd_wifi_scan error. Result = %d \n", res);
         res = CY_RSLT_WCM_SCAN_ERROR;
         goto exit;
     }
     scan_handler.is_scanning = true;
+    scan_handler.is_stop_scan_req = false;
 
 exit:
     /* Free the allocated memory in case of SSID or MAC based scan */
@@ -560,12 +617,15 @@ exit:
     {
         res = ((res != CY_RSLT_SUCCESS) ? res : CY_RSLT_WCM_MUTEX_ERROR);
     }
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex unlocked %s %d\r\n", __FILE__, __LINE__);
+
     return res;
 }
 
 cy_rslt_t cy_wcm_stop_scan()
 {
     cy_rslt_t res = CY_RSLT_SUCCESS;
+    bool wait_on_sema = false;
 
     if(!is_wcm_initalized)
     {
@@ -573,6 +633,7 @@ cy_rslt_t cy_wcm_stop_scan()
         return CY_RSLT_WCM_NOT_INITIALIZED;
     }
 
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex locked %s %d\r\n", __FILE__, __LINE__);
     if(cy_rtos_get_mutex(&wcm_mutex, CY_WCM_MAX_MUTEX_WAIT_TIME_MS) != CY_RSLT_SUCCESS)
     {
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Unable to acquire WCM mutex \n");
@@ -584,18 +645,33 @@ cy_rslt_t cy_wcm_stop_scan()
         res =  CY_RSLT_WCM_NO_ACTIVE_SCAN;
         goto exit;
     }
-    scan_handler.is_scanning = false;
+
     if((res = whd_wifi_stop_scan(whd_ifs[CY_WCM_INTERFACE_TYPE_STA]) != CY_RSLT_SUCCESS))
     {
         res = CY_RSLT_WCM_STOP_SCAN_ERROR;
         goto exit;
     }
+    scan_handler.is_stop_scan_req = true;
+    wait_on_sema = true;
 
 exit:
     if (cy_rtos_set_mutex(&wcm_mutex) != CY_RSLT_SUCCESS)
     {
         res = ((res != CY_RSLT_SUCCESS) ? res : CY_RSLT_WCM_MUTEX_ERROR);
     }
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex unlocked %s %d\r\n", __FILE__, __LINE__);
+
+    if(wait_on_sema)
+    {
+        cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wait on stop scan semaphore %s %d\r\n", __FILE__, __LINE__);
+        if(cy_rtos_get_semaphore(&stop_scan_semaphore, NEVER_TIMEOUT, false) != CY_RSLT_SUCCESS)
+        {
+            cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Error unable to get semaphore \n");
+            res = ((res != CY_RSLT_SUCCESS) ? res : CY_RSLT_WCM_SEMAPHORE_ERROR);
+        }
+        cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "obtained stop scan semaphore %s %d\r\n", __FILE__, __LINE__);
+    }
+
     return res;
 }
 
@@ -700,6 +776,8 @@ cy_rslt_t cy_wcm_connect_ap(const cy_wcm_connect_params_t *connect_params, cy_wc
         wcm_sta_link_up = false;
         return CY_RSLT_WCM_STA_DISCONNECT_ERROR;
     }
+
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex locked %s %d\r\n", __FILE__, __LINE__);
     if (cy_rtos_get_mutex(&wcm_mutex, CY_WCM_MAX_MUTEX_WAIT_TIME_MS) == CY_RSLT_SUCCESS)
     {
         whd_scan_result_t ap;
@@ -911,6 +989,8 @@ exit:
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Mutex release error \n");
         res = ((res != CY_RSLT_SUCCESS) ? res : CY_RSLT_WCM_MUTEX_ERROR);
     }
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex unlocked %s %d\r\n", __FILE__, __LINE__);
+
     return res;
 }
 
@@ -924,6 +1004,7 @@ cy_rslt_t cy_wcm_disconnect_ap()
         return CY_RSLT_WCM_NOT_INITIALIZED;
     }
 
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex locked %s %d\r\n", __FILE__, __LINE__);
     if(cy_rtos_get_mutex(&wcm_mutex, CY_WCM_MAX_MUTEX_WAIT_TIME_MS) != CY_RSLT_SUCCESS)
     {
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Unable to acquire WCM mutex \n");
@@ -956,6 +1037,8 @@ exit:
     {
         res = ((res != CY_RSLT_SUCCESS) ? res : CY_RSLT_WCM_MUTEX_ERROR);
     }
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex unlocked %s %d\r\n", __FILE__, __LINE__);
+
     return res;
 }
 
@@ -1278,6 +1361,7 @@ cy_rslt_t cy_wcm_get_mac_addr(cy_wcm_interface_t interface_type, cy_wcm_mac_t *m
         return CY_RSLT_WCM_BAD_ARG;
     }
 
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex locked %s %d\r\n", __FILE__, __LINE__);
     if(cy_rtos_get_mutex(&wcm_mutex, CY_WCM_MAX_MUTEX_WAIT_TIME_MS) != CY_RSLT_SUCCESS)
     {
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Unable to acquire WCM mutex \n");
@@ -1341,6 +1425,8 @@ cy_rslt_t cy_wcm_get_mac_addr(cy_wcm_interface_t interface_type, cy_wcm_mac_t *m
     {
         res = ((res != CY_RSLT_SUCCESS) ? res : CY_RSLT_WCM_MUTEX_ERROR);
     }
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex unlocked %s %d\r\n", __FILE__, __LINE__);
+
     return res;
 }
 
@@ -1648,6 +1734,132 @@ cy_rslt_t cy_wcm_get_associated_ap_info(cy_wcm_associated_ap_info_t *ap_info)
     return res;
 }
 
+static int ltoh16_ua(const uint8_t * bytes)
+{
+    const uint8_t *_bytes = (const uint8_t *)(bytes);
+    return _LTOH16_UA(_bytes);
+
+}
+
+static int xtlv_size_for_data(int dlen, xtlv_opts_t opts, const uint8_t **data)
+{
+    int hsz;
+    hsz = xtlv_hdr_size(opts, data);
+    return ((opts & XTLV_OPTION_ALIGN32) ? ALIGN_SIZE(dlen + hsz, 4) : (dlen + hsz));
+}
+
+static int xtlv_len(const xtlv_t *elt, xtlv_opts_t opts)
+{
+    const uint8_t *lenp;
+    int len;
+
+    lenp = (const uint8_t *)&elt->len; /* nominal */
+    if (opts & XTLV_OPTION_IDU8)
+    {
+        --lenp;
+    }
+    if (opts & XTLV_OPTION_LENU8)
+    {
+        len = *lenp;
+    }
+    else
+    {
+        len = ltoh16_ua(lenp);
+    }
+    return len;
+}
+
+static int xtlv_id(const xtlv_t *elt, xtlv_opts_t opts)
+{
+    int id = 0;
+    if (opts & XTLV_OPTION_IDU8)
+    {
+        id =  *(const uint8_t *)elt;
+    }
+    else
+    {
+        id = ltoh16_ua((const uint8_t *)elt);
+    }
+    return id;
+}
+
+static int xtlv_hdr_size(xtlv_opts_t opts, const uint8_t **data)
+{
+    int len = (int)OFFSETOF(xtlv_t, data); /* nominal */
+    if (opts & XTLV_OPTION_LENU8)
+    {
+        --len;
+    }
+    if (opts & XTLV_OPTION_IDU8)
+    {
+        --len;
+    }
+    return len;
+}
+
+static void xtlv_unpack_xtlv(const xtlv_t *xtlv, uint16_t *type, uint16_t *len,
+    const uint8_t **data, xtlv_opts_t opts)
+{
+    if (type)
+    {
+        *type = (uint16_t)xtlv_id(xtlv, opts);
+    }
+    if (len)
+    {
+        *len = (uint16_t)xtlv_len(xtlv, opts);
+    }
+    if (data)
+    {
+        *data = (const uint8_t *)xtlv + xtlv_hdr_size(opts, data);
+    }
+}
+
+static void unpack_xtlv_buf(const uint8_t *tlv_buf, uint16_t buflen,cy_wcm_wlan_statistics_t *stat)
+{
+    uint16_t len;
+    uint16_t type;
+    int size;
+    const xtlv_t *ptlv;
+    int sbuflen = buflen;
+    const uint8_t *data;
+    int hdr_size;
+
+    hdr_size = xtlv_hdr_size(XTLV_OPTION_ALIGN32, &data);
+    while (sbuflen >= hdr_size) {
+        ptlv = (const xtlv_t *)tlv_buf;
+
+        xtlv_unpack_xtlv(ptlv, &type, &len, &data, XTLV_OPTION_ALIGN32);
+        size = xtlv_size_for_data(len, XTLV_OPTION_ALIGN32, &data);
+
+        sbuflen -= size;
+        if (sbuflen < 0) /* check for buffer overrun */
+        {
+            break;
+        }
+        if (type == 0x100)
+        {
+            if(wl_counters(data, stat) == CY_RSLT_SUCCESS)
+            {    
+                break;
+            }
+        }
+        tlv_buf += size;
+    }
+    return;
+}
+
+static cy_rslt_t wl_counters(const uint8_t *data, cy_wcm_wlan_statistics_t *stat)
+{
+    wl_cnt_ver_30_t *cnt = (wl_cnt_ver_30_t *)data;
+    stat->rx_bytes   = cnt->rxbyte;
+    stat->tx_bytes   = cnt->txbyte;
+    stat->rx_packets = cnt->rxfrag;
+    stat->tx_packets = cnt->txfrag;
+    stat->tx_failed  = cnt->txfail;
+    stat->tx_retries = cnt->txretry;
+    return CY_RSLT_SUCCESS;
+}
+
 cy_rslt_t cy_wcm_get_wlan_statistics(cy_wcm_interface_t interface, cy_wcm_wlan_statistics_t *stat)
 {
     whd_buffer_t buffer;
@@ -1671,20 +1883,40 @@ cy_rslt_t cy_wcm_get_wlan_statistics(cy_wcm_interface_t interface, cy_wcm_wlan_s
         return CY_RSLT_WCM_BAD_ARG;
     }
 
-    CHECK_IOCTL_BUFFER(whd_cdc_get_iovar_buffer(whd_ifs[CY_WCM_INTERFACE_TYPE_STA]->whd_driver, &buffer, sizeof(wl_cnt_ver_ten_t), IOVAR_STR_COUNTERS));
+    CHECK_IOCTL_BUFFER(whd_cdc_get_iovar_buffer(whd_ifs[CY_WCM_INTERFACE_TYPE_STA]->whd_driver, &buffer, WLC_IOCTL_MEDLEN, IOVAR_STR_COUNTERS));
 
     CHECK_RETURN(whd_cdc_send_iovar(whd_ifs[CY_WCM_INTERFACE_TYPE_STA], CDC_GET, buffer, &response));
 
-    received_counters = (wl_cnt_ver_ten_t*) whd_buffer_get_current_piece_data_pointer(whd_ifs[CY_WCM_INTERFACE_TYPE_STA]->whd_driver, response);
+    wl_cnt_info_t * wl_cnt_info ;
+    wl_cnt_info = (wl_cnt_info_t*) whd_buffer_get_current_piece_data_pointer(whd_ifs[CY_WCM_INTERFACE_TYPE_STA]->whd_driver, response);
 
-    /* Copy the required statistics */
-    stat->rx_bytes   = received_counters->rxbyte;
-    stat->tx_bytes   = received_counters->txbyte;
-    stat->rx_packets = received_counters->rxfrag;
-    stat->tx_packets = received_counters->txfrag;
-    stat->tx_failed  = received_counters->txfail;
-    stat->tx_retries = received_counters->txretry;
-
+    if (wl_cnt_info->version == WL_CNT_VER_30)
+    {
+        /* 43012 board - Process xtlv buffer data to get statistics */
+        uint8_t *cntdata;
+        cntdata = (uint8_t *)malloc(wl_cnt_info->datalen);
+        
+        CHK_CNTBUF_DATALEN(wl_cnt_info, WLC_IOCTL_MEDLEN);
+        if (cntdata == NULL) {
+            return CY_RSLT_TYPE_ERROR;
+        }
+        memcpy(cntdata, wl_cnt_info->data, wl_cnt_info->datalen);
+        unpack_xtlv_buf(cntdata, wl_cnt_info->datalen, stat);
+        free(cntdata);
+    }
+    else if (wl_cnt_info->version == WL_CNT_VER_10)
+    {
+        received_counters =(wl_cnt_ver_ten_t*)  wl_cnt_info;
+        
+        /* Copy the required statistics */
+        stat->rx_bytes   = received_counters->rxbyte;
+        stat->tx_bytes   = received_counters->txbyte;
+        stat->rx_packets = received_counters->rxfrag;
+        stat->tx_packets = received_counters->txfrag;
+        stat->tx_failed  = received_counters->txfail;
+        stat->tx_retries = received_counters->txretry;
+    }
+    
     whd_buffer_release(whd_ifs[CY_WCM_INTERFACE_TYPE_STA]->whd_driver, response, WHD_NETWORK_RX);
 
     /* get data rate */
@@ -1813,6 +2045,7 @@ cy_rslt_t cy_wcm_ping(cy_wcm_interface_t interface, cy_wcm_ip_address_t* address
         return CY_RSLT_WCM_AP_NOT_UP;
     }
 
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex locked %s %d\r\n", __FILE__, __LINE__);
     if(cy_rtos_get_mutex(&wcm_mutex, CY_WCM_MAX_MUTEX_WAIT_TIME_MS) != CY_RSLT_SUCCESS)
     {
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Unable to acquire WCM mutex \n");
@@ -1889,6 +2122,7 @@ exit :
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Failed to release the mutex \n");
         res = ((res != CY_RSLT_SUCCESS) ? res : CY_RSLT_WCM_MUTEX_ERROR);
     }
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex unlocked %s %d\r\n", __FILE__, __LINE__);
 
     return res;
 }
@@ -1914,6 +2148,7 @@ cy_rslt_t cy_wcm_start_ap(const cy_wcm_ap_config_t *ap_config)
         return res;
     }
 
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex locked %s %d\r\n", __FILE__, __LINE__);
     if(cy_rtos_get_mutex(&wcm_mutex, CY_WCM_MAX_MUTEX_WAIT_TIME_MS) != CY_RSLT_SUCCESS)
     {
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Unable to acquire WCM mutex \n");
@@ -1979,6 +2214,8 @@ exit:
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Failed to release the mutex \n");
         res = ((res != CY_RSLT_SUCCESS) ? res : CY_RSLT_WCM_MUTEX_ERROR);
     }
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex unlocked %s %d\r\n", __FILE__, __LINE__);
+
     return res;
 }
 
@@ -1992,6 +2229,7 @@ cy_rslt_t cy_wcm_stop_ap(void)
         return CY_RSLT_WCM_NOT_INITIALIZED;
     }
 
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex locked %s %d\r\n", __FILE__, __LINE__);
     if(cy_rtos_get_mutex(&wcm_mutex, CY_WCM_MAX_MUTEX_WAIT_TIME_MS) != CY_RSLT_SUCCESS)
     {
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Unable to acquire WCM mutex \n");
@@ -2016,6 +2254,8 @@ exit:
     {
         res = ((res != CY_RSLT_SUCCESS) ? res : CY_RSLT_WCM_MUTEX_ERROR);
     }
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex unlocked %s %d\r\n", __FILE__, __LINE__);
+
     return res;
 }
 
@@ -2097,12 +2337,13 @@ cy_rslt_t cy_wcm_get_associated_client_list(cy_wcm_mac_t *client_list, uint8_t n
         return CY_RSLT_WCM_NOT_INITIALIZED;
     }
 
-    if(client_list == NULL)
+    if(client_list == NULL || num_clients == 0)
     {
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Bad arguments \n");
         return CY_RSLT_WCM_BAD_ARG;
     }
 
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex locked %s %d\r\n", __FILE__, __LINE__);
     if(cy_rtos_get_mutex(&wcm_mutex, CY_WCM_MAX_MUTEX_WAIT_TIME_MS) != CY_RSLT_SUCCESS)
     {
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Unable to acquire WCM mutex \n");
@@ -2149,6 +2390,8 @@ exit:
     {
         res = ((res != CY_RSLT_SUCCESS) ? res : CY_RSLT_WCM_MUTEX_ERROR);
     }
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex unlocked %s %d\r\n", __FILE__, __LINE__);
+
     return res;
 }
 
@@ -2196,6 +2439,7 @@ static cy_rslt_t check_ap_credentials(const cy_wcm_connect_params_t *connect_par
 {
     uint8_t ssid_len;
     uint8_t pwd_len;
+    cy_wcm_security_t sec_type;
 
     if(connect_params == NULL)
     {
@@ -2215,7 +2459,10 @@ static cy_rslt_t check_ap_credentials(const cy_wcm_connect_params_t *connect_par
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "AP credentials security error\n");
         return CY_RSLT_WCM_SECURITY_NOT_SUPPORTED;
     }
-    if((connect_params->ap_credentials.security != CY_WCM_SECURITY_OPEN) &&
+
+    sec_type = connect_params->ap_credentials.security ;
+    /* For open and enterprise security auth types pwd len can be ignored */
+    if(((sec_type != CY_WCM_SECURITY_OPEN) && (!check_if_ent_auth_types(sec_type))) &&
        (pwd_len == 0 || pwd_len > CY_WCM_MAX_PASSPHRASE_LEN))
     {
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "AP credentials passphrase length error\n");
@@ -2325,17 +2572,17 @@ static bool check_wcm_security(cy_wcm_security_t sec)
 void internal_scan_callback(whd_scan_result_t **result_ptr,
                              void *user_data, whd_scan_status_t status)
 {
+    whd_scan_result_t *whd_scan_result;
+    uint32_t scan_status = status;
+
     /* Check if we don't have a scan result to send to the user */
     if (( result_ptr == NULL ) || ( *result_ptr == NULL ))
     {
         /* Check for scan complete */
-        if (status == WHD_SCAN_COMPLETED_SUCCESSFULLY)
+        if (status == WHD_SCAN_COMPLETED_SUCCESSFULLY || status == WHD_SCAN_ABORTED)
         {
             /* Notify scan complete */
-            scan_handler.scan_status = status;
-            memset(&scan_handler.scan_res, 0x0, sizeof(whd_scan_result_t));
- 
-            if(cy_worker_thread_enqueue(&cy_wcm_worker_thread, notify_scan_event, &scan_handler) != CY_RSLT_SUCCESS)
+            if(cy_worker_thread_enqueue(&cy_wcm_worker_thread, notify_scan_completed, (void *)scan_status) != CY_RSLT_SUCCESS)
             {
                 cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Error in calling the worker thread func \n");
             }
@@ -2343,89 +2590,72 @@ void internal_scan_callback(whd_scan_result_t **result_ptr,
         return;
     }
 
-    scan_handler.scan_status = status;
-    memcpy(&scan_handler.scan_res, *result_ptr, sizeof(whd_scan_result_t));
-
-    if(scan_handler.scan_filter.mode == CY_WCM_SCAN_FILTER_TYPE_RSSI)
+    whd_scan_result = (whd_scan_result_t *)malloc(sizeof(whd_scan_result_t));
+    if (whd_scan_result == NULL)
     {
-         int16_t requested_range = scan_handler.scan_filter.param.rssi_range;
-         int16_t signal_strength = scan_handler.scan_res.signal_strength;
-         if(signal_strength < requested_range)
-         {
-             /* Notify the scan completion, even though the signal strength is not as requested. */
-             if (status == WHD_SCAN_COMPLETED_SUCCESSFULLY)
-             {
-                 if(cy_worker_thread_enqueue(&cy_wcm_worker_thread, notify_scan_event, &scan_handler) != CY_RSLT_SUCCESS)
-                 {
-                     cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Error in calling the worker thread func \n");
-                 }
-             }
-             memset(*result_ptr, 0, sizeof(whd_scan_result_t));
-             return;
-         }
+        cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Heap space error \n");
+        goto exit;
     }
-
-    if(cy_worker_thread_enqueue(&cy_wcm_worker_thread, notify_scan_event, &scan_handler) != CY_RSLT_SUCCESS)
+    memcpy(whd_scan_result, *result_ptr, sizeof(whd_scan_result_t));
+    if(cy_worker_thread_enqueue(&cy_wcm_worker_thread, process_scan_data, whd_scan_result) != CY_RSLT_SUCCESS)
     {
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Error in calling the worker thread func \n");
+        free(whd_scan_result);
+        goto exit;
     }
+
+exit:
     memset(*result_ptr, 0, sizeof(whd_scan_result_t));
+    return;
 }
 
-
-static void notify_scan_event(void *arg)
+static void notify_scan_completed(void *arg)
 {
-    wcm_internal_scan_t *scan_record = (wcm_internal_scan_t*)arg;
+    uint32_t val = (uint32_t)arg;
+    whd_scan_status_t scan_status = (whd_scan_status_t)val;
     cy_wcm_scan_result_t scan_res;
     bool invoke_application_callback = false;
     memset(&scan_res, 0, sizeof(scan_res));
 
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex locked %s %d\r\n", __FILE__, __LINE__);
     if(cy_rtos_get_mutex(&wcm_mutex, CY_WCM_MAX_MUTEX_WAIT_TIME_MS) != CY_RSLT_SUCCESS)
     {
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Unable to acquire WCM mutex \n");
         return;
     }
 
-    if(scan_record->scan_status == WHD_SCAN_COMPLETED_SUCCESSFULLY)
+    scan_handler.scan_status = scan_status;
+    memset(&scan_handler.scan_res, 0x0, sizeof(whd_scan_result_t));
+
+    /* Invoke application callback only on successful scan completion. Do not invoke application callback on Abort/stop scan */
+    if(scan_status == WHD_SCAN_COMPLETED_SUCCESSFULLY)
     {
-        /* Reset the flag */
-        scan_handler.is_scanning = false;
         invoke_application_callback = true;
     }
-    else if ((scan_record->scan_status == WHD_SCAN_INCOMPLETE) && (scan_handler.is_scanning == true))
-    {
-        /** copy all the parameters to scan_res **/
-        memcpy(scan_res.SSID, scan_record->scan_res.SSID.value, scan_record->scan_res.SSID.length + 1);
-        memcpy(scan_res.BSSID, scan_record->scan_res.BSSID.octet, sizeof(scan_res.BSSID));
-        scan_res.security = whd_to_wcm_security(scan_record->scan_res.security);
-        scan_res.band = whd_to_wcm_band(scan_record->scan_res.band);
-        scan_res.bss_type = whd_to_wcm_bss_type(scan_record->scan_res.bss_type);
-        memcpy(scan_res.ccode, scan_record->scan_res.ccode, 2);
-        scan_res.channel = scan_record->scan_res.channel;
-        scan_res.signal_strength = scan_record->scan_res.signal_strength;
-        scan_res.flags = scan_record->scan_res.flags;
-        scan_res.ie_len = scan_record->scan_res.ie_len;
-        scan_res.ie_ptr = (uint8_t*)malloc(scan_res.ie_len);
-        if(scan_res.ie_ptr == NULL)
-        {
-            cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Heap space error \n");
-            if (cy_rtos_set_mutex(&wcm_mutex) != CY_RSLT_SUCCESS)
-            {
-                cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Unable to release the WCM mutex \n");
-                return;
-            }
-        }
-        else
-        {
-            memcpy(scan_res.ie_ptr, scan_record->scan_res.ie_ptr, scan_res.ie_len);
-            invoke_application_callback = true;
-        }
 
-    }
-    else
+    /* Scan is completed, reset the flag */
+    scan_handler.is_scanning = false;
+
+    if(mac_addr_arr != NULL)
     {
-        /* Scan is aborted, reset the flag */
-        scan_handler.is_scanning = false;
+       free(mac_addr_arr);
+       mac_addr_arr = NULL;
+    }
+
+    /* Notify application appropriately based on scan status */
+    if((scan_handler.p_scan_calback != NULL) && (invoke_application_callback == true))
+    {
+       scan_handler.p_scan_calback(NULL, scan_handler.user_data, CY_WCM_SCAN_COMPLETE);
+    }
+
+    if(scan_handler.is_stop_scan_req)
+    {
+        cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "setting stop scan semaphore %s %d\r\n", __FILE__, __LINE__);
+        if(cy_rtos_set_semaphore(&stop_scan_semaphore, false) != CY_RSLT_SUCCESS)
+        {
+            cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "unable to set the stop scan semaphore \n");
+        }
+        scan_handler.is_stop_scan_req = false;
     }
 
     if (cy_rtos_set_mutex(&wcm_mutex) != CY_RSLT_SUCCESS)
@@ -2437,20 +2667,97 @@ static void notify_scan_event(void *arg)
         }
         return;
     }
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex unlocked %s %d\r\n", __FILE__, __LINE__);
+}
 
-    /* Notify application appropriately based on scan status */
-    if(invoke_application_callback == true)
+
+static void process_scan_data(void *arg)
+{
+    whd_scan_result_t *whd_scan_res = (whd_scan_result_t*)arg;
+    cy_wcm_scan_result_t wcm_scan_res;
+    whd_mac_t *mac_iter = NULL;
+
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex locked %s %d\r\n", __FILE__, __LINE__);
+    if(cy_rtos_get_mutex(&wcm_mutex, CY_WCM_MAX_MUTEX_WAIT_TIME_MS) != CY_RSLT_SUCCESS)
     {
-        if(scan_record->scan_status == WHD_SCAN_INCOMPLETE)
+        cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Unable to acquire WCM mutex \n");
+        free(whd_scan_res);
+        return;
+    }
+
+    if (scan_handler.is_scanning == false)
+    {
+        cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "scan_handler.is_scanning is false\n");
+        goto exit;
+    }
+
+    /* Check for duplicate SSID */
+    for (mac_iter = mac_addr_arr; (mac_iter < mac_addr_arr + current_bssid_arr_length); ++mac_iter)
+    {
+        if(CMP_MAC(mac_iter->octet, whd_scan_res->BSSID.octet))
         {
-            scan_handler.p_scan_calback(&scan_res, scan_handler.user_data, CY_WCM_SCAN_INCOMPLETE);
-            free(scan_res.ie_ptr);
-        }
-        else
-        {
-            scan_handler.p_scan_calback(NULL, scan_handler.user_data, CY_WCM_SCAN_COMPLETE);
+            /* The scanned result is a duplicate; just return */
+            goto exit;
         }
     }
+
+    /* If scanned Wi-Fi is not a duplicate then populate the array */
+    if(current_bssid_arr_length < SCAN_BSSID_ARR_LENGTH)
+    {
+        memcpy(&mac_iter->octet, whd_scan_res->BSSID.octet, sizeof(whd_mac_t) );
+        current_bssid_arr_length++;
+    }
+
+    memset(&wcm_scan_res, 0, sizeof(wcm_scan_res));
+
+    if(scan_handler.scan_filter.mode == CY_WCM_SCAN_FILTER_TYPE_RSSI)
+    {
+         int16_t requested_range = scan_handler.scan_filter.param.rssi_range;
+         int16_t signal_strength = whd_scan_res->signal_strength;
+         if(signal_strength < requested_range)
+         {
+             goto exit;
+         }
+    }
+
+    /** copy all the parameters to scan_res **/
+    memcpy(wcm_scan_res.SSID, whd_scan_res->SSID.value, whd_scan_res->SSID.length);
+    memcpy(wcm_scan_res.BSSID, whd_scan_res->BSSID.octet, sizeof(wcm_scan_res.BSSID));
+    wcm_scan_res.security = whd_to_wcm_security(whd_scan_res->security);
+    wcm_scan_res.band = whd_to_wcm_band(whd_scan_res->band);
+    wcm_scan_res.bss_type = whd_to_wcm_bss_type(whd_scan_res->bss_type);
+    memcpy(wcm_scan_res.ccode, whd_scan_res->ccode, sizeof(wcm_scan_res.ccode));
+    wcm_scan_res.channel = whd_scan_res->channel;
+    wcm_scan_res.signal_strength = whd_scan_res->signal_strength;
+    wcm_scan_res.flags = whd_scan_res->flags;
+    wcm_scan_res.ie_len = whd_scan_res->ie_len;
+    wcm_scan_res.ie_ptr = (uint8_t*)malloc(wcm_scan_res.ie_len);
+    if(wcm_scan_res.ie_ptr == NULL)
+    {
+        cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Heap space error \n");
+        goto exit;
+    }
+    else
+    {
+        memcpy(wcm_scan_res.ie_ptr, whd_scan_res->ie_ptr, wcm_scan_res.ie_len);
+    }
+
+    /* Notify application appropriately based on scan status */
+    if(scan_handler.p_scan_calback != NULL)
+    {
+        scan_handler.p_scan_calback(&wcm_scan_res, scan_handler.user_data, CY_WCM_SCAN_INCOMPLETE);
+    }
+    free(wcm_scan_res.ie_ptr);
+
+exit:
+    free(whd_scan_res);
+
+    if (cy_rtos_set_mutex(&wcm_mutex) != CY_RSLT_SUCCESS)
+    {
+        cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Unable to release the WCM mutex \n");
+        return;
+    }
+    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "wcm mutex unlocked %s %d\r\n", __FILE__, __LINE__);
 }
 
 static void invoke_app_callbacks(cy_wcm_event_t event_type, cy_wcm_event_data_t* arg)
@@ -2633,7 +2940,7 @@ static void* link_events_handler(whd_interface_t ifp, const whd_event_header_t *
                 }
                 else if ( event_header->reason == WLC_E_SUP_MSG3_TOO_MANY_IE )
                 {
-                    /* Wifi firmware will do disassoc internally and will not retry to join the AP.
+                    /* Wi-Fi firmware will do disassoc internally and will not retry to join the AP.
                      * Set a flag to indicate the join should be retried (from the host side).
                      */
                     too_many_ie_error = WHD_TRUE;
@@ -3420,4 +3727,17 @@ cy_rslt_t cy_wcm_get_whd_interface(cy_wcm_interface_t interface_type, whd_interf
 
     *whd_iface = whd_ifs[interface_type];
     return CY_RSLT_SUCCESS;
+}
+
+static bool check_if_ent_auth_types(cy_wcm_security_t auth_type)
+{
+    if((auth_type == CY_WCM_SECURITY_WPA_TKIP_ENT) || (auth_type == CY_WCM_SECURITY_WPA_AES_ENT) ||
+       (auth_type == CY_WCM_SECURITY_WPA_MIXED_ENT) || (auth_type == CY_WCM_SECURITY_WPA2_TKIP_ENT) ||
+       (auth_type == CY_WCM_SECURITY_WPA2_AES_ENT) || (auth_type == CY_WCM_SECURITY_WPA2_MIXED_ENT) ||
+       (auth_type == CY_WCM_SECURITY_WPA2_FBT_ENT))
+    {
+        return true;
+    }
+
+    return false;
 }

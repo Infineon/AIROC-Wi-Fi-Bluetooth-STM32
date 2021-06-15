@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['cy_5feapol_5fpacket_5fhandler_5ft',['cy_eapol_packet_handler_t',['../group__group__lwip__whd__port__functions.html#gab2eff4fe44d6eeb7e4de75d6dc47ed57',1,'cy_lwip.h']]],
-  ['cy_5feapol_5fregister_5freceive_5fhandler',['cy_eapol_register_receive_handler',['../group__group__lwip__whd__port__functions.html#ga427efdf94cc9b0482e20e1fbbe04a8e0',1,'cy_lwip.h']]],
   ['cy_5flwip_5fadd_5finterface',['cy_lwip_add_interface',['../group__group__lwip__whd__port__functions.html#gaa92d2b029f1719d65c8e45bf4633033e',1,'cy_lwip.h']]],
   ['cy_5flwip_5fap_5fnw_5finterface',['CY_LWIP_AP_NW_INTERFACE',['../group__group__lwip__whd__enums.html#gga5c1e4041ed624baae4bd852f1e6149bfacc3d978c1c58d6d0d7b7658317268326',1,'cy_lwip.h']]],
   ['cy_5flwip_5fget_5finterface',['cy_lwip_get_interface',['../group__group__lwip__whd__port__functions.html#ga5862d05d0e7de1c6990ff44611996c7e',1,'cy_lwip.h']]],
@@ -14,7 +12,11 @@ var searchData=
   ['cy_5flwip_5fremove_5finterface',['cy_lwip_remove_interface',['../group__group__lwip__whd__port__functions.html#gab0cebbb216246e5c20ca4d2ab1431421',1,'cy_lwip.h']]],
   ['cy_5flwip_5fsta_5fnw_5finterface',['CY_LWIP_STA_NW_INTERFACE',['../group__group__lwip__whd__enums.html#gga5c1e4041ed624baae4bd852f1e6149bfa546079ed70f4d411eef664709297c929',1,'cy_lwip.h']]],
   ['cy_5fnetwork_5factivity_5fevent_5fcallback_5ft',['cy_network_activity_event_callback_t',['../group__group__lwip__whd__port__functions.html#gac1287ee1b07381abccf600602f4ba6b3',1,'cy_lwip.h']]],
+  ['cy_5fnetwork_5factivity_5fnotify',['cy_network_activity_notify',['../group__group__lwip__whd__port__functions.html#gac0882cbd33e9886b2b24152fe85a57f6',1,'cy_lwip.h']]],
   ['cy_5fnetwork_5factivity_5fregister_5fcb',['cy_network_activity_register_cb',['../group__group__lwip__whd__port__functions.html#ga239cf5cd46a186ee0dfe28b659b5a9f0',1,'cy_lwip.h']]],
+  ['cy_5fnetwork_5factivity_5frx',['CY_NETWORK_ACTIVITY_RX',['../group__group__lwip__whd__enums.html#ggaf3eda6c4137ea81555d91cf114a6dc84a04dc9c35079dc73c5ffef56be5ea3db9',1,'cy_lwip.h']]],
+  ['cy_5fnetwork_5factivity_5ftx',['CY_NETWORK_ACTIVITY_TX',['../group__group__lwip__whd__enums.html#ggaf3eda6c4137ea81555d91cf114a6dc84ae5f6578ad1ae64bd4b033643ca7c2dc8',1,'cy_lwip.h']]],
+  ['cy_5fnetwork_5factivity_5ftype_5ft',['cy_network_activity_type_t',['../group__group__lwip__whd__enums.html#gaf3eda6c4137ea81555d91cf114a6dc84',1,'cy_lwip.h']]],
   ['cy_5fnetwork_5fprocess_5fethernet_5fdata',['cy_network_process_ethernet_data',['../group__group__lwip__whd__port__functions.html#ga71e35990a48914d05b040deb52565584',1,'cy_lwip.h']]],
   ['cy_5frslt_5flwip_5fbad_5farg',['CY_RSLT_LWIP_BAD_ARG',['../group__generic__lwip__whd__port__defines.html#ga603cb8d0cf13b94663f2a0672e9acb8e',1,'cy_lwip_error.h']]],
   ['cy_5frslt_5flwip_5fcorrupt_5fbuffer',['CY_RSLT_LWIP_CORRUPT_BUFFER',['../group__generic__lwip__whd__port__defines.html#gac1102ca022f8831051359118bbe09291',1,'cy_lwip_error.h']]],
@@ -32,5 +34,7 @@ var searchData=
   ['cy_5frslt_5flwip_5fsocket_5fcreate_5ffail',['CY_RSLT_LWIP_SOCKET_CREATE_FAIL',['../group__generic__lwip__whd__port__defines.html#ga09e6f8b496e789c5f032a5a46ff4670b',1,'cy_lwip_error.h']]],
   ['cy_5frslt_5flwip_5fsocket_5ferror',['CY_RSLT_LWIP_SOCKET_ERROR',['../group__generic__lwip__whd__port__defines.html#ga6d9dc67a4f5570cd14f74dc55355128e',1,'cy_lwip_error.h']]],
   ['cy_5frslt_5flwip_5fwhd_5fport_5ferr_5fbase',['CY_RSLT_LWIP_WHD_PORT_ERR_BASE',['../group__generic__lwip__whd__port__defines.html#ga8bac0229b8c24c11e79036f78112f589',1,'cy_lwip_error.h']]],
+  ['cy_5fwifimwcore_5feapol_5fpacket_5fhandler_5ft',['cy_wifimwcore_eapol_packet_handler_t',['../group__group__wifimwcore__eapol__functions.html#ga5d501ebe6f09b2f93384fc33de1617a0',1,'cy_wifimwcore_eapol.h']]],
+  ['cy_5fwifimwcore_5feapol_5fregister_5freceive_5fhandler',['cy_wifimwcore_eapol_register_receive_handler',['../group__group__wifimwcore__eapol__functions.html#gab3477cb9900a5387811bf337cb7d42b1',1,'cy_wifimwcore_eapol.h']]],
   ['cy_20generic_20lwip_20whd_20glue_20results_2ferror_20codes',['CY generic lwIP WHD glue results/error codes',['../group__generic__lwip__whd__port__defines.html',1,'']]]
 ];

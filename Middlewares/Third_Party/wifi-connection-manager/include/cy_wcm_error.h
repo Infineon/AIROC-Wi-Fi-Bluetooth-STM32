@@ -1,10 +1,10 @@
 /*
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
- * Cypress Semiconductor Corporation. All Rights Reserved.
+ * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
- * materials ("Software"), is owned by Cypress Semiconductor Corporation
- * or one of its subsidiaries ("Cypress") and is protected by and subject to
+ * materials ("Software") is owned by Cypress Semiconductor Corporation
+ * or one of its affiliates ("Cypress") and is protected by and subject to
  * worldwide patent protection (United States and foreign),
  * United States copyright laws and international treaty provisions.
  * Therefore, you may use this Software only as provided in the license
@@ -13,7 +13,7 @@
  * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
  * non-transferable license to copy, modify, and compile the Software
  * source code solely for use in connection with Cypress's
- * integrated circuit products. Any reproduction, modification, translation,
+ * integrated circuit products.  Any reproduction, modification, translation,
  * compilation, or representation of this Software except as specified
  * above is prohibited without the express written permission of Cypress.
  *
@@ -113,14 +113,15 @@ extern "C" {
 #define CY_RSLT_WCM_AP_NOT_UP                              (CY_RSLT_WCM_ERR_BASE + 33) /**< SoftAP is not started.                        */
 #define CY_RSLT_WCM_INTERFACE_NOT_UP                       (CY_RSLT_WCM_ERR_BASE + 34) /**< Interface is not initialized.                 */
 #define CY_RSLT_WCM_NOT_INITIALIZED                        (CY_RSLT_WCM_ERR_BASE + 35) /**< WCM not initialized.                          */
+#define CY_RSLT_WCM_SEMAPHORE_ERROR                        (CY_RSLT_WCM_ERR_BASE + 36) /**< Semaphore error.                              */
 
 /** WPS Error Codes */
-#define CY_RSLT_WCM_WPS_PBC_OVERLAP                        (CY_RSLT_WCM_ERR_BASE + 36) /**< WPS PBC overlap.                              */
-#define CY_RSLT_WCM_WPS_ERROR_RECEIVED_WEP_CREDENTIALS     (CY_RSLT_WCM_ERR_BASE + 37) /**< WPS received incorrect credentials.           */
-#define CY_RSLT_WCM_WPS_FAILED                             (CY_RSLT_WCM_ERR_BASE + 38) /**< WPS PBC/PIN mode failed.                      */
+#define CY_RSLT_WCM_WPS_PBC_OVERLAP                        (CY_RSLT_WCM_ERR_BASE + 37) /**< WPS PBC overlap.                              */
+#define CY_RSLT_WCM_WPS_ERROR_RECEIVED_WEP_CREDENTIALS     (CY_RSLT_WCM_ERR_BASE + 38) /**< WPS received incorrect credentials.           */
+#define CY_RSLT_WCM_WPS_FAILED                             (CY_RSLT_WCM_ERR_BASE + 39) /**< WPS PBC/PIN mode failed.                      */
 
 /** DHCP Error Code */
-#define CY_RSLT_WCM_DHCP_TIMEOUT                           (CY_RSLT_WCM_ERR_BASE + 39)  /**< DHCP timeout.                                */
+#define CY_RSLT_WCM_DHCP_TIMEOUT                           (CY_RSLT_WCM_ERR_BASE + 40)  /**< DHCP timeout.                                */
 
 /** \} error codes */
 

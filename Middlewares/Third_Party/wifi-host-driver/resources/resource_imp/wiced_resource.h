@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Cypress Semiconductor Corporation
+ * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,7 +34,6 @@
 #define INCLUDED_RESOURCE_H_
 
 #include <stdint.h>
-#include "cy_utils.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -70,7 +69,8 @@ extern "C" {
 #define CY_SECTION_WHD(name)    __attribute__ ( (section(name) ) )
 #endif
 #elif defined (__ICCARM__)
-#define CY_SECTION_WHD(name)    CY_PRAGMA(location = name)
+#define CY_PRAGMA_WHD(x)        _Pragma(#x)
+#define CY_SECTION_WHD(name)    CY_PRAGMA_WHD(location = name)
 #else
 #error "An unsupported toolchain"
 #endif /* (__ARMCC_VERSION) */

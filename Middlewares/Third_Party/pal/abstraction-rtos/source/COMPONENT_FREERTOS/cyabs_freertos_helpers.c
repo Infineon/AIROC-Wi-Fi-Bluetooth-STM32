@@ -7,7 +7,7 @@
  *
  ***************************************************************************************************
  * \copyright
- * Copyright 2018-2020 Cypress Semiconductor Corporation
+ * Copyright 2018-2021 Cypress Semiconductor Corporation
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,6 +36,29 @@
 #endif
 
 #define pdTICKS_TO_MS(xTicks)    ( ( ( TickType_t ) ( xTicks ) * 1000u ) / configTICK_RATE_HZ )
+
+#if defined(CY_USING_HAL)
+static cyhal_lptimer_t* _timer = NULL;
+
+//--------------------------------------------------------------------------------------------------
+// cyabs_rtos_set_lptimer
+//--------------------------------------------------------------------------------------------------
+void cyabs_rtos_set_lptimer(cyhal_lptimer_t* timer)
+{
+    _timer = timer;
+}
+
+
+//--------------------------------------------------------------------------------------------------
+// cyabs_rtos_get_lptimer
+//--------------------------------------------------------------------------------------------------
+cyhal_lptimer_t* cyabs_rtos_get_lptimer()
+{
+    return _timer;
+}
+
+
+#endif //defined(CY_USING_HAL)
 
 // The following implementations were sourced from https://www.freertos.org/a00110.html
 
@@ -120,22 +143,29 @@ __WEAK void vApplicationGetTimerTaskMemory(StaticTask_t** ppxTimerTaskTCBBuffer,
 //--------------------------------------------------------------------------------------------------
 __WEAK void vApplicationSleep(TickType_t xExpectedIdleTime)
 {
-    static bool            lp_timer_initialized = false;
     static cyhal_lptimer_t timer;
     uint32_t               actual_sleep_ms = 0;
 
-    if (!lp_timer_initialized)
+    if (NULL == _timer)
     {
         cy_rslt_t result = cyhal_lptimer_init(&timer);
-        CY_ASSERT(result == CY_RSLT_SUCCESS);
-        lp_timer_initialized = (result == CY_RSLT_SUCCESS);
+        if (result == CY_RSLT_SUCCESS)
+        {
+            _timer = &timer;
+        }
+        else
+        {
+            CY_ASSERT(false);
+        }
     }
 
-    if (lp_timer_initialized)
+    if (NULL != _timer)
     {
+        /* Disable interrupts so that nothing can change the status of the RTOS while
+         * we try to go to sleep or deep-sleep.
+         */
         uint32_t         status       = cyhal_system_critical_section_enter();
         eSleepModeStatus sleep_status = eTaskConfirmSleepModeStatus();
-        cyhal_system_critical_section_exit(status);
 
         if (sleep_status != eAbortSleep)
         {
@@ -154,21 +184,23 @@ __WEAK void vApplicationSleep(TickType_t xExpectedIdleTime)
             if (deep_sleep)
             {
                 // Adjust the deep-sleep time by the sleep/wake latency if set.
+                #if defined(CY_CFG_PWR_DEEPSLEEP_LATENCY)
                 if (sleep_ms > CY_CFG_PWR_DEEPSLEEP_LATENCY)
                 {
-                    #if defined(CY_CFG_PWR_DEEPSLEEP_LATENCY)
                     sleep_ms -= CY_CFG_PWR_DEEPSLEEP_LATENCY;
-                    #endif
-                    result = cyhal_syspm_tickless_deepsleep(&timer, sleep_ms, &actual_sleep_ms);
+                    result = cyhal_syspm_tickless_deepsleep(_timer, sleep_ms, &actual_sleep_ms);
                 }
                 else
                 {
                     result = CY_RTOS_TIMEOUT;
                 }
+                #else // defined(CY_CFG_PWR_DEEPSLEEP_LATENCY)
+                result = cyhal_syspm_tickless_deepsleep(_timer, sleep_ms, &actual_sleep_ms);
+                #endif // defined(CY_CFG_PWR_DEEPSLEEP_LATENCY)
             }
             else
             {
-                result = cyhal_syspm_tickless_sleep(&timer, sleep_ms, &actual_sleep_ms);
+                result = cyhal_syspm_tickless_sleep(_timer, sleep_ms, &actual_sleep_ms);
             }
 
             if (result == CY_RSLT_SUCCESS)
@@ -180,6 +212,8 @@ __WEAK void vApplicationSleep(TickType_t xExpectedIdleTime)
                 vTaskStepTick(pdMS_TO_TICKS(actual_sleep_ms));
             }
         }
+
+        cyhal_system_critical_section_exit(status);
     }
 }
 

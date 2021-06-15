@@ -1,4 +1,11 @@
-/*
+/***************************************************************************************************
+ * \file stim32_cyhal_common.h
+ *
+ * \brief
+ * Common HAL header file for stm32 support
+ *
+ ***************************************************************************************************
+ * \copyright
  * Copyright 2021 Cypress Semiconductor Corporation
  * SPDX-License-Identifier: Apache-2.0
  *
@@ -13,12 +20,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-
-/** @file
- *  TBD
- *
- */
+ **************************************************************************************************/
 
 #pragma once
 
@@ -63,7 +65,7 @@
 
 /* D-cache maintenance for DMA buffers */
 #if defined (__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
-    #define _CYHAL_DCACHE_MAINTENCE
+    #define _CYHAL_DCACHE_MAINTENANCE
     #define _CYHAL_DMA_BUFFER_ALIGN_BYTES      (32u)
 #else
     #define _CYHAL_DMA_BUFFER_ALIGN_BYTES      (4u)

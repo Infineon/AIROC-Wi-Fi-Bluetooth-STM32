@@ -36,6 +36,7 @@ var searchData=
   ['cy_5frslt_5fwcm_5fscan_5fin_5fprogress',['CY_RSLT_WCM_SCAN_IN_PROGRESS',['../group__generic__wcm__defines.html#gad7f901e31b274c3875d4fffe5ad67e2b',1,'cy_wcm_error.h']]],
   ['cy_5frslt_5fwcm_5fsecondary_5finterface_5ferror',['CY_RSLT_WCM_SECONDARY_INTERFACE_ERROR',['../group__generic__wcm__defines.html#gab6f3189215b7eb6877302a14445af584',1,'cy_wcm_error.h']]],
   ['cy_5frslt_5fwcm_5fsecurity_5fnot_5fsupported',['CY_RSLT_WCM_SECURITY_NOT_SUPPORTED',['../group__generic__wcm__defines.html#ga90e3f82642d5adcf75e63ec385c0b31a',1,'cy_wcm_error.h']]],
+  ['cy_5frslt_5fwcm_5fsemaphore_5ferror',['CY_RSLT_WCM_SEMAPHORE_ERROR',['../group__generic__wcm__defines.html#gaced51f450b0f6fd546796bf4528731ee',1,'cy_wcm_error.h']]],
   ['cy_5frslt_5fwcm_5fsta_5fdisconnect_5ferror',['CY_RSLT_WCM_STA_DISCONNECT_ERROR',['../group__generic__wcm__defines.html#ga9f25bb09147c2b4baea03e7049144eea',1,'cy_wcm_error.h']]],
   ['cy_5frslt_5fwcm_5fsta_5fnetwork_5fdown',['CY_RSLT_WCM_STA_NETWORK_DOWN',['../group__generic__wcm__defines.html#ga6b5d340b62864115c40912b3c824618f',1,'cy_wcm_error.h']]],
   ['cy_5frslt_5fwcm_5fstatic_5fip_5fnot_5fsupported',['CY_RSLT_WCM_STATIC_IP_NOT_SUPPORTED',['../group__generic__wcm__defines.html#ga43b6f1f06a3602b8d084ee2d95ad5a2e',1,'cy_wcm_error.h']]],

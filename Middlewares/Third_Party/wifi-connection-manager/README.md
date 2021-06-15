@@ -5,13 +5,13 @@ The library APIs are thread-safe. The library monitors the Wi-Fi connection and 
 
 ## Features and Functionality
 The current implementation has the following features and functionality:
+* Supports WPA3 personal network security.
 * Supports STA, SoftAP, and Concurrent(simultaneous Soft-AP + STA) modes.
 * Support for WPS - Enrollee role.
 * Exposes Wi-Fi APIs to scan, join, and leave the Wi-Fi network.
 * Connection monitoring: Monitors active connections and link events. Automatically reconnects to the AP if the connection with the AP is lost intermittently. Notifies the connection state change through event notification registration mechanism.
 * This library is part of AnyCloud framework that supports connectivity applications based on FreeRTOS, lwIP, and mbed TLS.
 * The library is built on top of the abstraction-rtos library that provides the RTOS abstraction API for FreeRTOS.
-
 
 ## Supported Platforms
 This library and its features are supported on the following Cypress platforms:

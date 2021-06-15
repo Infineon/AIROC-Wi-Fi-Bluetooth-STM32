@@ -4,6 +4,9 @@
 Refer to the [README.md](./README.md) for a complete description of the utility libraries
 
 ## Changelog
+### v3.0.2
+* Renamed the error code module base for Enterprise Security library
+
 ### v3.0.1
 * Introduced error code module base for HTTP Client library
 
@@ -42,10 +45,10 @@ The current version of the library was validated for compatibility with the foll
 
 | Software and Tools                                      | Version |
 | :---                                                    | :----:  |
-| ModusToolbox Software Environment                       | 2.2     |
-| - ModusToolbox Device Configurator                      | 2.20    |
-| - ModusToolbox CapSense Configurator / Tuner tools      | 3.10    |
-| PSoC 6 Peripheral Driver Library (PDL)                  | 2.0.0   |
+| ModusToolbox Software Environment                       | 2.3     |
+| - ModusToolbox Device Configurator                      | 3.0     |
+| - ModusToolbox CapSense Configurator / Tuner tools      | 3.15    |
+| PSoC 6 Peripheral Driver Library (PDL)                  | 2.2.0   |
 | GCC Compiler                                            | 9.3.1   |
 | IAR Compiler (only for AnyCloud)                        | 8.32    |
 | Arm Compiler 6                                          | 6.14    |

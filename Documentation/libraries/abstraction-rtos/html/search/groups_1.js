@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mutex',['Mutex',['../group__group__abstraction__rtos__mutex.html',1,'']]]
+  ['events',['Events',['../group__group__abstraction__rtos__event.html',1,'']]]
 ];

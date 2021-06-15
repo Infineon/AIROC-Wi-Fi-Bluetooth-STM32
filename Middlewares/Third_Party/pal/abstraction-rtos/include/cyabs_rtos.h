@@ -9,7 +9,7 @@
  *
  ***************************************************************************************************
  * \copyright
- * Copyright 2018-2020 Cypress Semiconductor Corporation
+ * Copyright 2018-2021 Cypress Semiconductor Corporation
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,6 +36,8 @@
 /**
  * \defgroup group_abstraction_rtos_common Common
  * General types and defines for working with the RTOS abstraction layer.
+ * \defgroup group_abstraction_rtos_event Events
+ * APIs for acquiring and working with Events.
  * \defgroup group_abstraction_rtos_mutex Mutex
  * APIs for acquiring and working with Mutexes.
  * \defgroup group_abstraction_rtos_queue Queue
@@ -288,6 +290,36 @@ cy_rslt_t cy_rtos_get_thread_state(cy_thread_t* thread, cy_thread_state_t* state
  * @returns The status of thread join request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
  */
 cy_rslt_t cy_rtos_get_thread_handle(cy_thread_t* thread);
+
+
+/** Suspend current thread until notification is received
+ *
+ * This function suspends the execution of current thread until it is notified
+ * by \ref cy_rtos_set_thread_notification from another thread or ISR, or timed out with
+ * specify timeout value
+ *
+ * @param[in] timeout_ms  Maximum number of milliseconds to wait
+ *                        Use the \ref CY_RTOS_NEVER_TIMEOUT constant to wait forever.
+ *
+ * @returns The status of thread wait. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_TIMEOUT, \ref
+ *                                     CY_RTOS_GENERAL_ERROR]
+ */
+cy_rslt_t cy_rtos_wait_thread_notification(cy_time_t timeout_ms);
+
+
+/** Set the thread notification for a thread
+ *
+ * This function sets the thread notification for the target thread.
+ * The target thread waiting for the notification to be set will resume from suspended state.
+ *
+ * @param[in] thread     Handle of the target thread
+ * @param[in] in_isr     If true this is being called from within an ISR
+ *
+ * @returns The status of thread wait. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR,
+ *                                      \ref CY_RTOS_BAD_PARAM]
+ */
+cy_rslt_t cy_rtos_set_thread_notification(cy_thread_t* thread, bool in_isr);
+
 
 /** \} group_abstraction_rtos_threads */
 
@@ -557,7 +589,7 @@ cy_rslt_t cy_rtos_deinit_event(cy_event_t* event);
  * @param[in]  length   The maximum length of the queue in items
  * @param[in]  itemsize The size of each item in the queue.
  *
- * @return The status of the creation request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_NO_MEMORY, \ref
+ * @return The status of the init request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_NO_MEMORY, \ref
  *         CY_RTOS_GENERAL_ERROR]
  */
 cy_rslt_t cy_rtos_init_queue(cy_queue_t* queue, size_t length, size_t itemsize);
@@ -575,7 +607,7 @@ cy_rslt_t cy_rtos_init_queue(cy_queue_t* queue, size_t length, size_t itemsize);
  * @param[in] timeout_ms The time to wait to place the item in the queue
  * @param[in] in_isr     If true this is being called from within and ISR
  *
- * @return The status of the creation request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_NO_MEMORY, \ref
+ * @return The status of the put request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_NO_MEMORY, \ref
  *         CY_RTOS_GENERAL_ERROR, \ref CY_RTOS_QUEUE_FULL]
  */
 cy_rslt_t cy_rtos_put_queue(cy_queue_t* queue, const void* item_ptr, cy_time_t timeout_ms,
@@ -594,7 +626,7 @@ cy_rslt_t cy_rtos_put_queue(cy_queue_t* queue, const void* item_ptr, cy_time_t t
  * @param[in] timeout_ms The time to wait to get an item from the queue
  * @param[in] in_isr     If true this is being called from within an ISR
  *
- * @return The status of the creation request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_NO_MEMORY, \ref
+ * @return The status of the get request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_NO_MEMORY, \ref
  *         CY_RTOS_GENERAL_ERROR, \ref CY_RTOS_QUEUE_EMPTY]
  */
 cy_rslt_t cy_rtos_get_queue(cy_queue_t* queue, void* item_ptr, cy_time_t timeout_ms, bool in_isr);
@@ -606,7 +638,7 @@ cy_rslt_t cy_rtos_get_queue(cy_queue_t* queue, void* item_ptr, cy_time_t timeout
  * @param[in]  queue       Pointer to the queue handle
  * @param[out] num_waiting Pointer to the return count
  *
- * @return The status of the creation request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
+ * @return The status of the count request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
  */
 cy_rslt_t cy_rtos_count_queue(cy_queue_t* queue, size_t* num_waiting);
 
@@ -619,7 +651,7 @@ cy_rslt_t cy_rtos_count_queue(cy_queue_t* queue, size_t* num_waiting);
  * @param[in]  queue      Pointer to the queue handle
  * @param[out] num_spaces Pointer to the return count.
  *
- * @return The status of the creation request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
+ * @return The status of the space request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
  */
 cy_rslt_t cy_rtos_space_queue(cy_queue_t* queue, size_t* num_spaces);
 
@@ -629,7 +661,7 @@ cy_rslt_t cy_rtos_space_queue(cy_queue_t* queue, size_t* num_spaces);
  *
  * @param[in] queue pointer to the queue handle
  *
- * @return The status of the creation request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
+ * @return The status of the reset request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
  */
 cy_rslt_t cy_rtos_reset_queue(cy_queue_t* queue);
 
@@ -640,7 +672,7 @@ cy_rslt_t cy_rtos_reset_queue(cy_queue_t* queue);
  *
  * @param[in] queue Pointer to the queue handle
  *
- * @return The status of the creation request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
+ * @return The status of the deinit request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
  */
 cy_rslt_t cy_rtos_deinit_queue(cy_queue_t* queue);
 
@@ -664,25 +696,27 @@ cy_rslt_t cy_rtos_deinit_queue(cy_queue_t* queue);
  * @param[in]  fun   The function
  * @param[in]  arg   Argument to pass along to the callback function
  *
- * @return The status of the creation request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
+ * @return The status of the init request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
  */
 cy_rslt_t cy_rtos_init_timer(cy_timer_t* timer, cy_timer_trigger_type_t type,
                              cy_timer_callback_t fun, cy_timer_callback_arg_t arg);
 
-/** Start a timer.
+/** Sends a request to start the timer. Depending on the priorities of threads in the system,
+ * it may be necessary for high priority items to wait before the timer actually starts running.
  *
  * @param[in] timer  Pointer to the timer handle
  * @param[in] num_ms The number of milliseconds to wait before the timer fires
  *
- * @return The status of the creation request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
+ * @return The status of the start request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
  */
 cy_rslt_t cy_rtos_start_timer(cy_timer_t* timer, cy_time_t num_ms);
 
-/** Stop a timer.
+/** Sends a request to stop the timer. Depending on the priorities of threads in the system,
+ * it may be necessary for high priority items to wait before the timer is actually stopped.
  *
  * @param[in] timer Pointer to the timer handle
  *
- * @return The status of the creation request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
+ * @return The status of the stop request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
  */
 cy_rslt_t cy_rtos_stop_timer(cy_timer_t* timer);
 
@@ -691,7 +725,7 @@ cy_rslt_t cy_rtos_stop_timer(cy_timer_t* timer);
  * @param[in]  timer Pointer to the timer handle
  * @param[out] state Return value for state, true if running, false otherwise
  *
- * @return The status of the creation request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
+ * @return The status of the is_running request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
  */
 cy_rslt_t cy_rtos_is_running_timer(cy_timer_t* timer, bool* state);
 
@@ -701,7 +735,7 @@ cy_rslt_t cy_rtos_is_running_timer(cy_timer_t* timer, bool* state);
  *
  * @param[in] timer Pointer to the timer handle
  *
- * @return The status of the creation request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
+ * @return The status of the deinit request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
  */
 cy_rslt_t cy_rtos_deinit_timer(cy_timer_t* timer);
 
@@ -734,7 +768,7 @@ cy_rslt_t cy_rtos_get_time(cy_time_t* tval);
  *
  * @param[in] num_ms The number of milliseconds to delay for
  *
- * @return The status of the creation request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
+ * @return The status of the delay request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
  */
 cy_rslt_t cy_rtos_delay_milliseconds(cy_time_t num_ms);
 

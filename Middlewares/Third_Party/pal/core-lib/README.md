@@ -6,7 +6,7 @@ The Core Library provides basic types and utilities that can be used between dif
 
 ## Features
 
-* Common result type (`cy_rslt_t`) for reporting errors or status
+* Common result type (`cy_rslt_t` and `cy_rslt_decode_t`) for reporting errors or status
 * Common utility MACROs for
     * `CY_ASSERT`: Verifies a value and halts if invalid (if not NDEBUG)
     * `CY_HALT`: Halts the application
@@ -52,4 +52,4 @@ The Core Library provides basic types and utilities that can be used between dif
 * [ModusToolbox](https://www.cypress.com/products/modustoolbox-software-environment)
 
 ---
-© Cypress Semiconductor Corporation, 2019-2020.
+© Cypress Semiconductor Corporation, 2019-2021.

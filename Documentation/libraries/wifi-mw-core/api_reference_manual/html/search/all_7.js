@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['netmask',['netmask',['../structip__static__addr__t.html#a70b8e7d6db07889fbb92db8f562de2cb',1,'ip_static_addr_t']]]
+  ['optimization_20of_20wi_2dfi_20middleware_20core',['Optimization of Wi-Fi Middleware Core',['../group__group__optimization__config.html',1,'']]],
+  ['overview',['Overview',['../index.html',1,'']]]
 ];

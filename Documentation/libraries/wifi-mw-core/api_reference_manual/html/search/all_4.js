@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gateway',['gateway',['../structip__static__addr__t.html#ad135b4541779fed17ef74e30b24d0604',1,'ip_static_addr_t']]]
+  ['ip_5fstatic_5faddr_5ft',['ip_static_addr_t',['../structip__static__addr__t.html',1,'']]]
 ];

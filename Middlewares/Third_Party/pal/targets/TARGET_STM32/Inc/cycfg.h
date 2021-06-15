@@ -1,10 +1,11 @@
-/*******************************************************************************
+/***************************************************************************************************
  * File Name: cycfg.h
  *
  * Description:
  * Simple wrapper header containing all generated files.
- ********************************************************************************
+ ***************************************************************************************************
  * Copyright 2021 Cypress Semiconductor Corporation
+ ***************************************************************************************************
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +19,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- ********************************************************************************/
+ **************************************************************************************************/
 #if !defined(CYCFG_H)
 #define CYCFG_H
 

@@ -1,7 +1,9 @@
 var searchData=
 [
+  ['cy_5frtos_5fclearbits_5fevent',['cy_rtos_clearbits_event',['../group__group__abstraction__rtos__event.html#gacffd927b6384f7f5ede36193e9675fa9',1,'cyabs_rtos.h']]],
   ['cy_5frtos_5fcount_5fqueue',['cy_rtos_count_queue',['../group__group__abstraction__rtos__queue.html#gae5d590529ebef4941be60519655fadc0',1,'cyabs_rtos.h']]],
   ['cy_5frtos_5fcreate_5fthread',['cy_rtos_create_thread',['../group__group__abstraction__rtos__threads.html#ga002d529ea362c3e7670cc04de1bdb30e',1,'cyabs_rtos.h']]],
+  ['cy_5frtos_5fdeinit_5fevent',['cy_rtos_deinit_event',['../group__group__abstraction__rtos__event.html#gae158af600fd8b50214a805c98ebe6f96',1,'cyabs_rtos.h']]],
   ['cy_5frtos_5fdeinit_5fmutex',['cy_rtos_deinit_mutex',['../group__group__abstraction__rtos__mutex.html#ga8cd21b8a116a54ac397209054f35ee45',1,'cyabs_rtos.h']]],
   ['cy_5frtos_5fdeinit_5fqueue',['cy_rtos_deinit_queue',['../group__group__abstraction__rtos__queue.html#ga29be5999545930025bbd80d79723f998',1,'cyabs_rtos.h']]],
   ['cy_5frtos_5fdeinit_5fsemaphore',['cy_rtos_deinit_semaphore',['../group__group__abstraction__rtos__semaphore.html#ga71c073294cd60ae1c6e97a1f3407ae07',1,'cyabs_rtos.h']]],
@@ -15,6 +17,8 @@ var searchData=
   ['cy_5frtos_5fget_5fthread_5fhandle',['cy_rtos_get_thread_handle',['../group__group__abstraction__rtos__threads.html#gac0d712da15dd0ee02f9b53dbca584e29',1,'cyabs_rtos.h']]],
   ['cy_5frtos_5fget_5fthread_5fstate',['cy_rtos_get_thread_state',['../group__group__abstraction__rtos__threads.html#ga2a0ab5f6b16adadd4ea34365b4f73d58',1,'cyabs_rtos.h']]],
   ['cy_5frtos_5fget_5ftime',['cy_rtos_get_time',['../group__group__abstraction__rtos__time.html#gabd06aeecc3dfc78f92345c24d381733f',1,'cyabs_rtos.h']]],
+  ['cy_5frtos_5fgetbits_5fevent',['cy_rtos_getbits_event',['../group__group__abstraction__rtos__event.html#ga69906e90056d9f967745506debba754b',1,'cyabs_rtos.h']]],
+  ['cy_5frtos_5finit_5fevent',['cy_rtos_init_event',['../group__group__abstraction__rtos__event.html#ga1a571696b8457b1e7aa7ac70c1f45c8f',1,'cyabs_rtos.h']]],
   ['cy_5frtos_5finit_5fmutex2',['cy_rtos_init_mutex2',['../group__group__abstraction__rtos__mutex.html#ga0c9c20028f40d04bd4cafdddb2d2e4ca',1,'cyabs_rtos.h']]],
   ['cy_5frtos_5finit_5fqueue',['cy_rtos_init_queue',['../group__group__abstraction__rtos__queue.html#gae1980771da597700777263c76c962808',1,'cyabs_rtos.h']]],
   ['cy_5frtos_5finit_5fsemaphore',['cy_rtos_init_semaphore',['../group__group__abstraction__rtos__semaphore.html#ga93fbdafe5929ba0703df7d65e2765bfe',1,'cyabs_rtos.h']]],
@@ -27,10 +31,14 @@ var searchData=
   ['cy_5frtos_5freset_5fqueue',['cy_rtos_reset_queue',['../group__group__abstraction__rtos__queue.html#ga4a2568d71b2f2b215869c8015961b287',1,'cyabs_rtos.h']]],
   ['cy_5frtos_5fset_5fmutex',['cy_rtos_set_mutex',['../group__group__abstraction__rtos__mutex.html#ga7b6a9f5fc3910436675c00130399e06d',1,'cyabs_rtos.h']]],
   ['cy_5frtos_5fset_5fsemaphore',['cy_rtos_set_semaphore',['../group__group__abstraction__rtos__semaphore.html#gad53319297963096109f708d5f61bac91',1,'cyabs_rtos.h']]],
+  ['cy_5frtos_5fset_5fthread_5fnotification',['cy_rtos_set_thread_notification',['../group__group__abstraction__rtos__threads.html#ga5a1bb5c7acdf518f7f31266d0efd4ea5',1,'cyabs_rtos.h']]],
+  ['cy_5frtos_5fsetbits_5fevent',['cy_rtos_setbits_event',['../group__group__abstraction__rtos__event.html#ga758be34135c27b6d874da618618217d7',1,'cyabs_rtos.h']]],
   ['cy_5frtos_5fspace_5fqueue',['cy_rtos_space_queue',['../group__group__abstraction__rtos__queue.html#gac77316748cd35ac3566e4123c6d34d00',1,'cyabs_rtos.h']]],
   ['cy_5frtos_5fstart_5ftimer',['cy_rtos_start_timer',['../group__group__abstraction__rtos__timer.html#ga8ec7a094161e4af7b0765e4e89dd4f21',1,'cyabs_rtos.h']]],
   ['cy_5frtos_5fstop_5ftimer',['cy_rtos_stop_timer',['../group__group__abstraction__rtos__timer.html#ga45f1cfa24d69049bd66ee8c41e089d01',1,'cyabs_rtos.h']]],
   ['cy_5frtos_5fterminate_5fthread',['cy_rtos_terminate_thread',['../group__group__abstraction__rtos__threads.html#ga738c6b5b507480b4dcc735be14eeb804',1,'cyabs_rtos.h']]],
+  ['cy_5frtos_5fwait_5fthread_5fnotification',['cy_rtos_wait_thread_notification',['../group__group__abstraction__rtos__threads.html#gad488ec8dc0085478ace55553cd4539da',1,'cyabs_rtos.h']]],
+  ['cy_5frtos_5fwaitbits_5fevent',['cy_rtos_waitbits_event',['../group__group__abstraction__rtos__event.html#ga9858497cf63586808b4047dab4e0ef0a',1,'cyabs_rtos.h']]],
   ['cy_5fworker_5fthread_5fcreate',['cy_worker_thread_create',['../group__group__worker__thread__util.html#ga383f418c20f7ae9d2eb184722b7bbd04',1,'cy_worker_thread.h']]],
   ['cy_5fworker_5fthread_5fdelete',['cy_worker_thread_delete',['../group__group__worker__thread__util.html#gae4a9787d87626fefc16e328754182c37',1,'cy_worker_thread.h']]],
   ['cy_5fworker_5fthread_5fenqueue',['cy_worker_thread_enqueue',['../group__group__worker__thread__util.html#ga4a582d807e3b7d4fa0bf7ee770af9015',1,'cy_worker_thread.h']]]

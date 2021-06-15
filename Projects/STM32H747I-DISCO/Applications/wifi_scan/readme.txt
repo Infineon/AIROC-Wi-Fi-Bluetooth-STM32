@@ -2,8 +2,9 @@
 STM32H747I-DISCO : Wi-Fi Scan
 ------------------------------
 
-The example initializes the Wi-Fi device and starts a Wi-Fi scan without any filter and prints the results on the serial terminal.
-The example starts a scan every 3 seconds after the previous scan completes.
+The example initializes the Wi-Fi device and starts a Wi-Fi scan without any
+filter and prints the results on the serial terminal.  The example starts a
+scan every 3 seconds after the previous scan completes.
 
 ---------------------------------------
 Compatible Software
@@ -19,10 +20,11 @@ GCC Compiler V7.3
 IAR Compiler 8.50.4
 
 ---------------------
-Intructions
+Instructions
 ---------------------
 1. Open wifi_scan.ioc
-2. Go to Project Manager --> Project tab and select "STM32CubeIDE" or EWARM depending on the Compiler option needed
+2. Go to Project Manager --> Project tab and select "STM32CubeIDE" or EWARM
+   depending on the Compiler option needed
 3. Click "Generate Code" and open the generated project 
 4. Build the project in the IDE selected.
 5. Flash the binary and run the application.

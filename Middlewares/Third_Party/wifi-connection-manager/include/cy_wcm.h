@@ -1,10 +1,10 @@
 /*
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
- * Cypress Semiconductor Corporation. All Rights Reserved.
+ * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
- * materials ("Software"), is owned by Cypress Semiconductor Corporation
- * or one of its subsidiaries ("Cypress") and is protected by and subject to
+ * materials ("Software") is owned by Cypress Semiconductor Corporation
+ * or one of its affiliates ("Cypress") and is protected by and subject to
  * worldwide patent protection (United States and foreign),
  * United States copyright laws and international treaty provisions.
  * Therefore, you may use this Software only as provided in the license
@@ -13,7 +13,7 @@
  * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
  * non-transferable license to copy, modify, and compile the Software
  * source code solely for use in connection with Cypress's
- * integrated circuit products. Any reproduction, modification, translation,
+ * integrated circuit products.  Any reproduction, modification, translation,
  * compilation, or representation of this Software except as specified
  * above is prohibited without the express written permission of Cypress.
  *
@@ -412,7 +412,7 @@ typedef struct
 } cy_wcm_ip_address_t;
 
 /**
- * Structure used to receive the IP address information through the callback registered using \ref cy_wcm_register_event_callback.
+ * Structure used to receive the IP address of the STA or MAC address of the connected STA to SoftAP through the callback registered using \ref cy_wcm_register_event_callback.
  */
 typedef union
 {
@@ -884,11 +884,12 @@ cy_rslt_t cy_wcm_stop_ap(void);
 /**
  * Gets the MAC address of the clients associated with the SoftAP.
  *
- * @param[out] sta_list    : Pointer to MAC address (or) array of MAC addresses.
+ * @param[out] sta_list    : Pointer to MAC address (or) array of MAC addresses. The client's (STA) MAC address is stored on this array before the function returns.
  *
  * @param[in]  num_clients : Length of the array passed in sta_list.
  *
- * \note Maximum number of supported client list varies for different Wi-Fi chips.
+ * \note If the number of connected client are less than the num_clients, then elements of sta_list beyond number of connected clients will be set to zero.
+ *       Maximum number of supported client list varies for different Wi-Fi chips.
  *
  * @return CY_RSLT_SUCCESS If getting the client list is successful; returns [WCM-specific error codes](./cy_wcm_error.h) otherwise.
  */

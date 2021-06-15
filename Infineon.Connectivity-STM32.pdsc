@@ -2,22 +2,53 @@
 <package schemaVersion="1.2" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="PACK.xsd">
     <vendor>Infineon</vendor>
     <name>Connectivity-STM32</name>
-    <description>The STM32 Connectivity Expansion Pack is an extension of the CMSIS-Pack standard established by Arm to support Wi-Fi and Bluetooth LE application on STM32 MCUs with Infineon Wireless Combo devices. 
-	
-	This pack is MCU- and flow-independent, meaning you can choose the compiler toolchain and IDE, and then adapt the source code to any STM microcontroller offering sufficient resources (serial interfaces and memory) and performance to run the application. You can select and configure the pack in the STM32CubeMX tool, make choices appropriate for your design, such as which CYW43xxx device to use, and then generate a project from your selection.
-	</description>
+    <description>The STM32 Connectivity Expansion Pack is an extension of the CMSIS-Pack standard established by Arm. The pack is compliant with the full CMSIS-Pack standard, with additional requirements/restrictions on the final pack to meet the STM standard. You can select and configure the pack in the STM32CubeMX tool, make choices appropriate for your design, such as which CYW43xxx device to use, and then generate a project from your selection.</description>
     <license>Infineon-License.txt</license>
-    <url>https://github.com/cypresssemiconductorco/stm32-connectivity/releases/download/release-v1.0.1/</url>
+    <url>http://iot-webserver.aus.cypress.com/projects/iot_release/ASSETS/repo/mclass_connectivity/develop/Latest/deploy/</url>
     <releases>
-	<release date="2021-04-30" version="1.0.1">
+        <release date="2021-06-07" version="1.1.0">
+BLE Release with support for STM32H7xx MCUs with Infineon's CYW43xxx Wi-Fi-BT combo chip family listed below.
+
+What's New?
+ * Added BLE support
+ * PAL improvements and fixes
+ * New libraries:
+   - btstack v.3.0.0
+   - bluetooth-freertos v.3.0.0
+ * New examples:
+   - wifi onboarding with ble
+
+What's Included?
+ * Supported Connectivity Modules
+   - CYW43012
+   - CYW4343W / CYW43438
+   - CYW4373
+ * Expansion Pack Contents
+   - btstack v.3.0.0
+   - bluetooth-freertos v.3.0.0
+   - wifi-host-driver v.1.94.0
+   - wcm v.2.0.3
+   - wifi-mw-core v.3.1.0
+   - whd-bsp-integration v.1.2.0
+   - connectivity-utilities v.3.0.2
+   - core-lib v.1.2.0
+   - abstraction-rtos v.1.4.0
+   - LwIP v.2.1.2
+   - PAL v.1.1.0
+   - Device v.1.1.0
+
+ * Examples
+   - Wi-Fi Scan Example running on STM32H747I-DISCO Discovery kit
+   - Wi-Fi Onboarding with BLE
+        </release>
+    <release date="2021-04-30" version="1.0.1">
 Patch release with updated SDIO and GPIO PAL drivers
 
 What Changed?
  * PAL updates:
    - SDIO: fixed memory corruption bug;
    - SDIO, GPIO: fixed functional issues found by static analysis;
- 
- 
+
 What's Included?
  * Supported Connectivity Modules
    - CYW43012
@@ -36,8 +67,8 @@ What's Included?
    - Device v.1.0.1
  * Examples
    - Wi-Fi Scan Example running on STM32H747I-DISCO Discovery kit
-	</release>
-	<release date="2021-03-31" version="1.0.0">
+    </release>
+    <release date="2021-03-31" version="1.0.0">
 Initial Release with support for STM32H7xx MCUs with Infineon's CYW43xxx Wi-Fi-BT combo chip family listed below.
 
 What's Included?
@@ -58,8 +89,9 @@ What's Included?
    - Device v.1.0.0
  * Examples
    - Wi-Fi Scan Example running on STM32H747I-DISCO Discovery kit
-	</release>
+    </release>
     </releases>
+
     <keywords>
         <keyword>CUBE_RULES_COMPLIANT</keyword>
         <keyword>Infineon</keyword>
@@ -72,6 +104,12 @@ What's Included?
         <description Cclass="Wifi">Wifi</description>
     </taxonomy>
     <conditions>
+        <condition id="Cortex-M Device">
+            <accept Dcore="Cortex-M7"/>
+            <accept Dcore="Cortex-M4"/>
+            <accept Dcore="Cortex-M33"/>
+        </condition>
+
         <condition id="GCC">
             <require Tcompiler="GCC"/>
         </condition>
@@ -85,6 +123,41 @@ What's Included?
             <accept Tcompiler="ARMCC"/>
             <accept Tcompiler="IAR"/>
         </condition>
+
+        <condition id="CM33">
+            <require Dcore="Cortex-M33"/>
+        </condition>
+        <condition id="CM33 FPU">
+            <require Dcore="Cortex-M33" Dfpu="FPU"/>
+        </condition>
+        <condition id="CM33 NO_FPU">
+            <require Dcore="Cortex-M33" Dfpu="NO_FPU"/>
+        </condition>
+        <condition id="CM33 GCC">
+            <require condition="CM33"/>
+            <require condition="GCC"/>
+        </condition>
+        <condition id="CM33 FPU GCC">
+            <require condition="CM33 FPU"/>
+            <require condition="GCC"/>
+        </condition>
+        <condition id="CM33 IAR">
+            <require condition="CM33"/>
+            <require condition="IAR"/>
+        </condition>
+        <condition id="CM33 FPU IAR">
+            <require condition="CM33 FPU"/>
+            <require condition="IAR"/>
+        </condition>
+        <condition id="CM33 ARMCC">
+            <require condition="CM33"/>
+            <require condition="ARMCC"/>
+        </condition>
+        <condition id="CM33 FPU ARMCC">
+            <require condition="CM33 FPU"/>
+            <require condition="ARMCC"/>
+        </condition>
+
         <condition id="CM4">
             <require Dcore="Cortex-M4"/>
         </condition>
@@ -93,11 +166,6 @@ What's Included?
         </condition>
         <condition id="CM4 NO_FPU">
             <require Dcore="Cortex-M4" Dfpu="NO_FPU"/>
-        </condition>
-        <condition id="Cortex-M Device">
-            <accept Dcore="Cortex-M7"/>
-            <accept Dcore="Cortex-M4"/>
-            <accept Dcore="Cortex-M33"/>
         </condition>
         <condition id="CM4 GCC">
             <require condition="CM4"/>
@@ -123,18 +191,237 @@ What's Included?
             <require condition="CM4 FPU"/>
             <require condition="ARMCC"/>
         </condition>
-        <condition id="Device DEPENDENCY">
-            <accept Dcore="Cortex-M7"/>
-            <accept Dcore="Cortex-M4"/>
-            <accept Dcore="Cortex-M33"/>
+
+        <condition id="CM7">
+            <require Dcore="Cortex-M7"/>
+        </condition>
+        <condition id="CM7 FPU">
+            <require Dcore="Cortex-M7" Dfpu="FPU"/>
+        </condition>
+        <condition id="CM7 NO_FPU">
+            <require Dcore="Cortex-M7" Dfpu="NO_FPU"/>
+        </condition>
+        <condition id="CM7 GCC">
+            <require condition="CM7"/>
+            <require condition="GCC"/>
+        </condition>
+        <condition id="CM7 FPU GCC">
+            <require condition="CM7 FPU"/>
+            <require condition="GCC"/>
+        </condition>
+        <condition id="CM7 IAR">
+            <require condition="CM7"/>
+            <require condition="IAR"/>
+        </condition>
+        <condition id="CM7 FPU IAR">
+            <require condition="CM7 FPU"/>
+            <require condition="IAR"/>
+        </condition>
+        <condition id="CM7 ARMCC">
+            <require condition="CM7"/>
+            <require condition="ARMCC"/>
+        </condition>
+        <condition id="CM7 FPU ARMCC">
+            <require condition="CM7 FPU"/>
+            <require condition="ARMCC"/>
+        </condition>
+
+        <condition id="Platform dependencies">
+            <require condition="Cortex-M Device"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="pal"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="abstraction-rtos"/>
             <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device"/>
+        </condition>
+        <condition id="wcm dependencies">
+            <require condition="Platform dependencies"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="wifi-mw-core"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="wifi-host-driver"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="whd-bsp-integration"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="connectivity-utilities"/>
+        </condition>
+        <condition id="wifi-mw-core dependencies">
+            <require condition="Platform dependencies"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="wcm"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="wifi-host-driver"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="whd-bsp-integration"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="connectivity-utilities"/>
+        </condition>
+        <condition id="wifi-host-driver dependencies">
+            <require condition="Platform dependencies"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="wcm"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="wifi-mw-core"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="whd-bsp-integration"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="connectivity-utilities"/>
+        </condition>
+        <condition id="whd-bsp-integration dependencies">
+            <require condition="Platform dependencies"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="wcm"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="wifi-mw-core"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="wifi-host-driver"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="connectivity-utilities"/>
+        </condition>
+        <condition id="connectivity-utilities dependencies">
+            <require condition="Platform dependencies"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="wcm"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="wifi-mw-core"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="wifi-host-driver"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Wifi" Csub="whd-bsp-integration"/>
+        </condition>
+        <condition id="btstack dependencies">
+            <require condition="Platform dependencies"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Bluetooth" Csub="bluetooth-freertos"/>
+        </condition>
+        <condition id="bluetooth-freertos dependencies">
+            <require condition="Platform dependencies"/>
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Bluetooth" Csub="btstack"/>
         </condition>
     </conditions>
     <components>
-        <bundle Cbundle="Connectivity" Cclass="Wireless" Cversion="1.0.1">
+        <bundle Cbundle="Connectivity" Cclass="Wireless" Cversion="1.1.0">
             <description>Wifi-Bluetooth (BT/BLE) libraries.</description>
             <doc>Documentation/STM32ConnectivityExpansionPack_UserGuide.pdf</doc>
-            <component Cgroup="Wifi" Csub="wcm" condition="Cortex-M Device" maxInstances="1" Cvariant="LWIP">
+            <component Cgroup="Bluetooth" Csub="btstack" condition="btstack dependencies" maxInstances="1" Cvariant="BLE_HARDFP">
+                <description>BTSTACK is Cypress's Bluetooth Host Protocol Stack implementation. The stack is optimized to work with Cypress Bluetooth controllers. The BTSTACK supports BLE core protocols.</description>
+                <files>
+                    <!-- BLE libraries for CM33 (HardFp) -->
+                    <file category="library" condition="CM33 ARMCC" name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM33/COMPONENT_HARDFP/TOOLCHAIN_ARM/libbtstack.ar"/>
+                    <file category="library" condition="CM33 GCC" name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM33/COMPONENT_HARDFP/TOOLCHAIN_GCC_ARM/libbtstack.a"/>
+                    <file category="library" condition="CM33 IAR" name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM33/COMPONENT_HARDFP/TOOLCHAIN_IAR/libbtstack.a"/>
+                    
+                    <!-- BLE libraries for CM4 (HardFp) -->
+                    <file category="library" condition="CM4 ARMCC" name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM4/COMPONENT_HARDFP/TOOLCHAIN_ARM/libbtstack.ar"/>
+                    <file category="library" condition="CM4 GCC" name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM4/COMPONENT_HARDFP/TOOLCHAIN_GCC_ARM/libbtstack.a"/>
+                    <file category="library" condition="CM4 IAR" name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM4/COMPONENT_HARDFP/TOOLCHAIN_IAR/libbtstack.a"/>
+
+                    <!-- BLE libraries for CM7 (HardFp) -->
+                    <file category="library" condition="CM7 ARMCC" name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM7/COMPONENT_HARDFP/TOOLCHAIN_ARM/libbtstack.ar"/>
+                    <file category="library" condition="CM7 GCC" name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM7/COMPONENT_HARDFP/TOOLCHAIN_GCC_ARM/libbtstack.a"/>
+                    <file category="library" condition="CM7 IAR" name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM7/COMPONENT_HARDFP/TOOLCHAIN_IAR/libbtstack.a"/>
+
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/gattdefs.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/hcidefs.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/hci_control_api.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/l2cdefs.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_a2d.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_a2d_m12.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_a2d_m24.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_a2d_sbc.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_avdt.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_avrc.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_avrc_defs.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_ble.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_ble_isoc.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_cfg.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_constants.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_dev.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_gatt.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_hidd.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_hidd_ble.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_l2c.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_rfcomm.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_sco.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_sdp.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_sdp_defs.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_stack.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_stack_platform.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_trace.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_types.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_uuid.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_data_types.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_memory.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_result.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_timer.h"/>
+                    <file category="include" name="Middlewares/Third_Party/btstack/wiced_include/"/>
+                    <file category="doc" name="Documentation/libraries/btstack/api_reference_manual.html"/>
+                </files>
+            </component>
+            <component Cgroup="Bluetooth" Csub="btstack" condition="btstack dependencies" maxInstances="1" Cvariant="BLE_SOFTFP">
+                <description>BTSTACK is Cypress's Bluetooth Host Protocol Stack implementation. The stack is optimized to work with Cypress Bluetooth controllers. The BTSTACK supports BLE core protocols.</description>
+                <files>
+                    <!-- BLE libraries for CM33 (SoftFp) -->
+                    <file category="library" condition="CM33 ARMCC" name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM33/COMPONENT_SOFTFP/TOOLCHAIN_ARM/libbtstack.ar"/>
+                    <file category="library" condition="CM33 GCC" name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM33/COMPONENT_SOFTFP/TOOLCHAIN_GCC_ARM/libbtstack.a"/>
+                    <file category="library" condition="CM33 IAR" name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM33/COMPONENT_SOFTFP/TOOLCHAIN_IAR/libbtstack.a"/>
+                    
+                    <!-- BLE libraries for CM4 (SoftFp) -->
+                    <file category="library" condition="CM4 ARMCC" name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM4/COMPONENT_SOFTFP/TOOLCHAIN_ARM/libbtstack.ar"/>
+                    <file category="library" condition="CM4 GCC" name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM4/COMPONENT_SOFTFP/TOOLCHAIN_GCC_ARM/libbtstack.a"/>
+                    <file category="library" condition="CM4 IAR" name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM4/COMPONENT_SOFTFP/TOOLCHAIN_IAR/libbtstack.a"/>
+
+                    <!-- BLE libraries for CM7 (SoftFp) -->
+                    <file category="library" condition="CM7 ARMCC" name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM7/COMPONENT_SOFTFP/TOOLCHAIN_ARM/libbtstack.ar"/>
+                    <file category="library" condition="CM7 GCC" name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM7/COMPONENT_SOFTFP/TOOLCHAIN_GCC_ARM/libbtstack.a"/>
+                    <file category="library" condition="CM7 IAR" name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM7/COMPONENT_SOFTFP/TOOLCHAIN_IAR/libbtstack.a"/>
+
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/gattdefs.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/hcidefs.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/hci_control_api.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/l2cdefs.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_a2d.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_a2d_m12.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_a2d_m24.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_a2d_sbc.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_avdt.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_avrc.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_avrc_defs.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_ble.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_ble_isoc.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_cfg.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_constants.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_dev.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_gatt.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_hidd.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_hidd_ble.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_l2c.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_rfcomm.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_sco.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_sdp.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_sdp_defs.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_stack.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_stack_platform.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_trace.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_types.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_bt_uuid.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_data_types.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_memory.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_result.h"/>
+                    <file category="header" name="Middlewares/Third_Party/btstack/wiced_include/wiced_timer.h"/>
+                    <file category="include" name="Middlewares/Third_Party/btstack/wiced_include/"/>
+                    <file category="doc" name="Documentation/libraries/btstack/api_reference_manual.html"/>
+                </files>
+            </component>
+            <component Cgroup="Bluetooth" Csub="bluetooth-freertos" condition="bluetooth-freertos dependencies" maxInstances="1">
+                <description>Cypress WICED BT/BLE host stack solution includes bluetooth stack library, bluetooth controller firmware and platform/os porting layer.</description>
+                <files>
+                    <file category="source" name="Middlewares/Third_Party/bluetooth-freertos/platform/freertos/cybt_platform_freertos.c"/>
+                    <file category="header" name="Middlewares/Third_Party/bluetooth-freertos/platform/include/cybt_platform_config.h"/>
+                    <file category="header" name="Middlewares/Third_Party/bluetooth-freertos/platform/include/cybt_platform_trace.h"/>
+                    <file category="source" name="Middlewares/Third_Party/bluetooth-freertos/platform/common/cybt_hci_rx_task.c"/>
+                    <file category="source" name="Middlewares/Third_Party/bluetooth-freertos/platform/common/cybt_hci_tx_task.c"/>
+                    <file category="source" name="Middlewares/Third_Party/bluetooth-freertos/platform/common/cybt_host_stack_platform_interface.c"/>
+                    <file category="source" name="Middlewares/Third_Party/bluetooth-freertos/platform/common/cybt_patchram_download.c"/>
+                    <file category="source" name="Middlewares/Third_Party/bluetooth-freertos/platform/common/cybt_platform_main.c"/>
+                    <file category="source" name="Middlewares/Third_Party/bluetooth-freertos/platform/common/cybt_platform_task.c"/>
+                    <file category="source" name="Middlewares/Third_Party/bluetooth-freertos/platform/common/cybt_platform_trace.c"/>
+                    <file category="source" name="Middlewares/Third_Party/bluetooth-freertos/platform/common/cybt_prm.c"/>
+                    <file category="header" name="Middlewares/Third_Party/bluetooth-freertos/platform/common/cybt_prm.h"/>
+                    <file category="header" name="Middlewares/Third_Party/bluetooth-freertos/platform/common/cybt_result.h"/>
+                    <file category="header" name="Middlewares/Third_Party/bluetooth-freertos/platform/common/cybt_platform_hci.h"/>
+                    <file category="header" name="Middlewares/Third_Party/bluetooth-freertos/platform/common/cybt_platform_interface.h"/>
+                    <file category="header" name="Middlewares/Third_Party/bluetooth-freertos/platform/common/cybt_platform_task.h"/>
+                    <file category="header" name="Middlewares/Third_Party/bluetooth-freertos/platform/common/cybt_platform_util.h"/>
+                    <file category="doc" name="Documentation/libraries/bluetooth-freertos/api_reference_manual.html"/>
+                <!--
+                    <file category="source" name="Middlewares/Third_Party/bluetooth-freertos/firmware/COMPONENT_43438/w_bt_firmware_controller.c"/>
+                    <file category="source" name="Middlewares/Third_Party/bluetooth-freertos/firmware/COMPONENT_4343W/w_bt_firmware_controller.c"/>
+                    <file category="source" name="Middlewares/Third_Party/bluetooth-freertos/firmware/COMPONENT_4373/w_bt_firmware_controller.c"/>
+                    <file category="source" name="Middlewares/Third_Party/bluetooth-freertos/firmware/COMPONENT_43012/TARGET_CY8CKIT_062S2_43012/w_bt_firmware_controller.c"/>
+                    <file category="source" name="Middlewares/Third_Party/bluetooth-freertos/firmware/COMPONENT_43012/TARGET_CYSBSYSKIT-DEV-01/w_bt_firmware_controller.c"/>
+                    <file category="source" name="Middlewares/Third_Party/bluetooth-freertos/firmware/COMPONENT_43012/TARGET_CYW9P62S1-43012EVB-01/w_bt_firmware_controller.c"/>
+                -->
+                </files>
+            </component>
+            <component Cgroup="Wifi" Csub="wcm" condition="wcm dependencies" maxInstances="1" Cvariant="LWIP">
                 <description>WCM is a library which helps application developers to manage Wi-Fi Connectivity. The library provides a set of APIs that can be used to establish and monitor Wi-Fi connections on Cypress platforms that support Wi-Fi connectivity.</description>
                 <files>
                     <file category="include" name="Middlewares/Third_Party/wifi-connection-manager/include/"/>
@@ -142,7 +429,7 @@ What's Included?
                     <file category="doc" name="Documentation/libraries/wifi-connection-manager/api_reference_manual.html"/>
                 </files>
             </component>
-            <component Cgroup="Wifi" Csub="wcm" condition="Cortex-M Device" maxInstances="1" Cvariant="LWIP/WPS/MBEDTLS">
+            <component Cgroup="Wifi" Csub="wcm" condition="wcm dependencies" maxInstances="1" Cvariant="LWIP/WPS/MBEDTLS">
                 <description>WCM is a library which helps application developers to manage Wi-Fi Connectivity. The library also provides APIs to connect to a Wi-Fi network using Wi-Fi Protected Setup (WPS) methods. WPS uses Mbed TLS security stack</description>
                 <files>
                     <file category="include" name="Middlewares/Third_Party/wifi-connection-manager/include/"/>
@@ -173,16 +460,17 @@ What's Included?
                     <file category="doc" name="Documentation/libraries/wifi-connection-manager/api_reference_manual.html"/>
                 </files>
             </component>
-            <component Cgroup="Wifi" Csub="wifi-mw-core" condition="Cortex-M Device" maxInstances="1">
+            <component Cgroup="Wifi" Csub="wifi-mw-core" condition="wifi-mw-core dependencies" maxInstances="1">
                 <description>This repo comprises core components needed for Wi-Fi connectivity support. The library bundles FreeRTOS, lwIP TCP/IP stack, and mbed TLS for security, Wi-Fi Host Driver (WHD), Secure Sockets interface, configuration files, and associated code to bind these components together.</description>
                 <files>
                     <file category="include" name="Middlewares/Third_Party/wifi-mw-core/lwip-whd-port/"/>
-                    <file category="include" name="Middlewares/Third_Party/wifi-mw-core/lwip-whd-port/arch/"/>
-                    <file category="source" name="Middlewares/Third_Party/wifi-mw-core/lwip-whd-port/arch/sys_arch.c"/>
+                    <file category="include" name="Middlewares/Third_Party/wifi-mw-core/lwip-whd-port/COMPONENT_FREERTOS/"/>
+                    <file category="include" name="Middlewares/Third_Party/wifi-mw-core/lwip-whd-port/COMPONENT_FREERTOS/arch/"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-mw-core/lwip-whd-port/COMPONENT_FREERTOS/arch/sys_arch.c"/>
                     <file category="source" name="Middlewares/Third_Party/wifi-mw-core/lwip-whd-port/cy_lwip_dhcp_server.c"/>
                     <file category="source" name="Middlewares/Third_Party/wifi-mw-core/lwip-whd-port/cy_lwip.c"/>
-                    <file category="header" name="Middlewares/Third_Party/wifi-mw-core/lwip-whd-port/arch/sys_arch.h"/>
-                    <file category="header" name="Middlewares/Third_Party/wifi-mw-core/lwip-whd-port/arch/cc.h"/>
+                    <file category="header" name="Middlewares/Third_Party/wifi-mw-core/lwip-whd-port/COMPONENT_FREERTOS/arch/sys_arch.h"/>
+                    <file category="header" name="Middlewares/Third_Party/wifi-mw-core/lwip-whd-port/COMPONENT_FREERTOS/arch/cc.h"/>
                     <file category="header" name="Middlewares/Third_Party/wifi-mw-core/lwip-whd-port/cy_lwip.h"/>
                     <file category="header" name="Middlewares/Third_Party/wifi-mw-core/lwip-whd-port/cy_lwip_dhcp_server.h"/>
                     <file category="header" name="Middlewares/Third_Party/wifi-mw-core/lwip-whd-port/cy_lwip_error.h"/>
@@ -190,7 +478,7 @@ What's Included?
                     <file category="doc" name="Documentation/libraries/wifi-mw-core/api_reference_manual.html"/>
                 </files>
             </component>
-            <component Cgroup="Wifi" Csub="wifi-host-driver" condition="Device DEPENDENCY" maxInstances="1">
+            <component Cgroup="Wifi" Csub="wifi-host-driver" condition="wifi-host-driver dependencies" maxInstances="1">
                 <description>The WHD is an independent, embedded Wi-Fi Host Driver that provides a set of APIs to interact with Cypress WLAN chips.</description>
                 <files>
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/inc/"/>
@@ -249,10 +537,11 @@ What's Included?
                     <file category="source" name="Middlewares/Third_Party/wifi-host-driver/src/whd_wifi_api.c"/>
                     <file category="source" name="Middlewares/Third_Party/wifi-host-driver/src/whd_wifi_p2p.c"/>
                     <file category="source" name="Middlewares/Third_Party/wifi-host-driver/resources/resource_imp/whd_resources.c"/>
+                    <file category="other" name="Middlewares/Third_Party/wifi-host-driver/generated_mac_address.txt"/>
                     <file category="doc" name="Documentation/libraries/wifi-host-driver/html/index.html"/>
                 </files>
             </component>
-            <component Cgroup="Wifi" Csub="whd-bsp-integration" condition="Cortex-M Device" maxInstances="1">
+            <component Cgroup="Wifi" Csub="whd-bsp-integration" condition="whd-bsp-integration dependencies" maxInstances="1">
                 <description>This library provides some convenience functions for connecting the WiFi Host Driver (WHD) library to a Board Support Package (BSP) that includes a WLAN chip.</description>
                 <files>
                     <file category="include" name="Middlewares/Third_Party/whd-bsp-integration/"/>
@@ -263,7 +552,7 @@ What's Included?
                     <file category="doc" name="Documentation/libraries/whd-bsp-integration/api_reference_manual.html"/>
                 </files>
             </component>
-            <component Cgroup="Wifi" Csub="connectivity-utilities" condition="Cortex-M Device" maxInstances="1">
+            <component Cgroup="Wifi" Csub="connectivity-utilities" condition="connectivity-utilities dependencies" maxInstances="1">
                 <description>The connectivity utilities library is a collection of general purpose middleware utilities. Several connectivity middleware libraries shall depend on this utilities library.</description>
                 <files>
                     <file category="include" name="Middlewares/Third_Party/connectivity-utilities/"/>
@@ -598,6 +887,7 @@ What's Included?
                     <file category="include" name="Middlewares/Third_Party/pal/hal/include/"/>
                     <file category="include" name="Middlewares/Third_Party/pal/common/Inc/"/>
                     <file category="include" name="Middlewares/Third_Party/pal/targets/TARGET_STM32/Inc/"/>
+                    <!-- HAL -->
                     <file category="header" name="Middlewares/Third_Party/pal/hal/include/cyhal.h"/>
                     <file category="header" name="Middlewares/Third_Party/pal/hal/include/cyhal_adc.h"/>
                     <file category="header" name="Middlewares/Third_Party/pal/hal/include/cyhal_clock.h"/>
@@ -629,6 +919,7 @@ What's Included?
                     <file category="header" name="Middlewares/Third_Party/pal/hal/include/cyhal_uart.h"/>
                     <file category="header" name="Middlewares/Third_Party/pal/hal/include/cyhal_usb_dev.h"/>
                     <file category="header" name="Middlewares/Third_Party/pal/hal/include/cyhal_wdt.h"/>
+                    <!-- PAL -->
                     <file category="header" name="Middlewares/Third_Party/pal/common/Inc/wifi_bt_if.h"/>
                     <file category="source" name="Middlewares/Third_Party/pal/common/Src/cyhal_system.c"/>
                     <file category="source" name="Middlewares/Third_Party/pal/common/Src/wifi_bt_if.c"/>
@@ -646,6 +937,11 @@ What's Included?
                     <file category="source" name="Middlewares/Third_Party/pal/targets/TARGET_STM32/Src/stm32_cyhal_spi.c"/>
                     <file category="source" name="Middlewares/Third_Party/pal/targets/TARGET_STM32/Src/stm32_cyhal_trng.c"/>
                     <file category="source" name="Middlewares/Third_Party/pal/targets/TARGET_STM32/Src/stm32_cyhal_uart.c"/>
+
+                    <file category="header" name="Middlewares/Third_Party/pal/targets/TARGET_STM32/Inc/cycfg.h"/>
+                    <file category="header" name="Middlewares/Third_Party/pal/targets/TARGET_STM32/Inc/cycfg_system.h"/>
+
+                    <!-- core-lib -->
                     <file category="header" name="Middlewares/Third_Party/pal/core-lib/include/cy_result.h"/>
                     <file category="header" name="Middlewares/Third_Party/pal/core-lib/include/cy_utils.h"/>
                     <file category="doc" name="Documentation/libraries/core-lib/api_reference_manual.html"/>
@@ -683,10 +979,14 @@ What's Included?
                     <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0-mfgtest_clm_blob.c"/>
                     <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43012/resources.h"/>
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/inc/"/>
-                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/inc/whd_resource_api.h"/>
+					<file category="header"  name="Middlewares/Third_Party/wifi-host-driver/inc/whd_resource_api.h"/>
                     <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/resource_imp/wiced_resource.h"/>
                     <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/nvram/TARGET_CY8CKIT_062S2_43012/wifi_nvram_image.h"/>
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/nvram/TARGET_CY8CKIT_062S2_43012/"/>
+
+                    <!-- bluetooth fw -->
+                    <file category="source"  name="Middlewares/Third_Party/bluetooth-freertos/firmware/COMPONENT_43012/TARGET_CY8CKIT_062S2_43012/w_bt_firmware_controller.c"/>
+
                 </files>
             </component>
             <component Cgroup="Platform" Csub="device" Cvariant="CYW43438" condition="Cortex-M Device" maxInstances="1">
@@ -710,6 +1010,9 @@ What's Included?
                     <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/resource_imp/wiced_resource.h"/>
                     <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/nvram/TARGET_CY8CKIT_062_WIFI_BT/wifi_nvram_image.h"/>
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/nvram/TARGET_CY8CKIT_062_WIFI_BT/"/>
+
+                    <!-- bluetooth fw -->
+                    <file category="source" name="Middlewares/Third_Party/bluetooth-freertos/firmware/COMPONENT_43438/w_bt_firmware_controller.c"/>
                 </files>
             </component>
             <component Cgroup="Platform" Csub="device" Cvariant="CYW4343W" condition="Cortex-M Device" maxInstances="1">
@@ -733,14 +1036,17 @@ What's Included?
                     <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/resource_imp/wiced_resource.h"/>
                     <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/nvram/TARGET_CY8CKIT_062S2_4343W/wifi_nvram_image.h"/>
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/nvram/TARGET_CY8CKIT_062S2_4343W/"/>
+
+                    <!-- bluetooth fw -->
+                    <file category="source"  name="Middlewares/Third_Party/bluetooth-freertos/firmware/COMPONENT_4343W/w_bt_firmware_controller.c"/>
                 </files>
             </component>
             <component Cgroup="Platform" Csub="device" Cvariant="CYW4373" condition="Cortex-M Device" maxInstances="1">
                 <description>Device CYW4373 </description>
                 <files>
                     <!-- wifi fw -->
-                    <file category="include" name="Middlewares/Third_Party/pal/COMPONENT_4373/"/>
-                    <file category="header"  name="Middlewares/Third_Party/pal/COMPONENT_4373/cy_chip_constants.h"/>
+                    <file category="include" name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_4373/"/>
+                    <file category="header"  name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_4373/cy_chip_constants.h"/>
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4373/"/>
                     <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4373/4373A0.bin"/>
                     <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4373/4373A0.clm_blob"/>
@@ -756,9 +1062,30 @@ What's Included?
                     <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/resource_imp/wiced_resource.h"/>
                     <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/nvram/TARGET_CYW9P62S2_M2BASE_4373/wifi_nvram_image.h"/>
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/nvram/TARGET_CYW9P62S2_M2BASE_4373/"/>
+
+                    <!-- bluetooth fw -->
+                    <file category="source"  name="Middlewares/Third_Party/bluetooth-freertos/firmware/COMPONENT_4373/w_bt_firmware_controller.c"/>
                 </files>
             </component>
         </bundle>
     </components>
 
+<!--
+    <examples>
+        <example doc="readme.txt" folder="Projects/STM32H747I-DISCO/Applications/wifi_scan" name="wifi-scan" public="true" version="1.0.1">
+            <description>wifi scan</description>
+            <board Dvendor="STMicroelectronics:13" name="STM32H747I-DISCO" vendor="STMicroelectronics"/>
+            <project>
+                <environment folder="EWARM" load="wifi_scan.ewp" name="iar"/>
+                <environment folder="wifi-scan" load="wifi_scan.ioc" name="stm32cubemx"/>
+            </project>
+            <attributes>
+                <component Cbundle="Connectivity" Cclass="wifi" Cgroup="wcm" Cvendor="Infineon" Cversion="1.0.0"/>
+                <category>Example</category>
+                <category>Applications</category>
+                <keyword>wifi</keyword>
+            </attributes>
+        </example>
+    </examples>
+-->
 </package>

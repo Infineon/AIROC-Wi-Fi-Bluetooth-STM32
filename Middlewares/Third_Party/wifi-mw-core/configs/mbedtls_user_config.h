@@ -710,4 +710,79 @@
  */
 #undef MBEDTLS_KEY_EXCHANGE_RSA_PSK_ENABLED
 
+/**
+ * \def MBEDTLS_PSA_CRYPTO_C
+ *
+ * Enable the Platform Security Architecture cryptography API.
+ *
+ * \warning The PSA Crypto API is still beta status. While you're welcome to
+ * experiment using it, incompatible API changes are still possible, and some
+ * parts may not have reached the same quality as the rest of Mbed TLS yet.
+ *
+ * Module:  library/psa_crypto.c
+ *
+ * Requires: MBEDTLS_CTR_DRBG_C, MBEDTLS_ENTROPY_C
+ *
+ */
+#undef MBEDTLS_PSA_CRYPTO_C
+
+/**
+ * \def MBEDTLS_PSA_CRYPTO_STORAGE_C
+ *
+ * Enable the Platform Security Architecture persistent key storage.
+ *
+ * Module:  library/psa_crypto_storage.c
+ *
+ * Requires: MBEDTLS_PSA_CRYPTO_C,
+ *           either MBEDTLS_PSA_ITS_FILE_C or a native implementation of
+ *           the PSA ITS interface
+ */
+#undef MBEDTLS_PSA_CRYPTO_STORAGE_C
+
+/**
+ * \def MBEDTLS_PSA_ITS_FILE_C
+ *
+ * Enable the emulation of the Platform Security Architecture
+ * Internal Trusted Storage (PSA ITS) over files.
+ *
+ * Module:  library/psa_its_file.c
+ *
+ * Requires: MBEDTLS_FS_IO
+ */
+#undef MBEDTLS_PSA_ITS_FILE_C
+
+/**
+ * \def MBEDTLS_SSL_KEEP_PEER_CERTIFICATE
+ *
+ * This option controls the availability of the API mbedtls_ssl_get_peer_cert()
+ * giving access to the peer's certificate after completion of the handshake.
+ *
+ * Unless you need mbedtls_ssl_peer_cert() in your application, it is
+ * recommended to disable this option for reduced RAM usage.
+ *
+ * \note If this option is disabled, mbedtls_ssl_get_peer_cert() is still
+ *       defined, but always returns \c NULL.
+ *
+ * \note This option has no influence on the protection against the
+ *       triple handshake attack. Even if it is disabled, Mbed TLS will
+ *       still ensure that certificates do not change during renegotiation,
+ *       for exaple by keeping a hash of the peer's certificate.
+ *
+ * Comment this macro to disable storing the peer's certificate
+ * after the handshake.
+ */
+#undef MBEDTLS_SSL_KEEP_PEER_CERTIFICATE
+
+/**
+ * \def MBEDTLS_DEPRECATED_REMOVED
+ *
+ * Remove deprecated functions and features so that they generate an error if
+ * used. Functionality deprecated in one version will usually be removed in the
+ * next version. You can enable this to help you prepare the transition to a
+ * new major version by making sure your code is not using this functionality.
+ *
+ * Uncomment to get errors on using deprecated functions and features.
+ */
+#define MBEDTLS_DEPRECATED_REMOVED
+
 #endif /* MBEDTLS_USER_CONFIG_HEADER */

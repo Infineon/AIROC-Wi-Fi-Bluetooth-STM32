@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['lwip_20and_20whd_20port',['lwIP and WHD port',['../group__group__lwip__whd__port.html',1,'']]]
+  ['optimization_20of_20wi_2dfi_20middleware_20core',['Optimization of Wi-Fi Middleware Core',['../group__group__optimization__config.html',1,'']]]
 ];

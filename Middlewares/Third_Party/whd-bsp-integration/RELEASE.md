@@ -7,6 +7,10 @@ This library helps streamline the process of getting the WiFi Host Driver (WHD) 
 * Framework for connecting WHD to LwIP network interface (whd_netif_funcs_t)
 
 ### What Changed?
+#### v1.2.0
+* Fixed possible memory corruption issue introduced with changes from v1.1.0
+#### v1.1.2
+* Robustness update for WLAN initialization
 #### v1.1.1
 * Update network buffer allocation for improved performance
 #### v1.1.0
@@ -24,8 +28,8 @@ This version of the RTOS Abstraction API was validated for compatibility with th
 
 | Software and Tools                        | Version |
 | :---                                      | :----:  |
-| ModusToolbox Software Environment         | 2.1     |
-| GCC Compiler                              | 9.2     |
+| ModusToolbox Software Environment         | 2.2.1   |
+| GCC Compiler                              | 9.3.1   |
 | IAR Compiler                              | 8.4     |
 | ARM Compiler                              | 6.11    |
 
@@ -39,4 +43,4 @@ Use the following links for more information, as needed:
 * [ModusToolbox](https://www.cypress.com/products/modustoolbox-software-environment)
 
 ---
-© Cypress Semiconductor Corporation, 2019-2020.
+© Cypress Semiconductor Corporation, 2019-2021.

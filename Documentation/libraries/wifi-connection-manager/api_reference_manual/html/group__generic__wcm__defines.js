@@ -36,6 +36,7 @@ var group__generic__wcm__defines =
     [ "CY_RSLT_WCM_AP_NOT_UP", "group__generic__wcm__defines.html#gaf320281f7c8bc5389e44731e76216b7d", null ],
     [ "CY_RSLT_WCM_INTERFACE_NOT_UP", "group__generic__wcm__defines.html#ga3fbe3d03f2b124ee6b1f893170318b65", null ],
     [ "CY_RSLT_WCM_NOT_INITIALIZED", "group__generic__wcm__defines.html#ga17574dc98d92fa8947200e5550cbfeb4", null ],
+    [ "CY_RSLT_WCM_SEMAPHORE_ERROR", "group__generic__wcm__defines.html#gaced51f450b0f6fd546796bf4528731ee", null ],
     [ "CY_RSLT_WCM_WPS_PBC_OVERLAP", "group__generic__wcm__defines.html#gab647206b775cba6ee4b7b7b19c583f7b", null ],
     [ "CY_RSLT_WCM_WPS_ERROR_RECEIVED_WEP_CREDENTIALS", "group__generic__wcm__defines.html#gac6347a8774ce04d4e63619b0f7bf64f1", null ],
     [ "CY_RSLT_WCM_WPS_FAILED", "group__generic__wcm__defines.html#ga46d6e7393784bb35e110d5fe42c004e9", null ],

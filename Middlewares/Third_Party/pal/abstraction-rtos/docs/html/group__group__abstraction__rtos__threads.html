@@ -141,6 +141,12 @@ Enumerations</h2></td></tr>
 <tr class="memitem:gac0d712da15dd0ee02f9b53dbca584e29"><td class="memItemLeft" align="right" valign="top">cy_rslt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__abstraction__rtos__threads.html#gac0d712da15dd0ee02f9b53dbca584e29">cy_rtos_get_thread_handle</a> (<a class="el" href="group__group__abstraction__rtos__port.html#ga27c9e935c4c4f200d86a8484d3db08d3">cy_thread_t</a> *thread)</td></tr>
 <tr class="memdesc:gac0d712da15dd0ee02f9b53dbca584e29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get current thread handle.  <a href="#gac0d712da15dd0ee02f9b53dbca584e29">More...</a><br /></td></tr>
 <tr class="separator:gac0d712da15dd0ee02f9b53dbca584e29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad488ec8dc0085478ace55553cd4539da"><td class="memItemLeft" align="right" valign="top">cy_rslt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__abstraction__rtos__threads.html#gad488ec8dc0085478ace55553cd4539da">cy_rtos_wait_thread_notification</a> (<a class="el" href="group__group__abstraction__rtos__port.html#ga141349b315f2266d5e0e8b8566eb608b">cy_time_t</a> timeout_ms)</td></tr>
+<tr class="memdesc:gad488ec8dc0085478ace55553cd4539da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Suspend current thread until notification is received.  <a href="#gad488ec8dc0085478ace55553cd4539da">More...</a><br /></td></tr>
+<tr class="separator:gad488ec8dc0085478ace55553cd4539da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5a1bb5c7acdf518f7f31266d0efd4ea5"><td class="memItemLeft" align="right" valign="top">cy_rslt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__abstraction__rtos__threads.html#ga5a1bb5c7acdf518f7f31266d0efd4ea5">cy_rtos_set_thread_notification</a> (<a class="el" href="group__group__abstraction__rtos__port.html#ga27c9e935c4c4f200d86a8484d3db08d3">cy_thread_t</a> *thread, bool in_isr)</td></tr>
+<tr class="memdesc:ga5a1bb5c7acdf518f7f31266d0efd4ea5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the thread notification for a thread.  <a href="#ga5a1bb5c7acdf518f7f31266d0efd4ea5">More...</a><br /></td></tr>
+<tr class="separator:ga5a1bb5c7acdf518f7f31266d0efd4ea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="ga4bae7aeb374fea7497371c5df7edc8d6"></a>
@@ -451,6 +457,73 @@ Enumerations</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The status of thread join request. [<a class="el" href="group__group__abstraction__rtos__common.html#gaf58fac450d9fff4472f03ad68f6e546e">CY_RSLT_SUCCESS</a>, <a class="el" href="group__group__abstraction__rtos__common.html#ga89a0a071bd7a41b5d1f3edb969ee1647">CY_RTOS_GENERAL_ERROR</a>] </dd></dl>
+
+</div>
+</div>
+<a id="gad488ec8dc0085478ace55553cd4539da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad488ec8dc0085478ace55553cd4539da">&#9670;&nbsp;</a></span>cy_rtos_wait_thread_notification()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">cy_rslt_t cy_rtos_wait_thread_notification </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__abstraction__rtos__port.html#ga141349b315f2266d5e0e8b8566eb608b">cy_time_t</a>&#160;</td>
+          <td class="paramname"><em>timeout_ms</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Suspend current thread until notification is received. </p>
+<p>This function suspends the execution of current thread until it is notified by <a class="el" href="group__group__abstraction__rtos__threads.html#ga5a1bb5c7acdf518f7f31266d0efd4ea5">cy_rtos_set_thread_notification</a> from another thread or ISR, or timed out with specify timeout value</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">timeout_ms</td><td>Maximum number of milliseconds to wait Use the <a class="el" href="group__group__abstraction__rtos__common.html#gab31d8535128df9506a4220c2b1f41a60">CY_RTOS_NEVER_TIMEOUT</a> constant to wait forever.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The status of thread wait. [<a class="el" href="group__group__abstraction__rtos__common.html#gaf58fac450d9fff4472f03ad68f6e546e">CY_RSLT_SUCCESS</a>, <a class="el" href="group__group__abstraction__rtos__common.html#gafc6a1c6f563521d6c5555027d5d7bde8">CY_RTOS_TIMEOUT</a>, <a class="el" href="group__group__abstraction__rtos__common.html#ga89a0a071bd7a41b5d1f3edb969ee1647">CY_RTOS_GENERAL_ERROR</a>] </dd></dl>
+
+</div>
+</div>
+<a id="ga5a1bb5c7acdf518f7f31266d0efd4ea5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5a1bb5c7acdf518f7f31266d0efd4ea5">&#9670;&nbsp;</a></span>cy_rtos_set_thread_notification()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">cy_rslt_t cy_rtos_set_thread_notification </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__abstraction__rtos__port.html#ga27c9e935c4c4f200d86a8484d3db08d3">cy_thread_t</a> *&#160;</td>
+          <td class="paramname"><em>thread</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>in_isr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the thread notification for a thread. </p>
+<p>This function sets the thread notification for the target thread. The target thread waiting for the notification to be set will resume from suspended state.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">thread</td><td>Handle of the target thread </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">in_isr</td><td>If true this is being called from within an ISR</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The status of thread wait. [<a class="el" href="group__group__abstraction__rtos__common.html#gaf58fac450d9fff4472f03ad68f6e546e">CY_RSLT_SUCCESS</a>, <a class="el" href="group__group__abstraction__rtos__common.html#ga89a0a071bd7a41b5d1f3edb969ee1647">CY_RTOS_GENERAL_ERROR</a>, <a class="el" href="group__group__abstraction__rtos__common.html#ga3b106a6fcedd377b05769dbf2b6f97a9">CY_RTOS_BAD_PARAM</a>] </dd></dl>
 
 </div>
 </div>

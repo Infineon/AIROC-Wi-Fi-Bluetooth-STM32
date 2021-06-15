@@ -1,10 +1,10 @@
 /*
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
- * Cypress Semiconductor Corporation. All Rights Reserved.
+ * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
- * materials ("Software"), is owned by Cypress Semiconductor Corporation
- * or one of its subsidiaries ("Cypress") and is protected by and subject to
+ * materials ("Software") is owned by Cypress Semiconductor Corporation
+ * or one of its affiliates ("Cypress") and is protected by and subject to
  * worldwide patent protection (United States and foreign),
  * United States copyright laws and international treaty provisions.
  * Therefore, you may use this Software only as provided in the license
@@ -13,7 +13,7 @@
  * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
  * non-transferable license to copy, modify, and compile the Software
  * source code solely for use in connection with Cypress's
- * integrated circuit products. Any reproduction, modification, translation,
+ * integrated circuit products.  Any reproduction, modification, translation,
  * compilation, or representation of this Software except as specified
  * above is prohibited without the express written permission of Cypress.
  *
@@ -97,7 +97,6 @@ extern cy_rslt_t cy_wps_reset_registrar( cy_wps_agent_t* workspace, whd_mac_t* m
 extern cy_rslt_t cy_wps_wait_till_complete( cy_wps_agent_t* workspace );
 extern cy_rslt_t cy_wps_abort( cy_wps_agent_t* workspace );
 extern cy_rslt_t cy_wps_management_set_event_handler( cy_wps_agent_t* workspace, bool enable );
-extern cy_rslt_t cy_wps_scan( cy_wps_agent_t* workspace, cy_wps_ap_t** ap_array, uint16_t* ap_array_size, whd_interface_t interface );
 extern cy_rslt_t cy_wps_set_directed_wps_target( cy_wps_agent_t* workspace, cy_wps_ap_t* ap, uint32_t maximum_join_attempts );
 
 

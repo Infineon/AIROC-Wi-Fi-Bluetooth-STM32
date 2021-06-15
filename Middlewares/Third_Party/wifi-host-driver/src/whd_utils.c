@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Cypress Semiconductor Corporation
+ * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -67,7 +67,7 @@ whd_tlv8_data_t *whd_tlv_find_tlv8(const uint8_t *message, uint32_t message_leng
 }
 
 whd_tlv8_header_t *whd_parse_tlvs(const whd_tlv8_header_t *tlv_buf, uint32_t buflen,
-                                         dot11_ie_id_t key)
+                                  dot11_ie_id_t key)
 {
     return (whd_tlv8_header_t *)whd_tlv_find_tlv8( (const uint8_t *)tlv_buf, buflen, key );
 }

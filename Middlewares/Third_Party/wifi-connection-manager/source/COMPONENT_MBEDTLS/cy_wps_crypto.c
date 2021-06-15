@@ -1,10 +1,10 @@
 /*
- * Copyright 2020, Cypress Semiconductor Corporation or a subsidiary of
- * Cypress Semiconductor Corporation. All Rights Reserved.
+ * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
- * materials ("Software"), is owned by Cypress Semiconductor Corporation
- * or one of its subsidiaries ("Cypress") and is protected by and subject to
+ * materials ("Software") is owned by Cypress Semiconductor Corporation
+ * or one of its affiliates ("Cypress") and is protected by and subject to
  * worldwide patent protection (United States and foreign),
  * United States copyright laws and international treaty provisions.
  * Therefore, you may use this Software only as provided in the license
@@ -13,7 +13,7 @@
  * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
  * non-transferable license to copy, modify, and compile the Software
  * source code solely for use in connection with Cypress's
- * integrated circuit products. Any reproduction, modification, translation,
+ * integrated circuit products.  Any reproduction, modification, translation,
  * compilation, or representation of this Software except as specified
  * above is prohibited without the express written permission of Cypress.
  *
@@ -115,7 +115,7 @@ void cy_sha2_hmac_starts(cy_sha2_hmac_context *ctx, const unsigned char *key, ui
     unsigned char sum[32];
 
     if (keylen > 64) {
-        mbedtls_sha256(key, keylen, sum, is224);
+        mbedtls_sha256_ret(key, keylen, sum, is224);
         keylen = (is224) ? 28 : 32;
         key = sum;
     }
@@ -128,8 +128,8 @@ void cy_sha2_hmac_starts(cy_sha2_hmac_context *ctx, const unsigned char *key, ui
         ctx->opad[i] = (unsigned char)(ctx->opad[i] ^ key[i]);
     }
 
-    mbedtls_sha256_starts(&ctx->ctx, is224);
-    mbedtls_sha256_update(&ctx->ctx, ctx->ipad, 64);
+    mbedtls_sha256_starts_ret(&ctx->ctx, is224);
+    mbedtls_sha256_update_ret(&ctx->ctx, ctx->ipad, 64);
 
     memset(sum, 0, sizeof(sum));
 }
@@ -139,7 +139,7 @@ void cy_sha2_hmac_starts(cy_sha2_hmac_context *ctx, const unsigned char *key, ui
  */
 void cy_sha2_hmac_update(cy_sha2_hmac_context *ctx, const unsigned char *input, uint32_t ilen)
 {
-    mbedtls_sha256_update(&ctx->ctx, input, ilen);
+    mbedtls_sha256_update_ret(&ctx->ctx, input, ilen);
 }
 
 /*
@@ -154,11 +154,11 @@ void cy_sha2_hmac_finish(cy_sha2_hmac_context * ctx, unsigned char output[32])
     is224 = ctx->ctx.is224;
     hlen = (is224 == 0) ? 32 : 28;
 
-    mbedtls_sha256_finish(&ctx->ctx, tmpbuf);
-    mbedtls_sha256_starts(&ctx->ctx, is224);
-    mbedtls_sha256_update(&ctx->ctx, ctx->opad, 64);
-    mbedtls_sha256_update(&ctx->ctx, tmpbuf, hlen);
-    mbedtls_sha256_finish(&ctx->ctx, output);
+    mbedtls_sha256_finish_ret(&ctx->ctx, tmpbuf);
+    mbedtls_sha256_starts_ret(&ctx->ctx, is224);
+    mbedtls_sha256_update_ret(&ctx->ctx, ctx->opad, 64);
+    mbedtls_sha256_update_ret(&ctx->ctx, tmpbuf, hlen);
+    mbedtls_sha256_finish_ret(&ctx->ctx, output);
 
     memset(tmpbuf, 0, sizeof(tmpbuf));
 }

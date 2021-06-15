@@ -42,6 +42,11 @@ The Core Library provides basic types and utilities that can be used between dif
     * CY_RAMFUNC_END
 
 ### What Changed?
+#### v1.2.0
+* Added a new cy_rslt_decode_t that provides better debugging experience when examining result codes
+* Converted module identifiers into enums to provide better debugging experience
+#### v1.1.5
+* Minor updates including new module id definitions
 #### v1.1.4
 * Minor updates for MISRA & documentation
 #### v1.1.3
@@ -63,8 +68,8 @@ This version of the Core Library was validated for compatibility with the follow
 
 | Software and Tools                        | Version |
 | :---                                      | :----:  |
-| ModusToolbox Software Environment         | 2.1     |
-| GCC Compiler                              | 9.2     |
+| ModusToolbox Software Environment         | 2.2.1   |
+| GCC Compiler                              | 9.3.1   |
 | IAR Compiler                              | 8.4     |
 | ARM Compiler                              | 6.11    |
 
@@ -78,4 +83,4 @@ Use the following links for more information, as needed:
 * [ModusToolbox](https://www.cypress.com/products/modustoolbox-software-environment)
 
 ---
-© Cypress Semiconductor Corporation, 2019-2020.
+© Cypress Semiconductor Corporation, 2019-2021.

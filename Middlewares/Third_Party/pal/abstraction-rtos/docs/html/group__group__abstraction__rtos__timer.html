@@ -121,10 +121,10 @@ Enumerations</h2></td></tr>
 <tr class="memdesc:ga0fa10fe9a8589d185f27e238ee375bc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new timer.  <a href="#ga0fa10fe9a8589d185f27e238ee375bc8">More...</a><br /></td></tr>
 <tr class="separator:ga0fa10fe9a8589d185f27e238ee375bc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8ec7a094161e4af7b0765e4e89dd4f21"><td class="memItemLeft" align="right" valign="top">cy_rslt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__abstraction__rtos__timer.html#ga8ec7a094161e4af7b0765e4e89dd4f21">cy_rtos_start_timer</a> (<a class="el" href="group__group__abstraction__rtos__port.html#gacf9d99e8262de333b482417053756624">cy_timer_t</a> *timer, <a class="el" href="group__group__abstraction__rtos__port.html#ga141349b315f2266d5e0e8b8566eb608b">cy_time_t</a> num_ms)</td></tr>
-<tr class="memdesc:ga8ec7a094161e4af7b0765e4e89dd4f21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a timer.  <a href="#ga8ec7a094161e4af7b0765e4e89dd4f21">More...</a><br /></td></tr>
+<tr class="memdesc:ga8ec7a094161e4af7b0765e4e89dd4f21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a request to start the timer.  <a href="#ga8ec7a094161e4af7b0765e4e89dd4f21">More...</a><br /></td></tr>
 <tr class="separator:ga8ec7a094161e4af7b0765e4e89dd4f21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga45f1cfa24d69049bd66ee8c41e089d01"><td class="memItemLeft" align="right" valign="top">cy_rslt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__abstraction__rtos__timer.html#ga45f1cfa24d69049bd66ee8c41e089d01">cy_rtos_stop_timer</a> (<a class="el" href="group__group__abstraction__rtos__port.html#gacf9d99e8262de333b482417053756624">cy_timer_t</a> *timer)</td></tr>
-<tr class="memdesc:ga45f1cfa24d69049bd66ee8c41e089d01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop a timer.  <a href="#ga45f1cfa24d69049bd66ee8c41e089d01">More...</a><br /></td></tr>
+<tr class="memdesc:ga45f1cfa24d69049bd66ee8c41e089d01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a request to stop the timer.  <a href="#ga45f1cfa24d69049bd66ee8c41e089d01">More...</a><br /></td></tr>
 <tr class="separator:ga45f1cfa24d69049bd66ee8c41e089d01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga54237d816523d346c34ed6c1ff3882fe"><td class="memItemLeft" align="right" valign="top">cy_rslt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__abstraction__rtos__timer.html#ga54237d816523d346c34ed6c1ff3882fe">cy_rtos_is_running_timer</a> (<a class="el" href="group__group__abstraction__rtos__port.html#gacf9d99e8262de333b482417053756624">cy_timer_t</a> *timer, bool *state)</td></tr>
 <tr class="memdesc:ga54237d816523d346c34ed6c1ff3882fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns state of a timer.  <a href="#ga54237d816523d346c34ed6c1ff3882fe">More...</a><br /></td></tr>
@@ -212,7 +212,7 @@ The callback may be (likely will be) called from a different thread.</dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The status of the creation request. [<a class="el" href="group__group__abstraction__rtos__common.html#gaf58fac450d9fff4472f03ad68f6e546e">CY_RSLT_SUCCESS</a>, <a class="el" href="group__group__abstraction__rtos__common.html#ga89a0a071bd7a41b5d1f3edb969ee1647">CY_RTOS_GENERAL_ERROR</a>] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The status of the init request. [<a class="el" href="group__group__abstraction__rtos__common.html#gaf58fac450d9fff4472f03ad68f6e546e">CY_RSLT_SUCCESS</a>, <a class="el" href="group__group__abstraction__rtos__common.html#ga89a0a071bd7a41b5d1f3edb969ee1647">CY_RTOS_GENERAL_ERROR</a>] </dd></dl>
 
 </div>
 </div>
@@ -242,7 +242,8 @@ The callback may be (likely will be) called from a different thread.</dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Start a timer. </p>
+<p>Sends a request to start the timer. </p>
+<p>Depending on the priorities of threads in the system, it may be necessary for high priority items to wait before the timer actually starts running.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">timer</td><td>Pointer to the timer handle </td></tr>
@@ -250,7 +251,7 @@ The callback may be (likely will be) called from a different thread.</dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The status of the creation request. [<a class="el" href="group__group__abstraction__rtos__common.html#gaf58fac450d9fff4472f03ad68f6e546e">CY_RSLT_SUCCESS</a>, <a class="el" href="group__group__abstraction__rtos__common.html#ga89a0a071bd7a41b5d1f3edb969ee1647">CY_RTOS_GENERAL_ERROR</a>] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The status of the start request. [<a class="el" href="group__group__abstraction__rtos__common.html#gaf58fac450d9fff4472f03ad68f6e546e">CY_RSLT_SUCCESS</a>, <a class="el" href="group__group__abstraction__rtos__common.html#ga89a0a071bd7a41b5d1f3edb969ee1647">CY_RTOS_GENERAL_ERROR</a>] </dd></dl>
 
 </div>
 </div>
@@ -270,14 +271,15 @@ The callback may be (likely will be) called from a different thread.</dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Stop a timer. </p>
+<p>Sends a request to stop the timer. </p>
+<p>Depending on the priorities of threads in the system, it may be necessary for high priority items to wait before the timer is actually stopped.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">timer</td><td>Pointer to the timer handle</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The status of the creation request. [<a class="el" href="group__group__abstraction__rtos__common.html#gaf58fac450d9fff4472f03ad68f6e546e">CY_RSLT_SUCCESS</a>, <a class="el" href="group__group__abstraction__rtos__common.html#ga89a0a071bd7a41b5d1f3edb969ee1647">CY_RTOS_GENERAL_ERROR</a>] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The status of the stop request. [<a class="el" href="group__group__abstraction__rtos__common.html#gaf58fac450d9fff4472f03ad68f6e546e">CY_RSLT_SUCCESS</a>, <a class="el" href="group__group__abstraction__rtos__common.html#ga89a0a071bd7a41b5d1f3edb969ee1647">CY_RTOS_GENERAL_ERROR</a>] </dd></dl>
 
 </div>
 </div>
@@ -315,7 +317,7 @@ The callback may be (likely will be) called from a different thread.</dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The status of the creation request. [<a class="el" href="group__group__abstraction__rtos__common.html#gaf58fac450d9fff4472f03ad68f6e546e">CY_RSLT_SUCCESS</a>, <a class="el" href="group__group__abstraction__rtos__common.html#ga89a0a071bd7a41b5d1f3edb969ee1647">CY_RTOS_GENERAL_ERROR</a>] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The status of the is_running request. [<a class="el" href="group__group__abstraction__rtos__common.html#gaf58fac450d9fff4472f03ad68f6e546e">CY_RSLT_SUCCESS</a>, <a class="el" href="group__group__abstraction__rtos__common.html#ga89a0a071bd7a41b5d1f3edb969ee1647">CY_RTOS_GENERAL_ERROR</a>] </dd></dl>
 
 </div>
 </div>
@@ -343,7 +345,7 @@ The callback may be (likely will be) called from a different thread.</dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The status of the creation request. [<a class="el" href="group__group__abstraction__rtos__common.html#gaf58fac450d9fff4472f03ad68f6e546e">CY_RSLT_SUCCESS</a>, <a class="el" href="group__group__abstraction__rtos__common.html#ga89a0a071bd7a41b5d1f3edb969ee1647">CY_RTOS_GENERAL_ERROR</a>] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The status of the deinit request. [<a class="el" href="group__group__abstraction__rtos__common.html#gaf58fac450d9fff4472f03ad68f6e546e">CY_RSLT_SUCCESS</a>, <a class="el" href="group__group__abstraction__rtos__common.html#ga89a0a071bd7a41b5d1f3edb969ee1647">CY_RTOS_GENERAL_ERROR</a>] </dd></dl>
 
 </div>
 </div>

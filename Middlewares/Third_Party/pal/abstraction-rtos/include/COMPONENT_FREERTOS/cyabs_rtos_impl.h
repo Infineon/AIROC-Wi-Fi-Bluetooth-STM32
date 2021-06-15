@@ -6,7 +6,7 @@
  *
  ***************************************************************************************************
  * \copyright
- * Copyright 2019-2020 Cypress Semiconductor Corporation
+ * Copyright 2019-2021 Cypress Semiconductor Corporation
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,6 +30,9 @@
 #include <event_groups.h>
 #include <timers.h>
 #include "stdbool.h"
+#if defined(CY_USING_HAL)
+#include "cyhal.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -78,6 +81,22 @@ typedef uint32_t           cy_timer_callback_arg_t;
 typedef void*              cy_thread_arg_t;
 typedef uint32_t           cy_time_t;
 typedef BaseType_t         cy_rtos_error_t;
+
+#if defined(CY_USING_HAL)
+/** Stores a reference to an lptimer instance for use with vApplicationSleep().
+ *
+ * @param[in] timer  Pointer to the lptimer handle
+ */
+void cyabs_rtos_set_lptimer(cyhal_lptimer_t* timer);
+
+/** Gets a reference to the lptimer instance object used by vApplicationSleep(). This instance is
+ * what was explicitly set by @ref cyabs_rtos_set_lptimer or, if none was set, what was
+ * automatically allocated by the first call to vApplicationSleep().
+ *
+ * @return Pointer to the lptimer handle
+ */
+cyhal_lptimer_t* cyabs_rtos_get_lptimer();
+#endif //defined(CY_USING_HAL)
 
 #ifdef __cplusplus
 } // extern "C"

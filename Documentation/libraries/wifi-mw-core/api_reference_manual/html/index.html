@@ -91,13 +91,9 @@ Features and functionality</h1>
 <li>Wi-Fi Host Driver(WHD) - Embedded Wi-Fi host driver that provides a set of APIs to interact with Cypress WLAN chips. See <a href="https://github.com/cypresssemiconductorco/wifi-host-driver">Wi-Fi Host Driver(WHD)</a> for details.</li>
 <li>FreeRTOS - FreeRTOS kernel, distributed as standard C source files with the configuration header file, for use with the PSoC 6 MCU. This FreeRTOS library is based on publicly available FreeRTOS library version 10.0.1.37. See <a href="https://github.com/cypresssemiconductorco/freertos">FreeRTOS</a>.</li>
 <li>The CLib FreeRTOS Support Library - This library provides the necessary hooks to make C library functions such as malloc and free thread-safe. This implementation is specific to FreeRTOS and requires it to be present to build. See <a href="https://github.com/cypresssemiconductorco/clib-support">CLib FreeRTOS Support Library</a>.</li>
-<li>lwIP - A Lightweight open-source TCP/IP stack, version: 2.1.2. See <a href="https://savannah.nongnu.org/projects/lwip/">lwIP</a>.<ul>
-<li>NOTE: Using this library in a project will cause lwIP to be downloaded on your computer. It is your responsibility to understand and accept the lwIP license</li>
-</ul>
+<li>lwIP - A Lightweight open-source TCP/IP stack, version: 2.1.2. See <a href="https://savannah.nongnu.org/projects/lwip/">lwIP</a>. <dl class="section note"><dt>Note</dt><dd>Using this library in a project will cause lwIP to be downloaded on your computer. It is your responsibility to understand and accept the lwIP license</dd></dl>
 </li>
-<li>mbed TLS - An open source, portable, easy to use, readable and flexible SSL library that has cryptographic capabilities, version: 2.16.6. See <a href="https://tls.mbed.org/">mbed TLS</a>.<ul>
-<li>NOTE: Using this library in a project will cause mbed TLS to be downloaded on your computer. It is your responsibility to understand and accept the mbed TLS license and regional use restrictions (including abiding by all applicable export control laws).</li>
-</ul>
+<li>mbed TLS - An open source, portable, easy to use, readable and flexible SSL library that has cryptographic capabilities, version: 2.16.6. See <a href="https://tls.mbed.org/">mbed TLS</a>. <dl class="section note"><dt>Note</dt><dd>Using this library in a project will cause mbed TLS to be downloaded on your computer. It is your responsibility to understand and accept the mbed TLS license and regional use restrictions (including abiding by all applicable export control laws).</dd></dl>
 </li>
 <li>RTOS Abstraction Layer - The RTOS Abstraction APIs allow middleware to be written to be RTOS aware, but without depending on any particular RTOS. See <a href="https://github.com/cypresssemiconductorco/abstraction-rtos">RTOS Abstraction Layer</a>.</li>
 <li>Secure Sockets - Network abstraction APIs for underlying lwIP network stack and mbed TLS security library. Secure Sockets library eases application development by exposing a socket-like interface for both secure and non-secure socket communication. See <a href="https://github.com/cypresssemiconductorco/secure-sockets">Secure Sockets</a>.</li>
@@ -123,7 +119,8 @@ Quick Start</h1>
 </ul>
 </li>
 <li>Secure Sockets, lwIP, and mbed TLS libraries contain reference and test applications. For these applications to not conflict with the code examples, a .cyignore file is also included with this library.</li>
-<li>Add the following to COMPONENTS in the code example project's Makefile - FREERTOS, PSOC6HAL, LWIP, MBEDTLS and either 4343W or 43012 depending on the platform. For example, if CY8CKIT-062S2-43012 is chosen, the Makefile entry would look like, <div class="fragment"><div class="line">COMPONENTS=FREERTOS PSOC6HAL LWIP MBEDTLS 43012</div></div><!-- fragment --> </li>
+<li>Add the following to COMPONENTS in the code example project's Makefile - FREERTOS, LWIP, MBEDTLS. For example: <div class="fragment"><div class="line">COMPONENTS=FREERTOS LWIP MBEDTLS</div></div><!-- fragment --> <dl class="section note"><dt>Note</dt><dd><code>PSOC6HAL</code> and either <code>43012</code> or <code>4343W</code> are necessary for the library depending on the platform used, but these are already included in BSP's Makefile. Hence no need to include them here again. </dd></dl>
+</li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

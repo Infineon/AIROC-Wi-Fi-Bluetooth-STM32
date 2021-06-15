@@ -7,8 +7,15 @@ See the [README.md](./README.md) for a complete description of the Wi-Fi Connect
 | Problem | Workaround |
 | ------- | ---------- |
 | The `cy_wcm_deinit` API does not bring down the network stack as the default underlying lwIP stack does not have an implementation for deinit. Therefore, the expectation is that `cy_wcm_init` and `cy_wcm_deinit` APIs should be invoked only once. | No workaround. Support will be added in a future release. |
+| cy_wcm_connect_ap API does not connect to AP, if MAC address is specified as connection parameter.| No workaround. This issue will be fixed in future release. |
 
 ## Changelog
+### v2.0.3
+* Added coverity fixes.
+
+### v2.0.2
+* Fixed passphrase length check for enterprise security auth types.
+
 ### v2.0.1
 * Minor fixes added in ping API, and in re-connection logic for statically assigned IP.
 * WEP security support is disabled in connect AP API.
