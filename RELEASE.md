@@ -24,8 +24,8 @@ This pack uses libraries from the ModusToolbox environment.
 
 Infineon's CYW43xxx Wi-Fi-BT combo chip family:
 * CYW43012
-* CYW4343W / CYW43438
-* CYW4373
+* CYW43439 / CYW4343W / CYW43438
+* CYW4373  / CYW4373E
 
 ## Example apps inside the Pack
 
