@@ -1,9 +1,7 @@
 # STM32 Connectivity Expansion Pack 1.1.0 Release Notes
-The STM32 Connectivity Expansion Pack is an extension of the CMSIS-Pack standard established by Arm.
-The pack is compliant with the full CMSIS-Pack standard, with additional requirements/restrictions
-on the final pack to meet the STM standard.
+The STM32 Connectivity Expansion Pack is an extension of the CMSIS-Pack standard established by Arm. The pack is compliant with the full CMSIS-Pack standard, with additional requirements/restrictions on the final pack to meet the STM standard. Users of the Expansion Pack will be able to select and configure the pack in the STM32CubeMX tool, make choices appropriate for the design such as what CYW43xxx they are using and then generate a project according to the selection (as well as other selections in the tool). 
 
-This pack uses libraries from the ModusToolbox environment.
+This pack uses libraries from Infineon ModusToolbox environment.
 
 ## What's Included?
 * BLE/BT Support Release
@@ -19,13 +17,16 @@ This pack uses libraries from the ModusToolbox environment.
 
 ## Supported STM32 Boards and MCU
 *  STM32H747I-DISCO Discovery kit and STM32H7xx
+*  Ref. link - https://www.mouser.com/ProductDetail/STMicroelectronics/STM32H747I-DISCO?qs=PzGy0jfpSMt94jB7NPxlfQ%3D%3D
+
 
 ## Supported Connectivity Modules
 
-Infineon's CYW43xxx Wi-Fi-BT combo chip family:
-* CYW43012
-* CYW43439 / CYW4343W / CYW43438
-* CYW4373  / CYW4373E
+Infineon AIROC™ Wi-Fi and Bluetooth® Combo CYW43xxx family:
+* CYW43012 - https://www.infineon.com/cms/en/product/wireless-connectivity/airoc-wi-fi-plus-bluetooth-combos/cyw43012/
+* CYW43439 / CYW4343W / CYW43438 - https://www.infineon.com/cms/en/product/wireless-connectivity/airoc-wi-fi-plus-bluetooth-combos/cyw43439/
+* CYW4373  / CYW4373E / CYW43732 - https://www.infineon.com/cms/en/product/wireless-connectivity/airoc-wi-fi-plus-bluetooth-combos/cyw4373/
+
 
 ## Example apps inside the Pack
 
