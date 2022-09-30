@@ -46,6 +46,7 @@ on the final pack to meet the STM standard.
 * [Cypress Semiconductor, an Infineon Technologies Company](http://www.cypress.com)
 * [Cypress Semiconductor GitHub](https://github.com/cypresssemiconductorco)
 * [ModusToolbox](https://www.cypress.com/products/modustoolbox-software-environment)
+* Pre release of STM32 Connectivity Expansion Pack v1.2.0 (build 2807) 
 
 ------
 
