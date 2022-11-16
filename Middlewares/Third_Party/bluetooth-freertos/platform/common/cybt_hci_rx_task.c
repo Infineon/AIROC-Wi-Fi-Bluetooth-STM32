@@ -6,7 +6,9 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2020 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -299,7 +301,7 @@ void handle_hci_rx_data_ready(hci_packet_type_t hci_packet_type)
                 // No data is read from UART FIFO
                 return;
             }
-    
+
             switch(hci_packet_type)
             {
                 case HCI_PACKET_TYPE_ACL:

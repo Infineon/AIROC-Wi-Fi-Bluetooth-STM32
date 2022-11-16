@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2019-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -43,6 +43,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/** \addtogroup string_utils 
+ * The string utilities module is a collection of string conversion helpers to convert between integer and strings.
+ */
 
 /*****************************************************************************/
 /**

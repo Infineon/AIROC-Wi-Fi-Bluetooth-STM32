@@ -2,14 +2,16 @@
 * \file cyhal_qspi.h
 *
 * \brief
-* Provides a high level interface for interacting with the Cypress Quad-SPI.
+* Provides a high level interface for interacting with the Infineon Quad-SPI.
 * This interface abstracts out the chip specific details. If any chip specific
 * functionality is necessary, or performance is critical the low level functions
 * can be used directly.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2020 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -51,20 +53,25 @@
 * any given flash command. The cyhal_qspi_command_t.mode_bits structure has several other components which should
 * be set as per the command. Mode bits are not required for single SPI read command, hence, mode_bits.disabled
 * is set to TRUE in the below example code.
-* \snippet qspi.c snippet_cyhal_qspi_structure_initialisation
+* \snippet hal_qspi.c snippet_cyhal_qspi_structure_initialisation
 * \subsection subsection_qspi_snippet_2 Code Snippet 2: QSPI initialization and Reading Flash memory
 * This example function demonstrates the initialization of the QSPI component and use of the cyhal_qspi_read() function
 * to complete the read operation and receive the read data in a buffer.
-* \snippet qspi.c snippet_cyhal_qspi_read
+* \snippet hal_qspi.c snippet_cyhal_qspi_read
 * \subsection subsection_qspi_snippet_3 Code Snippet 3: Erasing Flash memory
 * The following code snippet demonstrates the use of cyhal_qspi_transfer() API for sending single byte instruction
 * that may or may not need any address or data bytes. It also shows the usage of status register read command within
 * a while loop to poll the WIP bit status.
-* \snippet qspi.c snippet_cyhal_qspi_erase
+* \snippet hal_qspi.c snippet_cyhal_qspi_erase
 * \note Flash memories need erase operation before programming.
 * \subsection subsection_qspi_snippet_4 Code Snippet 4: Programming Flash memory
 * This code snippet demonstrates the usage cyhal_qspi_write() API for executing program operation on flash memory.
-* \snippet qspi.c snippet_cyhal_qspi_program
+* \snippet hal_qspi.c snippet_cyhal_qspi_program
+* \subsection subsection_qspi_snippet_5 Code Snippet 5: Configuring multiple memories
+* This code snippet demonstrates the usage cyhal_qspi_slave_configure() and cyhal_qspi_select_active_ssel() API for
+* for initialization environment for additional (additional to one, that was initialized in scope of cyhal_qspi_init())
+* QSPI memory and switching between memories.
+* \snippet hal_qspi.c snippet_cyhal_qspi_multiple_memories
 */
 
 #pragma once
@@ -86,28 +93,43 @@ extern "C" {
 
 /** Bus width Error. */
 #define CYHAL_QSPI_RSLT_ERR_BUS_WIDTH                   \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_QSPI, 0))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_QSPI, 0))
 /** Pin related Error. */
 #define CYHAL_QSPI_RSLT_ERR_PIN                         \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_QSPI, 1))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_QSPI, 1))
 /** Data select Error. */
 #define CYHAL_QSPI_RSLT_ERR_DATA_SEL                    \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_QSPI, 2))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_QSPI, 2))
 /** QSPI instance related error. */
 #define CYHAL_QSPI_RSLT_ERR_INSTANCE                    \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_QSPI, 3))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_QSPI, 3))
 /** Clock frequency error. */
 #define CYHAL_QSPI_RSLT_ERR_FREQUENCY                   \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_QSPI, 4))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_QSPI, 4))
 /** Waiting for certain event error. */
 #define CYHAL_QSPI_RSLT_ERR_TIMEOUT                     \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_QSPI, 5))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_QSPI, 5))
 /** Cannot configure SSEL signal */
 #define CYHAL_QSPI_RSLT_ERR_CANNOT_CONFIG_SSEL          \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_QSPI, 6))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_QSPI, 6))
 /** Cannot switch to specified SSEL signal */
 #define CYHAL_QSPI_RSLT_ERR_CANNOT_SWITCH_SSEL          \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_QSPI, 7))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_QSPI, 7))
+/** Data rate error. */
+#define CYHAL_QSPI_RSLT_ERR_DATARATE                    \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_QSPI, 8))
+/** Instruction error. */
+#define CYHAL_QSPI_RSLT_ERR_INSTRUCTION                 \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_QSPI, 9))
+/** Dummy cycles error. */
+#define CYHAL_QSPI_RSLT_ERR_DUMMY_CYCLES                \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_QSPI, 10))
+/** Cannot make changes in user provided clock configuration or provided clock is incorrect. */
+#define CYHAL_QSPI_RSLT_ERR_CLOCK                       \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_QSPI, 11))
+/** Requested feature is not supported by this driver. */
+#define CYHAL_QSPI_RSLT_ERR_UNSUPPORTED                 \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_QSPI, 12))
 
 /**
  * \}
@@ -115,52 +137,87 @@ extern "C" {
 
 /** QSPI Bus width. Some parts of commands provide variable bus width. */
 
-typedef enum cyhal_qspi_bus_width {
-    CYHAL_QSPI_CFG_BUS_SINGLE                       = 1,            /**< Normal SPI Mode */
-    CYHAL_QSPI_CFG_BUS_DUAL                         = 2,            /**< Dual SPI Mode */
-    CYHAL_QSPI_CFG_BUS_QUAD                         = 4,            /**< Quad SPI Mode */
-    CYHAL_QSPI_CFG_BUS_OCTAL                        = 8,            /**< Octal SPI Mode */
+typedef enum cyhal_qspi_bus_width
+{
+    CYHAL_QSPI_CFG_BUS_SINGLE       = 1,            /**< Normal SPI Mode */
+    CYHAL_QSPI_CFG_BUS_DUAL         = 2,            /**< Dual SPI Mode */
+    CYHAL_QSPI_CFG_BUS_QUAD         = 4,            /**< Quad SPI Mode */
+    CYHAL_QSPI_CFG_BUS_OCTAL        = 8,            /**< Octal SPI Mode */
 } cyhal_qspi_bus_width_t;
 
 /** Address size in bits */
-typedef enum cyhal_qspi_size {
-    CYHAL_QSPI_CFG_SIZE_8                           = 8,            /**< 8 bits address */
-    CYHAL_QSPI_CFG_SIZE_16                          = 16,           /**< 16 bits address */
-    CYHAL_QSPI_CFG_SIZE_24                          = 24,           /**< 24 bits address */
-    CYHAL_QSPI_CFG_SIZE_32                          = 32,           /**< 32 bits address */
+typedef enum cyhal_qspi_size
+{
+    CYHAL_QSPI_CFG_SIZE_8           = 8,            /**< 8 bits address */
+    CYHAL_QSPI_CFG_SIZE_16          = 16,           /**< 16 bits address */
+    CYHAL_QSPI_CFG_SIZE_24          = 24,           /**< 24 bits address */
+    CYHAL_QSPI_CFG_SIZE_32          = 32,           /**< 32 bits address */
 } cyhal_qspi_size_t;
 
 /** QSPI interrupt triggers */
-typedef enum {
-    CYHAL_QSPI_EVENT_NONE                           = 0,            /**< No event */
-    CYHAL_QSPI_IRQ_TRANSMIT_DONE                    = 1 << 0,       /**< Async transmit done */
-    CYHAL_QSPI_IRQ_RECEIVE_DONE                     = 1 << 1,       /**< Async receive done */
+typedef enum
+{
+    CYHAL_QSPI_EVENT_NONE           = 0,            /**< No event */
+    CYHAL_QSPI_IRQ_TRANSMIT_DONE    = 1 << 0,       /**< Async transmit done */
+    CYHAL_QSPI_IRQ_RECEIVE_DONE     = 1 << 1,       /**< Async receive done */
 } cyhal_qspi_event_t;
 
+/** QSPI data rate */
+typedef enum
+{
+    CYHAL_QSPI_DATARATE_SDR         = 0,            /**< Single data rate */
+    CYHAL_QSPI_DATARATE_DDR         = 1,            /**< Double data rate */
+} cyhal_qspi_datarate_t;
+
 /** @brief QSPI command settings */
-typedef struct cyhal_qspi_command {
-    struct {
-        cyhal_qspi_bus_width_t bus_width;               /**< Bus width for the instruction */
-        uint8_t value;                                  /**< Instruction value */
-        bool disabled;                                  /**< Instruction phase skipped if disabled is set to true */
-    } instruction;                                      /**< Instruction structure */
-    struct {
-        cyhal_qspi_bus_width_t bus_width;               /**< Bus width for the address */
-        cyhal_qspi_size_t size;                         /**< Address size */
-        uint32_t value;                                 /**< Address value */
-        bool disabled;                                  /**< Address phase skipped if disabled is set to true */
-    } address;                                          /**< Address structure */
-    struct {
-        cyhal_qspi_bus_width_t bus_width;               /**< Bus width for mode bits  */
-        cyhal_qspi_size_t size;                         /**< Mode bits size */
-        uint32_t value;                                 /**< Mode bits value */
-        bool disabled;                                  /**< Mode bits phase skipped if disabled is set to true */
-    } mode_bits;                                        /**< Mode bits structure */
-    uint8_t dummy_count;                                /**< Dummy cycles count */
-    struct {
-        cyhal_qspi_bus_width_t bus_width;               /**< Bus width for data */
-    } data;                                             /**< Data structure */
+typedef struct cyhal_qspi_command
+{
+    struct
+    {
+        cyhal_qspi_bus_width_t  bus_width;      /**< Bus width for the instruction */
+        cyhal_qspi_datarate_t   data_rate;      /**< Data rate SDR/DDR */
+        bool                    two_byte_cmd;   /**< Defines whether cmd is 2-byte value, or 1-byte (if false) */
+        uint16_t                value;          /**< Instruction value */
+        bool                    disabled;       /**< Instruction phase skipped if disabled is set to true */
+    } instruction;                              /**< Instruction structure */
+    struct
+    {
+        cyhal_qspi_bus_width_t  bus_width;      /**< Bus width for the address */
+        cyhal_qspi_datarate_t   data_rate;      /**< Data rate SDR/DDR */
+        cyhal_qspi_size_t       size;           /**< Address size */
+        /* Address is specified as argument for write/read functions */
+        bool                    disabled;       /**< Address phase skipped if disabled is set to true */
+    } address;                                  /**< Address structure */
+    struct
+    {
+        cyhal_qspi_bus_width_t  bus_width;      /**< Bus width for mode bits  */
+        cyhal_qspi_datarate_t   data_rate;      /**< Data rate SDR/DDR */
+        cyhal_qspi_size_t       size;           /**< Mode bits size */
+        uint32_t                value;          /**< Mode bits value */
+        bool                    disabled;       /**< Mode bits phase skipped if disabled is set to true */
+    } mode_bits;                                /**< Mode bits structure */
+    struct
+    {
+        cyhal_qspi_bus_width_t  bus_width;      /**< Bus width for mode bits  */
+        cyhal_qspi_datarate_t   data_rate;      /**< Data rate SDR/DDR */
+        uint32_t                dummy_count;    /**< Dummy cycles count */
+    } dummy_cycles;                             /**< Dummy cycles structure */
+    struct
+    {
+        cyhal_qspi_bus_width_t  bus_width;      /**< Bus width for data */
+        cyhal_qspi_datarate_t   data_rate;      /**< Data rate SDR/DDR */
+    } data;                                     /**< Data structure */
 } cyhal_qspi_command_t;
+
+/** @brief QSPI slave pin set. Each pin set should represent the pins connected to a single slave memory device.
+ * Pin io[0] is data[0] signal of the memory (and not necessarily data[0] of underlying QSPI hardware block),
+ * io[1] is the memory IC's data[1] and so on. The ssel is the pin connected to the memory chip's select signal.
+ * The number of data pins configured should match the maximum \ref cyhal_qspi_bus_width_t for transfers. */
+typedef struct cyhal_qspi_slave_pin_config
+{
+    cyhal_gpio_t io[8];                         /**< IOx lines of connected memory */
+    cyhal_gpio_t ssel;                          /**< Slave Select line of connected memory */
+} cyhal_qspi_slave_pin_config_t;
 
 /** Handler for QSPI callbacks */
 typedef void (*cyhal_qspi_event_callback_t)(void *callback_arg, cyhal_qspi_event_t event);
@@ -171,28 +228,33 @@ typedef void (*cyhal_qspi_event_callback_t)(void *callback_arg, cyhal_qspi_event
  * It should initialize QSPI pins (io0-io7, sclk and ssel), set frequency, clock polarity and phase mode.
  *  The clock for the peripheral should be enabled
  *
- * @param[out] obj  Pointer to a QSPI object. The caller must allocate the memory
+ * @param[out] obj      Pointer to a QSPI object. The caller must allocate the memory
  *  for this object but the init function will initialize its contents.
- * @param[in]  io0  Data pin 0
- * @param[in]  io1  Data pin 1
- * @param[in]  io2  Data pin 2
- * @param[in]  io3  Data pin 3
- * @param[in]  io4  Data pin 4
- * @param[in]  io5  Data pin 5
- * @param[in]  io6  Data pin 6
- * @param[in]  io7  Data pin 7
- * @param[in]  sclk The clock pin
- * @param[in]  ssel The chip select pin
- * @note Provided slave select pin will be set as active. This can be changed (as well as additional ssel pins can
- * be added) by \ref cyhal_qspi_slave_select_config and \ref cyhal_qspi_select_active_ssel functions.
- * @param[in]  hz   The bus frequency
- * @param[in]  mode Clock polarity and phase mode (0 - 3)
+ * @param[in]  sclk     The clock pin
+ * @param[in]  pin_set  Set of pins, that will primarily be used for communication with memory. Depends on device,
+ * QSPI HAL can service multiple memories which can be registered and controlled using \ref cyhal_qspi_slave_configure and
+ * \ref cyhal_qspi_select_active_ssel functions. There is no need to call \ref cyhal_qspi_select_active_ssel after
+ * this function - provided ssel pin as part of pin_set parameter become active.
+ * @param[in]  hz       The bus frequency
+ * @param[in]  mode     Clock polarity and phase mode (0 - 3)
+ * @param[in]  clk      The clock to use can be shared, if not provided a new clock will be allocated
+ * @note QSPI HAL cannot make changes into provided clock configuration. In this case \ref cyhal_qspi_set_frequency function
+ * cannot be used and will return error once called. With provided clock only user application can configure QSPI bus frequency by
+ * configuring parameters of shared clock.
  * @return The status of the init request
  */
 cy_rslt_t cyhal_qspi_init(
-    cyhal_qspi_t *obj, cyhal_gpio_t io0, cyhal_gpio_t io1, cyhal_gpio_t io2, cyhal_gpio_t io3, cyhal_gpio_t io4, cyhal_gpio_t io5,
-    cyhal_gpio_t io6, cyhal_gpio_t io7, cyhal_gpio_t sclk, cyhal_gpio_t ssel, uint32_t hz, uint8_t mode
-);
+    cyhal_qspi_t *obj, cyhal_gpio_t sclk, const cyhal_qspi_slave_pin_config_t *pin_set, uint32_t hz, uint8_t mode,
+    cyhal_clock_t *clk);
+
+/** Initialize the QSPI peripheral using a configurator generated configuration struct. This function may not support all
+ * features, that can be configured via configurator. For limitations list please refer to \ref section_hal_impl_qspi_init_cfg section.
+ *
+ * @param[in]  obj                  The QSPI peripheral to configure
+ * @param[in]  cfg                  Configuration structure generated by a configurator.
+ * @return The status of the operation
+ */
+cy_rslt_t cyhal_qspi_init_cfg(cyhal_qspi_t *obj, const cyhal_qspi_configurator_t *cfg);
 
 /** Deinitilize QSPI peripheral
  *
@@ -217,26 +279,31 @@ cy_rslt_t cyhal_qspi_set_frequency(cyhal_qspi_t *obj, uint32_t hz);
 
 /** Get the actual frequency that QSPI is configured for
  *
- * @param[in] obj The QSPI object to configure
+ * @param[in] obj The QSPI object
  * @return Frequency in Hz
  */
 uint32_t cyhal_qspi_get_frequency(cyhal_qspi_t *obj);
 
-/** Configures provided pin to work as QSPI slave select (SSEL)
+/** Configure provided set of pins to service additional slave memory.
  *
- * Multiple pins can be configured as QSPI slave select pins. Please refer to device datasheet for details.
+ * Multiple pins can be configured as QSPI slave select pins as well as IO pins may be (or may not be) shared and used
+ * to service multiple connected slave memories. This function can be called multiple times - each call for each additional
+ * slave memory. Please refer to device datasheet for details.
  * Switching between configured slave select pins is done by \ref cyhal_qspi_select_active_ssel function.
  * Unless modified with this function, the SSEL pin provided as part of \ref cyhal_qspi_init is the default.
- * @param[in] obj   The QSPI object to configure
- * @param[in] ssel  Pin to be configured as QSPI SSEL
- * @return The status of ssel pin configuration
+ * Please refer to \ref subsection_qspi_snippet_5 for example of configuration multiple memory devices and switching between
+ * them.
+ * \note Provided IO pins can overlap with those, that are configured in scope of \ref cyhal_qspi_init function.
+ * @param[in] obj       The QSPI object to configure
+ * @param[in] pin_set   Set of pins, that will be used to service additional slave memory.
+ * @return The status of pin configuration
  */
-cy_rslt_t cyhal_qspi_slave_select_config(cyhal_qspi_t *obj, cyhal_gpio_t ssel);
+cy_rslt_t cyhal_qspi_slave_configure(cyhal_qspi_t *obj, const cyhal_qspi_slave_pin_config_t *pin_set);
 
-/** Selects an active slave select (SSEL) line from one of available
+/** Selects an active slave select (SSEL) line from one of available and previously configured.
  *
- * SSEL pin should be configured by \ref cyhal_qspi_slave_select_config or \ref cyhal_qspi_init functions prior to
- * selecting it as active.
+ * Slave memories (in addition to one, that was configured in scope of \ref cyhal_qspi_init) can be added with help of
+ * \ref cyhal_qspi_slave_configure function.
  * @param[in] obj   The QSPI object to configure
  * @param[in] ssel  SSEL pin to be set as active
  * @return CY_RSLT_SUCCESS if slave select was switched successfully, otherwise - CYHAL_QSPI_RSLT_ERR_CANNOT_SWITCH_SSEL
@@ -251,11 +318,12 @@ cy_rslt_t cyhal_qspi_select_active_ssel(cyhal_qspi_t *obj, cyhal_gpio_t ssel);
  *
  * @param[in]  obj      QSPI object
  * @param[in]  command  QSPI command
+ * @param[in]  address  Address to access to
  * @param[out] data     RX buffer
  * @param[in]  length   RX buffer length in bytes
  * @return The status of the read request
  */
-cy_rslt_t cyhal_qspi_read(cyhal_qspi_t *obj, const cyhal_qspi_command_t *command, void *data, size_t *length);
+cy_rslt_t cyhal_qspi_read(cyhal_qspi_t *obj, const cyhal_qspi_command_t *command, uint32_t address, void *data, size_t *length);
 
 /** Receive a command and block of data in asynchronous mode.
  *
@@ -265,11 +333,12 @@ cy_rslt_t cyhal_qspi_read(cyhal_qspi_t *obj, const cyhal_qspi_command_t *command
  *
  * @param[in]  obj      QSPI object
  * @param[in]  command  QSPI command
+ * @param[in]  address  Address to access to
  * @param[out] data     RX buffer
  * @param[in]  length   RX buffer length in bytes
  * @return The status of the read request
  */
-cy_rslt_t cyhal_qspi_read_async(cyhal_qspi_t *obj, const cyhal_qspi_command_t *command, void *data, size_t *length);
+cy_rslt_t cyhal_qspi_read_async(cyhal_qspi_t *obj, const cyhal_qspi_command_t *command, uint32_t address, void *data, size_t *length);
 
 /** Send a command and block of data, synchronously.
  *
@@ -279,11 +348,12 @@ cy_rslt_t cyhal_qspi_read_async(cyhal_qspi_t *obj, const cyhal_qspi_command_t *c
  *
  * @param[in] obj      QSPI object
  * @param[in] command  QSPI command
+ * @param[in] address  Address to access to
  * @param[in] data     TX buffer
  * @param[in] length   TX buffer length in bytes
  * @return The status of the write request
  */
-cy_rslt_t cyhal_qspi_write(cyhal_qspi_t *obj, const cyhal_qspi_command_t *command, const void *data, size_t *length);
+cy_rslt_t cyhal_qspi_write(cyhal_qspi_t *obj, const cyhal_qspi_command_t *command, uint32_t address, const void *data, size_t *length);
 
 /** Send a command and block of data in asynchronous mode.
  *
@@ -293,16 +363,18 @@ cy_rslt_t cyhal_qspi_write(cyhal_qspi_t *obj, const cyhal_qspi_command_t *comman
  *
  * @param[in] obj      QSPI object
  * @param[in] command  QSPI command
+ * @param[in] address  Address to access to
  * @param[in] data     TX buffer
  * @param[in] length   TX buffer length in bytes
  * @return The status of the write request
  */
-cy_rslt_t cyhal_qspi_write_async(cyhal_qspi_t *obj, const cyhal_qspi_command_t *command, const void *data, size_t *length);
+cy_rslt_t cyhal_qspi_write_async(cyhal_qspi_t *obj, const cyhal_qspi_command_t *command, uint32_t address, const void *data, size_t *length);
 
 /** Send a command (and optionally data) and get the response. Can be used to send/receive device specific commands
  *
  * @param[in]  obj      QSPI object
  * @param[in]  command  QSPI command
+ * @param[in]  address  Address to access to
  * @param[in]  tx_data  TX buffer
  * @param[in]  tx_size  TX buffer length in bytes
  * @param[out] rx_data  RX buffer
@@ -310,8 +382,8 @@ cy_rslt_t cyhal_qspi_write_async(cyhal_qspi_t *obj, const cyhal_qspi_command_t *
  * @return The status of the transfer request
  */
 cy_rslt_t cyhal_qspi_transfer(
-    cyhal_qspi_t *obj, const cyhal_qspi_command_t *command, const void *tx_data, size_t tx_size, void *rx_data,
-    size_t rx_size
+    cyhal_qspi_t *obj, const cyhal_qspi_command_t *command, uint32_t address, const void *tx_data, size_t tx_size,
+    void *rx_data, size_t rx_size
 );
 
 /** Register a QSPI event handler
@@ -334,7 +406,6 @@ void cyhal_qspi_register_callback(cyhal_qspi_t *obj, cyhal_qspi_event_callback_t
  * @param[in] enable         True to turn on interrupts, False to turn off
  */
 void cyhal_qspi_enable_event(cyhal_qspi_t *obj, cyhal_qspi_event_t event, uint8_t intr_priority, bool enable);
-
 
 #if defined(__cplusplus)
 }

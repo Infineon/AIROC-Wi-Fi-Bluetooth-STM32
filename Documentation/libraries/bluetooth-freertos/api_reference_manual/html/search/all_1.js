@@ -1,15 +1,8 @@
 var searchData=
 [
-  ['controller_5fconfig',['controller_config',['../structcybt__platform__config__t.html#a0ed2b4e529564a9210e5d80c4e59b4bd',1,'cybt_platform_config_t']]],
-  ['cybt_5fcontroller_5fconfig_5ft',['cybt_controller_config_t',['../structcybt__controller__config__t.html',1,'']]],
-  ['cybt_5fcontroller_5fsleep_5fconfig_5ft',['cybt_controller_sleep_config_t',['../structcybt__controller__sleep__config__t.html',1,'']]],
-  ['cybt_5fhci_5ftransport_5fconfig_5ft',['cybt_hci_transport_config_t',['../structcybt__hci__transport__config__t.html',1,'']]],
-  ['cybt_5fhci_5ftransport_5ft',['cybt_hci_transport_t',['../group__platform__cfg.html#ga5f6850727c86459c4c6c11c84870d308',1,'cybt_platform_config.h']]],
-  ['cybt_5fhci_5fuart_5fconfig_5ft',['cybt_hci_uart_config_t',['../structcybt__hci__uart__config__t.html',1,'']]],
-  ['cybt_5fplatform_5fconfig_5finit',['cybt_platform_config_init',['../group__platform__cfg.html#ga1ff2a9935b27efb9639974d6ddc1894a',1,'cybt_platform_config.h']]],
-  ['cybt_5fplatform_5fconfig_5ft',['cybt_platform_config_t',['../structcybt__platform__config__t.html',1,'']]],
-  ['cybt_5fplatform_5fset_5ftrace_5flevel',['cybt_platform_set_trace_level',['../group__platform__trace.html#gacff449b9b47250c93eb680a49129d9ec',1,'cybt_platform_trace.h']]],
-  ['cybt_5fplatform_5ftrace_5fcb_5ft',['cybt_platform_trace_cb_t',['../structcybt__platform__trace__cb__t.html',1,'']]],
-  ['cybt_5ftrace_5fid_5fmain',['CYBT_TRACE_ID_MAIN',['../group__platform__trace.html#ga7171cf6d4882d16a4f8095996de39ab2',1,'cybt_platform_trace.h']]],
-  ['cybt_5ftrace_5flevel_5fnone',['CYBT_TRACE_LEVEL_NONE',['../group__platform__trace.html#ga9606ce68152dd02a9f27798d2d68c329',1,'cybt_platform_trace.h']]]
+  ['baud_5frate_5ffor_5ffeature',['baud_rate_for_feature',['../structcybt__hci__uart__config__t.html#ae8006ab108f355520ca3a97e849bd404',1,'cybt_hci_uart_config_t']]],
+  ['baud_5frate_5ffor_5ffw_5fdownload',['baud_rate_for_fw_download',['../structcybt__hci__uart__config__t.html#ab39743cee6567b888d268b63bc46b257',1,'cybt_hci_uart_config_t']]],
+  ['bt_5fpower_5fpin',['bt_power_pin',['../structcybt__controller__config__t.html#a9e5cb5adc8c877db1dac24b1aa4cbe9b',1,'cybt_controller_config_t']]],
+  ['bluetooth_20platform_20configuration',['Bluetooth Platform Configuration',['../group__platform__cfg.html',1,'']]],
+  ['bluetooth_20platform_20trace',['Bluetooth Platform Trace',['../group__platform__trace.html',1,'']]]
 ];

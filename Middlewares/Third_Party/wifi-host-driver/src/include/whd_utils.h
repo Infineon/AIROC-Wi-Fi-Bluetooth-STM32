@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company)
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,6 +30,16 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/**
+ * Get the offset (in bytes) of a member within a structure
+ */
+#define OFFSET(type, member)                          ( (uint32_t)&( (type *)0 )->member )
+
+/**
+ * determine size (number of elements) in an array
+ */
+#define ARRAY_SIZE(a)                                 (sizeof(a) / sizeof(a[0]) )
 
 /** Searches for a specific WiFi Information Element in a byte array
  *
@@ -93,6 +103,7 @@ char *whd_ssid_to_string(uint8_t *value, uint8_t length, char *ssid_buf, uint8_t
 const char *whd_status_to_string(whd_event_status_t status);
 const char *whd_reason_to_string(whd_event_reason_t reason);
 char *whd_ether_ntoa(const uint8_t *ea, char *buf, uint8_t buf_len);
+const char *whd_ioctl_to_string(uint32_t ioctl);
 #endif /* ifdef WPRINT_ENABLE_WHD_DEBUG */
 
 /**
@@ -123,7 +134,7 @@ extern void whd_convert_security_type_to_string(whd_security_t security, char *o
  *
  * @result
  */
-void whd_ioctl_to_string(uint32_t cmd, char *ioctl_str, uint16_t ioctl_str_len);
+void whd_ioctl_info_to_string(uint32_t cmd, char *ioctl_str, uint16_t ioctl_str_len);
 
 /*!
  ******************************************************************************

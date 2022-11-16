@@ -2,8 +2,9 @@ var group__wicedbt__utility =
 [
     [ "wiced_bt_dev_register_hci_trace", "group__wicedbt__utility.html#ga6f76de78537f24e047f4b95c6fb91ff8", null ],
     [ "wiced_bt_dev_update_hci_trace_mode", "group__wicedbt__utility.html#gac69677337b7352c0e3cc34d1af85ba01", null ],
+    [ "wiced_bt_dev_update_debug_trace_mode", "group__wicedbt__utility.html#gae3115ce3e502177c0486fd6782810c7e", null ],
     [ "wiced_bt_set_local_bdaddr", "group__wicedbt__utility.html#ga48386d791ced8eaae6bd6cd8f7e3afc2", null ],
-    [ "wiced_bt_dev_get_role", "group__wicedbt__utility.html#gaea415ed132f86dbf21dcd6bc729c9ef1", null ],
+    [ "wiced_bt_dev_get_role", "group__wicedbt__utility.html#ga72399cc62f66677f343ab63c13d12f80", null ],
     [ "wiced_bt_set_tx_power", "group__wicedbt__utility.html#ga449c0b615910dc6de36b15b870c1d920", null ],
     [ "wiced_bt_dev_read_tx_power", "group__wicedbt__utility.html#ga48a580210a970a52c39fca816ccfd0d7", null ],
     [ "wiced_bt_set_pairable_mode", "group__wicedbt__utility.html#gae95344797140c44aa120d34957a576b3", null ],

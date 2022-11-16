@@ -6,7 +6,9 @@
  *
  ***************************************************************************************************
  * \copyright
- * Copyright 2019-2021 Cypress Semiconductor Corporation
+ * Copyright 2019-2021 Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation
+ *
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +28,9 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+
 #include "tx_api.h"
+
 
 #ifdef __cplusplus
 extern "C"
@@ -79,13 +83,13 @@ typedef struct
     TX_TIMER tx_timer;
 } cy_timer_t;
 
-typedef TX_THREAD* cy_thread_t;
-typedef ULONG cy_thread_arg_t;
-typedef TX_MUTEX cy_mutex_t;
-typedef TX_EVENT_FLAGS_GROUP cy_event_t;
-typedef ULONG cy_timer_callback_arg_t;
-typedef uint64_t cy_time_t;
-typedef UINT cy_rtos_error_t;
+typedef TX_THREAD*              cy_thread_t;
+typedef ULONG                   cy_thread_arg_t;
+typedef TX_MUTEX                cy_mutex_t;
+typedef TX_EVENT_FLAGS_GROUP    cy_event_t;
+typedef ULONG                   cy_timer_callback_arg_t;
+typedef uint32_t                cy_time_t;
+typedef UINT                    cy_rtos_error_t;
 
 #ifdef __cplusplus
 } // extern "C"

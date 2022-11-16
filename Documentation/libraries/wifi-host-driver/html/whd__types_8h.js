@@ -2,6 +2,7 @@ var whd__types_8h =
 [
     [ "whd_band_list_t", "structwhd__band__list__t.html", "structwhd__band__list__t" ],
     [ "whd_mac_t", "structwhd__mac__t.html", "structwhd__mac__t" ],
+    [ "whd_list_t", "structwhd__list__t.html", "structwhd__list__t" ],
     [ "whd_ssid_t", "structwhd__ssid__t.html", "structwhd__ssid__t" ],
     [ "whd_scan_extended_params_t", "structwhd__scan__extended__params__t.html", "structwhd__scan__extended__params__t" ],
     [ "whd_scan_result", "structwhd__scan__result.html", "structwhd__scan__result" ],
@@ -10,10 +11,15 @@ var whd__types_8h =
     [ "whd_listen_interval_t", "structwhd__listen__interval__t.html", "structwhd__listen__interval__t" ],
     [ "whd_ap_info", "structwhd__ap__info.html", "structwhd__ap__info" ],
     [ "whd_maclist_t", "structwhd__maclist__t.html", "structwhd__maclist__t" ],
+    [ "_pmkid", "struct__pmkid.html", "struct__pmkid" ],
+    [ "_pmkid_list", "struct__pmkid__list.html", "struct__pmkid__list" ],
+    [ "whd_auth_req_status", "structwhd__auth__req__status.html", "structwhd__auth__req__status" ],
     [ "whd_wep_key_t", "structwhd__wep__key__t.html", "structwhd__wep__key__t" ],
+    [ "whd_auth_params", "structwhd__auth__params.html", "structwhd__auth__params" ],
     [ "whd_oob_config", "structwhd__oob__config.html", "structwhd__oob__config" ],
     [ "whd_sdio_config", "structwhd__sdio__config.html", "structwhd__sdio__config" ],
     [ "whd_spi_config", "structwhd__spi__config.html", "structwhd__spi__config" ],
+    [ "whd_m2m_config", "structwhd__m2m__config.html", "structwhd__m2m__config" ],
     [ "whd_btc_lescan_params", "structwhd__btc__lescan__params.html", "structwhd__btc__lescan__params" ],
     [ "whd_coex_config", "structwhd__coex__config.html", "structwhd__coex__config" ],
     [ "whd_packet_filter_t", "structwhd__packet__filter__t.html", "structwhd__packet__filter__t" ],
@@ -33,10 +39,12 @@ var whd__types_8h =
     [ "PM1_POWERSAVE_MODE", "whd__types_8h.html#a32f56429462855603066fea3723c5217", null ],
     [ "PM2_POWERSAVE_MODE", "whd__types_8h.html#af29e5543837b68c29417a7d15e3228b7", null ],
     [ "NO_POWERSAVE_MODE", "whd__types_8h.html#a287bbd4f521f0d1cf44165bc617cebf5", null ],
+    [ "PMKID_LEN", "whd__types_8h.html#af2ce8126dc46ee1d9d3beda3e1003193", null ],
     [ "UNUSED_PARAMETER", "whd__types_8h.html#a3c95a90e7806e4b0d21edfae15b73465", null ],
     [ "UNUSED_VARIABLE", "whd__types_8h.html#a4048bf3892868ded8a28f8cbdd339c09", null ],
     [ "REFERENCE_DEBUG_ONLY_VARIABLE", "whd__types_8h.html#a1491cb4c4adc44f22a91f18609dfb2f7", null ],
     [ "WIFI_IE_OUI_LENGTH", "whd__types_8h.html#ae6328bba53e322f1332e7b7b2d7cc128", null ],
+    [ "VNDR_IE_MAX_LEN", "whd__types_8h.html#a7ccccfd0b93f11b672f4627277f9153f", null ],
     [ "BDC_HEADER_WITH_PAD", "whd__types_8h.html#a50f830e25a5ac6d7d0e3eb8d23e90943", null ],
     [ "BDC_HEADER_OFFSET_TO_DATA", "whd__types_8h.html#a559655385d80ca97754fafa29ac87717", null ],
     [ "SDPCM_HEADER", "whd__types_8h.html#aaf73ac170e07969ed067a6cd5088044f", null ],
@@ -123,6 +131,7 @@ var whd__types_8h =
     [ "WHD_CLM_BLOB_DLOAD_ERROR", "whd__types_8h.html#a6dd36bd14965f3601fee55c6e799dfa1", null ],
     [ "WHD_HAL_ERROR", "whd__types_8h.html#a68e4cdc07dccd14d0cc6c6216ff37fb2", null ],
     [ "WHD_RTOS_STATIC_MEM_LIMIT", "whd__types_8h.html#a6499f6328208f184b4f716a910d7cdf6", null ],
+    [ "WHD_NO_REGISTER_FUNCTION_POINTER", "whd__types_8h.html#ab05f43e01bbb9228b3ccf13f30861d07", null ],
     [ "WLAN_ENUM_OFFSET", "whd__types_8h.html#a01539df5d3e26227c354161d9eda58f8", null ],
     [ "WHD_WLAN_ERROR", "whd__types_8h.html#ac23d24b8da4c424644151d0893c83a6d", null ],
     [ "WHD_WLAN_BADARG", "whd__types_8h.html#a8014f6266d91d9393e04bbc9a9b9080b", null ],
@@ -180,10 +189,15 @@ var whd__types_8h =
     [ "whd_result_t", "whd__types_8h.html#add62f4b5040a2451e23869d2f9e1ae05", null ],
     [ "whd_buffer_queue_ptr_t", "whd__types_8h.html#a0767ab3fb805f164a11b58473c308053", null ],
     [ "whd_ap_info_t", "whd__types_8h.html#ab850fbf60dfa93cd732f4e36a1e134cf", null ],
+    [ "pmkid_t", "whd__types_8h.html#a41a5921cae8749f8c7b96f216ff318a3", null ],
+    [ "pmkid_list_t", "whd__types_8h.html#a7fd1ad2146ecc43341e64fda630f2d9d", null ],
+    [ "whd_auth_req_status_t", "whd__types_8h.html#a30e2e99a6c6f124f4f7a200e31f7a8cc", null ],
     [ "whd_time_t", "whd__types_8h.html#aaf5901182e9ac5462ba6d4ada56e54d0", null ],
+    [ "whd_auth_params_t", "whd__types_8h.html#a8f2ad68c18064e7129ad1828429f4b08", null ],
     [ "whd_oob_config_t", "whd__types_8h.html#ac07b13dcb5ec0e66a707dcf8a539c97e", null ],
     [ "whd_sdio_config_t", "whd__types_8h.html#a2b3fb82834e1fbcbbf1f51e83c675edd", null ],
     [ "whd_spi_config_t", "whd__types_8h.html#a2f5c5d3c7f74ce9a86595fe220c860d3", null ],
+    [ "whd_m2m_config_t", "whd__types_8h.html#ab5fa3b42c3b6290fc944c79deb812c8c", null ],
     [ "whd_btc_lescan_params_t", "whd__types_8h.html#a98dae084aa15394bf6f8e907e09233a4", null ],
     [ "whd_coex_config_t", "whd__types_8h.html#a1cb4da9972e0e9317a6e26e2fd460902", null ],
     [ "whd_dot11_reason_code_t", "whd__types_8h.html#ac81b31559ee1db82f01e8acfb8eea55d", [
@@ -256,9 +270,14 @@ var whd__types_8h =
       [ "WHD_SCAN_COMPLETED_SUCCESSFULLY", "whd__types_8h.html#a34d5a5749a0bcc00b7249108a8670adaafca7e19867e47de64de826d409bc7c7d", null ],
       [ "WHD_SCAN_ABORTED", "whd__types_8h.html#a34d5a5749a0bcc00b7249108a8670adaa83e78acc28b9e74f743db6deb743472b", null ]
     ] ],
+    [ "whd_auth_status_t", "whd__types_8h.html#a853c6ba0cbd32dd7ec37dac9f8ccbfa7", [
+      [ "WHD_AUTH_EXT_REQ", "whd__types_8h.html#a853c6ba0cbd32dd7ec37dac9f8ccbfa7a6606b130dda52724a82b7f9dd5d6be00", null ],
+      [ "WHD_AUTH_EXT_FRAME_RX", "whd__types_8h.html#a853c6ba0cbd32dd7ec37dac9f8ccbfa7a703b63662397aeaaa8e7646a49618280", null ]
+    ] ],
     [ "whd_scan_result_flag_t", "whd__types_8h.html#a4bb9a3034dfb9a44507ef6201842edb7", [
       [ "WHD_SCAN_RESULT_FLAG_RSSI_OFF_CHANNEL", "whd__types_8h.html#a4bb9a3034dfb9a44507ef6201842edb7a5239fb226233ffc16252907b91fa8be7", null ],
-      [ "WHD_SCAN_RESULT_FLAG_BEACON", "whd__types_8h.html#a4bb9a3034dfb9a44507ef6201842edb7a7c6e2726f436bdc8b7d45f7cc34c504b", null ]
+      [ "WHD_SCAN_RESULT_FLAG_BEACON", "whd__types_8h.html#a4bb9a3034dfb9a44507ef6201842edb7a7c6e2726f436bdc8b7d45f7cc34c504b", null ],
+      [ "WHD_SCAN_RESULT_FLAG_SAE_H2E", "whd__types_8h.html#a4bb9a3034dfb9a44507ef6201842edb7a77413ed939411ad38673e2f5dcec5b49", null ]
     ] ],
     [ "WL_MFP_NONE", "whd__types_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba0843901f508ccc7996257015fb07c850", null ],
     [ "WL_MFP_CAPABLE", "whd__types_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba51d019c133381c69b48678f6aee69c14", null ],
@@ -306,6 +325,16 @@ var whd__types_8h =
       [ "WHD_IOVAR_GET_AMPDU_MPDU", "whd__types_8h.html#adc3a23bad78e0110546c9edc00456dafa7f4a2991b98ce6ac5a6cc892662f1cbd", null ],
       [ "WHD_IOVAR_GET_LISTEN_INTERVAL", "whd__types_8h.html#adc3a23bad78e0110546c9edc00456dafa335ed12c48af483e1c930e5c7b9f5d57", null ],
       [ "WHD_IOVAR_GET_MAC_ADDRESS", "whd__types_8h.html#adc3a23bad78e0110546c9edc00456dafa5ebc26219966e0db67e2cdbb8f89d986", null ]
+    ] ],
+    [ "whd_bus_type_t", "whd__types_8h.html#a6158197f83b368e63fa825eb34602dcd", [
+      [ "WHD_BUS_SDIO", "whd__types_8h.html#a6158197f83b368e63fa825eb34602dcda933b8592a349f873bb0e2751308c6f8b", null ],
+      [ "WHD_BUS_SPI", "whd__types_8h.html#a6158197f83b368e63fa825eb34602dcdabe76310f2a424db26f41811896ffeaa4", null ],
+      [ "WHD_BUS_M2M", "whd__types_8h.html#a6158197f83b368e63fa825eb34602dcda2c48ff3a53028dbf4b0d5812ea81cdc4", null ],
+      [ "WHD_BUS_NO_DEFINE", "whd__types_8h.html#a6158197f83b368e63fa825eb34602dcda9ee38b405f20578758c1dbf65f8b89fa", null ]
+    ] ],
+    [ "whd_fwcap_id_t", "whd__types_8h.html#a71ad9330854aaa61a7433a165fd57683", [
+      [ "WHD_FWCAP_SAE", "whd__types_8h.html#a71ad9330854aaa61a7433a165fd57683aa1b32f572128596bbfcd0b9ee037cde5", null ],
+      [ "WHD_FWCAP_SAE_EXT", "whd__types_8h.html#a71ad9330854aaa61a7433a165fd57683a0bc5289c89080c2d3cabde3b2b965c86", null ]
     ] ],
     [ "whd_country_code_t", "whd__types_8h.html#a5adb0953a8527552bc47001673830602", [
       [ "WHD_COUNTRY_AFGHANISTAN", "whd__types_8h.html#a5adb0953a8527552bc47001673830602ae770f53071110d4c62c45f3185212a2c", null ],
@@ -553,7 +582,8 @@ var whd__types_8h =
       [ "VENDOR_IE_AUTH_RESPONSE", "whd__types_8h.html#a07b4f24f4e2abacc45a9ad29f008488fa13f87ea3b6980f7e825f530d820e2463", null ],
       [ "VENDOR_IE_PROBE_REQUEST", "whd__types_8h.html#a07b4f24f4e2abacc45a9ad29f008488fa49f0a957e4f09c15c7fb0d8cc7aa6ec4", null ],
       [ "VENDOR_IE_ASSOC_REQUEST", "whd__types_8h.html#a07b4f24f4e2abacc45a9ad29f008488faaef0a32dac2a32e2c0c2487494f75a69", null ],
-      [ "VENDOR_IE_CUSTOM", "whd__types_8h.html#a07b4f24f4e2abacc45a9ad29f008488fa470a17144a803cdfc1571b0fcc3f616f", null ]
+      [ "VENDOR_IE_CUSTOM", "whd__types_8h.html#a07b4f24f4e2abacc45a9ad29f008488fa470a17144a803cdfc1571b0fcc3f616f", null ],
+      [ "VENDOR_IE_UNKNOWN", "whd__types_8h.html#a07b4f24f4e2abacc45a9ad29f008488fadb54e31649be7a9a80ad7cc34c2c4394", null ]
     ] ],
     [ "whd_packet_filter_rule_t", "whd__types_8h.html#a36b806b9b0e986bf290ae005d1bae038", [
       [ "WHD_PACKET_FILTER_RULE_POSITIVE_MATCHING", "whd__types_8h.html#a36b806b9b0e986bf290ae005d1bae038a75352695a5824e5b1759743869bca6d9", null ],

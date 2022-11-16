@@ -229,6 +229,10 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga3d73409cb072fcca477913ec1ec1264f">GATT_CLIENT_MAX_WRITE_SIGNED_DATA</a>&#160;&#160;&#160;(23 - 3 - <a class="el" href="group__wicedbt__gatt.html#gab44422f655258e6c80db5367ddae43e1">GATT_AUTH_SIGN_LEN</a>)</td></tr>
 <tr class="memdesc:ga3d73409cb072fcca477913ec1ec1264f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max size of application data allowed to be sent using the signed write cmd. <br /></td></tr>
 <tr class="separator:ga3d73409cb072fcca477913ec1ec1264f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad0df29dc043152878ce2731e3d0b1b55"><td class="memItemLeft" align="right" valign="top"><a id="gad0df29dc043152878ce2731e3d0b1b55"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#gad0df29dc043152878ce2731e3d0b1b55">WICED_GATT_HDR_SIZE</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:gad0df29dc043152878ce2731e3d0b1b55"><td class="mdescLeft">&#160;</td><td class="mdescRight">GATT Header size (1 byte opcode + 2 byte handle) <br /></td></tr>
+<tr class="separator:gad0df29dc043152878ce2731e3d0b1b55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6e1309b69e37f39154556748b9e2164e"><td class="memItemLeft" align="right" valign="top"><a id="ga6e1309b69e37f39154556748b9e2164e"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga6e1309b69e37f39154556748b9e2164e">GATT_PREP_WRITE_CANCEL</a>&#160;&#160;&#160;<a class="el" href="group__wicedbt__gatt.html#ggae9cf9c9ea35e6f1bf6d95ad14a26d420a9c7dd2d96164aafdda8d8f644045e3a1">GATT_PREPARE_WRITE_CANCEL</a></td></tr>
 <tr class="memdesc:ga6e1309b69e37f39154556748b9e2164e"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="group__wicedbt__gatt.html#ggae9cf9c9ea35e6f1bf6d95ad14a26d420a9c7dd2d96164aafdda8d8f644045e3a1" title="GATT_PREP_WRITE_CANCEL.">GATT_PREPARE_WRITE_CANCEL</a>. <br /></td></tr>
@@ -237,48 +241,46 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga855ba6b88c963250542ae3873cfc39b2">GATT_PREP_WRITE_EXEC</a>&#160;&#160;&#160;<a class="el" href="group__wicedbt__gatt.html#ggae9cf9c9ea35e6f1bf6d95ad14a26d420a49ce03dbc15abddceba02e0a6f9acfc9">GATT_PREPARE_WRITE_EXEC</a></td></tr>
 <tr class="memdesc:ga855ba6b88c963250542ae3873cfc39b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="group__wicedbt__gatt.html#ggae9cf9c9ea35e6f1bf6d95ad14a26d420a49ce03dbc15abddceba02e0a6f9acfc9" title="GATT_PREP_WRITE_EXEC.">GATT_PREPARE_WRITE_EXEC</a>. <br /></td></tr>
 <tr class="separator:ga855ba6b88c963250542ae3873cfc39b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6221e16adffa7ee37025a7d3d7bb8700"><td class="memItemLeft" align="right" valign="top"><a id="ga6221e16adffa7ee37025a7d3d7bb8700"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga6221e16adffa7ee37025a7d3d7bb8700">GATTDB_PERM_NONE</a>&#160;&#160;&#160;(0x00)</td></tr>
-<tr class="memdesc:ga6221e16adffa7ee37025a7d3d7bb8700"><td class="mdescLeft">&#160;</td><td class="mdescRight">The permission bits (see Vol 3, Part F, 3.2.5) <br /></td></tr>
+<tr class="memitem:ga6221e16adffa7ee37025a7d3d7bb8700"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga6221e16adffa7ee37025a7d3d7bb8700">GATTDB_PERM_NONE</a>&#160;&#160;&#160;(0x00)</td></tr>
+<tr class="memdesc:ga6221e16adffa7ee37025a7d3d7bb8700"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attribute Permission bits (see Core Specification 5.2, Vol 3, Part F, 3.2.5)  <a href="#ga6221e16adffa7ee37025a7d3d7bb8700">More...</a><br /></td></tr>
 <tr class="separator:ga6221e16adffa7ee37025a7d3d7bb8700"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6b99f4fe859d77eb8ea67cee666a5143"><td class="memItemLeft" align="right" valign="top"><a id="ga6b99f4fe859d77eb8ea67cee666a5143"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga6b99f4fe859d77eb8ea67cee666a5143">GATTDB_PERM_VARIABLE_LENGTH</a>&#160;&#160;&#160;(0x1 &lt;&lt; 0)</td></tr>
-<tr class="memdesc:ga6b99f4fe859d77eb8ea67cee666a5143"><td class="mdescLeft">&#160;</td><td class="mdescRight">The permission bits (see Vol 3, Part F, 3.2.5) <br /></td></tr>
+<tr class="memdesc:ga6b99f4fe859d77eb8ea67cee666a5143"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attribute has variable length (not used by stack) <br /></td></tr>
 <tr class="separator:ga6b99f4fe859d77eb8ea67cee666a5143"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga38354ffdf7194b42d5d78069a14568d4"><td class="memItemLeft" align="right" valign="top"><a id="ga38354ffdf7194b42d5d78069a14568d4"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga38354ffdf7194b42d5d78069a14568d4">GATTDB_PERM_READABLE</a>&#160;&#160;&#160;(0x1 &lt;&lt; 1)</td></tr>
-<tr class="memdesc:ga38354ffdf7194b42d5d78069a14568d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The permission bits (see Vol 3, Part F, 3.2.5) <br /></td></tr>
+<tr class="memdesc:ga38354ffdf7194b42d5d78069a14568d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attribute is readable. <br /></td></tr>
 <tr class="separator:ga38354ffdf7194b42d5d78069a14568d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6de9b0a3f50fc93f1e4ab9d731aa014c"><td class="memItemLeft" align="right" valign="top"><a id="ga6de9b0a3f50fc93f1e4ab9d731aa014c"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga6de9b0a3f50fc93f1e4ab9d731aa014c">GATTDB_PERM_WRITE_CMD</a>&#160;&#160;&#160;(0x1 &lt;&lt; 2)</td></tr>
-<tr class="memdesc:ga6de9b0a3f50fc93f1e4ab9d731aa014c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The permission bits (see Vol 3, Part F, 3.2.5) <br /></td></tr>
+<tr class="memdesc:ga6de9b0a3f50fc93f1e4ab9d731aa014c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attribute can be written using <a class="el" href="group__wicedbt__gatt.html#gga1bec0037cd2837dc90a967458b3cc68bae9076bb7b96ed9e0541b756436068f32">GATT_CMD_WRITE</a>. <br /></td></tr>
 <tr class="separator:ga6de9b0a3f50fc93f1e4ab9d731aa014c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2aa8ca0f2b0155154210eb6067ca34ac"><td class="memItemLeft" align="right" valign="top"><a id="ga2aa8ca0f2b0155154210eb6067ca34ac"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga2aa8ca0f2b0155154210eb6067ca34ac">GATTDB_PERM_WRITE_REQ</a>&#160;&#160;&#160;(0x1 &lt;&lt; 3)</td></tr>
-<tr class="memdesc:ga2aa8ca0f2b0155154210eb6067ca34ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">The permission bits (see Vol 3, Part F, 3.2.5) <br /></td></tr>
+<tr class="memdesc:ga2aa8ca0f2b0155154210eb6067ca34ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attribute can be written using <a class="el" href="group__wicedbt__gatt.html#gga1bec0037cd2837dc90a967458b3cc68baeaf87c53ee0b114a68df4c4e2d7705e8">GATT_REQ_WRITE</a>. <br /></td></tr>
 <tr class="separator:ga2aa8ca0f2b0155154210eb6067ca34ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf35356bd37477cdb6e6d9ac4dbf69762"><td class="memItemLeft" align="right" valign="top"><a id="gaf35356bd37477cdb6e6d9ac4dbf69762"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#gaf35356bd37477cdb6e6d9ac4dbf69762">GATTDB_PERM_AUTH_READABLE</a>&#160;&#160;&#160;(0x1 &lt;&lt; 4)</td></tr>
-<tr class="memdesc:gaf35356bd37477cdb6e6d9ac4dbf69762"><td class="mdescLeft">&#160;</td><td class="mdescRight">The permission bits (see Vol 3, Part F, 3.2.5) <br /></td></tr>
+<tr class="memdesc:gaf35356bd37477cdb6e6d9ac4dbf69762"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attribute can be read if the connection is encrypted or authenticated. <br /></td></tr>
 <tr class="separator:gaf35356bd37477cdb6e6d9ac4dbf69762"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf5ad84c1e0460264f3706875ac8792ee"><td class="memItemLeft" align="right" valign="top"><a id="gaf5ad84c1e0460264f3706875ac8792ee"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#gaf5ad84c1e0460264f3706875ac8792ee">GATTDB_PERM_RELIABLE_WRITE</a>&#160;&#160;&#160;(0x1 &lt;&lt; 5)</td></tr>
-<tr class="memdesc:gaf5ad84c1e0460264f3706875ac8792ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">The permission bits (see Vol 3, Part F, 3.2.5) <br /></td></tr>
+<tr class="memdesc:gaf5ad84c1e0460264f3706875ac8792ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attribute supports reliable writes. <br /></td></tr>
 <tr class="separator:gaf5ad84c1e0460264f3706875ac8792ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1eb057f59e9b65654e93fc106a6f3c77"><td class="memItemLeft" align="right" valign="top"><a id="ga1eb057f59e9b65654e93fc106a6f3c77"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga1eb057f59e9b65654e93fc106a6f3c77">GATTDB_PERM_AUTH_WRITABLE</a>&#160;&#160;&#160;(0x1 &lt;&lt; 6)</td></tr>
-<tr class="memdesc:ga1eb057f59e9b65654e93fc106a6f3c77"><td class="mdescLeft">&#160;</td><td class="mdescRight">The permission bits (see Vol 3, Part F, 3.2.5) <br /></td></tr>
+<tr class="memitem:ga1eb057f59e9b65654e93fc106a6f3c77"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga1eb057f59e9b65654e93fc106a6f3c77">GATTDB_PERM_AUTH_WRITABLE</a>&#160;&#160;&#160;(0x1 &lt;&lt; 6)</td></tr>
+<tr class="memdesc:ga1eb057f59e9b65654e93fc106a6f3c77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attribute can be written if the connection is encrypted or authenticated.  <a href="#ga1eb057f59e9b65654e93fc106a6f3c77">More...</a><br /></td></tr>
 <tr class="separator:ga1eb057f59e9b65654e93fc106a6f3c77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6025f6cc5dd0b90ce746ef671028bd58"><td class="memItemLeft" align="right" valign="top"><a id="ga6025f6cc5dd0b90ce746ef671028bd58"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga6025f6cc5dd0b90ce746ef671028bd58">GATTDB_PERM_WRITABLE</a>&#160;&#160;&#160;(<a class="el" href="group__wicedbt__gatt.html#ga6de9b0a3f50fc93f1e4ab9d731aa014c">GATTDB_PERM_WRITE_CMD</a> | <a class="el" href="group__wicedbt__gatt.html#ga2aa8ca0f2b0155154210eb6067ca34ac">GATTDB_PERM_WRITE_REQ</a>| <a class="el" href="group__wicedbt__gatt.html#ga1eb057f59e9b65654e93fc106a6f3c77">GATTDB_PERM_AUTH_WRITABLE</a>)</td></tr>
-<tr class="memdesc:ga6025f6cc5dd0b90ce746ef671028bd58"><td class="mdescLeft">&#160;</td><td class="mdescRight">The permission bits (see Vol 3, Part F, 3.2.5) <br /></td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga6025f6cc5dd0b90ce746ef671028bd58">GATTDB_PERM_WRITABLE</a>&#160;&#160;&#160;(<a class="el" href="group__wicedbt__gatt.html#ga6de9b0a3f50fc93f1e4ab9d731aa014c">GATTDB_PERM_WRITE_CMD</a> | <a class="el" href="group__wicedbt__gatt.html#ga2aa8ca0f2b0155154210eb6067ca34ac">GATTDB_PERM_WRITE_REQ</a> | <a class="el" href="group__wicedbt__gatt.html#ga1eb057f59e9b65654e93fc106a6f3c77">GATTDB_PERM_AUTH_WRITABLE</a>)</td></tr>
+<tr class="memdesc:ga6025f6cc5dd0b90ce746ef671028bd58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writable permissions. <br /></td></tr>
 <tr class="separator:ga6025f6cc5dd0b90ce746ef671028bd58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaee57afb45b7c88a1cf3690efd44e8219"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#gaee57afb45b7c88a1cf3690efd44e8219">GATTDB_PERM_MASK</a>&#160;&#160;&#160;(0x7f)</td></tr>
 <tr class="memdesc:gaee57afb45b7c88a1cf3690efd44e8219"><td class="mdescLeft">&#160;</td><td class="mdescRight">All the permission bits.  <a href="#gaee57afb45b7c88a1cf3690efd44e8219">More...</a><br /></td></tr>
 <tr class="separator:gaee57afb45b7c88a1cf3690efd44e8219"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad6f106f82541c47480d2a162e267030c"><td class="memItemLeft" align="right" valign="top"><a id="gad6f106f82541c47480d2a162e267030c"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#gad6f106f82541c47480d2a162e267030c">GATTDB_PERM_SERVICE_UUID_128</a>&#160;&#160;&#160;(0x1 &lt;&lt; 7)</td></tr>
-<tr class="memdesc:gad6f106f82541c47480d2a162e267030c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The permission bits (see Vol 3, Part F, 3.2.5) <br /></td></tr>
+<tr class="memdesc:gad6f106f82541c47480d2a162e267030c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set for 128 bit services/characteristic UUIDs, check <a class="el" href="group__wicedbt__gatt.html#GATT_DB_MACROS">Service and Characteristic macros</a>. <br /></td></tr>
 <tr class="separator:gad6f106f82541c47480d2a162e267030c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga58f0e454eb4b1dbf9f95779f4bd2ee75"><td class="memItemLeft" align="right" valign="top"><a id="ga58f0e454eb4b1dbf9f95779f4bd2ee75"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga58f0e454eb4b1dbf9f95779f4bd2ee75">GATTDB_CHAR_PROP_BROADCAST</a>&#160;&#160;&#160;(0x1 &lt;&lt; 0)</td></tr>
@@ -389,23 +391,15 @@ typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el"
 typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga641b20a5354aeb20bdefd12c61600b4b">wiced_bt_gatt_format_t</a></td></tr>
 <tr class="memdesc:ga641b20a5354aeb20bdefd12c61600b4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">characteristic format specifiers (see <a class="el" href="group__wicedbt__gatt.html#ga9afe63a2d4179ae6d56ddfa40cf556a3" title="Format of the value of a characteristic.">wiced_bt_gatt_format_e</a>) <br /></td></tr>
 <tr class="separator:ga641b20a5354aeb20bdefd12c61600b4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga37f052680754df664faafdcbd4273e1c"><td class="memItemLeft" align="right" valign="top"><a id="ga37f052680754df664faafdcbd4273e1c"></a>
-typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga37f052680754df664faafdcbd4273e1c">wiced_bt_gatt_csf_bits_t</a></td></tr>
-<tr class="memdesc:ga37f052680754df664faafdcbd4273e1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">GATT Client Support features. <br /></td></tr>
+<tr class="memitem:ga37f052680754df664faafdcbd4273e1c"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga37f052680754df664faafdcbd4273e1c">wiced_bt_gatt_csf_bits_t</a></td></tr>
+<tr class="memdesc:ga37f052680754df664faafdcbd4273e1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">GATT Client Support features.  <a href="#ga37f052680754df664faafdcbd4273e1c">More...</a><br /></td></tr>
 <tr class="separator:ga37f052680754df664faafdcbd4273e1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga28e10c1787e3db895975e3f614315273"><td class="memItemLeft" align="right" valign="top">typedef uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga28e10c1787e3db895975e3f614315273">wiced_bt_eatt_lcid_list</a>[<a class="el" href="group__bt__types.html#ga2c8591481949a685b796c1ca6f0b4daa">EATT_CHANNELS_PER_TRANSACTION</a>]</td></tr>
-<tr class="memdesc:ga28e10c1787e3db895975e3f614315273"><td class="mdescLeft">&#160;</td><td class="mdescRight">list of EATT lcid's  <a href="#ga28e10c1787e3db895975e3f614315273">More...</a><br /></td></tr>
-<tr class="separator:ga28e10c1787e3db895975e3f614315273"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4fdb2145ff962cd70165abe0033d90b4"><td class="memItemLeft" align="right" valign="top">typedef uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga4fdb2145ff962cd70165abe0033d90b4">wiced_bt_gatt_eatt_conn_id_list</a>[<a class="el" href="group__bt__types.html#ga2c8591481949a685b796c1ca6f0b4daa">EATT_CHANNELS_PER_TRANSACTION</a>]</td></tr>
-<tr class="memdesc:ga4fdb2145ff962cd70165abe0033d90b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">list of EATT connection id's  <a href="#ga4fdb2145ff962cd70165abe0033d90b4">More...</a><br /></td></tr>
-<tr class="separator:ga4fdb2145ff962cd70165abe0033d90b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaccfa49f84e56ea41ab53e943e2e5acc6"><td class="memItemLeft" align="right" valign="top"><a id="gaccfa49f84e56ea41ab53e943e2e5acc6"></a>
 typedef <a class="el" href="structt_d_r_b.html">tDRB</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#gaccfa49f84e56ea41ab53e943e2e5acc6">wiced_bt_eatt_drbs</a>[<a class="el" href="group__bt__types.html#ga2c8591481949a685b796c1ca6f0b4daa">EATT_CHANNELS_PER_TRANSACTION</a>]</td></tr>
 <tr class="memdesc:gaccfa49f84e56ea41ab53e943e2e5acc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">list of Data Receive Blocks <br /></td></tr>
 <tr class="separator:gaccfa49f84e56ea41ab53e943e2e5acc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga80c3de8e66dd4257528aeaf34484d14c"><td class="memItemLeft" align="right" valign="top"><a id="ga80c3de8e66dd4257528aeaf34484d14c"></a>
-typedef void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga80c3de8e66dd4257528aeaf34484d14c">wiced_bt_gatt_app_context_t</a></td></tr>
-<tr class="memdesc:ga80c3de8e66dd4257528aeaf34484d14c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Context is returned to application in event GATT_APP_BUFFER_TRANSMITTED_EVT on transmission of application data buffer. <br /></td></tr>
+<tr class="memitem:ga80c3de8e66dd4257528aeaf34484d14c"><td class="memItemLeft" align="right" valign="top">typedef void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga80c3de8e66dd4257528aeaf34484d14c">wiced_bt_gatt_app_context_t</a></td></tr>
+<tr class="memdesc:ga80c3de8e66dd4257528aeaf34484d14c"><td class="mdescLeft">&#160;</td><td class="mdescRight">App context is returned back to application in event GATT_APP_BUFFER_TRANSMITTED_EVT on transmission of application data buffer.  <a href="#ga80c3de8e66dd4257528aeaf34484d14c">More...</a><br /></td></tr>
 <tr class="separator:ga80c3de8e66dd4257528aeaf34484d14c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga826a5f3ef4bd8587ee6af52ed9b4a4f2"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__wicedbt__gatt.html#ga0e035835afe92d61fe430ea19029677a">wiced_bt_gatt_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt__gatt.html#ga826a5f3ef4bd8587ee6af52ed9b4a4f2">wiced_bt_gatt_cback_t</a>(<a class="el" href="group__wicedbt__gatt.html#ga1a4943c0f32914d5d939b05e84c99631">wiced_bt_gatt_evt_t</a> event, <a class="el" href="unionwiced__bt__gatt__event__data__t.html">wiced_bt_gatt_event_data_t</a> *p_event_data)</td></tr>
 <tr class="memdesc:ga826a5f3ef4bd8587ee6af52ed9b4a4f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">GATT event notification callback.  <a href="#ga826a5f3ef4bd8587ee6af52ed9b4a4f2">More...</a><br /></td></tr>
@@ -649,6 +643,14 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a6545fe6899ce0d341b1c0992f2537eed">WICED_BT_GATT_VALUE_NOT_ALLOWED</a> = 0x13, 
 <br />
+&#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652ab472ca5af6a650dc2d701c207b567e46">WICED_BT_GATT_WRITE_REQ_REJECTED</a> = 0xFC, 
+<br />
+&#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a2fa8e757a0102343173a996370bd7d27">WICED_BT_GATT_CCCD_IMPROPER_CONFIGURED</a> = 0xFD, 
+<br />
+&#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a17658aae4d78d44463dcbf6d82126a74">WICED_BT_GATT_BUSY</a> = 0xFE, 
+<br />
+&#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a0036290c8a33c53d72e27b02865528b3">WICED_BT_GATT_OUT_OF_RANGE</a> = 0xFF, 
+<br />
 &#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a119eceba07f45ac0845a7251c365b869">WICED_BT_GATT_ILLEGAL_PARAMETER</a> = 0x8780, 
 <br />
 &#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a9e7e92ed4815a5b58ccff7879ba1aa12">WICED_BT_GATT_NO_RESOURCES</a> = 0x8781, 
@@ -659,7 +661,7 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652afff09f583f25b8b282d326e7eb92f2c2">WICED_BT_GATT_DB_FULL</a> = 0x8785, 
 <br />
-&#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a17658aae4d78d44463dcbf6d82126a74">WICED_BT_GATT_BUSY</a> = 0x8786, 
+&#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a3aa7e60e7fe3463d782488ddc44ef0f4">WICED_BT_GATT_UNUSED1</a> = 0x8786, 
 <br />
 &#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652ab5c9584dbc5c321853f20ca974b29278">WICED_BT_GATT_ERROR</a> = 0x8787, 
 <br />
@@ -691,15 +693,17 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a68996f01347183f0a8a986ce176956c8">WICED_BT_GATT_INDICATION_RESPONSE_PENDING</a> = 0x8795, 
 <br />
-&#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652ab472ca5af6a650dc2d701c207b567e46">WICED_BT_GATT_WRITE_REQ_REJECTED</a> = 0x8796, 
+&#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652ae157ad436a156544e04fba7477752e65">WICED_BT_GATT_UNUSED2</a> = 0x8796, 
 <br />
 &#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652acc2bc3ff958f4fe3c5c7d1f57e2839b5">WICED_BT_GATT_CCC_CFG_ERR</a> = 0x8797, 
 <br />
 &#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652ad98032cb0f4e9f788e95ff168ca82f45">WICED_BT_GATT_PRC_IN_PROGRESS</a> = 0x8798, 
 <br />
-&#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a0036290c8a33c53d72e27b02865528b3">WICED_BT_GATT_OUT_OF_RANGE</a> = 0x8799, 
+&#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652acd6c135ce8c6be68d4cb5ec7670373bf">WICED_BT_GATT_UNUSED3</a> = 0x8799, 
 <br />
 &#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a84304c1c9643ef269e18963fe8d11df0">WICED_BT_GATT_BAD_OPCODE</a> = 0x879A, 
+<br />
+&#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652ac250d7a0f40a69c21f1f57f8be7bc6d3">WICED_BT_GATT_NOT_IMPLEMENTED</a> = 0x879B, 
 <br />
 &#160;&#160;<a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a9d2a6d96d94e68fca532e7b39905fcad">WICED_BT_GATT_INVALID_CONNECTION_ID</a> = 0xFFFF
 <br />
@@ -1050,6 +1054,40 @@ Service and Characteristic macros</h2></td></tr>
 <tr class="separator:ga772a09cba93b362579baaabe1675bea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ga6221e16adffa7ee37025a7d3d7bb8700"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6221e16adffa7ee37025a7d3d7bb8700">&#9670;&nbsp;</a></span>GATTDB_PERM_NONE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GATTDB_PERM_NONE&#160;&#160;&#160;(0x00)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Attribute Permission bits (see Core Specification 5.2, Vol 3, Part F, 3.2.5) </p>
+<p>No permissions set </p>
+
+</div>
+</div>
+<a id="ga1eb057f59e9b65654e93fc106a6f3c77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1eb057f59e9b65654e93fc106a6f3c77">&#9670;&nbsp;</a></span>GATTDB_PERM_AUTH_WRITABLE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GATTDB_PERM_AUTH_WRITABLE&#160;&#160;&#160;(0x1 &lt;&lt; 6)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Attribute can be written if the connection is encrypted or authenticated. </p>
+<p>Permission mask for writable characteristics </p>
+
+</div>
+</div>
 <a id="gaee57afb45b7c88a1cf3690efd44e8219"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaee57afb45b7c88a1cf3690efd44e8219">&#9670;&nbsp;</a></span>GATTDB_PERM_MASK</h2>
 
@@ -1111,7 +1149,7 @@ Service and Characteristic macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    4, \</div><div class="line">    BIT16_TO_8((GATT_UUID_PRI_SERVICE)), \</div><div class="line">    BIT16_TO_8((service))</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:455</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    4, \</div><div class="line">    BIT16_TO_8((GATT_UUID_PRI_SERVICE)), \</div><div class="line">    BIT16_TO_8((service))</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:475</div></div>
 </div><!-- fragment -->
 <p>Macro to assist 16 bit primary service declaration. </p>
 
@@ -1142,7 +1180,7 @@ Service and Characteristic macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    18, \</div><div class="line">    BIT16_TO_8(GATT_UUID_PRI_SERVICE), \</div><div class="line">    service</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:455</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    18, \</div><div class="line">    BIT16_TO_8(GATT_UUID_PRI_SERVICE), \</div><div class="line">    service</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:475</div></div>
 </div><!-- fragment -->
 <p>Macro to assist 128 bit primary service declaration. </p>
 
@@ -1173,7 +1211,7 @@ Service and Characteristic macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    4, \</div><div class="line">    BIT16_TO_8((GATT_UUID_SEC_SERVICE)), \</div><div class="line">    BIT16_TO_8((service))</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:455</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    4, \</div><div class="line">    BIT16_TO_8((GATT_UUID_SEC_SERVICE)), \</div><div class="line">    BIT16_TO_8((service))</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:475</div></div>
 </div><!-- fragment -->
 <p>Macro to assist 16 bit secondary service declaration. </p>
 
@@ -1204,7 +1242,7 @@ Service and Characteristic macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    18, \</div><div class="line">    BIT16_TO_8(GATT_UUID_SEC_SERVICE), \</div><div class="line">    service</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:455</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    18, \</div><div class="line">    BIT16_TO_8(GATT_UUID_SEC_SERVICE), \</div><div class="line">    service</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:475</div></div>
 </div><!-- fragment -->
 <p>Macro to assist 128 bit secondary service declaration. </p>
 
@@ -1247,7 +1285,7 @@ Service and Characteristic macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    8, \</div><div class="line">    BIT16_TO_8(GATT_UUID_INCLUDE_SERVICE), \</div><div class="line">    BIT16_TO_8(service_handle), \</div><div class="line">    BIT16_TO_8(end_group_handle), \</div><div class="line">    BIT16_TO_8(service)</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:455</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    8, \</div><div class="line">    BIT16_TO_8(GATT_UUID_INCLUDE_SERVICE), \</div><div class="line">    BIT16_TO_8(service_handle), \</div><div class="line">    BIT16_TO_8(end_group_handle), \</div><div class="line">    BIT16_TO_8(service)</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:475</div></div>
 </div><!-- fragment -->
 <p>Macro to assist included service declaration. </p>
 
@@ -1284,7 +1322,7 @@ Service and Characteristic macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    6, \</div><div class="line">    BIT16_TO_8(GATT_UUID_INCLUDE_SERVICE), \</div><div class="line">    BIT16_TO_8(service_handle), \</div><div class="line">    BIT16_TO_8(end_group_handle)</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:455</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    6, \</div><div class="line">    BIT16_TO_8(GATT_UUID_INCLUDE_SERVICE), \</div><div class="line">    BIT16_TO_8(service_handle), \</div><div class="line">    BIT16_TO_8(end_group_handle)</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:475</div></div>
 </div><!-- fragment -->
 <p>Macro to assist 128 bit included service declaration. </p>
 
@@ -1333,8 +1371,8 @@ Service and Characteristic macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    0x07, \</div><div class="line">    BIT16_TO_8(GATT_UUID_CHAR_DECLARE), \</div><div class="line">    (uint8_t)(properties), \</div><div class="line">    BIT16_TO_8((uint16_t)(handle_value)), \</div><div class="line">    BIT16_TO_8(uuid), \</div><div class="line">    BIT16_TO_8((uint16_t)(handle_value)), \</div><div class="line">    (uint8_t)(permission), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a>), \</div><div class="line">    BIT16_TO_8(uuid)</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:455</div></div>
-<div class="ttc" id="group__wicedbt__gatt_html_ga13dfabe4e2cc2b544bc34faf84fb9783"><div class="ttname"><a href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a></div><div class="ttdeci">#define GATTDB_UUID16_SIZE</div><div class="ttdoc">UUID lengths.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:459</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    0x07, \</div><div class="line">    BIT16_TO_8(GATT_UUID_CHAR_DECLARE), \</div><div class="line">    (uint8_t)(properties), \</div><div class="line">    BIT16_TO_8((uint16_t)(handle_value)), \</div><div class="line">    BIT16_TO_8(uuid), \</div><div class="line">    BIT16_TO_8((uint16_t)(handle_value)), \</div><div class="line">    (uint8_t)(permission), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a>), \</div><div class="line">    BIT16_TO_8(uuid)</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:475</div></div>
+<div class="ttc" id="group__wicedbt__gatt_html_ga13dfabe4e2cc2b544bc34faf84fb9783"><div class="ttname"><a href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a></div><div class="ttdeci">#define GATTDB_UUID16_SIZE</div><div class="ttdoc">UUID lengths.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:479</div></div>
 </div><!-- fragment -->
 <p>Macro to assist readable 16 bit characteristic declaration. </p>
 
@@ -1383,9 +1421,9 @@ Service and Characteristic macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    21, \</div><div class="line">    BIT16_TO_8(GATT_UUID_CHAR_DECLARE), \</div><div class="line">    (uint8_t)(properties), \</div><div class="line">    BIT16_TO_8((uint16_t)(handle_value)), \</div><div class="line">    uuid, \</div><div class="line">    BIT16_TO_8((uint16_t)(handle_value)), \</div><div class="line">    (uint8_t)(permission | <a class="code" href="group__wicedbt__gatt.html#gad6f106f82541c47480d2a162e267030c">GATTDB_PERM_SERVICE_UUID_128</a>), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#gaac9eea72e4087535001e967b961b742b">GATTDB_UUID128_SIZE</a>), \</div><div class="line">    uuid</div><div class="ttc" id="group__wicedbt__gatt_html_gad6f106f82541c47480d2a162e267030c"><div class="ttname"><a href="group__wicedbt__gatt.html#gad6f106f82541c47480d2a162e267030c">GATTDB_PERM_SERVICE_UUID_128</a></div><div class="ttdeci">#define GATTDB_PERM_SERVICE_UUID_128</div><div class="ttdoc">The permission bits (see Vol 3, Part F, 3.2.5)</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:435</div></div>
-<div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:455</div></div>
-<div class="ttc" id="group__wicedbt__gatt_html_gaac9eea72e4087535001e967b961b742b"><div class="ttname"><a href="group__wicedbt__gatt.html#gaac9eea72e4087535001e967b961b742b">GATTDB_UUID128_SIZE</a></div><div class="ttdeci">#define GATTDB_UUID128_SIZE</div><div class="ttdoc">UUID lengths.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:460</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    21, \</div><div class="line">    BIT16_TO_8(GATT_UUID_CHAR_DECLARE), \</div><div class="line">    (uint8_t)(properties), \</div><div class="line">    BIT16_TO_8((uint16_t)(handle_value)), \</div><div class="line">    uuid, \</div><div class="line">    BIT16_TO_8((uint16_t)(handle_value)), \</div><div class="line">    (uint8_t)(permission | <a class="code" href="group__wicedbt__gatt.html#gad6f106f82541c47480d2a162e267030c">GATTDB_PERM_SERVICE_UUID_128</a>), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#gaac9eea72e4087535001e967b961b742b">GATTDB_UUID128_SIZE</a>), \</div><div class="line">    uuid</div><div class="ttc" id="group__wicedbt__gatt_html_gad6f106f82541c47480d2a162e267030c"><div class="ttname"><a href="group__wicedbt__gatt.html#gad6f106f82541c47480d2a162e267030c">GATTDB_PERM_SERVICE_UUID_128</a></div><div class="ttdeci">#define GATTDB_PERM_SERVICE_UUID_128</div><div class="ttdoc">Set for 128 bit services/characteristic UUIDs, check Service and Characteristic macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:451</div></div>
+<div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:475</div></div>
+<div class="ttc" id="group__wicedbt__gatt_html_gaac9eea72e4087535001e967b961b742b"><div class="ttname"><a href="group__wicedbt__gatt.html#gaac9eea72e4087535001e967b961b742b">GATTDB_UUID128_SIZE</a></div><div class="ttdeci">#define GATTDB_UUID128_SIZE</div><div class="ttdoc">UUID lengths.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:480</div></div>
 </div><!-- fragment -->
 <p>Macro to assist readable 128 bit characteristic declaration. </p>
 
@@ -1434,8 +1472,8 @@ Service and Characteristic macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    0x07, \</div><div class="line">    BIT16_TO_8(GATT_UUID_CHAR_DECLARE), \</div><div class="line">    (uint8_t)(properties), \</div><div class="line">    BIT16_TO_8((uint16_t)(handle_value)), \</div><div class="line">    BIT16_TO_8(uuid), \</div><div class="line">    BIT16_TO_8((uint16_t)(handle_value)), \</div><div class="line">    (uint8_t)(permission), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a>), \</div><div class="line">    (uint8_t)(0), \</div><div class="line">    BIT16_TO_8(uuid)</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:455</div></div>
-<div class="ttc" id="group__wicedbt__gatt_html_ga13dfabe4e2cc2b544bc34faf84fb9783"><div class="ttname"><a href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a></div><div class="ttdeci">#define GATTDB_UUID16_SIZE</div><div class="ttdoc">UUID lengths.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:459</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    0x07, \</div><div class="line">    BIT16_TO_8(GATT_UUID_CHAR_DECLARE), \</div><div class="line">    (uint8_t)(properties), \</div><div class="line">    BIT16_TO_8((uint16_t)(handle_value)), \</div><div class="line">    BIT16_TO_8(uuid), \</div><div class="line">    BIT16_TO_8((uint16_t)(handle_value)), \</div><div class="line">    (uint8_t)(permission), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a>), \</div><div class="line">    (uint8_t)(0), \</div><div class="line">    BIT16_TO_8(uuid)</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:475</div></div>
+<div class="ttc" id="group__wicedbt__gatt_html_ga13dfabe4e2cc2b544bc34faf84fb9783"><div class="ttname"><a href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a></div><div class="ttdeci">#define GATTDB_UUID16_SIZE</div><div class="ttdoc">UUID lengths.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:479</div></div>
 </div><!-- fragment -->
 <p>Macro to assist writable 16 bit characteristic declaration. </p>
 
@@ -1484,9 +1522,9 @@ Service and Characteristic macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    21, \</div><div class="line">    BIT16_TO_8(GATT_UUID_CHAR_DECLARE), \</div><div class="line">    (uint8_t)(properties), \</div><div class="line">    BIT16_TO_8((uint16_t)(handle_value)), \</div><div class="line">    uuid, \</div><div class="line">    BIT16_TO_8((uint16_t)(handle_value)), \</div><div class="line">    (uint8_t)(permission | <a class="code" href="group__wicedbt__gatt.html#gad6f106f82541c47480d2a162e267030c">GATTDB_PERM_SERVICE_UUID_128</a>), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#gaac9eea72e4087535001e967b961b742b">GATTDB_UUID128_SIZE</a>), \</div><div class="line">    (uint8_t)(0), \</div><div class="line">    uuid</div><div class="ttc" id="group__wicedbt__gatt_html_gad6f106f82541c47480d2a162e267030c"><div class="ttname"><a href="group__wicedbt__gatt.html#gad6f106f82541c47480d2a162e267030c">GATTDB_PERM_SERVICE_UUID_128</a></div><div class="ttdeci">#define GATTDB_PERM_SERVICE_UUID_128</div><div class="ttdoc">The permission bits (see Vol 3, Part F, 3.2.5)</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:435</div></div>
-<div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:455</div></div>
-<div class="ttc" id="group__wicedbt__gatt_html_gaac9eea72e4087535001e967b961b742b"><div class="ttname"><a href="group__wicedbt__gatt.html#gaac9eea72e4087535001e967b961b742b">GATTDB_UUID128_SIZE</a></div><div class="ttdeci">#define GATTDB_UUID128_SIZE</div><div class="ttdoc">UUID lengths.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:460</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    GATTDB_PERM_READABLE, \</div><div class="line">    21, \</div><div class="line">    BIT16_TO_8(GATT_UUID_CHAR_DECLARE), \</div><div class="line">    (uint8_t)(properties), \</div><div class="line">    BIT16_TO_8((uint16_t)(handle_value)), \</div><div class="line">    uuid, \</div><div class="line">    BIT16_TO_8((uint16_t)(handle_value)), \</div><div class="line">    (uint8_t)(permission | <a class="code" href="group__wicedbt__gatt.html#gad6f106f82541c47480d2a162e267030c">GATTDB_PERM_SERVICE_UUID_128</a>), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#gaac9eea72e4087535001e967b961b742b">GATTDB_UUID128_SIZE</a>), \</div><div class="line">    (uint8_t)(0), \</div><div class="line">    uuid</div><div class="ttc" id="group__wicedbt__gatt_html_gad6f106f82541c47480d2a162e267030c"><div class="ttname"><a href="group__wicedbt__gatt.html#gad6f106f82541c47480d2a162e267030c">GATTDB_PERM_SERVICE_UUID_128</a></div><div class="ttdeci">#define GATTDB_PERM_SERVICE_UUID_128</div><div class="ttdoc">Set for 128 bit services/characteristic UUIDs, check Service and Characteristic macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:451</div></div>
+<div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:475</div></div>
+<div class="ttc" id="group__wicedbt__gatt_html_gaac9eea72e4087535001e967b961b742b"><div class="ttname"><a href="group__wicedbt__gatt.html#gaac9eea72e4087535001e967b961b742b">GATTDB_UUID128_SIZE</a></div><div class="ttdeci">#define GATTDB_UUID128_SIZE</div><div class="ttdoc">UUID lengths.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:480</div></div>
 </div><!-- fragment -->
 <p>Macro to assist writable 128 bit characteristic declaration. </p>
 
@@ -1523,8 +1561,8 @@ Service and Characteristic macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    (uint8_t)(permission), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a>), \</div><div class="line">    (uint8_t)(0), \</div><div class="line">    BIT16_TO_8(uuid)</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:455</div></div>
-<div class="ttc" id="group__wicedbt__gatt_html_ga13dfabe4e2cc2b544bc34faf84fb9783"><div class="ttname"><a href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a></div><div class="ttdeci">#define GATTDB_UUID16_SIZE</div><div class="ttdoc">UUID lengths.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:459</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    (uint8_t)(permission), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a>), \</div><div class="line">    (uint8_t)(0), \</div><div class="line">    BIT16_TO_8(uuid)</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:475</div></div>
+<div class="ttc" id="group__wicedbt__gatt_html_ga13dfabe4e2cc2b544bc34faf84fb9783"><div class="ttname"><a href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a></div><div class="ttdeci">#define GATTDB_UUID16_SIZE</div><div class="ttdoc">UUID lengths.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:479</div></div>
 </div><!-- fragment -->
 <p>Macro to assist writable 16 bit descriptor declaration. </p>
 
@@ -1561,8 +1599,8 @@ Service and Characteristic macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    (uint8_t)(permission), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a>), \</div><div class="line">    BIT16_TO_8(uuid)</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:455</div></div>
-<div class="ttc" id="group__wicedbt__gatt_html_ga13dfabe4e2cc2b544bc34faf84fb9783"><div class="ttname"><a href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a></div><div class="ttdeci">#define GATTDB_UUID16_SIZE</div><div class="ttdoc">UUID lengths.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:459</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    (uint8_t)(permission), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a>), \</div><div class="line">    BIT16_TO_8(uuid)</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:475</div></div>
+<div class="ttc" id="group__wicedbt__gatt_html_ga13dfabe4e2cc2b544bc34faf84fb9783"><div class="ttname"><a href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a></div><div class="ttdeci">#define GATTDB_UUID16_SIZE</div><div class="ttdoc">UUID lengths.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:479</div></div>
 </div><!-- fragment -->
 <p>Macro to assist readable 16 bit descriptor declaration. </p>
 
@@ -1599,9 +1637,9 @@ Service and Characteristic macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    (uint8_t)(permission | <a class="code" href="group__wicedbt__gatt.html#gad6f106f82541c47480d2a162e267030c">GATTDB_PERM_SERVICE_UUID_128</a>), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#gaac9eea72e4087535001e967b961b742b">GATTDB_UUID128_SIZE</a>), \</div><div class="line">    (uint8_t)(0), \</div><div class="line">    uuid</div><div class="ttc" id="group__wicedbt__gatt_html_gad6f106f82541c47480d2a162e267030c"><div class="ttname"><a href="group__wicedbt__gatt.html#gad6f106f82541c47480d2a162e267030c">GATTDB_PERM_SERVICE_UUID_128</a></div><div class="ttdeci">#define GATTDB_PERM_SERVICE_UUID_128</div><div class="ttdoc">The permission bits (see Vol 3, Part F, 3.2.5)</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:435</div></div>
-<div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:455</div></div>
-<div class="ttc" id="group__wicedbt__gatt_html_gaac9eea72e4087535001e967b961b742b"><div class="ttname"><a href="group__wicedbt__gatt.html#gaac9eea72e4087535001e967b961b742b">GATTDB_UUID128_SIZE</a></div><div class="ttdeci">#define GATTDB_UUID128_SIZE</div><div class="ttdoc">UUID lengths.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:460</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    (uint8_t)(permission | <a class="code" href="group__wicedbt__gatt.html#gad6f106f82541c47480d2a162e267030c">GATTDB_PERM_SERVICE_UUID_128</a>), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#gaac9eea72e4087535001e967b961b742b">GATTDB_UUID128_SIZE</a>), \</div><div class="line">    (uint8_t)(0), \</div><div class="line">    uuid</div><div class="ttc" id="group__wicedbt__gatt_html_gad6f106f82541c47480d2a162e267030c"><div class="ttname"><a href="group__wicedbt__gatt.html#gad6f106f82541c47480d2a162e267030c">GATTDB_PERM_SERVICE_UUID_128</a></div><div class="ttdeci">#define GATTDB_PERM_SERVICE_UUID_128</div><div class="ttdoc">Set for 128 bit services/characteristic UUIDs, check Service and Characteristic macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:451</div></div>
+<div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:475</div></div>
+<div class="ttc" id="group__wicedbt__gatt_html_gaac9eea72e4087535001e967b961b742b"><div class="ttname"><a href="group__wicedbt__gatt.html#gaac9eea72e4087535001e967b961b742b">GATTDB_UUID128_SIZE</a></div><div class="ttdeci">#define GATTDB_UUID128_SIZE</div><div class="ttdoc">UUID lengths.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:480</div></div>
 </div><!-- fragment -->
 <p>Macro to assist writable 128 bit descriptor declaration. </p>
 
@@ -1638,9 +1676,9 @@ Service and Characteristic macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    (uint8_t)(permission | <a class="code" href="group__wicedbt__gatt.html#gad6f106f82541c47480d2a162e267030c">GATTDB_PERM_SERVICE_UUID_128</a>), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#gaac9eea72e4087535001e967b961b742b">GATTDB_UUID128_SIZE</a>), \</div><div class="line">    uuid</div><div class="ttc" id="group__wicedbt__gatt_html_gad6f106f82541c47480d2a162e267030c"><div class="ttname"><a href="group__wicedbt__gatt.html#gad6f106f82541c47480d2a162e267030c">GATTDB_PERM_SERVICE_UUID_128</a></div><div class="ttdeci">#define GATTDB_PERM_SERVICE_UUID_128</div><div class="ttdoc">The permission bits (see Vol 3, Part F, 3.2.5)</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:435</div></div>
-<div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:455</div></div>
-<div class="ttc" id="group__wicedbt__gatt_html_gaac9eea72e4087535001e967b961b742b"><div class="ttname"><a href="group__wicedbt__gatt.html#gaac9eea72e4087535001e967b961b742b">GATTDB_UUID128_SIZE</a></div><div class="ttdeci">#define GATTDB_UUID128_SIZE</div><div class="ttdoc">UUID lengths.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:460</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    (uint8_t)(permission | <a class="code" href="group__wicedbt__gatt.html#gad6f106f82541c47480d2a162e267030c">GATTDB_PERM_SERVICE_UUID_128</a>), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#gaac9eea72e4087535001e967b961b742b">GATTDB_UUID128_SIZE</a>), \</div><div class="line">    uuid</div><div class="ttc" id="group__wicedbt__gatt_html_gad6f106f82541c47480d2a162e267030c"><div class="ttname"><a href="group__wicedbt__gatt.html#gad6f106f82541c47480d2a162e267030c">GATTDB_PERM_SERVICE_UUID_128</a></div><div class="ttdeci">#define GATTDB_PERM_SERVICE_UUID_128</div><div class="ttdoc">Set for 128 bit services/characteristic UUIDs, check Service and Characteristic macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:451</div></div>
+<div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:475</div></div>
+<div class="ttc" id="group__wicedbt__gatt_html_gaac9eea72e4087535001e967b961b742b"><div class="ttname"><a href="group__wicedbt__gatt.html#gaac9eea72e4087535001e967b961b742b">GATTDB_UUID128_SIZE</a></div><div class="ttdeci">#define GATTDB_UUID128_SIZE</div><div class="ttdoc">UUID lengths.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:480</div></div>
 </div><!-- fragment -->
 <p>Macro to assist readable 128 bit descriptor declaration. </p>
 
@@ -1671,9 +1709,9 @@ Service and Characteristic macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#ga38354ffdf7194b42d5d78069a14568d4">GATTDB_PERM_READABLE</a>), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a> + 1), \</div><div class="line">    BIT16_TO_8(GATT_UUID_CHAR_EXT_PROP),\</div><div class="line">    (uint8_t)(ext_properties)</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:455</div></div>
-<div class="ttc" id="group__wicedbt__gatt_html_ga13dfabe4e2cc2b544bc34faf84fb9783"><div class="ttname"><a href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a></div><div class="ttdeci">#define GATTDB_UUID16_SIZE</div><div class="ttdoc">UUID lengths.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:459</div></div>
-<div class="ttc" id="group__wicedbt__gatt_html_ga38354ffdf7194b42d5d78069a14568d4"><div class="ttname"><a href="group__wicedbt__gatt.html#ga38354ffdf7194b42d5d78069a14568d4">GATTDB_PERM_READABLE</a></div><div class="ttdeci">#define GATTDB_PERM_READABLE</div><div class="ttdoc">The permission bits (see Vol 3, Part F, 3.2.5)</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:426</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a>((uint16_t)(handle)), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#ga38354ffdf7194b42d5d78069a14568d4">GATTDB_PERM_READABLE</a>), \</div><div class="line">    (uint8_t)(<a class="code" href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a> + 1), \</div><div class="line">    BIT16_TO_8(GATT_UUID_CHAR_EXT_PROP),\</div><div class="line">    (uint8_t)(ext_properties)</div><div class="ttc" id="group__wicedbt__gatt_html_gad41c1417450d3265f5f3fd404ca8d4cc"><div class="ttname"><a href="group__wicedbt__gatt.html#gad41c1417450d3265f5f3fd404ca8d4cc">BIT16_TO_8</a></div><div class="ttdeci">#define BIT16_TO_8(val)</div><div class="ttdoc">Conversion macros.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:475</div></div>
+<div class="ttc" id="group__wicedbt__gatt_html_ga13dfabe4e2cc2b544bc34faf84fb9783"><div class="ttname"><a href="group__wicedbt__gatt.html#ga13dfabe4e2cc2b544bc34faf84fb9783">GATTDB_UUID16_SIZE</a></div><div class="ttdeci">#define GATTDB_UUID16_SIZE</div><div class="ttdoc">UUID lengths.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:479</div></div>
+<div class="ttc" id="group__wicedbt__gatt_html_ga38354ffdf7194b42d5d78069a14568d4"><div class="ttname"><a href="group__wicedbt__gatt.html#ga38354ffdf7194b42d5d78069a14568d4">GATTDB_PERM_READABLE</a></div><div class="ttdeci">#define GATTDB_PERM_READABLE</div><div class="ttdoc">Attribute is readable.</div><div class="ttdef"><b>Definition:</b> wiced_bt_gatt.h:435</div></div>
 </div><!-- fragment -->
 <p>Macro to assist extended properties declaration. </p>
 
@@ -1697,37 +1735,36 @@ Service and Characteristic macros</h2></td></tr>
 
 </div>
 </div>
-<a id="ga28e10c1787e3db895975e3f614315273"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga28e10c1787e3db895975e3f614315273">&#9670;&nbsp;</a></span>wiced_bt_eatt_lcid_list</h2>
+<a id="ga37f052680754df664faafdcbd4273e1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga37f052680754df664faafdcbd4273e1c">&#9670;&nbsp;</a></span>wiced_bt_gatt_csf_bits_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef uint16_t wiced_bt_eatt_lcid_list[<a class="el" href="group__bt__types.html#ga2c8591481949a685b796c1ca6f0b4daa">EATT_CHANNELS_PER_TRANSACTION</a>]</td>
+          <td class="memname">typedef uint8_t <a class="el" href="group__wicedbt__gatt.html#ga37f052680754df664faafdcbd4273e1c">wiced_bt_gatt_csf_bits_t</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>list of EATT lcid's </p>
-<p>LCID: L2CAP Channel ID L2CAP channel ids are assigned by L2CAP during the channel creation process. The list is passed to the application using <a class="el" href="structwiced__bt__gatt__eatt__connection__indication__event__t.html" title="GATT connection request (used by GATT_EATT_CONNECTION_INDICATION_EVT notification) To be returned by ...">wiced_bt_gatt_eatt_connection_indication_event_t</a> </p>
+<p>GATT Client Support features. </p>
+<p>Data Receive Buffer Data Receive Buffer or DRB is a memory area of type <a class="el" href="structt_d_r_b.html" title="Data Received Buffer (DRB) used to receive data from the peer.">tDRB</a> and size(channel MTU size + <a class="el" href="group__bt__types.html#ga76cc4e51e261caae3879751a959b97d6" title="length and offset">DRB_OVERHEAD_SIZE</a>). The DRB buffer is allocated by the application during channel creation. The allocated DRBs are passed to the GATT layer when establishing an EATT connection. a) As a connection initiator with <a class="el" href="group__gatt__eatt__functions.html#ga76d7ec594e89f33248363453d65978cf">wiced_bt_gatt_eatt_connect</a> b) As a connection responder with <a class="el" href="structwiced__bt__gatt__eatt__connection__response__t.html">wiced_bt_gatt_eatt_connection_response_t</a> Application has to allocate one DRB per GATT bearer of size equal to that of desired local MTU. </p>
 
 </div>
 </div>
-<a id="ga4fdb2145ff962cd70165abe0033d90b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4fdb2145ff962cd70165abe0033d90b4">&#9670;&nbsp;</a></span>wiced_bt_gatt_eatt_conn_id_list</h2>
+<a id="ga80c3de8e66dd4257528aeaf34484d14c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga80c3de8e66dd4257528aeaf34484d14c">&#9670;&nbsp;</a></span>wiced_bt_gatt_app_context_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef uint16_t wiced_bt_gatt_eatt_conn_id_list[<a class="el" href="group__bt__types.html#ga2c8591481949a685b796c1ca6f0b4daa">EATT_CHANNELS_PER_TRANSACTION</a>]</td>
+          <td class="memname">typedef void* <a class="el" href="group__wicedbt__gatt.html#ga80c3de8e66dd4257528aeaf34484d14c">wiced_bt_gatt_app_context_t</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>list of EATT connection id's </p>
-<p>Data Receive Buffer Data Receive Buffer or DRB is a memory area of type <a class="el" href="structt_d_r_b.html" title="Define a Data Received Buffer structure, which is used to pass received data back up through the stac...">tDRB</a> and size(channel MTU size + <a class="el" href="group__bt__types.html#ga76cc4e51e261caae3879751a959b97d6" title="length and offset">DRB_OVERHEAD_SIZE</a>). The DRB buffer is allocated by the application during channel creation. The allocated DRBs are passed to the GATT layer when establishing an EATT connection. a) As a connection initiator with <a class="el" href="group__gatt__eatt__functions.html#ga76d7ec594e89f33248363453d65978cf">wiced_bt_gatt_eatt_connect</a> b) As a connection responder with <a class="el" href="structwiced__bt__gatt__eatt__connection__response__t.html">wiced_bt_gatt_eatt_connection_response_t</a> Application has to allocate one DRB per GATT bearer of size equal to that of desired local MTU. </p>
+<p>App context is returned back to application in event GATT_APP_BUFFER_TRANSMITTED_EVT on transmission of application data buffer. </p>
 
 </div>
 </div>
@@ -1942,6 +1979,14 @@ Service and Characteristic macros</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652a6545fe6899ce0d341b1c0992f2537eed"></a>WICED_BT_GATT_VALUE_NOT_ALLOWED&#160;</td><td class="fielddoc"><p>Value Not allowed. </p>
 </td></tr>
+<tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652ab472ca5af6a650dc2d701c207b567e46"></a>WICED_BT_GATT_WRITE_REQ_REJECTED&#160;</td><td class="fielddoc"><p>Client Write operation rejected. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652a2fa8e757a0102343173a996370bd7d27"></a>WICED_BT_GATT_CCCD_IMPROPER_CONFIGURED&#160;</td><td class="fielddoc"><p>Client Characteristic Configuration Descriptor Improperly Configured. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652a17658aae4d78d44463dcbf6d82126a74"></a>WICED_BT_GATT_BUSY&#160;</td><td class="fielddoc"><p>Busy or Procedure already in progress. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652a0036290c8a33c53d72e27b02865528b3"></a>WICED_BT_GATT_OUT_OF_RANGE&#160;</td><td class="fielddoc"><p>Value Out of Range. </p>
+</td></tr>
 <tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652a119eceba07f45ac0845a7251c365b869"></a>WICED_BT_GATT_ILLEGAL_PARAMETER&#160;</td><td class="fielddoc"><p>Illegal Parameter. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652a9e7e92ed4815a5b58ccff7879ba1aa12"></a>WICED_BT_GATT_NO_RESOURCES&#160;</td><td class="fielddoc"><p>No Resources. </p>
@@ -1952,7 +1997,7 @@ Service and Characteristic macros</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652afff09f583f25b8b282d326e7eb92f2c2"></a>WICED_BT_GATT_DB_FULL&#160;</td><td class="fielddoc"><p>DB Full. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652a17658aae4d78d44463dcbf6d82126a74"></a>WICED_BT_GATT_BUSY&#160;</td><td class="fielddoc"><p>Busy. </p>
+<tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652a3aa7e60e7fe3463d782488ddc44ef0f4"></a>WICED_BT_GATT_UNUSED1&#160;</td><td class="fielddoc"><p>Unused. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652ab5c9584dbc5c321853f20ca974b29278"></a>WICED_BT_GATT_ERROR&#160;</td><td class="fielddoc"><p>Error. </p>
 </td></tr>
@@ -1984,15 +2029,17 @@ Service and Characteristic macros</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652a68996f01347183f0a8a986ce176956c8"></a>WICED_BT_GATT_INDICATION_RESPONSE_PENDING&#160;</td><td class="fielddoc"><p>Indication response pending. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652ab472ca5af6a650dc2d701c207b567e46"></a>WICED_BT_GATT_WRITE_REQ_REJECTED&#160;</td><td class="fielddoc"><p>Client Write operation rejected. </p>
+<tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652ae157ad436a156544e04fba7477752e65"></a>WICED_BT_GATT_UNUSED2&#160;</td><td class="fielddoc"><p>Unused. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652acc2bc3ff958f4fe3c5c7d1f57e2839b5"></a>WICED_BT_GATT_CCC_CFG_ERR&#160;</td><td class="fielddoc"><p>Improper Client Char Configuration. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652ad98032cb0f4e9f788e95ff168ca82f45"></a>WICED_BT_GATT_PRC_IN_PROGRESS&#160;</td><td class="fielddoc"><p>Procedure Already in Progress. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652a0036290c8a33c53d72e27b02865528b3"></a>WICED_BT_GATT_OUT_OF_RANGE&#160;</td><td class="fielddoc"><p>Value Out of Range. </p>
+<tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652acd6c135ce8c6be68d4cb5ec7670373bf"></a>WICED_BT_GATT_UNUSED3&#160;</td><td class="fielddoc"><p>Unused. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652a84304c1c9643ef269e18963fe8d11df0"></a>WICED_BT_GATT_BAD_OPCODE&#160;</td><td class="fielddoc"><p>Bad opcode. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652ac250d7a0f40a69c21f1f57f8be7bc6d3"></a>WICED_BT_GATT_NOT_IMPLEMENTED&#160;</td><td class="fielddoc"><p>Not implemented. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga972f2437538363989cee28019cb06652a9d2a6d96d94e68fca532e7b39905fcad"></a>WICED_BT_GATT_INVALID_CONNECTION_ID&#160;</td><td class="fielddoc"><p>Invalid connection id. </p>
 </td></tr>
@@ -2398,26 +2445,27 @@ Service and Characteristic macros</h2></td></tr>
 <p>GATT events. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga1a4943c0f32914d5d939b05e84c99631ab44e413a73125ba989225c6629ec7dc5"></a>GATT_CONNECTION_STATUS_EVT&#160;</td><td class="fielddoc"><p>GATT connection status change. </p>
-<p>Event data: <a class="el" href="structwiced__bt__gatt__connection__status__t.html" title="GATT connection status (used by GATT_CONNECTION_STATUS_EVT notification)">wiced_bt_gatt_connection_status_t</a> </p>
+<p>Event data: <a class="el" href="unionwiced__bt__gatt__event__data__t.html#a98e34e4ddd19f13d2a28a61148c5cd01">wiced_bt_gatt_event_data_t::connection_status</a> </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga1a4943c0f32914d5d939b05e84c99631adf101f3e076dc63ca400446bac43a463"></a>GATT_OPERATION_CPLT_EVT&#160;</td><td class="fielddoc"><p>GATT client events. </p>
-<p>Event data: <a class="el" href="unionwiced__bt__gatt__event__data__t.html" title="Structures for GATT event notifications.">wiced_bt_gatt_event_data_t</a> </p>
+<tr><td class="fieldname"><a id="gga1a4943c0f32914d5d939b05e84c99631adf101f3e076dc63ca400446bac43a463"></a>GATT_OPERATION_CPLT_EVT&#160;</td><td class="fielddoc"><p>GATT client events, indication completion of app initiated client operations Check specific client APIs for more details. </p>
+<p>Applications can initiate the next client operation for the specific ATT bearer on receiving this event. Event data: <a class="el" href="unionwiced__bt__gatt__event__data__t.html#ae728d46f0ce390d9d1e1a4843191681d">wiced_bt_gatt_event_data_t::operation_complete</a> </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga1a4943c0f32914d5d939b05e84c99631a36490d7663e5af2b40f18e2dda170c4c"></a>GATT_DISCOVERY_RESULT_EVT&#160;</td><td class="fielddoc"><p>GATT attribute discovery result. </p>
-<p>Event data: <a class="el" href="structwiced__bt__gatt__discovery__result__t.html" title="Discovery result (used by GATT_DISCOVERY_RESULT_EVT notification)">wiced_bt_gatt_discovery_result_t</a> </p>
+<p>Event data: <a class="el" href="unionwiced__bt__gatt__event__data__t.html#abcb38433306dce903e59cb5eba2c276b">wiced_bt_gatt_event_data_t::discovery_result</a> </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga1a4943c0f32914d5d939b05e84c99631a386ec2fe738be5f42e7682caacaaebf8"></a>GATT_DISCOVERY_CPLT_EVT&#160;</td><td class="fielddoc"><p>GATT attribute discovery complete. </p>
-<p>Event data: <a class="el" href="unionwiced__bt__gatt__event__data__t.html" title="Structures for GATT event notifications.">wiced_bt_gatt_event_data_t</a> </p>
+<p>Event data: <a class="el" href="unionwiced__bt__gatt__event__data__t.html#a36d56421c42d9a441decca65f884ea3e">wiced_bt_gatt_event_data_t::discovery_complete</a> </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga1a4943c0f32914d5d939b05e84c99631af9ccc76a9f59eb9334787a0244680395"></a>GATT_ATTRIBUTE_REQUEST_EVT&#160;</td><td class="fielddoc"><p>GATT attribute request (from remote client). </p>
-<p>Event data: <a class="el" href="structwiced__bt__gatt__attribute__request__t.html" title="GATT attribute request (used by GATT_ATTRIBUTE_REQUEST_EVT notification)">wiced_bt_gatt_attribute_request_t</a> </p>
+<p>Event data: <a class="el" href="unionwiced__bt__gatt__event__data__t.html#aff26a25679b61b5075ac71fcff81035b">wiced_bt_gatt_event_data_t::attribute_request</a> </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga1a4943c0f32914d5d939b05e84c99631a86ffe24cb27c75e6042c480989b79738"></a>GATT_CONGESTION_EVT&#160;</td><td class="fielddoc"><p>GATT congestion (running low in tx buffers). </p>
-<p>Event data: <a class="el" href="structwiced__bt__gatt__congestion__event__t.html" title="GATT channel congestion/uncongestion (used by GATT_CONGESTION_EVT notification)">wiced_bt_gatt_congestion_event_t</a> TODO: add more details regarding congestion </p>
+<p>Event data: <a class="el" href="unionwiced__bt__gatt__event__data__t.html#adccaa639df2fcc2f7853040d19d8448a">wiced_bt_gatt_event_data_t::congestion</a> </p><dl class="section note"><dt>Note</dt><dd>Handling <a class="el" href="group__wicedbt__gatt.html#gga1a4943c0f32914d5d939b05e84c99631a86ffe24cb27c75e6042c480989b79738" title="GATT congestion (running low in tx buffers).">GATT_CONGESTION_EVT</a> Applications may receive a GATT_CONGESTION_EVT to indicate a congestion at the GATT layer. On reception of this event with the <a class="el" href="structwiced__bt__gatt__congestion__event__t.html#a6fa576f5e5303d1bb359e712e5196f4e" title="congestion state">wiced_bt_gatt_congestion_event_t.congested</a> variable set to <a class="el" href="group__gentypes.html#ga5b2438400e0a0860adaae6d13fec33f8" title="Wiced true.">WICED_TRUE</a> the application should not attempt to send any further requests or commands to the GATT layer as these will return with error code of <a class="el" href="group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a9352261c3103e9e53676935bdf558d72" title="Congested.">WICED_BT_GATT_CONGESTED</a> On reception of the <a class="el" href="group__wicedbt__gatt.html#gga1a4943c0f32914d5d939b05e84c99631a86ffe24cb27c75e6042c480989b79738" title="GATT congestion (running low in tx buffers).">GATT_CONGESTION_EVT</a> with the <a class="el" href="structwiced__bt__gatt__congestion__event__t.html#a6fa576f5e5303d1bb359e712e5196f4e" title="congestion state">wiced_bt_gatt_congestion_event_t.congested</a> variable set to <a class="el" href="group__gentypes.html#ga98455f16ecc9e3b1e94af3d3437416f5" title="Wiced false.">WICED_FALSE</a> the application may resume sending any further APIs </dd></dl>
 </td></tr>
-<tr><td class="fieldname"><a id="gga1a4943c0f32914d5d939b05e84c99631a0e826c406cd59e6afe727ca3fc060026"></a>GATT_GET_RESPONSE_BUFFER_EVT&#160;</td><td class="fielddoc"><p>GATT buffer request, typically sized to max of bearer mtu - 1. </p>
+<tr><td class="fieldname"><a id="gga1a4943c0f32914d5d939b05e84c99631a0e826c406cd59e6afe727ca3fc060026"></a>GATT_GET_RESPONSE_BUFFER_EVT&#160;</td><td class="fielddoc"><p>GATT buffer request, typically sized to max of bearer mtu - 1, Event data: <a class="el" href="unionwiced__bt__gatt__event__data__t.html#a63b2c97e5d33c59213742ec6829be9d5">wiced_bt_gatt_event_data_t::buffer_request</a>. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga1a4943c0f32914d5d939b05e84c99631a68a87f3f6a4f7c061b50872522f507a4"></a>GATT_APP_BUFFER_TRANSMITTED_EVT&#160;</td><td class="fielddoc"><p>GATT buffer transmitted event, check <a class="el" href="structwiced__bt__gatt__buffer__transmitted__t.html">wiced_bt_gatt_buffer_transmitted_t</a>. </p>
+<tr><td class="fieldname"><a id="gga1a4943c0f32914d5d939b05e84c99631a68a87f3f6a4f7c061b50872522f507a4"></a>GATT_APP_BUFFER_TRANSMITTED_EVT&#160;</td><td class="fielddoc"><p>GATT buffer transmitted event, indicates that the data in <a class="el" href="structwiced__bt__gatt__buffer__transmitted__t.html#a9dc2ce0fcd9d8fdce23345249c36a42e">wiced_bt_gatt_buffer_transmitted_t::p_app_data</a> has been transmitted and may be released/freed by the application using the application provided context in <a class="el" href="structwiced__bt__gatt__buffer__transmitted__t.html#aee4534bcf5ed42ab50f7c80a46278a1a">wiced_bt_gatt_buffer_transmitted_t::p_app_ctxt</a>. </p>
+<p>Event data: <a class="el" href="unionwiced__bt__gatt__event__data__t.html#aeff4fc0fddaf005b07a149278cc06b0b">wiced_bt_gatt_event_data_t::buffer_xmitted</a> </p>
 </td></tr>
 </table>
 

@@ -2,14 +2,16 @@
 * \file cybt_platform_interface.h
 *
 * \brief
-* Defines the Cypress BT platform porting Interface. Include all interface header 
-* and provides prototypes for functions that are used in Cypress WICED Bluetooth
-* library. Functions which are required to be ported are defined 
+* Defines the BT platform porting Interface. Include all interface header
+* and provides prototypes for functions that are used in WICED Bluetooth
+* library. Functions which are required to be ported are defined
 * in cybt_platform_sample.c file.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2019 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -170,7 +172,7 @@ uint64_t cybt_platform_get_tick_count_us(void);
 
 
 /**
- * This function is used by BT stack to set next timeout in absolute tick 
+ * This function is used by BT stack to set next timeout in absolute tick
  * count in micro-second.
  *
  * @param[in] abs_tick_us_to_expire: absolute tick count in micro-second to be expired

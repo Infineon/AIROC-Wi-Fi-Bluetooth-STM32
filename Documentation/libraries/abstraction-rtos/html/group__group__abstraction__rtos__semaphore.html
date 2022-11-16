@@ -143,7 +143,7 @@ $(document).ready(function(){initNavTree('group__group__abstraction__rtos__semap
 </div><div class="memdoc">
 
 <p>Create a semaphore. </p>
-<p>This is basically a counting semaphore.</p>
+<p>This is basically a counting semaphore. It can be used for synchronization between tasks and tasks and interrupts.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in,out]</td><td class="paramname">semaphore</td><td>Pointer to the semaphore handle to be initialized </td></tr>
@@ -193,7 +193,7 @@ $(document).ready(function(){initNavTree('group__group__abstraction__rtos__semap
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">semaphore</td><td>Pointer to the semaphore handle </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">timeout_ms</td><td>Maximum number of milliseconds to wait while attempting to get the semaphore. Use the <a class="el" href="group__group__abstraction__rtos__common.html#gab31d8535128df9506a4220c2b1f41a60">CY_RTOS_NEVER_TIMEOUT</a> constant to wait forever. Must be zero is in_isr is true </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">timeout_ms</td><td>Maximum number of milliseconds to wait while attempting to get the semaphore. Use the <a class="el" href="group__group__abstraction__rtos__common.html#gab31d8535128df9506a4220c2b1f41a60">CY_RTOS_NEVER_TIMEOUT</a> constant to wait forever. Must be zero if in_isr is true. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">in_isr</td><td>true if we are trying to get the semaphore from with an ISR </td></tr>
   </table>
   </dd>

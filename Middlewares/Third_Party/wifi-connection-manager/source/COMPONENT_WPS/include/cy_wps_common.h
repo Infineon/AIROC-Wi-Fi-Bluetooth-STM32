@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -39,6 +39,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#ifdef COMPONENT_CM0P
+#define CY_WPS_HOST_IS_ALIGNED
+#endif /* COMPONENT_CM0P */
 
 #include "cy_wps_structures.h"
 #include "cyabs_rtos.h"

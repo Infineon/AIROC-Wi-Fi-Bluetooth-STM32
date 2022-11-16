@@ -1,5 +1,34 @@
 /*
- * $ Copyright Cypress Semiconductor $
+ * Copyright 2019-2022, Cypress Semiconductor Corporation or
+ * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
+ *
+ * This software, including source code, documentation and related
+ * materials ("Software") is owned by Cypress Semiconductor Corporation
+ * or one of its affiliates ("Cypress") and is protected by and subject to
+ * worldwide patent protection (United States and foreign),
+ * United States copyright laws and international treaty provisions.
+ * Therefore, you may use this Software only as provided in the license
+ * agreement accompanying the software package from which you
+ * obtained this Software ("EULA").
+ * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
+ * non-transferable license to copy, modify, and compile the Software
+ * source code solely for use in connection with Cypress's
+ * integrated circuit products.  Any reproduction, modification, translation,
+ * compilation, or representation of this Software except as specified
+ * above is prohibited without the express written permission of Cypress.
+ *
+ * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Cypress
+ * reserves the right to make changes to the Software without notice. Cypress
+ * does not assume any liability arising out of the application or use of the
+ * Software or any product or circuit described in the Software. Cypress does
+ * not authorize its products for use in any products where a malfunction or
+ * failure of the Cypress product may reasonably be expected to result in
+ * significant property damage, injury or death ("High Risk Product"). By
+ * including Cypress's product in a High Risk Product, the manufacturer
+ * of such system or application assumes all risk of such use and in doing
+ * so agrees to indemnify Cypress against all liability.
  */
 /** @file
  *
@@ -114,13 +143,12 @@ typedef struct
      * Called by stack to send the buffer allocated using pf_get_acl_to_lower_buffer
      * after filling it with the data to send.
      *
-     * @param[in] transport : Transport on which the buffer is to be sent
      * @param[in] p_data    : Pointer received using pf_get_acl_to_lower_buffer
      * @param[in] len       : Length of data at p_data
      *
      * @return : wiced_result_t
      */
-    wiced_result_t (*pf_write_iso_to_lower)(wiced_bt_transport_t transport, uint8_t* p_data, uint16_t len);
+    wiced_result_t (*pf_write_iso_to_lower)(uint8_t* p_data, uint16_t len);
 
     /**
      * Platform function to write CMD buffer to lower
@@ -201,6 +229,12 @@ typedef struct
      * after the HCI reset. Can be set to NULL if no additional initialization required
      */
     void (*pf_patch_download)(void);
+
+    /**
+     *set is_legacy_bless_controller to 1 for only BLESS controllers.
+     *This is used while sending BLESS vendor specific commands.
+     */
+    uint32_t is_legacy_bless_controller : 1;
 } wiced_bt_stack_platform_t;
 
 /**
@@ -211,16 +245,6 @@ typedef struct
  *           <b> WICED_BT_ERROR  </b>  : if an error occurred
  */
 extern wiced_result_t wiced_bt_stack_platform_initialize(wiced_bt_stack_platform_t * platform_interfaces);
-
-/**
- * DeInitialize the platform interfaces and free the memory allocated by #wiced_bt_stack_platform_initialize API
- *
- * @return   <b> WICED_BT_SUCCESS </b> : on success; \n
- *           <b> WICED_BT_ERROR  </b>  : if an error occurred
- *
- * @note : After calling this API, DON'T call any BT API without calling #wiced_bt_stack_platform_initialize again.
- */
-extern wiced_result_t wiced_bt_stack_platform_deinit(void);
 
 /**
  * Called by the porting layer to process the incoming ACL data received from the
@@ -264,7 +288,7 @@ extern void wiced_bt_process_sco_data(uint8_t *pData, uint32_t length);
  */
  void wiced_bt_process_isoc_data(uint8_t *pData, uint32_t length);
 
-/**
+ /**
  * Called by the porting layer on expiry of the timer to process pending timers
  *
  * @return    void
@@ -336,6 +360,5 @@ void wiced_bt_stack_init_internal(wiced_bt_management_cback_t mgmt_cback,
  * @return    None
  */
 void wiced_bt_stack_shutdown(void);
+
 /**@} wiced_bt_platform_group */
-
-

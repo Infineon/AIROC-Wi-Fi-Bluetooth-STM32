@@ -9,6 +9,7 @@ var group__timer =
     ] ],
     [ "wiced_timer_callback_arg_t", "group__timer.html#gafcfb6bcad5801f85b6da1afef4b609f0", null ],
     [ "WICED_TIMER_PARAM_TYPE", "group__timer.html#gae5ec97ae150269b363d7107837899e12", null ],
+    [ "TIMER_PARAM_TYPE", "group__timer.html#ga2cd25e917632799891ef3d99a326b331", null ],
     [ "wiced_timer_callback_t", "group__timer.html#ga48470d659fc530baedd02acd2495e7ad", null ],
     [ "wiced_timer_type_e", "group__timer.html#ga90ed93f708e4e32fae546ca915816628", null ],
     [ "wiced_init_timer", "group__timer.html#ga6bce6342b0e621f35550ed5646c31154", null ],

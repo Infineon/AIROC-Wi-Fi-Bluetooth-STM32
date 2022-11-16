@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2019-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -112,6 +112,14 @@ extern "C" {
 #define CY_RSLT_MODULE_OTA_UPDATE_BASE                   CY_RSLT_MODULE_MIDDLEWARE_BASE + 13
 /** HTTP Client module base */
 #define CY_RSLT_MODULE_HTTP_CLIENT                       CY_RSLT_MODULE_MIDDLEWARE_BASE + 14
+/** Buffer pool module base */
+#define CY_RSLT_MODULE_BUFFER_POOL_BASE                  CY_RSLT_MODULE_MIDDLEWARE_BASE + 15
+/** lwIP network interface integration module base */
+#define CY_RSLT_MODULE_NETWORK_PORT_BASE                 CY_RSLT_MODULE_MIDDLEWARE_BASE + 16
+/** Ethernet Connection Manager (ECM) module base */
+#define CY_RSLT_MODULE_ECM_BASE                          CY_RSLT_MODULE_MIDDLEWARE_BASE + 17
+/** NetXDuo WHD port module base */
+#define CY_RSLT_MODULE_NETXDUO_WHD_PORT_BASE             CY_RSLT_MODULE_MIDDLEWARE_BASE + 18
 
 /**
  * @}
@@ -121,6 +129,7 @@ extern "C" {
  * @defgroup generic_mw_defines generic middleware results/error codes
  * @ingroup group_utils_enums
  * @{
+ * List of all the generic result/error codes defined by the connectivity-utilities library.
  */
 /** Generic middleware error code start */
 #define CY_RSLT_MODULE_MW_ERR_CODE_START       (0)
@@ -149,6 +158,7 @@ extern "C" {
  * @defgroup tcpip_mw_defines TCP/IP socket results/error codes
  * @ingroup group_utils_enums
  * @{
+ * List of all the socket result/error codes defined by the connectivity-utilities library.
  */
 /** TCP/IP error code start */
 #define CY_RSLT_MODULE_TCPIP_ERR_CODE_START       (0)
@@ -191,6 +201,7 @@ extern "C" {
  * @defgroup tls_mw_defines TLS results/error codes
  * @ingroup group_utils_enums
  * @{
+ * List of all the TLS result/error codes defined by the connectivity-utilities library.
  */
 /** TLS error code start */
 #define CY_RSLT_MODULE_TLS_ERR_CODE_START        (0)
@@ -218,6 +229,8 @@ extern "C" {
 #define CY_RSLT_MODULE_TLS_CONNECTION_CLOSED     ( CY_RSLT_TLS_ERR_BASE + 10 )
 /** TLS socket not connected */
 #define CY_RSLT_MODULE_TLS_SOCKET_NOT_CONNECTED  ( CY_RSLT_TLS_ERR_BASE + 11 )
+/** PKCS11 generic error */
+#define CY_RSLT_MODULE_TLS_PKCS_ERROR            ( CY_RSLT_TLS_ERR_BASE + 12 )
 
 /**
  * @}

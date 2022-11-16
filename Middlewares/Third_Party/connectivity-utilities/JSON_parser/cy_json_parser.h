@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2019-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -44,6 +44,16 @@
 extern "C" {
 #endif
 
+/**
+ *
+ * @addtogroup json_utils 
+ * 
+ * The JSON format is often used for serializing and transmitting structured data over a network connection. 
+ * It is used primarily to transmit data between a server and web application, serving as an alternative to XML. 
+ * JSON is JavaScript Object Notation. The JSON parser utility library provides helper functions to parse JSON objects and 
+ * calls the function registered by the caller
+ * 
+ */
 /******************************************************
  *                      Macros
  ******************************************************/
@@ -81,15 +91,20 @@ extern "C" {
  *                   Enumerations
  ******************************************************/
 /******************************************************************************/
-/** \addtogroup group_json_enums *//** \{ */
+/** \addtogroup group_json_enums 
+ * Documentation of all the enums provided by JSON parser utility library.
+ *//** \{ */
 /******************************************************************************/
 
 /** JSON data types */
 typedef enum
 {
     JSON_STRING_TYPE,  /**< JSON string datatype */
-    JSON_NUMBER_TYPE,  /**< JSON number datatype */
-    JSON_VALUE_TYPE,   /**< JSON value datatype */
+    JSON_NUMBER_TYPE,  /**< JSON integer datatype */
+    JSON_VALUE_TYPE,   /**< JSON value datatype. 
+                        **< This type is deprecated and it will be removed in the future release.
+                        */
+    JSON_FLOAT_TYPE,   /**< JSON float datatype */
     JSON_ARRAY_TYPE,   /**< JSON array datatype */
     JSON_OBJECT_TYPE,  /**< JSON object */
     JSON_BOOLEAN_TYPE, /**< JSON boolean datatype */
@@ -103,7 +118,9 @@ typedef enum
  *                 Type Definitions
  ******************************************************/
 /******************************************************************************/
-/** \addtogroup group_json_structures *//** \{ */
+/** \addtogroup group_json_structures 
+ * Documentation of the data structures defined and used by JSON parser utility library.
+ *//** \{ */
 /******************************************************************************/
 
 /******************************************************
@@ -115,8 +132,11 @@ typedef struct cy_JSON_object {
     char*               object_string;        /**< JSON object as a string */
     uint8_t             object_string_length; /**< Length of the JSON string */
     cy_JSON_type_t      value_type;           /**< JSON data type of value parsed */
-    char*               value;                /**< JSON value parsed */
-    uint16_t            value_length;         /**< JSON length of value parsed */
+    char*               value;                /**< JSON string value parsed */
+    uint16_t            value_length;         /**< length of string value parsed */
+    uint32_t            intval;               /**< JSON integer value parsed */
+    float               floatval;             /**< JSON float value parsed */
+    bool                boolval;              /**< JSON boolean value parsed */
     struct cy_JSON_object* parent_object;     /**< Pointer to parent JSON object */
 } cy_JSON_object_t;
 

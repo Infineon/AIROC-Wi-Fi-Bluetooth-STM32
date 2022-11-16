@@ -53,7 +53,6 @@
 #include "whd_types_int.h"
 #include "whd_int.h"
 #include "cy_utils.h"
-#include "stm32h747i_discovery.h"
 
 /* Private typedef -----------------------------------------------------------*/
 typedef struct
@@ -65,10 +64,20 @@ typedef struct
 
 /* Private macro -------------------------------------------------------------*/
 
+#define USER_BUTTON_GPIO_Port JOY_SEL_GPIO_Port
+#define USER_BUTTON_Pin JOY_SEL_Pin
+
 /* Wi-Fi Connection related parameters */
-#define WIFI_CONNECT_ENABLE                 (0) /* Enable/Disable Wi-Fi Connect */
-#define WIFI_SSID                           "WIFI_SSID"
-#define WIFI_PASSWORD                       "WIFI_PASSWORD"
+#if  !defined(WIFI_CONNECT_ENABLE)
+   #define WIFI_CONNECT_ENABLE             (0) /* Enable/Disable Wi-Fi Connect */
+#endif /* (WIFI_CONNECT_ENABLE) */
+#if  !defined(WIFI_SSID)
+   #define WIFI_SSID                       "WIFI_SSID"
+#endif /* (WIFI_SSID) */
+#if  !defined(WIFI_PASSWORD)
+   #define WIFI_PASSWORD                   "WIFI_PASSWORD"
+#endif /* (WIFI_PASSWORD) */
+
 #define WIFI_SECURITY                       CY_WCM_SECURITY_WPA2_AES_PSK
 #define MAX_WIFI_RETRY_COUNT                (3u)
 #define WIFI_CONN_RETRY_INTERVAL_MSEC       (100u)
@@ -87,18 +96,9 @@ typedef struct
 /* Private variables ---------------------------------------------------------*/
 /* Connection parameters to the Wi-Fi connection manager (WCM). */
 cy_wcm_connect_params_t connect_param;
-cy_wcm_ip_address_t ip_addr;
-wcm_scan_data_t scan_data;
-cy_wcm_mac_t  last_bssid;
-
-COM_InitTypeDef COM_Init =
-{
-    .BaudRate   = 115200,
-    .WordLength = COM_WORDLENGTH_8B,
-    .StopBits   = COM_STOPBITS_1,
-    .Parity     = COM_PARITY_NONE,
-    .HwFlowCtl  = COM_HWCONTROL_NONE
-};
+cy_wcm_ip_address_t     ip_addr;
+wcm_scan_data_t         scan_data;
+cy_wcm_mac_t            last_bssid;
 
 /* Private function prototypes -----------------------------------------------*/
 void app_init(void);
@@ -107,7 +107,7 @@ void scan_result_callback(cy_wcm_scan_result_t* result_ptr, void* user_data,
 const char* security_to_str(whd_security_t security);
 void wifi_connect(void);
 
-extern osThreadId_t WiFi_TaskHandle;
+extern osThreadId_t       WiFi_TaskHandle;
 extern UART_HandleTypeDef huart1;
 /* Private user code ---------------------------------------------------------*/
 SD_HandleTypeDef SDHandle = { .Instance = SDMMC1 };
@@ -131,7 +131,7 @@ SD_HandleTypeDef SDHandle = { .Instance = SDMMC1 };
  **************************************************************************************************/
 void WiFiTask(void* argument)
 {
-    cy_rslt_t result = CY_RSLT_SUCCESS;
+    cy_rslt_t       result = CY_RSLT_SUCCESS;
     cy_wcm_config_t wcm_config;
     wcm_config.interface = CY_WCM_INTERFACE_TYPE_STA;
 
@@ -174,10 +174,16 @@ void WiFiTask(void* argument)
             PRINT_SCAN_TEMPLATE();
 
             /* Start the scan */
+            HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_PIN_RESET);
             result =  cy_wcm_start_scan(scan_result_callback, &scan_data, &scan_filter);
+            HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_PIN_SET);
             if (CY_RSLT_SUCCESS == result)
             {
                 xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
+            }
+            else
+            {
+                HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
             }
             /* Add Delay before starting the scan again */
             vTaskDelay(pdMS_TO_TICKS(SCAN_DELAY_MS));
@@ -189,7 +195,7 @@ void WiFiTask(void* argument)
 
 /***************************************************************************************************
  * Function Name: app_init
- **************************************************************************************************
+ ***************************************************************************************************
  * Summary: This Function handles the user button press event which helps the
  * user to connect the CYW43xxx to microSD card slot before starting the app.
  *
@@ -202,58 +208,44 @@ void WiFiTask(void* argument)
  **************************************************************************************************/
 void app_init()
 {
-    /* Initialize BSP LEDs */
-    BSP_LED_Init(LED_GREEN);
-    BSP_LED_Init(LED_ORANGE);
-    BSP_LED_Init(LED_RED);
-
-    BSP_COM_Init(COM1, &COM_Init);
+    HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(LED_ORANGE_GPIO_Port, LED_ORANGE_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_PIN_SET);
 
     printf(" ******************* WiFi-Scan app ******************* \r\n\r\n");
-    printf("    Push blue button or send any symbol via serial terminal to continue...\r\n\r\n");
+    printf("    Push blue button or send any symbol via serial terminal to continue...\r\n");
+    printf("    (The larger, square blue button)\r\n\r\n");
 
-    /* Configure User push-button button */
-    BSP_PB_Init(BUTTON_WAKEUP, BUTTON_MODE_GPIO);
     char read_terminal = 0;
+
     /* Wait for User push-button press before starting the Communication */
-    while ((BSP_PB_GetState(BUTTON_WAKEUP) != GPIO_PIN_SET) &&
+    while ((HAL_GPIO_ReadPin(USER_BUTTON_GPIO_Port, USER_BUTTON_Pin) == GPIO_PIN_SET) &&
            (read_terminal == 0))
     {
         HAL_UART_Receive(&huart1, (uint8_t*)&read_terminal, 1, 1);
-        BSP_LED_Toggle(LED_ORANGE);
+        HAL_GPIO_TogglePin(LED_ORANGE_GPIO_Port, LED_ORANGE_Pin);
         HAL_Delay(100);
     }
-    BSP_LED_On(LED_ORANGE);
 
-    /* Configure uSD_Detect input pin */
+    HAL_GPIO_WritePin(LED_ORANGE_GPIO_Port, LED_ORANGE_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_RESET);
+
+    if (HAL_GPIO_ReadPin(SDIO_DETECT_GPIO_Port, SDIO_DETECT_Pin) == GPIO_PIN_RESET)
     {
-        GPIO_InitTypeDef  GPIO_Input_Init =
-        {
-            .Mode  = GPIO_MODE_INPUT,
-            .Pull  = GPIO_NOPULL,
-            .Pin   = GPIO_PIN_8,
-            .Speed = GPIO_SPEED_FREQ_LOW
-        };
-
-        __HAL_RCC_GPIOI_CLK_ENABLE();
-        HAL_GPIO_Init(GPIOI, &GPIO_Input_Init);
-
-        if (HAL_GPIO_ReadPin(GPIOI, GPIO_PIN_8) == GPIO_PIN_RESET)
-        {
-            printf("    CYW43xxx detected\r\n\r\n");
-        }
-        else
-        {
-            printf("    ERROR: CYW43xxx not detected in microSD card slot\r\n\r\n");
-            Error_Handler();
-        }
+        printf("    CYW43xxx detected \r\n\r\n");
+    }
+    else
+    {
+        printf("    ERROR: CYW43xxx not detected in microSD card slot \r\n");
+        Error_Handler();
     }
 }
 
 
 /***************************************************************************************************
  * Function Name: scan_check_bssid_in_list
- **************************************************************************************************
+ ***************************************************************************************************
  * Summary: This Function removes duplicate entries in scan results.
  *
  * Parameters:
@@ -278,7 +270,7 @@ bool scan_check_bssid_in_list(cy_wcm_scan_result_t* result_ptr)
 
 /***************************************************************************************************
  * Function Name: scan_result_callback
- **************************************************************************************************
+ ***************************************************************************************************
  * Summary: The callback function which accumulates the scan results. After
  * completing the scan, it sends a task notification to scan_task.
  *
@@ -315,24 +307,24 @@ void scan_result_callback(cy_wcm_scan_result_t* result_ptr, void* user_data,
                      * repeating BSSID in scan results
                      */
                     memcpy(&last_bssid, &result_ptr->BSSID[0], sizeof(last_bssid));
-                    printf(
-                        " %2ld   %-32s     %4d     %3d      %02X:%02X:%02X:%02X:%02X:%02X         %-15s\r\n",
-                        scan_data->result_count, result_ptr->SSID,
-                        result_ptr->signal_strength, result_ptr->channel,
-                        result_ptr->BSSID[0], result_ptr->BSSID[1],
-                        result_ptr->BSSID[2], result_ptr->BSSID[3],
-                        result_ptr->BSSID[4], result_ptr->BSSID[5],
-                        security_to_str((whd_security_t)result_ptr->security));
-                } /* end of if  ( scan_check_bssid_in_list (result_ptr) == false ) */
-            } /* end of if ( result_ptr != NULL ) */
-        } /* end of else */
-    }/* end of if ( scan_data != NULL ) */
+                    printf(" %2ld   %-32s     %4d     %3d      %02X:%02X:%02X:%02X:%02X:%02X"
+                           "         %-15s\r\n",
+                           scan_data->result_count, result_ptr->SSID,
+                           result_ptr->signal_strength, result_ptr->channel,
+                           result_ptr->BSSID[0], result_ptr->BSSID[1],
+                           result_ptr->BSSID[2], result_ptr->BSSID[3],
+                           result_ptr->BSSID[4], result_ptr->BSSID[5],
+                           security_to_str((whd_security_t)result_ptr->security));
+                }
+            }
+        }
+    }
 }
 
 
 /***************************************************************************************************
  * Function Name: security_to_str
- **************************************************************************************************
+ ***************************************************************************************************
  * Summary: This Function returns string for each of WHD security types which
  * will be used in scan results.
  * Parameters:
@@ -433,7 +425,7 @@ static void print_ip4(uint32_t ip, char* str)
 
 /***************************************************************************************************
  * Function Name: wifi_connect
- **************************************************************************************************
+ ***************************************************************************************************
  * Summary: This function executes a connect to the AP. The maximum number of
  * times it attempts to connect to the AP is specified by MAX_RETRY_COUNT. Then
  * ping to Gateway IP address.
@@ -495,7 +487,7 @@ void wifi_connect()
         printf("RSSI : %d \r\n", ap_info.signal_strength);
 
         /* Get IPv4 address */
-        result = cy_wcm_get_ip_addr(CY_WCM_INTERFACE_TYPE_STA, &ip_address, 1);
+        result = cy_wcm_get_ip_addr(CY_WCM_INTERFACE_TYPE_STA, &ip_address);
         if (result != CY_RSLT_SUCCESS)
         {
             printf("cy_wcm_get_ip_addr failed with result %ld \r\n", result);
@@ -504,7 +496,7 @@ void wifi_connect()
         print_ip4(ip_address.ip.v4, "IPV4");
 
         /* Get gateway address */
-        result = cy_wcm_get_gateway_ip_address(CY_WCM_INTERFACE_TYPE_STA, &gateway_addr, 1);
+        result = cy_wcm_get_gateway_ip_address(CY_WCM_INTERFACE_TYPE_STA, &gateway_addr);
         if (result != CY_RSLT_SUCCESS)
         {
             printf("cy_wcm_get_gateway_ip_address failed with result %ld \r\n", result);
@@ -516,15 +508,22 @@ void wifi_connect()
 
         /* Send PING request with 3000ms ping timeout */
         result = cy_wcm_ping(CY_WCM_INTERFACE_TYPE_STA, &gateway_addr, 3000, &elapsed_time_ms);
-        if (result == CY_RSLT_SUCCESS)
+        switch (result)
         {
-            printf("ping was successful time elapsed = %lu ms\r\n", elapsed_time_ms);
+            case CY_RSLT_SUCCESS:
+                printf("Ping was successful time elapsed = %lu ms\r\n", elapsed_time_ms);
+                break;
+
+            case CY_RSLT_WCM_WAIT_TIMEOUT:
+                printf("Ping timeout!\r\n");
+                break;
+
+            default:
+                printf("Ping failed !! Module %lx Code %lx\r\n", CY_RSLT_GET_MODULE(
+                           result), CY_RSLT_GET_CODE(result));
+                break;
         }
-        else
-        {
-            printf("Ping failed !! Module %lx Code %lx\r\n", CY_RSLT_GET_MODULE(
-                       result), CY_RSLT_GET_CODE(result));
-        }
+
         printf("Disconnecting ... \r\n");
         result = cy_wcm_disconnect_ap();
         if (result != CY_RSLT_SUCCESS)
@@ -539,7 +538,7 @@ void wifi_connect()
 
 /***************************************************************************************************
  * Function Name: SDMMC1_IRQHandler
- **************************************************************************************************
+ ***************************************************************************************************
  * Summary: This Function handles SDMMC Interrupt and calls STM hal layer
  * function which handles interrupt masking and calling sdio event callback
  * function.
@@ -559,8 +558,8 @@ void SDMMC1_IRQHandler(void)
 
 /***************************************************************************************************
  * Function Name: HAL_GPIO_EXTI_Callback
- **************************************************************************************************
- * Summary: This Function Owerwrite EXTI Callback Function in stm32h7xx_hal_gpio.c
+ ***************************************************************************************************
+ * Summary: This Function Overwrite EXTI Callback Function in stm32h7xx_hal_gpio.c
  * and calls GPIO callback function for that particular GPIO.
  *
  * Parameters:
@@ -570,7 +569,6 @@ void SDMMC1_IRQHandler(void)
  *  void
  *
  **************************************************************************************************/
-// Owerwrite EXTI Callback
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
     stm32_cyhal_gpio_irq_handler(GPIO_Pin);

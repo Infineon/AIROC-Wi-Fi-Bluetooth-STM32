@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2019-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -37,7 +37,7 @@
 #include "cy_json_parser.h"
 #include <stddef.h>
 #include <string.h>
-
+#include <stdlib.h>
 /******************************************************
  *                      Macros
  ******************************************************/
@@ -77,10 +77,13 @@ static char*               previous_token   = NULL;
 static cy_JSON_object_t json_object =
 {
     .object_string        = NULL,
-    .object_string_length =                 0,
+    .object_string_length = 0,
     .value_type           = UNKNOWN_JSON_TYPE,
     .value                = NULL,
-    .value_length         =                 0,
+    .value_length         = 0,
+    .intval               = 0,
+    .floatval             = 0.0,
+    .boolval              = true,
     .parent_object        = NULL
 };
 
@@ -114,6 +117,37 @@ static int32_t             array_counter            = 0;
 /******************************************************
  *               Function Definitions
  ******************************************************/
+ /* This function converts a string to appropriate format if the type is either
+  * a JSON_NUMBER_TYPE or JSON_BOOLEAN_TYPE
+  */
+static void str_convertor( cy_JSON_object_t* json_object )
+{
+    if( json_object->value_type == JSON_NUMBER_TYPE )
+    {
+        int i = 0;
+        for( i=0; i<json_object->value_length; i++ )
+        {
+            if( json_object->value[i] == '.' )
+            {
+                json_object->floatval = strtof( json_object->value, NULL );
+                json_object->value_type = JSON_FLOAT_TYPE;
+                return;
+            }
+        }
+        json_object->intval = strtol( json_object->value, NULL, 10 );
+    }
+    else if( json_object->value_type == JSON_BOOLEAN_TYPE )
+    {
+        if( json_object->value[0] == 't' )
+        {
+            json_object->boolval = true;
+        }
+        else
+        {
+            json_object->boolval = false;
+        }
+    }
+}
 static cy_rslt_t validate_array_value( char* start, char* stop, uint8_t len )
 {
     char*   temp = NULL;
@@ -454,6 +488,7 @@ cy_rslt_t cy_JSON_parser( const char* json_input, uint32_t input_length )
 
                         if ( internal_json_callback != NULL )
                         {
+                            str_convertor( &json_object );
                             internal_json_callback( &json_object, internal_json_argument );
                         }
 
@@ -592,6 +627,7 @@ cy_rslt_t cy_JSON_parser( const char* json_input, uint32_t input_length )
 
                     if ( internal_json_callback != NULL )
                     {
+                        str_convertor( &json_object );
                         internal_json_callback( &json_object, internal_json_argument );
                     }
 
@@ -738,6 +774,7 @@ cy_rslt_t cy_JSON_parser( const char* json_input, uint32_t input_length )
 
                         if ( internal_json_callback != NULL )
                         {
+                            str_convertor( &json_object );
                             internal_json_callback( &json_object, internal_json_argument );
                         }
 
@@ -864,6 +901,7 @@ cy_rslt_t cy_JSON_parser( const char* json_input, uint32_t input_length )
 
                         if ( internal_json_callback != NULL )
                         {
+                            str_convertor( &json_object );
                             internal_json_callback( &json_object, internal_json_argument );
                         }
                         value_start = NULL;
@@ -958,6 +996,7 @@ cy_rslt_t cy_JSON_parser( const char* json_input, uint32_t input_length )
 
                         if ( internal_json_callback != NULL )
                         {
+                            str_convertor( &json_object );
                             internal_json_callback( &json_object, internal_json_argument );
                         }
 
@@ -1026,8 +1065,10 @@ cy_rslt_t cy_JSON_parser( const char* json_input, uint32_t input_length )
 
         number_of_bytes_backed_up = end_of_input - most_recent_object_marker;
 
-        memcpy( packet_backup, most_recent_object_marker, number_of_bytes_backed_up );
-
+        if( most_recent_object_marker != NULL )
+        {
+            memcpy( packet_backup, most_recent_object_marker, number_of_bytes_backed_up );
+        }
 
         incomplete_response = true;
         valid_json_string = CY_RSLT_JSON_GENERIC_ERROR;

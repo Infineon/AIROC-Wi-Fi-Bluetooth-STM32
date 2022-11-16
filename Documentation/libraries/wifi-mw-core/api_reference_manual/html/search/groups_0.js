@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['cy_20generic_20lwip_20whd_20glue_20results_2ferror_20codes',['CY generic lwIP WHD glue results/error codes',['../group__generic__lwip__whd__port__defines.html',1,'']]]
+  ['eapol_20functions_0',['EAPOL Functions',['../group__group__wifimwcore__eapol__functions.html',1,'']]],
+  ['enumerated_20types_1',['Enumerated Types',['../group__group__lwip__whd__enums.html',1,'']]]
 ];

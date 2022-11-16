@@ -6,7 +6,9 @@
  *
  ***************************************************************************************************
  * \copyright
- * Copyright 2018-2021 Cypress Semiconductor Corporation
+ * Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation
+ *
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +32,7 @@
 #include <task.h>
 #include "cyabs_rtos_internal.h"
 
-static const uint32_t  TASK_IDENT = 0xABCDEF01;
+static const uint32_t  TASK_IDENT = 0xABCDEF01U;
 static cy_rtos_error_t last_error;
 
 typedef struct
@@ -58,7 +60,7 @@ static void timer_callback(TimerHandle_t arg)
 //--------------------------------------------------------------------------------------------------
 // cy_rtos_last_error
 //--------------------------------------------------------------------------------------------------
-cy_rtos_error_t cy_rtos_last_error()
+cy_rtos_error_t cy_rtos_last_error(void)
 {
     return last_error;
 }
@@ -142,7 +144,7 @@ cy_rslt_t cy_rtos_create_thread(cy_thread_t* thread, cy_thread_entry_fn_t entry_
 //--------------------------------------------------------------------------------------------------
 // cy_rtos_exit_thread
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_exit_thread()
+cy_rslt_t cy_rtos_exit_thread(void)
 {
     TaskHandle_t handle = xTaskGetCurrentTaskHandle();
     // Ideally this would just call vTaskDelete(NULL); however FreeRTOS
@@ -334,7 +336,7 @@ cy_rslt_t cy_rtos_wait_thread_notification(cy_time_t num_ms)
 {
     uint32_t ret;
 
-    ret = ulTaskNotifyTake(pdTRUE, num_ms == CY_RTOS_NEVER_TIMEOUT ?
+    ret = ulTaskNotifyTake(pdTRUE, (num_ms == CY_RTOS_NEVER_TIMEOUT) ?
                            portMAX_DELAY : pdMS_TO_TICKS(num_ms));
     if (0 != ret)
     {
@@ -516,7 +518,10 @@ cy_rslt_t cy_rtos_get_semaphore(cy_semaphore_t* semaphore, uint32_t timeout_ms, 
 {
     cy_rslt_t status;
     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-    if (semaphore == NULL)
+    // xSemaphoreTakeFromISR does not take timeout as a parameter
+    // since it cannot block. Hence we return an error if the user
+    // tries to set a timeout.
+    if ((semaphore == NULL) || (in_isr && (timeout_ms != 0)))
     {
         status = CY_RTOS_BAD_PARAM;
     }
@@ -531,7 +536,6 @@ cy_rslt_t cy_rtos_get_semaphore(cy_semaphore_t* semaphore, uint32_t timeout_ms, 
             {
                 status = CY_RTOS_TIMEOUT;
             }
-            portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
         }
         else
         {
@@ -564,7 +568,9 @@ cy_rslt_t cy_rtos_set_semaphore(cy_semaphore_t* semaphore, bool in_isr)
         if (in_isr)
         {
             ret = xSemaphoreGiveFromISR(*semaphore, &xHigherPriorityTaskWoken);
+            #if configUSE_PREEMPTION == 1
             portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+            #endif
         }
         else
         {

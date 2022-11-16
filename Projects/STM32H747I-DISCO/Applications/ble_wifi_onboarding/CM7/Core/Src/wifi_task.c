@@ -55,6 +55,12 @@
 
 #include "cy_utils.h"
 
+/***************************************************************************************************
+ *                             Defines
+ **************************************************************************************************/
+/* If you want to use WPA3 you need enable wpa3-external-supplicant. By default it will use security
+ * defined in USE_SECURITY_FOR_WAP2_WAP3 */
+#define USE_SECURITY_FOR_WAP2_WAP3 CY_WCM_SECURITY_WPA2_AES_PSK
 
 /***************************************************************************************************
  *                             Global Variables
@@ -204,9 +210,19 @@ void wifi_task(void* arg)
                 {
                     break;
                 }
-                printf("\nTrying to connect SSID: %s, Password: %s\n",
+
+                #ifdef USE_SECURITY_FOR_WAP2_WAP3
+                if (wifi_conn_param.ap_credentials.security & WPA3_SECURITY)
+                {
+                    wifi_conn_param.ap_credentials.security = USE_SECURITY_FOR_WAP2_WAP3;
+                }
+                #endif /* USE_SECURITY */
+
+                printf("\nTrying to connect SSID: %s, Password: %s\n Security: ",
                        wifi_conn_param.ap_credentials.SSID,
                        wifi_conn_param.ap_credentials.password);
+                printf(get_wifi_security_name(wifi_conn_param.ap_credentials.security));
+                printf("\n");
 
                 /* Connect to the given AP */
                 result = cy_wcm_connect_ap(&wifi_conn_param, &ip_address);

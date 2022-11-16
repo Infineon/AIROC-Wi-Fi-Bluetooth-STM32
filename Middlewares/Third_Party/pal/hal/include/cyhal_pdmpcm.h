@@ -2,14 +2,16 @@
 * \file cyhal_pdmpcm.h
 *
 * \brief
-* Provides a high level interface for interacting with the Cypress PDM/PCM.
+* Provides a high level interface for interacting with the Infineon PDM/PCM.
 * This interface abstracts out the chip specific details. If any chip specific
 * functionality is necessary, or performance is critical the low level functions
 * can be used directly.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2020 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -57,7 +59,7 @@
 * \subsection subsection_pdmpcm_snippet_1 Snippet 1: PDM/PCM Initialization and Configuration
 * This snippet initializes a PCM/PCM resource for conversion and assigns the pins.
 *
-* \snippet pdmpcm.c snippet_cyhal_pdmpcm_init
+* \snippet hal_pdmpcm.c snippet_cyhal_pdmpcm_init
 *
 * \subsection subsection_pdmpcm_snippet_2 Snippet 2: PDM/PCM Asynchronous Receive
 * This snippet shows how to receive data in the background using \ref cyhal_pdm_pcm_read_async.
@@ -65,15 +67,15 @@
 * to register a callback function and \ref cyhal_pdm_pcm_enable_event to enable callling the
 * callback when an synchonous read completes.
 *
-* \snippet pdmpcm.c snippet_cyhal_pdmpcm_async_receive
+* \snippet hal_pdmpcm.c snippet_cyhal_pdmpcm_async_receive
 *
 * \section subsection_pdmpcm_moreinformation More Information
 *
 * <b>Code examples (Github)</b>
-* * <a href="https://github.com/cypresssemiconductorco/mtb-example-psoc6-pdm-pcm" ><b>
-PSoC 6 MCU: PDM-to-PCM</b></a>
-* * <a href="https://github.com/cypresssemiconductorco/mtb-example-psoc6-pdm-to-i2s" ><b>
-PSoC 6 MCU: PDM to I2S</b></a>
+* * <a href="https://github.com/infineon/mtb-example-psoc6-pdm-pcm" ><b>
+PSoC™ 6 MCU: PDM-to-PCM</b></a>
+* * <a href="https://github.com/infineon/mtb-example-psoc6-pdm-to-i2s" ><b>
+PSoC™ 6 MCU: PDM to I2S</b></a>
 */
 
 #pragma once
@@ -98,14 +100,14 @@ extern "C" {
 
 /** The pin PDM/PCM hardware cannot be initialized with the passed in pin */
 #define CYHAL_PDM_PCM_RSLT_ERR_INVALID_PIN              \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_PDMPCM, 0))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_PDMPCM, 0))
 /** A configuration parameter is invalid: sample_rate, decimation_rate, PCM word length, left/right gain.
  * See the implementation specific documentation for valid range */
 #define CYHAL_PDM_PCM_RSLT_ERR_INVALID_CONFIG_PARAM     \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_PDMPCM, 1))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_PDMPCM, 1))
 /** An async read operation is already progres */
 #define CYHAL_PDM_PCM_RSLT_ERR_ASYNC_IN_PROGRESS        \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_PDMPCM, 2))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_PDMPCM, 2))
 
 /**
  * \}
@@ -134,8 +136,8 @@ typedef struct
     uint8_t decimation_rate;    /**< PDM decimation rate */
     cyhal_pdm_pcm_mode_t mode;  /**< left, right, or stereo */
     uint8_t word_length;        /**< PCM word length in bits, see the implementation specific documentation for valid range */
-    int8_t left_gain;           /**< PGA in 0.5 dB increment, for example a value of 5 would mean +2.5 dB. The closest fit value will be used, see the implementation specific documentation for valid ranges. This may be negative if the implementation supports it. */
-    int8_t right_gain;          /**< PGA in 0.5 dB increment, for example a value of 5 would mean +2.5 dB. The closest fit value will be used, see the implementation specific documentation for valid ranges. This may be negative if the implementation supports it. */
+    int16_t left_gain;           /**< PGA in 0.5 dB increment, for example a value of 5 would mean +2.5 dB. The closest fit value will be used, see the implementation specific documentation for valid ranges. This may be negative if the implementation supports it. */
+    int16_t right_gain;          /**< PGA in 0.5 dB increment, for example a value of 5 would mean +2.5 dB. The closest fit value will be used, see the implementation specific documentation for valid ranges. This may be negative if the implementation supports it. */
 } cyhal_pdm_pcm_cfg_t;
 
 /** Handler for PDM/PCM interrupts */
@@ -154,6 +156,15 @@ typedef void (*cyhal_pdm_pcm_event_callback_t)(void *handler_arg, cyhal_pdm_pcm_
  */
 cy_rslt_t cyhal_pdm_pcm_init(cyhal_pdm_pcm_t *obj, cyhal_gpio_t pin_data, cyhal_gpio_t pin_clk,
                 const cyhal_clock_t *clk_source, const cyhal_pdm_pcm_cfg_t *cfg);
+
+/** Initialize the PDM/PCM out peripheral using a configurator generated configuration struct
+  *
+ * @param[out] obj              Pointer to a PDM/PCM object. The caller must allocate the memory
+ *                              for this object but the init function will initialize its contents.
+ * @param[in] cfg               Configuration structure generated by a configurator.
+ * @return The status of the init request
+ */
+cy_rslt_t cyhal_pdm_pcm_init_cfg(cyhal_pdm_pcm_t *obj, const cyhal_pdm_pcm_configurator_t* cfg);
 
 /** Release a PDM/PCM object, behavior is undefined if an asynchronous read is in progress
  *
@@ -201,7 +212,7 @@ bool cyhal_pdm_pcm_is_enabled(cyhal_pdm_pcm_t *obj);
  * @param[in] gain_right The gain of the right channel in units of 0.5 dB
  * @return The status of the set gain operation. An error will be returned if the value is outside of range supported by HW.
  */
-cy_rslt_t cyhal_pdm_pcm_set_gain(cyhal_pdm_pcm_t *obj, int8_t gain_left, int8_t gain_right);
+cy_rslt_t cyhal_pdm_pcm_set_gain(cyhal_pdm_pcm_t *obj, int16_t gain_left, int16_t gain_right);
 
 /** Clears the hardware buffer
  *

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company)
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -53,6 +53,7 @@
 #define KSO_WAIT_MS                 (1)
 #define KSO_WAKE_MS                 (3)
 #define MAX_KSO_ATTEMPTS            (64)
+#define MAX_CAPS_BUFFER_SIZE        (768)
 
 #define AI_IOCTRL_OFFSET            (0x408)
 #define SICF_FGC                    (0x0002)
@@ -73,7 +74,11 @@
 /******************************************************
 *             Variables
 ******************************************************/
-
+static const whd_fwcap_t whd_fwcap_map[] =
+{
+    {WHD_FWCAP_SAE, "sae "},
+    {WHD_FWCAP_SAE_EXT, "sae_ext "},
+};
 
 /******************************************************
 *             Static Function Declarations
@@ -87,7 +92,7 @@ static whd_result_t whd_enable_save_restore(whd_driver_t whd_driver);
 /******************************************************
 *             Function definitions
 ******************************************************/
-void whd_internal_info_init(whd_driver_t whd_driver)
+whd_result_t whd_internal_info_init(whd_driver_t whd_driver)
 {
     whd_internal_info_t *internal_info = &whd_driver->internal_info;
 
@@ -102,6 +107,25 @@ void whd_internal_info_init(whd_driver_t whd_driver)
     internal_info->active_join_semaphore = NULL;
     internal_info->con_lastpos = 0;
     internal_info->whd_wifi_p2p_go_is_up = WHD_FALSE;
+
+    /* Create the mutex protecting whd_log structure */
+    if (cy_rtos_init_semaphore(&whd_driver->whd_log_mutex, 1, 0) != WHD_SUCCESS)
+    {
+        return WHD_SEMAPHORE_ERROR;
+    }
+    if (cy_rtos_set_semaphore(&whd_driver->whd_log_mutex, WHD_FALSE) != WHD_SUCCESS)
+    {
+        WPRINT_WHD_ERROR( ("Error setting semaphore in %s at %d \n", __func__, __LINE__) );
+        return WHD_SEMAPHORE_ERROR;
+    }
+    return WHD_SUCCESS;
+}
+
+whd_result_t whd_internal_info_deinit(whd_driver_t whd_driver)
+{
+    /* Delete the whd_log mutex */
+    (void)cy_rtos_deinit_semaphore(&whd_driver->whd_log_mutex);
+    return WHD_SUCCESS;
 }
 
 /*
@@ -601,31 +625,41 @@ void whd_wifi_poke(whd_driver_t whd_driver, uint32_t address, uint8_t register_l
     WHD_WLAN_LET_SLEEP(whd_driver);
 }
 
-void whd_ioctl_log_add(whd_driver_t whd_driver, uint32_t cmd, whd_buffer_t buffer)
+whd_result_t whd_ioctl_log_add(whd_driver_t whd_driver, uint32_t cmd, whd_buffer_t buffer)
 {
-    uint8_t *data = (whd_buffer_get_current_piece_data_pointer(whd_driver, buffer) + IOCTL_OFFSET);
+    uint8_t *data = NULL;
     size_t data_size = whd_buffer_get_current_piece_size(whd_driver, buffer);
 
+    data = whd_buffer_get_current_piece_data_pointer(whd_driver, buffer);
+    CHECK_IOCTL_BUFFER(data);
+    CHECK_RETURN(cy_rtos_get_semaphore(&whd_driver->whd_log_mutex, CY_RTOS_NEVER_TIMEOUT, WHD_FALSE) );
+    data = data + IOCTL_OFFSET;
+    data_size = data_size - IOCTL_OFFSET;
     whd_driver->whd_ioctl_log[whd_driver->whd_ioctl_log_index % WHD_IOCTL_LOG_SIZE].ioct_log = cmd;
     whd_driver->whd_ioctl_log[whd_driver->whd_ioctl_log_index % WHD_IOCTL_LOG_SIZE].is_this_event = 0;
     whd_driver->whd_ioctl_log[whd_driver->whd_ioctl_log_index % WHD_IOCTL_LOG_SIZE].data_size = MIN_OF(
         WHD_MAX_DATA_SIZE, data_size);
-    memset(whd_driver->whd_ioctl_log[whd_driver->whd_ioctl_log_index % WHD_IOCTL_LOG_SIZE].data, 0, WHD_MAX_DATA_SIZE);
+    memset(whd_driver->whd_ioctl_log[whd_driver->whd_ioctl_log_index % WHD_IOCTL_LOG_SIZE].data, 0,
+           WHD_MAX_DATA_SIZE);
     memcpy(whd_driver->whd_ioctl_log[whd_driver->whd_ioctl_log_index % WHD_IOCTL_LOG_SIZE].data, data,
            whd_driver->whd_ioctl_log[whd_driver->whd_ioctl_log_index % WHD_IOCTL_LOG_SIZE].data_size);
 
     whd_driver->whd_ioctl_log_index++;
+    CHECK_RETURN(cy_rtos_set_semaphore(&whd_driver->whd_log_mutex, WHD_FALSE) );
+    return WHD_SUCCESS;
 }
 
-void whd_ioctl_log_add_event(whd_driver_t whd_driver, uint32_t cmd, uint16_t flag, uint32_t reason)
+whd_result_t whd_ioctl_log_add_event(whd_driver_t whd_driver, uint32_t cmd, uint16_t flag, uint32_t reason)
 {
+    CHECK_RETURN(cy_rtos_get_semaphore(&whd_driver->whd_log_mutex, CY_RTOS_NEVER_TIMEOUT, WHD_FALSE) );
     whd_driver->whd_ioctl_log[whd_driver->whd_ioctl_log_index % WHD_IOCTL_LOG_SIZE].is_this_event = 1;
     whd_driver->whd_ioctl_log[whd_driver->whd_ioctl_log_index % WHD_IOCTL_LOG_SIZE].ioct_log = cmd;
     whd_driver->whd_ioctl_log[whd_driver->whd_ioctl_log_index % WHD_IOCTL_LOG_SIZE].flag = flag;
     whd_driver->whd_ioctl_log[whd_driver->whd_ioctl_log_index % WHD_IOCTL_LOG_SIZE].reason = reason;
 
     whd_driver->whd_ioctl_log_index++;
-
+    CHECK_RETURN(cy_rtos_set_semaphore(&whd_driver->whd_log_mutex, WHD_FALSE) );
+    return WHD_SUCCESS;
 }
 
 whd_result_t whd_ioctl_print(whd_driver_t whd_driver)
@@ -634,6 +668,7 @@ whd_result_t whd_ioctl_print(whd_driver_t whd_driver)
     uint8_t *data = NULL;
     size_t iovar_string_size = 0;
 
+    CHECK_RETURN(cy_rtos_get_semaphore(&whd_driver->whd_log_mutex, CY_RTOS_NEVER_TIMEOUT, WHD_FALSE) );
     for (i = 0; i < WHD_IOCTL_LOG_SIZE; i++)
     {
         char iovar[WHD_IOVAR_STRING_SIZE] = {0};
@@ -642,6 +677,7 @@ whd_result_t whd_ioctl_print(whd_driver_t whd_driver)
         if ( (whd_driver->whd_ioctl_log[i].ioct_log == WLC_SET_VAR) ||
              (whd_driver->whd_ioctl_log[i].ioct_log == WLC_GET_VAR) )
         {
+            /* refer to whd_cdc_get_iovar_buffer() */
             while (!*data)
             {
                 whd_driver->whd_ioctl_log[i].data_size--;
@@ -652,10 +688,10 @@ whd_result_t whd_ioctl_print(whd_driver_t whd_driver)
                 strncpy(iovar, (char *)data, strlen( (char *)data ) );
 
             iovar_string_size = strlen( (const char *)data );
-            data += iovar_string_size;
-            whd_driver->whd_ioctl_log[i].data_size -= iovar_string_size;
+            iovar[iovar_string_size] = '\0';
+            data += (iovar_string_size + 1);
+            whd_driver->whd_ioctl_log[i].data_size -= (iovar_string_size + 1);
         }
-
         if (whd_driver->whd_ioctl_log[i].is_this_event == 1)
         {
             whd_event_info_to_string(whd_driver->whd_ioctl_log[i].ioct_log, whd_driver->whd_ioctl_log[i].flag,
@@ -676,7 +712,7 @@ whd_result_t whd_ioctl_print(whd_driver_t whd_driver)
         }
         else if (whd_driver->whd_ioctl_log[i].ioct_log != 0)
         {
-            whd_ioctl_to_string(whd_driver->whd_ioctl_log[i].ioct_log, iovar, sizeof(iovar) - 1);
+            whd_ioctl_info_to_string(whd_driver->whd_ioctl_log[i].ioct_log, iovar, sizeof(iovar) - 1);
             WPRINT_MACRO( ("\n%s:%" PRIu32 "\n", iovar, whd_driver->whd_ioctl_log[i].ioct_log) );
             whd_hexdump(data, whd_driver->whd_ioctl_log[i].data_size);
         }
@@ -684,6 +720,7 @@ whd_result_t whd_ioctl_print(whd_driver_t whd_driver)
 
     memset(whd_driver->whd_ioctl_log, 0, sizeof(whd_driver->whd_ioctl_log) );
     whd_driver->whd_ioctl_log_index = 0;
+    CHECK_RETURN(cy_rtos_set_semaphore(&whd_driver->whd_log_mutex, WHD_FALSE) );
     return WHD_SUCCESS;
 }
 
@@ -725,7 +762,7 @@ whd_result_t whd_chip_specific_socsram_init(whd_driver_t whd_driver)
 {
     /* Get chip number */
     uint16_t wlan_chip_id = whd_chip_get_chip_id(whd_driver);
-    if (wlan_chip_id == 43430)
+    if ( (wlan_chip_id == 43430) || (wlan_chip_id == 43439) )
     {
         CHECK_RETURN(whd_bus_write_backplane_value(whd_driver, SOCSRAM_BANKX_INDEX(whd_driver), 4, 0x3) );
         CHECK_RETURN(whd_bus_write_backplane_value(whd_driver, SOCSRAM_BANKX_PDA(whd_driver), 4, 0) );
@@ -755,6 +792,7 @@ whd_result_t whd_allow_wlan_bus_to_sleep(whd_driver_t whd_driver)
 {
     /* Get chip number */
     uint16_t wlan_chip_id = whd_chip_get_chip_id(whd_driver);
+    whd_bt_dev_t btdev = whd_driver->bt_dev;
     if ( (wlan_chip_id == 4334) || (wlan_chip_id == 43362) )
     {
         /* Clear HT clock request */
@@ -784,6 +822,10 @@ whd_result_t whd_allow_wlan_bus_to_sleep(whd_driver_t whd_driver)
             }
             else
             {
+                if (btdev && btdev->bt_int_cb)
+                {
+                    return WHD_SUCCESS;
+                }
                 return whd_kso_enable(whd_driver, WHD_FALSE);
             }
         }
@@ -802,7 +844,7 @@ whd_result_t whd_wifi_read_wlan_log(whd_driver_t whd_driver, char *buffer, uint3
 
     CHECK_DRIVER_NULL(whd_driver);
 
-    whd_ioctl_print(whd_driver);
+    WHD_IOCTL_PRINT(whd_driver);
 
     wlan_chip_id = whd_chip_get_chip_id(whd_driver);
     if (wlan_chip_id == 43362)
@@ -810,7 +852,7 @@ whd_result_t whd_wifi_read_wlan_log(whd_driver_t whd_driver, char *buffer, uint3
         return whd_wifi_read_wlan_log_unsafe(whd_driver, ( (GET_C_VAR(whd_driver, CHIP_RAM_SIZE) +
                                                             PLATFORM_WLAN_RAM_BASE) - 4 ), buffer, buffer_size);
     }
-    else if (wlan_chip_id == 43909)
+    else if ( (wlan_chip_id == 43909) || (wlan_chip_id == 43907) || (wlan_chip_id == 54907) )
     {
         result = whd_ensure_wlan_bus_is_up(whd_driver);
         if (result != WHD_SUCCESS)
@@ -818,7 +860,9 @@ whd_result_t whd_wifi_read_wlan_log(whd_driver_t whd_driver, char *buffer, uint3
             return result;
         }
         result = whd_wifi_read_wlan_log_unsafe(whd_driver, ( (GET_C_VAR(whd_driver, CHIP_RAM_SIZE) +
-                                                              PLATFORM_WLAN_RAM_BASE) - 4 ), buffer, buffer_size);
+                                                              GET_C_VAR(whd_driver,
+                                                                        ATCM_RAM_BASE_ADDRESS) ) - 4 ), buffer,
+                                               buffer_size);
         whd_thread_notify(whd_driver);
         return result;
     }
@@ -831,14 +875,11 @@ whd_result_t whd_wifi_read_wlan_log(whd_driver_t whd_driver, char *buffer, uint3
         /* Backplane access needs HT clock. So, disabling bus sleep */
         WHD_WLAN_KEEP_AWAKE(whd_driver);
         /* FW populates the last word of RAM with wlan_shared_t struct address */
-        if (whd_is_fw_sr_capable(whd_driver) == WHD_TRUE)
+        wlan_shared_address = PLATFORM_WLAN_RAM_BASE + GET_C_VAR(whd_driver, ATCM_RAM_BASE_ADDRESS) +
+                              GET_C_VAR(whd_driver, CHIP_RAM_SIZE) - 4;
+        if (!GET_C_VAR(whd_driver, ATCM_RAM_BASE_ADDRESS) && (whd_is_fw_sr_capable(whd_driver) == WHD_TRUE) )
         {
-            wlan_shared_address = PLATFORM_WLAN_RAM_BASE + GET_C_VAR(whd_driver, CHIP_RAM_SIZE) -
-                                  GET_C_VAR(whd_driver, SOCRAM_SRMEM_SIZE) - 4;
-        }
-        else
-        {
-            wlan_shared_address = PLATFORM_WLAN_RAM_BASE + GET_C_VAR(whd_driver, CHIP_RAM_SIZE) - 4;
+            wlan_shared_address -= GET_C_VAR(whd_driver, SOCRAM_SRMEM_SIZE);
         }
         result = whd_wifi_read_wlan_log_unsafe(whd_driver, wlan_shared_address, buffer, buffer_size);
         WHD_WLAN_LET_SLEEP(whd_driver);
@@ -852,7 +893,9 @@ uint32_t whd_wifi_print_whd_log(whd_driver_t whd_driver)
     whd_result_t result;
     char *buffer = NULL;
 
-    whd_ioctl_print(whd_driver);
+    CHECK_DRIVER_NULL(whd_driver);
+
+    WHD_IOCTL_PRINT(whd_driver);
 
     if ( (buffer = malloc(WLAN_LOG_BUF_LEN) ) == NULL )
     {
@@ -868,6 +911,30 @@ uint32_t whd_wifi_print_whd_log(whd_driver_t whd_driver)
     free(buffer);
     CHECK_RETURN(result);
     return result;
+}
+
+whd_result_t whd_wifi_read_fw_capabilities(whd_interface_t ifp)
+{
+    whd_result_t result;
+    char caps[MAX_CAPS_BUFFER_SIZE];
+    whd_fwcap_id_t id;
+
+    CHECK_IFP_NULL(ifp);
+    whd_driver_t whd_driver = ifp->whd_driver;
+
+    result = whd_wifi_get_iovar_buffer(ifp, IOVAR_STR_CAP, (uint8_t *)caps, sizeof(caps) );
+    CHECK_RETURN(result);
+
+    for (uint32_t i = 0; i < ARRAY_SIZE(whd_fwcap_map); i++)
+    {
+        if (strstr(caps, whd_fwcap_map[i].fwcap_name) )
+        {
+            id = whd_fwcap_map[i].feature;
+            WPRINT_WHD_DEBUG( ("Enabling FW Capabilities: %s\n", whd_fwcap_map[i].fwcap_name) );
+            whd_driver->chip_info.fwcap_flags |= (1 << id);
+        }
+    }
+    return WHD_SUCCESS;
 }
 
 whd_result_t whd_ensure_wlan_bus_is_up(whd_driver_t whd_driver)
@@ -906,6 +973,13 @@ whd_result_t whd_ensure_wlan_bus_is_up(whd_driver_t whd_driver)
             whd_bus_set_state(whd_driver, WHD_TRUE);
             return WHD_SUCCESS;
         }
+    }
+    else if ( (wlan_chip_id == 43909) || (wlan_chip_id == 43907) || (wlan_chip_id == 54907) )
+    {
+        //To-Do
+        /* M2M power save mode */
+        //M2M_POWERSAVE_COMM_TX_BEGIN
+        return WHD_SUCCESS;
     }
     else
     {
@@ -959,7 +1033,7 @@ static whd_bool_t whd_is_fw_sr_capable(whd_driver_t whd_driver)
     /* Get chip number */
     uint16_t wlan_chip_id = whd_chip_get_chip_id(whd_driver);
 
-    if (wlan_chip_id == 43430)
+    if ( (wlan_chip_id == 43430) || (wlan_chip_id == 43439) )
     {
         /* check if fw initialized sr engine */
         if (whd_bus_read_backplane_value(whd_driver, (uint32_t)CHIPCOMMON_SR_CONTROL1, (uint8_t)4,
@@ -1130,7 +1204,7 @@ static whd_result_t whd_kso_enable(whd_driver_t whd_driver, whd_bool_t enable)
 
     /* 1st KSO write goes to AOS wake up core if device is asleep  */
     /* Possibly device might not respond to this cmd. So, don't check return value here */
-    if ( (wlan_chip_id == 43430) || (wlan_chip_id == 43340) || (wlan_chip_id == 43342) )
+    if ( (wlan_chip_id == 43430) || (wlan_chip_id == 43439) || (wlan_chip_id == 43340) || (wlan_chip_id == 43342) )
     {
         /* 2 Sequential writes to KSO bit are required for SR module to wakeup, both write can fail */
         CHECK_RETURN_IGNORE(whd_bus_write_register_value(whd_driver, BACKPLANE_FUNCTION, (uint32_t)SDIO_SLEEP_CSR,

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -43,6 +43,7 @@
 #include "cy_nw_helper.h"
 #include "cyabs_rtos.h"
 #include "iot_wifi_common.h"
+#include <string.h>
 
 #ifdef __cplusplus
 extern "C" {

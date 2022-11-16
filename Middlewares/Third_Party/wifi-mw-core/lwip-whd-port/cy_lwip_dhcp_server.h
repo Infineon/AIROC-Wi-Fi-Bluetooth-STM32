@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -50,12 +50,14 @@ extern "C" {
  *                      Macros
  ******************************************************/
 
+#ifndef ALWAYS_INLINE
 #define ALWAYS_INLINE_PRE
 //#define ALWAYS_INLINE    __attribute__((always_inline))
 /* Fixme: ALWAYS_INLINE should be set based on compiler GCC or IAR. but for
  * now it is forced inline is removed. Need to identify how to detect compiler flag here
  */
 #define ALWAYS_INLINE
+#endif
 
 #ifndef htobe32   /* This is defined in POSIX platforms */
 ALWAYS_INLINE_PRE static inline ALWAYS_INLINE uint32_t htobe32(uint32_t v)

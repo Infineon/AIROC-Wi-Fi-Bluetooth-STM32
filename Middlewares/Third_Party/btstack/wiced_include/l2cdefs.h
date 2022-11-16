@@ -1,5 +1,34 @@
 /*
- * $ Copyright Cypress Semiconductor $
+ * Copyright 2019-2022, Cypress Semiconductor Corporation or
+ * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
+ *
+ * This software, including source code, documentation and related
+ * materials ("Software") is owned by Cypress Semiconductor Corporation
+ * or one of its affiliates ("Cypress") and is protected by and subject to
+ * worldwide patent protection (United States and foreign),
+ * United States copyright laws and international treaty provisions.
+ * Therefore, you may use this Software only as provided in the license
+ * agreement accompanying the software package from which you
+ * obtained this Software ("EULA").
+ * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
+ * non-transferable license to copy, modify, and compile the Software
+ * source code solely for use in connection with Cypress's
+ * integrated circuit products.  Any reproduction, modification, translation,
+ * compilation, or representation of this Software except as specified
+ * above is prohibited without the express written permission of Cypress.
+ *
+ * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Cypress
+ * reserves the right to make changes to the Software without notice. Cypress
+ * does not assume any liability arising out of the application or use of the
+ * Software or any product or circuit described in the Software. Cypress does
+ * not authorize its products for use in any products where a malfunction or
+ * failure of the Cypress product may reasonably be expected to result in
+ * significant property damage, injury or death ("High Risk Product"). By
+ * including Cypress's product in a High Risk Product, the manufacturer
+ * of such system or application assumes all risk of such use and in doing
+ * so agrees to indemnify Cypress against all liability.
  */
 
 /** @file
@@ -376,24 +405,30 @@
  *
  * L2CAP connection result codes.
  */
-#define L2CAP_CONN_OK                0      /**< Connection OK */
-#define L2CAP_CONN_PENDING           1      /**< Connection Pending */
-#define L2CAP_CONN_NO_PSM            2      /**< Connection NO PSM */
-#define L2CAP_CONN_SECURITY_BLOCK    3      /**< Connection Security Block */
-#define L2CAP_CONN_NO_RESOURCES      4      /**< Connection NO Resource */
-#define L2CAP_CONN_BAD_CTLR_ID       5      /**< Bad Controller ID 
-                                                @note AMP related */
-#define L2CAP_BLE_CONN_BAD_AUTHENT   5      /**< BLE Connection Bad Authentication */
-#define L2CAP_BLE_CONN_BAD_AUTHORIZ  6      /**< BLE Connection Bad Autherization */
-#define L2CAP_BLE_CONN_BAD_KEY_SIZE  7      /**< BLE Connection Bad key size */
-#define L2CAP_BLE_CONN_BAD_ENCRYPT   8      /**< BLE Connection Bad Encryption */
+#define L2CAP_CONN_OK                0     /**< Connection OK */
+#define L2CAP_CONN_PENDING           1     /**< Connection Pending */
+#define L2CAP_CONN_NO_PSM            2     /**< Connection NO PSM */
+#define L2CAP_CONN_SECURITY_BLOCK    3     /**< Connection Security Block */
+#define L2CAP_CONN_NO_RESOURCES      4     /**< Connection NO Resource */
+#define L2CAP_CONN_BAD_CTLR_ID       5     /**< Bad Controller ID */
+
+/**  @note AMP related */
+#define L2CAP_BLE_CONN_BAD_AUTHENT      5     /**< BLE Connection Bad Authentication */
+#define L2CAP_BLE_CONN_BAD_AUTHORIZ     6     /**< BLE Connection Bad Autherization */
+#define L2CAP_BLE_CONN_BAD_KEY_SIZE     7     /**< BLE Connection Bad key size */
+#define L2CAP_BLE_CONN_BAD_ENCRYPT      8     /**< BLE Connection Bad Encryption */
+#define L2CAP_BLE_CONN_INVALID_CID      9     /**< Invalid Source CID */
+#define L2CAP_BLE_CONN_CID_ALREADY_USED 10    /**< Source CID already allocated */
+#define L2CAP_BLE_CONN_BAD_PARAMS       11    /**< Bad parameters */
+/** @note LE COC related */
+
+
 /** @} L2CAP_CONN_RESULT */
 
 
 /*************************************************************************************************
 ** The following definitions are related to credit-based flow control mode
 *************************************************************************************************/
-#define     L2CAP_ECRB_MAX_CHANNELS_PER_CMD     5       /**< ECRB Max Channels per Command */
 #define     L2CAP_ECRB_MIN_MTU                  64      /**< ECRB Min MTU */
 #define     L2CAP_ECRB_MIN_MPS                  64      /**< ECRB Min MPS */
 

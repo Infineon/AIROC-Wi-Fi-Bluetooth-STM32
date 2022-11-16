@@ -8,5 +8,9 @@ var group__group__nwhelper__func =
     [ "cy_nw_host_arp_cache_clear", "group__group__nwhelper__func.html#ga6e28295152dd34e6d4474d51b73f2ef6", null ],
     [ "cy_nw_host_arp_cache_get_list", "group__group__nwhelper__func.html#ga0366c24466017d402f414fda93c992b4", null ],
     [ "cy_nw_host_send_arp_request", "group__group__nwhelper__func.html#ga85585d772b32c42db4c6c9ae82f1c5db", null ],
-    [ "cy_nw_get_time", "group__group__nwhelper__func.html#ga8cec7b3315382e02208ba77a14733d8c", null ]
+    [ "cy_nw_get_time", "group__group__nwhelper__func.html#ga8cec7b3315382e02208ba77a14733d8c", null ],
+    [ "cy_nw_aton", "group__group__nwhelper__func.html#ga4a490647cb8388c5c00eff6e90e31f67", null ],
+    [ "cy_nw_aton_ipv6", "group__group__nwhelper__func.html#ga6e1d17b795035ddae44eef8934cd5596", null ],
+    [ "cy_nw_ntoa", "group__group__nwhelper__func.html#ga6c674d16fdb3bd66e42907e164f9060b", null ],
+    [ "cy_nw_ntoa_ipv6", "group__group__nwhelper__func.html#ga8e1203cce5908ff0dc2fe585097925fc", null ]
 ];

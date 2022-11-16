@@ -6,7 +6,9 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2019 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -105,7 +107,7 @@ static void cybt_prm_launch_ram_internal(void);
 **
 ** Function         cybt_prm_download
 **
-** Description      Register patch ram callback, and start the patch ram 
+** Description      Register patch ram callback, and start the patch ram
 **                  download process.
 ** Input Param      p_cb - callback for download status
 **                  p_patch_buf - address of patch ram buffer

@@ -1,4 +1,4 @@
-# STM32 Connectivity Expansion Pack 1.1.0
+# STM32 Connectivity Expansion Pack 1.2.0
 
 ## Overview
 The STM32 Connectivity Expansion Pack is an extension of the CMSIS-Pack standard established by Arm
@@ -21,40 +21,61 @@ selected along with proper CYW43xxx selected in the Device dropbox in STM32CubeM
 ## Expansion Pack Contents
 The STM32 Connectivity Expansion Pack uses below assets:
 
-|  Asset                                                                                     | Version |
-| ------------------------------------------------------------------------------------------ | ------- |
-| [btstack](https://github.com/cypresssemiconductorco/btstack)                               |  3.0.0  |
-| [bluetooth-freertos](https://github.com/cypresssemiconductorco/bluetooth-freertos)         |  3.0.0  |
-| [wifi-host-driver](https://github.com/cypresssemiconductorco/wifi-host-driver)             |  1.94.0 |
-| [wcm](https://github.com/cypresssemiconductorco/wifi-connection-manager)                   |  2.0.3  |
-| [wifi-mw-core](https://github.com/cypresssemiconductorco/wifi-mw-core)                     |  3.1.0  |
-| [whd-bsp-integration](https://github.com/cypresssemiconductorco/whd-bsp-integration)       |  1.2.0  |
-| [connectivity-utilities](https://github.com/cypresssemiconductorco/connectivity-utilities) |  3.0.2  |
-| [core-lib](https://github.com/cypresssemiconductorco/core-lib)                             |  1.2.0  |
-| [abstraction-rtos](https://github.com/cypresssemiconductorco/abstraction-rtos)             |  1.4.0  |
-| [LwIP](https://git.savannah.nongnu.org/cgit/lwip.git)                                      |  2.1.2  |
-| PAL                                                                                        |  1.1.0  |
-| Device                                                                                     |  1.0.0  |
+|  Asset                                                                                                     | Version |
+| ---------------------------------------------------------------------------------------------------------- | ------- |
+| [LwIP](https://git.savannah.nongnu.org/cgit/lwip.git)                                                      |  2.1.2  |
+| [abstraction-rtos](https://github.com/Infineon/abstraction-rtos)                                           |  1.5.0  |
+| [bluetooth-freertos](https://github.com/Infineon/bluetooth-freertos)                                       |  3.4.0  |
+| [btstack](https://github.com/Infineon/btstack)                                                             |  3.5.0  |
+| [command-console](https://github.com/Infineon/command-console)                                             |  4.0.0  |
+| [connectivity-utilities](https://github.com/Infineon/connectivity-utilities)                               |  4.0.0  |
+| [core-lib](https://github.com/Infineon/core-lib)                                                           |  1.3.1  |
+| [wcm](https://github.com/Infineon/wifi-connection-manager)                                                 |  3.0.0  |
+| [whd-bsp-integration](https://github.com/Infineon/whd-bsp-integration)                                     |  2.1.0  |
+| [lwip-freertos-integration](https://github.com/Infineon/lwip-freertos-integration)                         |  1.0.0  |
+| [lwip-network-interface-integration](https://github.com/Infineon/lwip-network-interface-integration)       |  1.0.0  |
+| [netxduo-network-interface-integration](https://github.com/Infineon/netxduo-network-interface-integration) |  1.0.0  |
+| [wifi-host-driver](https://github.com/Infineon/wifi-host-driver)                                           |  2.4.0  |
+| [wifi-mfg-test](https://github.com/Infineon/wifi-mfg-test)                                                 |  3.3.1  |
+| PAL                                                                                                        |  1.2.0  |
+| Device                                                                                                     |  1.2.0  |
 
 ## Additional details
 The pack is compliant with the full CMSIS-Pack standard, with additional requirements/restrictions
 on the final pack to meet the STM standard.
 
+## Known issues
+
+1. Sometime STM32 detects UART "Frame error" during BLE communication (with CYW43012), which causes
+stop of BLE functionality.
+Workaround:
+Register a User UART Error Callback (by using HAL_UART_RegisterCallback function), where
+implement BLE or System reset, when detect UART errors.
+
+
+2. STM32CubeIDE returns the linkage error "undefined reference to _nx_nd_cache***" when
+IPv6 is enabled in NetxDuo configuration.
+Workaround:
+Manually add to project workspace, the following files: nx_nd_cache_add_entry.c,
+nx_nd_cache_delete_internal.c, nx_nd_cache_fast_periodic_update.c, nx_nd_cache_find_entry.c,
+nx_nd_cache_find_entry_by_mac_addr.c, nx_nd_cache_interface_entries_delete.c,
+nx_nd_cache_slow_periodic_update.c from STM32Cube_FW_U5_V1.1.1\Middlewares\ST\netxduo\common\src
+
+
 ## More information
 * [RELEASE.md](./RELEASE.md)
 * [STM32 Connectivity Expansion Pack User Guide](./Documentation/STM32ConnectivityExpansionPack_UserGuide.pdf)
-* [Cypress Semiconductor, an Infineon Technologies Company](http://www.cypress.com)
-* [Cypress Semiconductor GitHub](https://github.com/cypresssemiconductorco)
-* [ModusToolbox](https://www.cypress.com/products/modustoolbox-software-environment)
-* [Pre release of STM32 Connectivity Expansion Pack v1.2.0 (build 2807)](./Infineon.Connectivity-STM32.1.2.0.2807.pack)
+* [Cypress Semiconductor, an Infineon Technologies Company](http://www.infineon.com)
+* [Infineon GitHub](https://github.com/Infineon/)
+* [ModusToolbox](https://www.infineon.com/cms/en/design-support/tools/sdk/modustoolbox-software/)
 
 ------
 
 All other trademarks or registered trademarks referenced herein are the property of their respective
 owners.
 
-![Banner](images/Banner.png)
+![Banner](Documentation/ifx-cy-banner.png)
 
 -------------------------------------------------------------------------------
 
-© Cypress Semiconductor Corporation, 2021.
+© Cypress Semiconductor Corporation, 2021-2022.

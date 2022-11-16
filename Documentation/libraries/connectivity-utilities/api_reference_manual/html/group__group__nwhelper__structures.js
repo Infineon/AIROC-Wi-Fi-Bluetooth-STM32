@@ -9,7 +9,7 @@ var group__group__nwhelper__structures =
       [ "version", "structcy__nw__ip__address__t.html#ad1db3efe7129fbdefb01fb3f8ca52564", null ],
       [ "v4", "structcy__nw__ip__address__t.html#aaed145ba06afe0cc979fadda3c26bf81", null ],
       [ "v6", "structcy__nw__ip__address__t.html#acf1c6a0a23404f563c093d8fd92343de", null ],
-      [ "ip", "structcy__nw__ip__address__t.html#a53985b55afaa2d7182910fbdd6aa0283", null ]
+      [ "ip", "structcy__nw__ip__address__t.html#a9041f14a950e6796aa8dcc1305d45426", null ]
     ] ],
     [ "cy_nw_ip_mac_t", "structcy__nw__ip__mac__t.html", [
       [ "mac", "structcy__nw__ip__mac__t.html#a82389cd6579c1f00940a532b0370196d", null ]

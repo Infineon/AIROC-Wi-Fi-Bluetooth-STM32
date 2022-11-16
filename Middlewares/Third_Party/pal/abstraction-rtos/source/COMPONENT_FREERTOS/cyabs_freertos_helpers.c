@@ -7,7 +7,9 @@
  *
  ***************************************************************************************************
  * \copyright
- * Copyright 2018-2021 Cypress Semiconductor Corporation
+ * Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation
+ *
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -52,7 +54,7 @@ void cyabs_rtos_set_lptimer(cyhal_lptimer_t* timer)
 //--------------------------------------------------------------------------------------------------
 // cyabs_rtos_get_lptimer
 //--------------------------------------------------------------------------------------------------
-cyhal_lptimer_t* cyabs_rtos_get_lptimer()
+cyhal_lptimer_t* cyabs_rtos_get_lptimer(void)
 {
     return _timer;
 }
@@ -177,7 +179,9 @@ __WEAK void vApplicationSleep(TickType_t xExpectedIdleTime)
             // If the system needs to operate in active mode the tickless mode should not be used in
             // FreeRTOS
             CY_ASSERT(CY_CFG_PWR_SYS_IDLE_MODE != CY_CFG_PWR_MODE_ACTIVE);
-            deep_sleep = (CY_CFG_PWR_SYS_IDLE_MODE == CY_CFG_PWR_MODE_DEEPSLEEP);
+            deep_sleep =
+                ((CY_CFG_PWR_SYS_IDLE_MODE & CY_CFG_PWR_MODE_DEEPSLEEP) ==
+                 CY_CFG_PWR_MODE_DEEPSLEEP);
             #endif
             uint32_t sleep_ms = pdTICKS_TO_MS(xExpectedIdleTime);
             cy_rslt_t result;

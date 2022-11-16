@@ -2,6 +2,7 @@ var searchData=
 [
   ['id',['id',['../structt_h_c_i___e_x_t___f_l_o_w___s_p_e_c.html#a34fb62b69fbddd485047836ccabed569',1,'tHCI_EXT_FLOW_SPEC']]],
   ['id_5fkeys',['id_keys',['../structwiced__bt__local__identity__keys__t.html#ad45a20096c2ff0b6feb0220ac79bb6e7',1,'wiced_bt_local_identity_keys_t']]],
+  ['immediate_5frepetition_5fcount',['immediate_repetition_count',['../structwiced__bt__ble__biginfo__adv__report__t.html#a60f733503c6680e7b0c8f57953fa747d',1,'wiced_bt_ble_biginfo_adv_report_t']]],
   ['include_5fservice_5fuuid128',['INCLUDE_SERVICE_UUID128',['../group__wicedbt__gatt.html#ga701776dae7f04f55d385ef6220a0a16f',1,'wiced_bt_gatt.h']]],
   ['include_5fservice_5fuuid16',['INCLUDE_SERVICE_UUID16',['../group__wicedbt__gatt.html#gaef58572ebee8cf06205d768d520b2c5b',1,'wiced_bt_gatt.h']]],
   ['included_5fservice_5ftype',['included_service_type',['../unionwiced__bt__gatt__discovery__data__t.html#ab513b62d6cffb56b3e11c9715986e660',1,'wiced_bt_gatt_discovery_data_t']]],
@@ -17,9 +18,11 @@ var searchData=
   ['is_5fextended',['is_extended',['../structwiced__bt__ble__scan__results__t.html#ac5f1869b24b1b1233f44047751c46da6',1,'wiced_bt_ble_scan_results_t']]],
   ['is_5fextended_5foob_5fdata',['is_extended_oob_data',['../structwiced__bt__dev__local__oob__t.html#a32d94d3bb1684f3cedd27aabc39b9500',1,'wiced_bt_dev_local_oob_t']]],
   ['is_5flegacy_5fadv_5freport',['IS_LEGACY_ADV_REPORT',['../group__wicedbt___device_management.html#ga110fc0a0d9cab6da22c601a2fa817e02',1,'wiced_bt_ble.h']]],
+  ['is_5flegacy_5fbless_5fcontroller',['is_legacy_bless_controller',['../structwiced__bt__stack__platform__t.html#aed774e9dc09f073b14790a248f007d8c',1,'wiced_bt_stack_platform_t']]],
   ['is_5fob_5fonly',['is_ob_only',['../structwiced__bt__l2cap__appl__information__t.html#a7694f9263de05fd026d4b2802d98fa0c',1,'wiced_bt_l2cap_appl_information_t']]],
   ['is_5forig',['is_orig',['../structwiced__bt__dev__bredr__io__caps__req__t.html#a55917e53d751e3d9cd30b3dbd9be514d',1,'wiced_bt_dev_bredr_io_caps_req_t']]],
   ['is_5fpair_5fcancel',['is_pair_cancel',['../structwiced__bt__dev__ble__pairing__info__t.html#aada60ce4522667e668b8264113625b8b',1,'wiced_bt_dev_ble_pairing_info_t']]],
   ['is_5fscan_5frsp_5fadv_5freport',['IS_SCAN_RSP_ADV_REPORT',['../group__wicedbt___device_management.html#ga0b6eb23b26afb4c0a34e175bf1d0e735',1,'wiced_bt_ble.h']]],
-  ['is_5fscannable_5fadv_5freport',['IS_SCANNABLE_ADV_REPORT',['../group__wicedbt___device_management.html#ga1ff2fec9720644ff4d9a30df03e441be',1,'wiced_bt_ble.h']]]
+  ['is_5fscannable_5fadv_5freport',['IS_SCANNABLE_ADV_REPORT',['../group__wicedbt___device_management.html#ga1ff2fec9720644ff4d9a30df03e441be',1,'wiced_bt_ble.h']]],
+  ['iso_5finterval',['iso_interval',['../structwiced__bt__ble__biginfo__adv__report__t.html#ac94a297de2040d21d503f5ae1bf27b96',1,'wiced_bt_ble_biginfo_adv_report_t']]]
 ];

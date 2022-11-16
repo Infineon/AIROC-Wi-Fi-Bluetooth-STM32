@@ -6,7 +6,9 @@
  *
  ***************************************************************************************************
  * \copyright
- * Copyright 2018-2021 Cypress Semiconductor Corporation
+ * Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation
+ *
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,9 +30,9 @@
 #include <tx_api.h>
 #include <stdlib.h>
 
-static const uint32_t WRAPPER_IDENT          = 0xABCDEF01U;
-static const uint32_t MAX_QUEUE_MESSAGE_SIZE = 16;
-#define ALL_EVENT_FLAGS (0xFFFFFFFFU)
+#define WRAPPER_IDENT           (0xABCDEF01U)
+#define MAX_QUEUE_MESSAGE_SIZE  (16)
+#define ALL_EVENT_FLAGS         (0xFFFFFFFFU)
 #define MILLISECONDS_PER_SECOND (1000)
 
 static cy_rtos_error_t last_error;
@@ -51,7 +53,8 @@ static cy_time_t convert_ms_to_ticks(cy_time_t timeout_ms)
     }
     else
     {
-        cy_time_t ticks = timeout_ms * TX_TIMER_TICKS_PER_SECOND / MILLISECONDS_PER_SECOND;
+        uint64_t ticks = (uint64_t)timeout_ms * (uint64_t)TX_TIMER_TICKS_PER_SECOND /
+                         (uint64_t)MILLISECONDS_PER_SECOND;
         if (ticks == 0)
         {
             ticks = 1;
@@ -62,7 +65,7 @@ static cy_time_t convert_ms_to_ticks(cy_time_t timeout_ms)
             // TX_WAIT_FOREVER.
             ticks = UINT32_MAX - 1;
         }
-        return ticks;
+        return (cy_time_t)ticks;
     }
 }
 
@@ -72,7 +75,8 @@ static cy_time_t convert_ms_to_ticks(cy_time_t timeout_ms)
 //--------------------------------------------------------------------------------------------------
 static inline cy_time_t convert_ticks_to_ms(cy_time_t timeout_ticks)
 {
-    return timeout_ticks * MILLISECONDS_PER_SECOND / TX_TIMER_TICKS_PER_SECOND;
+    return (cy_time_t)((uint64_t)timeout_ticks * (uint64_t)MILLISECONDS_PER_SECOND /
+                       (uint64_t)TX_TIMER_TICKS_PER_SECOND);
 }
 
 
@@ -97,7 +101,7 @@ static inline cy_rslt_t convert_error(cy_rtos_error_t error)
 //--------------------------------------------------------------------------------------------------
 // cy_rtos_last_error
 //--------------------------------------------------------------------------------------------------
-cy_rtos_error_t cy_rtos_last_error()
+cy_rtos_error_t cy_rtos_last_error(void)
 {
     return last_error;
 }
@@ -149,7 +153,7 @@ cy_rslt_t cy_rtos_create_thread(cy_thread_t* thread, cy_thread_entry_fn_t entry_
     {
         stack = buffer;
         // Have stack be in front of wrapper since stack size is 8-byte aligned.
-        wrapper_ptr         = (cy_thread_wrapper_t*)(buffer + stack_size);
+        wrapper_ptr         = (cy_thread_wrapper_t*)((uint32_t)buffer + stack_size);
         wrapper_ptr->memptr = stack;
     }
     else
@@ -180,7 +184,7 @@ cy_rslt_t cy_rtos_create_thread(cy_thread_t* thread, cy_thread_entry_fn_t entry_
 //--------------------------------------------------------------------------------------------------
 // cy_rtos_exit_thread
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_exit_thread()
+cy_rslt_t cy_rtos_exit_thread(void)
 {
     // No need to do anything before thread exit
     return CY_RSLT_SUCCESS;
@@ -351,6 +355,11 @@ cy_rslt_t cy_rtos_join_thread(cy_thread_t* thread)
 //--------------------------------------------------------------------------------------------------
 cy_rslt_t cy_rtos_get_thread_handle(cy_thread_t* thread)
 {
+    if (thread == NULL)
+    {
+        return CY_RTOS_BAD_PARAM;
+    }
+
     *thread = tx_thread_identify();
     return CY_RSLT_SUCCESS;
 }
@@ -359,12 +368,12 @@ cy_rslt_t cy_rtos_get_thread_handle(cy_thread_t* thread)
 //--------------------------------------------------------------------------------------------------
 // cy_rtos_wait_thread_notification
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_wait_thread_notification(cy_time_t num_ms)
+cy_rslt_t cy_rtos_wait_thread_notification(cy_time_t timeout_ms)
 {
     UINT ret;
     cy_rslt_t status = CY_RSLT_SUCCESS;
 
-    ret = tx_thread_sleep(convert_ms_to_ticks(num_ms));
+    ret = tx_thread_sleep(convert_ms_to_ticks(timeout_ms));
     /* Update the last known error status */
     last_error = (cy_rtos_error_t)ret;
 
@@ -407,6 +416,11 @@ cy_rslt_t cy_rtos_set_thread_notification(cy_thread_t* thread, bool in_isr)
 //--------------------------------------------------------------------------------------------------
 cy_rslt_t cy_rtos_init_mutex2(cy_mutex_t* mutex, bool recursive)
 {
+    if (mutex == NULL)
+    {
+        return CY_RTOS_BAD_PARAM;
+    }
+
     // Non recursive mutex is not supported by ThreadX. A recursive mutex is returned
     // even if a non-recursive mutex was requested. This is ok because in all the cases
     // where the behavior of the two types differs would have ended in a deadlock. So
@@ -421,6 +435,11 @@ cy_rslt_t cy_rtos_init_mutex2(cy_mutex_t* mutex, bool recursive)
 //--------------------------------------------------------------------------------------------------
 cy_rslt_t cy_rtos_get_mutex(cy_mutex_t* mutex, cy_time_t timeout_ms)
 {
+    if (mutex == NULL)
+    {
+        return CY_RTOS_BAD_PARAM;
+    }
+
     cy_rtos_error_t tx_rslt = tx_mutex_get(mutex, convert_ms_to_ticks(timeout_ms));
     if (TX_NOT_AVAILABLE == tx_rslt)
     {
@@ -438,6 +457,11 @@ cy_rslt_t cy_rtos_get_mutex(cy_mutex_t* mutex, cy_time_t timeout_ms)
 //--------------------------------------------------------------------------------------------------
 cy_rslt_t cy_rtos_set_mutex(cy_mutex_t* mutex)
 {
+    if (mutex == NULL)
+    {
+        return CY_RTOS_BAD_PARAM;
+    }
+
     return convert_error(tx_mutex_put(mutex));
 }
 
@@ -447,6 +471,11 @@ cy_rslt_t cy_rtos_set_mutex(cy_mutex_t* mutex)
 //--------------------------------------------------------------------------------------------------
 cy_rslt_t cy_rtos_deinit_mutex(cy_mutex_t* mutex)
 {
+    if (mutex == NULL)
+    {
+        return CY_RTOS_BAD_PARAM;
+    }
+
     return convert_error(tx_mutex_delete(mutex));
 }
 
@@ -474,8 +503,10 @@ cy_rslt_t cy_rtos_init_semaphore(cy_semaphore_t* semaphore, uint32_t maxcount, u
 //--------------------------------------------------------------------------------------------------
 cy_rslt_t cy_rtos_get_semaphore(cy_semaphore_t* semaphore, cy_time_t timeout_ms, bool in_isr)
 {
-    (void)in_isr; // Unused parameter in this implementation
-    if (semaphore == NULL)
+    // Based on documentation
+    // http://www.ece.ualberta.ca/~cmpe490/documents/ghs/405/threadxug_g40c.pdf
+    // pg 168 it specifies that the timeout must be zero when called from ISR.
+    if ((semaphore == NULL) || (in_isr && (timeout_ms != 0)))
     {
         return CY_RTOS_BAD_PARAM;
     }
@@ -542,6 +573,11 @@ cy_rslt_t cy_rtos_deinit_semaphore(cy_semaphore_t* semaphore)
 //--------------------------------------------------------------------------------------------------
 cy_rslt_t cy_rtos_init_event(cy_event_t* event)
 {
+    if (event == NULL)
+    {
+        return CY_RTOS_BAD_PARAM;
+    }
+
     return convert_error(tx_event_flags_create(event, TX_NULL));
 }
 
@@ -552,6 +588,12 @@ cy_rslt_t cy_rtos_init_event(cy_event_t* event)
 cy_rslt_t cy_rtos_setbits_event(cy_event_t* event, uint32_t bits, bool in_isr)
 {
     (void)in_isr; // Unused parameter in this implementation
+
+    if (event == NULL)
+    {
+        return CY_RTOS_BAD_PARAM;
+    }
+
     return convert_error(tx_event_flags_set(event, bits, TX_OR));
 }
 
@@ -562,6 +604,12 @@ cy_rslt_t cy_rtos_setbits_event(cy_event_t* event, uint32_t bits, bool in_isr)
 cy_rslt_t cy_rtos_clearbits_event(cy_event_t* event, uint32_t bits, bool in_isr)
 {
     (void)in_isr; // Unused parameter in this implementation
+
+    if (event == NULL)
+    {
+        return CY_RTOS_BAD_PARAM;
+    }
+
     return convert_error(tx_event_flags_set(event, ~bits, TX_AND));
 }
 
@@ -571,7 +619,12 @@ cy_rslt_t cy_rtos_clearbits_event(cy_event_t* event, uint32_t bits, bool in_isr)
 //--------------------------------------------------------------------------------------------------
 cy_rslt_t cy_rtos_getbits_event(cy_event_t* event, uint32_t* bits)
 {
-    cy_rtos_error_t tx_rslt = tx_event_flags_get(event, ALL_EVENT_FLAGS, TX_OR, bits, TX_NO_WAIT);
+    if ((event == NULL) || (bits == NULL))
+    {
+        return CY_RTOS_BAD_PARAM;
+    }
+
+    cy_rtos_error_t tx_rslt = tx_event_flags_get(event, ALL_EVENT_FLAGS, TX_OR, (ULONG *) bits, TX_NO_WAIT);
     if (TX_NO_EVENTS == tx_rslt) // If timeout error occur with ALL_EVENT_FLAGS and TX_OR, then no
                                  // flag is set
     {
@@ -592,6 +645,12 @@ cy_rslt_t cy_rtos_waitbits_event(cy_event_t* event, uint32_t* bits, bool clear, 
                                  cy_time_t timeout_ms)
 {
     UINT get_option;
+
+    if ((event == NULL) || (bits == NULL))
+    {
+        return CY_RTOS_BAD_PARAM;
+    }
+
     if (all)
     {
         get_option = clear ? TX_AND_CLEAR : TX_AND;
@@ -602,7 +661,7 @@ cy_rslt_t cy_rtos_waitbits_event(cy_event_t* event, uint32_t* bits, bool clear, 
     }
 
     cy_rtos_error_t tx_rslt =
-        tx_event_flags_get(event, *bits, get_option, bits, convert_ms_to_ticks(timeout_ms));
+        tx_event_flags_get(event, *bits, get_option, (ULONG *) bits, convert_ms_to_ticks(timeout_ms));
     if (TX_NO_EVENTS == tx_rslt)
     {
         return CY_RTOS_TIMEOUT;
@@ -619,6 +678,11 @@ cy_rslt_t cy_rtos_waitbits_event(cy_event_t* event, uint32_t* bits, bool clear, 
 //--------------------------------------------------------------------------------------------------
 cy_rslt_t cy_rtos_deinit_event(cy_event_t* event)
 {
+    if (event == NULL)
+    {
+        return CY_RTOS_BAD_PARAM;
+    }
+
     return convert_error(tx_event_flags_delete(event));
 }
 
@@ -675,7 +739,7 @@ cy_rslt_t cy_rtos_init_queue(cy_queue_t* queue, size_t length, size_t itemsize)
 cy_rslt_t cy_rtos_put_queue(cy_queue_t* queue, const void* item_ptr, cy_time_t timeout_ms,
                             bool in_isr)
 {
-    if ((queue == NULL) || (in_isr && (timeout_ms != 0)))
+    if ((queue == NULL) || (item_ptr == NULL) || (in_isr && (timeout_ms != 0)))
     {
         return CY_RTOS_BAD_PARAM;
     }
@@ -699,7 +763,7 @@ cy_rslt_t cy_rtos_put_queue(cy_queue_t* queue, const void* item_ptr, cy_time_t t
 cy_rslt_t cy_rtos_get_queue(cy_queue_t* queue, void* item_ptr, cy_time_t timeout_ms, bool in_isr)
 {
     ULONG buffer[MAX_QUEUE_MESSAGE_SIZE];
-    if ((queue == NULL) || (in_isr && (timeout_ms != 0)))
+    if ((queue == NULL) || (item_ptr == NULL) || (in_isr && (timeout_ms != 0)))
     {
         return CY_RTOS_BAD_PARAM;
     }
@@ -728,7 +792,7 @@ cy_rslt_t cy_rtos_get_queue(cy_queue_t* queue, void* item_ptr, cy_time_t timeout
 //--------------------------------------------------------------------------------------------------
 cy_rslt_t cy_rtos_count_queue(cy_queue_t* queue, size_t* num_waiting)
 {
-    if (queue == NULL)
+    if ((queue == NULL) || (num_waiting == NULL))
     {
         return CY_RTOS_BAD_PARAM;
     }
@@ -742,7 +806,7 @@ cy_rslt_t cy_rtos_count_queue(cy_queue_t* queue, size_t* num_waiting)
 //--------------------------------------------------------------------------------------------------
 cy_rslt_t cy_rtos_space_queue(cy_queue_t* queue, size_t* num_spaces)
 {
-    if (queue == NULL)
+    if ((queue == NULL) || (num_spaces == NULL))
     {
         return CY_RTOS_BAD_PARAM;
     }
@@ -899,15 +963,5 @@ cy_rslt_t cy_rtos_delay_milliseconds(cy_time_t num_ms)
 {
     cy_time_t ticks = convert_ms_to_ticks(num_ms);
 
-    while (ticks > 0)
-    {
-        cy_time_t wait_ticks = (ticks >= UINT32_MAX) ? (UINT32_MAX - 1) : ticks;
-        cy_rslt_t rslt       = convert_error(tx_thread_sleep(wait_ticks));
-        if (CY_RSLT_SUCCESS != rslt)
-        {
-            return rslt;
-        }
-        ticks -= wait_ticks;
-    }
-    return CY_RSLT_SUCCESS;
+    return convert_error(tx_thread_sleep(ticks));
 }

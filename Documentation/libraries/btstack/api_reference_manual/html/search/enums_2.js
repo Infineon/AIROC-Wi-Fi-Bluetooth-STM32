@@ -18,6 +18,7 @@ var searchData=
   ['wiced_5fbt_5fble_5fmulti_5fadvert_5fstart_5fe',['wiced_bt_ble_multi_advert_start_e',['../group__wicedbt___device_management.html#ga34b1a331548bbc1c737be17e96c862a6',1,'wiced_bt_ble.h']]],
   ['wiced_5fbt_5fble_5fmulti_5fadvert_5ftype_5fe',['wiced_bt_ble_multi_advert_type_e',['../group__wicedbt___device_management.html#ga4f8d298fc8c52ee7b5c7153a4d73ac80',1,'wiced_bt_ble.h']]],
   ['wiced_5fbt_5fble_5fperiodic_5fadv_5fprop_5fe',['wiced_bt_ble_periodic_adv_prop_e',['../group__wicedbt___device_management.html#ga49f4cafbe857432f82a3469d0bd7a190',1,'wiced_bt_ble.h']]],
+  ['wiced_5fbt_5fble_5fperiodic_5fadv_5fsync_5ftransfer_5fmode_5fe',['wiced_bt_ble_periodic_adv_sync_transfer_mode_e',['../group__wicedbt___device_management.html#gad87f6ef7689d0d4d3cdaf1a43b4032a6',1,'wiced_bt_ble.h']]],
   ['wiced_5fbt_5fble_5fprivacy_5fe',['wiced_bt_ble_privacy_e',['../group__wicedbt___device_management.html#ga209665fd7342f0f47610c5fec55910c1',1,'wiced_bt_ble.h']]],
   ['wiced_5fbt_5fble_5fscan_5fmode_5fe',['wiced_bt_ble_scan_mode_e',['../group__wiced__bt__cfg.html#ga363c245dbaa273d5d2a3df18f7f24c64',1,'wiced_bt_cfg.h']]],
   ['wiced_5fbt_5fble_5fscan_5ftype_5fe',['wiced_bt_ble_scan_type_e',['../group__wicedbt___device_management.html#ga5962ac95c03367e51789815eadcb25a6',1,'wiced_bt_dev.h']]],

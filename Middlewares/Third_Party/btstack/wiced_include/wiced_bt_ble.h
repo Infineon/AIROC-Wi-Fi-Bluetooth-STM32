@@ -1,5 +1,34 @@
 /*
- * $ Copyright Cypress Semiconductor $
+ * Copyright 2016-2022, Cypress Semiconductor Corporation or
+ * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
+ *
+ * This software, including source code, documentation and related
+ * materials ("Software") is owned by Cypress Semiconductor Corporation
+ * or one of its affiliates ("Cypress") and is protected by and subject to
+ * worldwide patent protection (United States and foreign),
+ * United States copyright laws and international treaty provisions.
+ * Therefore, you may use this Software only as provided in the license
+ * agreement accompanying the software package from which you
+ * obtained this Software ("EULA").
+ * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
+ * non-transferable license to copy, modify, and compile the Software
+ * source code solely for use in connection with Cypress's
+ * integrated circuit products.  Any reproduction, modification, translation,
+ * compilation, or representation of this Software except as specified
+ * above is prohibited without the express written permission of Cypress.
+ *
+ * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Cypress
+ * reserves the right to make changes to the Software without notice. Cypress
+ * does not assume any liability arising out of the application or use of the
+ * Software or any product or circuit described in the Software. Cypress does
+ * not authorize its products for use in any products where a malfunction or
+ * failure of the Cypress product may reasonably be expected to result in
+ * significant property damage, injury or death ("High Risk Product"). By
+ * including Cypress's product in a High Risk Product, the manufacturer
+ * of such system or application assumes all risk of such use and in doing
+ * so agrees to indemnify Cypress against all liability.
  */
 
 /** @file
@@ -23,11 +52,11 @@
  * @{
  */
 
-#include "wiced_bt_dev.h"
-#include "wiced_bt_ble_isoc.h"
 #include "wiced_bt_cfg.h"
+#include "wiced_bt_dev.h"
+#include "wiced_bt_isoc.h"
 
-
+#define BTM_BLE_LEGACY_AD_DATA_LEN 31                       /**< Max legacy advertisement data len*/
 #define BTM_AFH_CHNL_MAP_SIZE    HCI_AFH_CHANNEL_MAP_LEN    /**< AFH channel map size */
 #define BLE_CHANNEL_MAP_LEN      5                          /**< AFH Channel Map len */
 /** BLE Channel Map */
@@ -80,43 +109,43 @@ typedef uint8_t   wiced_bt_ble_advert_filter_policy_t;  /**< Advertising filter 
 #define BTM_BLE_CONN_SUP_TOUT_DEF       700     /**< Default Supervision Timeout */
 
 /* default connection parameters if not configured, use GAP recommend value for auto/selective connection */
-/** default scan interval 
+/** default scan interval
  *  30 ~ 60 ms (use 60)  = 96 *0.625
  */
 #define BTM_BLE_SCAN_FAST_INTERVAL      96
 
-/** default scan window for background connection, applicable for auto connection or selective conenction 
- * 30 ms = 48 *0.625 
+/** default scan window for background connection, applicable for auto connection or selective conenction
+ * 30 ms = 48 *0.625
  */
 #define BTM_BLE_SCAN_FAST_WINDOW        48
 
-/** default scan interval used in reduced power cycle (background scanning) 
+/** default scan interval used in reduced power cycle (background scanning)
  *  1.28 s   = 2048 *0.625
  */
 #define BTM_BLE_SCAN_SLOW_INTERVAL_1    2048
 
-/** default scan window used in reduced power cycle (background scanning) 
- *   11.25 ms = 18 *0.625 
+/** default scan window used in reduced power cycle (background scanning)
+ *   11.25 ms = 18 *0.625
  */
 #define BTM_BLE_SCAN_SLOW_WINDOW_1      18
 
-/** default scan interval used in reduced power cycle (background scanning) 
- *  2.56 s   = 4096 *0.625 
+/** default scan interval used in reduced power cycle (background scanning)
+ *  2.56 s   = 4096 *0.625
  */
 #define BTM_BLE_SCAN_SLOW_INTERVAL_2    4096
 
-/** default scan window used in reduced power cycle (background scanning) 
+/** default scan window used in reduced power cycle (background scanning)
  *  22.5 ms = 36 *0.625
  */
 #define BTM_BLE_SCAN_SLOW_WINDOW_2      36
 
-/** default connection interval min 
- *  recommended min: 30ms  = 24 * 1.25 
+/** default connection interval min
+ *  recommended min: 30ms  = 24 * 1.25
  */
 #define BTM_BLE_CONN_INTERVAL_MIN_DEF   24
 
 /** default connection interval max
- * recommended max: 50 ms = 56 * 1.25 
+ * recommended max: 50 ms = 56 * 1.25
  */
 #define BTM_BLE_CONN_INTERVAL_MAX_DEF   40
 
@@ -126,7 +155,7 @@ typedef uint8_t   wiced_bt_ble_advert_filter_policy_t;  /**< Advertising filter 
 /** default supervision timeout */
 #define BTM_BLE_CONN_TIMEOUT_DEF                    2000
 
-/** BLE Signature 
+/** BLE Signature
  *  BLE data signature length 8 Bytes + 4 bytes counter
  */
 #define BTM_BLE_AUTH_SIGNATURE_SIZE                 12
@@ -264,7 +293,7 @@ typedef uint8_t wiced_bt_ble_sec_action_type_t;  /**< BLE security type. refer #
 #define BTM_BLE_PREFER_2M_PHY              0x02    /**< LE 2M PHY preference */
 #define BTM_BLE_PREFER_LELR_PHY            0x04    /**< LE LELR PHY preference */
 
-/**  Host preferences on PHY.    
+/**  Host preferences on PHY.
  *  bit field that indicates the transmitter PHYs that
  *  the Host prefers the Controller to use.Bit number 3 -7 reserved for future.
  */
@@ -281,7 +310,7 @@ typedef uint8_t   wiced_bt_ble_host_phy_preferences_t;
  *    The Host may specify a preferred coding even if it prefers not to use the LE
  *    Coded transmitter PHY since the Controller may override the PHY preference.
  *    Bit 2-15 reserved for future use.
- *  @note  These preferences applicable only when BTM_BLE_PREFER_LELR_PHY flag gest set 
+ *  @note  These preferences applicable only when BTM_BLE_PREFER_LELR_PHY flag gest set
  */
 typedef uint16_t  wiced_bt_ble_lelr_phy_preferences_t;
 
@@ -297,14 +326,14 @@ typedef struct
 /** BLE connection parameteres */
 typedef struct
 {
-    uint8_t     role;                   /**< Connection role 0: Central  1: Peripheral */
-    uint16_t    conn_interval;          /**< Connection interval in slots */
-    uint16_t    conn_latency;           /**< Connection latency */
-    uint16_t    supervision_timeout;    /**< Supervision timeout */
+    wiced_bt_dev_role_t role;           /**< Connection role 0: Central  1: Peripheral */
+    uint16_t            conn_interval;          /**< Connection interval in slots */
+    uint16_t            conn_latency;           /**< Connection latency */
+    uint16_t            supervision_timeout;    /**< Supervision timeout */
 }wiced_bt_ble_conn_params_t;
 
 /** BLE preferred connection parameters */
-typedef struct 
+typedef struct
 {
     uint16_t  conn_interval_min;  /**< minimum connection interval */
     uint16_t  conn_interval_max;  /**< maximum connection interval */
@@ -362,7 +391,7 @@ typedef struct
     wiced_bt_ble_address_type_t          own_addr_type;          /**< Own LE Address type */
 }wiced_bt_ble_multi_adv_params_t;
 
-/** Privacy mode 
+/** Privacy mode
  * refer Spec version 5.0 Vol 3 Part C Section 10.7 privacy feature
  */
 enum wiced_bt_ble_privacy_e
@@ -488,11 +517,11 @@ typedef struct
 {
     wiced_bt_ble_ext_adv_handle_t   adv_handle;     /**< advertisement set handle */
 
-    uint16_t                        adv_duration;   /**< 0 = No advertising duration. Advertising to continue until the Host disables it. 
+    uint16_t adv_duration; /**< 0 = No advertising duration. Advertising to continue until the Host disables it.
                                                     0xXXXX = Range: 0x0001 - 0xFFFF (10 ms to 655,350 ms) */
 
-    uint8_t                         max_ext_adv_events; /**< 0xXX: Maximum number of extended advertising events the Controller shall
-                                            attempt to send prior to disabling the extended advertising set even if 
+    uint8_t max_ext_adv_events; /**< 0xXX: Maximum number of extended advertising events the Controller shall
+                                            attempt to send prior to disabling the extended advertising set even if
                                             the adv_duration parameter has not expired.
                                             0x00: No maximum number of advertising events */
 
@@ -531,21 +560,35 @@ typedef uint8_t wiced_bt_ble_ext_filter_policy_t;/**< Filter policy used. (see #
 /** Options used in create periodic sync to periodic adv command */
 enum wiced_bt_ble_adv_sync_options_e
 {
-    WICED_BT_BLE_IGNORE_SYNC_TO_PERIODIC_ADV_LIST        = 0,   /**< Use the Advertising_SID, Advertising_Address_Type, and Advertising
-                                                                Address parameters specified in create sync command to determine 
+    WICED_BT_BLE_IGNORE_SYNC_TO_PERIODIC_ADV_LIST =
+        0, /**< Use the Advertising_SID, Advertising_Address_Type, and Advertising
+                                                                Address parameters specified in create sync command to determine
                                                                 which advertiser to listen to */
 
-    WICED_BT_BLE_SYNC_TO_PERIODIC_ADV_LIST               = 1,   /**< Use the Periodic Advertiser List to determine which 
+    WICED_BT_BLE_SYNC_TO_PERIODIC_ADV_LIST = 1, /**< Use the Periodic Advertiser List to determine which
                                                                 advertiser to listen to.*/
 };
 /** Options used in create periodic sync to periodic adv command (see #wiced_bt_ble_adv_sync_options_e)*/
 typedef uint8_t wiced_bt_ble_adv_sync_options_t;
 
+/** Mode used in Periodic Advertising Sync Transfer Parameters */
+enum wiced_bt_ble_periodic_adv_sync_transfer_mode_e
+{
+    WICED_BT_BLE_IGNORE_PA_SYNC_TRANSFER_EVT, /**< No attempt is made to synchronize to the periodic advertising and no
+                                                                     HCI_LE_Periodic_Advertising_Sync_Transfer_Received event is sent to the Host (default). */
+    WICED_BT_BLE_ENABLE_PA_SYNC_TRANSFER_DISABLE_PA_REPORT_EVT, /**< An HCI_LE_Periodic_Advertising_Sync_Transfer_Received event is
+                                                                      sent to the Host. HCI_LE_Periodic_Advertising_Report events will be disabled. */
+    WICED_BT_BLE_ENABLE_PA_SYNC_TRANSFER_ENABLE_PA_REPORT_EVT, /**< An HCI_LE_Periodic_Advertising_Sync_Transfer_Received event is
+                                                                     sent to the Host. HCI_LE_Periodic_Advertising_Report events will be enabled. */
+};
+/** Mode used in create periodic sync to periodic adv command (see #wiced_bt_ble_periodic_adv_sync_transfer_mode_e)*/
+typedef uint8_t wiced_bt_ble_periodic_adv_sync_transfer_mode_t;
+
 /** Extended ADV connection configuration structure */
 typedef struct
 {
     /**< Bit 0 = 1: Scan connectable advertisements on the LE 1M PHY. Connection
-                  parameters for the LE 1M PHY are provided. 
+                  parameters for the LE 1M PHY are provided.
        Bit 1 = 1: Connection parameters for the LE 2M PHY are provided.
        Bit 2 = 1: Scan connectable advertisements on the LE Coded PHY. Connection
                   parameters for the LE Coded PHY are provided */
@@ -564,27 +607,25 @@ typedef struct
 
 } wiced_bt_ble_ext_conn_cfg_t;
 
-
 /** When controller receives succesfully periodic adv event based on create sync to periodic advertiser command,
-    sync handle get generated by controller and reported in periodic sync established event 
+    sync handle get generated by controller and reported in periodic sync established event
     scanner uniquely identifies periodic adv data from adv reports using this handle and advertismenet set id(SID) */
 enum
 {
-    PERIODIC_SYNC_HANDLE_MIN    = 0,
-    PERIODIC_SYNC_HANDLE_MAX    = 0x0EFF,
+    PERIODIC_SYNC_HANDLE_MIN = 0,
+    PERIODIC_SYNC_HANDLE_MAX = 0x0EFF,
 };
 
 /** Sync_Handle to be used to identify the periodic advertiser. Range: 0x0000-0x0EFF */
 typedef uint16_t wiced_bt_ble_periodic_adv_sync_handle_t;
 
-
-#define IS_CONNECTABLE_ADV_REPORT(x)            (x & (1 << 0))  /**< adv is connectable */
-#define IS_SCANNABLE_ADV_REPORT(x)              (x & (1 << 1))  /**< adv is scannable */
-#define IS_DIRECTED_ADV_REPORT(x)               (x & (1 << 2))  /**< directed adv */
-#define IS_SCAN_RSP_ADV_REPORT(x)               (x & (1 << 3))  /**< scan response */
-#define IS_LEGACY_ADV_REPORT(x)                 (x & (1 << 4))  /**< legacy adv */
-#define IS_ADV_REPORT_DATA_STATUS_INCOMPLETE(x) (x & (1 << 5))  /**< adv data incomplete, more data to come */
-#define IS_ADV_REPORT_DATA_STATUS_TRUNCATED(x)  (x & (2 << 5))  /**< Incomplete, data truncated, no more to come */
+#define IS_CONNECTABLE_ADV_REPORT(x) (x & (1 << 0))            /**< adv is connectable */
+#define IS_SCANNABLE_ADV_REPORT(x) (x & (1 << 1))              /**< adv is scannable */
+#define IS_DIRECTED_ADV_REPORT(x) (x & (1 << 2))               /**< directed adv */
+#define IS_SCAN_RSP_ADV_REPORT(x) (x & (1 << 3))               /**< scan response */
+#define IS_LEGACY_ADV_REPORT(x) (x & (1 << 4))                 /**< legacy adv */
+#define IS_ADV_REPORT_DATA_STATUS_INCOMPLETE(x) (x & (1 << 5)) /**< adv data incomplete, more data to come */
+#define IS_ADV_REPORT_DATA_STATUS_TRUNCATED(x) (x & (2 << 5))  /**< Incomplete, data truncated, no more to come */
 /** Bit mask to identify the type of the adv received in extended adv report. (see #wiced_bt_ble_ext_adv_report_t) event_type filed */
 typedef uint16_t wiced_bt_ble_adv_report_event_mask_t;
 
@@ -596,31 +637,33 @@ report(i.e. if adv set data received as multipl adv reports), the RSSI and TxPow
 shall be set based on the last packet received.*/
 typedef struct
 {
-    wiced_bt_ble_adv_report_event_mask_t    event_type;     /**< Type of the adv. (See #wiced_bt_ble_adv_report_event_mask_t) */
-    wiced_bt_ble_address_type_t             addr_type;      /**< advertiser address type */
-    wiced_bt_device_address_t               bd_addr;        /**< advertiser address */
-    wiced_bt_ble_ext_adv_phy_t              prim_phy;       /**< PHY on which extended ADV PDUs received */
-    wiced_bt_ble_ext_adv_phy_t              sec_phy;        /**< PHY on which auxilary ADV PDUs received */
-    wiced_bt_ble_ext_adv_sid_t              adv_sid;        /**< advertising set identifier */
-    int8_t                                  tx_pwr;         /**< advertisement transmit power */
-    int8_t                                  rssi;           /**< advertisement RSSI */
-    uint16_t                                periodic_adv_int;   /**< Interval of the periodic advertisements if periodic adv enabled
+    wiced_bt_ble_adv_report_event_mask_t
+        event_type;                            /**< Type of the adv. (See #wiced_bt_ble_adv_report_event_mask_t) */
+    wiced_bt_ble_address_type_t addr_type;     /**< advertiser address type */
+    wiced_bt_device_address_t bd_addr;         /**< advertiser address */
+    wiced_bt_ble_ext_adv_phy_t prim_phy;       /**< PHY on which extended ADV PDUs received */
+    wiced_bt_ble_ext_adv_phy_t sec_phy;        /**< PHY on which auxilary ADV PDUs received */
+    wiced_bt_ble_ext_adv_sid_t adv_sid;        /**< advertising set identifier */
+    int8_t tx_pwr;                             /**< advertisement transmit power */
+    int8_t rssi;                               /**< advertisement RSSI */
+    uint16_t periodic_adv_int;                 /**< Interval of the periodic advertisements if periodic adv enabled
                                                                 on the same set. Range: N = 0x0006 to 0xFFFF, Time = N * 1.25 ms */
-    wiced_bt_ble_address_type_t             dir_addr_type;  /**< Target device address type in case of directed adv report */
-    wiced_bt_device_address_t               dir_bdaddr;     /**< Target device address in case of directed adv report */
-    uint8_t                                 data_len;       /**< adv data length */
+    wiced_bt_ble_address_type_t dir_addr_type; /**< Target device address type in case of directed adv report */
+    wiced_bt_device_address_t dir_bdaddr;      /**< Target device address in case of directed adv report */
+    uint8_t data_len;                          /**< adv data length */
 
     /* Place holder for adv data */
-    uint8_t                           ad_data[];            /**< adv data  */
+    uint8_t ad_data[]; /**< adv data  */
 } wiced_bt_ble_ext_adv_report_t;
 
 /** Min and Max possible number of reports in LE extended adv report event */
 enum wiced_bt_ble_ext_adv_report_count_e
 {
-    ADV_REP_EVT_COUNT_MIN   = 1,        /**< min number of reports in LE extended adv report event */
-    ADV_REP_EVT_COUNT_MAX   = 10,       /**< max number of reports in LE extended adv report event */
+    ADV_REP_EVT_COUNT_MIN = 1,  /**< min number of reports in LE extended adv report event */
+    ADV_REP_EVT_COUNT_MAX = 10, /**< max number of reports in LE extended adv report event */
 };
-typedef uint8_t wiced_bt_ble_ext_adv_report_count_t; /**< Min and Max reports (see #wiced_bt_ble_ext_adv_report_count_e)*/
+typedef uint8_t
+    wiced_bt_ble_ext_adv_report_count_t; /**< Min and Max reports (see #wiced_bt_ble_ext_adv_report_count_e)*/
 
 /** Advertiser clock accuracy */
 enum wiced_bt_ble_advertiser_clock_accuracy_e
@@ -634,7 +677,8 @@ enum wiced_bt_ble_advertiser_clock_accuracy_e
     ADVERTISER_CLK_ACCURACY_30PPM,
     ADVERTISER_CLK_ACCURACY_20PPM,
 };
-typedef uint8_t wiced_bt_ble_advertiser_clock_accuracy_t;/**< Advertiser clock accuracy (see #wiced_bt_ble_advertiser_clock_accuracy_e) */
+typedef uint8_t
+    wiced_bt_ble_advertiser_clock_accuracy_t; /**< Advertiser clock accuracy (see #wiced_bt_ble_advertiser_clock_accuracy_e) */
 
 /** Sync extablished to periodic advertiser event data format.
     (The LE Periodic Advertising Sync Established event indicates that the
@@ -644,39 +688,38 @@ typedef uint8_t wiced_bt_ble_advertiser_clock_accuracy_t;/**< Advertiser clock a
 */
 typedef struct
 {
-    uint8_t                                 status;         /**< HCI status */
-    wiced_bt_ble_periodic_adv_sync_handle_t sync_handle;    /**< sync handle */
-    wiced_bt_ble_ext_adv_sid_t              adv_sid;        /**< advertisement set identifier */
-    wiced_bt_ble_address_type_t             adv_addr_type;  /**< advertiser address type */
-    wiced_bt_device_address_t               adv_addr;       /**< advertiser address */
-    wiced_bt_ble_ext_adv_phy_t              adv_phy;        /**< advertiser phy */
-    uint16_t                                periodic_adv_int;               /**< Periodic adv interval */
-    wiced_bt_ble_advertiser_clock_accuracy_t    advertiser_clock_accuracy;  /**< advertiser clock accuracy */
+    uint8_t status;                                                     /**< HCI status */
+    wiced_bt_ble_periodic_adv_sync_handle_t sync_handle;                /**< sync handle */
+    wiced_bt_ble_ext_adv_sid_t adv_sid;                                 /**< advertisement set identifier */
+    wiced_bt_ble_address_type_t adv_addr_type;                          /**< advertiser address type */
+    wiced_bt_device_address_t adv_addr;                                 /**< advertiser address */
+    wiced_bt_ble_ext_adv_phy_t adv_phy;                                 /**< advertiser phy */
+    uint16_t periodic_adv_int;                                          /**< Periodic adv interval */
+    wiced_bt_ble_advertiser_clock_accuracy_t advertiser_clock_accuracy; /**< advertiser clock accuracy */
 } wiced_bt_ble_periodic_adv_sync_established_event_data_t;
 
 /** Periodic advertising report data format */
 typedef struct
 {
-    wiced_bt_ble_periodic_adv_sync_handle_t sync_handle;    /**< sync handle */
-    int8_t                                  adv_tx_power;   /**< advertisement transmit power Range: -127 to +126 dbm. 127 means tx power is not available */
-    int8_t                                  adv_rssi;       /**< RSSI. range: -127 to +126. 127 means RSSI is not available */
-    uint8_t                                 cte_type;       /**< CTE Type */
-    uint8_t                                 data_status;    /**< 0 = complete data, 1 = data incomplete more data to come, 2 = data truncated.other RFU */
-    uint8_t                                 data_len;       /**< Range: 0 -248. Other values RFU */
-
-    uint8_t                                 adv_data[WICED_BT_BLE_MAX_EXT_ADV_DATA_LEN];       /**< periodic adv data */
+    wiced_bt_ble_periodic_adv_sync_handle_t sync_handle; /**< sync handle */
+    int8_t adv_tx_power; /**< advertisement transmit power Range: -127 to +126 dbm. 127 means tx power is not available */
+    int8_t adv_rssi;  /**< RSSI. range: -127 to +126. 127 means RSSI is not available */
+    uint8_t cte_type; /**< CTE Type */
+    uint8_t data_status; /**< 0 = complete data, 1 = data incomplete more data to come, 2 = data truncated.other RFU */
+    uint8_t data_len;    /**< Range: 0 -248. Other values RFU */
+    uint8_t adv_data[WICED_BT_BLE_MAX_EXT_ADV_DATA_LEN]; /**< periodic adv data */
 } wiced_bt_ble_periodic_adv_report_event_data_t;
 
 /** sync handle and connection handle are same range */
 typedef wiced_bt_ble_periodic_adv_sync_handle_t wiced_bt_ble_connection_handle_t;
 
-/** extended adv set terminated event data format. This event generated asynchronously by the 
+/** extended adv set terminated event data format. This event generated asynchronously by the
     controller when adv set get terminated either adv duration expires or connection being created */
 typedef struct
 {
-    uint8_t                             status;         /**< HCI status */
-    wiced_bt_ble_ext_adv_handle_t       adv_handle;     /**< advertisement set handle */
-    wiced_bt_ble_connection_handle_t    conn_handle;    /**< connection handle. The conn_handle 
+    uint8_t status;                                                     /**< HCI status */
+    wiced_bt_ble_ext_adv_handle_t adv_handle;                           /**< advertisement set handle */
+    wiced_bt_ble_connection_handle_t conn_handle;                       /**< connection handle. The conn_handle
                                                         parameter is only valid when advertising ends because a connection was created */
     uint8_t                             num_completed_ext_adv_events;   /**< number of completed extended advertising events the Controller had
                                                                         transmitted when either the duration elapsed or the maximum number of
@@ -708,6 +751,32 @@ typedef struct
     /* remaining RFU */
 } wiced_bt_ble_channel_sel_algo_event_data_t;
 
+/** BIGInfo report */
+typedef struct
+{
+    uint16_t sync_handle; /**< Sync_Handle identifying the periodic advertising train (Range: 0x0000 to 0x0EFF) */
+    uint8_t num_bis;      /**< Value of the Num_BIS subfield of the BIGInfo field */
+    uint8_t number_of_subevents;        /**< Value of the NSE subfield of the BIGInfo field */
+    uint16_t iso_interval;              /**< Value of the ISO_Interval subfield of the BIGInfo field */
+    uint8_t burst_number;               /**< Value of the BN subfield of the BIGInfo field */
+    uint8_t pretransmission_offset;     /**< Value of the PTO subfield of the BIGInfo field */
+    uint8_t immediate_repetition_count; /**< Value of the IRC subfield of the BIGInfo field */
+    uint16_t max_pdu;                /**< Value of the Max_PDU subfield of the BIGInfo field in the Advertising PDU */
+    uint32_t sdu_interval;           /**< Value of the SDU_Interval subfield of the BIGInfo field */
+    uint16_t max_sdu;                /**< Value of the Max_SDU subfield of the BIGInfo field in the Advertising PDU */
+    wiced_bt_isoc_phy_t phy;         /**< The transmitter PHY of packets */
+    wiced_bt_isoc_framing_t framing; /**< Framing parameter */
+    wiced_bt_isoc_encryption_t encryption; /**< BIG carries encrypted or unencrypted data */
+} wiced_bt_ble_biginfo_adv_report_t;
+
+/** Periodic Adv Sync Transfer Received Event Data */
+typedef struct
+{
+    wiced_bt_ble_periodic_adv_sync_established_event_data_t sync_data; /**< Periodic Adv Sync Data */
+    wiced_bt_ble_connection_handle_t conn_handle;                      /**< connection handle */
+    uint16_t service_data; /**< Service Data value provided by the peer device */
+} wiced_bt_ble_periodic_adv_sync_transfer_event_data_t;
+
 /** ADV extension events to the application */
 typedef enum
 {
@@ -716,7 +785,9 @@ typedef enum
     WICED_BT_BLE_PERIODIC_ADV_SYNC_LOST_EVENT,          /**< Periodic sync lost event. Event Data: wiced_bt_ble_periodic_adv_sync_handle_t */
     WICED_BT_BLE_ADV_SET_TERMINATED_EVENT,              /**< Advertising set terminated becaue either connection being created or adv timeout. Event data: wiced_bt_ble_ext_adv_set_terminated_event_data_t */
     WICED_BT_BLE_SCAN_REQUEST_RECEIVED_EVENT,           /**< scan request received event. Event data: wiced_bt_ble_scan_req_received_event_data_t */
-    WICED_BT_BLE_CHANNEL_SEL_ALGO_EVENT                 /**< LE Channel selected algorithm event. Event Data: wiced_bt_ble_channel_sel_algo_event_data_t */
+    WICED_BT_BLE_CHANNEL_SEL_ALGO_EVENT, /**< LE Channel selected algorithm event. Event Data: wiced_bt_ble_channel_sel_algo_event_data_t */
+    WICED_BT_BLE_BIGINFO_ADV_REPORT_EVENT, /**< BIGInfo adv report event. Event Data: wiced_bt_ble_biginfo_adv_report_t */
+    WICED_BT_BLE_PERIODIC_ADV_SYNC_TRANSFER_EVENT /**< Periodic Adv Sync Transfer Event. Event Data: wiced_bt_ble_periodic_adv_sync_transfer_event_data_t */
 } wiced_bt_ble_adv_ext_event_t;
 
 /** union of events data */
@@ -728,7 +799,9 @@ typedef union
     wiced_bt_ble_ext_adv_set_terminated_event_data_t        adv_set_terminated; /**< Data for WICED_BT_BLE_ADV_SET_TERMINATED_EVENT*/
     wiced_bt_ble_scan_req_received_event_data_t             scan_req_received;  /**< Data for WICED_BT_BLE_SCAN_REQUEST_RECEIVED_EVENT*/
     wiced_bt_ble_channel_sel_algo_event_data_t              channel_sel_algo;   /**< Data for WICED_BT_BLE_CHANNEL_SEL_ALGO_EVENT*/
-
+    wiced_bt_ble_biginfo_adv_report_t biginfo_adv_report; /**< Data for WICED_BT_BLE_BIGINFO_ADV_REPORT_EVENT*/
+    wiced_bt_ble_periodic_adv_sync_transfer_event_data_t
+        sync_transfer; /**< Data for WICED_BT_BLE_PERIODIC_ADV_SYNC_TRANSFER_EVENT */
 } wiced_bt_ble_adv_ext_event_data_t;
 
 /** Configuration for extended scanning */
@@ -809,19 +882,39 @@ wiced_result_t wiced_bt_start_advertisements(wiced_bt_ble_advert_mode_t advert_m
  */
 wiced_bt_ble_advert_mode_t wiced_bt_ble_get_current_advert_mode(void);
 
-
 /**
- *
- * Set advertisement raw data.
+ * Set advertisement raw data to the controller. Application can invoke #wiced_bt_start_advertisements
+ * after setting the adv data. Max length of the advertising data to be set is 31 bytes.
+ * API returns an error if the length of data being set exceeds 31 bytes
  *
  * @param[in] num_elem :   number of ADV data element
  * @param[in] p_data :      advertisement raw data
  *
- * @return          void
+ * @return          wiced_result_t
  *
  */
-wiced_result_t wiced_bt_ble_set_raw_advertisement_data(uint8_t num_elem,
-                                                       wiced_bt_ble_advert_elem_t *p_data);
+wiced_result_t wiced_bt_ble_set_raw_advertisement_data(uint8_t num_elem, wiced_bt_ble_advert_elem_t *p_data);
+
+/**
+ * Write advertisement raw data to application buffer.
+ *
+ * @note: This API does not write data to the controller
+ *
+ * @param[in] p_adv : buffer pointer at which the raw data in \p p_type_data is to be written
+ * @param[in] adv_len : length of the buffer pointer pointed to by \p p_adv, should be atleast (2 + \p type_len)
+ *                     for a successful write operation
+ * @param[in] adv_type: adveritsement type
+ * @param[in] p_type_data: advertisement data of \p adv_type
+ * @param[in] type_len : length of advertisement data at \p p_type_data of \p adv_type
+ *
+ * @return  length of the \p p_adv buffer written.
+ *
+ */
+int wiced_bt_ble_build_raw_advertisement_data(uint8_t *p_adv,
+                                              int adv_len,
+                                              wiced_bt_ble_advert_type_t adv_type,
+                                              uint8_t *p_type_data,
+                                              uint16_t type_len);
 
 /**
  * Parse advertising data (returned from scan results callback #wiced_bt_ble_scan_result_cback_t).
@@ -862,6 +955,9 @@ wiced_result_t wiced_bt_ble_set_adv_tx_power(int8_t power, wiced_bt_dev_vendor_s
 
 /**
 * Read LE Advertisement transmit power
+* @note: This API can be used to get Tx power for Legacy advertisements.
+*        It will return an error if the application is using Extended Advertisements.
+*        See Bluetool Core spec 5.2, Vol 4, Part E, section 3.1.1 Legacy and extended advertising
 *
 * @param[in]       p_cback         : Result callback (wiced_bt_tx_power_result_t will be passed to the callback)
 *
@@ -891,14 +987,14 @@ wiced_bt_dev_status_t wiced_bt_ble_set_raw_scan_response_data(uint8_t num_elem,
  *
  * This function makes the device start or stop operating in the observer role.
  * The observer role device receives advertising events from a broadcast device.
- * 
+ *
  * @note This API uses following parameters from the configuration settings \ref wiced_bt_cfg_ble_t.p_ble_scan_cfg, \n
- *       \ref wiced_bt_cfg_ble_scan_settings_t.low_duty_scan_interval,\n 
+ *       \ref wiced_bt_cfg_ble_scan_settings_t.low_duty_scan_interval,\n
  *       \ref wiced_bt_cfg_ble_scan_settings_t.low_duty_scan_window, \n
  *       \ref wiced_bt_cfg_ble_scan_settings_t.scan_mode, \n
  *       \ref wiced_bt_cfg_ble_scan_settings_t.scan_mode
- * 
- * 
+ *
+ *
  *
  * @param[in] start :               TRUE to start the observer role
  * @param[in] duration :            the duration for the observer role
@@ -916,17 +1012,17 @@ wiced_bt_dev_status_t wiced_bt_ble_observe (wiced_bool_t start, uint8_t duration
  *                  to use (as specified by the application configuration).
  *
  *                  Scan results are notified using \p p_scan_result_cback
- * 
+ *
  * @note This API uses following parameters from the configuration settings of \ref wiced_bt_cfg_ble_t.p_ble_scan_cfg,\n
  *       \ref wiced_bt_cfg_ble_scan_settings_t.high_duty_scan_interval,\n
  *       \ref wiced_bt_cfg_ble_scan_settings_t.high_duty_scan_window,\n
- *       \ref wiced_bt_cfg_ble_scan_settings_t.high_duty_scan_duration,\n 
+ *       \ref wiced_bt_cfg_ble_scan_settings_t.high_duty_scan_duration,\n
  *       \ref wiced_bt_cfg_ble_scan_settings_t.low_duty_scan_interval,\n
  *       \ref wiced_bt_cfg_ble_scan_settings_t.low_duty_scan_window,\n
  *       \ref wiced_bt_cfg_ble_scan_settings_t.low_duty_scan_duration,\n
  *       \ref wiced_bt_cfg_ble_scan_settings_t.scan_mode \n
- * 
- * 
+ *
+ *
  * @param[in]       scan_type : BTM_BLE_SCAN_TYPE_NONE, BTM_BLE_SCAN_TYPE_HIGH_DUTY,  BTM_BLE_SCAN_TYPE_LOW_DUTY
  * @param[in]       duplicate_filter_enable : TRUE or FALSE to enable or disable  duplicate filtering
  *
@@ -1023,7 +1119,7 @@ wiced_result_t wiced_bt_ble_get_connection_parameters(wiced_bt_device_address_t 
  * Add or remove device from advertising filter Accept List
  *
  * @param[in]       add: TRUE to add; FALSE to remove
- * @param[in]       addr_type: Type of the addr 
+ * @param[in]       addr_type: Type of the addr
  * @param[in]       remote_bda: remote device address.
  *
  * @return          wiced_bool_t (<b> WICED_TRUE </b> if successful else <b> WICED_FALSE </b>)
@@ -1242,9 +1338,8 @@ wiced_bool_t wiced_bt_notify_multi_advertisement_packet_transmissions( uint8_t a
 /**@} btm_ble_multi_adv_functions */
 
 /**
- * @} btm_ble_api_functions 
+ * @} btm_ble_api_functions
  */
-
 
 /**
  * @ingroup     btm_ble_sec_api_functions
@@ -1257,9 +1352,9 @@ wiced_bool_t wiced_bt_notify_multi_advertisement_packet_transmissions( uint8_t a
  * Grant or deny access.  Used in response to an BTM_SECURITY_REQUEST_EVT event.
  *
  * @param[in]       bd_addr     : peer device bd address.
- * @param[in]       res         : BTM_SUCCESS to grant access;
-                                  BTM_MODE_UNSUPPORTED, if local device does not allow pairing;
-                                  BTM_REPEATED_ATTEMPTS otherwise
+ * @param[in]       res         : WICED_BT_SUCCESS to grant access;
+                                  WICED_BT_UNSUPPORTED , if local device does not allow pairing;
+                                  WICED_BT_REPEATED_ATTEMPTS otherwise
  *
  * @return          <b> None </b>
  *
@@ -1277,8 +1372,10 @@ void wiced_bt_ble_security_grant(wiced_bt_device_address_t bd_addr, wiced_bt_dev
  * @return          TRUE if signing successful, otherwise FALSE.
  *
  */
-wiced_bool_t wiced_bt_ble_data_signature (wiced_bt_device_address_t bd_addr, uint8_t *p_text, uint16_t len,
-                                             wiced_dev_ble_signature_t signature);
+wiced_bool_t wiced_bt_ble_data_signature(wiced_bt_device_address_t bd_addr,
+                                         uint8_t *p_text,
+                                         uint16_t len,
+                                         wiced_dev_ble_signature_t signature);
 
 /**
  * Verify the data signature
@@ -1292,9 +1389,11 @@ wiced_bool_t wiced_bt_ble_data_signature (wiced_bt_device_address_t bd_addr, uin
  * @return          TRUE if signature verified correctly; otherwise FALSE.
  *
  */
-wiced_bool_t wiced_bt_ble_verify_signature (wiced_bt_device_address_t bd_addr, uint8_t *p_orig,
-                                            uint16_t len, uint32_t counter,
-                                            uint8_t *p_comp);
+wiced_bool_t wiced_bt_ble_verify_signature(wiced_bt_device_address_t bd_addr,
+                                           uint8_t *p_orig,
+                                           uint16_t len,
+                                           uint32_t counter,
+                                           uint8_t *p_comp);
 
 /**
  * Get security mode 1 flags and encryption key size for LE peer.
@@ -1306,7 +1405,9 @@ wiced_bool_t wiced_bt_ble_verify_signature (wiced_bt_device_address_t bd_addr, u
  * @return          TRUE if successful
  *
  */
-wiced_bool_t wiced_bt_ble_get_security_state (wiced_bt_device_address_t bd_addr, uint8_t *p_le_sec_flags, uint8_t *p_le_key_size);
+wiced_bool_t wiced_bt_ble_get_security_state(wiced_bt_device_address_t bd_addr,
+                                             uint8_t *p_le_sec_flags,
+                                             uint8_t *p_le_key_size);
 
 /**
  * Updates privacy mode if device is already available in controller resolving list
@@ -1324,8 +1425,9 @@ wiced_bool_t wiced_bt_ble_get_security_state (wiced_bt_device_address_t bd_addr,
  * <b> WICED_BT_SUCCESS</b>     : if command started
  *
  */
-wiced_bt_dev_status_t wiced_bt_ble_set_privacy_mode(wiced_bt_device_address_t remote_bda, wiced_bt_ble_address_type_t rem_bda_type, wiced_bt_ble_privacy_mode_t privacy_mode);
-
+wiced_bt_dev_status_t wiced_bt_ble_set_privacy_mode(wiced_bt_device_address_t remote_bda,
+                                                    wiced_bt_ble_address_type_t rem_bda_type,
+                                                    wiced_bt_ble_privacy_mode_t privacy_mode);
 
 /**
  * Get the configured local random device address.
@@ -1341,7 +1443,7 @@ wiced_bt_dev_status_t wiced_bt_ble_set_privacy_mode(wiced_bt_device_address_t re
  * <b> WICED_BT_WRONG_MODE </b> : if random address not configured.\n
  *
  */
-wiced_bt_dev_status_t wiced_bt_ble_read_device_random_address (wiced_bt_device_address_t random_bd_addr);
+wiced_bt_dev_status_t wiced_bt_ble_read_device_random_address(wiced_bt_device_address_t random_bd_addr);
 
 /**
  * Check if the local BT controller supports extended advertising
@@ -1374,7 +1476,8 @@ wiced_bool_t wiced_bt_ble_is_periodic_adv_supported(void);
  * <b> WICED_BT_PENDING </b>       : If command queued to send down \n
  *
  */
-wiced_bt_dev_status_t wiced_bt_ble_set_ext_adv_random_address(wiced_bt_ble_ext_adv_handle_t adv_handle, wiced_bt_device_address_t random_addr);
+wiced_bt_dev_status_t wiced_bt_ble_set_ext_adv_random_address(wiced_bt_ble_ext_adv_handle_t adv_handle,
+                                                              wiced_bt_device_address_t random_addr);
 
 /**
  * Sends the HCI command to set the parameters for extended advetisement
@@ -1395,9 +1498,9 @@ wiced_bt_dev_status_t wiced_bt_ble_set_ext_adv_random_address(wiced_bt_ble_ext_a
                                                                                          auxiliary adv packets on the secondary adv channel
  * @param[in]        secondary_adv_phy           Phy used to transmit ADV packets on secondary ADV channels. Valid only in case of extended ADV
  * @param[in]        adv_sid                     Advertisement set identifier is the value to be transmitted in extended ADV PDUs
- 
+
  * @param[in]        scan_request_not            scan request received notification enable/disable
- 
+
  * @return          wiced_bt_dev_status_t
  *
  * <b> WICED_BT_SUCCESS </b>       : If all extended adv params are set successfully\n
@@ -1407,25 +1510,26 @@ wiced_bt_dev_status_t wiced_bt_ble_set_ext_adv_random_address(wiced_bt_ble_ext_a
  * <b> WICED_BT_PENDING </b>       : If command queued to send down \n
  *
  */
-wiced_bt_dev_status_t
-  wiced_bt_ble_set_ext_adv_parameters (wiced_bt_ble_ext_adv_handle_t           adv_handle,
-                                        wiced_bt_ble_ext_adv_event_property_t   event_properties,
-                                        uint32_t                                primary_adv_int_min,
-                                        uint32_t                                primary_adv_int_max,
-                                        wiced_bt_ble_advert_chnl_map_t          primary_adv_channel_map,
-                                        wiced_bt_ble_address_type_t             own_addr_type,
-                                        wiced_bt_ble_address_type_t             peer_addr_type,
-                                        wiced_bt_device_address_t               peer_addr,
-                                        wiced_bt_ble_advert_filter_policy_t     adv_filter_policy,
-                                        int8_t                                  adv_tx_power,
-                                        wiced_bt_ble_ext_adv_phy_t              primary_adv_phy,
-                                        uint8_t                                 secondary_adv_max_skip,
-                                        wiced_bt_ble_ext_adv_phy_t              secondary_adv_phy,
-                                        wiced_bt_ble_ext_adv_sid_t              adv_sid,
-                                        wiced_bt_ble_ext_adv_scan_req_notification_setting_t  scan_request_not);
+wiced_bt_dev_status_t wiced_bt_ble_set_ext_adv_parameters(
+    wiced_bt_ble_ext_adv_handle_t adv_handle,
+    wiced_bt_ble_ext_adv_event_property_t event_properties,
+    uint32_t primary_adv_int_min,
+    uint32_t primary_adv_int_max,
+    wiced_bt_ble_advert_chnl_map_t primary_adv_channel_map,
+    wiced_bt_ble_address_type_t own_addr_type,
+    wiced_bt_ble_address_type_t peer_addr_type,
+    wiced_bt_device_address_t peer_addr,
+    wiced_bt_ble_advert_filter_policy_t adv_filter_policy,
+    int8_t adv_tx_power,
+    wiced_bt_ble_ext_adv_phy_t primary_adv_phy,
+    uint8_t secondary_adv_max_skip,
+    wiced_bt_ble_ext_adv_phy_t secondary_adv_phy,
+    wiced_bt_ble_ext_adv_sid_t adv_sid,
+    wiced_bt_ble_ext_adv_scan_req_notification_setting_t scan_request_not);
 
 /**
  * Sends HCI command to write the extended adv data
+ * @note This API allows sending data formatted with \ref wiced_bt_ble_build_raw_advertisement_data.
  *
  * @param[in]       adv_handle  - handle of the advertising set
  * @param[in]       data_len    - length of the adv data to use for this set
@@ -1439,8 +1543,26 @@ wiced_bt_dev_status_t
  * <b> WICED_BT_PENDING </b>       : If command queued to send down \n
  *
  */
-wiced_bt_dev_status_t wiced_bt_ble_set_ext_adv_data (wiced_bt_ble_ext_adv_handle_t adv_handle,
-                                                     uint16_t data_len, uint8_t *p_data);
+wiced_bt_dev_status_t wiced_bt_ble_set_ext_adv_data(wiced_bt_ble_ext_adv_handle_t adv_handle,
+    uint16_t data_len,
+    uint8_t *p_data);
+
+/**
+ * Sends HCI command to write the legacy adv data
+ * @note This API allows sending data formatted with \ref wiced_bt_ble_build_raw_advertisement_data.
+ *
+ * @param[in]       data_len - length of the adv data to use, max size 31 bytes
+ * @param[in]       p_data   - pointer to the adv data to use
+ *
+ * @return          wiced_bt_dev_status_t
+ * <b> WICED_BT_SUCCESS </b>       : If all extended adv data set successfully\n
+ * <b> WICED_BT_ILLEGAL_VALUE </b> : If paramer is wrong \n
+ * <b> WICED_BT_UNSUPPORTED </b>   : If command not supported \n
+ * <b> WICED_BT_NO_RESOURCES </b>  : If no memory to issue the command \n
+ * <b> WICED_BT_PENDING </b>       : If command queued to send down \n
+ *
+ */
+wiced_bt_dev_status_t wiced_bt_ble_set_legacy_adv_data(uint16_t data_len, uint8_t *p_data);
 
 /**
  * Sends HCI command to write the extended scan rsp data
@@ -1458,8 +1580,9 @@ wiced_bt_dev_status_t wiced_bt_ble_set_ext_adv_data (wiced_bt_ble_ext_adv_handle
  * <b> WICED_BT_PENDING </b>       : If command queued to send down \n
  *
  */
-wiced_bt_dev_status_t wiced_bt_ble_set_ext_scan_rsp_data (wiced_bt_ble_ext_adv_handle_t adv_handle,
-                                                          uint16_t data_len, uint8_t *p_data);
+wiced_bt_dev_status_t wiced_bt_ble_set_ext_scan_rsp_data(wiced_bt_ble_ext_adv_handle_t adv_handle,
+                                                         uint16_t data_len,
+                                                         uint8_t *p_data);
 
 /**
  * Sends the HCI command to start/stop extended advertisements
@@ -1476,7 +1599,9 @@ wiced_bt_dev_status_t wiced_bt_ble_set_ext_scan_rsp_data (wiced_bt_ble_ext_adv_h
  * <b> WICED_BT_SUCCESS </b>       : If successful\n
  *
  */
-wiced_bt_dev_status_t wiced_bt_ble_start_ext_adv (uint8_t enable, uint8_t num_sets, wiced_bt_ble_ext_adv_duration_config_t* p_dur);
+wiced_bt_dev_status_t wiced_bt_ble_start_ext_adv(uint8_t enable,
+                                                 uint8_t num_sets,
+                                                 wiced_bt_ble_ext_adv_duration_config_t *p_dur);
 
 /**
  * Sends the HCI command to remove an extended advertisement set (which is currently not advertising)
@@ -1491,7 +1616,7 @@ wiced_bt_dev_status_t wiced_bt_ble_start_ext_adv (uint8_t enable, uint8_t num_se
  * <b> WICED_BT_SUCCESS </b>       : If successful\n
  *
  */
-wiced_bt_dev_status_t wiced_bt_ble_remove_adv_set ( wiced_bt_ble_ext_adv_handle_t adv_handle );
+wiced_bt_dev_status_t wiced_bt_ble_remove_adv_set(wiced_bt_ble_ext_adv_handle_t adv_handle);
 
 /**
  * Sends the HCI command to remove all extended advertisement sets which are currently not advertising
@@ -1503,7 +1628,7 @@ wiced_bt_dev_status_t wiced_bt_ble_remove_adv_set ( wiced_bt_ble_ext_adv_handle_
  * <b> WICED_BT_SUCCESS </b>       : If successfuly\n
  *
  */
-wiced_bt_dev_status_t wiced_bt_ble_clear_adv_sets ( void );
+wiced_bt_dev_status_t wiced_bt_ble_clear_adv_sets(void);
 
 /**
  * Read the number of ADV sets supported by the controller.
@@ -1511,7 +1636,7 @@ wiced_bt_dev_status_t wiced_bt_ble_clear_adv_sets ( void );
  * @return          uint8_t
  *
  */
-uint8_t wiced_bt_ble_read_num_ext_adv_sets (void);
+uint8_t wiced_bt_ble_read_num_ext_adv_sets(void);
 
 /**
  * Read the maximum ADV data length supported by the controller.
@@ -1519,8 +1644,7 @@ uint8_t wiced_bt_ble_read_num_ext_adv_sets (void);
  * @return          uint16_t
  *
  */
-uint16_t wiced_bt_ble_read_max_ext_adv_data_len (void);
-
+uint16_t wiced_bt_ble_read_max_ext_adv_data_len(void);
 
 /**
  * Sends the HCI command to set the parameters for periodic advertising
@@ -1538,10 +1662,10 @@ uint16_t wiced_bt_ble_read_max_ext_adv_data_len (void);
  * <b> WICED_BT_SUCCESS </b>       : If successful\n
  *
  */
-wiced_bt_dev_status_t wiced_bt_ble_set_periodic_adv_params (wiced_bt_ble_ext_adv_handle_t    adv_handle,
-                                                            uint16_t                         periodic_adv_int_min,
-                                                            uint16_t                         periodic_adv_int_max,
-                                                            wiced_bt_ble_periodic_adv_prop_t periodic_adv_properties);
+wiced_bt_dev_status_t wiced_bt_ble_set_periodic_adv_params(wiced_bt_ble_ext_adv_handle_t adv_handle,
+                                                           uint16_t periodic_adv_int_min,
+                                                           uint16_t periodic_adv_int_max,
+                                                           wiced_bt_ble_periodic_adv_prop_t periodic_adv_properties);
 
 /**
  * Sends the HCI command to write the periodic adv data
@@ -1558,11 +1682,12 @@ wiced_bt_dev_status_t wiced_bt_ble_set_periodic_adv_params (wiced_bt_ble_ext_adv
  *
  */
 wiced_bt_dev_status_t wiced_bt_ble_set_periodic_adv_data(wiced_bt_ble_ext_adv_handle_t adv_handle,
-                                                         uint16_t adv_data_length, uint8_t *p_adv_data);
+                                                         uint16_t adv_data_length,
+                                                         uint8_t *p_adv_data);
 
 /**
  * Sends the HCI command to start/stop periodic advertisements
- 
+
  * @param[in]       adv_handle  - handle of the advertising set
  * @param[in]       enable      - true to enable, false to disable
  *
@@ -1573,7 +1698,7 @@ wiced_bt_dev_status_t wiced_bt_ble_set_periodic_adv_data(wiced_bt_ble_ext_adv_ha
  * <b> WICED_BT_SUCCESS </b>       : If successful\n
  *
  */
-wiced_bt_dev_status_t wiced_bt_ble_start_periodic_adv (wiced_bt_ble_ext_adv_handle_t adv_handle, wiced_bool_t enable);
+wiced_bt_dev_status_t wiced_bt_ble_start_periodic_adv(wiced_bt_ble_ext_adv_handle_t adv_handle, wiced_bool_t enable);
 
 /**
  * Stores extended scan configuration to apply on start ext scan
@@ -1588,7 +1713,22 @@ wiced_bt_dev_status_t wiced_bt_ble_start_periodic_adv (wiced_bt_ble_ext_adv_hand
  * <b> WICED_BT_SUCCESS </b>       : If successful\n
  *
  */
-wiced_bt_dev_status_t wiced_bt_ble_cache_ext_scan_config(wiced_bt_ble_ext_scan_config_t* p_ext_scan_cfg);
+wiced_bt_dev_status_t wiced_bt_ble_cache_ext_scan_config(wiced_bt_ble_ext_scan_config_t *p_ext_scan_cfg);
+
+/**
+ * Stores the extended ADV connection configuration.
+ *
+ * @param[in]       p_ext_conn_cfg    - pointer to connection configuration
+ *
+ * @return          wiced_bt_dev_status_t
+ *
+ * <b> WICED_BT_ILLEGAL_VALUE </b> : If paramer is wrong \n
+ * <b> WICED_BT_UNSUPPORTED </b>   : If command not supported \n
+ * <b> WICED_BT_NO_RESOURCES </b>  : If no memory to issue the command \n
+ * <b> WICED_BT_SUCCESS </b>       : If successful\n
+ *
+ */
+wiced_bt_dev_status_t wiced_bt_ble_cache_ext_conn_config(wiced_bt_ble_ext_conn_cfg_t *p_ext_conn_cfg);
 
 /**
  * Sends the HCI command to synchronize with periodic advertising from an advertiser and begin receiving periodic
@@ -1603,7 +1743,7 @@ wiced_bt_dev_status_t wiced_bt_ble_cache_ext_scan_config(wiced_bt_ble_ext_scan_c
  * @param[in]       sync_cte_type   - bit 0 - Do not sync to packets with an AoA Constant Tone Extension
  *                                        1 - Do not sync to packets with an AoD Constant Tone Extension with 1 μs slots
  *                                        2 - Do not sync to packets with an AoD Constant Tone Extension with 2 μs slots
- *                                        3 - Do not sync to packets with a type 3 Constant Tone Extension 
+ *                                        3 - Do not sync to packets with a type 3 Constant Tone Extension
  *
  * @return          wiced_bt_dev_status_t
  * <b> WICED_BT_ILLEGAL_VALUE </b> : If paramer is wrong \n
@@ -1612,15 +1752,15 @@ wiced_bt_dev_status_t wiced_bt_ble_cache_ext_scan_config(wiced_bt_ble_ext_scan_c
  * <b> WICED_BT_SUCCESS </b>       : If successful\n
  *
  */
-wiced_bt_dev_status_t wiced_bt_ble_create_sync_to_periodic_adv (wiced_bt_ble_adv_sync_options_t     options,
-                                                                wiced_bt_ble_ext_adv_sid_t          adv_sid,
-                                                                wiced_bt_ble_address_type_t         adv_addr_type,
-                                                                wiced_bt_device_address_t           adv_addr,
-                                                                uint16_t                            skip,
-                                                                uint16_t                            sync_timeout,
-                                                                uint8_t                             sync_cte_type);
+wiced_bt_dev_status_t wiced_bt_ble_create_sync_to_periodic_adv(wiced_bt_ble_adv_sync_options_t options,
+                                                               wiced_bt_ble_ext_adv_sid_t adv_sid,
+                                                               wiced_bt_ble_address_type_t adv_addr_type,
+                                                               wiced_bt_device_address_t adv_addr,
+                                                               uint16_t skip,
+                                                               uint16_t sync_timeout,
+                                                               uint8_t sync_cte_type);
 
- /**
+/**
  * Sends HCI command to cancel the create sync command while it is pending.
  *
  *
@@ -1630,9 +1770,9 @@ wiced_bt_dev_status_t wiced_bt_ble_create_sync_to_periodic_adv (wiced_bt_ble_adv
  * <b> WICED_BT_SUCCESS </b>       : If successful\n
  *
  */
-wiced_bt_dev_status_t wiced_bt_ble_cancel_sync_to_periodic_adv ( void );
+wiced_bt_dev_status_t wiced_bt_ble_cancel_sync_to_periodic_adv(void);
 
- /**
+/**
  * Sends the HCI command to stop reception of periodic advertising identified by the sync_handle
  *
  * @param[in]       sync_handle      - Sync handle received in WICED_BT_BLE_PERIODIC_ADV_SYNC_ESTABLISHED_EVENT.
@@ -1645,9 +1785,9 @@ wiced_bt_dev_status_t wiced_bt_ble_cancel_sync_to_periodic_adv ( void );
  * <b> WICED_BT_SUCCESS </b>       : If successful \n
  *
  */
-wiced_bt_dev_status_t wiced_bt_ble_terminate_sync_to_periodic_adv ( uint16_t sync_handle );
+wiced_bt_dev_status_t wiced_bt_ble_terminate_sync_to_periodic_adv(uint16_t sync_handle);
 
- /**
+/**
  * Sends the HCI command to add the given advertiser to Periodic Advertiser list.
  *
  * Note : Caller shall not attempt to add more than max list size
@@ -1665,11 +1805,11 @@ wiced_bt_dev_status_t wiced_bt_ble_terminate_sync_to_periodic_adv ( uint16_t syn
  * <b> WICED_BT_SUCCESS </b>       : If successful\n
  *
  */
-wiced_bt_dev_status_t wiced_bt_ble_add_device_to_periodic_adv_list (wiced_bt_ble_address_type_t advertiser_addr_type,
-                                                                    wiced_bt_device_address_t   advetiser_addr,
-                                                                    wiced_bt_ble_ext_adv_sid_t  adv_sid);
+wiced_bt_dev_status_t wiced_bt_ble_add_device_to_periodic_adv_list(wiced_bt_ble_address_type_t advertiser_addr_type,
+                                                                   wiced_bt_device_address_t advetiser_addr,
+                                                                   wiced_bt_ble_ext_adv_sid_t adv_sid);
 
- /**
+/**
  * Sends the HCI command to remove the given advertiser from Periodic Advertiser list.
  *
  * Note : Shall not attempt to call this API, while create to periodic sync command is pending.
@@ -1686,11 +1826,12 @@ wiced_bt_dev_status_t wiced_bt_ble_add_device_to_periodic_adv_list (wiced_bt_ble
  * <b> WICED_BT_SUCCESS </b>       : If successful\n
  *
  */
-wiced_bt_dev_status_t wiced_bt_ble_remove_device_from_periodic_adv_list (wiced_bt_ble_address_type_t advertiser_addr_type,
-                                                                    wiced_bt_device_address_t   advetiser_addr,
-                                                                    wiced_bt_ble_ext_adv_sid_t  adv_sid);
+wiced_bt_dev_status_t wiced_bt_ble_remove_device_from_periodic_adv_list(
+    wiced_bt_ble_address_type_t advertiser_addr_type,
+    wiced_bt_device_address_t advetiser_addr,
+    wiced_bt_ble_ext_adv_sid_t adv_sid);
 
- /**
+/**
  * Sends the HCI command to remove to remove all devices from the the Periodic Advertisers list.
  *
  * Note : Shall not attempt to call this API, while create to periodic sync command is pending.
@@ -1702,17 +1843,17 @@ wiced_bt_dev_status_t wiced_bt_ble_remove_device_from_periodic_adv_list (wiced_b
  * <b> WICED_BT_SUCCESS </b>       : If successful\n
  *
  */
-wiced_bt_dev_status_t wiced_bt_ble_clear_periodic_adv_list ( void );
+wiced_bt_dev_status_t wiced_bt_ble_clear_periodic_adv_list(void);
 
- /**
+/**
  * Read the Periodic Advertisers list size.
  *
  * @return          uint8_t : list size
  *
  */
-uint8_t wiced_bt_ble_read_periodic_adv_list_size (void);
+uint8_t wiced_bt_ble_read_periodic_adv_list_size(void);
 
- /**
+/**
  * Register an application callback function to receive extended advertising events.
  *
  * @param[in]       p_app_adv_ext_event_cb      - pointer to function to receive extended adv events.
@@ -1724,13 +1865,12 @@ uint8_t wiced_bt_ble_read_periodic_adv_list_size (void);
  * <b> WICED_BT_SUCCESS </b>       : If successful\n
  *
  */
-void wiced_bt_ble_register_adv_ext_cback (wiced_bt_ble_adv_ext_event_cb_fp_t p_app_adv_ext_event_cb);
+void wiced_bt_ble_register_adv_ext_cback(wiced_bt_ble_adv_ext_event_cb_fp_t p_app_adv_ext_event_cb);
 
-
- /**
+/**
  * Sends the HCI command enable or disable receiving periodic ADV data for a sync handle.
  *
- * @param[in]       sync_handle : Sync handle 
+ * @param[in]       sync_handle : Sync handle
  * @param[in]       enable      : Boolean for enable/disable.
  *
  * @return          wiced_bt_dev_status_t
@@ -1740,6 +1880,125 @@ void wiced_bt_ble_register_adv_ext_cback (wiced_bt_ble_adv_ext_event_cb_fp_t p_a
  *
  */
 wiced_bt_dev_status_t wiced_bt_ble_set_periodic_adv_rcv_enable(wiced_bt_ble_periodic_adv_sync_handle_t sync_handle, wiced_bool_t enable);
+
+/**
+ * Sends the HCI command to send synchronization information about the periodic advertising train identified by the Sync_Handle parameter to given device
+ *
+ * @param[in]       peer_bda        - Peer Bluetooth Address
+ * @param[in]       service_data    - Service Data value
+ * @param[in]       sync_handle : Sync handle
+ *
+ * @return          wiced_bt_dev_status_t
+ * <b> WICED_BT_UNKNOWN_ADDR </b> :  If Unknown remote BD address \n
+ * <b> WICED_BT_NO_RESOURCES </b>  : If no memory to issue the command \n
+ * <b> WICED_BT_SUCCESS </b>       : If command queued to send down \n
+ *
+ */
+wiced_bt_dev_status_t wiced_bt_ble_periodic_adv_sync_transfer(wiced_bt_device_address_t peer_bda,
+                                                              uint16_t service_data,
+                                                              wiced_bt_ble_periodic_adv_sync_handle_t sync_handle);
+
+/**
+ * Sends the HCI command  to send synchronization information about the periodic advertising in an advertising set to given device.
+ *
+ * @param[in]       peer_bda        - Peer Bluetooth Address
+ * @param[in]       service_data    - Service Data value
+ * @param[in]       adv_handle  - handle of the advertising set
+ *
+ * @return          wiced_bt_dev_status_t
+ * <b> WICED_BT_UNKNOWN_ADDR </b> :  If Unknown remote BD address \n
+ * <b> WICED_BT_NO_RESOURCES </b>  : If no memory to issue the command \n
+ * <b> WICED_BT_SUCCESS </b>       : If command queued to send down \n
+ *
+ */
+wiced_bt_dev_status_t wiced_bt_ble_periodic_adv_set_info_transfer(wiced_bt_device_address_t peer_bda,
+                                                                  uint16_t service_data,
+                                                                  wiced_bt_ble_ext_adv_handle_t adv_handle);
+
+/**
+ * Sends the HCI command to set synchronize periodic transfer parameter
+ *
+ * @param[in]       peer_bda        - Peer Bluetooth Address
+ * @param[in]       mode            - ref: wiced_bt_ble_periodic_adv_sync_transfer_mode_t
+ * @param[in]       skip            -  The number of periodic advertising packets that can be skipped after a successful receive
+ * @param[in]       sync_timeout    - timeout value
+ * @param[in]       sync_cte_type   - bit 0 - Do not sync to packets with an AoA Constant Tone Extension
+ *                                        1 - Do not sync to packets with an AoD Constant Tone Extension with 1 μs slots
+ *                                        2 - Do not sync to packets with an AoD Constant Tone Extension with 2 μs slots
+ *                                        3 - Do not sync to packets with a type 3 Constant Tone Extension
+ *
+ * @return          wiced_bt_dev_status_t
+ * <b> WICED_BT_UNKNOWN_ADDR </b> :  If Unknown remote BD address \n
+ * <b> WICED_BT_NO_RESOURCES </b>  : If no memory to issue the command \n
+ * <b> WICED_BT_SUCCESS </b>       : If successful\n
+ *
+ */
+wiced_bt_dev_status_t wiced_bt_ble_set_periodic_adv_sync_transfer_param(
+    wiced_bt_device_address_t peer_bda,
+    wiced_bt_ble_periodic_adv_sync_transfer_mode_t mode,
+    uint16_t skip,
+    uint16_t sync_timeout,
+    uint8_t sync_cte_type);
+
+/**
+ * Sends the HCI command to set Default synchronize periodic transfer parameter
+ *
+ * @param[in]       mode         - ref: wiced_bt_ble_periodic_adv_sync_transfer_mode_t
+ * @param[in]       skip            -  The number of periodic advertising packets that can be skipped after a successful receive
+ * @param[in]       sync_timeout    - timeout value
+ * @param[in]       sync_cte_type   - bit 0 - Do not sync to packets with an AoA Constant Tone Extension
+ *                                        1 - Do not sync to packets with an AoD Constant Tone Extension with 1 μs slots
+ *                                        2 - Do not sync to packets with an AoD Constant Tone Extension with 2 μs slots
+ *                                        3 - Do not sync to packets with a type 3 Constant Tone Extension
+ *
+ * @return          wiced_bt_dev_status_t
+ * <b> WICED_BT_NO_RESOURCES </b>  : If no memory to issue the command \n
+ * <b> WICED_BT_SUCCESS </b>       : If successful\n
+ *
+ */
+wiced_bt_dev_status_t wiced_bt_ble_set_default_periodic_adv_sync_transfer_param(
+    wiced_bt_ble_periodic_adv_sync_transfer_mode_t mode,
+    uint16_t skip,
+    uint16_t sync_timeout,
+    uint8_t sync_cte_type);
+
+
+/**
+ * Function         wiced_ble_private_device_address_resolution
+ *
+ *                  This API verifies whether given device address is Resolvable Private Address or not
+ *
+ * @param rpa       BLE Resolvable Private Address
+ * @param irk       BLE IRK
+ * @return          wiced_result_t
+ *                  WICED_BT_SUCCESS the identity of device address has been resolved.
+ *                  WICED_BT_ERROR   otherwise.
+ */
+wiced_result_t wiced_ble_private_device_address_resolution(wiced_bt_device_address_t rpa, BT_OCTET16 irk);
+
+/**
+ * Function         wiced_bt_ble_read_le_features
+ *
+ *                  This API returns the features supported by the \p bda
+ *
+ * @param[in]  bda       Device address pointer, pass NULL for local device
+ * @param[out] features  Pointer to store the supported features
+ * @return          wiced_result_t
+ *                  WICED_BT_SUCCESS contents of features are valid
+ *                  WICED_BT_ERROR   otherwise.
+ */
+wiced_result_t wiced_bt_ble_read_le_features(wiced_bt_device_address_t bda, wiced_bt_features_t features);
+
+/**
+ * Function         wiced_bt_ble_address_resolution_list_clear_and_disable
+ *
+ *                  This API clears the address resolution list and disables the address resolution feature.
+ *
+ * @return          wiced_result_t
+ *                  WICED_BT_SUCCESS if address resolution list is cleared and adress resolution feature is disabled.
+ *                  WICED_BT_ERROR   otherwise.
+ */
+wiced_result_t wiced_bt_ble_address_resolution_list_clear_and_disable(void);
 
 /**@} btm_ble_api_functions */
 

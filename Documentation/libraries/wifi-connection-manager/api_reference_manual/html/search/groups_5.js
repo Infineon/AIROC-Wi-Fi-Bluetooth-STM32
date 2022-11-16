@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['wcm_20results_2ferror_20codes',['WCM results/error codes',['../group__generic__wcm__defines.html',1,'']]]
+  ['wcm_2dspecific_20error_20codes_0',['WCM-specific error codes',['../group__cy__wcm__error.html',1,'']]]
 ];

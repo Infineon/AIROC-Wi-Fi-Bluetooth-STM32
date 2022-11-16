@@ -123,9 +123,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a5a4b5442450b48076ed52dfcd8b9c645"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___result.html#gacfc32ead8a827d53416f01b19eb58310">wiced_result_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwiced__bt__stack__platform__t.html#a5a4b5442450b48076ed52dfcd8b9c645">pf_write_acl_to_lower</a> )(<a class="el" href="group__bt__types.html#gae0d25ec063a889c537f3a77010cf5ef0">wiced_bt_transport_t</a> transport, uint8_t *p_data, uint16_t len)</td></tr>
 <tr class="memdesc:a5a4b5442450b48076ed52dfcd8b9c645"><td class="mdescLeft">&#160;</td><td class="mdescRight">Platform function to write ACL buffer to lower.  <a href="#a5a4b5442450b48076ed52dfcd8b9c645">More...</a><br /></td></tr>
 <tr class="separator:a5a4b5442450b48076ed52dfcd8b9c645"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae690ee0869b35884f16e3b1615948f53"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___result.html#gacfc32ead8a827d53416f01b19eb58310">wiced_result_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwiced__bt__stack__platform__t.html#ae690ee0869b35884f16e3b1615948f53">pf_write_iso_to_lower</a> )(<a class="el" href="group__bt__types.html#gae0d25ec063a889c537f3a77010cf5ef0">wiced_bt_transport_t</a> transport, uint8_t *p_data, uint16_t len)</td></tr>
-<tr class="memdesc:ae690ee0869b35884f16e3b1615948f53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Platform function to write ISO buffer to lower.  <a href="#ae690ee0869b35884f16e3b1615948f53">More...</a><br /></td></tr>
-<tr class="separator:ae690ee0869b35884f16e3b1615948f53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2928d2f9c68ef62fa7cb2a163ff48be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___result.html#gacfc32ead8a827d53416f01b19eb58310">wiced_result_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwiced__bt__stack__platform__t.html#aa2928d2f9c68ef62fa7cb2a163ff48be">pf_write_iso_to_lower</a> )(uint8_t *p_data, uint16_t len)</td></tr>
+<tr class="memdesc:aa2928d2f9c68ef62fa7cb2a163ff48be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Platform function to write ISO buffer to lower.  <a href="#aa2928d2f9c68ef62fa7cb2a163ff48be">More...</a><br /></td></tr>
+<tr class="separator:aa2928d2f9c68ef62fa7cb2a163ff48be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c53e952d84ff4d34955aee7c3fc2aa7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___result.html#gacfc32ead8a827d53416f01b19eb58310">wiced_result_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwiced__bt__stack__platform__t.html#a9c53e952d84ff4d34955aee7c3fc2aa7">pf_write_cmd_to_lower</a> )(uint8_t *p_cmd, uint16_t cmd_len)</td></tr>
 <tr class="memdesc:a9c53e952d84ff4d34955aee7c3fc2aa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Platform function to write CMD buffer to lower.  <a href="#a9c53e952d84ff4d34955aee7c3fc2aa7">More...</a><br /></td></tr>
 <tr class="separator:a9c53e952d84ff4d34955aee7c3fc2aa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -152,6 +152,9 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="st
 <tr class="memitem:ab424e8d1a539328e651f7ef3ec25f53f"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwiced__bt__stack__platform__t.html#ab424e8d1a539328e651f7ef3ec25f53f">pf_patch_download</a> )(void)</td></tr>
 <tr class="memdesc:ab424e8d1a539328e651f7ef3ec25f53f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used for additional controller initialization by the porting layer to be performed after the HCI reset.  <a href="#ab424e8d1a539328e651f7ef3ec25f53f">More...</a><br /></td></tr>
 <tr class="separator:ab424e8d1a539328e651f7ef3ec25f53f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed774e9dc09f073b14790a248f007d8c"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwiced__bt__stack__platform__t.html#aed774e9dc09f073b14790a248f007d8c">is_legacy_bless_controller</a>: 1</td></tr>
+<tr class="memdesc:aed774e9dc09f073b14790a248f007d8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">set is_legacy_bless_controller to 1 for only BLESS controllers.  <a href="#aed774e9dc09f073b14790a248f007d8c">More...</a><br /></td></tr>
+<tr class="separator:aed774e9dc09f073b14790a248f007d8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
 <a id="a9ca85e972a5e580a918826a1c1f46de3"></a>
@@ -301,14 +304,14 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="st
 
 </div>
 </div>
-<a id="ae690ee0869b35884f16e3b1615948f53"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae690ee0869b35884f16e3b1615948f53">&#9670;&nbsp;</a></span>pf_write_iso_to_lower</h2>
+<a id="aa2928d2f9c68ef62fa7cb2a163ff48be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2928d2f9c68ef62fa7cb2a163ff48be">&#9670;&nbsp;</a></span>pf_write_iso_to_lower</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group___result.html#gacfc32ead8a827d53416f01b19eb58310">wiced_result_t</a>(* wiced_bt_stack_platform_t::pf_write_iso_to_lower) (<a class="el" href="group__bt__types.html#gae0d25ec063a889c537f3a77010cf5ef0">wiced_bt_transport_t</a> transport, uint8_t *p_data, uint16_t len)</td>
+          <td class="memname"><a class="el" href="group___result.html#gacfc32ead8a827d53416f01b19eb58310">wiced_result_t</a>(* wiced_bt_stack_platform_t::pf_write_iso_to_lower) (uint8_t *p_data, uint16_t len)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -317,7 +320,6 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="st
 <p>Called by stack to send the buffer allocated using pf_get_acl_to_lower_buffer after filling it with the data to send.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">transport</td><td>: Transport on which the buffer is to be sent </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">p_data</td><td>: Pointer received using pf_get_acl_to_lower_buffer </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">len</td><td>: Length of data at p_data</td></tr>
   </table>
@@ -467,6 +469,23 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="st
 
 <p>Used for additional controller initialization by the porting layer to be performed after the HCI reset. </p>
 <p>Can be set to NULL if no additional initialization required </p>
+
+</div>
+</div>
+<a id="aed774e9dc09f073b14790a248f007d8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed774e9dc09f073b14790a248f007d8c">&#9670;&nbsp;</a></span>is_legacy_bless_controller</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t wiced_bt_stack_platform_t::is_legacy_bless_controller</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>set is_legacy_bless_controller to 1 for only BLESS controllers. </p>
+<p>This is used while sending BLESS vendor specific commands. </p>
 
 </div>
 </div>

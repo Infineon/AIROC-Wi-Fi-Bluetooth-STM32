@@ -122,6 +122,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gad8044837c2bda2ff0515d86bd160d45e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__wicedbt__gatt.html#ga0e035835afe92d61fe430ea19029677a">wiced_bt_gatt_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gatt__common__api.html#gad8044837c2bda2ff0515d86bd160d45e">wiced_bt_gatt_get_device_address</a> (uint16_t conn_id, <a class="el" href="group__bt__types.html#gacf9a377aceca799be625c0dfe554902e">wiced_bt_device_address_t</a> *p_bdaddr, <a class="el" href="group__bt__types.html#gae0d25ec063a889c537f3a77010cf5ef0">wiced_bt_transport_t</a> *p_transport, <a class="el" href="group__bt__types.html#ga97897f7408c23723933e9d21815c7294">wiced_bt_ble_address_type_t</a> *p_addr_type)</td></tr>
 <tr class="memdesc:gad8044837c2bda2ff0515d86bd160d45e"><td class="mdescLeft">&#160;</td><td class="mdescRight">API to get the bluetooth device address of the connected gatt conn_id.  <a href="#gad8044837c2bda2ff0515d86bd160d45e">More...</a><br /></td></tr>
 <tr class="separator:gad8044837c2bda2ff0515d86bd160d45e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2bfd5052c63d135f8df4078a61d0938b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__wicedbt__gatt.html#ga0e035835afe92d61fe430ea19029677a">wiced_bt_gatt_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gatt__common__api.html#ga2bfd5052c63d135f8df4078a61d0938b">wiced_bt_gatt_validate_conn_id</a> (uint16_t conn_id)</td></tr>
+<tr class="memdesc:ga2bfd5052c63d135f8df4078a61d0938b"><td class="mdescLeft">&#160;</td><td class="mdescRight">API to validate connected gatt conn_id.  <a href="#ga2bfd5052c63d135f8df4078a61d0938b">More...</a><br /></td></tr>
+<tr class="separator:ga2bfd5052c63d135f8df4078a61d0938b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="gab44b8568a7e3d887d034e4e4d0277bc0"></a>
@@ -361,6 +364,33 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">p_bdaddr</td><td>: <a class="el" href="group__bt__types.html#gacf9a377aceca799be625c0dfe554902e" title="Device address length.">wiced_bt_device_address_t</a> </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">p_transport</td><td><a class="el" href="group__bt__types.html#gae0d25ec063a889c537f3a77010cf5ef0" title="Transport type (see BT Transport Types)">wiced_bt_transport_t</a> of the bearer </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">p_addr_type</td><td><a class="el" href="group__bt__types.html#ga97897f7408c23723933e9d21815c7294" title="BLE device address type (see BT Address Types)">wiced_bt_ble_address_type_t</a> of the bearer. Valid only if device referred by the conn_id is of type <a class="el" href="group__bt__types.html#ga94a8f53540ba09c927705acafabb7016">BT_TRANSPORT_LE</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__wicedbt__gatt.html#ga0e035835afe92d61fe430ea19029677a" title="GATT status (see wiced_bt_gatt_status_e)">wiced_bt_gatt_status_t</a> </dd></dl>
+
+</div>
+</div>
+<a id="ga2bfd5052c63d135f8df4078a61d0938b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2bfd5052c63d135f8df4078a61d0938b">&#9670;&nbsp;</a></span>wiced_bt_gatt_validate_conn_id()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__wicedbt__gatt.html#ga0e035835afe92d61fe430ea19029677a">wiced_bt_gatt_status_t</a> wiced_bt_gatt_validate_conn_id </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>conn_id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>API to validate connected gatt conn_id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">conn_id</td><td>: Connection handle of the gatt bearer</td></tr>
   </table>
   </dd>
 </dl>

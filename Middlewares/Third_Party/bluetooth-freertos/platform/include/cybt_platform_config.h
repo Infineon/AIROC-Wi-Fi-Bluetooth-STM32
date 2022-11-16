@@ -7,7 +7,9 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2019 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,7 +36,7 @@
 /**
  *  @addtogroup    platform_cfg   Bluetooth Platform Configuration
  *
- * The Bluetooth platform-specific configurations, 
+ * The Bluetooth platform-specific configurations,
  * including hardware pin assignment, HCI (Host Controller Interface) format,
  * sleep mode settings and memory pool size for OS tasks.
  *
@@ -102,9 +104,9 @@ typedef struct
     } hci;
 } cybt_hci_transport_config_t;
 
-/** 
-  * Cypress Bluetooth chip sleep mode configuration parameters,
-  * including enable status, wakeup pins assignment and 
+/**
+  * Bluetooth chip sleep mode configuration parameters,
+  * including enable status, wakeup pins assignment and
   * their trigger polarity.
   */
 typedef struct
@@ -117,20 +119,20 @@ typedef struct
                                            *  or CYCFG_BT_LP_ENABLED for ModusToolBox
                                            *  LPA configuration
                                            *
-                                           *  Notice that sleep mode will be enabled 
+                                           *  Notice that sleep mode will be enabled
                                            *  only if both device and host wakeup pins
-                                           *  are assigned. 
+                                           *  are assigned.
                                            */
     cyhal_gpio_t    device_wakeup_pin;     /**< The gpio definition for BT device wakeup pin.
                                            *  It can be assigned by the value with the type
-                                           *  cyhal_gpio_t directly. For ModusToolBox, 
+                                           *  cyhal_gpio_t directly. For ModusToolBox,
                                            *  CYCFG_BT_DEV_WAKE_GPIO can be used.
                                            *
                                            *  NC is used as this pin is NOT connected.
                                            */
     cyhal_gpio_t    host_wakeup_pin;       /**< The gpio definition for BT host wakeup pin.
                                            *  It can be assigned by the value with the type
-                                           *  cyhal_gpio_t directly. For ModusToolBox, 
+                                           *  cyhal_gpio_t directly. For ModusToolBox,
                                            *  CYCFG_BT_HOST_WAKE_GPIO can be used.
                                            *
                                            *  NC is used as this pin is NOT connected.
@@ -140,7 +142,7 @@ typedef struct
                                             *      CYBT_WAKE_ACTIVE_LOW, or<BR>
                                             *      CYBT_WAKE_ACTIVE_HIGH.
                                             *
-                                            *  Or CYCFG_BT_DEV_WAKE_POLARITY 
+                                            *  Or CYCFG_BT_DEV_WAKE_POLARITY
                                             *  for ModusToolBox LPA configuration.
                                             *
                                             *  The default value will be active low.
@@ -150,7 +152,7 @@ typedef struct
                                             *      CYBT_WAKE_ACTIVE_LOW, or <BR>
                                             *      CYBT_WAKE_ACTIVE_HIGH,
                                             *
-                                            *  Or CYCFG_BT_DEV_WAKE_POLARITY 
+                                            *  Or CYCFG_BT_DEV_WAKE_POLARITY
                                             *  for ModusToolBox LPA configuration.
                                             *
                                             *  The default value will be active low.
@@ -167,12 +169,12 @@ typedef struct
 } cybt_controller_config_t;
 
 /**
- *  The overall configuration for Cypress WICED BT/BLE stack and BT chip
+ *  The overall configuration for WICED BT/BLE stack and BT chip
  */
 typedef struct
 {
     cybt_hci_transport_config_t    hci_config;         /**< Bluetooth HCI transport configuration */
-    cybt_controller_config_t       controller_config;  /**< Cypress Bluetooth chip configuration*/
+    cybt_controller_config_t       controller_config;  /**< Bluetooth chip configuration*/
     uint32_t                       task_mem_pool_size; /**< memory pool size for Bluetotoh task communication.
                                                         * The default size is 2344 bytes if it wasn't specified.
                                                         */

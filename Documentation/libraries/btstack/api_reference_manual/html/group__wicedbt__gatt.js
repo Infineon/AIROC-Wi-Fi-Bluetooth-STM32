@@ -118,7 +118,7 @@ var group__wicedbt__gatt =
       [ "connected", "structwiced__bt__gatt__connection__status__t.html#a86cd1b5a830109dac05a5c876d05cf76", null ],
       [ "reason", "structwiced__bt__gatt__connection__status__t.html#a580110ac3dc9accdc11da9a745963501", null ],
       [ "transport", "structwiced__bt__gatt__connection__status__t.html#a1901f57b9c53b41f41062305be272ad0", null ],
-      [ "link_role", "structwiced__bt__gatt__connection__status__t.html#a96aa0f1a395fd3e61d965bb57f3c3428", null ]
+      [ "link_role", "structwiced__bt__gatt__connection__status__t.html#a2cbfd47dc2bf3e5a32b84dcb603a2f03", null ]
     ] ],
     [ "wiced_bt_gatt_attribute_request_t", "structwiced__bt__gatt__attribute__request__t.html", [
       [ "conn_id", "structwiced__bt__gatt__attribute__request__t.html#acd1f5a1d1740563eb9c4c56f411a1c68", null ],
@@ -163,7 +163,7 @@ var group__wicedbt__gatt =
     [ "wiced_bt_gatt_eatt_connection_indication_event_t", "structwiced__bt__gatt__eatt__connection__indication__event__t.html", [
       [ "bdaddr", "structwiced__bt__gatt__eatt__connection__indication__event__t.html#a33f08900bfd8379c68c0c85ec812a3cc", null ],
       [ "transport", "structwiced__bt__gatt__eatt__connection__indication__event__t.html#a3caa96712d568ac5bcc3ebcbf5167a64", null ],
-      [ "lcids", "structwiced__bt__gatt__eatt__connection__indication__event__t.html#a33b5ec276aa01fc2e0328cd25aa138e0", null ],
+      [ "lcids", "structwiced__bt__gatt__eatt__connection__indication__event__t.html#ac5ec9c8439b1f54dcfa809a56c962f06", null ],
       [ "mtu", "structwiced__bt__gatt__eatt__connection__indication__event__t.html#ae68661f90d0725eaba6d3ea342f68130", null ],
       [ "trans_id", "structwiced__bt__gatt__eatt__connection__indication__event__t.html#a40dcd29d29ec92a1c6f03e88c166740e", null ]
     ] ],
@@ -189,6 +189,7 @@ var group__wicedbt__gatt =
     [ "GATT_BLE_DEFAULT_MTU_SIZE", "group__wicedbt__gatt.html#ga51a4bde18db79359bec10b5309f5a29b", null ],
     [ "GATT_AUTH_SIGN_LEN", "group__wicedbt__gatt.html#gab44422f655258e6c80db5367ddae43e1", null ],
     [ "GATT_CLIENT_MAX_WRITE_SIGNED_DATA", "group__wicedbt__gatt.html#ga3d73409cb072fcca477913ec1ec1264f", null ],
+    [ "WICED_GATT_HDR_SIZE", "group__wicedbt__gatt.html#gad0df29dc043152878ce2731e3d0b1b55", null ],
     [ "GATT_PREP_WRITE_CANCEL", "group__wicedbt__gatt.html#ga6e1309b69e37f39154556748b9e2164e", null ],
     [ "GATT_PREP_WRITE_EXEC", "group__wicedbt__gatt.html#ga855ba6b88c963250542ae3873cfc39b2", null ],
     [ "GATTDB_PERM_NONE", "group__wicedbt__gatt.html#ga6221e16adffa7ee37025a7d3d7bb8700", null ],
@@ -245,8 +246,6 @@ var group__wicedbt__gatt =
     [ "wiced_bt_gatt_permission_t", "group__wicedbt__gatt.html#ga68017055d05ad1b83bccec1193f52b29", null ],
     [ "wiced_bt_gatt_format_t", "group__wicedbt__gatt.html#ga641b20a5354aeb20bdefd12c61600b4b", null ],
     [ "wiced_bt_gatt_csf_bits_t", "group__wicedbt__gatt.html#ga37f052680754df664faafdcbd4273e1c", null ],
-    [ "wiced_bt_eatt_lcid_list", "group__wicedbt__gatt.html#ga28e10c1787e3db895975e3f614315273", null ],
-    [ "wiced_bt_gatt_eatt_conn_id_list", "group__wicedbt__gatt.html#ga4fdb2145ff962cd70165abe0033d90b4", null ],
     [ "wiced_bt_eatt_drbs", "group__wicedbt__gatt.html#gaccfa49f84e56ea41ab53e943e2e5acc6", null ],
     [ "wiced_bt_gatt_app_context_t", "group__wicedbt__gatt.html#ga80c3de8e66dd4257528aeaf34484d14c", null ],
     [ "wiced_bt_gatt_cback_t", "group__wicedbt__gatt.html#ga826a5f3ef4bd8587ee6af52ed9b4a4f2", null ],
@@ -325,12 +324,16 @@ var group__wicedbt__gatt =
       [ "WICED_BT_GATT_INSUF_RESOURCE", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652ad0d4739a3643df18be9c71a1dfa0fb44", null ],
       [ "WICED_BT_GATT_DATABASE_OUT_OF_SYNC", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a183c254525d543b5034ac5bd962eacaf", null ],
       [ "WICED_BT_GATT_VALUE_NOT_ALLOWED", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a6545fe6899ce0d341b1c0992f2537eed", null ],
+      [ "WICED_BT_GATT_WRITE_REQ_REJECTED", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652ab472ca5af6a650dc2d701c207b567e46", null ],
+      [ "WICED_BT_GATT_CCCD_IMPROPER_CONFIGURED", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a2fa8e757a0102343173a996370bd7d27", null ],
+      [ "WICED_BT_GATT_BUSY", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a17658aae4d78d44463dcbf6d82126a74", null ],
+      [ "WICED_BT_GATT_OUT_OF_RANGE", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a0036290c8a33c53d72e27b02865528b3", null ],
       [ "WICED_BT_GATT_ILLEGAL_PARAMETER", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a119eceba07f45ac0845a7251c365b869", null ],
       [ "WICED_BT_GATT_NO_RESOURCES", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a9e7e92ed4815a5b58ccff7879ba1aa12", null ],
       [ "WICED_BT_GATT_INTERNAL_ERROR", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a940dc749f8826007288271498e70c864", null ],
       [ "WICED_BT_GATT_WRONG_STATE", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a47a82ca9ec6b91c8dc4badea6f63e018", null ],
       [ "WICED_BT_GATT_DB_FULL", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652afff09f583f25b8b282d326e7eb92f2c2", null ],
-      [ "WICED_BT_GATT_BUSY", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a17658aae4d78d44463dcbf6d82126a74", null ],
+      [ "WICED_BT_GATT_UNUSED1", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a3aa7e60e7fe3463d782488ddc44ef0f4", null ],
       [ "WICED_BT_GATT_ERROR", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652ab5c9584dbc5c321853f20ca974b29278", null ],
       [ "WICED_BT_GATT_CMD_STARTED", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a892abb8ced19d898bd4ec4fdfaf5b660", null ],
       [ "WICED_BT_GATT_PENDING", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652adc4a995e2d15def879b0e1f025d78f07", null ],
@@ -346,11 +349,12 @@ var group__wicedbt__gatt =
       [ "WICED_BT_GATT_HANDLED", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a5baece0002dc780ea8fb1e9dd0901ae9", null ],
       [ "WICED_BT_GATT_NO_PENDING_OPERATION", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652ab006e85deddb9978c9b9611af5196ee6", null ],
       [ "WICED_BT_GATT_INDICATION_RESPONSE_PENDING", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a68996f01347183f0a8a986ce176956c8", null ],
-      [ "WICED_BT_GATT_WRITE_REQ_REJECTED", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652ab472ca5af6a650dc2d701c207b567e46", null ],
+      [ "WICED_BT_GATT_UNUSED2", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652ae157ad436a156544e04fba7477752e65", null ],
       [ "WICED_BT_GATT_CCC_CFG_ERR", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652acc2bc3ff958f4fe3c5c7d1f57e2839b5", null ],
       [ "WICED_BT_GATT_PRC_IN_PROGRESS", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652ad98032cb0f4e9f788e95ff168ca82f45", null ],
-      [ "WICED_BT_GATT_OUT_OF_RANGE", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a0036290c8a33c53d72e27b02865528b3", null ],
+      [ "WICED_BT_GATT_UNUSED3", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652acd6c135ce8c6be68d4cb5ec7670373bf", null ],
       [ "WICED_BT_GATT_BAD_OPCODE", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a84304c1c9643ef269e18963fe8d11df0", null ],
+      [ "WICED_BT_GATT_NOT_IMPLEMENTED", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652ac250d7a0f40a69c21f1f57f8be7bc6d3", null ],
       [ "WICED_BT_GATT_INVALID_CONNECTION_ID", "group__wicedbt__gatt.html#gga972f2437538363989cee28019cb06652a9d2a6d96d94e68fca532e7b39905fcad", null ]
     ] ],
     [ "wiced_bt_gatt_opcode_e", "group__wicedbt__gatt.html#ga1bec0037cd2837dc90a967458b3cc68b", [

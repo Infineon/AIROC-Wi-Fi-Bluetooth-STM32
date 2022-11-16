@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company)
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -68,6 +68,21 @@ struct whd_interface
     uint8_t event_reg_list[WHD_EVENT_ENTRY_MAX];
     whd_bool_t state;
 };
+struct whd_bt_dev
+{
+    void     *bt_data;
+    void (*bt_int_cb)(void *data);
+    uint32_t bt_use_count;
+    whd_bool_t intr;
+};
+
+struct whd_bt_info
+{
+    uint32_t bt_buf_reg_addr;
+    uint32_t host_ctrl_reg_addr;
+    uint32_t bt_ctrl_reg_addr;
+    uint32_t wlan_buf_addr;
+};
 
 struct whd_driver
 {
@@ -78,9 +93,12 @@ struct whd_driver
     struct whd_bus_info *bus_if;
     struct whd_bus_priv *bus_priv;
     struct whd_bus_common_info *bus_common_info;
+    whd_bt_dev_t bt_dev;
+
     whd_buffer_funcs_t *buffer_if;
     whd_netif_funcs_t *network_if;
     whd_resource_source_t *resource_if;
+    uint8_t *aligned_addr;
 
     whd_bool_t bus_gspi_32bit;
 
@@ -97,6 +115,7 @@ struct whd_driver
 
     whd_ioctl_log_t whd_ioctl_log[WHD_IOCTL_LOG_SIZE];
     int whd_ioctl_log_index;
+    cy_semaphore_t whd_log_mutex;
 };
 
 whd_result_t whd_add_interface(whd_driver_t whd_driver, uint8_t bsscfgidx, uint8_t ifidx,

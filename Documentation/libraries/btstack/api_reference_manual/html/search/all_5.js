@@ -12,6 +12,7 @@ var searchData=
   ['enc_5fphy_5fscan_5fint',['enc_phy_scan_int',['../structwiced__bt__ble__ext__scan__config__t.html#ad609560beadb4e58d7b175872e8b5c6e',1,'wiced_bt_ble_ext_scan_config_t']]],
   ['enc_5fphy_5fscan_5ftype',['enc_phy_scan_type',['../structwiced__bt__ble__ext__scan__config__t.html#a42da4634f7b415fb7a6255212731f2e2',1,'wiced_bt_ble_ext_scan_config_t']]],
   ['enc_5fphy_5fscan_5fwin',['enc_phy_scan_win',['../structwiced__bt__ble__ext__scan__config__t.html#a941803bfaac1371cc8adf42af7a645c4',1,'wiced_bt_ble_ext_scan_config_t']]],
+  ['encryption',['encryption',['../structwiced__bt__ble__biginfo__adv__report__t.html#a0070c3c6850fee141440bc469f59ed3c',1,'wiced_bt_ble_biginfo_adv_report_t']]],
   ['encryption_5fstatus',['encryption_status',['../unionwiced__bt__management__evt__data__t.html#a9d21953e55a1a582f0ff357a625b5797',1,'wiced_bt_management_evt_data_t']]],
   ['er',['er',['../structwiced__bt__local__identity__keys__t.html#ac6e3ff909692540005f590411e7d14dc',1,'wiced_bt_local_identity_keys_t']]],
   ['event_5ftype',['event_type',['../structwiced__bt__ble__ext__adv__report__t.html#ace6aae799d872a84a20b4e2b1e151fdf',1,'wiced_bt_ble_ext_adv_report_t']]],

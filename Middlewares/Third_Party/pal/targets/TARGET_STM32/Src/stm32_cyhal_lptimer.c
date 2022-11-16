@@ -77,8 +77,6 @@ extern "C" {
 
 #define _CYHAL_LPTIMER_COMPARE_IS_SET           (_CYHAL_LPTIMER_MAX_DELAY_TICKS + 1)
 
-#define CYID_BSP_2741    /* Workaround for CYID BSP-2741  */
-
 
 /***************************************************************************************************
  *      Private types
@@ -320,19 +318,19 @@ static uint32_t _cyhal_lptimer_set_match_common(cyhal_lptimer_t* obj, uint32_t t
 /***************************************************************************************************
  * cyhal_lptimer_set_match
  **************************************************************************************************/
-cy_rslt_t cyhal_lptimer_set_match(cyhal_lptimer_t* obj, uint32_t value)
+cy_rslt_t cyhal_lptimer_set_match(cyhal_lptimer_t* obj, uint32_t ticks)
 {
     /* Check the parameters */
     assert_param(NULL != obj);
 
     /* Error out if trying to set match less than current ticks (i.e in the
      * past) */
-    if (value <= cyhal_lptimer_read(obj))
+    if (ticks <= cyhal_lptimer_read(obj))
     {
         return CYHAL_LPTIMER_RSLT_ERR_BAD_ARGUMENT;
     }
 
-    return _cyhal_lptimer_set_match_common(obj, value);
+    return _cyhal_lptimer_set_match_common(obj, ticks);
 }
 
 

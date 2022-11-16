@@ -6,7 +6,9 @@
  *
  ***************************************************************************************************
  * \copyright
- * Copyright 2019-2021 Cypress Semiconductor Corporation
+ * Copyright 2019-2021 Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation
+ *
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -95,7 +97,7 @@ void cyabs_rtos_set_lptimer(cyhal_lptimer_t* timer);
  *
  * @return Pointer to the lptimer handle
  */
-cyhal_lptimer_t* cyabs_rtos_get_lptimer();
+cyhal_lptimer_t* cyabs_rtos_get_lptimer(void);
 #endif //defined(CY_USING_HAL)
 
 #ifdef __cplusplus

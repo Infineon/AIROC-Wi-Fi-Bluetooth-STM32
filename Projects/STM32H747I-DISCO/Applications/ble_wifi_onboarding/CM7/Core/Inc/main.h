@@ -72,5 +72,3 @@ void   MX_SDMMC1_SD_Init(void);
 #endif
 
 #endif /* __MAIN_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -6,7 +6,9 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2019 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -132,7 +134,7 @@ bool bt_enable_sleep_mode(void)
 void wiced_post_stack_init_cback( void )
 {
     wiced_bt_management_evt_data_t event_data;
-    cybt_controller_sleep_config_t *p_sleep_config = 
+    cybt_controller_sleep_config_t *p_sleep_config =
         &(((cybt_platform_config_t *)cybt_main_cb.p_bt_platform_cfg)->controller_config.sleep_mode);
 
     MAIN_TRACE_DEBUG("wiced_post_stack_init_cback");
@@ -175,11 +177,6 @@ wiced_result_t cybt_core_management_cback( wiced_bt_management_evt_t event, wice
 {
     wiced_result_t result = WICED_BT_SUCCESS;
 
-    if(event == BTM_DISABLED_EVT)
-    {
-        wiced_bt_stack_platform_deinit();
-    }
-
     if(cybt_main_cb.p_app_management_callback)
     {
         result = cybt_main_cb.p_app_management_callback(event, p_event_data);
@@ -221,9 +218,46 @@ wiced_result_t wiced_bt_stack_init(wiced_bt_management_cback_t *p_bt_management_
 
 wiced_result_t wiced_bt_stack_deinit( void )
 {
-    cybt_platform_task_deinit();
+    extern cy_thread_t cybt_task[BT_TASK_NUM];
+#if( configUSE_TICKLESS_IDLE != 0 )
+    extern cy_thread_t sleep_timer_task;
+    extern void cybt_platform_terminate_sleep_thread(void);
+#endif
+    cy_thread_t cur_thread_handle;
 
-    cybt_platform_deinit();
+    if(CY_RSLT_SUCCESS != cy_rtos_get_thread_handle(&cur_thread_handle))
+    {
+        MAIN_TRACE_ERROR("wiced_bt_stack_deinit(): Fail to deinit stack.");
+        return WICED_BT_ERROR;
+    }
+
+    if((cur_thread_handle == cybt_task[BT_TASK_ID_HCI_RX]) || (cur_thread_handle == cybt_task[BT_TASK_ID_HCI_TX])
+    #if( configUSE_TICKLESS_IDLE != 0 )
+        || (cur_thread_handle == sleep_timer_task)
+    #endif
+        )
+    {
+        /** This API is used to terminate all BT-own tasks and release all related resources.
+         *  According to the current design, the OS task cannot be deleted by itself.
+            In other words, the application must call wiced_stack_deinit( ) in the task context other than BT-own ones.
+         */
+        MAIN_TRACE_ERROR("Please call this API- wiced_bt_stack_deinit() in application thread.");
+        return WICED_BT_ERROR;
+    }
+    else
+    {
+        cybt_platform_task_deinit();
+
+        cybt_platform_deinit();
+
+        cybt_platform_terminate_hci_rx_thread();
+
+        cybt_platform_terminate_hci_tx_thread();
+
+    #if( configUSE_TICKLESS_IDLE != 0 )
+        cybt_platform_terminate_sleep_thread();
+    #endif
+    }
 
     return WICED_BT_SUCCESS;
 }

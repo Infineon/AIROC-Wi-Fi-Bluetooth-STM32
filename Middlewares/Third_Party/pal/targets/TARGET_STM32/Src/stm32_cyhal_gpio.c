@@ -380,18 +380,17 @@ void cyhal_gpio_enable_event(cyhal_gpio_t pin, cyhal_gpio_event_t event, uint8_t
 /***************************************************************************************************
  * cyhal_gpio_register_callback
  **************************************************************************************************/
-void cyhal_gpio_register_callback(cyhal_gpio_t pin, cyhal_gpio_event_callback_t callback,
-                                  void* callback_arg)
+void cyhal_gpio_register_callback(cyhal_gpio_t pin, cyhal_gpio_callback_data_t* callback_data)
 {
     /* Get pin number */
     uint32_t pin_number = CYHAL_GET_PIN_NUMBER(CYHAL_GET_PIN(pin));
 
     /* Check the parameters */
-    if ((pin_number < CYHAL_MAX_EXTI_NUMBER) && (callback != NULL))
+    if ((pin_number < CYHAL_MAX_EXTI_NUMBER) && (callback_data->callback != NULL))
     {
         uint32_t savedIntrStatus = cyhal_system_critical_section_enter();
-        _exti_callbacks_info[pin_number].callback      = callback;
-        _exti_callbacks_info[pin_number].callback_args = callback_arg;
+        _exti_callbacks_info[pin_number].callback      = callback_data->callback;
+        _exti_callbacks_info[pin_number].callback_args = callback_data->callback_arg;
         _exti_callbacks_info[pin_number].pin           = pin;
         cyhal_system_critical_section_exit(savedIntrStatus);
     }
@@ -612,6 +611,11 @@ void _stm32_cyhal_gpio_enable_clock(const GPIO_TypeDef* gpio_port)
 static void _stm32_cyhal_gpio_enable_irq(uint32_t pin_number, uint32_t priority, bool en_irq)
 {
     IRQn_Type IRQn = (IRQn_Type)0;
+    /* Use the priority, configured by STM32CubeMx if CYHAL_GPIO_USE_HAL_IRQ_PRIOPITY
+     * has not been defined */
+    #if !defined(CYHAL_GPIO_USE_HAL_IRQ_PRIOPITY)
+    (void)priority;
+    #endif /* !defined(CYHAL_GPIO_USE_HAL_IRQ_PRIOPITY) */
 
     /* Check the parameters */
     assert_param(pin_number < CYHAL_MAX_EXTI_NUMBER);
@@ -664,7 +668,12 @@ static void _stm32_cyhal_gpio_enable_irq(uint32_t pin_number, uint32_t priority,
     /* Enable/Disable IRQ */
     if (en_irq)
     {
+        /* Use the priority, configured by STM32CubeMx if CYHAL_GPIO_USE_HAL_IRQ_PRIOPITY
+         * has not been defined */
+        #if defined(CYHAL_GPIO_USE_HAL_IRQ_PRIOPITY)
         HAL_NVIC_SetPriority(IRQn, priority, 0);
+        #endif /* defined(CYHAL_GPIO_USE_HAL_IRQ_PRIOPITY) */
+
         HAL_NVIC_EnableIRQ(IRQn);
     }
     else

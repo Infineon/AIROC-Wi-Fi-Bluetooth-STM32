@@ -93,7 +93,8 @@ $(document).ready(function(){initNavTree('structt_d_r_b.html','');});
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
-<div class="textblock"><p>Define a Data Received Buffer structure, which is used to pass received data back up through the stack. </p>
+<div class="textblock"><p>Data Received Buffer (DRB) used to receive data from the peer. </p>
+<p>The size of the DRB allocated is <a class="el" href="group__bt__types.html#ga76cc4e51e261caae3879751a959b97d6">DRB_OVERHEAD_SIZE</a> + size of MTU (or the maximum data to be received) from the peer </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
@@ -107,7 +108,7 @@ uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 <tr class="separator:aedefe32ab5c4e9cc53410180d276ab45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a669fac4ab39139f0e03587357530dddc"><td class="memItemLeft" align="right" valign="top"><a id="a669fac4ab39139f0e03587357530dddc"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structt_d_r_b.html#a669fac4ab39139f0e03587357530dddc">drb_data</a> [1]</td></tr>
-<tr class="memdesc:a669fac4ab39139f0e03587357530dddc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The actual received data. <br /></td></tr>
+<tr class="memdesc:a669fac4ab39139f0e03587357530dddc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The actual received data starts here, the next bytes received continue, upto a max of MTU size configured. <br /></td></tr>
 <tr class="separator:a669fac4ab39139f0e03587357530dddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

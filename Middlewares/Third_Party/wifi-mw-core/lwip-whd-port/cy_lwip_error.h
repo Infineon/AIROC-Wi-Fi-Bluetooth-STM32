@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -43,7 +43,7 @@ extern "C" {
 #include "cy_result_mw.h"
 
 /**
- * @defgroup generic_lwip_whd_port_defines CY generic lwIP WHD glue results/error codes
+ * @defgroup generic_lwip_whd_port_defines WiFi middleware specific error codes
  * @ingroup group_utils_enums
  * Wi-Fi middleware core APIs return results of type cy_rslt_t and comprise of three parts:
  * - module base

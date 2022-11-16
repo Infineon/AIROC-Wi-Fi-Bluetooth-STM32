@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -38,6 +38,10 @@
 
 #ifndef INCLUDED_TLV_H
 #define INCLUDED_TLV_H
+
+#ifdef COMPONENT_CM0P
+#define WICED_HOST_REQUIRES_ALIGNED_MEMORY_ACCESS
+#endif /* COMPONENT_CM0P */
 
 #include <stdint.h>
 

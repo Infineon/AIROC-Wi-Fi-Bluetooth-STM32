@@ -1,5 +1,34 @@
 /*
- * $ Copyright Cypress Semiconductor $
+ * Copyright 2016-2022, Cypress Semiconductor Corporation or
+ * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
+ *
+ * This software, including source code, documentation and related
+ * materials ("Software") is owned by Cypress Semiconductor Corporation
+ * or one of its affiliates ("Cypress") and is protected by and subject to
+ * worldwide patent protection (United States and foreign),
+ * United States copyright laws and international treaty provisions.
+ * Therefore, you may use this Software only as provided in the license
+ * agreement accompanying the software package from which you
+ * obtained this Software ("EULA").
+ * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
+ * non-transferable license to copy, modify, and compile the Software
+ * source code solely for use in connection with Cypress's
+ * integrated circuit products.  Any reproduction, modification, translation,
+ * compilation, or representation of this Software except as specified
+ * above is prohibited without the express written permission of Cypress.
+ *
+ * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Cypress
+ * reserves the right to make changes to the Software without notice. Cypress
+ * does not assume any liability arising out of the application or use of the
+ * Software or any product or circuit described in the Software. Cypress does
+ * not authorize its products for use in any products where a malfunction or
+ * failure of the Cypress product may reasonably be expected to result in
+ * significant property damage, injury or death ("High Risk Product"). By
+ * including Cypress's product in a High Risk Product, the manufacturer
+ * of such system or application assumes all risk of such use and in doing
+ * so agrees to indemnify Cypress against all liability.
  */
 
 /** @file
@@ -8,6 +37,7 @@
  *
  */
 #pragma once
+
 #include "wiced_data_types.h"
 #include "wiced_result.h"
 
@@ -74,6 +104,9 @@ extern "C" {
 typedef uint8_t         wiced_bt_device_address_t[BD_ADDR_LEN]; /**< Device address length */
 #endif
 
+/** Result/Status */
+typedef wiced_result_t  wiced_bt_dev_status_t;
+
 /** Pointer to Device Address */
 typedef uint8_t *BD_ADDR_PTR;
 
@@ -86,6 +119,9 @@ typedef uint8_t *wiced_bt_device_address_ptr_t;                 /**< Device addr
 #define DEV_CLASS_LEN   3  /**< Device class Length */
 typedef uint8_t         wiced_bt_dev_class_t[DEV_CLASS_LEN];    /**< Device class */
 
+#define BD_FEATURES_LEN 8                                /**< Features length */
+typedef uint8_t wiced_bt_features_t[BD_FEATURES_LEN]; /**< Features supported data structure */
+
 #define MAX_UUID_SIZE              16  /**< Maximum UUID size - 16 bytes, and structure to hold any type of UUID. */
 
 #define BT_DB_HASH_LEN 16   /**< Database Hash length  */
@@ -94,6 +130,10 @@ typedef uint8_t wiced_bt_db_hash_t[BT_DB_HASH_LEN]; /**< BLE database hash */
 #define WICED_BT_GATT_CLIENT_SUPPORTED_FEATURE_OCTET_LEN 1  /**< GATT Client Supported feature length */
 /** GATT Client Support features */
 typedef uint8_t wiced_bt_gatt_client_supported_features_t[WICED_BT_GATT_CLIENT_SUPPORTED_FEATURE_OCTET_LEN];
+
+#define WICED_BT_GATT_SERVER_SUPPORTED_FEATURE_OCTET_LEN 1 /**< GATT Server Supported feature length */
+/** GATT Server Support features */
+typedef uint8_t wiced_bt_gatt_server_supported_features_t[WICED_BT_GATT_SERVER_SUPPORTED_FEATURE_OCTET_LEN];
 
 /** UUID Type */
 typedef struct
@@ -185,18 +225,35 @@ typedef struct
 #define LINK_KEY_LEN    16      /**< Link Key Len */
 typedef uint8_t wiced_bt_link_key_t[LINK_KEY_LEN];  /**< Link Key */
 
-/** Define a Data Received Buffer structure, which is used to pass received data back
-** up through the stack.
+#define DRB_OVERHEAD_SIZE   (sizeof (uint16_t) + sizeof (uint16_t))     /**< length and offset */
+
+/**
+ * Data Received Buffer (DRB) used to receive data from the peer.
+ * The size of the DRB allocated is \ref DRB_OVERHEAD_SIZE + size of MTU (or the maximum data to be received)
+ * from the peer
 */
 typedef struct
 {
-    uint16_t            drb_data_len;               /**< The amount of data in the DRB              */
-    uint16_t            drb_data_offset;            /**< The starting offset of the data in the DRB */
-    uint8_t             drb_data[1];                /**< The actual received data                   */
+    uint16_t            drb_data_len;      /**< The amount of data in the DRB              */
+    uint16_t            drb_data_offset;   /**< The starting offset of the data in the DRB */
+    uint8_t drb_data[1];                   /**< The actual received data starts here, the next bytes received
+                                            * continue, upto a max of MTU size configured
+                                            */
 } tDRB;
-#define DRB_OVERHEAD_SIZE   (sizeof (uint16_t) + sizeof (uint16_t))     /**< length and offset */
 
-#define EATT_CHANNELS_PER_TRANSACTION 5 /**< EATT Max Channel per TX */
+/** ECRB: Enhanced Credit Based Connection types */
+#define L2CAP_ECRB_MAX_CHANNELS_PER_CMD 5 /**< ECRB Max Channels per Command */
+#define EATT_CHANNELS_PER_TRANSACTION   L2CAP_ECRB_MAX_CHANNELS_PER_CMD /**< EATT Max Channel per TX */
+
+/**
+ * list of ECRB lcid's
+ *
+ * LCID: L2CAP Channel ID
+ * L2CAP channel ids are assigned by L2CAP during the channel creation process.
+ * The list is passed to the application using #wiced_bt_gatt_eatt_connection_indication_event_t
+ */
+typedef uint16_t wiced_bt_ecrb_cid_list_t[L2CAP_ECRB_MAX_CHANNELS_PER_CMD];
+typedef uint16_t wiced_bt_gatt_eatt_conn_id_list[L2CAP_ECRB_MAX_CHANNELS_PER_CMD]; /**< list of EATT connection id's */
 
 /********************************************************************************
 ** Macros to get and put bytes to and from a stream (Little Endian format).
@@ -221,39 +278,39 @@ typedef struct
 /** Covert int8_t to Stream array */
 #define INT8_TO_STREAM(p, u8)    {*(p)++ = (int8_t)(u8);}
 /** Covert 32 bytes to Stream array */
-#define ARRAY32_TO_STREAM(p, a)  {register int ijk; for (ijk = 0; ijk < 32;           ijk++) *(p)++ = (uint8_t) a[31 - ijk];}
+#define ARRAY32_TO_STREAM(p, a)  {register unsigned int ijk; for (ijk = 0; ijk < 32;           ijk++) *(p)++ = (uint8_t) a[31 - ijk];}
 /** Covert 16 bytes to Stream array */
-#define ARRAY16_TO_STREAM(p, a)  {register int ijk; for (ijk = 0; ijk < 16;           ijk++) *(p)++ = (uint8_t) a[15 - ijk];}
+#define ARRAY16_TO_STREAM(p, a)  {register unsigned int ijk; for (ijk = 0; ijk < 16;           ijk++) *(p)++ = (uint8_t) a[15 - ijk];}
 /** Covert 8 bytes to Stream array */
-#define ARRAY8_TO_STREAM(p, a)   {register int ijk; for (ijk = 0; ijk < 8;            ijk++) *(p)++ = (uint8_t) a[7 - ijk];}
+#define ARRAY8_TO_STREAM(p, a)   {register unsigned int ijk; for (ijk = 0; ijk < 8;            ijk++) *(p)++ = (uint8_t) a[7 - ijk];}
 /** Covert LAP to Stream array */
-#define LAP_TO_STREAM(p, a)      {register int ijk; for (ijk = 0; ijk < LAP_LEN;      ijk++) *(p)++ = (uint8_t) a[LAP_LEN - 1 - ijk];}
+#define LAP_TO_STREAM(p, a)      {register unsigned int ijk; for (ijk = 0; ijk < LAP_LEN;      ijk++) *(p)++ = (uint8_t) a[LAP_LEN - 1 - ijk];}
 /** Covert Device class to Stream array */
-#define DEVCLASS_TO_STREAM(p, a) {register int ijk; for (ijk = 0; ijk < DEV_CLASS_LEN;ijk++) *(p)++ = (uint8_t) a[DEV_CLASS_LEN - 1 - ijk];}
+#define DEVCLASS_TO_STREAM(p, a) {register unsigned int ijk; for (ijk = 0; ijk < DEV_CLASS_LEN;ijk++) *(p)++ = (uint8_t) a[DEV_CLASS_LEN - 1 - ijk];}
 /** Covert array to Stream array */
 #ifndef ARRAY_TO_STREAM
-#define ARRAY_TO_STREAM(p, a, len) {register int ijk; for (ijk = 0; ijk < len;        ijk++) *(p)++ = (uint8_t) ((uint8_t *)a)[ijk];}
+#define ARRAY_TO_STREAM(p, a, len) {register unsigned int ijk; for (ijk = 0; ijk < len;        ijk++) *(p)++ = (uint8_t) ((uint8_t *)a)[ijk];}
 #endif
 /** Reverse Array */
-#define REVERSE_ARRAY_TO_STREAM(p, a, len)  {register int ijk; for (ijk = 0; ijk < len; ijk++) *(p)++ = (uint8_t) a[len - 1 - ijk];}
+#define REVERSE_ARRAY_TO_STREAM(p, a, len)  {register unsigned int ijk; for (ijk = 0; ijk < len; ijk++) *(p)++ = (uint8_t) a[len - 1 - ijk];}
 /** Convert byte stream to UINT24 */
 #define STREAM_TO_UINT24(u32, p) {u32 = (((uint32_t)(*(p))) + ((((uint32_t)(*((p) + 1)))) << 8) + ((((uint32_t)(*((p) + 2)))) << 16) ); (p) += 3;}
 /** Convert byte stream to UINT40 */
 #define STREAM_TO_UINT40(u40, p) {u40 = (((uint64_t)(*(p))) + ((((uint64_t)(*((p) + 1)))) << 8) + ((((uint64_t)(*((p) + 2)))) << 16) + ((((uint64_t)(*((p) + 3)))) << 24) + ((((uint64_t)(*((p) + 4)))) << 32)); (p) += 5;}
 /** Convert byte stream to ARRAY32 */
-#define STREAM_TO_ARRAY32(a, p)  {register int ijk; register uint8_t *_pa = (uint8_t *)a + 31; for (ijk = 0; ijk < 32; ijk++) *_pa-- = *p++;}
+#define STREAM_TO_ARRAY32(a, p)  {register unsigned int ijk; register uint8_t *_pa = (uint8_t *)a + 31; for (ijk = 0; ijk < 32; ijk++) *_pa-- = *p++;}
 /** Convert byte stream to ARRAY16 */
-#define STREAM_TO_ARRAY16(a, p)  {register int ijk; register uint8_t *_pa = (uint8_t *)a + 15; for (ijk = 0; ijk < 16; ijk++) *_pa-- = *p++;}
+#define STREAM_TO_ARRAY16(a, p)  {register unsigned int ijk; register uint8_t *_pa = (uint8_t *)a + 15; for (ijk = 0; ijk < 16; ijk++) *_pa-- = *p++;}
 /** Convert byte stream to ARRAY8 */
-#define STREAM_TO_ARRAY8(a, p)   {register int ijk; register uint8_t *_pa = (uint8_t *)a + 7; for (ijk = 0; ijk < 8; ijk++) *_pa-- = *p++;}
+#define STREAM_TO_ARRAY8(a, p)   {register unsigned int ijk; register uint8_t *_pa = (uint8_t *)a + 7; for (ijk = 0; ijk < 8; ijk++) *_pa-- = *p++;}
 /** Convert byte stream to Device Class */
-#define STREAM_TO_DEVCLASS(a, p) {register int ijk; register uint8_t *_pa = (uint8_t *)a + DEV_CLASS_LEN - 1; for (ijk = 0; ijk < DEV_CLASS_LEN; ijk++) *_pa-- = *p++;}
+#define STREAM_TO_DEVCLASS(a, p) {register unsigned int ijk; register uint8_t *_pa = (uint8_t *)a + DEV_CLASS_LEN - 1; for (ijk = 0; ijk < DEV_CLASS_LEN; ijk++) *_pa-- = *p++;}
 /** Convert byte stream to LAP */
-#define STREAM_TO_LAP(a, p)      {register int ijk; register uint8_t *plap = (uint8_t *)a + LAP_LEN - 1; for (ijk = 0; ijk < LAP_LEN; ijk++) *plap-- = *p++;}
+#define STREAM_TO_LAP(a, p)      {register unsigned int ijk; register uint8_t *plap = (uint8_t *)a + LAP_LEN - 1; for (ijk = 0; ijk < LAP_LEN; ijk++) *plap-- = *p++;}
 /** Convert byte stream to Array */
-#define STREAM_TO_ARRAY(a, p, len) {register int ijk; for (ijk = 0; ijk < len; ijk++) ((uint8_t *) a)[ijk] = *p++;}
+#define STREAM_TO_ARRAY(a, p, len) {register unsigned int ijk; for (ijk = 0; ijk < len; ijk++) ((uint8_t *) a)[ijk] = *p++;}
 /** Reverse Stream to Array */
-#define REVERSE_STREAM_TO_ARRAY(a, p, len) {register int ijk; register uint8_t *_pa = (uint8_t *)a + len - 1; for (ijk = 0; ijk < len; ijk++) *_pa-- = *p++;}
+#define REVERSE_STREAM_TO_ARRAY(a, p, len) {register unsigned int ijk; register uint8_t *_pa = (uint8_t *)a + len - 1; for (ijk = 0; ijk < len; ijk++) *_pa-- = *p++;}
 
 /** Convert byte stream to uint8_t */
 #define STREAM_TO_UINT8(u8, p)   {u8 = (uint8_t)(*(p)); (p) += 1;}
@@ -327,7 +384,7 @@ extern uint8_t *BTU_copyStreamToBda(uint8_t *pBDA, uint8_t *pStream);
 /** Covert uint8_t to Stream */
 #define UINT8_TO_BE_STREAM(p, u8)   {*(p)++ = (uint8_t)(u8);}
 /** Covert Array to Stream */
-#define ARRAY_TO_BE_STREAM(p, a, len) {register int ijk; for (ijk = 0; ijk < len; ijk++) *(p)++ = (uint8_t) a[ijk];}
+#define ARRAY_TO_BE_STREAM(p, a, len) {register unsigned int ijk; for (ijk = 0; ijk < len; ijk++) *(p)++ = (uint8_t) a[ijk];}
 
 /** Stream to uint8_t */
 #define BE_STREAM_TO_UINT8(u8, p)   {u8 = (uint8_t)(*(p)); (p) += 1;}
@@ -341,7 +398,7 @@ extern uint8_t *BTU_copyStreamToBda(uint8_t *pBDA, uint8_t *pStream);
 #define BE_STREAM_TO_UINT64(u64, p) {u64 = ((UINT64)(*((p) + 7)) + ((UINT64)(*((p) + 6)) << 8) + ((UINT64)(*((p) + 5)) << 16) + ((UINT64)(*((p) + 4)) << 24) + \
                                            ((uint64_t)(*((p) + 3)) << 32) + ((uint64_t)(*((p) + 2)) << 40) + ((uint64_t)(*((p) + 1)) << 48) + ((uint64_t)(*(p)) << 56)); (p) += 8;}
 /** Covert Array to Stream*/
-#define BE_STREAM_TO_ARRAY(p, a, len) {register int ijk; for (ijk = 0; ijk < len; ijk++) ((uint8_t *) a)[ijk] = *p++;}
+#define BE_STREAM_TO_ARRAY(p, a, len) {register unsigned int ijk; for (ijk = 0; ijk < len; ijk++) ((uint8_t *) a)[ijk] = *p++;}
 
 
 /********************************************************************************

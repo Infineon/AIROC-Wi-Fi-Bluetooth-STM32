@@ -7,7 +7,9 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2019 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,6 +36,10 @@
 #include "cybt_platform_trace.h"
 #include "cybt_platform_util.h"
 
+#ifdef FW_DATBLOCK_SEPARATE_FROM_APPLICATION
+#include "cy_ota_api.h"
+    cy_ota_fwdb_bt_fw_t bt_fw_buffer_info;
+#endif /* FW_DATBLOCK_SEPARATE_FROM_APPLICATION */
 
 /******************************************************************************
  *                                Constants
@@ -67,10 +73,12 @@ typedef struct
 bt_fw_download_cb bt_fwdl_cb = {.state = BT_POST_RESET_STATE_IDLE};
 
 extern const char    brcm_patch_version[];
+
+#ifndef FW_DATBLOCK_SEPARATE_FROM_APPLICATION
 extern const uint8_t brcm_patchram_buf[];
 extern const int     brcm_patch_ram_length;
 extern const uint8_t brcm_patchram_format;
-
+#endif /* FW_DATBLOCK_SEPARATE_FROM_APPLICATION */
 
 /*****************************************************************************
  *                           Function Declarations
@@ -79,21 +87,45 @@ void bt_baudrate_updated_cback (wiced_bt_dev_vendor_specific_command_complete_pa
 void bt_fw_download_complete_cback(cybt_prm_status_t status);
 void bt_post_reset_cback(void);
 
-
 /******************************************************************************
  *                           Function Definitions
  ******************************************************************************/
 void bt_start_fw_download(void)
 {
-    MAIN_TRACE_DEBUG("bt_start_fw_download(): FW ver = %s", (const char *) brcm_patch_version);
-
     bt_fwdl_cb.state = BT_POST_RESET_STATE_FW_DOWNLOADING;
+
+#ifdef FW_DATBLOCK_SEPARATE_FROM_APPLICATION
+    cy_rslt_t   result;
+    /* We need to read the BT FW patch from external flash */
+    /* Read into RAM from external flash */
+    result = cy_ota_fwdb_get_bt_fw(&bt_fw_buffer_info);
+    if (result == CY_RSLT_SUCCESS)
+    {
+        /* Check BT FW Patch version */
+        if (strncmp(brcm_patch_version, (const char *)bt_fw_buffer_info.BT_FW_version, strlen(brcm_patch_version)) != 0)
+        {
+            MAIN_TRACE_ERROR("bt_start_fw_download():                FW ver = %.*s", 128, (const char *)bt_fw_buffer_info.BT_FW_version);
+            MAIN_TRACE_ERROR("bt_start_fw_download(): DOES NOT MATCH FW ver = %.*s", 128, (const char *)brcm_patch_version);
+        }
+
+        MAIN_TRACE_WARNING("bt_start_fw_download() NOT using XIP: FW ver = %*.s", 128, (const char *)bt_fw_buffer_info.BT_FW_version);
+
+        cybt_prm_download(bt_fw_download_complete_cback,
+                          (void*)(bt_fw_buffer_info.BT_FW_buffer),
+                          bt_fw_buffer_info.BT_FW_size,
+                          0,
+                          CYBT_PRM_FORMAT_HCD
+                          );
+    }
+#else
+    /* BT FW Patch included as part of app data */
     cybt_prm_download(bt_fw_download_complete_cback,
                       brcm_patchram_buf,
                       brcm_patch_ram_length,
                       0,
                       CYBT_PRM_FORMAT_HCD
                     );
+#endif /* FW_DATBLOCK_SEPARATE_FROM_APPLICATION */
 }
 
 void bt_update_platform_baudrate(uint32_t baudrate)
@@ -209,6 +241,15 @@ void bt_fw_download_complete_cback(cybt_prm_status_t status)
                         );
         bt_fwdl_cb.state = BT_POST_RESET_STATE_FAILED;
     }
+
+#ifdef FW_DATBLOCK_SEPARATE_FROM_APPLICATION
+    cy_rslt_t result;
+    result = cy_ota_fwdb_free_bt_fw(&bt_fw_buffer_info);
+    if (result != CY_RSLT_SUCCESS)
+    {
+        MAIN_TRACE_ERROR("cy_ota_fwdb_free_bt_fw(): Failed to free RAM (%d)", result);
+    }
+#endif /* FW_DATBLOCK_SEPARATE_FROM_APPLICATION */
 }
 
 void bt_post_reset_cback(void)
@@ -218,7 +259,15 @@ void bt_post_reset_cback(void)
     MAIN_TRACE_DEBUG("bt_post_reset_cback()");
 
     bt_fwdl_cb.state = BT_POST_RESET_STATE_IDLE;
+#ifndef FW_DATBLOCK_SEPARATE_FROM_APPLICATION
     if(0 < brcm_patch_ram_length)
+#else /* !FW_DATBLOCK_SEPARATE_FROM_APPLICATION */
+    cy_rslt_t   result;
+    cy_ota_fwdb_bt_fw_info_t bt_fw_info;
+    /* We need to read the BT FW patch from external flash */
+    result = cy_ota_fwdb_get_bt_fw_info(&bt_fw_info);
+    if ((result == CY_RSLT_SUCCESS) && (0 < bt_fw_info.BT_FW_size))
+#endif /* !FW_DATBLOCK_SEPARATE_FROM_APPLICATION */
     {
         if(p_bt_platform_cfg->hci_config.hci.hci_uart.baud_rate_for_fw_download != HCI_UART_DEFAULT_BAUDRATE)
         {
@@ -238,6 +287,5 @@ void bt_post_reset_cback(void)
     {
         MAIN_TRACE_ERROR("bt_post_reset_cback(): invalid length");
     }
-
 }
 

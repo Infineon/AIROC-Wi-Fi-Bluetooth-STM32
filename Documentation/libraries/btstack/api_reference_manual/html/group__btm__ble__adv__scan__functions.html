@@ -104,8 +104,11 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga0ba60f6bd5a99be06f8ddd879da9b248"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get current advertising mode.  <a href="#ga0ba60f6bd5a99be06f8ddd879da9b248">More...</a><br /></td></tr>
 <tr class="separator:ga0ba60f6bd5a99be06f8ddd879da9b248"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab51079605334c28e06d02f44ffd5ec6b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___result.html#gacfc32ead8a827d53416f01b19eb58310">wiced_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__btm__ble__adv__scan__functions.html#gab51079605334c28e06d02f44ffd5ec6b">wiced_bt_ble_set_raw_advertisement_data</a> (uint8_t num_elem, <a class="el" href="structwiced__bt__ble__advert__elem__t.html">wiced_bt_ble_advert_elem_t</a> *p_data)</td></tr>
-<tr class="memdesc:gab51079605334c28e06d02f44ffd5ec6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set advertisement raw data.  <a href="#gab51079605334c28e06d02f44ffd5ec6b">More...</a><br /></td></tr>
+<tr class="memdesc:gab51079605334c28e06d02f44ffd5ec6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set advertisement raw data to the controller.  <a href="#gab51079605334c28e06d02f44ffd5ec6b">More...</a><br /></td></tr>
 <tr class="separator:gab51079605334c28e06d02f44ffd5ec6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga74e692cbbd0a833ff06c1ab4af0b5bda"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__btm__ble__adv__scan__functions.html#ga74e692cbbd0a833ff06c1ab4af0b5bda">wiced_bt_ble_build_raw_advertisement_data</a> (uint8_t *p_adv, int adv_len, <a class="el" href="group__wicedbt___device_management.html#ga3764eb118b409b406eedbb158262a91f">wiced_bt_ble_advert_type_t</a> adv_type, uint8_t *p_type_data, uint16_t type_len)</td></tr>
+<tr class="memdesc:ga74e692cbbd0a833ff06c1ab4af0b5bda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write advertisement raw data to application buffer.  <a href="#ga74e692cbbd0a833ff06c1ab4af0b5bda">More...</a><br /></td></tr>
+<tr class="separator:ga74e692cbbd0a833ff06c1ab4af0b5bda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8d62204cf6ab289f977215c08d5864ca"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__btm__ble__adv__scan__functions.html#ga8d62204cf6ab289f977215c08d5864ca">wiced_bt_ble_check_advertising_data</a> (uint8_t *p_adv, <a class="el" href="group__wicedbt___device_management.html#ga3764eb118b409b406eedbb158262a91f">wiced_bt_ble_advert_type_t</a> type, uint8_t *p_length)</td></tr>
 <tr class="memdesc:ga8d62204cf6ab289f977215c08d5864ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse advertising data (returned from scan results callback <a class="el" href="group__wicedbt___device_management.html#ga171a4706dce6ec6d118ec688e7dab0a4" title="Callback wiced_bt_ble_scan_result_cback_t.">wiced_bt_ble_scan_result_cback_t</a>).  <a href="#ga8d62204cf6ab289f977215c08d5864ca">More...</a><br /></td></tr>
 <tr class="separator:ga8d62204cf6ab289f977215c08d5864ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -168,7 +171,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Start advertising. </p>
-<p>Use <a class="el" href="group__btm__ble__adv__scan__functions.html#gab51079605334c28e06d02f44ffd5ec6b" title="Set advertisement raw data.">wiced_bt_ble_set_raw_advertisement_data</a> to configure advertising data prior to starting avertisements. The advertisements are stopped upon successful LE connection establishment.</p>
+<p>Use <a class="el" href="group__btm__ble__adv__scan__functions.html#gab51079605334c28e06d02f44ffd5ec6b" title="Set advertisement raw data to the controller.">wiced_bt_ble_set_raw_advertisement_data</a> to configure advertising data prior to starting avertisements. The advertisements are stopped upon successful LE connection establishment.</p>
 <p>The <b>advert_mode</b> parameter determines what advertising parameters and durations to use (as specified by the application configuration).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -229,7 +232,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Set advertisement raw data. </p>
+<p>Set advertisement raw data to the controller. </p>
+<p>Application can invoke <a class="el" href="group__btm__ble__adv__scan__functions.html#ga90a7b45015280a2dcef73a5be07cd561" title="Start advertising.">wiced_bt_start_advertisements</a> after setting the adv data. Max length of the advertising data to be set is 31 bytes. API returns an error if the length of data being set exceeds 31 bytes</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">num_elem</td><td>: number of ADV data element </td></tr>
@@ -237,7 +241,67 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>wiced_result_t </dd></dl>
+
+</div>
+</div>
+<a id="ga74e692cbbd0a833ff06c1ab4af0b5bda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga74e692cbbd0a833ff06c1ab4af0b5bda">&#9670;&nbsp;</a></span>wiced_bt_ble_build_raw_advertisement_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int wiced_bt_ble_build_raw_advertisement_data </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>p_adv</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>adv_len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__wicedbt___device_management.html#ga3764eb118b409b406eedbb158262a91f">wiced_bt_ble_advert_type_t</a>&#160;</td>
+          <td class="paramname"><em>adv_type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>p_type_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>type_len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write advertisement raw data to application buffer. </p>
+<dl class="section note"><dt>Note</dt><dd>: This API does not write data to the controller</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">p_adv</td><td>: buffer pointer at which the raw data in <code>p_type_data</code> is to be written </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">adv_len</td><td>: length of the buffer pointer pointed to by <code>p_adv</code>, should be atleast (2 + <code>type_len</code>) for a successful write operation </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">adv_type</td><td>adveritsement type </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">p_type_data</td><td>advertisement data of <code>adv_type</code> </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type_len</td><td>: length of advertisement data at <code>p_type_data</code> of <code>adv_type</code> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>length of the <code>p_adv</code> buffer written. </dd></dl>
 
 </div>
 </div>
@@ -369,6 +433,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read LE Advertisement transmit power. </p>
+<dl class="section note"><dt>Note</dt><dd>: This API can be used to get Tx power for Legacy advertisements. It will return an error if the application is using Extended Advertisements. See Bluetool Core spec 5.2, Vol 4, Part E, section 3.1.1 Legacy and extended advertising</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">p_cback</td><td>: Result callback (<a class="el" href="structwiced__bt__tx__power__result__t.html" title="TX Power Result (in response to wiced_bt_dev_read_tx_power)">wiced_bt_tx_power_result_t</a> will be passed to the callback)</td></tr>

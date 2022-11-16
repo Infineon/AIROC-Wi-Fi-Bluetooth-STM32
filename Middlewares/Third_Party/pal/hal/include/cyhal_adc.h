@@ -2,14 +2,16 @@
 * \file cyhal_adc.h
 *
 * \brief
-* Provides a high level interface for interacting with the Cypress Analog to
+* Provides a high level interface for interacting with the Infineon Analog to
 * Digital Converter. This interface abstracts out the chip specific details.
 * If any chip specific functionality is necessary, or performance is critical
 * the low level functions can be used directly.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2020 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -61,19 +63,19 @@
 * The following snippet initializes an ADC and one channel.
 * One ADC conversion result is returned corresponding to the input at the specified
 * pin.
-* \snippet adc.c snippet_cyhal_adc_simple_init
+* \snippet hal_adc.c snippet_cyhal_adc_simple_init
 *
 * \subsection subsection_adc_snippet_2 Snippet 2: Multi-channel ADC initialization and reading conversion result
 * The following snippet initializes an ADC with one single-ended channel and one differential channel
-* \snippet adc.c snippet_cyhal_adc_multi_init
+* \snippet hal_adc.c snippet_cyhal_adc_multi_init
 *
 * \subsection subsection_adc_snippet_3 Snippet 3: Asynchronously read multiple channels
 *  The following snippet illustrates how to asynchronously read multiple scans of multiple channels.
-* \snippet adc.c snippet_cyhal_adc_async_read
+* \snippet hal_adc.c snippet_cyhal_adc_async_read
 *
 * \subsection subsection_adc_snippet_4 Snippet 4: Continuous scanning
 *  This snippet shows how to run the ADC in continuous mode and process results as each scan completes.
-* \snippet adc.c snippet_cyhal_adc_continuous_read
+* \snippet hal_adc.c snippet_cyhal_adc_continuous_read
 */
 
 #pragma once
@@ -96,16 +98,16 @@ extern "C" {
 
 /** Bad argument */
 #define CYHAL_ADC_RSLT_BAD_ARGUMENT                     \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_ADC, 0))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_ADC, 0))
 /** Failed to initialize ADC clock */
 #define CYHAL_ADC_RSLT_FAILED_CLOCK                     \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_ADC, 1))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_ADC, 1))
 /** Failed to initialize ADC */
 #define CYHAL_ADC_RSLT_FAILED_INIT                      \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_ADC, 2))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_ADC, 2))
 /** No channels available */
 #define CYHAL_ADC_RSLT_NO_CHANNELS                      \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_ADC, 3))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_ADC, 3))
 
 /**
  * \}
@@ -138,6 +140,20 @@ typedef enum
     CYHAL_ADC_EOS = 1u,                  //!< End of scan: a scan of all channels has completed. Only applicable when continuously scanning
     CYHAL_ADC_ASYNC_READ_COMPLETE = 2u,  //!< An asynchronous read operation has completed.
 } cyhal_adc_event_t;
+
+/** Selections for ADC input signals  */
+typedef enum
+{
+    CYHAL_ADC_INPUT_START_SCAN, // !< Start a scan when a signal is received
+}
+cyhal_adc_input_t;
+
+/** Selections for ADC output signals  */
+typedef enum
+{
+    CYHAL_ADC_OUTPUT_SCAN_COMPLETE, // !< An output signal should be triggered when a scan is complete
+}
+cyhal_adc_output_t;
 
 /** Perform standard averaging. Divide the accumulated value by the number of samples.
   * @note This is not supported in combination with @ref CYHAL_ADC_AVG_MODE_ACCUMULATE */
@@ -249,6 +265,21 @@ typedef void (*cyhal_adc_event_callback_t)(void *callback_arg, cyhal_adc_event_t
  * For all other return codes, please refer to device driver documentation available in the BSP landing page
  */
 cy_rslt_t cyhal_adc_init(cyhal_adc_t *obj, cyhal_gpio_t pin, const cyhal_clock_t *clk);
+
+/** Initialize the ADC peripheral and its channels using a configurator generated configuration struct
+  *
+ * @param[out] adc              Pointer to an adc object. The caller must allocate the memory
+ *                              for this object but the init function will initialize its contents.
+ * @param[out] channels         Array of pointers to ADC channel objects. This array must contain
+ *                              a minimum of one (non-null) entry per channel that is enabled by the configurator
+ * @param[in,out] num_channels  Length of the `channels` array. If this value is too small for all of the channels
+ *                              enabled by the configurator an error will be returned. Will be updated with the 
+ *                              number of channels that were enabled by the configurator.
+ * @param[in] cfg               Configuration structure generated by the configurator.
+ * @return The status of the init request
+ */
+ cy_rslt_t cyhal_adc_init_cfg(cyhal_adc_t *adc, cyhal_adc_channel_t** channels, uint8_t* num_channels,
+                                const cyhal_adc_configurator_t *cfg);
 
 /** Uninitialize the ADC peripheral and cyhal_adc_t object
  *
@@ -493,6 +524,43 @@ void cyhal_adc_register_callback(cyhal_adc_t *obj, cyhal_adc_event_callback_t ca
  * @param[in] enable         True to turn on specified events, False to turn off
  */
 void cyhal_adc_enable_event(cyhal_adc_t *obj, cyhal_adc_event_t event, uint8_t intr_priority, bool enable);
+
+/** Connects a source signal and enables the specified input
+ *
+ * @param[in] obj          The ADC object
+ * @param[in] source       Source signal obtained from another driver's cyhal_<PERIPH>_enable_output
+ * @param[in] input        Which input signal to connect to
+  * @return The status of the connection
+ */
+cy_rslt_t cyhal_adc_connect_digital(cyhal_adc_t *obj, cyhal_source_t source, cyhal_adc_input_t input);
+
+/** Enables the specified output signal
+ *
+ * @param[in]  obj          The ADC object
+ * @param[in]  output       Which output signal to enable
+ * @param[out] source       Pointer to user-allocated source signal object
+ * which will be initialized by enable_output. \p source should be passed to
+ * (dis)connect_digital functions to (dis)connect the associated endpoints.
+  * @return The status of the output enable
+ */
+cy_rslt_t cyhal_adc_enable_output(cyhal_adc_t *obj, cyhal_adc_output_t output, cyhal_source_t *source);
+
+/** Disconnect a source signal and disable ADC input
+ *
+ * @param[in] obj          The ADC object
+ * @param[in] source       Source signal from cyhal_<PERIPH>_enable_output to disable
+ * @param[in] input        Which input signal to disconnect
+  * @return The status of the disconnect
+ */
+cy_rslt_t cyhal_adc_disconnect_digital(cyhal_adc_t *obj, cyhal_source_t source, cyhal_adc_input_t input);
+
+/** Disables specified output signal from ADC.
+ *
+ * @param[in]  obj          The ADC object
+ * @param[in]  output       Which output signal to disable
+  * @return The status of the disablement
+ */
+cy_rslt_t cyhal_adc_disable_output(cyhal_adc_t *obj, cyhal_adc_output_t output);
 
 #if defined(__cplusplus)
 }

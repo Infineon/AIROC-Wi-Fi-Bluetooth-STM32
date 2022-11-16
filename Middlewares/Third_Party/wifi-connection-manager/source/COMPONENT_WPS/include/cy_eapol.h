@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -40,7 +40,6 @@
 #include "whd_types.h"
 #include "whd.h"
 #include "whd_buffer_api.h"
-#include "cy_lwip.h"
 
 #ifdef __cplusplus
 extern "C" {

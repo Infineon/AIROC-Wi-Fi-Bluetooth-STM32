@@ -2,14 +2,16 @@
 * \file cyhal_lptimer.h
 *
 * \brief
-* Provides a high level interface for interacting with the Cypress Low-Power Timer.
+* Provides a high level interface for interacting with the Infineon Low-Power Timer.
 * This interface abstracts out the chip specific details. If any chip specific
 * functionality is necessary, or performance is critical the low level functions
 * can be used directly.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2020 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -49,12 +51,12 @@
 *
 * \subsection subsection_lptimer_snippet_1 Snippet 1: LPTimer initialization with Default configuration
 * The following snippet initializes a LPTimer in free running mode.
-* \snippet lptimer.c snippet_cyhal_lptimer_simple_init_def
+* \snippet hal_lptimer.c snippet_cyhal_lptimer_simple_init_def
 *
 * \subsection subsection_lptimer_snippet_2 Snippet 2: LPTimer interrupts
 * The following snippet initializes a LPTimer and uses \ref cyhal_lptimer_set_match() to trigger an interrupt
 * on match. Subsequent interrupts can be triggered at required times using \ref cyhal_lptimer_set_delay() called from the ISR.
-* \snippet lptimer.c snippet_cyhal_lptimer_interrupt
+* \snippet hal_lptimer.c snippet_cyhal_lptimer_interrupt
 */
 
 #pragma once
@@ -76,7 +78,19 @@ extern "C" {
 
 /** Failed to configure power management callback */
 #define CYHAL_LPTIMER_RSLT_ERR_PM_CALLBACK              \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_WDT, 0))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_LPTIMER, 0))
+
+/** Failed to execute not supported API */
+#define CYHAL_LPTIMER_RSLT_ERR_NOT_SUPPORTED            \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_LPTIMER, 1))
+
+/** Timer is not enabled or it is not clocked */
+#define CYHAL_LPTIMER_RSLT_ERR_DISABLED            \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_LPTIMER, 2))
+
+/** Bad argument. eg: null pointer */
+#define CYHAL_LPTIMER_RSLT_ERR_BAD_ARGUMENT            \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_LPTIMER, 3))
 
 /**
  * \}
@@ -141,11 +155,11 @@ cy_rslt_t cyhal_lptimer_reload(cyhal_lptimer_t *obj);
  * \note This does not reset the counter.
  *
  * @param[in] obj   The LPTimer object
- * @param[in] value The tick value to match
+ * @param[in] ticks The tick value to match
  *
  * @return The status of the set_match request. On success it returns \ref CY_RSLT_SUCCESS.
  */
-cy_rslt_t cyhal_lptimer_set_match(cyhal_lptimer_t *obj, uint32_t value);
+cy_rslt_t cyhal_lptimer_set_match(cyhal_lptimer_t *obj, uint32_t ticks);
 
 /** Update the match/compare value
  *

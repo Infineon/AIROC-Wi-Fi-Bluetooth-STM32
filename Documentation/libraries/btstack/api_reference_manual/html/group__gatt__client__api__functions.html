@@ -107,7 +107,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga22d6a277ecfcc3f3193e248e5a9c89c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read from remote ATT server.  <a href="#ga22d6a277ecfcc3f3193e248e5a9c89c3">More...</a><br /></td></tr>
 <tr class="separator:ga22d6a277ecfcc3f3193e248e5a9c89c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaab8c3fff985e0a6beb83cd368b63e548"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__wicedbt__gatt.html#ga0e035835afe92d61fe430ea19029677a">wiced_bt_gatt_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gatt__client__api__functions.html#gaab8c3fff985e0a6beb83cd368b63e548">wiced_bt_gatt_client_send_read_by_type</a> (uint16_t conn_id, uint16_t s_handle, uint16_t e_handle, <a class="el" href="structwiced__bt__uuid__t.html">wiced_bt_uuid_t</a> *p_uuid, uint8_t *p_read_buf, uint16_t len, <a class="el" href="group__wicedbt__gatt.html#ga44fcc1fe578d11d29279b92a7fcc936d">wiced_bt_gatt_auth_req_t</a> auth_req)</td></tr>
-<tr class="memdesc:gaab8c3fff985e0a6beb83cd368b63e548"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read from remote ATT server.  <a href="#gaab8c3fff985e0a6beb83cd368b63e548">More...</a><br /></td></tr>
+<tr class="memdesc:gaab8c3fff985e0a6beb83cd368b63e548"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read by type from remote ATT server.  <a href="#gaab8c3fff985e0a6beb83cd368b63e548">More...</a><br /></td></tr>
 <tr class="separator:gaab8c3fff985e0a6beb83cd368b63e548"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga57ead21a135107e216056fb40e5013fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__wicedbt__gatt.html#ga0e035835afe92d61fe430ea19029677a">wiced_bt_gatt_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__gatt__client__api__functions.html#ga57ead21a135107e216056fb40e5013fd">wiced_bt_gatt_client_send_read_multiple</a> (uint16_t conn_id, <a class="el" href="group__wicedbt__gatt.html#ga6bf4e326bf95c613ff59591782abf6b4">wiced_bt_gatt_opcode_t</a> opcode, int num_handles, uint8_t *p_handle_stream, <a class="el" href="group__wicedbt__gatt.html#ga44fcc1fe578d11d29279b92a7fcc936d">wiced_bt_gatt_auth_req_t</a> auth_req)</td></tr>
 <tr class="memdesc:ga57ead21a135107e216056fb40e5013fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read multiple from remote ATT server.  <a href="#ga57ead21a135107e216056fb40e5013fd">More...</a><br /></td></tr>
@@ -268,8 +268,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>: In case the offset is set to 0, the stack first sends a GATT_REQ_READ and then sends out a</dd></dl>
-<p>series of GATT_REQ_READ_BLOB till the entire attribute is read or until the <code>p_read_buf</code> is filled upto <code>len</code> </p><dl class="params"><dt>Parameters</dt><dd>
+<dl class="section note"><dt>Note</dt><dd>: In case the offset is set to 0, the stack first sends a GATT_REQ_READ and then sends out a series of GATT_REQ_READ_BLOB till the entire attribute is read or until the <code>p_read_buf</code> is filled upto <code>len</code> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">p_read_buf</td><td>: The buffer to save the read response </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">len</td><td>: Length of the <code>p_read_buf</code> </td></tr>
@@ -337,8 +337,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Read from remote ATT server. </p>
-<p>Result is notified using <b> GATT_OPERATION_CPLT_EVT </b> of <a class="el" href="group__wicedbt__gatt.html#ga826a5f3ef4bd8587ee6af52ed9b4a4f2" title="GATT event notification callback.">wiced_bt_gatt_cback_t</a>, with <a class="el" href="structwiced__bt__gatt__operation__complete__t.html#a388e4fc3c7ee01d7cab9e7e040dc3ee6">wiced_bt_gatt_operation_complete_t::op</a> set to GATTC_OPTYPE_READ_BY_TYPE</p>
+<p>Read by type from remote ATT server. </p>
+<p>The handle information for the read by type request is received via <b> GATT_OPERATION_CPLT_EVT </b> of <a class="el" href="group__wicedbt__gatt.html#ga826a5f3ef4bd8587ee6af52ed9b4a4f2" title="GATT event notification callback.">wiced_bt_gatt_cback_t</a> with <a class="el" href="structwiced__bt__gatt__operation__complete__t.html#a388e4fc3c7ee01d7cab9e7e040dc3ee6">wiced_bt_gatt_operation_complete_t::op</a> set to <a class="el" href="group__wicedbt__gatt.html#gga20bd3f2b04d68644e09d61a327857f5ba9394724415a2691ce8c39c89225718dc">GATTC_OPTYPE_READ_HANDLE</a> A non-zero <a class="el" href="structwiced__bt__gatt__operation__complete__t.html#abeaabd24870bbe8bb1caf266beea1d97">wiced_bt_gatt_operation_complete_t::pending_events</a> indicates multiple handle responses which may be returned from the server for some UUIDs</p>
+<p>The end of the read by type transaction is notified with result via <b> GATT_OPERATION_CPLT_EVT </b> of <a class="el" href="group__wicedbt__gatt.html#ga826a5f3ef4bd8587ee6af52ed9b4a4f2" title="GATT event notification callback.">wiced_bt_gatt_cback_t</a> with <a class="el" href="structwiced__bt__gatt__operation__complete__t.html#a388e4fc3c7ee01d7cab9e7e040dc3ee6">wiced_bt_gatt_operation_complete_t::op</a> set to GATTC_OPTYPE_READ_BY_TYPE</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">conn_id</td><td>: Connection id </td></tr>
@@ -400,7 +401,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read multiple from remote ATT server. </p>
-<p>Result is notified using <b> GATT_OPERATION_CPLT_EVT </b> of <a class="el" href="group__wicedbt__gatt.html#ga826a5f3ef4bd8587ee6af52ed9b4a4f2" title="GATT event notification callback.">wiced_bt_gatt_cback_t</a>, with <a class="el" href="structwiced__bt__gatt__operation__complete__t.html#a388e4fc3c7ee01d7cab9e7e040dc3ee6">wiced_bt_gatt_operation_complete_t::op</a> set to GATTC_OPTYPE_READ_MULTIPLE for <code>opcode</code> = GATT_REQ_READ_MULTI and set to GATTC_OPTYPE_READ_HANDLE for <code>opcode</code> = GATT_REQ_READ_MULTI_VAR_LENGTH and</p>
+<p>Result is notified using <b> GATT_OPERATION_CPLT_EVT </b> of <a class="el" href="group__wicedbt__gatt.html#ga826a5f3ef4bd8587ee6af52ed9b4a4f2" title="GATT event notification callback.">wiced_bt_gatt_cback_t</a>, with <a class="el" href="structwiced__bt__gatt__operation__complete__t.html#a388e4fc3c7ee01d7cab9e7e040dc3ee6">wiced_bt_gatt_operation_complete_t::op</a> a) set to GATTC_OPTYPE_READ_MULTIPLE for <code>opcode</code> = GATT_REQ_READ_MULTI and b) set to GATTC_OPTYPE_READ_HANDLE for <code>opcode</code> = GATT_REQ_READ_MULTI_VAR_LENGTH</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">conn_id</td><td>: Connection id </td></tr>
@@ -477,7 +478,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>The application may free the <code>p_app_write_buffer</code> pointer on receiving a <a class="el" href="group__wicedbt__gatt.html#gga1a4943c0f32914d5d939b05e84c99631a68a87f3f6a4f7c061b50872522f507a4">GATT_APP_BUFFER_TRANSMITTED_EVT</a> with <a class="el" href="structwiced__bt__gatt__buffer__transmitted__t.html#a9dc2ce0fcd9d8fdce23345249c36a42e">wiced_bt_gatt_buffer_transmitted_t::p_app_data</a> = <code>p_app_write_buffer</code> and <a class="el" href="structwiced__bt__gatt__buffer__transmitted__t.html#aee4534bcf5ed42ab50f7c80a46278a1a">wiced_bt_gatt_buffer_transmitted_t::p_app_ctxt</a> = <code>p_app_ctxt</code> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The application may free/release/deallocate the <code>p_app_write_buffer</code> pointer on receiving a <a class="el" href="group__wicedbt__gatt.html#gga1a4943c0f32914d5d939b05e84c99631a68a87f3f6a4f7c061b50872522f507a4">GATT_APP_BUFFER_TRANSMITTED_EVT</a> with <a class="el" href="structwiced__bt__gatt__buffer__transmitted__t.html#a9dc2ce0fcd9d8fdce23345249c36a42e">wiced_bt_gatt_buffer_transmitted_t::p_app_data</a> set to <code>p_app_write_buffer</code> and <a class="el" href="structwiced__bt__gatt__buffer__transmitted__t.html#aee4534bcf5ed42ab50f7c80a46278a1a">wiced_bt_gatt_buffer_transmitted_t::p_app_ctxt</a> set to <code>p_app_ctxt</code> </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__wicedbt__gatt.html#ga972f2437538363989cee28019cb06652">wiced_bt_gatt_status_t </a> </dd></dl>
 
 </div>

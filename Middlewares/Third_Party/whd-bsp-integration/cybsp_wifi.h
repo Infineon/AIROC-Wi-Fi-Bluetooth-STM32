@@ -8,7 +8,9 @@
  *
  ***************************************************************************************************
  * \copyright
- * Copyright 2018-2021 Cypress Semiconductor Corporation
+ * Copyright 2018-2022 Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation
+ *
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,6 +49,18 @@ extern "C" {
 #define CYBSP_RSLT_WIFI_SDIO_ENUM_TIMEOUT \
     (CY_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_BOARD_LIB_WHD_INTEGRATION, 1))
 
+/** SD device does not support IO functionality */
+#define CYBSP_RSLT_WIFI_SDIO_ENUM_IO_NOT_SUPPORTED \
+    (CY_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_BOARD_LIB_WHD_INTEGRATION, 2))
+
+/** SDIO device is not ready */
+#define CYBSP_RSLT_WIFI_SDIO_ENUM_NOT_READY \
+    (CY_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_BOARD_LIB_WHD_INTEGRATION, 3))
+
+/** SDIO switch to High Speed mode failed. */
+#define CYBSP_RSLT_WIFI_SDIO_HS_SWITCH_FAILED \
+    (CY_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_BOARD_LIB_WHD_INTEGRATION, 4))
+
 /** Initializes the primary interface for the WiFi driver on the board. This sets up
  * the WHD interface to use the \ref group_bsp_network_buffer APIs and to communicate
  * over the SDIO interface on the board. This function does the following:<br>
@@ -58,6 +72,8 @@ extern "C" {
  * again.
  *
  * @param[out] interface     Interface to be initialized
+ * @param[in]  init_config   Pointer to the configuration parameters to initialize the driver.
+ *                           Passing NULL will use default values.
  * @param[in]  resource_if   Pointer to resource interface to provide resources to the driver
  *                           initialization process. Passing NULL will use the default.
  * @param[in]  buffer_if     Pointer to a buffer interface to provide buffer related services to the
@@ -68,13 +84,14 @@ extern "C" {
  * @return CY_RSLT_SUCCESS for successful initialization or error if initialization failed.
  */
 cy_rslt_t cybsp_wifi_init_primary_extended(whd_interface_t* interface,
+                                           whd_init_config_t* init_config,
                                            whd_resource_source_t* resource_if,
                                            whd_buffer_funcs_t* buffer_if,
                                            whd_netif_funcs_t* netif_if);
 
 /**
- * Initializes the primary interface for the WiFi driver on the board using the default resource,
- * buffer, and network interfaces.
+ * Initializes the primary interface for the WiFi driver on the board using the default
+ * configuration, resource, buffer, and network interfaces.
  * See cybsp_wifi_init_primary_extended() for more details.
  *
  * @param[out] interface     Interface to be initialized
@@ -83,7 +100,7 @@ cy_rslt_t cybsp_wifi_init_primary_extended(whd_interface_t* interface,
  */
 static inline cy_rslt_t cybsp_wifi_init_primary(whd_interface_t* interface)
 {
-    return cybsp_wifi_init_primary_extended(interface, NULL, NULL, NULL);
+    return cybsp_wifi_init_primary_extended(interface, NULL, NULL, NULL, NULL);
 }
 
 
@@ -100,10 +117,11 @@ cy_rslt_t cybsp_wifi_init_secondary(whd_interface_t* interface, whd_mac_t* mac_a
 
 /** De-initializes all WiFi interfaces and the WiFi driver. This function does the
  * following:<br>
- * 1) Deinitializes all WiFi interfaces and WiFi driver.<br>
- * 2) Turns off the WiFi chip.
+ * 1) Deinitializes all WiFi interfaces.<br>
+ * 2) Deinitializes the WiFi driver.<br>
+ * 3) Turns off the WiFi chip.
  *
- * @param[in] interface Interface to be de-initialized.
+ * @param[in] interface Either the Primary or Secondary interface.
  *
  * @return CY_RSLT_SUCCESS for successful de-initialization or error if de-initialization failed.
  */

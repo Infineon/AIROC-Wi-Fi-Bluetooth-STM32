@@ -3,10 +3,22 @@ This library helps streamline the process of getting the WiFi Host Driver (WHD) 
 
 ### What's Included?
 * APIs for setting up the WHD interface with the BSP's SDIO interface.
-* APIs for connecting WHD to LwIP memory buffers (whd_buffer_funcs_t)
-* Framework for connecting WHD to LwIP network interface (whd_netif_funcs_t)
+* APIs for connecting WHD to LwIP/NetXDuo memory buffers (whd_buffer_funcs_t)
+* Framework for connecting WHD to LwIP/NetXDuo network interface (whd_netif_funcs_t)
 
 ### What Changed?
+#### v2.1.0
+* Added support for dyanmically allocated NetX Duo packets to support WHD IOVARs with payloads larger than MTU.
+* Added support for NetX Duo
+* Made SDIO initialization more robust
+#### v2.0.0
+* Added support for different communication protocols (SDIO, SPI, DMA) between MCU and Radio
+* Card initialization process improvements. Code now checks whether SDIO device supports 1.8V signaling, and, if it does, performs the actions needed in order to switch to 1.8V.
+* Added support for overriding the default country code by defining CY_WIFI_COUNTRY to a value from whd_country_code_t.
+* Added argument to cybsp_wifi_init_primary_extended() to set WHD initialization parameters
+* SDIO frequency is increased to 50 MHz if High Speed Mode is supported
+* Added support for HAL API v1 or v2
+* Minimum required `wifi-host-driver` library version for this release - `2.0.0`
 #### v1.2.0
 * Fixed possible memory corruption issue introduced with changes from v1.1.0
 #### v1.1.2
@@ -28,19 +40,19 @@ This version of the RTOS Abstraction API was validated for compatibility with th
 
 | Software and Tools                        | Version |
 | :---                                      | :----:  |
-| ModusToolbox Software Environment         | 2.2.1   |
-| GCC Compiler                              | 9.3.1   |
-| IAR Compiler                              | 8.4     |
-| ARM Compiler                              | 6.11    |
+| ModusToolbox™ Software Environment        | 2.4.0   |
+| GCC Compiler                              | 10.3.1  |
+| IAR Compiler                              | 9.30.1  |
+| ARM Compiler                              | 6.16    |
 
-Minimum required ModusToolbox Software Environment: v2.0
+Minimum required ModusToolbox™ Software Environment: v2.0
 
 ### More information
 Use the following links for more information, as needed:
-* [API Reference Guide](https://cypresssemiconductorco.github.io/whd-bsp-integration/html/modules.html)
+* [API Reference Guide](https://infineon.github.io/whd-bsp-integration/html/modules.html)
 * [Cypress Semiconductor, an Infineon Technologies Company](http://www.cypress.com)
-* [Cypress Semiconductor GitHub](https://github.com/cypresssemiconductorco)
-* [ModusToolbox](https://www.cypress.com/products/modustoolbox-software-environment)
+* [Infineon GitHub](https://github.com/infineon)
+* [ModusToolbox™](https://www.cypress.com/products/modustoolbox-software-environment)
 
 ---
-© Cypress Semiconductor Corporation, 2019-2021.
+© Cypress Semiconductor Corporation (an Infineon company) or an affiliate of Cypress Semiconductor Corporation, 2019-2022.

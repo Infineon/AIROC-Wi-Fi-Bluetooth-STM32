@@ -1,6 +1,10 @@
 var annotated_dup =
 [
+    [ "_pmkid", "struct__pmkid.html", "struct__pmkid" ],
+    [ "_pmkid_list", "struct__pmkid__list.html", "struct__pmkid__list" ],
     [ "whd_ap_info", "structwhd__ap__info.html", "structwhd__ap__info" ],
+    [ "whd_auth_params", "structwhd__auth__params.html", "structwhd__auth__params" ],
+    [ "whd_auth_req_status", "structwhd__auth__req__status.html", "structwhd__auth__req__status" ],
     [ "whd_band_list_t", "structwhd__band__list__t.html", "structwhd__band__list__t" ],
     [ "whd_btc_lescan_params", "structwhd__btc__lescan__params.html", "structwhd__btc__lescan__params" ],
     [ "whd_buffer_funcs", "structwhd__buffer__funcs.html", "structwhd__buffer__funcs" ],
@@ -10,7 +14,9 @@ var annotated_dup =
     [ "whd_event_ether_header", "structwhd__event__ether__header.html", "structwhd__event__ether__header" ],
     [ "whd_event_msg", "structwhd__event__msg.html", "structwhd__event__msg" ],
     [ "whd_init_config", "structwhd__init__config.html", "structwhd__init__config" ],
+    [ "whd_list_t", "structwhd__list__t.html", "structwhd__list__t" ],
     [ "whd_listen_interval_t", "structwhd__listen__interval__t.html", "structwhd__listen__interval__t" ],
+    [ "whd_m2m_config", "structwhd__m2m__config.html", "structwhd__m2m__config" ],
     [ "whd_mac_t", "structwhd__mac__t.html", "structwhd__mac__t" ],
     [ "whd_maclist_t", "structwhd__maclist__t.html", "structwhd__maclist__t" ],
     [ "whd_netif_funcs", "structwhd__netif__funcs.html", "structwhd__netif__funcs" ],

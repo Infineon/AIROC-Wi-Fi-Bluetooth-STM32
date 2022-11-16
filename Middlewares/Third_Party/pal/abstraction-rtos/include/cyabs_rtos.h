@@ -9,7 +9,9 @@
  *
  ***************************************************************************************************
  * \copyright
- * Copyright 2018-2021 Cypress Semiconductor Corporation
+ * Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation
+ *
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -65,8 +67,6 @@ extern "C"
  */
 
 #if defined(DOXYGEN)
-//#include "Template/cyabs_rtos_impl.h"
-
 /** Return value indicating success */
 #define CY_RSLT_SUCCESS ((cy_rslt_t)0x00000000U)
 #endif
@@ -165,7 +165,7 @@ typedef void (* cy_timer_callback_t)(cy_timer_callback_arg_t arg);
 /**
  * Return the last error from the RTOS.
  *
- * The functions in the RTOS abstraction layer adhere to the Cypress return
+ * The functions in the RTOS abstraction layer adhere to the Infineon return
  * results calling convention.  The underlying RTOS implementations will not but rather
  * will have their own error code conventions.  This function is provided as a service
  * to the developer, mostly for debugging, and returns the underlying RTOS error code
@@ -175,7 +175,7 @@ typedef void (* cy_timer_callback_t)(cy_timer_callback_arg_t arg);
  *
  * \ingroup group_abstraction_rtos_common
  */
-cy_rtos_error_t cy_rtos_last_error();
+cy_rtos_error_t cy_rtos_last_error(void);
 
 
 /********************************************* Threads ********************************************/
@@ -228,7 +228,7 @@ cy_rslt_t cy_rtos_create_thread(cy_thread_t* thread, cy_thread_entry_fn_t entry_
  *
  * @return The status of thread exit request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_GENERAL_ERROR]
  */
-cy_rslt_t cy_rtos_exit_thread();
+cy_rslt_t cy_rtos_exit_thread(void);
 
 /** Terminates another thread.
  *
@@ -333,8 +333,8 @@ cy_rslt_t cy_rtos_set_thread_notification(cy_thread_t* thread, bool in_isr);
 
 /** Create a recursive mutex.
  *
- * Creates a binary mutex which can be used to synchronize between threads
- * and between threads and ISRs. Created mutexes are recursive and support priority inheritance.
+ * Creates a binary mutex which can be used for mutual exclusion to prevent simulatenous
+ * access of shared resources. Created mutexes can support priority inheritance if recursive.
  *
  * This function has been replaced by \ref cy_rtos_init_mutex2 which allow for specifying
  * whether or not the mutex supports recursion or not.
@@ -348,8 +348,8 @@ cy_rslt_t cy_rtos_set_thread_notification(cy_thread_t* thread, bool in_isr);
 
 /** Create a mutex which can support recursion or not.
  *
- * Creates a binary mutex which can be used to synchronize between threads and between threads and
- * ISRs. Created mutexes can support priority inheritance if recursive.
+ * Creates a binary mutex which can be used for mutual exclusion to prevent simulatenous
+ * access of shared resources. Created mutexes can support priority inheritance if recursive.
  *
  * \note Not all RTOS implementations support non-recursive mutexes. In this case a recursive
  * mutex will be created.
@@ -373,7 +373,6 @@ cy_rslt_t cy_rtos_init_mutex2(cy_mutex_t* mutex, bool recursive);
  * @param[in] mutex       Pointer to the mutex handle
  * @param[in] timeout_ms  Maximum number of milliseconds to wait while attempting to get
  *                        the mutex. Use the \ref CY_RTOS_NEVER_TIMEOUT constant to wait forever.
- *                        Must be zero if in_isr is true.
  *
  * @return The status of the get mutex. Returns timeout if mutex was not acquired
  *                    before timeout_ms period. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_TIMEOUT, \ref
@@ -415,7 +414,8 @@ cy_rslt_t cy_rtos_deinit_mutex(cy_mutex_t* mutex);
 /**
  * Create a semaphore
  *
- * This is basically a counting semaphore.
+ * This is basically a counting semaphore. It can be used for synchronization between tasks and
+ * tasks and interrupts.
  *
  * @param[in,out] semaphore  Pointer to the semaphore handle to be initialized
  * @param[in] maxcount       The maximum count for this semaphore
@@ -436,7 +436,7 @@ cy_rslt_t cy_rtos_init_semaphore(cy_semaphore_t* semaphore, uint32_t maxcount, u
  * @param[in] semaphore   Pointer to the semaphore handle
  * @param[in] timeout_ms  Maximum number of milliseconds to wait while attempting to get
  *                        the semaphore. Use the \ref CY_RTOS_NEVER_TIMEOUT constant to wait
- *                        forever. Must be zero is in_isr is true
+ *                        forever. Must be zero if in_isr is true.
  * @param[in] in_isr      true if we are trying to get the semaphore from with an ISR
  * @return The status of get semaphore operation [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_TIMEOUT, \ref
  *         CY_RTOS_NO_MEMORY, \ref CY_RTOS_GENERAL_ERROR]
@@ -547,19 +547,19 @@ cy_rslt_t cy_rtos_getbits_event(cy_event_t* event, uint32_t* bits);
  * with the event, or waits for the given timeout period.
  * @note This function returns if any bit in the set is set.
  *
- * @param[in] event     Pointer to the event handle
- * @param[in,out] bits  pointer to receive the value of the event flags
- * @param[in] clear     if true, clear any bits set that cause the wait to return
- *                      if false, do not clear bits
- * @param[in] all       if true, all bits in the initial bits value must be set to return
- *                      if false, any one bit in the initial bits value must be set to return
- * @param[in] timeout   The amount of time to wait in milliseconds
+ * @param[in] event        Pointer to the event handle
+ * @param[in,out] bits     pointer to receive the value of the event flags
+ * @param[in] clear        if true, clear any bits set that cause the wait to return
+ *                         if false, do not clear bits
+ * @param[in] all          if true, all bits in the initial bits value must be set to return
+ *                         if false, any one bit in the initial bits value must be set to return
+ * @param[in] timeout_ms   The amount of time to wait in milliseconds
  *
  * @return The status of the wait for event request. [\ref CY_RSLT_SUCCESS, \ref CY_RTOS_NO_MEMORY,
  *         \ref CY_RTOS_GENERAL_ERROR]
  */
 cy_rslt_t cy_rtos_waitbits_event(cy_event_t* event, uint32_t* bits, bool clear, bool all,
-                                 cy_time_t timeout);
+                                 cy_time_t timeout_ms);
 
 /** Deinitialize a event.
  *

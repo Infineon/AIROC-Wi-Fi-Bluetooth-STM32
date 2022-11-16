@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('structwiced__bt__gatt__buffer__transmi
 <p>On client this is the buffer sent to the stack in</p><ul>
 <li><dl class="section see"><dt>See also</dt><dd><a class="el" href="group__gatt__client__api__functions.html#ga1a0c27ab8cf1552b82d7892fef722a4a" title="Write to remote ATT server.">wiced_bt_gatt_client_send_write</a> On server this is the buffer sent to the stack in</dd></dl>
 </li>
-<li><dl class="section see"><dt>See also</dt><dd><a class="el" href="group__wicedbt__gatt.html#gga1a4943c0f32914d5d939b05e84c99631a0e826c406cd59e6afe727ca3fc060026" title="GATT buffer request, typically sized to max of bearer mtu - 1.">GATT_GET_RESPONSE_BUFFER_EVT</a> using <a class="el" href="structwiced__bt__gatt__app__response__buffer__t.html">wiced_bt_gatt_app_response_buffer_t</a></dd></dl>
+<li><dl class="section see"><dt>See also</dt><dd><a class="el" href="group__wicedbt__gatt.html#gga1a4943c0f32914d5d939b05e84c99631a0e826c406cd59e6afe727ca3fc060026" title="GATT buffer request, typically sized to max of bearer mtu - 1, Event data: wiced_bt_gatt_event_data_t...">GATT_GET_RESPONSE_BUFFER_EVT</a> using <a class="el" href="structwiced__bt__gatt__app__response__buffer__t.html">wiced_bt_gatt_app_response_buffer_t</a></dd></dl>
 </li>
 <li><dl class="section see"><dt>See also</dt><dd><a class="el" href="group__gattsr__api__functions.html#ga0cb76e23dcabd30c6fbe2e8139f96ad9" title="This API will send a long (1 upto (MTU -3) bytes) indication to the client for the specified handle w...">wiced_bt_gatt_server_send_indication</a></dd></dl>
 </li>
@@ -111,7 +111,10 @@ $(document).ready(function(){initNavTree('structwiced__bt__gatt__buffer__transmi
 </li>
 <li><dl class="section see"><dt>See also</dt><dd>wiced_bt_gatt_server_send_read_multiple_rsp</dd></dl>
 </li>
-<li><dl class="section see"><dt>See also</dt><dd>wiced_bt_gatt_server_send_prepare_write_rsp </dd></dl>
+<li><dl class="section see"><dt>See also</dt><dd>wiced_bt_gatt_server_send_prepare_write_rsp</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Typically the application context is expected to be a function/hint (used by the application) to allow it to free/deallocate the memory passed to the stack when writing data to the stack. For e.g, when issueing wiced_bt_gatt_client_send_write, the app can allocate p_app_write_buffer and set the p_app_ctxt to the appropriate free function. This memory allocated for this transaction has to be freed when returned by the stack in the GATT_APP_BUFFER_TRANSMITTED_EVT. The process is made simple since in this case as <code>p_app_data</code> is the application p_app_write_buffer and <code>p_app_ctxt</code> is the application free function/hint </dd>
+<dd>
+<a class="el" href="group__wicedbt__gatt.html#gga1a4943c0f32914d5d939b05e84c99631a68a87f3f6a4f7c061b50872522f507a4">GATT_APP_BUFFER_TRANSMITTED_EVT</a> is expected to be used only to free app memory as described. The next transaction should be attempted on the respective <a class="el" href="group__wicedbt__gatt.html#gga1a4943c0f32914d5d939b05e84c99631adf101f3e076dc63ca400446bac43a463">GATT_OPERATION_CPLT_EVT</a> </dd></dl>
 </li>
 </ul>
 </div><table class="memberdecls">

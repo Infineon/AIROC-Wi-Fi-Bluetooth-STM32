@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company)
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,6 +33,7 @@
 #include "whd_clm.h"
 #include "whd_wlioctl.h"
 #include "whd_types_int.h"
+#include "whd_chip_constants.h"
 
 /******************************************************
 *             Constants
@@ -176,13 +177,23 @@ uint32_t whd_init(whd_driver_t *whd_driver_ptr, whd_init_config_t *whd_init_conf
 uint32_t whd_deinit(whd_interface_t ifp)
 {
     uint8_t i;
-    whd_driver_t whd_driver = ifp->whd_driver;
+    whd_driver_t whd_driver;
 
-    if (whd_driver->internal_info.whd_wlan_status.state == WLAN_UP)
+    CHECK_IFP_NULL(ifp);
+    whd_driver = ifp->whd_driver;
+
+    if (whd_driver->internal_info.whd_wlan_status.state != WLAN_OFF)
     {
-        CHECK_RETURN(whd_wifi_set_ioctl_buffer(ifp, WLC_DOWN, NULL, 0) );
-        whd_driver->internal_info.whd_wlan_status.state = WLAN_DOWN;
+        WPRINT_WHD_ERROR( ("Could not deinit whd because wifi power is on\n") );
+        return WHD_WLAN_NOTDOWN;
     }
+
+    if ( (whd_driver->bus_priv != NULL) || (whd_driver->bus_if != NULL) )
+    {
+        WPRINT_WHD_ERROR( ("Could not deinit whd because bus is attaced\n") );
+        return WHD_WLAN_NOTDOWN;
+    }
+
     for (i = 0; i < WHD_INTERFACE_MAX; i++)
     {
         if (whd_driver->iflist[i] != NULL)
@@ -193,13 +204,8 @@ uint32_t whd_deinit(whd_interface_t ifp)
     }
 
     whd_cdc_bdc_info_deinit(whd_driver);
+    whd_internal_info_deinit(whd_driver);
     whd_bus_common_info_deinit(whd_driver);
-#ifdef WLAN_BUS_TYPE_SDIO
-    whd_bus_sdio_detach(whd_driver);
-#endif
-#ifdef WLAN_BUS_TYPE_SPI
-    whd_bus_spi_detach(whd_driver);
-#endif
     free(whd_driver);
 
     return WHD_SUCCESS;
@@ -274,6 +280,7 @@ uint32_t whd_wifi_on(whd_driver_t whd_driver, whd_interface_t *ifpp)
     uint32_t *data;
     uint32_t counter;
     whd_interface_t ifp;
+    uint16_t wlan_chip_id = 0;
 
     if (!whd_driver || !ifpp)
     {
@@ -309,6 +316,19 @@ uint32_t whd_wifi_on(whd_driver_t whd_driver, whd_interface_t *ifpp)
                        "** FATAL ERROR: system unusable, CLM blob file not found or corrupted.\n"
                        "****************************************************\n") );
         return retval;
+    }
+
+    retval = whd_bus_share_bt_init(whd_driver);
+    if (retval != WHD_SUCCESS)
+    {
+        WPRINT_WHD_INFO( ("Shared bus for bt is fail\n") );
+    }
+
+    /* Get FW Capability */
+    retval = whd_wifi_read_fw_capabilities(ifp);
+    if (retval != WHD_SUCCESS)
+    {
+        WPRINT_WHD_INFO( ("Get FW Capabilities Fail\n") );
     }
 
     /* Turn off SDPCM TX Glomming */
@@ -417,7 +437,28 @@ uint32_t whd_wifi_on(whd_driver_t whd_driver, whd_interface_t *ifpp)
     /* Send UP command */
     CHECK_RETURN(whd_wifi_set_up(ifp) );
 
-    whd_wifi_enable_powersave_with_throughput(ifp, DEFAULT_PM2_SLEEP_RET_TIME);
+    wlan_chip_id = whd_chip_get_chip_id(whd_driver);
+    /* WAR: Disable WLAN PM/mpc for 43907 low power issue */
+    if ( (wlan_chip_id == 43909) || (wlan_chip_id == 43907) || (wlan_chip_id == 54907) )
+    {
+        retval = whd_wifi_disable_powersave(ifp);
+        if (retval != WHD_SUCCESS)
+        {
+            WPRINT_WHD_ERROR( ("Failed to disable PM for 43907\n") );
+            return retval;
+        }
+        retval = whd_wifi_set_iovar_value(ifp, IOVAR_STR_MPC, 0);
+        if (retval != WHD_SUCCESS)
+        {
+            WPRINT_WHD_ERROR( ("Failed to disable mpc for 43907\n") );
+            return retval;
+        }
+    }
+    else
+    {
+        whd_wifi_enable_powersave_with_throughput(ifp, DEFAULT_PM2_SLEEP_RET_TIME);
+    }
+
     /* Set the GMode */
     data = (uint32_t *)whd_cdc_get_ioctl_buffer(whd_driver, &buffer, (uint16_t)4);
     if (data == NULL)
@@ -460,6 +501,10 @@ uint32_t whd_wifi_off(whd_interface_t ifp)
     {
         return WHD_SUCCESS;
     }
+
+    /* Set wlc down before turning off the device */
+    CHECK_RETURN(whd_wifi_set_ioctl_buffer(ifp, WLC_DOWN, NULL, 0) );
+    whd_driver->internal_info.whd_wlan_status.state = WLAN_DOWN;
 
     /* Disable SDIO/SPI interrupt */
     whd_bus_irq_enable(whd_driver, WHD_FALSE);

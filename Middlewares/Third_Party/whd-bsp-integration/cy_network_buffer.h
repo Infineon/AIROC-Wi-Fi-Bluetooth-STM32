@@ -7,7 +7,9 @@
  *
  ***************************************************************************************************
  * \copyright
- * Copyright 2018-2021 Cypress Semiconductor Corporation
+ * Copyright 2018-2022 Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation
+ *
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,6 +44,21 @@ extern "C" {
 #endif
 
 
+/** Initialize the buffer pools
+ *
+ *  Initialize the buffer pools used by the buffer management routines.
+ *  A pair of pools, one for RX buffers and one for TX buffers in passed
+ *  in for use by the management routines.
+ *
+ *  Not all implementations use preallocated buffer pools.
+ *
+ *  @param tx_packet_pool  : Pointer to the initialized NetXDuo TX packet buffer pool
+ *  @param rx_packet_pool  : Pointer to the initialized NetXDuo RX packet buffer pool
+ *
+ *  @return          : CY_RSLT_SUCCESS or WHD_BADARG
+ */
+whd_result_t cy_buffer_pool_init(void* tx_packet_pool, void* rx_packet_pool);
+
 /** Allocates a packet buffer
  *
  *  Attempts to allocate a packet buffer of the size requested. It can do this
@@ -60,7 +77,7 @@ extern "C" {
  *  @return          : CY_RSLT_SUCCESS or WHD_BUFFER_ALLOC_FAIL if the buffer could not be allocated
  */
 whd_result_t cy_host_buffer_get(whd_buffer_t* buffer, whd_buffer_dir_t direction,
-                                unsigned short size, unsigned long timeout_ms);
+                                uint16_t size, uint32_t timeout_ms);
 
 /** Releases a packet buffer
  *
@@ -108,9 +125,9 @@ uint16_t cy_buffer_get_current_piece_size(whd_buffer_t buffer);
  *  @param buffer : The packet to be modified
  *  @param size   : The new size of the packet buffer
  *
- *  @return       : CY_RSLT_SUCCESS or WHD_PMK_WRONG_LENGTH if the requested size is not valid
+ *  @return       : CY_RSLT_SUCCESS or WHD_BUFFER_SIZE_SET_ERROR if the requested size is not valid
  */
-whd_result_t cy_buffer_set_size(whd_buffer_t buffer, unsigned short size);
+whd_result_t cy_buffer_set_size(whd_buffer_t buffer, uint16_t size);
 
 /** Moves the current pointer of a packet buffer
  *
@@ -128,8 +145,8 @@ whd_result_t cy_buffer_set_size(whd_buffer_t buffer, unsigned short size);
  *                             buffer - a negative value increases the space for headers at the
  *                             front of the packet, a positive value decreases the space.
  *
- *  @return                  : CY_RSLT_SUCCESS or WHD_PMK_WRONG_LENGTH if the added amount is
- *                             outside the size of the buffer
+ *  @return                  : CY_RSLT_SUCCESS or WHD_BUFFER_POINTER_MOVE_ERROR if the added amount
+ *                             is outside the size of the buffer
  */
 whd_result_t cy_buffer_add_remove_at_front(whd_buffer_t* buffer, int32_t add_remove_amount);
 

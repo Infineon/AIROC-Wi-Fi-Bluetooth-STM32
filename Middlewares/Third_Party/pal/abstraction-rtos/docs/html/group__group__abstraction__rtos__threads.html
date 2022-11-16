@@ -123,9 +123,9 @@ Enumerations</h2></td></tr>
 <tr class="memitem:ga002d529ea362c3e7670cc04de1bdb30e"><td class="memItemLeft" align="right" valign="top">cy_rslt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__abstraction__rtos__threads.html#ga002d529ea362c3e7670cc04de1bdb30e">cy_rtos_create_thread</a> (<a class="el" href="group__group__abstraction__rtos__port.html#ga27c9e935c4c4f200d86a8484d3db08d3">cy_thread_t</a> *thread, <a class="el" href="group__group__abstraction__rtos__threads.html#ga4bae7aeb374fea7497371c5df7edc8d6">cy_thread_entry_fn_t</a> entry_function, const char *name, void *stack, uint32_t stack_size, <a class="el" href="group__group__abstraction__rtos__port.html#ga9f21bb78897c25df019b6e4286ecc7a0">cy_thread_priority_t</a> priority, <a class="el" href="group__group__abstraction__rtos__port.html#ga38237cfc682f2212e1ae11eb81a594b4">cy_thread_arg_t</a> arg)</td></tr>
 <tr class="memdesc:ga002d529ea362c3e7670cc04de1bdb30e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a thread with specific thread argument.  <a href="#ga002d529ea362c3e7670cc04de1bdb30e">More...</a><br /></td></tr>
 <tr class="separator:ga002d529ea362c3e7670cc04de1bdb30e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2865c511e5f36874e1dc6cb6b0fc4f4b"><td class="memItemLeft" align="right" valign="top">cy_rslt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__abstraction__rtos__threads.html#ga2865c511e5f36874e1dc6cb6b0fc4f4b">cy_rtos_exit_thread</a> ()</td></tr>
-<tr class="memdesc:ga2865c511e5f36874e1dc6cb6b0fc4f4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exit the current thread.  <a href="#ga2865c511e5f36874e1dc6cb6b0fc4f4b">More...</a><br /></td></tr>
-<tr class="separator:ga2865c511e5f36874e1dc6cb6b0fc4f4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga31d38b879b2b6899b1450997326265b1"><td class="memItemLeft" align="right" valign="top">cy_rslt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__abstraction__rtos__threads.html#ga31d38b879b2b6899b1450997326265b1">cy_rtos_exit_thread</a> (void)</td></tr>
+<tr class="memdesc:ga31d38b879b2b6899b1450997326265b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exit the current thread.  <a href="#ga31d38b879b2b6899b1450997326265b1">More...</a><br /></td></tr>
+<tr class="separator:ga31d38b879b2b6899b1450997326265b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga738c6b5b507480b4dcc735be14eeb804"><td class="memItemLeft" align="right" valign="top">cy_rslt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__abstraction__rtos__threads.html#ga738c6b5b507480b4dcc735be14eeb804">cy_rtos_terminate_thread</a> (<a class="el" href="group__group__abstraction__rtos__port.html#ga27c9e935c4c4f200d86a8484d3db08d3">cy_thread_t</a> *thread)</td></tr>
 <tr class="memdesc:ga738c6b5b507480b4dcc735be14eeb804"><td class="mdescLeft">&#160;</td><td class="mdescRight">Terminates another thread.  <a href="#ga738c6b5b507480b4dcc735be14eeb804">More...</a><br /></td></tr>
 <tr class="separator:ga738c6b5b507480b4dcc735be14eeb804"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -260,7 +260,7 @@ Enumerations</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Create a thread with specific thread argument. </p>
-<p>This function is called to startup a new thread. If the thread can exit, it must call <a class="el" href="group__group__abstraction__rtos__threads.html#ga2865c511e5f36874e1dc6cb6b0fc4f4b">cy_rtos_exit_thread()</a> just before doing so. All created threads that can terminate, either by themselves or forcefully by another thread MUST have <a class="el" href="group__group__abstraction__rtos__threads.html#ga0baae5db6b3b3c342fee92af38d4da7b">cy_rtos_join_thread()</a> called on them by another thread in order to cleanup any resources that might have been allocated for them.</p>
+<p>This function is called to startup a new thread. If the thread can exit, it must call <a class="el" href="group__group__abstraction__rtos__threads.html#ga31d38b879b2b6899b1450997326265b1">cy_rtos_exit_thread()</a> just before doing so. All created threads that can terminate, either by themselves or forcefully by another thread MUST have <a class="el" href="group__group__abstraction__rtos__threads.html#ga0baae5db6b3b3c342fee92af38d4da7b">cy_rtos_join_thread()</a> called on them by another thread in order to cleanup any resources that might have been allocated for them.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">thread</td><td>Pointer to a variable which will receive the new thread handle </td></tr>
@@ -277,8 +277,8 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
-<a id="ga2865c511e5f36874e1dc6cb6b0fc4f4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2865c511e5f36874e1dc6cb6b0fc4f4b">&#9670;&nbsp;</a></span>cy_rtos_exit_thread()</h2>
+<a id="ga31d38b879b2b6899b1450997326265b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga31d38b879b2b6899b1450997326265b1">&#9670;&nbsp;</a></span>cy_rtos_exit_thread()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -286,6 +286,7 @@ Enumerations</h2></td></tr>
         <tr>
           <td class="memname">cy_rslt_t cy_rtos_exit_thread </td>
           <td>(</td>
+          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>

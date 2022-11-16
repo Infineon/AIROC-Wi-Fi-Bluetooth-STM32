@@ -5,7 +5,9 @@
  * Internal interface used for RTOS abstraction utilities.
  ***************************************************************************************************
  * \copyright
- * Copyright 2018-2021 Cypress Semiconductor Corporation
+ * Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation
+ *
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,25 +30,21 @@ extern "C" {
 #endif
 
 #include <stdbool.h>
-
-// Pick a header that will ultimately pull in the proper CMSIS device header file
-#if defined(CY_USING_HAL)
-#include "cyhal.h"
-#elif defined(COMPONENT_CAT1A) || defined(COMPONENT_CAT1B) || defined(COMPONENT_CAT2)
-#include "cy_device_headers.h"
-#elif defined(COMPONENT_CAT3)
-#include "xmc_device.h"
-#else
-#error "Unsupported device"
-#endif
+#include <cmsis_compiler.h>
 
 /** Checks to see if code is currently executing within an interrupt context.
  *
  * @return Boolean indicating whether this was executed from an interrupt context.
  */
-static inline bool is_in_isr()
+static inline bool is_in_isr(void)
 {
-    return (SCB->ICSR & SCB_ICSR_VECTACTIVE_Msk) != 0;
+    #if defined(COMPONENT_CR4) // Can work for any Cortex-A & Cortex-R
+    uint32_t mode = __get_mode();
+    return (mode == 0x11U /*FIQ*/) || (mode == 0x12U /*IRQ*/) || (mode == 0x13U /*SVC*/) ||
+           (mode == 0x17U /*ABT*/) || (mode == 0x1BU /*UND*/);
+    #else // Cortex-M
+    return (__get_IPSR() != 0);
+    #endif
 }
 
 

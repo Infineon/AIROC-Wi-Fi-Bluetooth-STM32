@@ -112,6 +112,7 @@ var group__group__wcm__enums =
       [ "CY_WCM_EVENT_RECONNECTED", "group__group__wcm__enums.html#ggafada6a09a78bd0473f3daef54621567fab2e59655829c24bd5d0ea68622c8c56e", null ],
       [ "CY_WCM_EVENT_DISCONNECTED", "group__group__wcm__enums.html#ggafada6a09a78bd0473f3daef54621567fa206d74c35be5bf29e7903367287efc79", null ],
       [ "CY_WCM_EVENT_IP_CHANGED", "group__group__wcm__enums.html#ggafada6a09a78bd0473f3daef54621567fafe83442aa63aa747c3025d0874482c86", null ],
+      [ "CY_WCM_EVENT_INITIATED_RETRY", "group__group__wcm__enums.html#ggafada6a09a78bd0473f3daef54621567faf69cff70a802b9f8dae63efc10c70e1d", null ],
       [ "CY_WCM_EVENT_STA_JOINED_SOFTAP", "group__group__wcm__enums.html#ggafada6a09a78bd0473f3daef54621567fa89bf3f175e03aabb5951138e229392c9", null ],
       [ "CY_WCM_EVENT_STA_LEFT_SOFTAP", "group__group__wcm__enums.html#ggafada6a09a78bd0473f3daef54621567fa54168b9c07156a695d1de5db77f03bcb", null ]
     ] ],

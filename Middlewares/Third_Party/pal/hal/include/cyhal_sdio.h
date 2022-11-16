@@ -2,14 +2,16 @@
 * \file cyhal_sdio.h
 *
 * \brief
-* Provides a high level interface for interacting with the Cypress SDIO interface.
+* Provides a high level interface for interacting with the Infineon SDIO interface.
 * This interface abstracts out the chip specific details. If any chip specific
 * functionality is necessary, or performance is critical the low level functions
 * can be used directly.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2020 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -56,27 +58,27 @@
 * \subsection subsection_sdio_use_case_1 Snippet1: Simple SDIO Initialization example
 * The following snippet shows how to initialize the SDIO interface with a pre-defined configuration
 *
-* \snippet sdio.c snippet_cyhal_sdio_simple_init
+* \snippet hal_sdio.c snippet_cyhal_sdio_simple_init
 *
 * \subsection subsection_sdio_use_case_2 Snippet2: Configure Interrupt
 * The following snippet shows how to configure an interrupt and handle specific events. Refer \ref cyhal_sdio_event_t for different types of events.
 *
-* \snippet sdio.c snippet_cyhal_sdio_interrupt_callback
+* \snippet hal_sdio.c snippet_cyhal_sdio_interrupt_callback
 *
 * \subsection subsection_sdio_use_case_3 Snippet3: Sending Commands
 * The following snippet shows how to send a particular command. Some steps of the card initialization have been provided for reference. Refer \ref cyhal_sdio_command_t for different commands.
 *
-* \snippet sdio.c snippet_cyhal_sdio_send_command
+* \snippet hal_sdio.c snippet_cyhal_sdio_send_command
 *
 * \subsection subsection_sdio_use_case_4 Snippet4: Bulk Data Transfer
 * The following snippet shows how to start a bulk data transfer.
 *
-* \snippet sdio.c snippet_cyhal_sdio_bulk_transfer
+* \snippet hal_sdio.c snippet_cyhal_sdio_bulk_transfer
 *
 * \subsection subsection_sdio_use_case_5 Snippet5: Async Data Transfer
 *
 * The following snippet shows how to start an async data transfer.
-* \snippet sdio.c snippet_cyhal_sdio_async_transfer
+* \snippet hal_sdio.c snippet_cyhal_sdio_async_transfer
 */
 
 #pragma once
@@ -94,23 +96,6 @@ extern "C" {
 *       Defines
 *******************************************************************************/
 
-#define CYHAL_SDIO_RET_NO_ERRORS           (0x00)    /**< No error*/
-#define CYHAL_SDIO_RET_NO_SP_ERRORS        (0x01)    /**< Non-specific error code*/
-#define CYHAL_SDIO_RET_CMD_CRC_ERROR       (0x02)    /**< There was a CRC error on the Command/Response*/
-#define CYHAL_SDIO_RET_CMD_IDX_ERROR       (0x04)    /**< The index for the command didn't match*/
-#define CYHAL_SDIO_RET_CMD_EB_ERROR        (0x08)    /**< There was an end bit error on the command*/
-#define CYHAL_SDIO_RET_DAT_CRC_ERROR       (0x10)    /**< There was a data CRC Error*/
-#define CYHAL_SDIO_RET_CMD_TIMEOUT         (0x20)    /**< The command didn't finish before the timeout period was over*/
-#define CYHAL_SDIO_RET_DAT_TIMEOUT         (0x40)    /**< The data didn't finish before the timeout period was over*/
-#define CYHAL_SDIO_RET_RESP_FLAG_ERROR     (0x80)    /**< There was an error in the resposne flag for command 53*/
-
-#define CYHAL_SDIO_CLOCK_ERROR             (0x100)    /**< Failed to initial clock for SDIO */
-#define CYHAL_SDIO_BAD_ARGUMENT            (0x200)    /**< Bad argument passed for SDIO */
-#define CYHAL_SDIO_SEMA_NOT_INITED         (0x400)    /**< Semaphore is not initiated */
-#define CYHAL_SDIO_FUNC_NOT_SUPPORTED      (0x800)    /**< Function is not supported */
-#define CYHAL_SDIO_CANCELED               (0x1000)    /**< Operation canceled */
-#define CYHAL_SDIO_PM_PENDING_ERROR       (0x2000)    /**< Transfer cannot be initiated after power mode transition allowed.*/
-
 /* HAL return value defines */
 
 /** \addtogroup group_hal_results_sdio SDIO HAL Results
@@ -120,23 +105,32 @@ extern "C" {
  */
 
 /** Incorrect parameter value define */
-#define CYHAL_SDIO_RSLT_ERR_BAD_PARAM               \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_SDIO, CYHAL_SDIO_BAD_ARGUMENT))
-/** Clock initialization error define */
-#define CYHAL_SDIO_RSLT_ERR_CLOCK                   \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_SDIO, CYHAL_SDIO_CLOCK_ERROR))
-/** Semaphore not initiated error define */
-#define CYHAL_SDIO_RSLT_ERR_SEMA_NOT_INITED         \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_SDIO, CYHAL_SDIO_SEMA_NOT_INITED))
-/** Error define based on SDIO lower function return value */
-#define CYHAL_SDIO_RSLT_ERR_FUNC_RET(retVal)        \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_SDIO, ((uint16_t)retVal)))
+#define CYHAL_SDIO_RSLT_ERR_BAD_PARAM                   \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SDIO, 0))
 /** Define to indicate canceled operation */
-#define CYHAL_SDIO_RSLT_CANCELED                    \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_SDIO, CYHAL_SDIO_CANCELED))
+#define CYHAL_SDIO_RSLT_CANCELED                        \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SDIO, 1))
 /** Transfers are not allowed after the SDIO block has allowed power mode transition. */
-#define CYHAL_SDIO_RSLT_ERR_PM_PENDING              \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_SDIO, CYHAL_SDIO_PM_PENDING_ERROR))
+#define CYHAL_SDIO_RSLT_ERR_PM_PENDING                  \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SDIO, 2))
+/** Requested feature is not supported on this hardware. */
+#define CYHAL_SDIO_RSLT_ERR_UNSUPPORTED                 \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SDIO, 3))
+/** Failure in command send. */
+#define CYHAL_SDIO_RSLT_ERR_COMMAND_SEND               \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SDIO, 4))
+/** SDIO Configuration error. */
+#define CYHAL_SDIO_RSLT_ERR_CONFIG                     \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SDIO, 5))
+/** Another SDIO IO volt select pin already configured. */
+#define CYHAL_SDIO_RSLT_ERR_IO_VOLT_SEL_PIN_CONFIGURED \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SDIO, 6))
+/** Error occured during I/O voltage switch sequence. */
+#define CYHAL_SDIO_RSLT_ERR_IO_VOLT_SWITCH_SEQ          \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SDIO, 7))
+/** Clock initialization error define */
+#define CYHAL_SDIO_RSLT_ERR_CLOCK                       \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SDIO, 7))
 
 /**
  * \}
@@ -154,6 +148,7 @@ typedef enum
     CYHAL_SDIO_CMD_SEND_RELATIVE_ADDR =  3, //!< Send a relative address
     CYHAL_SDIO_CMD_IO_SEND_OP_COND    =  5, //!< Send an OP IO
     CYHAL_SDIO_CMD_SELECT_CARD        =  7, //!< Send a card select
+    CYHAL_SDIO_CMD_VOLTAGE_SWITCH     = 11, //!< Voltage switch
     CYHAL_SDIO_CMD_GO_INACTIVE_STATE  = 15, //!< Go to inactive state
     CYHAL_SDIO_CMD_IO_RW_DIRECT       = 52, //!< Perform a direct read/write
     CYHAL_SDIO_CMD_IO_RW_EXTENDED     = 53, //!< Perform an extended read/write
@@ -162,9 +157,9 @@ typedef enum
 /** Types of transfer that can be performed */
 typedef enum
 {
-    CYHAL_READ, //!< Read from the card
-    CYHAL_WRITE //!< Write to the card
-} cyhal_transfer_t;
+    CYHAL_SDIO_XFER_TYPE_READ, //!< Read from the card
+    CYHAL_SDIO_XFER_TYPE_WRITE //!< Write to the card
+} cyhal_sdio_transfer_type_t;
 
 /** Types of events that could be asserted by SDIO */
 typedef enum {
@@ -193,6 +188,19 @@ typedef enum {
     CYHAL_SDIO_ALL_INTERRUPTS = 0x0E1FF,  //!< Is used to enable/disable all interrupts events
 } cyhal_sdio_event_t;
 
+/** I/O voltage levels */
+typedef enum
+{
+    CYHAL_SDIO_IO_VOLTAGE_3_3V                  = 0U,   //!< I/O voltage is 3.3V.
+    CYHAL_SDIO_IO_VOLTAGE_1_8V                  = 1U    //!< I/O voltage is 1.8V.
+} cyhal_sdio_io_voltage_t;
+
+/** SDIO I/O voltage select principle */
+typedef enum
+{
+    CYHAL_SDIO_IO_VOLT_ACTION_SWITCH_SEQ_ONLY   = 1U,   //!< HAL driver performs switching sequence (if voltage is being switched to 1.8V) and changes io_volt_sel pin level accordingly. No commands are being send to the card in this mode.
+    CYHAL_SDIO_IO_VOLT_ACTION_NONE              = 2U,   //!< I/O voltage is changed by changing io_volt_sel pin's level. No commands are being send to the card in this mode.
+} cyhal_sdio_io_volt_action_type_t;
 
 /*******************************************************************************
 *       Data Structures
@@ -258,7 +266,7 @@ cy_rslt_t cyhal_sdio_configure(cyhal_sdio_t *obj, const cyhal_sdio_cfg_t *config
  *
  * Returns \ref CY_RSLT_SUCCESS on successful operation. Refer \ref subsection_sdio_use_case_3 for more information.
  */
-cy_rslt_t cyhal_sdio_send_cmd(const cyhal_sdio_t *obj, cyhal_transfer_t direction, cyhal_sdio_command_t command, uint32_t argument, uint32_t* response);
+cy_rslt_t cyhal_sdio_send_cmd(cyhal_sdio_t *obj, cyhal_sdio_transfer_type_t direction, cyhal_sdio_command_t command, uint32_t argument, uint32_t* response);
 
 /** Performs a bulk data transfer. Sends \ref CYHAL_SDIO_CMD_IO_RW_EXTENDED command (CMD=53) which allows writing and reading of a large number of I/O registers with a single command.
  *
@@ -280,13 +288,11 @@ cy_rslt_t cyhal_sdio_send_cmd(const cyhal_sdio_t *obj, cyhal_transfer_t directio
  *
  * Returns \ref CY_RSLT_SUCCESS on successful operation. Refer \ref subsection_sdio_use_case_4 for more information.
  */
-cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t *obj, cyhal_transfer_t direction, uint32_t argument, const uint32_t* data, uint16_t length, uint32_t* response);
+cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t *obj, cyhal_sdio_transfer_type_t direction, uint32_t argument, const uint32_t* data, uint16_t length, uint32_t* response);
 
 /** Performs a bulk asynchronous data transfer by issuing the \ref CYHAL_SDIO_CMD_IO_RW_EXTENDED command(CMD=53) to the SDIO block.
  * After exiting this function the \ref CYHAL_SDIO_CMD_COMPLETE and \ref CYHAL_SDIO_XFER_COMPLETE events are not asserted.
  *
- * To complete the asynchronous transfer, call \ref cyhal_sdio_is_busy()
- * until it returns false.
  * The \ref CYHAL_SDIO_CMD_COMPLETE and \ref CYHAL_SDIO_XFER_COMPLETE events are enabled
  * after the asynchronous transfer is complete and in the condition they were
  * enabled in before the transfer operation started. Handle these events in the interrupt callback.
@@ -303,7 +309,7 @@ cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t *obj, cyhal_transfer_t direction
  *
  * Returns \ref CY_RSLT_SUCCESS on successful operation. Refer \ref subsection_sdio_use_case_5 for more information.
  */
-cy_rslt_t cyhal_sdio_transfer_async(cyhal_sdio_t *obj, cyhal_transfer_t direction, uint32_t argument, const uint32_t* data, uint16_t length);
+cy_rslt_t cyhal_sdio_transfer_async(cyhal_sdio_t *obj, cyhal_sdio_transfer_type_t direction, uint32_t argument, const uint32_t* data, uint16_t length);
 
 /** Checks if the specified SDIO is in use
  *
@@ -319,7 +325,7 @@ bool cyhal_sdio_is_busy(const cyhal_sdio_t *obj);
  *
  * Returns \ref CY_RSLT_SUCCESS on successful operation.
  */
-cy_rslt_t cyhal_sdio_abort_async(const cyhal_sdio_t *obj);
+cy_rslt_t cyhal_sdio_abort_async(cyhal_sdio_t *obj);
 
 /** Register an SDIO event callback to be invoked when the event is triggered.
  *
@@ -344,16 +350,28 @@ void cyhal_sdio_register_callback(cyhal_sdio_t *obj, cyhal_sdio_event_callback_t
  */
 void cyhal_sdio_enable_event(cyhal_sdio_t *obj, cyhal_sdio_event_t event, uint8_t intr_priority, bool enable);
 
-/*******************************************************************************
-* Backward compatibility macro. The following code is DEPRECATED and must
-* not be used in new projects
-*******************************************************************************/
-/** \cond INTERNAL */
-#define cyhal_sdio_register_irq        cyhal_sdio_register_callback
-#define cyhal_sdio_irq_enable(obj, event, enable)          cyhal_sdio_enable_event(obj, event, CYHAL_ISR_PRIORITY_DEFAULT, enable)
-typedef cyhal_sdio_event_t             cyhal_sdio_irq_event_t;
-typedef cyhal_sdio_event_callback_t    cyhal_sdio_irq_handler_t;
-/** \endcond */
+/** Sets the voltage level of the I/O lines.
+ *
+ * @param[in]  obj                  The SDIO object
+ * @param[in]  io_volt_sel          The pin connected to the io_volt_sel signal. This pin changes the logic level on the
+ *  sd_io_volt_sel line. It assumes that this line is used to control a regulator connected to the VDDIO of the MCU.
+ *  This regulator allows for switching between the 3.3V and 1.8V signaling. High level on the pin stands for
+ *  1.8V signaling, while low - for 3.3V.
+ *  This pin can be NC.
+ * @param[in]  io_voltage           I/O voltage to be set on lines
+ * @param[in]  io_switch_type       Defines how I/O voltage will be switched
+ * @return The status of the operation
+ */
+cy_rslt_t cyhal_sdio_set_io_voltage(cyhal_sdio_t *obj, cyhal_gpio_t io_volt_sel, cyhal_sdio_io_voltage_t io_voltage,
+                                    cyhal_sdio_io_volt_action_type_t io_switch_type);
+
+/** Initialize the SDIO peripheral using a configurator generated configuration struct.
+ *
+ * @param[in]  obj                  The SDIO peripheral to configure
+ * @param[in]  cfg                  Configuration structure generated by a configurator.
+ * @return The status of the operation
+ */
+cy_rslt_t cyhal_sdio_init_cfg(cyhal_sdio_t *obj, const cyhal_sdio_configurator_t *cfg);
 
 #if defined(__cplusplus)
 }

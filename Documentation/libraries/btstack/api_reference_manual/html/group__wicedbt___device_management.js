@@ -33,7 +33,7 @@ var group__wicedbt___device_management =
       [ "phy_opts", "structwiced__bt__ble__phy__preferences__t.html#a82442a587d6c18386382487c3deacd42", null ]
     ] ],
     [ "wiced_bt_ble_conn_params_t", "structwiced__bt__ble__conn__params__t.html", [
-      [ "role", "structwiced__bt__ble__conn__params__t.html#a4ead927fad433b02e7ec8d2d0b726d97", null ],
+      [ "role", "structwiced__bt__ble__conn__params__t.html#a0cddeab89b8d4fe08ab2170530e295cb", null ],
       [ "conn_interval", "structwiced__bt__ble__conn__params__t.html#a545ef7b2495e29e8e4812629fb135c44", null ],
       [ "conn_latency", "structwiced__bt__ble__conn__params__t.html#a9cca6008241e70f7882704bc6d9deb65", null ],
       [ "supervision_timeout", "structwiced__bt__ble__conn__params__t.html#ab7c6cee604c76191bd70926d8b40562e", null ]
@@ -121,13 +121,35 @@ var group__wicedbt___device_management =
       [ "connection_handle", "structwiced__bt__ble__channel__sel__algo__event__data__t.html#a8daf68fc5daf3ef655aefc3d3a137761", null ],
       [ "channel_sel_algo", "structwiced__bt__ble__channel__sel__algo__event__data__t.html#a0b62665bbf5c518ee37b1b498d06db3d", null ]
     ] ],
+    [ "wiced_bt_ble_biginfo_adv_report_t", "structwiced__bt__ble__biginfo__adv__report__t.html", [
+      [ "sync_handle", "structwiced__bt__ble__biginfo__adv__report__t.html#ac9b57c2212c2dd93bd4c566c3db0e3bb", null ],
+      [ "num_bis", "structwiced__bt__ble__biginfo__adv__report__t.html#abf188803914725b2e0e5f0249df5edca", null ],
+      [ "number_of_subevents", "structwiced__bt__ble__biginfo__adv__report__t.html#ab2b3c1381bbbd5ee351b7bb72e682056", null ],
+      [ "iso_interval", "structwiced__bt__ble__biginfo__adv__report__t.html#ac94a297de2040d21d503f5ae1bf27b96", null ],
+      [ "burst_number", "structwiced__bt__ble__biginfo__adv__report__t.html#a45c587d970345865089e8180c4e4249f", null ],
+      [ "pretransmission_offset", "structwiced__bt__ble__biginfo__adv__report__t.html#a979bf71115f27990eed34bc2a200482b", null ],
+      [ "immediate_repetition_count", "structwiced__bt__ble__biginfo__adv__report__t.html#a60f733503c6680e7b0c8f57953fa747d", null ],
+      [ "max_pdu", "structwiced__bt__ble__biginfo__adv__report__t.html#aa3ea9eb3c4f4db8679bc7ceb1592aa37", null ],
+      [ "sdu_interval", "structwiced__bt__ble__biginfo__adv__report__t.html#ac9624a8c7b520ca3c4ed89295d761c75", null ],
+      [ "max_sdu", "structwiced__bt__ble__biginfo__adv__report__t.html#a5c1cbf9eff09de70d9dca1fc47251950", null ],
+      [ "phy", "structwiced__bt__ble__biginfo__adv__report__t.html#ab0e469d54f1453dfd1a97c26dc3aa4a1", null ],
+      [ "framing", "structwiced__bt__ble__biginfo__adv__report__t.html#a5463deda46476a790bbc274d37864fc3", null ],
+      [ "encryption", "structwiced__bt__ble__biginfo__adv__report__t.html#a0070c3c6850fee141440bc469f59ed3c", null ]
+    ] ],
+    [ "wiced_bt_ble_periodic_adv_sync_transfer_event_data_t", "structwiced__bt__ble__periodic__adv__sync__transfer__event__data__t.html", [
+      [ "sync_data", "structwiced__bt__ble__periodic__adv__sync__transfer__event__data__t.html#a6bc30dd72d2ef070132628751757d60b", null ],
+      [ "conn_handle", "structwiced__bt__ble__periodic__adv__sync__transfer__event__data__t.html#a0f52b7e4d2b5ef71a14bca94b0398f42", null ],
+      [ "service_data", "structwiced__bt__ble__periodic__adv__sync__transfer__event__data__t.html#ad03c7a0ae7e9dcaa6d1ac97c5faac164", null ]
+    ] ],
     [ "wiced_bt_ble_adv_ext_event_data_t", "unionwiced__bt__ble__adv__ext__event__data__t.html", [
       [ "sync_establish", "unionwiced__bt__ble__adv__ext__event__data__t.html#a78245f65a9e349e6a00167b11b887785", null ],
       [ "periodic_adv_report", "unionwiced__bt__ble__adv__ext__event__data__t.html#ad0533039a59e9f8863df9ee2d1566440", null ],
       [ "sync_handle", "unionwiced__bt__ble__adv__ext__event__data__t.html#aca96e84924286e2a9d23be8de7891769", null ],
       [ "adv_set_terminated", "unionwiced__bt__ble__adv__ext__event__data__t.html#af36006a0bfaf1b7ea385b55ad2b21243", null ],
       [ "scan_req_received", "unionwiced__bt__ble__adv__ext__event__data__t.html#a51bf2b3cb231d7b157ca5f4bfe895081", null ],
-      [ "channel_sel_algo", "unionwiced__bt__ble__adv__ext__event__data__t.html#a20357be459fe0aafc6b485c42b6cd3d8", null ]
+      [ "channel_sel_algo", "unionwiced__bt__ble__adv__ext__event__data__t.html#a20357be459fe0aafc6b485c42b6cd3d8", null ],
+      [ "biginfo_adv_report", "unionwiced__bt__ble__adv__ext__event__data__t.html#a16f522d07102a2440787c6a55a37519a", null ],
+      [ "sync_transfer", "unionwiced__bt__ble__adv__ext__event__data__t.html#a183e2c89def5a638202069283cecdb06", null ]
     ] ],
     [ "wiced_bt_ble_ext_scan_config_t", "structwiced__bt__ble__ext__scan__config__t.html", [
       [ "scanning_phys", "structwiced__bt__ble__ext__scan__config__t.html#a58cab73084222c1a13ac5715c7e95249", null ],
@@ -193,7 +215,7 @@ var group__wicedbt___device_management =
     [ "wiced_bt_dev_ble_pairing_info_t", "structwiced__bt__dev__ble__pairing__info__t.html", [
       [ "status", "structwiced__bt__dev__ble__pairing__info__t.html#a5299b4f2e1f27190b8a651ae52e0b037", null ],
       [ "reason", "structwiced__bt__dev__ble__pairing__info__t.html#a36be912b21123eefa449ab08628f5804", null ],
-      [ "sec_level", "structwiced__bt__dev__ble__pairing__info__t.html#a3049c1e5a5ffc5d9673ce32003f4c6e2", null ],
+      [ "sec_level", "structwiced__bt__dev__ble__pairing__info__t.html#aa29e9ca6e0626e1ca64c3f783174462a", null ],
       [ "is_pair_cancel", "structwiced__bt__dev__ble__pairing__info__t.html#aada60ce4522667e668b8264113625b8b", null ],
       [ "resolved_bd_addr", "structwiced__bt__dev__ble__pairing__info__t.html#a88e5f6740ea4316b0df248335bd72d38", null ],
       [ "resolved_bd_addr_type", "structwiced__bt__dev__ble__pairing__info__t.html#adbeea793c2327cf4ca2bb2eb26679524", null ]
@@ -237,6 +259,13 @@ var group__wicedbt___device_management =
       [ "bd_address", "structwiced__bt__ble__phy__update__t.html#a4ace94166b3fc214d4006d302167e2fa", null ],
       [ "tx_phy", "structwiced__bt__ble__phy__update__t.html#a041a5bb52786e8570e52bd4d7f867e58", null ],
       [ "rx_phy", "structwiced__bt__ble__phy__update__t.html#a23946a723394464319005031b32f21fd", null ]
+    ] ],
+    [ "wiced_bt_ble_phy_data_length_update_t", "structwiced__bt__ble__phy__data__length__update__t.html", [
+      [ "bd_address", "structwiced__bt__ble__phy__data__length__update__t.html#ab14bd19f2d2621fb5e33b55b80713bb4", null ],
+      [ "max_tx_octets", "structwiced__bt__ble__phy__data__length__update__t.html#af1fa694a924974eccb8a9e859531223e", null ],
+      [ "max_tx_time", "structwiced__bt__ble__phy__data__length__update__t.html#ae256c48792b9a6065c4f7058607baa83", null ],
+      [ "max_rx_octets", "structwiced__bt__ble__phy__data__length__update__t.html#a5bfb5c1db9bdfbefe58d5c885ce1a482", null ],
+      [ "max_rx_time", "structwiced__bt__ble__phy__data__length__update__t.html#ad2dd6236627d144219f3f649a5bf520d", null ]
     ] ],
     [ "wiced_bt_ble_multi_adv_response_t", "structwiced__bt__ble__multi__adv__response__t.html", [
       [ "opcode", "structwiced__bt__ble__multi__adv__response__t.html#afbb54fc2fd1ed8a94aae09442e909dae", null ],
@@ -302,7 +331,7 @@ var group__wicedbt___device_management =
       [ "rand", "structwiced__bt__ble__keys__t.html#ab99c79cd2bea9e7435cef4c08462f207", null ],
       [ "ediv", "structwiced__bt__ble__keys__t.html#a511938917c8b06f459669f3ce40e66fb", null ],
       [ "div", "structwiced__bt__ble__keys__t.html#a46b7da7405e0f7938d8cd78581dbbc85", null ],
-      [ "sec_level", "structwiced__bt__ble__keys__t.html#ae12ce851ce60184837219092db590571", null ],
+      [ "sec_level", "structwiced__bt__ble__keys__t.html#a1d484093752cdb946808d4c0ecaf98b2", null ],
       [ "key_size", "structwiced__bt__ble__keys__t.html#a2b936133c85bf32a7096c67e409a2b4d", null ],
       [ "srk_sec_level", "structwiced__bt__ble__keys__t.html#a610a14fb1b80dd98fa56873a60ed81e0", null ],
       [ "local_csrk_sec_level", "structwiced__bt__ble__keys__t.html#ab4071e19db249166f494869b5b93a941", null ],
@@ -409,8 +438,10 @@ var group__wicedbt___device_management =
       [ "sco_connection_change", "unionwiced__bt__management__evt__data__t.html#acc9e3283db2bde3a418c34a1c23c0c42", null ],
       [ "ble_connection_param_update", "unionwiced__bt__management__evt__data__t.html#a8aeabca3bf09a32ea4590efd9b0a24cd", null ],
       [ "ble_phy_update_event", "unionwiced__bt__management__evt__data__t.html#a840cc7fa1679b24d48031a1693ac920b", null ],
-      [ "ble_multi_adv_response_event", "unionwiced__bt__management__evt__data__t.html#a8871dd5b4fb2d4c67bfa22056119f518", null ]
+      [ "ble_multi_adv_response_event", "unionwiced__bt__management__evt__data__t.html#a8871dd5b4fb2d4c67bfa22056119f518", null ],
+      [ "ble_data_length_update_event", "unionwiced__bt__management__evt__data__t.html#a05673ca23e277594224f12252963fa9a", null ]
     ] ],
+    [ "BTM_BLE_LEGACY_AD_DATA_LEN", "group__wicedbt___device_management.html#gae3ba16e014add5799d4b298344cb5984", null ],
     [ "BTM_AFH_CHNL_MAP_SIZE", "group__wicedbt___device_management.html#ga4549fd128a3e5a4c0b7499a154130377", null ],
     [ "BLE_CHANNEL_MAP_LEN", "group__wicedbt___device_management.html#ga8e87c05d9589c4b55178ec4ce7685db2", null ],
     [ "BTM_BLE_DEFAULT_ADVERT_CHNL_MAP", "group__wicedbt___device_management.html#ga502320b4a85ebeee1cd6d37d6b6d1048", null ],
@@ -473,6 +504,9 @@ var group__wicedbt___device_management =
     [ "BTM_PIN_TYPE_FIXED", "group__wicedbt___device_management.html#ga48c13c0c67f2759e54f0ac215832ad16", null ],
     [ "BTM_SECURITY_KEY_DATA_LEN", "group__wicedbt___device_management.html#ga286fa588b1ba4168b7a3ab24b105e720", null ],
     [ "BTM_SECURITY_LOCAL_KEY_DATA_LEN", "group__wicedbt___device_management.html#gaf4b1d1b54dc1c34075463a86c083f4b8", null ],
+    [ "SMP_SEC_NONE", "group__wicedbt___device_management.html#ga5b389d0200be0a871a4258d88a8ae79c", null ],
+    [ "SMP_SEC_UNAUTHENTICATE", "group__wicedbt___device_management.html#ga70362ba7d33801032f7fae4f5c66c6c8", null ],
+    [ "SMP_SEC_AUTHENTICATED", "group__wicedbt___device_management.html#ga013f9abd01f24129a77253a4c980ccc8", null ],
     [ "BTM_OOB_STATE", "group__wicedbt___device_management.html#gabcea397e642a42cabcd6677fbec034e3", null ],
     [ "BTM_OOB_REQ_TYPE", "group__wicedbt___device_management.html#gaeb78697dc6da09abfcc724adc565f44b", null ],
     [ "BTM_LE_KEY_TYPES", "group__wicedbt___device_management.html#ga2fe796ec0fca19ebc3660435ec8fb3c4", null ],
@@ -516,6 +550,7 @@ var group__wicedbt___device_management =
     [ "wiced_bt_ble_ext_scan_filter_duplicate_t", "group__wicedbt___device_management.html#ga873f6d031154b1a214cb56b873991983", null ],
     [ "wiced_bt_ble_ext_filter_policy_t", "group__wicedbt___device_management.html#gaf0ef601e684add601e7fe71fb4a6cfb0", null ],
     [ "wiced_bt_ble_adv_sync_options_t", "group__wicedbt___device_management.html#ga9ca488f9e3a161d2d37dccb4f5992c7e", null ],
+    [ "wiced_bt_ble_periodic_adv_sync_transfer_mode_t", "group__wicedbt___device_management.html#ga0fcc30537c71955222aa684d4529f488", null ],
     [ "wiced_bt_ble_periodic_adv_sync_handle_t", "group__wicedbt___device_management.html#ga70c1c3632c806556629a4009d009ed8d", null ],
     [ "wiced_bt_ble_adv_report_event_mask_t", "group__wicedbt___device_management.html#gaeef30254c858058c82419185b0ddfb19", null ],
     [ "wiced_bt_ble_ext_adv_report_count_t", "group__wicedbt___device_management.html#gae39922d547c599431fbcf3ce82b9f905", null ],
@@ -523,10 +558,10 @@ var group__wicedbt___device_management =
     [ "wiced_bt_ble_connection_handle_t", "group__wicedbt___device_management.html#gaae7ecaff2127566c228e878f4377f0fc", null ],
     [ "wiced_bt_ble_channel_sel_algo_t", "group__wicedbt___device_management.html#gad95b6f7034311b47b240b8a711001988", null ],
     [ "wiced_bt_ble_adv_ext_event_cb_fp_t", "group__wicedbt___device_management.html#gab1999e94016bb12b71aa6cee0695f356", null ],
-    [ "wiced_bt_dev_status_t", "group__wicedbt___device_management.html#gaebfc7a7f17241ffdaf1a70efc43ffb57", null ],
     [ "wiced_bt_dev_io_cap_t", "group__wicedbt___device_management.html#ga4c2f9492aecc7959d58856bd53848d81", null ],
     [ "wiced_bt_dev_auth_req_t", "group__wicedbt___device_management.html#ga91a2b02a829b05c885362a8f86c27dfb", null ],
     [ "wiced_bt_dev_le_auth_req_t", "group__wicedbt___device_management.html#ga6fbe43cbb7c3586833c3c5477e751d5a", null ],
+    [ "wiced_bt_smp_sec_level_t", "group__wicedbt___device_management.html#gaca4147177a51487244e4fb3876dd1986", null ],
     [ "wiced_bt_dev_oob_data_t", "group__wicedbt___device_management.html#gac5f7c4c6d1b30b26d34c0144e96de38c", null ],
     [ "wiced_bt_dev_oob_data_req_type_t", "group__wicedbt___device_management.html#ga70542f339840a3828aa2559f044f6621", null ],
     [ "wiced_bt_dev_le_key_type_t", "group__wicedbt___device_management.html#gae2140187208ce279eae8d9248a2e8a0e", null ],
@@ -688,6 +723,11 @@ var group__wicedbt___device_management =
       [ "WICED_BT_BLE_IGNORE_SYNC_TO_PERIODIC_ADV_LIST", "group__wicedbt___device_management.html#gga5f6ce070f4dc0efbf5a1ad4aeb54dc26a65301d81e398ef6d8eab8cf8492b89c3", null ],
       [ "WICED_BT_BLE_SYNC_TO_PERIODIC_ADV_LIST", "group__wicedbt___device_management.html#gga5f6ce070f4dc0efbf5a1ad4aeb54dc26ab7cf10c331eb70f50a12a15cda4ef35b", null ]
     ] ],
+    [ "wiced_bt_ble_periodic_adv_sync_transfer_mode_e", "group__wicedbt___device_management.html#gad87f6ef7689d0d4d3cdaf1a43b4032a6", [
+      [ "WICED_BT_BLE_IGNORE_PA_SYNC_TRANSFER_EVT", "group__wicedbt___device_management.html#ggad87f6ef7689d0d4d3cdaf1a43b4032a6a027f7f75ae4e289bf26fb3bddcc1577d", null ],
+      [ "WICED_BT_BLE_ENABLE_PA_SYNC_TRANSFER_DISABLE_PA_REPORT_EVT", "group__wicedbt___device_management.html#ggad87f6ef7689d0d4d3cdaf1a43b4032a6a7f4f9bb5a98ef9c9c5862d55e874e6ff", null ],
+      [ "WICED_BT_BLE_ENABLE_PA_SYNC_TRANSFER_ENABLE_PA_REPORT_EVT", "group__wicedbt___device_management.html#ggad87f6ef7689d0d4d3cdaf1a43b4032a6aa0a144bf54726daeab19fdca5d168040", null ]
+    ] ],
     [ "wiced_bt_ble_ext_adv_report_count_e", "group__wicedbt___device_management.html#ga8739336a6d1ebba1faaf824bc5c1024d", [
       [ "ADV_REP_EVT_COUNT_MIN", "group__wicedbt___device_management.html#gga8739336a6d1ebba1faaf824bc5c1024da2e150f9aebb639d8b399e3063d3db808", null ],
       [ "ADV_REP_EVT_COUNT_MAX", "group__wicedbt___device_management.html#gga8739336a6d1ebba1faaf824bc5c1024da7e93b8fb79eb54fffb0ef7aae25a3bbc", null ]
@@ -703,7 +743,9 @@ var group__wicedbt___device_management =
       [ "WICED_BT_BLE_PERIODIC_ADV_SYNC_LOST_EVENT", "group__wicedbt___device_management.html#gga748b7c8c9f7711162f8def9f5408a794aaaf1d4bf45583f02dda32444fc82aff7", null ],
       [ "WICED_BT_BLE_ADV_SET_TERMINATED_EVENT", "group__wicedbt___device_management.html#gga748b7c8c9f7711162f8def9f5408a794a7c965ceaa4c4c40f6ac8c8da92361fde", null ],
       [ "WICED_BT_BLE_SCAN_REQUEST_RECEIVED_EVENT", "group__wicedbt___device_management.html#gga748b7c8c9f7711162f8def9f5408a794a9c8f066bee4af20cde89bffa2f0a5be0", null ],
-      [ "WICED_BT_BLE_CHANNEL_SEL_ALGO_EVENT", "group__wicedbt___device_management.html#gga748b7c8c9f7711162f8def9f5408a794a5d7b21cd7c34e47c01ff033d73d7a26d", null ]
+      [ "WICED_BT_BLE_CHANNEL_SEL_ALGO_EVENT", "group__wicedbt___device_management.html#gga748b7c8c9f7711162f8def9f5408a794a5d7b21cd7c34e47c01ff033d73d7a26d", null ],
+      [ "WICED_BT_BLE_BIGINFO_ADV_REPORT_EVENT", "group__wicedbt___device_management.html#gga748b7c8c9f7711162f8def9f5408a794addd59b434c4315dcdfee99c1a211a9cd", null ],
+      [ "WICED_BT_BLE_PERIODIC_ADV_SYNC_TRANSFER_EVENT", "group__wicedbt___device_management.html#gga748b7c8c9f7711162f8def9f5408a794a526894e0785581c1c109031c06f18536", null ]
     ] ],
     [ "wiced_bt_sec_flags_e", "group__wicedbt___device_management.html#ga81db582b115f4586be18f142d054b0ac", [
       [ "BTM_SEC_LINK_ENCRYPTED", "group__wicedbt___device_management.html#gga81db582b115f4586be18f142d054b0aca7d745a07a203cb4d2102a2c622e046d5", null ],
@@ -848,7 +890,8 @@ var group__wicedbt___device_management =
       [ "BTM_BLE_CONNECTION_PARAM_UPDATE", "group__wicedbt___device_management.html#gga4a427fc37161f2041016d7936399be65a6e6df529fc0869b66488a4609deb4d0d", null ],
       [ "BTM_BLE_PHY_UPDATE_EVT", "group__wicedbt___device_management.html#gga4a427fc37161f2041016d7936399be65ab6f87a638df97b57c0a5a2a77a0e1b97", null ],
       [ "BTM_LPM_STATE_LOW_POWER", "group__wicedbt___device_management.html#gga4a427fc37161f2041016d7936399be65a965a79b8ed951bb08083f3072b7d8f16", null ],
-      [ "BTM_MULTI_ADVERT_RESP_EVENT", "group__wicedbt___device_management.html#gga4a427fc37161f2041016d7936399be65afccff06434be32f2e31fae45a59fb0bc", null ]
+      [ "BTM_MULTI_ADVERT_RESP_EVENT", "group__wicedbt___device_management.html#gga4a427fc37161f2041016d7936399be65afccff06434be32f2e31fae45a59fb0bc", null ],
+      [ "BTM_BLE_DATA_LENGTH_UPDATE_EVENT", "group__wicedbt___device_management.html#gga4a427fc37161f2041016d7936399be65a4317545a7c310a63a2ff6a77143db123", null ]
     ] ],
     [ "wiced_bt_dev_link_quality_stats_param_e", "group__wicedbt___device_management.html#gad3ae6f503bc223e42c68e23a701af1e2", [
       [ "WICED_CLEAR_LINK_QUALITY_STATS", "group__wicedbt___device_management.html#ggad3ae6f503bc223e42c68e23a701af1e2a23a526630f1fa55ecce6845c6f909045", null ],

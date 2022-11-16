@@ -16,6 +16,8 @@ The this release of the RTOS Abstraction API includes support for the following:
     * ThreadX
 
 ### What Changed?
+#### v1.5.0
+* Added additional parameter validation for ThreadX
 #### v1.4.0
 * Added new thread functions: cy_rtos_wait_thread_notification and cy_rtos_set_thread_notification
 * Minor documentation updates for clarity
@@ -53,19 +55,19 @@ This version of the RTOS Abstraction API was validated for compatibility with th
 
 | Software and Tools                        | Version |
 | :---                                      | :----:  |
-| ModusToolbox Software Environment         | 2.2.1   |
-| GCC Compiler                              | 9.3.1   |
+| ModusToolbox™ Software Environment        | 2.4.0   |
+| GCC Compiler                              | 10.3.1  |
 | IAR Compiler                              | 8.4     |
 | ARM Compiler                              | 6.11    |
 
-Minimum required ModusToolbox Software Environment: v2.0
+Minimum required ModusToolbox™ Software Environment: v2.0
 
 ### More information
 Use the following links for more information, as needed:
-* [API Reference Guide](https://cypresssemiconductorco.github.io/abstraction-rtos/html/modules.html)
+* [API Reference Guide](https://infineon.github.io/abstraction-rtos/html/modules.html)
 * [Cypress Semiconductor, an Infineon Technologies Company](http://www.cypress.com)
-* [Cypress Semiconductor GitHub](https://github.com/cypresssemiconductorco)
-* [ModusToolbox](https://www.cypress.com/products/modustoolbox-software-environment)
+* [Infineon GitHub](https://github.com/infineon)
+* [ModusToolbox™](https://www.cypress.com/products/modustoolbox-software-environment)
 
 ---
-© Cypress Semiconductor Corporation, 2019-2021.
+© Cypress Semiconductor Corporation (an Infineon company) or an affiliate of Cypress Semiconductor Corporation, 2019-2021.

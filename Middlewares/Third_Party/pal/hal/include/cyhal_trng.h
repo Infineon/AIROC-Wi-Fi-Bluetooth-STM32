@@ -2,14 +2,16 @@
 * \file cyhal_trng.h
 *
 * \brief
-* Provides a high level interface for interacting with the Cypress True Random
+* Provides a high level interface for interacting with the Infineon True Random
 * Number Generator. This interface abstracts out the chip specific details. If
 * any chip specific functionality is necessary, or performance is critical the
 * low level functions can be used directly.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2020 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,6 +41,9 @@
 * * Generated sequences of numbers cannot be duplicated by running the process again
 * * Uses polynomial generators with fixed and programmable polynomials
 *
+* \note This driver is not intended to be used as a security library. If a full security library
+* is needed something like Mbed TLS should be used instead.
+*
 * \section subsection_trng_quickstart Quick Start
 *
 * \ref cyhal_trng_init initializes the TRNG and passes a pointer to the **TRNG** block through the **obj** object of  type \ref cyhal_trng_t.
@@ -48,7 +53,7 @@
 * \subsection subsection_trng_use_case_1 Simple TRNG number generation example
 * The following snippet initializes a TRNG and generates a true random number.
 *
-* \snippet trng.c snippet_cyhal_trng_simple_init
+* \snippet hal_trng.c snippet_cyhal_trng_simple_init
 */
 
 #pragma once
@@ -70,12 +75,12 @@ extern "C" {
 
 /** An invalid argument was passed to a function. */
 #define CYHAL_TRNG_RSLT_ERR_BAD_ARGUMENT                \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_TRNG, 0))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_TRNG, 0))
 /** Hardware error in the crypto block. This will only occur if the Ring oscillators in the TRNG generator are explicitly
  *  disabled during TRNG generation.
  */
 #define CYHAL_TRNG_RSLT_ERR_HW                          \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_TRNG, 1))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_TRNG, 1))
 
 /**
  * \}

@@ -6,6 +6,9 @@ var group__group__json__structures =
       [ "value_type", "structcy___j_s_o_n__object__t.html#aedad7442cc358e4b767a8f8f5faa2760", null ],
       [ "value", "structcy___j_s_o_n__object__t.html#a34f0f02e90f2e91cfc1c20ced4c15698", null ],
       [ "value_length", "structcy___j_s_o_n__object__t.html#ae919753ffd0369c83f19a35f7e32ca49", null ],
+      [ "intval", "structcy___j_s_o_n__object__t.html#a581478455266863577d8315930e94716", null ],
+      [ "floatval", "structcy___j_s_o_n__object__t.html#a6f6fb3d06c83ae12f59aed0db13878aa", null ],
+      [ "boolval", "structcy___j_s_o_n__object__t.html#aafe974b9e8c4f5e5c0d3cec73bfd456b", null ],
       [ "parent_object", "structcy___j_s_o_n__object__t.html#a9bbdb5554e6f9f4b25dcfc7ca602cd9d", null ]
     ] ],
     [ "cy_JSON_callback_t", "group__group__json__structures.html#ga4a3f55927a78d0c526b4d3343c854efa", null ]

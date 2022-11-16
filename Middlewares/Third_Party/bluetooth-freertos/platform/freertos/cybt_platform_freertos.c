@@ -6,7 +6,9 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2019 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -176,6 +178,11 @@ void cybt_platform_init(void)
                                false
                               );
     cyhal_lptimer_register_callback(&bt_stack_lptimer, &platform_stack_lptimer_cback, NULL);
+    cyhal_lptimer_enable_event(&bt_stack_lptimer,
+                               CYHAL_LPTIMER_COMPARE_MATCH,
+                               CYHAL_ISR_PRIORITY_DEFAULT,
+                               true
+                              );
 
     lptimer_freq_shift = calculate_lptimer_freq_shift(CY_CFG_SYSCLK_CLKLF_FREQ_HZ);
 
@@ -214,11 +221,6 @@ void cybt_platform_deinit(void)
 void cybt_platform_sleep_lock(void)
 {
 #if( configUSE_TICKLESS_IDLE != 0 )
-    cyhal_uart_event_t enable_irq_event = (cyhal_uart_event_t)(CYHAL_UART_IRQ_RX_DONE
-                                           | CYHAL_UART_IRQ_TX_DONE
-                                           | CYHAL_UART_IRQ_RX_NOT_EMPTY
-                                          );
-
     cybt_platform_disable_irq();
 
     if(false == platform_sleep_lock)
@@ -226,15 +228,6 @@ void cybt_platform_sleep_lock(void)
         cyhal_syspm_lock_deepsleep();
 
         platform_sleep_lock = true;
-
-        if(hci_uart_cb.inited)
-        {
-            cyhal_uart_enable_event(&hci_uart_cb.hal_obj,
-                                    enable_irq_event,
-                                    CYHAL_ISR_PRIORITY_DEFAULT,
-                                    true
-                                   );
-        }
     }
 
     cybt_send_action_to_sleep_task(SLEEP_ACT_STOP_IDLE_TIMER);
@@ -527,10 +520,17 @@ cybt_result_t cybt_platform_hci_open(void)
             return  CYBT_ERR_GENERIC;
         }
 
+#if (CYHAL_API_VERSION >= 2)
+        static cyhal_gpio_callback_data_t cb_data = { .callback = cybt_host_wake_irq_handler, .callback_arg = NULL };
+        cyhal_gpio_register_callback(p_bt_platform_cfg->controller_config.sleep_mode.host_wakeup_pin,
+                                     &cb_data
+                                    );
+#else
         cyhal_gpio_register_callback(p_bt_platform_cfg->controller_config.sleep_mode.host_wakeup_pin,
                                      cybt_host_wake_irq_handler,
                                      NULL
                                     );
+#endif
         cyhal_gpio_enable_event(p_bt_platform_cfg->controller_config.sleep_mode.host_wakeup_pin,
                                 CYHAL_GPIO_IRQ_BOTH,
                                 CYHAL_ISR_PRIORITY_DEFAULT,
@@ -587,12 +587,24 @@ cybt_result_t cybt_platform_hci_open(void)
     bt_uart_cfg.parity = p_bt_platform_cfg->hci_config.hci.hci_uart.parity;
     bt_uart_cfg.rx_buffer = NULL;
     bt_uart_cfg.rx_buffer_size = 0;
+
+#if (CYHAL_API_VERSION >= 2)
+    result = cyhal_uart_init(&hci_uart_cb.hal_obj,
+                             p_bt_platform_cfg->hci_config.hci.hci_uart.uart_tx_pin,
+                             p_bt_platform_cfg->hci_config.hci.hci_uart.uart_rx_pin,
+                             p_bt_platform_cfg->hci_config.hci.hci_uart.uart_cts_pin,
+                             p_bt_platform_cfg->hci_config.hci.hci_uart.uart_rts_pin,
+                             NULL,
+                             &bt_uart_cfg
+                            );
+#else
     result = cyhal_uart_init(&hci_uart_cb.hal_obj,
                              p_bt_platform_cfg->hci_config.hci.hci_uart.uart_tx_pin,
                              p_bt_platform_cfg->hci_config.hci.hci_uart.uart_rx_pin,
                              NULL,
                              &bt_uart_cfg
                             );
+#endif
     if(CY_RSLT_SUCCESS != result)
     {
         HCIDRV_TRACE_ERROR("hci_open(): init error (0x%x)", result);
@@ -614,10 +626,14 @@ cybt_result_t cybt_platform_hci_open(void)
 
     if(true == p_bt_platform_cfg->hci_config.hci.hci_uart.flow_control)
     {
-        result= cyhal_uart_set_flow_control(&hci_uart_cb.hal_obj,
+    #if (CYHAL_API_VERSION >= 2)
+        result = cyhal_uart_enable_flow_control(&hci_uart_cb.hal_obj, true, true);
+    #else
+        result = cyhal_uart_set_flow_control(&hci_uart_cb.hal_obj,
                                             p_bt_platform_cfg->hci_config.hci.hci_uart.uart_cts_pin,
                                             p_bt_platform_cfg->hci_config.hci.hci_uart.uart_rts_pin
                                            );
+    #endif
         if(CY_RSLT_SUCCESS != result)
         {
             HCIDRV_TRACE_ERROR("hci_open(): Set flow control failed (0x%x)",
@@ -851,10 +867,17 @@ cybt_result_t cybt_platform_hci_close(void)
                                 CYHAL_ISR_PRIORITY_DEFAULT,
                                 true
                                );
+ #if (CYHAL_API_VERSION >= 2)
+        cyhal_gpio_callback_data_t cb_data = { .callback = NULL, .callback_arg = NULL };
+        cyhal_gpio_register_callback(p_bt_platform_cfg->controller_config.sleep_mode.host_wakeup_pin,
+                                     &cb_data
+                                    );
+#else
         cyhal_gpio_register_callback(p_bt_platform_cfg->controller_config.sleep_mode.host_wakeup_pin,
                                      NULL,
                                      NULL
                                     );
+#endif
     }
 
     if(NC != p_bt_platform_cfg->controller_config.sleep_mode.device_wakeup_pin)
@@ -979,4 +1002,16 @@ void cybt_sleep_timer_task(cy_thread_arg_t arg)
     }
     cy_rtos_exit_thread();
 }
+
+void cybt_platform_terminate_sleep_thread(void)
+{
+    cy_rslt_t cy_result;
+
+    cy_result = cy_rtos_join_thread(&sleep_timer_task);
+    if(CY_RSLT_SUCCESS != cy_result)
+    {
+        MAIN_TRACE_ERROR("terminate Sleep thread failed 0x%x\n", cy_result);
+    }
+}
+
 #endif

@@ -48,11 +48,6 @@
 extern "C" {
 #endif
 
-/** Bad argument error */
-#define CYHAL_LPTIMER_RSLT_ERR_BAD_ARGUMENT              \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_WDT, 1))
-
-
 /***************************************************************************************************
  *       Functions declarations
  **************************************************************************************************/

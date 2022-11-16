@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -46,6 +46,7 @@
 #include "cy_lwip_error.h"
 #include "cyabs_rtos.h"
 #include "cy_lwip_log.h"
+#include <string.h>
 
 /******************************************************
  *                      Macros
@@ -448,17 +449,17 @@ static void cy_dhcp_thread_func(cy_thread_arg_t thread_input)
             {
                 /* REQUEST command - send back ACK or NAK */
                 uint32_t                temp;
-                uint32_t                *server_id_req;
                 dhcp_header_t           *reply_header;
                 uint16_t                available_space;
                 cy_lwip_mac_addr_t      client_mac_address;
                 cy_lwip_ip_address_t    given_ip_address;
                 cy_lwip_ip_address_t    requested_ip_address;
                 bool                    next_avail_ip_address_used = false;
+                const uint8_t           *find_option_ptr;
 
                 /* Check that the REQUEST is for this server */
-                server_id_req = (uint32_t*) find_option( request_header, DHCP_SERVER_IDENTIFIER_OPTION_CODE );
-                if ( ( server_id_req != NULL ) && ( GET_IPV4_ADDRESS( local_ip_address ) != htobe32(*server_id_req) ) )
+                find_option_ptr = find_option( request_header, DHCP_SERVER_IDENTIFIER_OPTION_CODE );
+                if ( ( find_option_ptr != NULL ) && ( GET_IPV4_ADDRESS( local_ip_address ) != htobe32( LWIP_MAKEU32( find_option_ptr[3], find_option_ptr[2], find_option_ptr[1], find_option_ptr[0] ) ) ) )
                 {
                     break; /* Server ID does not match local IP address */
                 }
@@ -479,7 +480,11 @@ static void cy_dhcp_thread_func(cy_thread_arg_t thread_input)
 
                 /* Locate the requested address in the options and keep requested address */
                 requested_ip_address.version = CY_LWIP_IP_VER_V4;
-                requested_ip_address.ip.v4   = ntohl(*(uint32_t*)find_option( request_header, DHCP_REQUESTED_IP_ADDRESS_OPTION_CODE ));
+                find_option_ptr = find_option( request_header, DHCP_REQUESTED_IP_ADDRESS_OPTION_CODE );
+                if( find_option_ptr != NULL )
+                {
+                    requested_ip_address.ip.v4   = ntohl( LWIP_MAKEU32( find_option_ptr[3], find_option_ptr[2], find_option_ptr[1], find_option_ptr[0] ) );
+                }
 
                 /* Delete received packet. We don't need it anymore */
                 packet_delete( received_packet );
@@ -740,12 +745,19 @@ static cy_rslt_t udp_create_socket(cy_lwip_udp_socket_t *socket, uint16_t port, 
     err_t status;
 
     memset( socket, 0, sizeof(cy_lwip_udp_socket_t) );
+
+    /* Call wifi-mw-core network activity function to resume the network stack. */
+    cy_network_activity_notify(CY_NETWORK_ACTIVITY_TX);
+
     socket->conn_handler = netconn_new( NETCONN_UDP );
     if( socket->conn_handler == NULL )
     {
         wm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "failed to create UDP socket \n");
         return CY_RSLT_LWIP_SOCKET_CREATE_FAIL;
     }
+
+    /* Call wifi-mw-core network activity function to resume the network stack. */
+    cy_network_activity_notify(CY_NETWORK_ACTIVITY_TX);
 
     /* Bind it to designated port and IP */
     status = netconn_bind( socket->conn_handler, IP_ANY_TYPE, port );
@@ -768,6 +780,10 @@ static cy_rslt_t udp_delete_socket(cy_lwip_udp_socket_t *socket)
         wm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Error : Socket deletion failed due to invalid socket \n");
         return CY_RSLT_LWIP_INVALID_SOCKET;
     }
+
+    /* Call wifi-mw-core network activity function to resume the network stack. */
+    cy_network_activity_notify(CY_NETWORK_ACTIVITY_TX);
+
     /* Note: No need to check return value of netconn_delete. It only ever returns ERR_OK */
     netconn_delete(socket->conn_handler);
     socket->conn_handler = NULL;
@@ -782,6 +798,9 @@ static cy_rslt_t udp_receive(cy_lwip_udp_socket_t *socket, cy_lwip_packet_t** pa
     {
         return CY_RSLT_LWIP_SOCKET_ERROR;
     }
+
+    /* Call wifi-mw-core network activity function to resume the network stack. */
+    cy_network_activity_notify(CY_NETWORK_ACTIVITY_TX);
 
     netconn_set_recvtimeout(socket->conn_handler, (int)timeout);
     status = netconn_recv(socket->conn_handler, packet);
@@ -855,6 +874,10 @@ static cy_rslt_t cy_udp_send(cy_lwip_udp_socket_t* socket, const cy_lwip_ip_addr
 
     /* Associate UDP socket with specific remote IP address and a port */
     cy_ip_to_lwip(&temp, address);
+
+    /* Call wifi-mw-core network activity function to resume the network stack. */
+    cy_network_activity_notify(CY_NETWORK_ACTIVITY_TX);
+
     status = netconn_connect(socket->conn_handler, &temp, port);
     if ( status != ERR_OK )
     {
@@ -869,11 +892,17 @@ static cy_rslt_t cy_udp_send(cy_lwip_udp_socket_t* socket, const cy_lwip_ip_addr
     result = internal_udp_send(socket->conn_handler, packet, (cy_lwip_nw_interface_role_t)socket->role);
     if ( result != CY_RSLT_SUCCESS )
     {
+        /* Call wifi-mw-core network activity function to resume the network stack. */
+        cy_network_activity_notify(CY_NETWORK_ACTIVITY_TX);
+
         netconn_disconnect(socket->conn_handler);
         return result;
     }
 
     netbuf_delete( packet );
+
+    /* Call wifi-mw-core network activity function to resume the network stack. */
+    cy_network_activity_notify(CY_NETWORK_ACTIVITY_TX);
 
     /* Return back to disconnected state
      * Note: We are ignoring the return for this as we MUST return CY_RSLT_SUCCESS otherwise the caller may attempt to
@@ -898,6 +927,9 @@ static cy_rslt_t internal_udp_send(struct netconn* handler, cy_lwip_packet_t* pa
     {
         return CY_RSLT_LWIP_DHCP_WAIT_TIMEOUT;
     }
+
+    /* Call wifi-mw-core network activity function to resume the network stack. */
+    cy_network_activity_notify(CY_NETWORK_ACTIVITY_TX);
 
     /* Bind interface to the socket. */
     udp_bind_netif(handler->pcb.udp, cy_lwip_get_interface(interface));

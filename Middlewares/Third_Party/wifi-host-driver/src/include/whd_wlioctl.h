@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company)
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,6 +33,8 @@ extern "C"
 #define CH_MAX_2G_CHANNEL       (14)      /* Max channel in 2G band */
 #define MAX_WFDS_SVC_NAME_LEN   (200)     /* maximum service_name length */
 
+#define MGMT_AUTH_FRAME_DWELL_TIME (100) /* Default Dwell Time(Let FW MSCH have enough left time to piggyback this "mgmt_frame" request within "join" request) */
+
 #define ACTION_FRAME_SIZE 1040
 typedef uint16_t chanspec_t;
 #define    ETHER_ADDR_LEN        6
@@ -63,7 +65,22 @@ typedef struct wl_af_params
     wl_action_frame_t action_frame;
 } wl_af_params_t;
 
+typedef struct wl_rx_mgmt_data
+{
+    uint16_t version;
+    uint16_t channel;
+    int32_t rssi;
+    uint32_t mactime;
+    uint32_t rate;
+} wl_rx_mgmt_data_t;
+
 #define WL_WIFI_AF_PARAMS_SIZE sizeof(struct wl_af_params)
+
+/* External Auth Code Type(SAE) */
+#define WL_EXTAUTH_START      1
+#define WL_EXTAUTH_ABORT      2
+#define WL_EXTAUTH_FAIL       3
+#define WL_EXTAUTH_SUCCESS    4
 
 /* ether types */
 #define ETHER_TYPE_LEN      2
@@ -390,12 +407,13 @@ typedef struct wl_wsec_key
 } wl_wsec_key_t;
 #define WSEC_MIN_PSK_LEN    8
 #define WSEC_MAX_PSK_LEN    64
+#define WSEC_PMK_LEN        32
 #define WSEC_PASSPHRASE        (1 << 0)
 typedef struct
 {
     uint16_t key_len;
     uint16_t flags;
-    uint8_t key[WSEC_MAX_PSK_LEN];
+    uint8_t key[WSEC_MAX_PSK_LEN + 1];
 } wsec_pmk_t;
 
 #define WSEC_MAX_SAE_PASSWORD_LEN      128
@@ -455,17 +473,7 @@ typedef enum
 #define WPA_AUTH_PFN_ANY        0xffffffff  /* for PFN, match only ssid */
 
 #define    MAXPMKID                 16
-#define WPA2_PMKID_LEN              16
-typedef struct _pmkid
-{
-    wl_ether_addr_t BSSID;
-    uint8_t PMKID[WPA2_PMKID_LEN];
-} pmkid_t;
-typedef struct _pmkid_list
-{
-    uint32_t npmkid;
-    pmkid_t pmkid[1];
-} pmkid_list_t;
+
 typedef struct _pmkid_cand
 {
     wl_ether_addr_t BSSID;
@@ -678,6 +686,7 @@ typedef struct eventmsgs_ext
     uint8_t mask[1];
 } eventmsgs_ext_t;
 
+#define IOVAR_STR_BTADDR                 "bus:btsdiobufaddr"
 #define IOVAR_STR_ACTFRAME               "actframe"
 #define IOVAR_STR_BSS                    "bss"
 #define IOVAR_STR_BSS_RATESET            "bss_rateset"
@@ -778,6 +787,7 @@ typedef struct eventmsgs_ext
 #define IOVAR_STR_MPDU_PER_AMPDU         "ampdu_mpdu"
 #define IOVAR_STR_VHT_FEATURES           "vht_features"
 #define IOVAR_STR_CHANSPEC               "chanspec"
+#define IOVAR_STR_MGMT_FRAME             "mgmt_frame"
 
 #define IOVAR_STR_WOWL                   "wowl"
 #define IOVAR_STR_WOWL_OS                "wowl_os"
@@ -848,6 +858,9 @@ typedef struct eventmsgs_ext
 #define IOVAR_STR_WD_DISABLE             "wd_disable"
 #define IOVAR_STR_DLTRO                  "dltro"
 #define IOVAR_STR_SAE_PASSWORD           "sae_password"
+#define IOVAR_STR_SAE_PWE_LOOP           "sae_max_pwe_loop"
+#define IOVAR_STR_PMKID_INFO             "pmkid_info"
+#define IOVAR_STR_AUTH_STATUS            "auth_status"
 
 #define IOVAR_STR_BTC_LESCAN_PARAMS      "btc_lescan_params"
 
@@ -861,6 +874,7 @@ typedef struct eventmsgs_ext
 #define IOVAR_STR_ARP_STATS              "arp_stats"
 #define IOVAR_STR_ARP_STATS_CLEAR        "arp_stats_clear"
 #define IOVAR_STR_TKO                    "tko"
+#define IOVAR_STR_ROAM_TIME_THRESH       "roam_time_thresh"
 
 /* This value derived from the above strings, which appear maxed out in the 20s */
 #define IOVAR_NAME_STR_MAX_SIZE          32
@@ -1499,7 +1513,7 @@ typedef struct tx_inst_power
 #define WL_WDS_WPA_ROLE_AUTH    0
 #define WL_WDS_WPA_ROLE_SUP    1
 #define WL_WDS_WPA_ROLE_AUTO    255
-#define WL_EVENTING_MASK_LEN    ( (WLC_E_LAST + 7) / 8 )
+#define WL_EVENTING_MASK_LEN    16
 
 #define VNDR_IE_CMD_LEN        4
 #define VNDR_IE_BEACON_FLAG    0x1

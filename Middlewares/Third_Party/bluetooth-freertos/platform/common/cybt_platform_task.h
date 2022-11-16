@@ -6,7 +6,9 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2019 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -285,7 +287,7 @@ uint8_t cybt_platform_task_get_tx_heap_utilization(uint16_t *p_largest_free_size
  * @returns  CYBT_HCI_TX_NORMAL
  *           CYBT_HCI_TX_BLOCKED_TX_HEAP_RAN_OUT
  *           CYBT_HCI_TX_BLOCKED_HCI_TX_QUEUE_FULL
- 
+
  */
 cybt_hci_tx_status_t cybt_get_hci_tx_status(void);
 
@@ -298,6 +300,22 @@ cybt_hci_tx_status_t cybt_get_hci_tx_status(void);
  * @returns    none
  */
 void cybt_lock_hci_tx(cybt_hci_tx_status_t reason);
+
+
+/**
+ * Termiate HCI-TX task.
+ *
+ * @returns     void
+ */
+void cybt_platform_terminate_hci_tx_thread(void);
+
+
+/**
+ * Termiate HCI-RX task.
+ *
+ * @returns     void
+ */
+void cybt_platform_terminate_hci_rx_thread(void);
 
 
 #ifdef __cplusplus

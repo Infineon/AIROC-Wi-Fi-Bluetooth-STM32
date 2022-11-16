@@ -2,14 +2,16 @@
 * \file cyhal_system.h
 *
 * \brief
-* Provides a high level interface for interacting with the Cypress power
+* Provides a high level interface for interacting with the Infineon power
 * management and system clock configuration. This interface abstracts out the
 * chip specific details. If any chip specific functionality is necessary, or
 * performance is critical the low level functions can be used directly.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2020 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -55,13 +57,13 @@
 * \ref cyhal_system_critical_section_enter returns the current state of interrupts
 * which denote the active interrupts in the system. This must be passed as argument
 * to \ref cyhal_system_critical_section_exit while exiting the critical section.
-* \snippet system.c snippet_cyhal_system_critical_section
+* \snippet hal_system.c snippet_cyhal_system_critical_section
 *
 * \subsection subsection_system_snippet2 Snippet 2: Reset reason
 * \ref cyhal_system_get_reset_reason must be called at the beginning of the main to
 * determine the reason for reset. The return parameters are present in \ref
 * cyhal_reset_reason_t.
-* \snippet system.c snippet_cyhal_system_reset_reason
+* \snippet hal_system.c snippet_cyhal_system_reset_reason
 */
 
 #pragma once
@@ -74,6 +76,20 @@
 #if defined(__cplusplus)
 extern "C" {
 #endif
+
+/** \addtogroup group_hal_results_system SYSTEM HAL Results
+ *  SYSTEM specific return codes
+ *  \ingroup group_hal_results
+ *  \{ *//**
+ */
+
+/** Functionality not supported on the current platform */
+#define CYHAL_SYSTEM_RSLT_ERR_NOT_SUPPORTED           \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SYSTEM, 0))
+
+/**
+ * \}
+ */
 
 /** Flags enum of possible system reset causes */
 typedef enum
@@ -88,6 +104,9 @@ typedef enum
     CYHAL_SYSTEM_RESET_SYS_CLK_ERR     = 1 << 6, /**< A reset has occurred due to a system clock error */
     CYHAL_SYSTEM_RESET_PROTECTION      = 1 << 7, /**< A reset has occurred due to a protection violation */
 } cyhal_reset_reason_t;
+
+/** Function pointer for IRQ handlers ( \ref cyhal_system_set_isr). */
+typedef void (* cyhal_irq_handler)(void);
 
 /** Enter a critical section
  *
@@ -147,8 +166,23 @@ void cyhal_system_delay_us(uint16_t microseconds);
  */
 cyhal_reset_reason_t cyhal_system_get_reset_reason(void);
 
-/** Clears the reset cause registers */
+/** Clears the reset cause registers. This should be done after calling
+ * \ref cyhal_system_get_reset_reason to make sure the reason does not persist between resets.
+ */
 void cyhal_system_clear_reset_reason(void);
+
+/** Registers the specified handler as the callback function for the specififed irq_num with the
+ * given priority. For devices that mux interrupt sources into mcu interrupts, the irq_src defines
+ * the source of the interrupt.
+ *
+ * @param[in] irq_num   The MCU interrupt number to register the handler for.
+ * @param[in] irq_src   The interrupt source that feeds the MCU interrupt. For devices that have a
+ * 1:1 mapping between interrupt sources and MCU interrupts this should be the same as the irq_num.
+ * @param[in] priority  The MCU interrupt priority.
+ * @param[in] handler   The function pointer to call when the interrupt is triggered.
+ * @return Returns CY_RSLT_SUCCESS if the set_isr request was successful, otherwise an error
+ */
+cy_rslt_t cyhal_system_set_isr(int32_t irq_num, int32_t irq_src, uint8_t priority, cyhal_irq_handler handler);
 
 #if defined(__cplusplus)
 }

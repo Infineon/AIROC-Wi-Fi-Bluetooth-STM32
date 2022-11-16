@@ -3,6 +3,7 @@ var group__btm__ble__adv__scan__functions =
     [ "wiced_bt_start_advertisements", "group__btm__ble__adv__scan__functions.html#ga90a7b45015280a2dcef73a5be07cd561", null ],
     [ "wiced_bt_ble_get_current_advert_mode", "group__btm__ble__adv__scan__functions.html#ga0ba60f6bd5a99be06f8ddd879da9b248", null ],
     [ "wiced_bt_ble_set_raw_advertisement_data", "group__btm__ble__adv__scan__functions.html#gab51079605334c28e06d02f44ffd5ec6b", null ],
+    [ "wiced_bt_ble_build_raw_advertisement_data", "group__btm__ble__adv__scan__functions.html#ga74e692cbbd0a833ff06c1ab4af0b5bda", null ],
     [ "wiced_bt_ble_check_advertising_data", "group__btm__ble__adv__scan__functions.html#ga8d62204cf6ab289f977215c08d5864ca", null ],
     [ "wiced_btm_ble_update_advertisement_filter_policy", "group__btm__ble__adv__scan__functions.html#gaed7a2250e3d40e66a23167febfbbebd4", null ],
     [ "wiced_bt_ble_set_adv_tx_power", "group__btm__ble__adv__scan__functions.html#ga7f1db3380fcc8c1a93b3e0f34b302ff0", null ],

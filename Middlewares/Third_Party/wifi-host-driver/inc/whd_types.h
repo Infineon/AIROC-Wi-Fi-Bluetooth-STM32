@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company)
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,6 +21,8 @@
  */
 
 #include <stdint.h>
+
+#include "cybsp.h"
 #include "cy_result.h"
 #include "cyhal_hw_types.h"
 
@@ -55,20 +57,28 @@ extern "C"
 #define PM2_POWERSAVE_MODE          (2) /**< Powersave mode on specified interface with High throughput */
 #define NO_POWERSAVE_MODE           (0) /**< No Powersave mode */
 
+#define PMKID_LEN                   (16) /**< PMKID LENGTH */
+
 /**
  * Suppress unused parameter warning
  */
+#ifndef UNUSED_PARAMETER
 #define UNUSED_PARAMETER(x) ( (void)(x) )
+#endif
 
 /**
  * Suppress unused variable warning
  */
+#ifndef UNUSED_VARIABLE
 #define UNUSED_VARIABLE(x) ( (void)(x) )
+#endif
 
 /**
  * Suppress unused variable warning occurring due to an assert which is disabled in release mode
  */
+#ifndef REFERENCE_DEBUG_ONLY_VARIABLE
 #define REFERENCE_DEBUG_ONLY_VARIABLE(x) ( (void)(x) )
+#endif
 
 /******************************************************
 *@cond               Type Definitions
@@ -88,6 +98,7 @@ typedef struct whd_tko_status whd_tko_status_t;
 ******************************************************/
 
 #define WIFI_IE_OUI_LENGTH    (3)    /**< OUI length for Information Element */
+#define VNDR_IE_MAX_LEN       255    /**< vendor IE max length, without ID and len */
 
 /* Below constants are used to allocate the buffer pool by the application */
 
@@ -100,7 +111,15 @@ typedef struct whd_tko_status whd_tko_status_t;
 
 #define SDPCM_HEADER (8 + 4)  /**< SDPCM SW header + Frame tag */
 
-#define MAX_BUS_HEADER_SIZE 4 /**< Max bus header size for all bus types (sdio/spi) */
+#if (CYBSP_WIFI_INTERFACE_TYPE == CYBSP_SDIO_INTERFACE)
+#define MAX_BUS_HEADER_SIZE 4 /**< Max bus header size for all bus types (sdio) */
+#elif (CYBSP_WIFI_INTERFACE_TYPE == CYBSP_SPI_INTERFACE)
+#define MAX_BUS_HEADER_SIZE 4 /**< Max bus header size for all bus types (spi) */
+#elif (CYBSP_WIFI_INTERFACE_TYPE == CYBSP_M2M_INTERFACE)
+#define MAX_BUS_HEADER_SIZE 8 /**< Max bus header size for all bus types (m2m) */
+#else
+#error "CYBSP_WIFI_INTERFACE_TYPE is not defined"
+#endif
 
 #define BUFFER_OVERHEAD 4 /**< Buffer overhead, sizeof(void *) */
 
@@ -277,6 +296,15 @@ typedef enum
 } whd_scan_status_t;
 
 /**
+ * Structure for storing status of auth event
+ */
+typedef enum
+{
+    WHD_AUTH_EXT_REQ,           /**< Request authentication received */
+    WHD_AUTH_EXT_FRAME_RX,      /**< Authentication frame received */
+} whd_auth_status_t;
+
+/**
  * Structure for storing radio band list information
  */
 typedef struct
@@ -292,7 +320,8 @@ typedef struct
 typedef enum
 {
     WHD_SCAN_RESULT_FLAG_RSSI_OFF_CHANNEL = 0x01, /**< RSSI came from an off channel DSSS (1 or 1 Mb) Rx */
-    WHD_SCAN_RESULT_FLAG_BEACON = 0x02            /**< Beacon (vs probe response)                        */
+    WHD_SCAN_RESULT_FLAG_BEACON = 0x02,           /**< Beacon (vs probe response)                        */
+    WHD_SCAN_RESULT_FLAG_SAE_H2E = 0x04,          /**< BSS is H2E(Hash-to-Element)                       */
 } whd_scan_result_flag_t;
 
 /**
@@ -372,6 +401,26 @@ typedef enum
     WHD_IOVAR_GET_MAC_ADDRESS,              /**< Get mac address */
 } whd_usr_iovar_get_list_t;
 
+/**
+ * Enumeration of bus type
+ */
+typedef enum
+{
+    WHD_BUS_SDIO = 0,
+    WHD_BUS_SPI,
+    WHD_BUS_M2M,
+    WHD_BUS_NO_DEFINE = 0xff,
+} whd_bus_type_t;
+
+/**
+ * Expand fw capabilities list to enumeration
+ */
+typedef enum
+{
+    WHD_FWCAP_SAE = 0,     /**< Internal SAE */
+    WHD_FWCAP_SAE_EXT = 1, /**< External SAE */
+} whd_fwcap_id_t;
+
 /******************************************************
 *                 Type Definitions
 ******************************************************/
@@ -386,6 +435,15 @@ typedef struct
 {
     uint8_t octet[6]; /**< Unique 6-byte MAC address */
 } whd_mac_t;
+
+/**
+ * Structure for storing the supported channels.
+ */
+typedef struct
+{
+    uint32_t count;
+    uint32_t element[1];
+} whd_list_t;
 
 /**
  * Structure for storing a Service Set Identifier (i.e. Name of Access Point)
@@ -734,6 +792,7 @@ typedef struct wl_bss_info_struct
     uint16_t capability;           /**< Capability information */
     uint8_t SSID_len;              /**< SSID length */
     uint8_t SSID[32];              /**< Array to store SSID */
+    uint8_t reserved1[1];          /**< Reserved(padding) */
     struct
     {
         uint32_t count;            /**< Count of rates in this set */
@@ -742,15 +801,19 @@ typedef struct wl_bss_info_struct
     wl_chanspec_t chanspec;        /**< Channel specification for basic service set */
     uint16_t atim_window;          /**< Announcement traffic indication message window size. Units are Kusec */
     uint8_t dtim_period;           /**< Delivery traffic indication message period */
+    uint8_t reserved2[1];          /**< Reserved(padding) */
     int16_t RSSI;                  /**< receive signal strength (in dBm) */
     int8_t phy_noise;              /**< noise (in dBm) */
 
     uint8_t n_cap;                 /**< BSS is 802.11N Capable */
+    uint8_t reserved3[2];          /**< Reserved(padding) */
     uint32_t nbss_cap;             /**< 802.11N BSS Capabilities (based on HT_CAP_*) */
     uint8_t ctl_ch;                /**< 802.11N BSS control channel number */
+    uint8_t reserved4[3];          /**< Reserved(padding) */
     uint32_t reserved32[1];        /**< Reserved for expansion of BSS properties */
     uint8_t flags;                 /**< flags */
-    uint8_t reserved[3];           /**< Reserved for expansion of BSS properties */
+    uint8_t vht_cap;               /**< BSS is vht capable */
+    uint8_t reserved5[2];          /**< Reserved(padding) */
     uint8_t basic_mcs[MCSSET_LEN]; /**< 802.11N BSS required MCS set */
 
     uint16_t ie_offset;            /**< offset at which IEs start, from beginning */
@@ -854,6 +917,7 @@ typedef uint32_t whd_result_t;
 #define WHD_CLM_BLOB_DLOAD_ERROR         WHD_RESULT_CREATE(1068)   /**< CLM blob download failed */
 #define WHD_HAL_ERROR                    WHD_RESULT_CREATE(1069)   /**< WHD HAL Error */
 #define WHD_RTOS_STATIC_MEM_LIMIT        WHD_RESULT_CREATE(1070)   /**< Exceeding the RTOS static objects memory */
+#define WHD_NO_REGISTER_FUNCTION_POINTER WHD_RESULT_CREATE(1071)   /**< No register function pointer */
 
 #define WLAN_ENUM_OFFSET 2000            /**< WLAN enum offset for WHD_WLAN error processing */
 
@@ -939,6 +1003,34 @@ typedef struct
 #pragma pack()
 
 /**
+ * Structure describing a list of PMKID
+ */
+typedef struct _pmkid
+{
+    whd_mac_t BSSID;
+    uint8_t PMKID[PMKID_LEN];
+} pmkid_t;
+
+typedef struct _pmkid_list
+{
+    uint32_t npmkid;
+    pmkid_t pmkid[1];
+} pmkid_list_t;
+
+/**
+ * Structure used by both dongle and host
+ * dongle asks host to start auth(SAE), host updates auth status to dongle.
+ */
+typedef struct whd_auth_req_status
+{
+    uint16_t flags;
+    whd_mac_t peer_mac; /* peer mac address */
+    uint32_t ssid_len;
+    uint8_t ssid[SSID_NAME_SIZE];
+    uint8_t pmkid[PMKID_LEN];
+} whd_auth_req_status_t;
+
+/**
  * Time value in milliseconds
  */
 typedef uint32_t whd_time_t;
@@ -952,6 +1044,22 @@ typedef struct
     uint8_t length;   /**< WEP key length. Either 5 bytes (40-bits) or 13-bytes (104-bits) */
     uint8_t data[32]; /**< WEP key as values NOT characters                                */
 } whd_wep_key_t;
+
+/**
+ * Structure for management frame(auth) params
+ */
+typedef struct whd_auth_params
+{
+    uint32_t version;
+    uint32_t dwell_time;
+    uint16_t len; /* Len includes Len(MAC Headers) + Len(Contents) */
+    uint16_t fc;
+    uint16_t channel;
+    whd_mac_t da;
+    whd_mac_t bssid;
+    uint32_t packetId;
+    uint8_t data[1];  /* It contains MAC Headers + Contexts*/
+} whd_auth_params_t;
 
 /**
  * Structure for Out-of-band interrupt config parameters which can be set by application during whd power up
@@ -986,6 +1094,16 @@ typedef struct whd_spi_config
 } whd_spi_config_t;
 
 /**
+ * Structure for M2M config parameters which can be set by application during whd power up
+ */
+typedef struct whd_m2m_config
+{
+    /* Bus config */
+    whd_bool_t is_normal_mode; /**< Default is false */
+} whd_m2m_config_t;
+
+
+/**
  * Enumeration of applicable packet mask bits for custom Information Elements (IEs)
  */
 typedef enum
@@ -996,7 +1114,10 @@ typedef enum
     VENDOR_IE_AUTH_RESPONSE = 0x8,  /**< Denotes authentication response packet */
     VENDOR_IE_PROBE_REQUEST = 0x10, /**< Denotes probe request packet           */
     VENDOR_IE_ASSOC_REQUEST = 0x20, /**< Denotes association request packet     */
-    VENDOR_IE_CUSTOM = 0x100        /**< Denotes a custom IE(Information Element) identifier */
+    VENDOR_IE_CUSTOM = 0x100,       /**< Denotes a custom IE(Information Element) identifier */
+    VENDOR_IE_UNKNOWN = ~(VENDOR_IE_BEACON | VENDOR_IE_PROBE_RESPONSE | VENDOR_IE_ASSOC_RESPONSE | \
+                          VENDOR_IE_AUTH_RESPONSE | VENDOR_IE_PROBE_REQUEST | VENDOR_IE_ASSOC_REQUEST | \
+                          VENDOR_IE_CUSTOM)
 } whd_ie_packet_flag_t;
 
 /**

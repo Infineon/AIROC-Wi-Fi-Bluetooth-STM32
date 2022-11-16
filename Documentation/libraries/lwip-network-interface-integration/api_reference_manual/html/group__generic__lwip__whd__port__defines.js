@@ -1,0 +1,25 @@
+var group__generic__lwip__whd__port__defines =
+[
+    [ "CY_RSLT_NETWORK_PORT_ERR_BASE", "group__generic__lwip__whd__port__defines.html#ga64411e3dd47f1879323877c2370b9eec", null ],
+    [ "CY_RSLT_NETWORK_INTERFACE_EXISTS", "group__generic__lwip__whd__port__defines.html#ga66482668f42e202a2d493782ea856270", null ],
+    [ "CY_RSLT_NETWORK_ERROR_ADDING_INTERFACE", "group__generic__lwip__whd__port__defines.html#ga93353130a6078aaf6e9edfb2d135b1de", null ],
+    [ "CY_RSLT_NETWORK_ERROR_STARTING_DHCP", "group__generic__lwip__whd__port__defines.html#gabe7486b63b0e20d597c80f66b281a6c6", null ],
+    [ "CY_RSLT_NETWORK_INTERFACE_DOES_NOT_EXIST", "group__generic__lwip__whd__port__defines.html#ga752aff5813b092f64fb7a7aa2f837a0c", null ],
+    [ "CY_RSLT_NETWORK_BAD_ARG", "group__generic__lwip__whd__port__defines.html#ga56f8f0a7f468e51d85896de4fd8959f8", null ],
+    [ "CY_RSLT_NETWORK_SOCKET_ERROR", "group__generic__lwip__whd__port__defines.html#ga0402c74db5d2b1251c2bc8ba16520bb5", null ],
+    [ "CY_RSLT_NETWORK_SOCKET_CREATE_FAIL", "group__generic__lwip__whd__port__defines.html#ga0be1337ee3c34383be5bc25b9492321f", null ],
+    [ "CY_RSLT_NETWORK_INVALID_SOCKET", "group__generic__lwip__whd__port__defines.html#ga7325308cb997463c8372e84d4cdde4c7", null ],
+    [ "CY_RSLT_NETWORK_CORRUPT_BUFFER", "group__generic__lwip__whd__port__defines.html#ga47c5f39f16873b5a569fe45b78dd78e3", null ],
+    [ "CY_RSLT_NETWORK_DHCP_TIMEOUT", "group__generic__lwip__whd__port__defines.html#ga9e27f95367f0cabf75d9e396cff7a0e0", null ],
+    [ "CY_RSLT_NETWORK_DHCP_WAIT_TIMEOUT", "group__generic__lwip__whd__port__defines.html#gafc24f9c602ae45614f7231508eb574bf", null ],
+    [ "CY_RSLT_NETWORK_DHCP_MUTEX_ERROR", "group__generic__lwip__whd__port__defines.html#ga376792887a07822763dbd3a253a55060", null ],
+    [ "CY_RSLT_NETWORK_ERROR_STARTING_INTERNAL_DHCP", "group__generic__lwip__whd__port__defines.html#gac2bfa236e9261ca5bab6e78d6f32d128", null ],
+    [ "CY_RSLT_NETWORK_INTERFACE_NETWORK_NOT_UP", "group__generic__lwip__whd__port__defines.html#gabc1d83188fe0b29bbe0de950519a52a8", null ],
+    [ "CY_RSLT_NETWORK_ERROR_REMOVING_INTERFACE", "group__generic__lwip__whd__port__defines.html#gab890d4608e0ec6df40a25ad44cee5680", null ],
+    [ "CY_RSLT_NETWORK_IPV6_INTERFACE_NOT_READY", "group__generic__lwip__whd__port__defines.html#ga0370d51c846f63d87078f684e27f93a7", null ],
+    [ "CY_RSLT_NETWORK_ERROR_GET_MAC_ADDR", "group__generic__lwip__whd__port__defines.html#gaf293c31318d2af1d62bac43bbdf4a462", null ],
+    [ "CY_RSLT_NETWORK_ERROR_PING", "group__generic__lwip__whd__port__defines.html#ga2f88f008edcc1b4c1d38a1c6df4ca2bf", null ],
+    [ "CY_RSLT_NETWORK_ERROR_NOMEM", "group__generic__lwip__whd__port__defines.html#ga1f0322ffd345df3120842c6d78c0f229", null ],
+    [ "CY_RSLT_NETWORK_ERROR_RTOS", "group__generic__lwip__whd__port__defines.html#ga0c5b724f4d242fd2f465ba00cee17fa4", null ],
+    [ "CY_RSLT_NETWORK_NOT_SUPPORTED", "group__generic__lwip__whd__port__defines.html#ga1ae343f44b7540a45f3680ba6d1a7226", null ]
+];

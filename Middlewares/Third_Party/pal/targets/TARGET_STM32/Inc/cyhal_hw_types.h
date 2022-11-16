@@ -42,8 +42,9 @@
 
 #include <stdbool.h>
 #include <string.h>
-
+#include "cyhal_general_types.h"
 #include "stm32_cyhal_common.h"
+
 #include "cybsp.h"
 #include "stm32_cyhal_gpio_pin.h"
 
@@ -60,6 +61,8 @@ extern "C" {
 /***************************************************************************************************
  *      Private macros
  **************************************************************************************************/
+#define CYHAL_API_VERSION               (2)
+
 
 #if !defined(CYHAL_UART_RX_DMA_BUFFER_SIZE)
     #define CYHAL_UART_RX_DMA_BUFFER_SIZE         (512UL)
@@ -169,6 +172,52 @@ typedef struct
    Pack/Middlewares/Third_Party/whd-bsp-integration/cybsp_wifi.c */
 cyhal_sdio_t* cybsp_get_wifi_sdio_obj(void);
 
+
+/** Typedef from device family specific trigger source to generic trigger source */
+typedef uint32_t cyhal_source_t;
+
+typedef struct
+{
+    void* empty;
+} cyhal_sdio_configurator_t;
+
+typedef struct
+{
+    void* empty;
+} cyhal_spi_configurator_t;
+
+typedef struct
+{
+    void* empty;
+} cyhal_timer_configurator_t;
+
+typedef struct
+{
+    void* empty;
+} cyhal_uart_configurator_t;
+
+#define CYHAL_SDIO_RET_NO_ERRORS           (0x00)    /**< No error*/
+#define CYHAL_SDIO_RET_NO_SP_ERRORS        (0x01)    /**< Non-specific error code*/
+#define CYHAL_SDIO_RET_CMD_CRC_ERROR       (0x02)    /**< There was a CRC error on the
+                                                        Command/Response*/
+#define CYHAL_SDIO_RET_CMD_IDX_ERROR       (0x04)    /**< The index for the command didn't match*/
+#define CYHAL_SDIO_RET_CMD_EB_ERROR        (0x08)    /**< There was an end bit error on the
+                                                        command*/
+#define CYHAL_SDIO_RET_DAT_CRC_ERROR       (0x10)    /**< There was a data CRC Error*/
+#define CYHAL_SDIO_RET_CMD_TIMEOUT         (0x20)    /**< The command didn't finish before the
+                                                        timeout period was over*/
+#define CYHAL_SDIO_RET_DAT_TIMEOUT         (0x40)    /**< The data didn't finish before the timeout
+                                                        period was over*/
+#define CYHAL_SDIO_RET_RESP_FLAG_ERROR     (0x80)    /**< There was an error in the resposne flag
+                                                        for command 53*/
+
+#define CYHAL_SDIO_CLOCK_ERROR             (0x100)    /**< Failed to initial clock for SDIO */
+#define CYHAL_SDIO_BAD_ARGUMENT            (0x200)    /**< Bad argument passed for SDIO */
+#define CYHAL_SDIO_SEMA_NOT_INITED         (0x400)    /**< Semaphore is not initiated */
+#define CYHAL_SDIO_FUNC_NOT_SUPPORTED      (0x800)    /**< Function is not supported */
+#define CYHAL_SDIO_CANCELED               (0x1000)    /**< Operation canceled */
+#define CYHAL_SDIO_PM_PENDING_ERROR       (0x2000)    /**< Transfer cannot be initiated after power
+                                                         mode transition allowed.*/
 
 #if defined(__cplusplus)
 }

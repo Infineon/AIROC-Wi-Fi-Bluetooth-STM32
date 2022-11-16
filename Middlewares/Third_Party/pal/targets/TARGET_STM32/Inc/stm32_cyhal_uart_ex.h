@@ -63,7 +63,7 @@ extern "C" {
 
 /* UART specific return codes */
 #define CYHAL_UART_RSLT_ERR_HAL_ERROR                 \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_UART, 4))
+    (CY_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_UART, 4))
 
 /***************************************************************************************************
  *       Functions declarations

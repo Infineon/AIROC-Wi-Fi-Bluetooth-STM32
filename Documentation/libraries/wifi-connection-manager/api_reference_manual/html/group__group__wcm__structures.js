@@ -11,11 +11,12 @@ var group__group__wcm__structures =
       [ "version", "structcy__wcm__ip__address__t.html#a7c275791b147e4ccd77ad178dd25bf81", null ],
       [ "v4", "structcy__wcm__ip__address__t.html#acabea09ec2785e76f7d867a74dd6afd7", null ],
       [ "v6", "structcy__wcm__ip__address__t.html#a969244fd2e8b1da5fc07b75c4811e33c", null ],
-      [ "ip", "structcy__wcm__ip__address__t.html#ac5cf849d1ad2018fa370b60e13b0024c", null ]
+      [ "ip", "structcy__wcm__ip__address__t.html#a86c6e6f9182502683675c0656a3ad088", null ]
     ] ],
     [ "cy_wcm_event_data_t", "unioncy__wcm__event__data__t.html", [
       [ "ip_addr", "unioncy__wcm__event__data__t.html#a9c8f9a98e351394d704d1796328ae466", null ],
-      [ "sta_mac", "unioncy__wcm__event__data__t.html#aa2f4d769a35b7859bf0649d29b5f46a4", null ]
+      [ "sta_mac", "unioncy__wcm__event__data__t.html#aa2f4d769a35b7859bf0649d29b5f46a4", null ],
+      [ "reason", "unioncy__wcm__event__data__t.html#a76ff95f0ba21e2c958ba88784cb81bda", null ]
     ] ],
     [ "cy_wcm_ap_credentials_t", "structcy__wcm__ap__credentials__t.html", [
       [ "SSID", "structcy__wcm__ap__credentials__t.html#aefb4693ca1fa808349032561a2e4b3bc", null ],
@@ -39,7 +40,7 @@ var group__group__wcm__structures =
       [ "BSSID", "structcy__wcm__scan__filter__t.html#a1b255c34f41d99c7bccc28b3c52292e7", null ],
       [ "band", "structcy__wcm__scan__filter__t.html#a8be7ad3afc2fe2feecfcfdb8859ae30a", null ],
       [ "rssi_range", "structcy__wcm__scan__filter__t.html#a315bd8b9820c4f234ba0f3c430a0d15a", null ],
-      [ "param", "structcy__wcm__scan__filter__t.html#a5c9dfdbc17237085973999b63d9b28e5", null ]
+      [ "param", "structcy__wcm__scan__filter__t.html#aa5503177afe2830f94a4e09ac6e675f3", null ]
     ] ],
     [ "cy_wcm_scan_result_t", "structcy__wcm__scan__result__t.html", [
       [ "SSID", "structcy__wcm__scan__result__t.html#adcf0e592c5ea946e9ce821b6a13262d4", null ],

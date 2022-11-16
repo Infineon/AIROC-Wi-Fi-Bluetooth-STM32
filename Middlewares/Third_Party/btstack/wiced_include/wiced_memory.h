@@ -1,5 +1,34 @@
 /*
- * $ Copyright Cypress Semiconductor $
+ * Copyright 2019-2022, Cypress Semiconductor Corporation or
+ * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
+ *
+ * This software, including source code, documentation and related
+ * materials ("Software") is owned by Cypress Semiconductor Corporation
+ * or one of its affiliates ("Cypress") and is protected by and subject to
+ * worldwide patent protection (United States and foreign),
+ * United States copyright laws and international treaty provisions.
+ * Therefore, you may use this Software only as provided in the license
+ * agreement accompanying the software package from which you
+ * obtained this Software ("EULA").
+ * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
+ * non-transferable license to copy, modify, and compile the Software
+ * source code solely for use in connection with Cypress's
+ * integrated circuit products.  Any reproduction, modification, translation,
+ * compilation, or representation of this Software except as specified
+ * above is prohibited without the express written permission of Cypress.
+ *
+ * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Cypress
+ * reserves the right to make changes to the Software without notice. Cypress
+ * does not assume any liability arising out of the application or use of the
+ * Software or any product or circuit described in the Software. Cypress does
+ * not authorize its products for use in any products where a malfunction or
+ * failure of the Cypress product may reasonably be expected to result in
+ * significant property damage, injury or death ("High Risk Product"). By
+ * including Cypress's product in a High Risk Product, the manufacturer
+ * of such system or application assumes all risk of such use and in doing
+ * so agrees to indemnify Cypress against all liability.
  */
 
 /** @file
@@ -16,10 +45,6 @@
 #include "wiced_data_types.h"
 #include "wiced_result.h"
 
-#ifndef WICED_MEMORY_DEBUG_ENABLE
-/** Debug Memory Level*/
-#define  WICED_MEMORY_DEBUG_ENABLE FALSE
-#endif
 
 /* WICED does not care about the structure of the contents of a WICED buffer */
 /** WICED BT Buffer */
@@ -59,7 +84,7 @@ typedef struct wiced_bt_heap_statistics_s
     uint16_t    current_largest_free_size;   /**< largest free fragment size, which can be allocated  */
     uint16_t    current_num_free_fragments;  /**< num of free fragments */
     uint16_t    current_free_size;           /**< total free size of all fragments */
-}wiced_bt_heap_statistics_t;
+} wiced_bt_heap_statistics_t;
 
 
 /** This queue is a general purpose buffer queue, for application use.*/
@@ -136,42 +161,25 @@ wiced_bt_pool_t* wiced_bt_create_pool(const char* name, uint32_t buffer_size, ui
 void wiced_bt_delete_pool(wiced_bt_pool_t* p_pool);
 
 
-#if defined (WICED_MEMORY_DEBUG_ENABLE ) && (WICED_MEMORY_DEBUG_ENABLE == TRUE)
 /** Get buffer from requested pool */
-wiced_bt_buffer_t* wiced_bt_get_buffer_from_pool_trace(wiced_bt_pool_t* p_pool, const char* function, int line);
-/** Get buffer from requested pool refer #wiced_bt_get_buffer_from_pool_trace */
-#define wiced_bt_get_buffer_from_pool(pool) wiced_bt_get_buffer_from_pool_trace((pool), __FUNCTION__, __LINE__)
-#else
-/** Get buffer from requested pool */
-wiced_bt_buffer_t* wiced_bt_get_buffer_from_pool_no_trace(wiced_bt_pool_t* p_pool);
 /**
  * Allocates a buffer from the requested pool.
  *
- * @param[in]       pool  : pointer to pool from which to get the buffer
+ * @param[in]       p_pool  : pointer to pool from which to get the buffer
  *
  * @return         the pointer to the buffer or NULL on failure
  */
-#define wiced_bt_get_buffer_from_pool(pool) wiced_bt_get_buffer_from_pool_no_trace((pool))
-#endif
+wiced_bt_buffer_t* wiced_bt_get_buffer_from_pool (wiced_bt_pool_t* p_pool);
 
-#if defined (WICED_MEMORY_DEBUG_ENABLE ) && (WICED_MEMORY_DEBUG_ENABLE == TRUE)
-/** Get buffer from requested heap */
-wiced_bt_buffer_t* wiced_bt_get_buffer_from_heap_trace(wiced_bt_heap_t* p_heap, uint32_t size, const char* function, int line);
-/** Get buffer from requested heap */
-#define wiced_bt_get_buffer_from_heap(heap, size) wiced_bt_get_buffer_from_heap_trace((heap), (size), __FUNCTION__, __LINE__)
-#else
-/** Get buffer from requested heap */
-wiced_bt_buffer_t* wiced_bt_get_buffer_from_heap_no_trace(wiced_bt_heap_t* p_heap, uint32_t size);
 /**
  * Allocates a buffer from the requested heap.
  *
- * @param[in]       heap  : pointer to heap from which to get the buffer
+ * @param[in]       p_heap  : pointer to heap from which to get the buffer
  * @param[in]       size  : size to be allocated
  *
  * @return         the pointer to the buffer or NULL on failure
  */
-#define wiced_bt_get_buffer_from_heap(heap, size) wiced_bt_get_buffer_from_heap_no_trace((heap), (size))
-#endif
+wiced_bt_buffer_t* wiced_bt_get_buffer_from_heap (wiced_bt_heap_t* p_heap, uint32_t size);
 
 /**
  * Allocates a buffer from the <b> DEFAULT heap </b>.
@@ -202,24 +210,21 @@ uint32_t wiced_bt_get_pool_free_count (wiced_bt_pool_t* p_pool);
 */
 uint32_t wiced_bt_get_largest_heap_buffer (wiced_bt_heap_t* p_heap);
 
-#if defined (WICED_MEMORY_DEBUG_ENABLE) && (WICED_MEMORY_DEBUG_ENABLE == TRUE)
-/** Free Buffer */
-void wiced_bt_free_buffer_trace(wiced_bt_buffer_t* p_buf, const char* function, int line);
-/** Free Buffer */
-#define wiced_bt_free_buffer(free_buf)  wiced_bt_free_buffer_trace((free_buf), __FUNCTION__, __LINE__)
-#else
-/** Free Buffer */
-void wiced_bt_free_buffer_no_trace(wiced_bt_buffer_t* p_buf);
+/**
+* To get the size of the largest buffer available in the stack heap
+*
+* @return  the size of the largest buffer available in the stack heap
+*/
+uint32_t wiced_bt_get_largest_stack_heap_buffer(void);
+
 /**
  * Frees a buffer back to the pool or heap it came from
  *
- * @param[in]       free_buf : pointer to the start of the (pool/heap) buffer to be freed
+ * @param[in]       p_buf : pointer to the start of the (pool/heap) buffer to be freed
  *
  * @return         None
  */
-#define wiced_bt_free_buffer  wiced_bt_free_buffer_no_trace
-#endif
-
+void wiced_bt_free_buffer (wiced_bt_buffer_t* p_buf);
 
 /**
  * Gets the buffer size
@@ -323,9 +328,32 @@ uint32_t wiced_bt_queue_is_empty (wiced_bt_buffer_q_t *p_q);
  */
 uint32_t wiced_bt_queue_get_count(wiced_bt_buffer_q_t* p_q);
 
+/**
+ * Allocate long term memory, typically used for control blocks
+ * allocated through config, not expected to be freed during the
+ * lifetime of the application
+ *
+ * @param[in]  size  : size of memory to be allocated
+ * @param[in]  block_name: friendly name of memory block to be allocated.
+ *
+ * @return     pointer to the allocated memory
+ */
+wiced_bt_buffer_t *wiced_memory_alloc_long_term_mem_block(int size, const char *block_name);
 
 /**
- * Get/Print the heap stats
+ * Free long term memory, used to free memory allocated with
+ * \ref wiced_memory_alloc_long_term_mem_block, typically called during
+ * application shutdown
+ *
+ * @param[in]  p_mem : pointer memory to be freed
+ *
+ * @return   none
+ */
+void wiced_memory_free_long_term_mem_block(wiced_bt_buffer_t *p_mem);
+
+
+/**
+ * Get heap stats
  *
  * @param[in]       p_heap  : heap pointer (output of #wiced_bt_create_heap)
  * @param[out]      p_stats : pointer to receive the heap statistics
@@ -333,6 +361,27 @@ uint32_t wiced_bt_queue_get_count(wiced_bt_buffer_q_t* p_q);
  * @return          TRUE in case of valid stats returned in p_stats
  */
 wiced_bool_t wiced_bt_get_heap_statistics(void* p_heap, wiced_bt_heap_statistics_t* p_stats);
+
+/**
+ * Get heap stats of heap at index. Application calls the function in a loop incrementing the index
+ * till the function returns WICED_FALSE
+ *
+ * @param[in]  index  : index of heap, starts from 0
+ * @param[out] p_stats : pointer to receive the heap statistics
+ *
+ * @return TRUE in case of valid stats returned in p_stats
+ */
+wiced_bool_t wiced_bt_get_heap_statistics_with_index(int index, wiced_bt_heap_statistics_t *p_stats);
+
+/**
+ * Get pool stats
+ *
+ * @param[in]  p_pool  : pool pointer (output of #wiced_bt_create_pool)
+ * @param[out] p_stats : pointer to receive the pool statistics
+ *
+ * @return  TRUE in case of valid stats returned in p_stats
+ */
+wiced_result_t wiced_bt_get_pool_statistics(wiced_bt_pool_t *p_pool, wiced_bt_pool_statistics_t *p_stats);
 
 /**
  * Set the exception callback

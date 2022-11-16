@@ -53,10 +53,10 @@ extern "C"
 
 /** The requested resource type is invalid */
 #define CYHAL_HWMGR_RSLT_ERR_INVALID                    \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_HWMGR, 0))
+    CY_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_HWMGR, 0)
 /** The requested resource is already in use */
 #define CYHAL_HWMGR_RSLT_ERR_INUSE                      \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_HWMGR, 1))
+    CY_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_HWMGR, 1)
 
 static RNG_HandleTypeDef* _cyhal_trng_hndl = NULL;
 

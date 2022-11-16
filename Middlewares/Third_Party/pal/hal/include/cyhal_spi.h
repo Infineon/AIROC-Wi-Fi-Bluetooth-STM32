@@ -2,14 +2,16 @@
 * \file cyhal_spi.h
 *
 * \brief
-* Provides a high level interface for interacting with the Cypress SPI.
+* Provides a high level interface for interacting with the Infineon SPI.
 * This interface abstracts out the chip specific details. If any chip specific
 * functionality is necessary, or performance is critical the low level functions
 * can be used directly.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2020 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -59,28 +61,28 @@
 * \subsection subsection_spi_snippet_1 Snippet 1: SPI Master - Single byte transfer operation (Read and Write)
 * The following code snippet initializes an SPI Master interface using the \ref cyhal_spi_init(). The data rate of transfer is set using \ref cyhal_spi_set_frequency().
 * The code snippet shows how to transfer a single byte of data using \ref cyhal_spi_send() and \ref cyhal_spi_recv().
-* \snippet spi.c snippet_cyhal_spi_master_byte_operation
+* \snippet hal_spi.c snippet_cyhal_spi_master_byte_operation
 *
 * \subsection subsection_spi_snippet_2 Snippet 2: SPI Slave - Single byte transfer operation (Read and Write)
 * The following code snippet initializes an SPI Slave interface using the \ref cyhal_spi_init(). The data rate of transfer is set using \ref cyhal_spi_set_frequency.
 * The code snippet shows how to transfer a single byte of data using \ref cyhal_spi_send() and \ref cyhal_spi_recv.
-* \snippet spi.c snippet_cyhal_spi_slave_byte_operation
+* \snippet hal_spi.c snippet_cyhal_spi_slave_byte_operation
 *
 * \subsection subsection_spi_snippet_3 Snippet 3: SPI Block Data transfer
 * The following snippet sends and receives an array of data in a single SPI transaction using \ref cyhal_spi_transfer(). The example
 * uses SPI master to transmit 5 bytes of data and receive 5 bytes of data in a single transaction.
-* \snippet spi.c snippet_cyhal_spi_block_data_transfer
+* \snippet hal_spi.c snippet_cyhal_spi_block_data_transfer
 *
 * \subsection subsection_spi_snippet_4 Snippet 4: Interrupts on SPI events
 * SPI interrupt events ( \ref cyhal_spi_event_t) can be mapped to an interrupt and assigned to a callback function.
 * The callback function needs to be first registered and then the event needs to be enabled.
 * The following snippet initialises a SPI master to perform a block transfer using \ref cyhal_spi_transfer_async(). This is a non-blocking function.
 *  A callback function is registered using \ref cyhal_spi_register_callback to notify whenever the SPI transfer is complete.
-* \snippet spi.c snippet_cyhal_spi_interrupt_callback_events
+* \snippet hal_spi.c snippet_cyhal_spi_interrupt_callback_events
 
 * \section subsection_spi_moreinfor More Information
 *
-* * <a href="https://github.com/cypresssemiconductorco/mtb-example-psoc6-spi-master"><b>mtb-example-psoc6-spi-master</b></a>: This example project demonstrates
+* * <a href="https://github.com/infineon/mtb-example-psoc6-spi-master"><b>mtb-example-psoc6-spi-master</b></a>: This example project demonstrates
 * use of SPI (HAL) resource in PSoC® 6 MCU in Master mode to write data to an SPI slave.
 *
 */
@@ -104,31 +106,37 @@ extern "C" {
 
 /** Bad argument */
 #define CYHAL_SPI_RSLT_BAD_ARGUMENT                     \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_SPI, 0))
-/** Failed to initialize SPI clock */
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SPI, 0))
+/** Failed to initialize SPI clock or can't make changes in user-provided clock */
 #define CYHAL_SPI_RSLT_CLOCK_ERROR                      \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_SPI, 1))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SPI, 1))
 /** Failed to Transfer SPI data */
 #define CYHAL_SPI_RSLT_TRANSFER_ERROR                   \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_SPI, 2))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SPI, 2))
 /** Provided clock is not supported by SPI */
 #define CYHAL_SPI_RSLT_CLOCK_NOT_SUPPORTED              \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_SPI, 3))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SPI, 3))
 /** Provided PIN configuration is not supported by SPI */
 #define CYHAL_SPI_RSLT_PIN_CONFIG_NOT_SUPPORTED         \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_SPI, 5))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SPI, 5))
 /** Provided PIN configuration is not supported by SPI */
 #define CYHAL_SPI_RSLT_INVALID_PIN_API_NOT_SUPPORTED    \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_SPI, 6))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SPI, 6))
 /** The requested resource type is invalid */
 #define CYHAL_SPI_RSLT_ERR_INVALID_PIN                  \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_SPI, 7))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SPI, 7))
 /** Cannot configure SSEL signal */
 #define CYHAL_SPI_RSLT_ERR_CANNOT_CONFIG_SSEL           \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_SPI, 8))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SPI, 8))
 /** Cannot switch SSEL - device is busy or incorrect pin provided */
 #define CYHAL_SPI_RSLT_ERR_CANNOT_SWITCH_SSEL           \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_SPI, 9))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SPI, 9))
+/** Provided configuration is not supported */
+#define CYHAL_SPI_RSLT_ERR_CFG_NOT_SUPPORTED            \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SPI, 10))
+/** Unsupported by this device */
+#define CYHAL_SPI_RSLT_ERR_UNSUPPORTED                  \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_SPI, 11))
 
 /**
  * \}
@@ -165,9 +173,9 @@ typedef void (*cyhal_spi_event_callback_t)(void *callback_arg, cyhal_spi_event_t
 /** Flag for SPI \ref cyhal_spi_mode_t values indicating that the CPOL=1. */
 #define CYHAL_SPI_MODE_FLAG_CPOL            (0x04u)
 /** Creates a \ref cyhal_spi_mode_t value given the cpol, cpha, lsb values. */
-#define CYHAL_SPI_MODE(cpol, cpha, lsb)     (((cpol > 0) ? CYHAL_SPI_MODE_FLAG_CPOL : 0) | \
-                                             ((cpha > 0) ? CYHAL_SPI_MODE_FLAG_CPHA : 0) | \
-                                             (( lsb > 0) ? CYHAL_SPI_MODE_FLAG_LSB  : 0))
+#define CYHAL_SPI_MODE(cpol, cpha, lsb)     ((((cpol) > 0) ? CYHAL_SPI_MODE_FLAG_CPOL : 0) | \
+                                             (((cpha) > 0) ? CYHAL_SPI_MODE_FLAG_CPHA : 0) | \
+                                              (((lsb) > 0) ? CYHAL_SPI_MODE_FLAG_LSB  : 0))
 
 /** SPI operating modes */
 typedef enum
@@ -190,6 +198,20 @@ typedef enum
     CYHAL_SPI_MODE_11_LSB = CYHAL_SPI_MODE(1, 1, 1),
 } cyhal_spi_mode_t;
 
+/** SPI FIFO type */
+typedef enum
+{
+    CYHAL_SPI_FIFO_RX, //!< Set RX FIFO level
+    CYHAL_SPI_FIFO_TX, //!< Set TX FIFO level
+} cyhal_spi_fifo_type_t;
+
+/** Enum of possible output signals from an SPI */
+typedef enum
+{
+    CYHAL_SPI_OUTPUT_TRIGGER_RX_FIFO_LEVEL_REACHED, //!< Output the RX FIFO signal which is triggered when the receive FIFO has more entries than the configured level.
+    CYHAL_SPI_OUTPUT_TRIGGER_TX_FIFO_LEVEL_REACHED, //!< Output the TX FIFO signal which is triggered when the transmit FIFO has less entries than the configured level.
+} cyhal_spi_output_t;
+
 /** @brief Initial SPI configuration. */
 typedef struct
 {
@@ -198,9 +220,14 @@ typedef struct
     bool is_slave; //!< Whether the peripheral is operating as slave or master
 } cyhal_spi_cfg_t;
 
-/** Initialize the SPI peripheral
+/** Initialize the SPI peripheral.
  *
- * Configures the pins used by SPI, sets a default format and frequency, and enables the peripheral
+ * Configures the pins used by SPI, sets a default format and frequency, and enables the peripheral.
+ * Depending on the configuration, some pins may not be needed.
+ * Master mode: MOSI used, MISO unused: SCLK & SSEL are both optional
+ * Master mode: MISO used, MOSI unused: SCLK is mandatory, SSEL is optional
+ * Slave  mode: MOSI or MISO are used:  SCLK & SSEL are both mandatory
+ *
  * @param[out] obj  Pointer to a SPI object. The caller must allocate the memory
  *  for this object but the init function will initialize its contents.
  * @param[in]  mosi The pin to use for MOSI
@@ -208,20 +235,20 @@ typedef struct
  * @param[in]  miso The pin to use for MISO
  * @note At least MOSI or MISO pin should be non-NC
  * @param[in]  sclk The pin to use for SCLK
- * @note This pin cannot be NC
+ * @note This pin can be NC if in master mode with only MOSI used
  * @param[in]  ssel The pin to use for SSEL
  * @note Provided pin will be configured for \ref CYHAL_SPI_SSEL_ACTIVE_LOW polarity and set as active. This can be changed
  * (as well as additional ssel pins can be added) by \ref cyhal_spi_slave_select_config and \ref cyhal_spi_select_active_ssel
  * functions. This pin can be NC.
  * @param[in]  clk The clock to use can be shared, if not provided a new clock will be allocated
  * @param[in]  bits      The number of bits per frame
- * @note bits should be 8 or 16
+ * @note \ref section_hal_impl_spi_data_width describes what data width options are supported by certain hardware
  * @param[in]  mode      The SPI mode (clock polarity, phase, and shift direction)
  * @param[in]  is_slave  false for master mode or true for slave mode operation
  * @return The status of the init request
  */
 cy_rslt_t cyhal_spi_init(cyhal_spi_t *obj, cyhal_gpio_t mosi, cyhal_gpio_t miso, cyhal_gpio_t sclk, cyhal_gpio_t ssel,
-                        const cyhal_clock_t *clk, uint8_t bits, cyhal_spi_mode_t mode, bool is_slave);
+                         const cyhal_clock_t *clk, uint8_t bits, cyhal_spi_mode_t mode, bool is_slave);
 
 /** Release a SPI object
  *
@@ -364,13 +391,45 @@ void cyhal_spi_register_callback(cyhal_spi_t *obj, cyhal_spi_event_callback_t ca
  */
 void cyhal_spi_enable_event(cyhal_spi_t *obj, cyhal_spi_event_t event, uint8_t intr_priority, bool enable);
 
-/*******************************************************************************
-* Backward compatibility macro. The following code is DEPRECATED and must
-* not be used in new projects
-*******************************************************************************/
-/** \cond INTERNAL */
-typedef cyhal_spi_event_t             cyhal_spi_irq_event_t;
-/** \endcond */
+/** Sets a threshold level for a FIFO that will generate an interrupt and a
+ * trigger output. The RX FIFO interrupt and trigger will be activated when
+ * the receive FIFO has more entries than the threshold. The TX FIFO interrupt
+ * and trigger will be activated when the transmit FIFO has less entries than
+ * the threshold.
+ *
+ * @param[in]  obj        The SPI object
+ * @param[in]  type       FIFO type to set level for
+ * @param[in]  level      Level threshold to set
+ * @return The status of the level set
+ * */
+cy_rslt_t cyhal_spi_set_fifo_level(cyhal_spi_t *obj, cyhal_spi_fifo_type_t type, uint16_t level);
+
+/** Enables the specified output signal from an SPI.
+ *
+ * @param[in]  obj        The SPI object
+ * @param[in]  output     Which output signal to enable
+ * @param[out] source     Pointer to user-allocated source signal object which
+ * will be initialized by enable_output. \p source should be passed to
+ * (dis)connect_digital functions to (dis)connect the associated endpoints.
+ * @return The status of the output enable
+ * */
+cy_rslt_t cyhal_spi_enable_output(cyhal_spi_t *obj, cyhal_spi_output_t output, cyhal_source_t *source);
+
+/** Disables the specified output signal from an SPI
+ *
+ * @param[in]  obj        The SPI object
+ * @param[in]  output     Which output signal to disable
+ * @return The status of the output disable
+ * */
+cy_rslt_t cyhal_spi_disable_output(cyhal_spi_t *obj, cyhal_spi_output_t output);
+
+/** Initialize the SPI peripheral using a configurator generated configuration struct.
+ *
+ * @param[in]  obj                  The SPI peripheral to configure
+ * @param[in]  cfg                  Configuration structure generated by a configurator.
+ * @return The status of the operation
+ */
+cy_rslt_t cyhal_spi_init_cfg(cyhal_spi_t *obj, const cyhal_spi_configurator_t *cfg);
 
 #if defined(__cplusplus)
 }

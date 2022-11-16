@@ -6,7 +6,9 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2019 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,7 +33,7 @@
  *                                Constants
  ******************************************************************************/
 #define HCI_UART_TYPE_HEADER_SIZE  (1)         /**< HCI UART header size */
-#define HCI_UART_DEFAULT_BAUDRATE  (115200)    /**< HCI UART default controller 
+#define HCI_UART_DEFAULT_BAUDRATE  (115200)    /**< HCI UART default controller
                                                *    baudrate
                                                */
 

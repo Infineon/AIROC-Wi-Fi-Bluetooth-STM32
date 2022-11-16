@@ -8,7 +8,9 @@
  *
  ***************************************************************************************************
  * \copyright
- * Copyright 2018-2021 Cypress Semiconductor Corporation
+ * Copyright 2018-2022 Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation
+ *
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -84,6 +86,10 @@ extern "C" {
 #define CY_RSLT_MODULE_POSITION            (18U)
 /** Bit width of the module identifier */
 #define CY_RSLT_MODULE_WIDTH               (14U)
+/** Bit position of the submodule identifier */
+#define CY_RSLT_SUBMODULE_POSITION         (8U)
+/** Bit width of the submodule identifier */
+#define CY_RSLT_SUBMODULE_WIDTH            (8U)
 /** Bit position of the result code */
 #define CY_RSLT_CODE_POSITION              (0U)
 /** Bit width of the result code */
@@ -95,6 +101,8 @@ extern "C" {
 #define CY_RSLT_MODULE_MASK                CY_BIT_MASK(CY_RSLT_MODULE_WIDTH)
 /** Mask for the result code */
 #define CY_RSLT_CODE_MASK                  CY_BIT_MASK(CY_RSLT_CODE_WIDTH)
+/** Mask for submodule identifier */
+#define CY_RSLT_SUBMODULE_MASK             CY_BIT_MASK(CY_RSLT_SUBMODULE_WIDTH)
 
 /** \endcond */
 
@@ -180,7 +188,7 @@ typedef enum
 /**
  * Define codes to identify the module from which an error originated.
  * @note This is provided as a debugging convenience tool, not as a definitive
- * list of all module IDs. Due to the distributed nature of ModusToolbox, each
+ * list of all module IDs. Due to the distributed nature of ModusToolbox™, each
  * library has its own release schedule. It is possible that some module IDs
  * may not appear in the enumeration yet. Missing items are expected to be
  * added over time.
@@ -323,10 +331,17 @@ typedef enum
     /** Module identifier for the BMI160 Motion Sensor Library.
        Asset(s): (sensor-orientation-bmx160) */
     CY_RSLT_MODULE_BOARD_HARDWARE_BMX160 = 0x01C7,
-    /** Module identifier for the XENSIV DPS3XX Pressure Sensor Library */
+    /** Module identifier for the XENSIV™ DPS3XX Pressure Sensor Library.
+       Asset(s): (sensor-xensiv-dps3xx) */
     CY_RSLT_MODULE_BOARD_HARDWARE_DPS3XX = 0x01C8,
-    /** Module identifier for the WM8960 Audio Codec Library */
+    /** Module identifier for the WM8960 Audio Codec Library. Asset(s): (audio-codec-wm8960) */
     CY_RSLT_MODULE_BOARD_HARDWARE_WM8960 = 0x01C9,
+    /** Module identifier for the XENSIV™ PAS CO2 Sensor Library.
+       Asset(s): (sensor-xensiv-pasco2) */
+    CY_RSLT_MODULE_BOARD_HARDWARE_XENSIV_PASCO2 = 0x01CA,
+    /** Module identifier for the XENSIV™ BGT60TRxx Sensor Library.
+       Asset(s): (sensor-xensiv-bgt60trxx) */
+    CY_RSLT_MODULE_BOARD_HARDWARE_XENSIV_BGT60TRXX = 0x01CC,
 
     /** Module identifier for the MDNS library. Asset(s): (mdns) */
     CY_RSLT_MODULE_MIDDLEWARE_MNDS = 0x200,
@@ -360,6 +375,8 @@ typedef enum
     CY_RSLT_MODULE_MIDDLEWARE_OTA_UPDATE = 0x20d,
     /** Module identifier for the HTTP Clinet library. Asset(s): (http-client) */
     CY_RSLT_MODULE_MIDDLEWARE_HTTP_CLIENT = 0x20e,
+    /** Module identifier for the Machine Learning(ML) library. Asset(s): (ml-middleware) */
+    CY_RSLT_MODULE_MIDDLEWARE_ML = 0x20f,
 
     /** Module identifier for the KV Store Middleware Library. Asset(s): (kv-store) */
     CY_RSLT_MODULE_MIDDLEWARE_KVSTORE = 0x250,
@@ -418,9 +435,28 @@ typedef union
  * this result describes.
  */
 #define CY_RSLT_CREATE(type, module, code) \
-    ((((module) & CY_RSLT_MODULE_MASK) << CY_RSLT_MODULE_POSITION) | \
-    (((code) & CY_RSLT_CODE_MASK) << CY_RSLT_CODE_POSITION) | \
-    (((type) & CY_RSLT_TYPE_MASK) << CY_RSLT_TYPE_POSITION))
+    ((((uint16_t) (module) & CY_RSLT_MODULE_MASK) << CY_RSLT_MODULE_POSITION) | \
+    ((((uint16_t) code) & CY_RSLT_CODE_MASK) << CY_RSLT_CODE_POSITION) | \
+    ((((uint16_t) type) & CY_RSLT_TYPE_MASK) << CY_RSLT_TYPE_POSITION))
+
+/**
+ * @brief Create a new @ref cy_rslt_t value that encodes the specified type, module and
+ * result code. This is a variant of @ref CY_RSLT_CREATE for result codes that need to handle
+ * submodules as well.
+ * @param type one of @ref CY_RSLT_TYPE_INFO, @ref CY_RSLT_TYPE_WARNING,
+ *  @ref CY_RSLT_TYPE_ERROR, @ref CY_RSLT_TYPE_FATAL
+ * @param module Identifies the module where this result originated; see @ref anchor_modules
+ * "Modules".
+ * @param submodule An asset defined subset of the module. The submodule consumes part
+ * of the "code" section and thus the size of the valid code is then reduced.
+ * @param code a module-defined identifier to identify the specific situation that
+ * this result describes.
+ */
+#define CY_RSLT_CREATE_EX(type, module, submodule, code) \
+    (((((uint16_t) module) & CY_RSLT_MODULE_MASK) << CY_RSLT_MODULE_POSITION) | \
+    ((((((((uint16_t)submodule) & CY_RSLT_SUBMODULE_MASK) << CY_RSLT_SUBMODULE_POSITION) | \
+    ((uint16_t) code)) & CY_RSLT_CODE_MASK) << CY_RSLT_CODE_POSITION)) | \
+    ((((uint16_t) type) & CY_RSLT_TYPE_MASK) << CY_RSLT_TYPE_POSITION))
 
 #ifdef __cplusplus
 }

@@ -74,6 +74,7 @@ var searchData=
   ['btm_5fble_5fconn_5fnone',['BTM_BLE_CONN_NONE',['../group__wicedbt___device_management.html#gga85abcdffb41185cf65f29c689cf36a16a262d3de0ebe5bab5fcb4b0e1591e0a0b',1,'wiced_bt_ble.h']]],
   ['btm_5fble_5fconn_5fselective',['BTM_BLE_CONN_SELECTIVE',['../group__wicedbt___device_management.html#gga85abcdffb41185cf65f29c689cf36a16acf3b22bc60f10d65cd68ed08c6c68c75',1,'wiced_bt_ble.h']]],
   ['btm_5fble_5fconnection_5fparam_5fupdate',['BTM_BLE_CONNECTION_PARAM_UPDATE',['../group__wicedbt___device_management.html#gga4a427fc37161f2041016d7936399be65a6e6df529fc0869b66488a4609deb4d0d',1,'wiced_bt_dev.h']]],
+  ['btm_5fble_5fdata_5flength_5fupdate_5fevent',['BTM_BLE_DATA_LENGTH_UPDATE_EVENT',['../group__wicedbt___device_management.html#gga4a427fc37161f2041016d7936399be65a4317545a7c310a63a2ff6a77143db123',1,'wiced_bt_dev.h']]],
   ['btm_5fble_5fevt_5fconnectable_5fadvertisement',['BTM_BLE_EVT_CONNECTABLE_ADVERTISEMENT',['../group__wicedbt___device_management.html#gga8b68ab04e941d86c922eabbcd4be2322a4b7d6f85506adea6ae0327a2926ab026',1,'wiced_bt_ble.h']]],
   ['btm_5fble_5fevt_5fconnectable_5fdirected_5fadvertisement',['BTM_BLE_EVT_CONNECTABLE_DIRECTED_ADVERTISEMENT',['../group__wicedbt___device_management.html#gga8b68ab04e941d86c922eabbcd4be2322aca82ee6211ba91d3e56a7fc062beba0e',1,'wiced_bt_ble.h']]],
   ['btm_5fble_5fevt_5fnon_5fconnectable_5fadvertisement',['BTM_BLE_EVT_NON_CONNECTABLE_ADVERTISEMENT',['../group__wicedbt___device_management.html#gga8b68ab04e941d86c922eabbcd4be2322a91240584862e30f683773c8c7b290018',1,'wiced_bt_ble.h']]],

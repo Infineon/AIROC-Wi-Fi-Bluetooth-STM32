@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -42,15 +42,21 @@
 #include "lwip/etharp.h"        // NOTE: LwIP specific - for netif_list for use in etharp_cleanup_netif() call
 #include "cy_nw_helper.h"
 #include "cyabs_rtos.h"
-#include "cy_lwip.h"
+#include "cy_network_mw_core.h"
+#include <string.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+
 static struct netif *nw_get_our_netif(void)
 {
-    struct netif *net = cy_lwip_get_interface(CY_LWIP_STA_NW_INTERFACE);
+#if defined(CYBSP_ETHERNET_CAPABLE)
+    struct netif *net = (struct netif *)cy_network_get_nw_interface( CY_NETWORK_ETH_INTERFACE, 1 );
+#else
+    struct netif *net = (struct netif *)cy_network_get_nw_interface( CY_NETWORK_WIFI_STA_INTERFACE, 0 );
+#endif
     return net;
 }
 
@@ -65,7 +71,11 @@ void cy_nw_ip_initialize_status_change_callback(cy_nw_ip_status_change_callback_
 
 bool cy_nw_ip_get_ipv4_address(cy_nw_ip_interface_t nw_interface, cy_nw_ip_address_t *ip_addr)
 {
-    struct netif *net = cy_lwip_get_interface(CY_LWIP_STA_NW_INTERFACE) ;
+#if defined(CYBSP_ETHERNET_CAPABLE)
+    struct netif *net = (struct netif *)cy_network_get_nw_interface( CY_NETWORK_ETH_INTERFACE, 1 );
+#else
+    struct netif *net = (struct netif *)cy_network_get_nw_interface( CY_NETWORK_WIFI_STA_INTERFACE, 0 );
+#endif
 
     if (net != NULL && ip_addr != NULL)
     {

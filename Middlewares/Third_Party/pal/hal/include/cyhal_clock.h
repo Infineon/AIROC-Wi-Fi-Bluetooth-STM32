@@ -6,7 +6,9 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2020 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -49,28 +51,32 @@
 * to place all system clock configuration into a Board Support Package (BSP) so
 * the main application code is flexible and can port between devices.
 *
-* \ref cyhal_clock_get allows for getting access to a specific clock object.
-* This clock reference can be used to call any of the get() functions at any
-* time. If a clock needs to be modified, either \ref cyhal_clock_allocate or
-* \ref cyhal_clock_init must be called to obtain a lock on the clock object
-* and to ensure that nothing else in the application is currently using it or
-* assuming its configuration is stable. If exclusive control of a clock is no
-* longer needed \ref cyhal_clock_free can be called to release it. This will
-* remove the lock allowing something else in the system to potentially modify
-* its state.
+* All System Clock instances are available as constant variables in the
+* implementation specific header. These clocks can be used directly to call
+* any get() function. Similarly, \ref cyhal_clock_get allows for getting
+* access to a specific clock object given a resource instance. Like the
+* constant variables, this clock reference can be used to call any of the
+* get() functions at any time. If a clock needs to be modified, either
+* \ref cyhal_clock_allocate or \ref cyhal_clock_reserve must be called to
+* obtain a lock on the clock object and to ensure that nothing else in the
+* application is currently using it or assuming its configuration is stable.
+* If exclusive control of a clock is no longer needed \ref cyhal_clock_free
+* can be called to release it. This will remove the lock allowing something
+* else in the system to potentially modify its state.
 *
-* \ref cyhal_clock_init and \ref cyhal_clock_allocate are very similar. They both
-* reserve a clock object that can then be modified. The difference between them
-* is the argument that is passed in. \ref cyhal_clock_init takes a specific
-* instance that it will attemt to reserve. \ref cyhal_clock_allocate takes in a
-* type of clock that it will attempt to find a free instance for and reserve that.
+* \ref cyhal_clock_reserve and \ref cyhal_clock_allocate are very similar. They
+* both reserve a clock object that can then be modified. The difference between
+* them is the argument that is passed in. \ref cyhal_clock_reserve takes a
+* specific instance that it will attempt to reserve. \ref cyhal_clock_allocate
+* takes in a type of clock that it will attempt to find a free instance for and
+* reserve that.
 *
-* \note After calling \ref cyhal_clock_free the clock object can still be used to
-* call any of the get() functions just as is possible from the instance returned
-* by \ref cyhal_clock_get.
+* \note After calling \ref cyhal_clock_free the clock object can still be used
+* to call any of the get() functions just as is possible from the instance
+* returned by \ref cyhal_clock_get or using any of the constant clock variables.
 *
 * \note A clock only needs to be allocated ( \ref cyhal_clock_allocate ) or
-* initialized ( \ref cyhal_clock_init ) if its configuration needs to be changed
+* reserved ( \ref cyhal_clock_reserve ) if its configuration needs to be changed
 * by calling one of the set() functions.
 *
 * \note While the API is generic, the specific clock resource instances
@@ -96,19 +102,19 @@
 * \subsection subsection_clock_snippet_1 Snippet 1: Simple clock read only access
 * The following snippet shows how get details about a clock if there is no need to adjust any of its
 * settings (e.g. read only access). This does not require initializing a clock object.
-* \snippet clock.c snippet_cyhal_clock_simple_access
+* \snippet hal_clock.c snippet_cyhal_clock_simple_access
 *
 * \subsection subsection_clock_snippet_2 Snippet 2: Simple clock reservation and configuration
 * The following snippet initializes a clock object, updates its frequency then enables it.
-* \snippet clock.c snippet_cyhal_clock_simple_init
+* \snippet hal_clock.c snippet_cyhal_clock_simple_init
 *
 * \subsection subsection_clock_snippet_3 Snippet 3: Clock allocation and reuse
 * The following snippet shows how a clock can be allocated and reused for multiple peripheral instances.
-* \snippet clock.c snippet_cyhal_clock_simple_allocate
+* \snippet hal_clock.c snippet_cyhal_clock_simple_allocate
 *
 * \subsection subsection_clock_snippet_4 Snippet 4: Change clock source
 * The following snippet shows how a to change the source of a clock.
-* \snippet clock.c snippet_cyhal_clock_change_source
+* \snippet hal_clock.c snippet_cyhal_clock_change_source
 *
 * \subsection subsection_clock_snippet_5 Snippet 5: System initialization
 * \note This example is device specific. See \ref subsection_clock_snippet_5_impl for specific implementation.
@@ -136,19 +142,19 @@ extern "C"
 
 /** Error configuring clock frequency, divider, or multiplier. */
 #define CYHAL_CLOCK_RSLT_ERR_FREQ               \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_CLOCK, 0))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_CLOCK, 0))
 /** Invalid source clock. */
 #define CYHAL_CLOCK_RSLT_ERR_SOURCE             \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_CLOCK, 1))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_CLOCK, 1))
 /** Specified operation is not supported by the current clock. */
 #define CYHAL_CLOCK_RSLT_ERR_NOT_SUPPORTED      \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_CLOCK, 2))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_CLOCK, 2))
 /** The specified resource is not valid. */
 #define CYHAL_CLOCK_RSLT_ERR_RESOURCE           \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_CLOCK, 3))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_CLOCK, 3))
 /** The clock did not lock after being enabled. */
 #define CYHAL_CLOCK_RSLT_ERR_LOCK               \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_CLOCK, 4))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_CLOCK, 4))
 
 /**
  * \}
@@ -183,24 +189,10 @@ typedef enum
     CYHAL_CLOCK_FEATURE_SOURCE =     (1 << 4),  //!< The clock source can be adjusted \ref cyhal_clock_set_source.
 } cyhal_clock_feature_t;
 
-/** Allocates and Initializes a Clock instance, of the provided block type, for use.
- * This should be used when needing a specific type of clock but the exact instance
- * does not matter. This does everything that is done by \ref cyhal_clock_get and
- * \ref cyhal_clock_init. Once the clock has been allocated the get() and set()
- * functions can be used. If at any time the clock is no longer needed, it can be
- * released by calling \ref cyhal_clock_free.
- * \note This does not change the clock configuration or connections.
- *
- * @param[out] clock        The clock object to initialize. The caller must allocate
- * the memory for this object but the init function will initialize its contents.
- * @param[in]  block        The specific type of clock to allocate
- * @return The status of the allocate request.
- */
-cy_rslt_t cyhal_clock_allocate(cyhal_clock_t *clock, cyhal_clock_block_t block);
 
 /** Get a Clock instance for readonly use. This clock object can be used to call
  * any of the get() functions. To call any of the set() functions, \ref
- * cyhal_clock_init must be called to get exclusive access to the clock object
+ * cyhal_clock_reserve must be called to get exclusive access to the clock object
  * to allow it to be modified.
  *
  * @param[out] clock    The clock object to store the initialized data into. The
@@ -212,14 +204,34 @@ cy_rslt_t cyhal_clock_allocate(cyhal_clock_t *clock, cyhal_clock_block_t block);
  */
 cy_rslt_t cyhal_clock_get(cyhal_clock_t *clock, const cyhal_resource_inst_t *resource);
 
-/** Initialize a Clock instance for read/write use. This instance should be what was
- * returned from \ref cyhal_clock_get.
- * \note This does not change the behavior (e.g.: enablement) of the clock.
+/** Reserves the specified Clock instance.
+ * Once the clock has been reserved the get() and set() functions can be used. If
+ * at any time the clock is no longer needed, it can be released by calling
+ * \ref cyhal_clock_free.
+ * \note This does not change the clock configuration or connections.
  *
- * @param[in,out] clock    The clock object to store the initialized data into.
- * @return The status of the init request.
+ * @param[out] clock        The clock object to initialize. The caller must allocate
+ * the memory for this object but the init function will initialize its contents.
+ * @param[in]  clock_       The constant clock object to reserve
+ * @return The status of the reserve request.
  */
-cy_rslt_t cyhal_clock_init(cyhal_clock_t *clock);
+cy_rslt_t cyhal_clock_reserve(cyhal_clock_t *clock, const cyhal_clock_t *clock_);
+
+/** Allocates and Reserves a Clock instance, of the provided block type, for use.
+ * This should be used when needing a specific type of clock but the exact instance
+ * does not matter. This does everything that is done by \ref cyhal_clock_reserve.
+ * Once the clock has been allocated the get() and set() functions can be used. If
+ * at any time the clock is no longer needed, it can be released by calling
+ * \ref cyhal_clock_free.
+ * \note This does not change the clock configuration or connections.
+ * \note This is generally only supported for clock blocks that have multiple instances
+ *
+ * @param[out] clock        The clock object to initialize. The caller must allocate
+ * the memory for this object but the init function will initialize its contents.
+ * @param[in]  block        The specific type of clock to allocate
+ * @return The status of the allocate request.
+ */
+cy_rslt_t cyhal_clock_allocate(cyhal_clock_t *clock, cyhal_clock_block_t block);
 
 /** Gets the features supported by the specified clock. This can be used to determine which
  * set() APIs are legal to be called for this clock.
@@ -244,8 +256,8 @@ bool cyhal_clock_is_enabled(const cyhal_clock_t *clock);
 /** Attempts to update the enablement of the specified clock. This is only legal to call
  * if the \ref cyhal_clock_get_features API indicates support for \ref CYHAL_CLOCK_FEATURE_ENABLE.
  *
- * \note \ref cyhal_clock_allocate or \ref cyhal_clock_init must be called on the <b>clock</b>
- * instace before using this function.
+ * \note \ref cyhal_clock_allocate or \ref cyhal_clock_reserve must be called on the <b>clock</b>
+ * instance before using this function.
  *
  * \note If disabled, any clocks or peripherals that are using this will stop working. Make sure
  * to switch the clock source (\ref cyhal_clock_set_source) of any downstream clocks if necessary
@@ -272,8 +284,8 @@ uint32_t cyhal_clock_get_frequency(const cyhal_clock_t *clock);
 /** Attempts to update the operating frequency of the clock. This is only legal to call
  * if the \ref cyhal_clock_get_features API indicates support for \ref CYHAL_CLOCK_FEATURE_FREQUENCY.
  *
- * \note \ref cyhal_clock_allocate or \ref cyhal_clock_init must be called on the <b>clock</b>
- * instace before using this function.
+ * \note \ref cyhal_clock_allocate or \ref cyhal_clock_reserve must be called on the <b>clock</b>
+ * instance before using this function.
  *
  * \note Some clocks (eg: FLLs & PLLs) may need to be stopped before their frequency can
  * be changed. This function will take care of disabling & re-enabling as necessary, however,
@@ -293,8 +305,8 @@ cy_rslt_t cyhal_clock_set_frequency(cyhal_clock_t *clock, uint32_t hz, const cyh
  * legal to call if the \ref cyhal_clock_get_features API indicates support for
  * \ref CYHAL_CLOCK_FEATURE_DIVIDER.
  *
- * \note \ref cyhal_clock_allocate or \ref cyhal_clock_init must be called on the <b>clock</b>
- * instace before using this function.
+ * \note \ref cyhal_clock_allocate or \ref cyhal_clock_reserve must be called on the <b>clock</b>
+ * instance before using this function.
  *
  * @param[in] clock     The clock object to set the divider for.
  * @param[in] divider   The divider value to use.
@@ -316,8 +328,8 @@ cy_rslt_t cyhal_clock_get_sources(const cyhal_clock_t *clock, const cyhal_resour
 /** Attempts to update the source for the specified clock. This is only legal to call if the
  * \ref cyhal_clock_get_features API indicates support for \ref CYHAL_CLOCK_FEATURE_SOURCE.
  *
- * \note \ref cyhal_clock_allocate or \ref cyhal_clock_init must be called on the <b>clock</b>
- * instace before using this function.
+ * \note \ref cyhal_clock_allocate or \ref cyhal_clock_reserve must be called on the <b>clock</b>
+ * instance before using this function.
  *
  * \note Some clocks (eg: FLLs & PLLs) may need to be stopped before their source can be changed.
  * This function will take care of disabling & re-enabling as necessary, however, this can cause

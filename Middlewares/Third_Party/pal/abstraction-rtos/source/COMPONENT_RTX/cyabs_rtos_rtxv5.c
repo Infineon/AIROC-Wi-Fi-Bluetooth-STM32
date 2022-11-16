@@ -6,7 +6,9 @@
  *
  ***************************************************************************************************
  * \copyright
- * Copyright 2018-2021 Cypress Semiconductor Corporation
+ * Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation
+ *
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,7 +45,7 @@ static cy_rtos_error_t dbgErr;
 //--------------------------------------------------------------------------------------------------
 // cy_rtos_last_error
 //--------------------------------------------------------------------------------------------------
-cy_rtos_error_t cy_rtos_last_error()
+cy_rtos_error_t cy_rtos_last_error(void)
 {
     return dbgErr;
 }
@@ -192,7 +194,7 @@ cy_rslt_t cy_rtos_create_thread(cy_thread_t* thread, cy_thread_entry_fn_t entry_
 //--------------------------------------------------------------------------------------------------
 // cy_rtos_exit_thread
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_exit_thread()
+cy_rslt_t cy_rtos_exit_thread(void)
 {
     // This does not have a return statement because the osThreadExit() function * does not return
     // so the return statement would be unreachable and causes a * warning for IAR compiler.
@@ -340,11 +342,11 @@ cy_rslt_t cy_rtos_get_thread_handle(cy_thread_t* thread)
 //--------------------------------------------------------------------------------------------------
 // cy_rtos_wait_thread_notification
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_wait_thread_notification(cy_time_t num_ms)
+cy_rslt_t cy_rtos_wait_thread_notification(cy_time_t timeout_ms)
 {
     uint32_t ret;
     cy_rslt_t status = CY_RSLT_SUCCESS;
-    ret = osThreadFlagsWait(CY_RTOS_THREAD_FLAG, osFlagsWaitAll, convert_ms_to_ticks(num_ms));
+    ret = osThreadFlagsWait(CY_RTOS_THREAD_FLAG, osFlagsWaitAll, convert_ms_to_ticks(timeout_ms));
     if (ret & osFlagsError)
     {
         status = (ret == osFlagsErrorTimeout) ? CY_RTOS_TIMEOUT : CY_RTOS_GENERAL_ERROR;
@@ -543,22 +545,15 @@ cy_rslt_t cy_rtos_get_semaphore(cy_semaphore_t* semaphore, cy_time_t timeout_ms,
     cy_rslt_t       status = CY_RSLT_SUCCESS;
     cy_rtos_error_t statusInternal;
 
-    if (semaphore == NULL)
+    // Based on documentation when osSemaphoreAcquire is called from ISR timeout must be zero.
+    // https://www.keil.com/pack/doc/CMSIS/RTOS2/html/group__CMSIS__RTOS__SemaphoreMgmt.html#ga7e94c8b242a0c81f2cc79ec22895c87b
+    if ((semaphore == NULL) || (in_isr && (timeout_ms != 0)))
     {
         status = CY_RTOS_BAD_PARAM;
     }
     else
     {
-        // Not allowed to be called in ISR if timeout != 0
-        if ((!in_isr) || (in_isr && (timeout_ms == 0U)))
-        {
-            statusInternal = osSemaphoreAcquire(*semaphore, timeout_ms);
-        }
-        else
-        {
-            statusInternal = osErrorISR;
-        }
-
+        statusInternal = osSemaphoreAcquire(*semaphore, timeout_ms);
         status = error_converter(statusInternal);
     }
 

@@ -1,5 +1,34 @@
 /*
- * $ Copyright Cypress Semiconductor $
+ * Copyright 2016-2022, Cypress Semiconductor Corporation or
+ * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
+ *
+ * This software, including source code, documentation and related
+ * materials ("Software") is owned by Cypress Semiconductor Corporation
+ * or one of its affiliates ("Cypress") and is protected by and subject to
+ * worldwide patent protection (United States and foreign),
+ * United States copyright laws and international treaty provisions.
+ * Therefore, you may use this Software only as provided in the license
+ * agreement accompanying the software package from which you
+ * obtained this Software ("EULA").
+ * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
+ * non-transferable license to copy, modify, and compile the Software
+ * source code solely for use in connection with Cypress's
+ * integrated circuit products.  Any reproduction, modification, translation,
+ * compilation, or representation of this Software except as specified
+ * above is prohibited without the express written permission of Cypress.
+ *
+ * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Cypress
+ * reserves the right to make changes to the Software without notice. Cypress
+ * does not assume any liability arising out of the application or use of the
+ * Software or any product or circuit described in the Software. Cypress does
+ * not authorize its products for use in any products where a malfunction or
+ * failure of the Cypress product may reasonably be expected to result in
+ * significant property damage, injury or death ("High Risk Product"). By
+ * including Cypress's product in a High Risk Product, the manufacturer
+ * of such system or application assumes all risk of such use and in doing
+ * so agrees to indemnify Cypress against all liability.
  */
 
 /** @file
@@ -115,7 +144,7 @@ typedef void (wiced_bt_port_mgmt_cback_t) (wiced_bt_rfcomm_result_t code, uint16
 /**
  *  Port event callback
  *
- *  @param  event               : A 32-bit event code that contains a bit-mask of one or more events the caller would like to register.(see #wiced_bt_rfcomm_port_event_t) 
+ *  @param  event               : A 32-bit event code that contains a bit-mask of one or more events the caller would like to register.(see #wiced_bt_rfcomm_port_event_t)
  *  @param  port_handle         : Port handle from @link wiced_bt_rfcomm_create_connection wiced_bt_rfcomm_create_connection @endlink.
  */
 typedef void (wiced_bt_port_event_cback_t) (wiced_bt_rfcomm_port_event_t event, uint16_t port_handle);
@@ -158,7 +187,7 @@ extern "C"
  *  @param[in]  mtu             : The maximum number of bytes transferred per frame
  *                                If 0, a default size of L2CAP_MAX_BR_RX_MTU minus
  *                                5 bytes is used
- *  @param[in]  bd_addr         : BD_ADDR of the peer (if client), NULL if server (see #wiced_bt_device_address_t) 
+ *  @param[in]  bd_addr         : BD_ADDR of the peer (if client), NULL if server (see #wiced_bt_device_address_t)
  *  @param[in]  p_mgmt_cb       : Pointer to callback function to receive connection
  *                                up/down events (see #wiced_bt_port_mgmt_cback_t)
  *  @param[out]  p_handle       : A pointer to the handle set by RFCOMM to be used in
@@ -311,4 +340,3 @@ wiced_bt_rfcomm_result_t wiced_bt_rfcomm_check_connection (uint16_t handle, wice
 
 /**@}rfcomm_api_functions */
 /**  @endcond */
-

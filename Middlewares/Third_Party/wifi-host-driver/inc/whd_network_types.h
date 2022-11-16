@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company)
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -76,8 +76,8 @@ struct whd_buffer_funcs
      *  @return            WHD_SUCCESS or error code
      *
      */
-    whd_result_t (*whd_host_buffer_get)(whd_buffer_t *buffer, whd_buffer_dir_t direction, unsigned short size,
-                                        unsigned long timeout_ms);
+    whd_result_t (*whd_host_buffer_get)(whd_buffer_t *buffer, whd_buffer_dir_t direction, uint16_t size,
+                                        uint32_t timeout_ms);
 
     /** Releases a packet buffer
      *
@@ -136,7 +136,7 @@ struct whd_buffer_funcs
      *
      *  @return        WHD_SUCCESS or error code
      */
-    whd_result_t (*whd_buffer_set_size)(whd_buffer_t buffer, unsigned short size);
+    whd_result_t (*whd_buffer_set_size)(whd_buffer_t buffer, uint16_t size);
 
     /** Moves the current pointer of a packet buffer
      *
@@ -219,7 +219,7 @@ struct whd_netif_funcs
  *  @return WHD_SUCCESS or Error code
  *
  */
-extern void whd_network_send_ethernet_data(whd_interface_t ifp, whd_buffer_t buffer);
+extern whd_result_t whd_network_send_ethernet_data(whd_interface_t ifp, whd_buffer_t buffer);
 /*  @} */
 
 

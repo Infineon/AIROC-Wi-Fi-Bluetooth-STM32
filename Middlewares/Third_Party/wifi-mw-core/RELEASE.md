@@ -1,47 +1,77 @@
-# Wi-Fi Middleware Core Library
+# Wi-Fi middleware core library
 
-## What's Included?
+## What's iIncluded?
+
 See the [README.md](./README.md) for a complete description of the Wi-Fi Middleware Core Library.
 
 ## Changelog
+
+### v3.4.0
+- Integrated mbedTLS Crypto acceleration module to support hardware crypto.
+
+### v3.3.0
+- Added support for CY8CEVAL-062S2-MUR-43439M2 kit
+
+### v3.2.0
+- Added support for CYW943907AEVAL1F and CYW954907AEVAL1F kits
+
+### v3.1.1
+- Upgraded mbed TLS version to v2.25
+
 ### v3.1.0
-* Updated FreeRTOS and LwIP reference config files.
-* Added support for ARMC6 build.
-* Added a function for notifying network activity to Low Power Assistant(LPA) middleware library.
+- Updated FreeRTOS and LwIP reference config files
+
+- Added support for ARMC6 build
+
+- Added a function for notifying network activity to low power assistant (LPA) middleware library
+
 
 ### v3.0.0
-* Added support for SoftAP network interface.
-* Added support for simultaneous working of multiple network interfaces such as STA and AP (Concurrent mode).
-* Added internal DHCP server support for SoftAP mode.
-* Added support for Automatic Private IP Addressing (Auto IP) for STA mode.
+- Added support for SoftAP network interface
+
+- Added support for simultaneous working of multiple network interfaces such as STA and AP (Concurrent mode)
+
+- Added internal DHCP server support for SoftAP mode
+
+- Added support for automatic private IP addressing (Auto IP) for STA mode
+
 
 ### v2.1.0
-* IPv6 link local address support added
-* Updated lwIP and FreeRTOS reference config files
+- Added support for IPv6 link-local address
+
+- Updated lwIP and FreeRTOS reference config files
+
 
 ### v2.0.0
-* Updated to include Secure Sockets Library and Connectivity Utilities
-* Upgraded mbed TLS to v2.16.6. See [release notes](https://tls.mbed.org/tech-updates/releases/mbedtls-2.16.6-and-2.7.15-released).
+- Updated to include secure sockets library and connectivity utilities
+
+- Upgraded mbed TLS to v2.16.6. See [release notes](https://tls.mbed.org/tech-updates/releases/mbedtls-2.16.6-and-2.7.15-released).
+
 
 ### v1.0.0
-* Initial release for Wi-Fi Middleware Core
-* Adds support for Wi-Fi Host Driver, lwIP TCP/IP stack, and mbed TLS security for TLS
+- Initial release for Wi-Fi middleware core
 
-### Supported Software and Tools
+- Adds support for Wi-Fi host driver, lwIP TCP/IP stack, and mbed TLS security for TLS
+
+### Supported software and tools
+
 This version of the library was validated for compatibility with the following software and tools:
 
-| Software and Tools                                      | Version |
-| :---                                                    | :----:  |
-| ModusToolbox Software Environment                       | 2.3     |
-| - ModusToolbox Device Configurator                      | 3.0     |
-| - ModusToolbox CapSense Configurator / Tuner tools      | 3.15    |
-| PSoC 6 Peripheral Driver Library (PDL)                  | 2.2.0   |
-| GCC Compiler                                            | 9.3.1   |
-| IAR Compiler                                            | 8.32    |
-| Arm Compiler 6                                          | 6.14    |
+| Software and tools                                             | Version |
+| :---                                                           | :----:  |
+| ModusToolbox&trade; software environment                       | 2.4     |
+| - ModusToolbox&trade; device configurator                      | 3.10    |
+| - ModusToolbox&trade; CAPSENSE&trade; configurator/tuner tools | 4.0     |
+| PSoC&trade; 6 peripheral driver library (PDL)                  | 2.2.1   |
+| GCC compiler                                                   | 10.3.1  |
+| IAR compiler                                                   | 8.32    |
+| Arm&reg; compiler 6                                            | 6.14    |
 
-## Additional Information
-* [Wi-Fi Middleware Core README.md](./README.md)
-* [Wi-Fi Middleware Core API Reference Guide](https://cypresssemiconductorco.github.io/wifi-mw-core/api_reference_manual/html/index.html)
-* [ModusToolbox Software Environment, Quick Start Guide, Documentation, and Videos](https://www.cypress.com/products/modustoolbox-software-environment)
-* [Wi-Fi Middleware Core version](./version.txt)
+
+## Additional information
+
+- [Wi-Fi middleware core README.md](./README.md)
+
+- [Wi-Fi middleware core API reference guide](https://cypresssemiconductorco.github.io/wifi-mw-core/api_reference_manual/html/index.html)
+
+- [ModusToolbox&trade; software environment, quick start guide, documentation, and videos](https://www.cypress.com/products/modustoolbox-software-environment)

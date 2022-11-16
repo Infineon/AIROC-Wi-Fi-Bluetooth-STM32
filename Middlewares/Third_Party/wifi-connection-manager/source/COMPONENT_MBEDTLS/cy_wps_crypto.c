@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -128,6 +128,7 @@ void cy_sha2_hmac_starts(cy_sha2_hmac_context *ctx, const unsigned char *key, ui
         ctx->opad[i] = (unsigned char)(ctx->opad[i] ^ key[i]);
     }
 
+    mbedtls_sha256_init(&ctx->ctx);
     mbedtls_sha256_starts_ret(&ctx->ctx, is224);
     mbedtls_sha256_update_ret(&ctx->ctx, ctx->ipad, 64);
 
@@ -151,14 +152,25 @@ void cy_sha2_hmac_finish(cy_sha2_hmac_context * ctx, unsigned char output[32])
     uint32_t      hlen;
     unsigned char tmpbuf[32];
 
-    is224 = ctx->ctx.is224;
-    hlen = (is224 == 0) ? 32 : 28;
+    /*
+     * Work Around: Instead of hard coding is224 to zero, we have to use ctx->ctx.is224;
+     * But mbedtls_sha256_context structure in cy-mbedtls-acceleration(HW Crypto) does not
+     * have is224 field. Verified in entire WPS code that, is224 is always used as zero, so
+     * it is safe to initialize is224 with 0.
+     */
+    is224 = 0;
+    /* CID 465080: Deadcode. Since is224 is initialized with 0, 
+       hlen = (is224 == 0) ? 32 : 28 will never evaluate to 28.
+       Hence initializing hlen to 32 directly.
+    */
+    hlen = 32;
 
     mbedtls_sha256_finish_ret(&ctx->ctx, tmpbuf);
     mbedtls_sha256_starts_ret(&ctx->ctx, is224);
     mbedtls_sha256_update_ret(&ctx->ctx, ctx->opad, 64);
     mbedtls_sha256_update_ret(&ctx->ctx, tmpbuf, hlen);
     mbedtls_sha256_finish_ret(&ctx->ctx, output);
+    mbedtls_sha256_free(&ctx->ctx);
 
     memset(tmpbuf, 0, sizeof(tmpbuf));
 }

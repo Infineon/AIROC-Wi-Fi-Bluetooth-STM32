@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company)
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -60,7 +60,6 @@ extern void whd_delayed_bus_release_schedule_update(whd_driver_t whd_driver, whd
 /* handle delayed sleep of bus */
 extern uint32_t     whd_bus_handle_delayed_release(whd_driver_t whd_driver);
 whd_bool_t whd_bus_platform_mcu_power_save_deep_sleep_enabled(whd_driver_t whd_driver);
-
 #ifdef __cplusplus
 } /*extern "C" */
 #endif

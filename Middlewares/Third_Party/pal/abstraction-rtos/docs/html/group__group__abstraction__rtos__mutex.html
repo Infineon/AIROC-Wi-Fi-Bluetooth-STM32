@@ -127,7 +127,7 @@ $(document).ready(function(){initNavTree('group__group__abstraction__rtos__mutex
 </div><div class="memdoc">
 
 <p>Create a recursive mutex. </p>
-<p>Creates a binary mutex which can be used to synchronize between threads and between threads and ISRs. Created mutexes are recursive and support priority inheritance.</p>
+<p>Creates a binary mutex which can be used for mutual exclusion to prevent simulatenous access of shared resources. Created mutexes can support priority inheritance if recursive.</p>
 <p>This function has been replaced by <a class="el" href="group__group__abstraction__rtos__mutex.html#ga0c9c20028f40d04bd4cafdddb2d2e4ca">cy_rtos_init_mutex2</a> which allow for specifying whether or not the mutex supports recursion or not.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -167,7 +167,7 @@ $(document).ready(function(){initNavTree('group__group__abstraction__rtos__mutex
 </div><div class="memdoc">
 
 <p>Create a mutex which can support recursion or not. </p>
-<p>Creates a binary mutex which can be used to synchronize between threads and between threads and ISRs. Created mutexes can support priority inheritance if recursive.</p>
+<p>Creates a binary mutex which can be used for mutual exclusion to prevent simulatenous access of shared resources. Created mutexes can support priority inheritance if recursive.</p>
 <dl class="section note"><dt>Note</dt><dd>Not all RTOS implementations support non-recursive mutexes. In this case a recursive mutex will be created.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -212,7 +212,7 @@ $(document).ready(function(){initNavTree('group__group__abstraction__rtos__mutex
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">mutex</td><td>Pointer to the mutex handle </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">timeout_ms</td><td>Maximum number of milliseconds to wait while attempting to get the mutex. Use the <a class="el" href="group__group__abstraction__rtos__common.html#gab31d8535128df9506a4220c2b1f41a60">CY_RTOS_NEVER_TIMEOUT</a> constant to wait forever. Must be zero if in_isr is true.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">timeout_ms</td><td>Maximum number of milliseconds to wait while attempting to get the mutex. Use the <a class="el" href="group__group__abstraction__rtos__common.html#gab31d8535128df9506a4220c2b1f41a60">CY_RTOS_NEVER_TIMEOUT</a> constant to wait forever.</td></tr>
   </table>
   </dd>
 </dl>

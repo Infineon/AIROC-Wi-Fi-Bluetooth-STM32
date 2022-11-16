@@ -2,14 +2,16 @@
 * \file cyhal_flash.h
 *
 * \brief
-* Provides a high level interface for interacting with the Cypress Flash memory.
+* Provides a high level interface for interacting with the Infineon Flash memory.
 * This interface abstracts out the chip specific details. If any chip specific
 * functionality is necessary, or performance is critical the low level functions
 * can be used directly.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2020 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -52,13 +54,13 @@
 * 2 and 3 for data storage.
 *
 * \section features Features
-* * Flash operations are performed on a per-sector basis
+* * Flash operations are performed on a per-page (program) or per-sector (erase) basis
 * * Supports blocking or partially blocking erase, program and write
 * \section code_snippet Code Snippets
 * \subsection subsection_flash_use_case_1 Snippet 1: Discovering flash characteristics
 * Following code snippet demonstrates how to discover flash characteristics. Refer \ref
 * cyhal_flash_info_t for more information.
-* \snippet flash.c snippet_cyhal_flash_get_flash_info
+* \snippet hal_flash.c snippet_cyhal_flash_get_flash_info
 *
 * \subsection subsection_flash_use_case_2 Snippet 2: Blocking Flash Write Operation
 * Following code snippet demonstrates blocking flash write.
@@ -67,7 +69,7 @@
 * It uses blocking flash write operation which blocks the caller until the write is
 * completed. It then verifies the flash data by comparing the flash data with the
 * written data.
-* \snippet flash.c flag_snippet_cyhal_flash_blocking_mode_flashwrite
+* \snippet hal_flash.c flag_snippet_cyhal_flash_blocking_mode_flashwrite
 * \note It is recommended to declare the flash array as global variable.
 *
 * \subsection subsection_flash_use_case_3 Snippet 3: Non-blocking Flash Write Operation using polling
@@ -77,7 +79,7 @@
 * occupies one complete flash row. It uses a polling method to complete the flash
 * write operation. It then verifies the flash data by comparing the flash data with
 * the written data.
-* \snippet flash.c flag_snippet_cyhal_flash_partially_blocking_mode_polling_flashwrite
+* \snippet hal_flash.c flag_snippet_cyhal_flash_partially_blocking_mode_polling_flashwrite
 * \note It is recommended to declare the flash array as global variable.
 */
 
@@ -104,7 +106,10 @@ extern "C" {
 
 /** Invalid argument */
 #define CYHAL_FLASH_RSLT_ERR_ADDRESS                    \
-    (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_FLASH, 0))
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_FLASH, 0))
+/** API is not supported */
+#define CYHAL_FLASH_RSLT_ERR_NOT_SUPPORTED              \
+    (CY_RSLT_CREATE_EX(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_ABSTRACTION_HAL, CYHAL_RSLT_MODULE_FLASH, 1))
 /** Unable to support due to power state */
 /**
  * \}
@@ -170,27 +175,28 @@ void cyhal_flash_get_info(const cyhal_flash_t *obj, cyhal_flash_info_t *info);
  */
 cy_rslt_t cyhal_flash_read(cyhal_flash_t *obj, uint32_t address, uint8_t *data, size_t size);
 
-/** Erase one page starting at a defined address. The address must be at page boundary. This
+/** Erase one sector starting at a defined address. The address must be at sector boundary. This
  *  will block until the erase operation is complete.
  *
  *  @see cyhal_flash_get_info() to get the flash characteristics for legal address values and
  *  the page erase size.
  *
  * @param[in] obj The flash object
- * @param[in] address The page starting address
+ * @param[in] address The sector starting address
  * @return The status of the erase request. Returns \ref CY_RSLT_SUCCESS on successful operation.
  *
  *  Refer \ref subsection_flash_use_case_2 for more information.
  */
 cy_rslt_t cyhal_flash_erase(cyhal_flash_t *obj, uint32_t address);
 
-/** This function erases the page and writes the new data into the page starting at a defined address. The address must be at page boundary. This
- *  will block until the write operation is complete.
- *
+/** This function erases the page and writes the new data into the page starting at a defined
+ *  address. The address must be at page boundary. This will block until the write operation is
+ *  complete.
  *
  *  @see cyhal_flash_get_info() to get the flash characteristics for legal address values and
  *  the page write size. The provided data buffer must be at least as large as the flash
  *  page_size.
+ *  @note Generally the \p data to be written must be located in the SRAM memory region.
  *
  * @param[in] obj The flash object
  * @param[in] address The page starting address
@@ -201,14 +207,15 @@ cy_rslt_t cyhal_flash_erase(cyhal_flash_t *obj, uint32_t address);
  */
 cy_rslt_t cyhal_flash_write(cyhal_flash_t *obj, uint32_t address, const uint32_t *data);
 
-/** Program one page with given data starting at defined address. The address must be at page boundary. This
- *  will block until the write operation is complete.
+/** Program one page with given data starting at defined address. The address must be at page
+ *  boundary. This will block until the write operation is complete.
  *  \note This function does not erase the page prior to writing. The page must be erased
  *  first via a separate call to erase.
  *
  *  @see cyhal_flash_get_info() to get the flash characteristics for legal address values and
  *  the total page size. The provided data buffer must be at least as large as the flash
  *  page_size.
+ *  @note Generally the \p data to be programmed must be located in the SRAM memory region.
  *
  * @param[in] obj The flash object
  * @param[in] address The sector starting address
@@ -217,8 +224,8 @@ cy_rslt_t cyhal_flash_write(cyhal_flash_t *obj, uint32_t address, const uint32_t
  */
 cy_rslt_t cyhal_flash_program(cyhal_flash_t *obj, uint32_t address, const uint32_t *data);
 
-/** Starts an asynchronous erase of a single page of flash. Returns immediately and reports
- *  a successful start or reason for failure. The address must be aligned on a page boundary.
+/** Starts an asynchronous erase of a single sector of flash. Returns immediately and reports
+ *  a successful start or reason for failure. The address must be aligned on a sector boundary.
  *
  *  @see cyhal_flash_get_info() to get the flash characteristics for legal address values and
  *  the page erase size.
@@ -237,6 +244,7 @@ cy_rslt_t cyhal_flash_start_erase(cyhal_flash_t *obj, uint32_t address);
  *  @see cyhal_flash_get_info() to get the flash characteristics for legal address values and
  *  the page write size. The provided data buffer must be at least as large as the flash
  *  page_size.
+ *  @note Generally the \p data to be written must be located in the SRAM memory region.
  *
  * @param[in] obj The Flash object being operated on
  * @param[in] address The address to start writing to
@@ -255,6 +263,7 @@ cy_rslt_t cyhal_flash_start_write(cyhal_flash_t *obj, uint32_t address, const ui
  *  @see cyhal_flash_get_info() to get the flash characteristics for legal address values and
  *  the total page size. The provided data buffer must be at least as large as the flash
  *  page_size.
+ *  @note Generally the \p data to be programmed must be located in the SRAM memory region.
  *
  * @param[in] obj The Flash object being operated on
  * @param[in] address The address to start programming

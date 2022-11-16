@@ -6,7 +6,9 @@
  * threads and deferring work to a worker thread.
  ***************************************************************************************************
  * \copyright
- * Copyright 2018-2021 Cypress Semiconductor Corporation
+ * Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation
+ *
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -88,7 +90,7 @@ cy_rslt_t cy_worker_thread_create(cy_worker_thread_info_t* new_worker,
 {
     // Param check
     CY_ASSERT((params != NULL) && (new_worker != NULL));
-    CY_ASSERT((params->stack == NULL) || (params->stack != NULL && params->stack_size != 0));
+    CY_ASSERT((params->stack == NULL) || ((params->stack != NULL) && (params->stack_size != 0)));
 
     // Start with a clean structure
     memset(new_worker, 0, sizeof(cy_worker_thread_info_t));

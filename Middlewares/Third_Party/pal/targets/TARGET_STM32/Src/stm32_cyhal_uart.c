@@ -129,9 +129,13 @@ static stm32_cyhal_uart_structs_t* _stm32_cyhal_uart_get_struct(cyhal_uart_t* ob
  * cyhal_uart_init
  **************************************************************************************************/
 cy_rslt_t cyhal_uart_init(cyhal_uart_t* obj, cyhal_gpio_t tx, cyhal_gpio_t rx,
-                          const cyhal_clock_t* clk, const cyhal_uart_cfg_t* cfg)
+                          cyhal_gpio_t cts, cyhal_gpio_t rts, const cyhal_clock_t* clk,
+                          const cyhal_uart_cfg_t* cfg)
 {
     (void)clk;
+    (void)cts;
+    (void)rts;
+
     HAL_StatusTypeDef status = HAL_OK;
 
     /* Check the parameters */
@@ -215,7 +219,7 @@ cy_rslt_t cyhal_uart_init(cyhal_uart_t* obj, cyhal_gpio_t tx, cyhal_gpio_t rx,
     else
     {
         /* Making out an error code 15, which is far enough from already implemented */
-        return (CYHAL_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_UART, 15));
+        return (CY_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CYHAL_RSLT_MODULE_UART, 15));
     }
 
     #if (CYHAL_UART_USE_RTOS_MUTEX == 1)
@@ -302,20 +306,20 @@ cy_rslt_t cyhal_uart_configure(cyhal_uart_t* obj, const cyhal_uart_cfg_t* cfg)
 /***************************************************************************************************
  * cyhal_uart_set_flow_control
  **************************************************************************************************/
-cy_rslt_t cyhal_uart_set_flow_control(cyhal_uart_t* obj, cyhal_gpio_t cts, cyhal_gpio_t rts)
+cy_rslt_t cyhal_uart_enable_flow_control(cyhal_uart_t* obj, bool enable_cts, bool enable_rts)
 {
     /* Check the parameters */
     assert_param(NULL != obj);
 
-    if ((cts == NC) && (rts != NC))
+    if (!enable_cts && enable_rts)
     {
         obj->huart->Init.HwFlowCtl = UART_HWCONTROL_RTS;
     }
-    else if ((cts != NC) && (rts == NC))
+    else if (enable_cts && !enable_rts)
     {
         obj->huart->Init.HwFlowCtl = UART_HWCONTROL_CTS;
     }
-    else if (rts != NC)
+    else if (enable_rts)
     {
         obj->huart->Init.HwFlowCtl = UART_HWCONTROL_RTS_CTS;
     }
@@ -1551,6 +1555,54 @@ uint32_t stm32_cypal_uart_hw_init(UART_HandleTypeDef* huart, cyhal_gpio_t associ
      * supported UART instances */
     assert_param(false);
     return 1u;
+}
+
+
+/***************************************************************************************************
+ * cyhal_uart_readable
+ *
+ * NOTE: This only returns 0 or 1, which is all that is needed at this time.
+ *       But this function is supposed to return the total number of characters available.
+ *       This implimentation provides the functionality needed by the command-console,
+ *       which is the only library that uses this function.
+ **************************************************************************************************/
+uint32_t cyhal_uart_readable(cyhal_uart_t* obj)
+{
+    /* Check the parameters */
+    assert_param(NULL != obj);
+
+    return (uint32_t)__HAL_UART_GET_FLAG(obj->huart, UART_FLAG_RXNE);
+}
+
+
+/***************************************************************************************************
+ * cyhal_uart_getc
+ **************************************************************************************************/
+cy_rslt_t cyhal_uart_getc(cyhal_uart_t* obj, uint8_t* value, uint32_t timeout)
+{
+    uint32_t uart_rx_timeout = timeout;
+    HAL_StatusTypeDef status;
+
+    /* Check the parameters */
+    assert_param(NULL != obj);
+    assert_param(NULL != value);
+
+    /* The "wait forever" case is different for the STM32 function */
+    if (uart_rx_timeout == 0)
+    {
+        uart_rx_timeout = HAL_MAX_DELAY;
+    }
+
+    /* Enter UART critical section (disable UART interrupt if it is enabled) */
+    _stm32_cyhal_uart_critical_section_enter(obj);
+
+    /* Receive an amount of data in blocking mode */
+    status = HAL_UART_Receive(obj->huart, value, 1, uart_rx_timeout);
+
+    /* Exit UART critical section */
+    _stm32_cyhal_uart_critical_section_exit(obj);
+
+    return (status == HAL_OK) ? CY_RSLT_SUCCESS : CYHAL_UART_RSLT_ERR_HAL_ERROR;
 }
 
 

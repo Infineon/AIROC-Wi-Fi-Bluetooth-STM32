@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2019-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -41,6 +41,11 @@
 extern "C" {
 #endif
 
+/**
+ * @addtogroup linkedlist_utils 
+ * This is a generic linked list library with helper functions to add, insert, delete and find nodes in a list.
+ */
+
 #include <stdbool.h>
 #include <stdint.h>
 #include "cy_result_mw.h"
@@ -66,7 +71,9 @@ extern "C" {
  *                 Type Definitions
  ******************************************************/
 /******************************************************************************/
-/** \addtogroup group_linkedlist_structures *//** \{ */
+/** \addtogroup group_linkedlist_structures 
+ * Documentation of data structures and typedefs provided by the linked list utility.
+ *//** \{ */
 /******************************************************************************/
 
 /** Linked list node structure */

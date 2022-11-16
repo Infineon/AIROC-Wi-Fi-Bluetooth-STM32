@@ -1,5 +1,34 @@
 /*
- * $ Copyright Cypress Semiconductor $
+ * Copyright 2016-2022, Cypress Semiconductor Corporation or
+ * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
+ *
+ * This software, including source code, documentation and related
+ * materials ("Software") is owned by Cypress Semiconductor Corporation
+ * or one of its affiliates ("Cypress") and is protected by and subject to
+ * worldwide patent protection (United States and foreign),
+ * United States copyright laws and international treaty provisions.
+ * Therefore, you may use this Software only as provided in the license
+ * agreement accompanying the software package from which you
+ * obtained this Software ("EULA").
+ * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
+ * non-transferable license to copy, modify, and compile the Software
+ * source code solely for use in connection with Cypress's
+ * integrated circuit products.  Any reproduction, modification, translation,
+ * compilation, or representation of this Software except as specified
+ * above is prohibited without the express written permission of Cypress.
+ *
+ * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Cypress
+ * reserves the right to make changes to the Software without notice. Cypress
+ * does not assume any liability arising out of the application or use of the
+ * Software or any product or circuit described in the Software. Cypress does
+ * not authorize its products for use in any products where a malfunction or
+ * failure of the Cypress product may reasonably be expected to result in
+ * significant property damage, injury or death ("High Risk Product"). By
+ * including Cypress's product in a High Risk Product, the manufacturer
+ * of such system or application assumes all risk of such use and in doing
+ * so agrees to indemnify Cypress against all liability.
  */
 
 /** @file
@@ -78,7 +107,7 @@ enum wiced_bt_sdp_result_t
  *
  * Service discovery complete callback.
  *
- * If discovery was successful, the discovery results database (provided when  #wiced_bt_sdp_service_search_request 
+ * If discovery was successful, the discovery results database (provided when  #wiced_bt_sdp_service_search_request
  * or #wiced_bt_sdp_service_search_attribute_request was called) will be filled.
  *
  * Use the wiced_bt_sdp_find_* utility functions to parse the results.
@@ -121,10 +150,10 @@ typedef struct sdp_discovery_record_t
     uint32_t                                time_read;          /**< The time the record was read */
 } wiced_bt_sdp_discovery_record_t;
 
-/** SDP Max UUID filters. 
+/** SDP Max UUID filters.
  *  num_uuid field of #wiced_bt_sdp_init_discovery_db API should be less than SDP_MAX_UUID_FILTERS   */
 #define SDP_MAX_UUID_FILTERS            3
-/** SDP Max Attribute filters. 
+/** SDP Max Attribute filters.
  *  num_attr field of #wiced_bt_sdp_init_discovery_db API should be less than SDP_MAX_ATTR_FILTERS   */
 #define SDP_MAX_ATTR_FILTERS            12
 
@@ -141,7 +170,7 @@ typedef struct
     uint8_t                                 *p_free_mem;                        /**< Pointer to free memory       */
 }wiced_bt_sdp_discovery_db_t;
 
-/** SDP Max Protocol Parameters. 
+/** SDP Max Protocol Parameters.
  * num_params field in #wiced_bt_sdp_protocol_elem_t structure */
 #define SDP_MAX_PROTOCOL_PARAMS         2
 
@@ -571,4 +600,3 @@ wiced_bool_t wiced_bt_sdp_find_service_uuid_in_rec(wiced_bt_sdp_discovery_record
 
 /**@} sdp */
 /* @endcond*/
-

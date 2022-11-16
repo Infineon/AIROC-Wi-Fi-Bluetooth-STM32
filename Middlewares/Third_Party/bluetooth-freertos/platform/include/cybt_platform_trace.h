@@ -6,7 +6,9 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2019 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,8 +37,9 @@
  *
  *  @{
  */
-#define CYBT_PLATFORM_TRACE_ENABLE
-
+#ifndef CYBT_PLATFORM_TRACE_ENABLE
+#define CYBT_PLATFORM_TRACE_ENABLE 1
+#endif
 
 /*****************************************************************************
  *                                Constants
@@ -49,7 +52,11 @@
 #define INITIAL_TRACE_LEVEL_HCI_LOG       (CYBT_TRACE_LEVEL_ERROR)
 #define INITIAL_TRACE_LEVEL_MEMORY        (CYBT_TRACE_LEVEL_ERROR)
 #define INITIAL_TRACE_LEVEL_PRM           (CYBT_TRACE_LEVEL_ERROR)
+#ifdef ENABLE_BT_SPY_LOG
+#define INITIAL_TRACE_LEVEL_STACK         (CYBT_TRACE_LEVEL_MAX)
+#else
 #define INITIAL_TRACE_LEVEL_STACK         (CYBT_TRACE_LEVEL_ERROR)
+#endif
 #define INITIAL_TRACE_LEVEL_APP           (CYBT_TRACE_LEVEL_ERROR)
 
 
@@ -99,8 +106,7 @@ extern "C"
 {
 #endif
 
-#ifdef CYBT_PLATFORM_TRACE_ENABLE
-
+#if (CYBT_PLATFORM_TRACE_ENABLE == 1)
 extern cybt_platform_trace_cb_t trace_cb;
 
 extern void cybt_platform_log_print(const char *fmt_str, ...);

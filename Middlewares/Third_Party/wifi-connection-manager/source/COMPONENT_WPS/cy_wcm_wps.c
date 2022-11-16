@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -42,7 +42,6 @@
 #include "cy_wcm_error.h"
 #include "cybsp_wifi.h"
 #include "cyabs_rtos.h"
-#include "cy_lwip.h"
 #include "whd.h"
 #include "whd_wifi_api.h"
 #include "whd_network_types.h"
@@ -193,6 +192,13 @@ cy_rslt_t cy_wcm_wps_enrollee(cy_wcm_wps_config_t* wps_config, const cy_wcm_wps_
         return CY_RSLT_WCM_OUT_OF_MEMORY;
     }
 
+    if( cy_wcm_is_connected_to_ap() )
+    {
+        cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_INFO, "Currently connected to an AP, disconnect from the current AP before trying to connect using WPS \n");
+        free(workspace);
+        return CY_RSLT_WCM_WPS_FAILED;
+    }
+    
     result = cy_wps_init ( workspace, (cy_wps_device_detail_t*) details, CY_WPS_ENROLLEE_AGENT, whd_ifs[CY_WCM_INTERFACE_TYPE_STA] );
     if( result != CY_RSLT_SUCCESS )
     {

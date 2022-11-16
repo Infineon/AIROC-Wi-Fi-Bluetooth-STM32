@@ -12,5 +12,6 @@ var group__tls__mw__defines =
     [ "CY_RSLT_MODULE_TLS_UNSUPPORTED", "group__tls__mw__defines.html#gab215ddbeeab62c35704bba3941c681d3", null ],
     [ "CY_RSLT_MODULE_TLS_HANDSHAKE_FAILURE", "group__tls__mw__defines.html#ga5e15a15c1759218cba4d5bdd570b86a1", null ],
     [ "CY_RSLT_MODULE_TLS_CONNECTION_CLOSED", "group__tls__mw__defines.html#ga65c622db9c051f50a2596e83d971d64e", null ],
-    [ "CY_RSLT_MODULE_TLS_SOCKET_NOT_CONNECTED", "group__tls__mw__defines.html#gafb1223ef6646c39d3a2fff67a9a99244", null ]
+    [ "CY_RSLT_MODULE_TLS_SOCKET_NOT_CONNECTED", "group__tls__mw__defines.html#gafb1223ef6646c39d3a2fff67a9a99244", null ],
+    [ "CY_RSLT_MODULE_TLS_PKCS_ERROR", "group__tls__mw__defines.html#gad1d48c86a45936691e26ea71facf4e02", null ]
 ];

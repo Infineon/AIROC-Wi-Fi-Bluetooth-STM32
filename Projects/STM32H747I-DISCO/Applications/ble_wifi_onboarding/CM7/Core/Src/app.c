@@ -126,6 +126,11 @@ typedef void (* pfn_free_buffer_t)(uint8_t*);
  **************************************************************************************************/
 void application_start(void)
 {
+    cyhal_gpio_callback_data_t callback_data =
+    {
+        .callback = gpio_interrupt_handler
+    };
+
     /* This enables RTOS aware debugging in OpenOCD. */
     uxTopUsedPriority = configMAX_PRIORITIES - 1;
 
@@ -134,8 +139,7 @@ void application_start(void)
                     CYHAL_GPIO_DRIVE_PULLUP, 0);
 
     /* Configure GPIO interrupt */
-    cyhal_gpio_register_callback(CYBSP_USER_BTN,
-                                 gpio_interrupt_handler, NULL);
+    cyhal_gpio_register_callback(CYBSP_USER_BTN, &callback_data);
 
     printf("***************************\n"
            "Wi-Fi Onboarding Using BLE\n"

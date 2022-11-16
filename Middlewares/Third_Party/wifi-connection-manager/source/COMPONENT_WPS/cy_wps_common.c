@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -192,6 +192,9 @@ static cy_rslt_t    cy_wps_calculate_psk               ( cy_wps_agent_t* workspa
 
 static void         cy_wps_cleanup_workspace           ( cy_wps_agent_t* workspace );
 
+#ifdef COMPONENT_43907
+extern cy_rslt_t cy_prng_get_random( void* buffer, uint32_t buffer_length );
+#endif
 /******************************************************
  *               Variable Definitions
  ******************************************************/
@@ -333,6 +336,7 @@ uint32_t cy_host_get_timer( void* workspace )
     return host->timer_timeout;
 }
 
+#ifndef COMPONENT_43907
 static int trng_get_bytes(cyhal_trng_t *obj, uint8_t *output, size_t length, size_t *output_length)
 {
     uint32_t offset = 0;
@@ -358,9 +362,10 @@ static int trng_get_bytes(cyhal_trng_t *obj, uint8_t *output, size_t length, siz
     *output_length = offset;
     return 0;
 }
-
+#endif
 cy_rslt_t cy_host_random_bytes( void* buffer, size_t buffer_length, size_t* output_length )
 {
+#ifndef COMPONENT_43907
     uint8_t* p = buffer;
     size_t length = 0;
 
@@ -384,7 +389,18 @@ cy_rslt_t cy_host_random_bytes( void* buffer, size_t buffer_length, size_t* outp
 
     *output_length = length;
     cyhal_trng_free(&obj);
-
+#else
+    /* 43907 kits does not have TRNG module. Get the random
+     * number from wifi-mw-core internal PRNG API. */
+    cy_rslt_t result;
+    result = cy_prng_get_random(buffer, buffer_length);
+    if(result != CY_RSLT_SUCCESS)
+    {
+        cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "cy_prng_get_random failed \r\n");
+        return result;
+    }
+    *output_length = buffer_length;
+#endif
     return CY_RSLT_SUCCESS;
 }
 

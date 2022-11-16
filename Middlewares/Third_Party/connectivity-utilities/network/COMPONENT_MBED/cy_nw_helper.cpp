@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2019-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -46,6 +46,7 @@
 #include "NetworkInterface.h"
 #include "WhdSTAInterface.h"
 #include "ip4string.h"
+#include <string.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -58,6 +59,7 @@ extern "C" {
  * The APIs defined in this file should be implemented for other OS/RTOS/Frameworks when it's getting ported on other frameworks.
  *
  */
+
 static struct netif *nw_get_our_netif( WhdSTAInterface *iface )
 {
     char iface_name[4];     /* typically "st0" */

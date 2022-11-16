@@ -8,8 +8,29 @@ See the [README.md](./README.md) for a complete description of the Wi-Fi Connect
 | ------- | ---------- |
 | The `cy_wcm_deinit` API does not bring down the network stack as the default underlying lwIP stack does not have an implementation for deinit. Therefore, the expectation is that `cy_wcm_init` and `cy_wcm_deinit` APIs should be invoked only once. | No workaround. Support will be added in a future release. |
 | cy_wcm_connect_ap API does not connect to AP, if MAC address is specified as connection parameter.| No workaround. This issue will be fixed in future release. |
+| IAR 9.30 toolchain throws build errors on Debug mode, if application explicitly includes iar_dlmalloc.h file | Add '--advance-heap' to LDFLAGS in application Makefile. |
 
 ## Changelog
+
+### v3.0.0
+* Wifi-connection-manager is updated to be network stack agnostic.
+* Added support for CM0P core.
+* Updated Documentation.
+
+### v2.3.0
+* Added support for WPA3-EXT SAE Supplicant
+
+### v2.2.0
+* Added support for CY8CEVAL-062S2-MUR-43439M2 kit
+
+### v2.1.0
+* Added support for CYW943907AEVAL1F and CYW954907AEVAL1F kits
+
+### v2.0.4
+* Documentation updates.
+* Minor updates and improvements added in connect to AP and WPS APIs.
+* General bug fixes.
+
 ### v2.0.3
 * Added coverity fixes.
 
@@ -51,11 +72,12 @@ See the [README.md](./README.md) for a complete description of the Wi-Fi Connect
 ### Supported Software and Tools
 This version of the library was validated for compatibility with the following Software and Tools:
 
-| Software and Tools                                      | Version |
-| :---                                                    | :----:  |
-| ModusToolbox Software Environment                       | 2.2     |
-| - ModusToolbox Device Configurator                      | 2.20    |
-| - ModusToolbox CapSense Configurator / Tuner tools      | 3.10    |
-| PSoC 6 Peripheral Driver Library (PDL)                  | 2.0.0   |
-| GCC Compiler                                            | 9.3.1   |
-| IAR Compiler (only for AnyCloud)                        | 8.32    |
+| Software and Tools                                         | Version |
+| :---                                                       | :----:  |
+| ModusToolbox&trade; Software Environment                   | 3.0     |
+| - ModusToolbox&trade; Device Configurator                  | 4.0     |
+| - ModusToolbox&trade; CapSense Configurator / Tuner tools  | 5.0     |
+| PSoC 6 Peripheral Driver Library (PDL)                     | 3.0.0   |
+| GCC Compiler                                               | 10.3.1  |
+| IAR Compiler (only for AnyCloud)                           | 9.30    |
+| Arm Compiler 6                                             | 6.16    |

@@ -6,7 +6,9 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2019 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,7 +39,9 @@
 
 #include "cyhal_lptimer.h"
 #include "cycfg_system.h"
-
+#ifdef ENABLE_BT_SPY_LOG
+#include "cybt_debug_uart.h"
+#endif
 
 /******************************************************************************
  *                           Variables Definitions
@@ -97,10 +101,12 @@ uint8_t *host_stack_get_acl_to_lower_buffer(wiced_bt_transport_t transport, uint
 
     if(NULL == p_bt_msg)
     {
+    #if (CYBT_PLATFORM_TRACE_ENABLE == 1)
         uint16_t largest_free_size = 0;
         uint8_t  use_perc = 0;
         use_perc = cybt_platform_task_get_tx_heap_utilization(&largest_free_size);
         SPIF_TRACE_ERROR("get_acl_to_lower_buffer(): Unable to alloc memory (size = %d, heap = %d%%)", size, use_perc);
+    #endif
 
         cybt_lock_hci_tx(CYBT_HCI_TX_BLOCKED_HEAP_RAN_OUT);
         return NULL;
@@ -110,7 +116,7 @@ uint8_t *host_stack_get_acl_to_lower_buffer(wiced_bt_transport_t transport, uint
                      p_bt_msg,
                      size
                     );
-    
+
     p = (uint8_t *)(p_bt_msg + 1);
 
     p_bt_msg->event = BT_EVT_TO_HCI_ACL;
@@ -280,10 +286,12 @@ uint8_t *host_stack_get_sco_to_lower_buffer(uint32_t size)
 
     if(NULL == p_bt_msg)
     {
+    #if (CYBT_PLATFORM_TRACE_ENABLE == 1)
         uint16_t largest_free_size = 0;
         uint8_t  use_perc = 0;
         use_perc = cybt_platform_task_get_tx_heap_utilization(&largest_free_size);
         SPIF_TRACE_ERROR("get_acl_to_lower_buffer(): Unable to alloc memory (size = %d, heap = %d%%)", size, use_perc);
+    #endif
 
         cybt_lock_hci_tx(CYBT_HCI_TX_BLOCKED_HEAP_RAN_OUT);
         return NULL;
@@ -389,6 +397,13 @@ void host_stack_print_trace_log(char *p_trace_buf,
     }
 }
 
+#ifdef ENABLE_BT_SPY_LOG
+void cybt_hci_trace_cb(wiced_bt_hci_trace_type_t type, uint16_t len, uint8_t* p_data)
+{
+    cybt_debug_uart_send_hci_trace(type, len, p_data);
+}
+#endif
+
 void host_stack_platform_interface_init(void)
 {
     wiced_bt_stack_platform_t host_stack_platform_if = {0};
@@ -409,7 +424,11 @@ void host_stack_platform_interface_init(void)
     host_stack_platform_if.pf_write_cmd_to_lower      = host_stack_send_cmd_to_lower;
     host_stack_platform_if.pf_get_sco_to_lower_buffer = host_stack_get_sco_to_lower_buffer;
     host_stack_platform_if.pf_write_sco_to_lower      = host_stack_send_sco_to_lower;
+#ifdef ENABLE_BT_SPY_LOG
+    host_stack_platform_if.pf_hci_trace_cback_t       = cybt_hci_trace_cb;
+#else
     host_stack_platform_if.pf_hci_trace_cback_t       = NULL;
+#endif
     host_stack_platform_if.pf_debug_trace             = host_stack_print_trace_log;
     host_stack_platform_if.trace_buffer               = bt_trace_buf;
     host_stack_platform_if.trace_buffer_len           = CYBT_TRACE_BUFFER_SIZE;
@@ -433,7 +452,7 @@ void host_stack_platform_interface_deinit(void)
     wiced_result_t result;
 
     result = wiced_bt_stack_platform_initialize(&host_stack_platform_if);
-    
+
     if(WICED_SUCCESS != result)
     {
         SPIF_TRACE_ERROR("platform_interface_deinit(): failed, result = 0x%x", result);

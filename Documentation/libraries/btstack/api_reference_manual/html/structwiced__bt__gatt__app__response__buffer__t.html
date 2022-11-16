@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('structwiced__bt__gatt__app__response__
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <div class="textblock"><p>Structure to hold the response buffer and the application context for that buffer. </p>
 <p>Application fills the structure members with a pointer to send a server response.</p>
-<dl class="section note"><dt>Note</dt><dd>The application may free the <code>p_app_rsp_buffer</code> pointer on receiving a GATT_APP_BUFFER_TRANSMITTED_EVT with <a class="el" href="structwiced__bt__gatt__buffer__transmitted__t.html#a9dc2ce0fcd9d8fdce23345249c36a42e">wiced_bt_gatt_buffer_transmitted_t::p_app_data</a> = <code>p_app_rsp_buffer</code> and <a class="el" href="structwiced__bt__gatt__buffer__transmitted__t.html#aee4534bcf5ed42ab50f7c80a46278a1a">wiced_bt_gatt_buffer_transmitted_t::p_app_ctxt</a> = <code>p_app_ctxt</code> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The application may free/release/deallocate the <code>p_app_rsp_buffer</code> pointer on receiving a GATT_APP_BUFFER_TRANSMITTED_EVT with <a class="el" href="structwiced__bt__gatt__buffer__transmitted__t.html#a9dc2ce0fcd9d8fdce23345249c36a42e">wiced_bt_gatt_buffer_transmitted_t::p_app_data</a> = <code>p_app_rsp_buffer</code> and <a class="el" href="structwiced__bt__gatt__buffer__transmitted__t.html#aee4534bcf5ed42ab50f7c80a46278a1a">wiced_bt_gatt_buffer_transmitted_t::p_app_ctxt</a> = <code>p_app_ctxt</code> </dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>

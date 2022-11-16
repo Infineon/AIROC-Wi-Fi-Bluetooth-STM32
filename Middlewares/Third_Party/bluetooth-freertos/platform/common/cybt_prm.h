@@ -6,7 +6,9 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2019 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,7 +41,7 @@ enum
 };
 typedef uint8_t cybt_prm_status_t;
 
-/** 
+/**
  * patch ram format type
  */
 #define CYBT_PRM_FORMAT_BIN    0x00
@@ -48,7 +50,7 @@ typedef uint8_t cybt_prm_format_t;
 
 /**
  * Patch ram download status callback
- * 
+ *
  * @param[out]    status : download status
  *
  * @returns       void
@@ -65,7 +67,7 @@ extern "C"
  *****************************************************************************/
 
 /**
- * Register patch ram callback, and start the patch ram 
+ * Register patch ram callback, and start the patch ram
  *                  download process.
  * @param[in]      p_cb          : callback for download status
  * @param[in]      p_patch_buf   : address of patch ram buffer

@@ -9,8 +9,8 @@ scan every 3 seconds after the previous scan completes.
 ---------------------------------------
 Compatible Software
 ---------------------------------------
-STM32 CubeMX                  6.1.1
-STM32 CubeIDE                 1.5.1
+STM32 CubeMX                  6.5.0
+STM32 CubeIDE                 1.9.0
 IAR Embedded Workbench IDE    8.50.4
 
 ---------------------

@@ -6,7 +6,9 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2019 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,7 +29,7 @@
 
 #include "cybt_platform_trace.h"
 
-#ifdef CYBT_PLATFORM_TRACE_ENABLE
+#if (CYBT_PLATFORM_TRACE_ENABLE == 1)
 
 /******************************************************************************
  *                           Variables Definitions

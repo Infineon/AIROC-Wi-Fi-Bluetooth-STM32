@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -58,7 +58,6 @@
 #include "whd_buffer_api.h"
 #include "whd_int.h"
 #include "whd_debug.h"
-#include "cy_lwip.h"
 #include "cy_wifimwcore_eapol.h"
 
 /******************************************************
@@ -427,7 +426,6 @@ void cy_wps_scan_result_handler( whd_scan_result_t* result, void* user_data )
     cy_dsss_parameter_set_ie_t* dsie = NULL;
     cy_ht_operation_ie_t*       ht_operation_ie = NULL;
 
-    uint16_t                 ie_offset;
     whd_scan_result_t*       bss_info;
 
     if ( ( result == NULL ) || ( user_data == NULL ) )
@@ -441,7 +439,6 @@ void cy_wps_scan_result_handler( whd_scan_result_t* result, void* user_data )
     bss_info = result;
 
     length = bss_info->ie_len;
-    ie_offset = 0;
 
     data  =  (uint8_t*) bss_info->ie_ptr;
 
@@ -522,7 +519,7 @@ void cy_wps_scan_result_handler( whd_scan_result_t* result, void* user_data )
     if ( keep_record == 1 )
     {
         /* Adjust the channel */
-        data   = (uint8_t*) ( ( (uint8_t*) bss_info ) + ie_offset );
+        data   = (uint8_t*) bss_info->ie_ptr;
         uint32_t ie_len = result->ie_len;
         length = CY_WPS_HOST_READ_32((uint32_t *)&ie_len);
         /* In 2.4 GHz the radio firmware may report off channel probe responses. Parse the response to check if it is on or off the AP operating channel. */

@@ -105,9 +105,9 @@ $(document).ready(function(){initNavTree('group__group__abstraction__rtos__event
 <tr class="memitem:ga69906e90056d9f967745506debba754b"><td class="memItemLeft" align="right" valign="top">cy_rslt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__abstraction__rtos__event.html#ga69906e90056d9f967745506debba754b">cy_rtos_getbits_event</a> (<a class="el" href="group__group__abstraction__rtos__port.html#ga7dc44a10637e29784bb57c8baa46524b">cy_event_t</a> *event, uint32_t *bits)</td></tr>
 <tr class="memdesc:ga69906e90056d9f967745506debba754b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the event bits.  <a href="#ga69906e90056d9f967745506debba754b">More...</a><br /></td></tr>
 <tr class="separator:ga69906e90056d9f967745506debba754b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9858497cf63586808b4047dab4e0ef0a"><td class="memItemLeft" align="right" valign="top">cy_rslt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__abstraction__rtos__event.html#ga9858497cf63586808b4047dab4e0ef0a">cy_rtos_waitbits_event</a> (<a class="el" href="group__group__abstraction__rtos__port.html#ga7dc44a10637e29784bb57c8baa46524b">cy_event_t</a> *event, uint32_t *bits, bool clear, bool all, <a class="el" href="group__group__abstraction__rtos__port.html#ga141349b315f2266d5e0e8b8566eb608b">cy_time_t</a> timeout)</td></tr>
-<tr class="memdesc:ga9858497cf63586808b4047dab4e0ef0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait for the event and return bits.  <a href="#ga9858497cf63586808b4047dab4e0ef0a">More...</a><br /></td></tr>
-<tr class="separator:ga9858497cf63586808b4047dab4e0ef0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae827191301f7224a4de5df75efbf59b1"><td class="memItemLeft" align="right" valign="top">cy_rslt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__abstraction__rtos__event.html#gae827191301f7224a4de5df75efbf59b1">cy_rtos_waitbits_event</a> (<a class="el" href="group__group__abstraction__rtos__port.html#ga7dc44a10637e29784bb57c8baa46524b">cy_event_t</a> *event, uint32_t *bits, bool clear, bool all, <a class="el" href="group__group__abstraction__rtos__port.html#ga141349b315f2266d5e0e8b8566eb608b">cy_time_t</a> timeout_ms)</td></tr>
+<tr class="memdesc:gae827191301f7224a4de5df75efbf59b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait for the event and return bits.  <a href="#gae827191301f7224a4de5df75efbf59b1">More...</a><br /></td></tr>
+<tr class="separator:gae827191301f7224a4de5df75efbf59b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae158af600fd8b50214a805c98ebe6f96"><td class="memItemLeft" align="right" valign="top">cy_rslt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__abstraction__rtos__event.html#gae158af600fd8b50214a805c98ebe6f96">cy_rtos_deinit_event</a> (<a class="el" href="group__group__abstraction__rtos__port.html#ga7dc44a10637e29784bb57c8baa46524b">cy_event_t</a> *event)</td></tr>
 <tr class="memdesc:gae158af600fd8b50214a805c98ebe6f96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deinitialize a event.  <a href="#gae158af600fd8b50214a805c98ebe6f96">More...</a><br /></td></tr>
 <tr class="separator:gae158af600fd8b50214a805c98ebe6f96"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -272,8 +272,8 @@ $(document).ready(function(){initNavTree('group__group__abstraction__rtos__event
 
 </div>
 </div>
-<a id="ga9858497cf63586808b4047dab4e0ef0a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9858497cf63586808b4047dab4e0ef0a">&#9670;&nbsp;</a></span>cy_rtos_waitbits_event()</h2>
+<a id="gae827191301f7224a4de5df75efbf59b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae827191301f7224a4de5df75efbf59b1">&#9670;&nbsp;</a></span>cy_rtos_waitbits_event()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -306,7 +306,7 @@ $(document).ready(function(){initNavTree('group__group__abstraction__rtos__event
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="group__group__abstraction__rtos__port.html#ga141349b315f2266d5e0e8b8566eb608b">cy_time_t</a>&#160;</td>
-          <td class="paramname"><em>timeout</em>&#160;</td>
+          <td class="paramname"><em>timeout_ms</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -324,7 +324,7 @@ $(document).ready(function(){initNavTree('group__group__abstraction__rtos__event
     <tr><td class="paramdir">[in,out]</td><td class="paramname">bits</td><td>pointer to receive the value of the event flags </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">clear</td><td>if true, clear any bits set that cause the wait to return if false, do not clear bits </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">all</td><td>if true, all bits in the initial bits value must be set to return if false, any one bit in the initial bits value must be set to return </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">timeout</td><td>The amount of time to wait in milliseconds</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">timeout_ms</td><td>The amount of time to wait in milliseconds</td></tr>
   </table>
   </dd>
 </dl>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -57,7 +57,7 @@ extern "C" {
  * EAPOL packet handler function pointer type; On recieving EAPOL data, WHD will send the data to WiFi Middleware Core.
  * The buffer should be freed by EAPOL handler.
  *
- * @param[in] interface  WHD interface.
+ * @param[in] whd_iface  WHD interface.
  * @param[in] buffer     buffer received from WHD.
  *
  */
@@ -72,7 +72,7 @@ typedef void (*cy_wifimwcore_eapol_packet_handler_t) (whd_interface_t whd_iface,
  *
  * @param[in] eapol_packet_handler : Callback function to be invoked when eapol packets are recieved from WHD.
  *
- * @return CY_RSLT_SUCCESS if the registration was successful; returns [WiFi middleware specific error codes](./cy_lwip_error.h) otherwise.
+ * @return CY_RSLT_SUCCESS if the registration was successful; returns \ref generic_lwip_whd_port_defines otherwise.
  *
  */
 cy_rslt_t cy_wifimwcore_eapol_register_receive_handler(cy_wifimwcore_eapol_packet_handler_t eapol_packet_handler);

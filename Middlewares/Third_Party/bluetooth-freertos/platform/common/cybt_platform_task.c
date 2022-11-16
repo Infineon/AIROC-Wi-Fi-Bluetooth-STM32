@@ -6,7 +6,9 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2018-2019 Cypress Semiconductor Corporation
+* Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.
+*
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,10 +34,6 @@
 #include "cybt_platform_trace.h"
 
 #include "wiced_memory.h"
-
-#ifdef ENABLE_BT_SPY_LOG
-extern cybt_result_t cybt_init_debug_trans_task(void);
-#endif // ENABLE_BT_SPY_LOG
 
 /*****************************************************************************
  *                                Constants
@@ -83,7 +81,7 @@ cybt_result_t cybt_platform_task_init(void)
     cybt_result_t task_result;
     const cybt_platform_config_t *p_bt_platform_cfg = cybt_platform_get_config();
 
-    uint32_t total_mem_pool_size = 
+    uint32_t total_mem_pool_size =
         (p_bt_platform_cfg->task_mem_pool_size > CYBT_TASK_MINIMUM_POOL_SIZE)?
         p_bt_platform_cfg->task_mem_pool_size: CYBT_TASK_MINIMUM_POOL_SIZE;
 
@@ -151,10 +149,6 @@ cybt_result_t cybt_platform_task_init(void)
                         );
         return CYBT_ERR_CREATE_TASK_FAILED;
     }
-
-#ifdef ENABLE_BT_SPY_LOG
-    cybt_init_debug_trans_task();
-#endif // ENABLE_BT_SPY_LOG
 
     return CYBT_SUCCESS;
 }
@@ -340,4 +334,26 @@ uint8_t cybt_platform_task_get_tx_heap_utilization(uint16_t                     
     return cybt_platform_task_get_heap_utilization(task_mem_cb.p_tx_data_heap, p_largest_free_size);
 }
 
+void cybt_platform_terminate_hci_tx_thread(void)
+{
+    cy_rslt_t cy_result;
+
+    cy_result = cy_rtos_join_thread(&cybt_task[BT_TASK_ID_HCI_TX]);
+    if(CY_RSLT_SUCCESS != cy_result)
+    {
+        MAIN_TRACE_ERROR("terminate HCI_TX thread failed 0x%x\n", cy_result);
+    }
+
+}
+
+void cybt_platform_terminate_hci_rx_thread(void)
+{
+    cy_rslt_t cy_result;
+
+    cy_result = cy_rtos_join_thread(&cybt_task[BT_TASK_ID_HCI_RX]);
+    if(CY_RSLT_SUCCESS != cy_result)
+    {
+        MAIN_TRACE_ERROR("terminate HCI_RX thread failed 0x%x\n", cy_result);
+    }
+}
 

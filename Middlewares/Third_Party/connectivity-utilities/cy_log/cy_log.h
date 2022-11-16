@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2021, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2019-2022, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -33,6 +33,8 @@
 
 /**
  * @file
+ * @addtogroup logging_utils
+ *
  * A logging subsystem that allows run time control for the logging level.
  * Log messages are passed back to the application for output.
  * Log messages are given sequence numbers.
@@ -120,7 +122,9 @@ extern "C" {
  ******************************************************/
 
 /******************************************************************************/
-/** \addtogroup group_logging_enums *//** \{ */
+/** \addtogroup group_logging_enums 
+ * Documentation of the enums provided by logging utility.
+ *//** \{ */
 /******************************************************************************/
 
 /** Logging levels. NOTE: Default value for all facilities is passed in to init call */
@@ -162,7 +166,9 @@ typedef enum
 /** \} */
 
 /******************************************************************************/
-/** \addtogroup group_logging_structures *//** \{ */
+/** \addtogroup group_logging_structures 
+ * Documentation of the typedefs defined by the logging utility.
+ *//** \{ */
 /******************************************************************************/
 
 /******************************************************
@@ -173,11 +179,12 @@ typedef enum
  *                 Type Definitions
  ******************************************************/
 
-/** Prototype for application callback to use the logging message */
+/** Prototype for application callback to use the logging message 
+*/
 typedef int (*log_output)(CY_LOG_FACILITY_T facility, CY_LOG_LEVEL_T level, char *logmsg);
 
 /** Prototype for application callback to get current time in milliseconds
- * */
+*/
 typedef cy_rslt_t (*platform_get_time)(uint32_t* time);
 
 /** \} */
@@ -187,7 +194,7 @@ typedef cy_rslt_t (*platform_get_time)(uint32_t* time);
  *
  *  @addtogroup group_logging_func
  *
- * A logging subsystem that allows run time control for the logging level.
+ * A logging subsystem provides a set of helper functions to manage logging in the application. 
  *
  *  @{
  */

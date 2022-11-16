@@ -113,25 +113,12 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga78170f22302a94b73e7852dc7dd735e5"><td class="memItemLeft" align="right" valign="top"><a id="ga78170f22302a94b73e7852dc7dd735e5"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#ga78170f22302a94b73e7852dc7dd735e5">WICED_MEMORY_DEBUG_ENABLE</a>&#160;&#160;&#160;<a class="el" href="group__gentypes.html#gaa93f0eb578d23995850d61f7d61c55c1">FALSE</a></td></tr>
-<tr class="memdesc:ga78170f22302a94b73e7852dc7dd735e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debug Memory Level. <br /></td></tr>
-<tr class="separator:ga78170f22302a94b73e7852dc7dd735e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9ddff2d22209edda9d0193a2c81dacfc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#ga9ddff2d22209edda9d0193a2c81dacfc">WICED_DEFAULT_HEAP</a>&#160;&#160;&#160;((<a class="el" href="group__wiced__mem.html#ga29951f8f099d15eb96c47cfbdf656c3c">wiced_bt_heap_t</a> *)NULL)</td></tr>
 <tr class="memdesc:ga9ddff2d22209edda9d0193a2c81dacfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">If an application wants to get a buffer from the default heap, he can use this.  <a href="#ga9ddff2d22209edda9d0193a2c81dacfc">More...</a><br /></td></tr>
 <tr class="separator:ga9ddff2d22209edda9d0193a2c81dacfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9a6e6f746b35c80eb116d7185393fb0f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#ga9a6e6f746b35c80eb116d7185393fb0f">wiced_bt_get_buffer_from_pool</a>(pool)&#160;&#160;&#160;<a class="el" href="group__wiced__mem.html#ga910b98d98329582dd523d2e75a0a8377">wiced_bt_get_buffer_from_pool_no_trace</a>((pool))</td></tr>
-<tr class="memdesc:ga9a6e6f746b35c80eb116d7185393fb0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a buffer from the requested pool.  <a href="#ga9a6e6f746b35c80eb116d7185393fb0f">More...</a><br /></td></tr>
-<tr class="separator:ga9a6e6f746b35c80eb116d7185393fb0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga52012ce59e91c900e60036de6db7c186"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#ga52012ce59e91c900e60036de6db7c186">wiced_bt_get_buffer_from_heap</a>(heap,  size)&#160;&#160;&#160;<a class="el" href="group__wiced__mem.html#ga341ba13b1ef5b4667ea039bdcc7497ae">wiced_bt_get_buffer_from_heap_no_trace</a>((heap), (size))</td></tr>
-<tr class="memdesc:ga52012ce59e91c900e60036de6db7c186"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a buffer from the requested heap.  <a href="#ga52012ce59e91c900e60036de6db7c186">More...</a><br /></td></tr>
-<tr class="separator:ga52012ce59e91c900e60036de6db7c186"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga39d0dd9d7e6155ba49d6a76c079405b7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#ga39d0dd9d7e6155ba49d6a76c079405b7">wiced_bt_get_buffer</a>(size)&#160;&#160;&#160;<a class="el" href="group__wiced__mem.html#ga52012ce59e91c900e60036de6db7c186">wiced_bt_get_buffer_from_heap</a>(<a class="el" href="group__wiced__mem.html#ga9ddff2d22209edda9d0193a2c81dacfc">WICED_DEFAULT_HEAP</a>, (size))</td></tr>
+<tr class="memitem:ga39d0dd9d7e6155ba49d6a76c079405b7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#ga39d0dd9d7e6155ba49d6a76c079405b7">wiced_bt_get_buffer</a>(size)&#160;&#160;&#160;<a class="el" href="group__wiced__mem.html#gaf2a3683b317c42e9c264c5725179fe10">wiced_bt_get_buffer_from_heap</a>(<a class="el" href="group__wiced__mem.html#ga9ddff2d22209edda9d0193a2c81dacfc">WICED_DEFAULT_HEAP</a>, (size))</td></tr>
 <tr class="memdesc:ga39d0dd9d7e6155ba49d6a76c079405b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a buffer from the <b> DEFAULT heap </b>.  <a href="#ga39d0dd9d7e6155ba49d6a76c079405b7">More...</a><br /></td></tr>
 <tr class="separator:ga39d0dd9d7e6155ba49d6a76c079405b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga94fab1a48ae3fa05246fd90a297dc06e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#ga94fab1a48ae3fa05246fd90a297dc06e">wiced_bt_free_buffer</a>&#160;&#160;&#160;<a class="el" href="group__wiced__mem.html#ga27b156985fcf0d1f9334abbc5e13b630">wiced_bt_free_buffer_no_trace</a></td></tr>
-<tr class="memdesc:ga94fab1a48ae3fa05246fd90a297dc06e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees a buffer back to the pool or heap it came from.  <a href="#ga94fab1a48ae3fa05246fd90a297dc06e">More...</a><br /></td></tr>
-<tr class="separator:ga94fab1a48ae3fa05246fd90a297dc06e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -165,24 +152,24 @@ Functions</h2></td></tr>
 <tr class="memitem:ga5180d91f266fbb45fb60ec66485b5c2e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#ga5180d91f266fbb45fb60ec66485b5c2e">wiced_bt_delete_pool</a> (<a class="el" href="group__wiced__mem.html#ga8eb99f9920449033af7323ed0eb8f69c">wiced_bt_pool_t</a> *p_pool)</td></tr>
 <tr class="memdesc:ga5180d91f266fbb45fb60ec66485b5c2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes a buffer pool created using <a class="el" href="group__wiced__mem.html#gaa0382948eb39d8de2496e8cd11ee13ce" title="Creates a buffer pool for application usage.">wiced_bt_create_pool</a>.  <a href="#ga5180d91f266fbb45fb60ec66485b5c2e">More...</a><br /></td></tr>
 <tr class="separator:ga5180d91f266fbb45fb60ec66485b5c2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga910b98d98329582dd523d2e75a0a8377"><td class="memItemLeft" align="right" valign="top"><a id="ga910b98d98329582dd523d2e75a0a8377"></a>
-<a class="el" href="group__wiced__mem.html#ga46491871adba51d8026e9fa85acbbaba">wiced_bt_buffer_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#ga910b98d98329582dd523d2e75a0a8377">wiced_bt_get_buffer_from_pool_no_trace</a> (<a class="el" href="group__wiced__mem.html#ga8eb99f9920449033af7323ed0eb8f69c">wiced_bt_pool_t</a> *p_pool)</td></tr>
-<tr class="memdesc:ga910b98d98329582dd523d2e75a0a8377"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get buffer from requested pool. <br /></td></tr>
-<tr class="separator:ga910b98d98329582dd523d2e75a0a8377"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga341ba13b1ef5b4667ea039bdcc7497ae"><td class="memItemLeft" align="right" valign="top"><a id="ga341ba13b1ef5b4667ea039bdcc7497ae"></a>
-<a class="el" href="group__wiced__mem.html#ga46491871adba51d8026e9fa85acbbaba">wiced_bt_buffer_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#ga341ba13b1ef5b4667ea039bdcc7497ae">wiced_bt_get_buffer_from_heap_no_trace</a> (<a class="el" href="group__wiced__mem.html#ga29951f8f099d15eb96c47cfbdf656c3c">wiced_bt_heap_t</a> *p_heap, uint32_t size)</td></tr>
-<tr class="memdesc:ga341ba13b1ef5b4667ea039bdcc7497ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get buffer from requested heap. <br /></td></tr>
-<tr class="separator:ga341ba13b1ef5b4667ea039bdcc7497ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaba17f78395b7d5d3be0a963fc64d8a82"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__wiced__mem.html#ga46491871adba51d8026e9fa85acbbaba">wiced_bt_buffer_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#gaba17f78395b7d5d3be0a963fc64d8a82">wiced_bt_get_buffer_from_pool</a> (<a class="el" href="group__wiced__mem.html#ga8eb99f9920449033af7323ed0eb8f69c">wiced_bt_pool_t</a> *p_pool)</td></tr>
+<tr class="memdesc:gaba17f78395b7d5d3be0a963fc64d8a82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get buffer from requested pool.  <a href="#gaba17f78395b7d5d3be0a963fc64d8a82">More...</a><br /></td></tr>
+<tr class="separator:gaba17f78395b7d5d3be0a963fc64d8a82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf2a3683b317c42e9c264c5725179fe10"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__wiced__mem.html#ga46491871adba51d8026e9fa85acbbaba">wiced_bt_buffer_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#gaf2a3683b317c42e9c264c5725179fe10">wiced_bt_get_buffer_from_heap</a> (<a class="el" href="group__wiced__mem.html#ga29951f8f099d15eb96c47cfbdf656c3c">wiced_bt_heap_t</a> *p_heap, uint32_t size)</td></tr>
+<tr class="memdesc:gaf2a3683b317c42e9c264c5725179fe10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a buffer from the requested heap.  <a href="#gaf2a3683b317c42e9c264c5725179fe10">More...</a><br /></td></tr>
+<tr class="separator:gaf2a3683b317c42e9c264c5725179fe10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac2d26815b0ed4aa9f7d72650d7c5b28f"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#gac2d26815b0ed4aa9f7d72650d7c5b28f">wiced_bt_get_pool_free_count</a> (<a class="el" href="group__wiced__mem.html#ga8eb99f9920449033af7323ed0eb8f69c">wiced_bt_pool_t</a> *p_pool)</td></tr>
 <tr class="memdesc:gac2d26815b0ed4aa9f7d72650d7c5b28f"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get the number of buffers available in the pool.  <a href="#gac2d26815b0ed4aa9f7d72650d7c5b28f">More...</a><br /></td></tr>
 <tr class="separator:gac2d26815b0ed4aa9f7d72650d7c5b28f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1f954d898c5466a865a47ab097f385e7"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#ga1f954d898c5466a865a47ab097f385e7">wiced_bt_get_largest_heap_buffer</a> (<a class="el" href="group__wiced__mem.html#ga29951f8f099d15eb96c47cfbdf656c3c">wiced_bt_heap_t</a> *p_heap)</td></tr>
 <tr class="memdesc:ga1f954d898c5466a865a47ab097f385e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get the size of the largest buffer available in the heap.  <a href="#ga1f954d898c5466a865a47ab097f385e7">More...</a><br /></td></tr>
 <tr class="separator:ga1f954d898c5466a865a47ab097f385e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga27b156985fcf0d1f9334abbc5e13b630"><td class="memItemLeft" align="right" valign="top"><a id="ga27b156985fcf0d1f9334abbc5e13b630"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#ga27b156985fcf0d1f9334abbc5e13b630">wiced_bt_free_buffer_no_trace</a> (<a class="el" href="group__wiced__mem.html#ga46491871adba51d8026e9fa85acbbaba">wiced_bt_buffer_t</a> *p_buf)</td></tr>
-<tr class="memdesc:ga27b156985fcf0d1f9334abbc5e13b630"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free Buffer. <br /></td></tr>
-<tr class="separator:ga27b156985fcf0d1f9334abbc5e13b630"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf7910db6f2bb29ec6e6ddd8f943a182c"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#gaf7910db6f2bb29ec6e6ddd8f943a182c">wiced_bt_get_largest_stack_heap_buffer</a> (void)</td></tr>
+<tr class="memdesc:gaf7910db6f2bb29ec6e6ddd8f943a182c"><td class="mdescLeft">&#160;</td><td class="mdescRight">To get the size of the largest buffer available in the stack heap.  <a href="#gaf7910db6f2bb29ec6e6ddd8f943a182c">More...</a><br /></td></tr>
+<tr class="separator:gaf7910db6f2bb29ec6e6ddd8f943a182c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga652a40fcdb27f8fea2d125e82aef9750"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#ga652a40fcdb27f8fea2d125e82aef9750">wiced_bt_free_buffer</a> (<a class="el" href="group__wiced__mem.html#ga46491871adba51d8026e9fa85acbbaba">wiced_bt_buffer_t</a> *p_buf)</td></tr>
+<tr class="memdesc:ga652a40fcdb27f8fea2d125e82aef9750"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees a buffer back to the pool or heap it came from.  <a href="#ga652a40fcdb27f8fea2d125e82aef9750">More...</a><br /></td></tr>
+<tr class="separator:ga652a40fcdb27f8fea2d125e82aef9750"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5d688277844f22111723e3339e725d8a"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#ga5d688277844f22111723e3339e725d8a">wiced_bt_get_buffer_size</a> (<a class="el" href="group__wiced__mem.html#ga46491871adba51d8026e9fa85acbbaba">wiced_bt_buffer_t</a> *p_buf)</td></tr>
 <tr class="memdesc:ga5d688277844f22111723e3339e725d8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the buffer size.  <a href="#ga5d688277844f22111723e3339e725d8a">More...</a><br /></td></tr>
 <tr class="separator:ga5d688277844f22111723e3339e725d8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -216,9 +203,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <tr class="memitem:ga4490eaf46263868144322240d5553285"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#ga4490eaf46263868144322240d5553285">wiced_bt_queue_get_count</a> (<a class="el" href="structwiced__bt__buffer__q__t.html">wiced_bt_buffer_q_t</a> *p_q)</td></tr>
 <tr class="memdesc:ga4490eaf46263868144322240d5553285"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of items in the queue.  <a href="#ga4490eaf46263868144322240d5553285">More...</a><br /></td></tr>
 <tr class="separator:ga4490eaf46263868144322240d5553285"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga97f9f80721d4e711b6243992a9d1939b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__wiced__mem.html#ga46491871adba51d8026e9fa85acbbaba">wiced_bt_buffer_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#ga97f9f80721d4e711b6243992a9d1939b">wiced_memory_alloc_long_term_mem_block</a> (int size, const char *block_name)</td></tr>
+<tr class="memdesc:ga97f9f80721d4e711b6243992a9d1939b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate long term memory, typically used for control blocks allocated through config, not expected to be freed during the lifetime of the application.  <a href="#ga97f9f80721d4e711b6243992a9d1939b">More...</a><br /></td></tr>
+<tr class="separator:ga97f9f80721d4e711b6243992a9d1939b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga84a646c738099e9e0b4f764c3b6596e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#ga84a646c738099e9e0b4f764c3b6596e9">wiced_memory_free_long_term_mem_block</a> (<a class="el" href="group__wiced__mem.html#ga46491871adba51d8026e9fa85acbbaba">wiced_bt_buffer_t</a> *p_mem)</td></tr>
+<tr class="memdesc:ga84a646c738099e9e0b4f764c3b6596e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free long term memory, used to free memory allocated with <a class="el" href="group__wiced__mem.html#ga97f9f80721d4e711b6243992a9d1939b">wiced_memory_alloc_long_term_mem_block</a>, typically called during application shutdown.  <a href="#ga84a646c738099e9e0b4f764c3b6596e9">More...</a><br /></td></tr>
+<tr class="separator:ga84a646c738099e9e0b4f764c3b6596e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga781d441cbf87a58a121c92fb9132d9b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__gentypes.html#ga2bc92bd117cfd3f6ec4ae452e6ced064">wiced_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#ga781d441cbf87a58a121c92fb9132d9b1">wiced_bt_get_heap_statistics</a> (void *p_heap, <a class="el" href="structwiced__bt__heap__statistics__t.html">wiced_bt_heap_statistics_t</a> *p_stats)</td></tr>
-<tr class="memdesc:ga781d441cbf87a58a121c92fb9132d9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get/Print the heap stats.  <a href="#ga781d441cbf87a58a121c92fb9132d9b1">More...</a><br /></td></tr>
+<tr class="memdesc:ga781d441cbf87a58a121c92fb9132d9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get heap stats.  <a href="#ga781d441cbf87a58a121c92fb9132d9b1">More...</a><br /></td></tr>
 <tr class="separator:ga781d441cbf87a58a121c92fb9132d9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadab993022a065bf698a2586ed8d6da25"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__gentypes.html#ga2bc92bd117cfd3f6ec4ae452e6ced064">wiced_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#gadab993022a065bf698a2586ed8d6da25">wiced_bt_get_heap_statistics_with_index</a> (int index, <a class="el" href="structwiced__bt__heap__statistics__t.html">wiced_bt_heap_statistics_t</a> *p_stats)</td></tr>
+<tr class="memdesc:gadab993022a065bf698a2586ed8d6da25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get heap stats of heap at index.  <a href="#gadab993022a065bf698a2586ed8d6da25">More...</a><br /></td></tr>
+<tr class="separator:gadab993022a065bf698a2586ed8d6da25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf9408276a6611c7479ae21ca81e20ca1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___result.html#gacfc32ead8a827d53416f01b19eb58310">wiced_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#gaf9408276a6611c7479ae21ca81e20ca1">wiced_bt_get_pool_statistics</a> (<a class="el" href="group__wiced__mem.html#ga8eb99f9920449033af7323ed0eb8f69c">wiced_bt_pool_t</a> *p_pool, <a class="el" href="structwiced__bt__pool__statistics__t.html">wiced_bt_pool_statistics_t</a> *p_stats)</td></tr>
+<tr class="memdesc:gaf9408276a6611c7479ae21ca81e20ca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get pool stats.  <a href="#gaf9408276a6611c7479ae21ca81e20ca1">More...</a><br /></td></tr>
+<tr class="separator:gaf9408276a6611c7479ae21ca81e20ca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9a5e60280610d3027effc84ee35654b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__mem.html#ga9a5e60280610d3027effc84ee35654b6">wiced_set_exception_callback</a> (<a class="el" href="group__gentypes.html#gabc649ae1a0417bf22e71c4b72543a67f">pf_wiced_exception</a> pf_handler)</td></tr>
 <tr class="memdesc:ga9a5e60280610d3027effc84ee35654b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the exception callback.  <a href="#ga9a5e60280610d3027effc84ee35654b6">More...</a><br /></td></tr>
 <tr class="separator:ga9a5e60280610d3027effc84ee35654b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -240,71 +239,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 
 </div>
 </div>
-<a id="ga9a6e6f746b35c80eb116d7185393fb0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9a6e6f746b35c80eb116d7185393fb0f">&#9670;&nbsp;</a></span>wiced_bt_get_buffer_from_pool</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define wiced_bt_get_buffer_from_pool</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">pool</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="group__wiced__mem.html#ga910b98d98329582dd523d2e75a0a8377">wiced_bt_get_buffer_from_pool_no_trace</a>((pool))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Allocates a buffer from the requested pool. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">pool</td><td>: pointer to pool from which to get the buffer</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the pointer to the buffer or NULL on failure </dd></dl>
-
-</div>
-</div>
-<a id="ga52012ce59e91c900e60036de6db7c186"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga52012ce59e91c900e60036de6db7c186">&#9670;&nbsp;</a></span>wiced_bt_get_buffer_from_heap</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define wiced_bt_get_buffer_from_heap</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">heap, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">size&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__wiced__mem.html#ga341ba13b1ef5b4667ea039bdcc7497ae">wiced_bt_get_buffer_from_heap_no_trace</a>((heap), (size))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Allocates a buffer from the requested heap. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">heap</td><td>: pointer to heap from which to get the buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>: size to be allocated</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the pointer to the buffer or NULL on failure </dd></dl>
-
-</div>
-</div>
 <a id="ga39d0dd9d7e6155ba49d6a76c079405b7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga39d0dd9d7e6155ba49d6a76c079405b7">&#9670;&nbsp;</a></span>wiced_bt_get_buffer</h2>
 
@@ -316,7 +250,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">size</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="group__wiced__mem.html#ga52012ce59e91c900e60036de6db7c186">wiced_bt_get_buffer_from_heap</a>(<a class="el" href="group__wiced__mem.html#ga9ddff2d22209edda9d0193a2c81dacfc">WICED_DEFAULT_HEAP</a>, (size))</td>
+          <td>&#160;&#160;&#160;<a class="el" href="group__wiced__mem.html#gaf2a3683b317c42e9c264c5725179fe10">wiced_bt_get_buffer_from_heap</a>(<a class="el" href="group__wiced__mem.html#ga9ddff2d22209edda9d0193a2c81dacfc">WICED_DEFAULT_HEAP</a>, (size))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -329,29 +263,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the pointer to the buffer or NULL on failure </dd></dl>
-
-</div>
-</div>
-<a id="ga94fab1a48ae3fa05246fd90a297dc06e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga94fab1a48ae3fa05246fd90a297dc06e">&#9670;&nbsp;</a></span>wiced_bt_free_buffer</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define wiced_bt_free_buffer&#160;&#160;&#160;<a class="el" href="group__wiced__mem.html#ga27b156985fcf0d1f9334abbc5e13b630">wiced_bt_free_buffer_no_trace</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Frees a buffer back to the pool or heap it came from. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">free_buf</td><td>: pointer to the start of the (pool/heap) buffer to be freed</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
 </div>
 </div>
@@ -544,6 +455,72 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 
 </div>
 </div>
+<a id="gaba17f78395b7d5d3be0a963fc64d8a82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaba17f78395b7d5d3be0a963fc64d8a82">&#9670;&nbsp;</a></span>wiced_bt_get_buffer_from_pool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__wiced__mem.html#ga46491871adba51d8026e9fa85acbbaba">wiced_bt_buffer_t</a>* wiced_bt_get_buffer_from_pool </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__wiced__mem.html#ga8eb99f9920449033af7323ed0eb8f69c">wiced_bt_pool_t</a> *&#160;</td>
+          <td class="paramname"><em>p_pool</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get buffer from requested pool. </p>
+<p>Allocates a buffer from the requested pool.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">p_pool</td><td>: pointer to pool from which to get the buffer</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the pointer to the buffer or NULL on failure </dd></dl>
+
+</div>
+</div>
+<a id="gaf2a3683b317c42e9c264c5725179fe10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf2a3683b317c42e9c264c5725179fe10">&#9670;&nbsp;</a></span>wiced_bt_get_buffer_from_heap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__wiced__mem.html#ga46491871adba51d8026e9fa85acbbaba">wiced_bt_buffer_t</a>* wiced_bt_get_buffer_from_heap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__wiced__mem.html#ga29951f8f099d15eb96c47cfbdf656c3c">wiced_bt_heap_t</a> *&#160;</td>
+          <td class="paramname"><em>p_heap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocates a buffer from the requested heap. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">p_heap</td><td>: pointer to heap from which to get the buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>: size to be allocated</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the pointer to the buffer or NULL on failure </dd></dl>
+
+</div>
+</div>
 <a id="gac2d26815b0ed4aa9f7d72650d7c5b28f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gac2d26815b0ed4aa9f7d72650d7c5b28f">&#9670;&nbsp;</a></span>wiced_bt_get_pool_free_count()</h2>
 
@@ -595,6 +572,54 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the size of the largest buffer available in the heap </dd></dl>
+
+</div>
+</div>
+<a id="gaf7910db6f2bb29ec6e6ddd8f943a182c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf7910db6f2bb29ec6e6ddd8f943a182c">&#9670;&nbsp;</a></span>wiced_bt_get_largest_stack_heap_buffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t wiced_bt_get_largest_stack_heap_buffer </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>To get the size of the largest buffer available in the stack heap. </p>
+<dl class="section return"><dt>Returns</dt><dd>the size of the largest buffer available in the stack heap </dd></dl>
+
+</div>
+</div>
+<a id="ga652a40fcdb27f8fea2d125e82aef9750"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga652a40fcdb27f8fea2d125e82aef9750">&#9670;&nbsp;</a></span>wiced_bt_free_buffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wiced_bt_free_buffer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__wiced__mem.html#ga46491871adba51d8026e9fa85acbbaba">wiced_bt_buffer_t</a> *&#160;</td>
+          <td class="paramname"><em>p_buf</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Frees a buffer back to the pool or heap it came from. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">p_buf</td><td>: pointer to the start of the (pool/heap) buffer to be freed</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
 
 </div>
 </div>
@@ -933,6 +958,71 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 
 </div>
 </div>
+<a id="ga97f9f80721d4e711b6243992a9d1939b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga97f9f80721d4e711b6243992a9d1939b">&#9670;&nbsp;</a></span>wiced_memory_alloc_long_term_mem_block()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__wiced__mem.html#ga46491871adba51d8026e9fa85acbbaba">wiced_bt_buffer_t</a>* wiced_memory_alloc_long_term_mem_block </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>block_name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocate long term memory, typically used for control blocks allocated through config, not expected to be freed during the lifetime of the application. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>: size of memory to be allocated </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">block_name</td><td>friendly name of memory block to be allocated.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>pointer to the allocated memory </dd></dl>
+
+</div>
+</div>
+<a id="ga84a646c738099e9e0b4f764c3b6596e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga84a646c738099e9e0b4f764c3b6596e9">&#9670;&nbsp;</a></span>wiced_memory_free_long_term_mem_block()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wiced_memory_free_long_term_mem_block </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__wiced__mem.html#ga46491871adba51d8026e9fa85acbbaba">wiced_bt_buffer_t</a> *&#160;</td>
+          <td class="paramname"><em>p_mem</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Free long term memory, used to free memory allocated with <a class="el" href="group__wiced__mem.html#ga97f9f80721d4e711b6243992a9d1939b">wiced_memory_alloc_long_term_mem_block</a>, typically called during application shutdown. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">p_mem</td><td>: pointer memory to be freed</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
 <a id="ga781d441cbf87a58a121c92fb9132d9b1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga781d441cbf87a58a121c92fb9132d9b1">&#9670;&nbsp;</a></span>wiced_bt_get_heap_statistics()</h2>
 
@@ -959,11 +1049,88 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
       </table>
 </div><div class="memdoc">
 
-<p>Get/Print the heap stats. </p>
+<p>Get heap stats. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">p_heap</td><td>: heap pointer (output of <a class="el" href="group__wiced__mem.html#gabd087700ddd0362c48b52e9c6f66a059" title="Initializes dynamic memory area.">wiced_bt_create_heap</a>) </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">p_stats</td><td>: pointer to receive the heap statistics</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>TRUE in case of valid stats returned in p_stats </dd></dl>
+
+</div>
+</div>
+<a id="gadab993022a065bf698a2586ed8d6da25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadab993022a065bf698a2586ed8d6da25">&#9670;&nbsp;</a></span>wiced_bt_get_heap_statistics_with_index()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__gentypes.html#ga2bc92bd117cfd3f6ec4ae452e6ced064">wiced_bool_t</a> wiced_bt_get_heap_statistics_with_index </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structwiced__bt__heap__statistics__t.html">wiced_bt_heap_statistics_t</a> *&#160;</td>
+          <td class="paramname"><em>p_stats</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get heap stats of heap at index. </p>
+<p>Application calls the function in a loop incrementing the index till the function returns WICED_FALSE</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>: index of heap, starts from 0 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">p_stats</td><td>: pointer to receive the heap statistics</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>TRUE in case of valid stats returned in p_stats </dd></dl>
+
+</div>
+</div>
+<a id="gaf9408276a6611c7479ae21ca81e20ca1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf9408276a6611c7479ae21ca81e20ca1">&#9670;&nbsp;</a></span>wiced_bt_get_pool_statistics()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___result.html#gacfc32ead8a827d53416f01b19eb58310">wiced_result_t</a> wiced_bt_get_pool_statistics </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__wiced__mem.html#ga8eb99f9920449033af7323ed0eb8f69c">wiced_bt_pool_t</a> *&#160;</td>
+          <td class="paramname"><em>p_pool</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structwiced__bt__pool__statistics__t.html">wiced_bt_pool_statistics_t</a> *&#160;</td>
+          <td class="paramname"><em>p_stats</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get pool stats. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">p_pool</td><td>: pool pointer (output of <a class="el" href="group__wiced__mem.html#gaa0382948eb39d8de2496e8cd11ee13ce" title="Creates a buffer pool for application usage.">wiced_bt_create_pool</a>) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">p_stats</td><td>: pointer to receive the pool statistics</td></tr>
   </table>
   </dd>
 </dl>

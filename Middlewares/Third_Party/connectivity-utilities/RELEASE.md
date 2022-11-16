@@ -4,6 +4,28 @@
 Refer to the [README.md](./README.md) for a complete description of the utility libraries
 
 ## Changelog
+
+### v4.0.0
+* Updated to use [lwIP network interface integration library](https://Infineon.github.io/lwip-network-interface-integration) APIs.
+* Introduced error code module base for NetXDuo WHD port library
+* Added support for NetXDuo
+* Minor Documentation Updates
+
+### v3.2.0
+* Added support for CY8CEVAL-062S2-MUR-43439M2 kit
+
+### v3.1.0
+* Added support for CYW943907AEVAL1F and CYW954907AEVAL1F kits.
+
+### v3.0.4
+* Added error code module base for Buffer pool library
+
+### v3.0.3
+* Added additonal enums in JSON structure
+* Introduced module error base for PKCS11 integration
+* Introduced ntoa and aton network utility helper functions for IPV4 and IPV6 addresses
+* Documentation updates
+
 ### v3.0.2
 * Renamed the error code module base for Enterprise Security library
 
@@ -43,13 +65,13 @@ Refer to the [README.md](./README.md) for a complete description of the utility 
 ## Supported Software and Tools
 The current version of the library was validated for compatibility with the following Software and Tools:
 
-| Software and Tools                                      | Version |
-| :---                                                    | :----:  |
-| ModusToolbox Software Environment                       | 2.3     |
-| - ModusToolbox Device Configurator                      | 3.0     |
-| - ModusToolbox CapSense Configurator / Tuner tools      | 3.15    |
-| PSoC 6 Peripheral Driver Library (PDL)                  | 2.2.0   |
-| GCC Compiler                                            | 9.3.1   |
-| IAR Compiler (only for AnyCloud)                        | 8.32    |
-| Arm Compiler 6                                          | 6.14    |
-| Mbed OS                                                 | 6.2.0   |
+| Software and Tools                                        | Version |
+| :---                                                      | :----:  |
+| ModusToolbox&trade; Software Environment                  | 3.0     |
+| - ModusToolbox&trade; Device Configurator                 | 4.0     |
+| - ModusToolbox&trade; CapSense Configurator / Tuner tools | 5.0     |
+| PSoC 6 Peripheral Driver Library (PDL)                    | 3.0.0   |
+| GCC Compiler                                              | 10.3.1  |
+| IAR Compiler                                              | 9.30    |
+| Arm Compiler 6                                            | 6.16    |
+| Mbed OS                                                   | 6.2.0   |

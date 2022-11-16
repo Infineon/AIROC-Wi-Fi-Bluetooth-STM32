@@ -1,5 +1,5 @@
 /*
- * Copyright 2021, Cypress Semiconductor Corporation (an Infineon company)
+ * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,6 +24,7 @@
  *
  */
 
+#include "cybsp.h"
 #include "whd.h"
 #include "whd_types.h"
 
@@ -71,6 +72,7 @@ extern uint32_t whd_init(whd_driver_t *whd_driver_ptr, whd_init_config_t *whd_in
  *  @{
  */
 
+#if (CYBSP_WIFI_INTERFACE_TYPE == CYBSP_SDIO_INTERFACE)
 /** Attach the WLAN Device to a specific SDIO bus
  *
  *  @param  whd_driver         Pointer to handle instance of the driver
@@ -87,6 +89,7 @@ extern uint32_t whd_bus_sdio_attach(whd_driver_t whd_driver, whd_sdio_config_t *
  */
 extern void whd_bus_sdio_detach(whd_driver_t whd_driver);
 
+#elif (CYBSP_WIFI_INTERFACE_TYPE == CYBSP_SPI_INTERFACE)
 /** Attach the WLAN Device to a specific SPI bus
  *
  *  @param  whd_driver        Pointer to handle instance of the driver
@@ -102,6 +105,27 @@ extern uint32_t whd_bus_spi_attach(whd_driver_t whd_driver, whd_spi_config_t *wh
  *  @param  whd_driver         Pointer to handle instance of the driver
  */
 extern void whd_bus_spi_detach(whd_driver_t whd_driver);
+
+#elif (CYBSP_WIFI_INTERFACE_TYPE == CYBSP_M2M_INTERFACE)
+/** Attach the WLAN Device to M2M bus
+ *
+ *  @param  whd_driver        Pointer to handle instance of the driver
+ *  @param  whd_config        Configuration for M2M bus
+ *  @param  m2m_obj           The M2M hardware interface, from the Level 3 CY HW APIs
+ *
+ *  @return WHD_SUCCESS or Error code
+ */
+extern uint32_t whd_bus_m2m_attach(whd_driver_t whd_driver, whd_m2m_config_t *whd_config, cyhal_m2m_t *m2m_obj);
+
+/** Detach the WLAN Device to a specific M2M bus
+ *
+ *  @param  whd_driver         Pointer to handle instance of the driver
+ */
+extern void whd_bus_m2m_detach(whd_driver_t whd_driver);
+
+#else
+error "CYBSP_WIFI_INTERFACE_TYPE is not defined"
+#endif
 
 /*  @} */
 
@@ -202,17 +226,16 @@ typedef void (*whd_scan_result_callback_t)(whd_scan_result_t **result_ptr, void 
  *  It is also a blocking call. It is an simplified version of the whd_wifi_scan().
  *
  *  @param   ifp                       Pointer to handle instance of whd interface
- *  @param   scan_result               pointer to user requested records buffer.
- *  @param   count                     No of records user is interested in.
- *                                     If 0 return the total record count.
+ *  @param   scan_result               Pointer to user requested records buffer.
+ *  @param   count                     Pointer to the no of records user is interested in, and also to the no of record received.
  *
  *  @note    When scanning specific channels, devices with a strong signal strength on nearby channels may be detected
  *
- *  @return record count or Error code
+ *  @return  WHD_SUCCESS or Error code
  */
 extern uint32_t whd_wifi_scan_synch(whd_interface_t ifp,
                                     whd_sync_scan_result_t *scan_result,
-                                    uint32_t count
+                                    uint32_t *count
                                     );
 
 /** Initiates a scan to search for 802.11 networks.
@@ -263,6 +286,48 @@ extern uint32_t whd_wifi_scan(whd_interface_t ifp,
  *  @return WHD_SUCCESS or Error code
  */
 extern uint32_t whd_wifi_stop_scan(whd_interface_t ifp);
+
+/** Auth result callback function pointer type
+ *
+ * @param result_prt   A pointer to the pointer that indicates where to put the auth result
+ * @param len          the size of result
+ * @param status       Status of auth process
+ * @param flag         flag of h2e will be indicated in auth request event, otherwise is NULL.
+ * @param user_data    user specific data that will be passed directly to the callback function
+ *
+ */
+typedef void (*whd_auth_result_callback_t)(void *result_ptr, uint32_t len, whd_auth_status_t status, uint8_t *flag,
+                                           void *user_data);
+
+/** Initiates SAE auth
+ *
+ *  The results of the auth will be individually provided to the callback function.
+ *  Note: The callback function will be executed in the context of the WHD thread and so must not perform any
+ *  actions that may cause a bus transaction.
+ *
+ *  @param   ifp                       Pointer to handle instance of whd interface
+ *  @param   callback                  The callback function which will receive and process the result data.
+ *  @param   data                      Pointer to a pointer to a result storage structure.
+ *  @param   user_data                 user specific data that will be passed directly to the callback function
+ *
+ *  @note - Callback must not use blocking functions, nor use WHD functions, since it is called from the context of the
+ *          WHD thread.
+ *        - The callback, result_ptr and user_data variables will be referenced after the function returns.
+ *          Those variables must remain valid until the scan is complete.
+ *
+ *  @return WHD_SUCCESS or Error code
+ */
+extern uint32_t whd_wifi_external_auth_request(whd_interface_t ifp,
+                                               whd_auth_result_callback_t callback,
+                                               void *result_ptr,
+                                               void *user_data);
+/** Abort authentication request
+ *
+ *  @param   ifp           Pointer to handle instance of whd interface
+ *
+ *  @return WHD_SUCCESS or Error code
+ */
+extern uint32_t whd_wifi_stop_external_auth_request(whd_interface_t ifp);
 
 /** Joins a Wi-Fi network
  *
@@ -335,6 +400,18 @@ extern uint32_t whd_wifi_set_channel(whd_interface_t ifp, uint32_t channel);
  */
 extern uint32_t whd_wifi_get_channel(whd_interface_t ifp, uint32_t *channel);
 
+/** Gets the supported channels
+ *
+ *  @param   ifp                 Pointer to handle instance of whd interface
+ *  @param   channel_list        Buffer to store list of the supported channels
+ *                               and max channel is WL_NUMCHANNELS
+ *
+ *  @return  WHD_SUCCESS         if the active connections was successfully read
+ *           WHD_ERROR           if the active connections was not successfully read
+ */
+extern uint32_t whd_wifi_get_channels(whd_interface_t ifp, whd_list_t *channel_list);
+
+
 /** Set the passphrase
  *
  *  @param   ifp            Pointer to handle instance of whd interface
@@ -370,6 +447,26 @@ extern uint32_t whd_wifi_sae_password(whd_interface_t ifp, const uint8_t *securi
 extern uint32_t whd_wifi_enable_sup_set_passphrase(whd_interface_t ifp, const uint8_t *security_key_psk,
                                                    uint8_t psk_length, whd_security_t auth_type);
 
+/** Set the PMK Key
+ *
+ *  @param   ifp            Pointer to handle instance of whd interface
+ *  @param   security_key   The security key (PMK) which is to be set
+ *  @param   key_length     length of the PMK(It must be 32 bytes)
+ *
+ *  @return  WHD_SUCCESS    when the key is set
+ *           Error code     if an error occurred
+ */
+extern whd_result_t whd_wifi_set_pmk(whd_interface_t ifp, const uint8_t *security_key, uint8_t key_length);
+
+/** Set the Roam time threshold
+ *
+ *  @param ifp                  Pointer to handle instance of whd interface
+ *  @param roam_time_threshold  The maximum roam time threshold which is to be set
+ *
+ *  @return  WHD_SUCCESS    when the roam_time_threshold is set
+ *           Error code     if an error occurred
+ */
+extern whd_result_t whd_wifi_set_roam_time_threshold(whd_interface_t ifp, uint32_t roam_time_threshold);
 
 /** Enable WHD internal supplicant
  *
@@ -381,6 +478,15 @@ extern uint32_t whd_wifi_enable_sup_set_passphrase(whd_interface_t ifp, const ui
  */
 extern uint32_t whd_wifi_enable_supplicant(whd_interface_t ifp, whd_security_t auth_type);
 
+/** Set PMKID in Device (WLAN)
+ *
+ *  @param   ifp            Pointer to handle instance of whd interface
+ *  @param   pmkid          Pointer to BSSID and PMKID(16 bytes)
+ *
+ *  @return whd_result_t
+ */
+extern whd_result_t whd_wifi_set_pmksa(whd_interface_t ifp, const pmkid_t *pmkid);
+
 /** Retrieve the latest RSSI value
  *
  *  @param   ifp           Pointer to handle instance of whd interface
@@ -390,6 +496,16 @@ extern uint32_t whd_wifi_enable_supplicant(whd_interface_t ifp, whd_security_t a
  *           Error code    if the RSSI was not retrieved
  */
 extern uint32_t whd_wifi_get_rssi(whd_interface_t ifp, int32_t *rssi);
+
+/** Retrieve the latest Roam time threshold value
+ *
+ *  @param   ifp                  Pointer to handle instance of whd interface
+ *  @param   roam_time_threshold  The location where the roam time threshold value will be stored
+ *
+ *  @return  WHD_SUCCESS   if the roam time threshold was successfully retrieved
+ *    	     Error code    if the roam time threshold was not retrieved
+ */
+extern uint32_t whd_wifi_get_roam_time_threshold(whd_interface_t ifp, uint32_t *roam_time_threshold);
 
 /** Retrieve the associated STA's RSSI value
  *
@@ -737,6 +853,15 @@ extern uint32_t whd_wifi_manage_custom_ie(whd_interface_t ifp, whd_custom_ie_act
  */
 extern uint32_t whd_wifi_send_action_frame(whd_interface_t ifp, whd_af_params_t *af_params);
 
+/** Send a pre-prepared authentication frame
+ *
+ *  @param  ifp            Pointer to handle instance of whd interface
+ *  @param  auth_params    pointer to a pre-prepared authentication frame structure
+ *
+ *  @return WHD_SUCCESS or Error code
+ */
+extern whd_result_t whd_wifi_send_auth_frame(whd_interface_t ifp, whd_auth_params_t *auth_params);
+
 /** Set coex configuration
  *
  *  @param  ifp                  Pointer to handle instance of whd interface
@@ -745,6 +870,24 @@ extern uint32_t whd_wifi_send_action_frame(whd_interface_t ifp, whd_af_params_t 
  *  @return WHD_SUCCESS or Error code
  */
 extern uint32_t whd_wifi_set_coex_config(whd_interface_t ifp, whd_coex_config_t *coex_config);
+
+/** Set auth status used for External AUTH(SAE)
+ *
+ *  @param   ifp                    Pointer to handle instance of whd interface
+ *  @param   whd_auth_req_status    Pointer to Auth_Status structure
+ *
+ *  @return WHD_SUCCESS or Error code
+ */
+extern whd_result_t whd_wifi_set_auth_status(whd_interface_t ifp, whd_auth_req_status_t *params);
+
+/** Get FW(chip) Capability
+ *
+ *  @param  ifp            Pointer to handle instance of whd interface
+ *  @param  value          Enum value of the current FW capability, ex: sae or sae_ext or ...etc,
+ *                         (enum value map to whd_fwcap_id_t)
+ *  @return WHD_SUCCESS or Error code
+ */
+extern whd_result_t whd_wifi_get_fwcap(whd_interface_t ifp, uint32_t *value);
 
 /** Get version of Device (WLAN) Firmware
  *
@@ -983,10 +1126,10 @@ whd_result_t whd_pf_get_packet_filter_stats(whd_interface_t ifp, uint8_t filter_
 /** Set/Get TKO retry & interval parameters
  * @param[in]    ifp            : Pointer to handle instance of whd interface
  * @param[in]    whd_tko_retry  : whd retry & interval parameters structure
- * @param[in]    set            : Set/Get Flag
+ * @param[in]    set            : Set(1)/Get(0) Flag
  * @return whd_result_t
  */
-whd_result_t whd_tko_param(whd_interface_t ifp, whd_tko_retry_t *whd_tko_retry, int set);
+whd_result_t whd_tko_param(whd_interface_t ifp, whd_tko_retry_t *whd_tko_retry, uint8_t set);
 
 /** Return the tko status for all indexes
  * @param[in]    ifp        : Pointer to handle instance of whd interface
