@@ -1,0 +1,7 @@
+[ProjectFiles]
+HeaderPath=../Drivers/BSP/Components/mx25lm51245g/;../Drivers/BSP/STM32L562E-DK/;../Core/Inc
+[Others]
+Define=CYBSP_WIFI_CAPABLE;CY_USING_HAL
+[Groups]
+Drivers/BSP/STM32L552E-EV=../Drivers/BSP/Components/mx25lm51245g/mx25lm51245g.c;../Drivers/BSP/STM32L562E-DK/stm32l562e_discovery_ospi.c
+Application/User/Core/Src=../Core/Src/wifi_task.c;

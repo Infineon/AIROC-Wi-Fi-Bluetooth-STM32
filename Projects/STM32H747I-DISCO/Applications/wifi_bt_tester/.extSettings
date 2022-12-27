@@ -1,0 +1,7 @@
+[CortexM7:ProjectFiles]
+HeaderPath=
+[CortexM7:Others]
+Define=HAVE_SNPRINTF;CY_USING_HAL;CYBSP_WIFI_CAPABLE
+[CortexM7:Groups]
+Application/User/Core/Src=../CM7/Core/Src/console_task.c;
+

@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.15">
+  <compounddef id="group__event" kind="group">
+    <compoundname>event</compoundname>
+    <title>WHD Event handling API</title>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__event_1ga9c74af353c83a8f77097acbc65362b07" prot="public" static="no">
+        <type>void *(*</type>
+        <definition>typedef void*(* whd_event_handler_t) (whd_interface_t ifp, const whd_event_header_t *event_header, const uint8_t *event_data, void *handler_user_data)</definition>
+        <argsstring>)(whd_interface_t ifp, const whd_event_header_t *event_header, const uint8_t *event_data, void *handler_user_data)</argsstring>
+        <name>whd_event_handler_t</name>
+        <briefdescription>
+<para>Event handler prototype definition. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ifp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to handle instance of whd interface </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>event_header</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>whd event header </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>event_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>event data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>handler_user_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>semaphore data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/HsiehYuanPin/01_SRC/whd/inc/whd_events.h" line="185" column="1" bodyfile="C:/Users/HsiehYuanPin/01_SRC/whd/inc/whd_events.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__event_1gad693f00ea3008fa9645582df236ad7e2" prot="public" static="no">
+        <type>void *(*</type>
+        <definition>typedef void*(* whd_error_handler_t) (whd_driver_t whd_driver, const uint8_t *error_type, const uint8_t *event_data, void *handler_user_data)</definition>
+        <argsstring>)(whd_driver_t whd_driver, const uint8_t *error_type, const uint8_t *event_data, void *handler_user_data)</argsstring>
+        <name>whd_error_handler_t</name>
+        <briefdescription>
+<para>Error handler prototype definition. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>whd_driver</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to handle instance of whd driver </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>error_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>whd error type </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>event_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>event data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>handler_user_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>semaphore data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/HsiehYuanPin/01_SRC/whd/inc/whd_events.h" line="194" column="1" bodyfile="C:/Users/HsiehYuanPin/01_SRC/whd/inc/whd_events.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Functions that allow user applications to receive event callbacks and set event handlers. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

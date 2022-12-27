@@ -1,0 +1,6 @@
+[CortexM7:ProjectFiles]
+HeaderPath=
+[CortexM7:Others]
+Define=CYBSP_WIFI_CAPABLE;CY_USING_HAL;
+[CortexM7:Groups]
+Application/User/Core/Src=

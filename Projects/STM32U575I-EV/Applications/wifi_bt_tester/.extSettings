@@ -1,0 +1,7 @@
+[ProjectFiles]
+HeaderPath=../Core/Inc;../MBEDTLS/App;../Drivers/CMSIS/RTOS2/Include/;
+[Others]
+Define=CYBSP_WIFI_CAPABLE;HAVE_SNPRINTF;CY_USING_HAL;
+[Groups]
+Application/User/Core/Src=../Core/Src/console_task.c
+Application/User/MBEDTLS=../MBEDTLS/App/mbedtls.c;../MBEDTLS/Target/custom_rng.c

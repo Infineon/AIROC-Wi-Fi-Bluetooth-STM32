@@ -1,0 +1,6 @@
+[CortexM7:ProjectFiles]
+HeaderPath=../CM7/Core/configs
+[CortexM7:Others]
+Define=CY_USING_HAL;CYBSP_WIFI_CAPABLE
+[CortexM7:Groups]
+Application/User/Core/Src=../CM7/Core/Src/app.c;../CM7/Core/Src/app_utils.c;../CM7/Core/Src/wifi_task.c;../CM7/Core/configs/app_platform_cfg.c;../CM7/Core/configs/cycfg_bt_settings.c;../CM7/Core/configs/cycfg_gap.c;../CM7/Core/configs/cycfg_gatt_db.c
