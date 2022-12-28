@@ -39,7 +39,6 @@ var searchData=
   ['wiced_5fbt_5fble_5fscan_5ftype_5ft',['wiced_bt_ble_scan_type_t',['../group__wicedbt___device_management.html#gafaba53a20aad0fb7a2536d9c2df7c96e',1,'wiced_bt_dev.h']]],
   ['wiced_5fbt_5fble_5fscanner_5ffilter_5fpolicy_5ft',['wiced_bt_ble_scanner_filter_policy_t',['../group__wicedbt___device_management.html#ga6d09736846bcb960a4fd36934d24bfef',1,'wiced_bt_ble.h']]],
   ['wiced_5fbt_5fble_5fsec_5faction_5ftype_5ft',['wiced_bt_ble_sec_action_type_t',['../group__wicedbt___device_management.html#ga063af36361f0fd1f625146102b5de0b6',1,'wiced_bt_ble.h']]],
-  ['wiced_5fbt_5fble_5fselective_5fconn_5fcback_5ft',['wiced_bt_ble_selective_conn_cback_t',['../group__wicedbt___device_management.html#gad4ab3f807477113a1fc2bd4b70b31f4f',1,'wiced_bt_ble.h']]],
   ['wiced_5fbt_5fbr_5fchnl_5fmap_5ft',['wiced_bt_br_chnl_map_t',['../group__wicedbt___device_management.html#ga749420c98d9a38dfd69c313520fbdae9',1,'wiced_bt_dev.h']]],
   ['wiced_5fbt_5fbuffer_5ft',['wiced_bt_buffer_t',['../group__wiced__mem.html#ga46491871adba51d8026e9fa85acbbaba',1,'wiced_memory.h']]],
   ['wiced_5fbt_5fconnection_5fstatus_5fchange_5fcback_5ft',['wiced_bt_connection_status_change_cback_t',['../group__wicedbt___device_management.html#ga383178649984b94e8cf1742434d6aea4',1,'wiced_bt_dev.h']]],

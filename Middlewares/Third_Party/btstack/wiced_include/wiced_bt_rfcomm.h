@@ -308,6 +308,9 @@ wiced_bt_rfcomm_result_t wiced_bt_rfcomm_read_data(uint16_t handle, char *p_data
 
 /**
  *  This function sends the given application data to the peer device.
+ * @note the application shall pass a valid \p p_data buffer allocated on the heap or a global to this call.
+ * The buffer contents cannot be altered till a TX complete callback \ref wiced_bt_port_tx_cback_t is received
+
  *
  *  @param[in]  handle              : The connection handle returned by
  *                                    @link wiced_bt_rfcomm_create_connection wiced_bt_rfcomm_create_connection @endlink

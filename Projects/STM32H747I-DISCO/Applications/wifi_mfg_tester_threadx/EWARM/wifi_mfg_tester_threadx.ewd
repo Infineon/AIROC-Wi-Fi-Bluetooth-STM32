@@ -1025,7 +1025,7 @@
 				</option>
 				<option>
 					<name>CCCpuClockEdit</name>
-					<state>200.0</state>
+					<state>75.0</state>
 				</option>
 				<option>
 					<name>CCSwoClockAuto</name>
@@ -2506,7 +2506,7 @@
 				</option>
 				<option>
 					<name>CCCpuClockEdit</name>
-					<state>200.0</state>
+					<state>75.0</state>
 				</option>
 				<option>
 					<name>CCSwoClockAuto</name>

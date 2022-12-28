@@ -62,7 +62,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
- OSPI_HandleTypeDef hospi1;
+OSPI_HandleTypeDef hospi1;
 
 UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart3;

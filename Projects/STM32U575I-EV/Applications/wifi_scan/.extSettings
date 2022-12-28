@@ -1,0 +1,6 @@
+[ProjectFiles]
+HeaderPath=../Drivers/CMSIS/RTOS2/Include/;
+[Others]
+Define=CYBSP_WIFI_CAPABLE;CY_USING_HAL
+[Groups]
+Application/User/Core/Src=../Core/Src/wifi_task.c;

@@ -70,6 +70,16 @@ extern "C" {
     #define _CYHAL_LPTIMER_MAX_PERIOD           (63999U)
 #endif
 
+
+#if defined (TARGET_STM32U5xx)
+    #define _CYHAL_LPTIM_FLAG_DIEROK    LPTIM_FLAG_DIEROK
+    #define _CYHAL_LPTIM_FLAG_CMPOK     LPTIM_FLAG_CMP1OK
+    #define _CYHAL_LPTIM_IER_ARRMIE     LPTIM_DIER_ARRMIE
+#else
+    #define _CYHAL_LPTIM_FLAG_CMPOK     LPTIM_FLAG_CMPOK
+    #define _CYHAL_LPTIM_IER_ARRMIE     LPTIM_IER_ARRMIE
+#endif /* defined (TARGET_STM32U5xx) */
+
 /* The datasheet states: ARR is the autoreload value for the LPTIM. This value
  * must be strictly greater than the CMP[15:0] value.  Since ARR is being set
  * to _CYHAL_LPTIMER_MAX_PERIOD in the init set max compare to 1 less. */
@@ -252,15 +262,19 @@ static void _cyhal_lptimer_handle_match(cyhal_lptimer_t* obj)
         }
 
         /* Clear flag */
-        __HAL_LPTIM_CLEAR_FLAG(obj->hlptimer, LPTIM_FLAG_CMPOK);
+        __HAL_LPTIM_CLEAR_FLAG(obj->hlptimer, _CYHAL_LPTIM_FLAG_CMPOK);
 
         /* Load the Timeout value in the compare register */
+        #if defined (TARGET_STM32U5xx)
+        __HAL_LPTIM_COMPARE_SET(obj->hlptimer, LPTIM_CHANNEL_1, cmp_val);
+        #else
         __HAL_LPTIM_COMPARE_SET(obj->hlptimer, cmp_val);
+        #endif /* defined (TARGET_STM32U5xx) */
 
         /* Wait for the completion of the write operation to the LPTIM_CMP register */
-        while (!__HAL_LPTIM_GET_FLAG(obj->hlptimer, LPTIM_FLAG_CMPOK))
+        while (!__HAL_LPTIM_GET_FLAG(obj->hlptimer, _CYHAL_LPTIM_FLAG_CMPOK))
         {
-            /* Wait for LPTIM_FLAG_CMPOK */
+            /* Wait for _CYHAL_LPTIM_FLAG_CMPOK */
         }
 
         /* match is working double-duty here: At first it is used to record
@@ -401,6 +415,12 @@ cy_rslt_t cyhal_lptimer_init(cyhal_lptimer_t* obj)
          *
          * LPTIMER IRQs are NOT enabled here
          */
+        #if defined (TARGET_STM32U5xx)
+        /* For STM32U5 a period of Autoreload register (ARR) configure in
+         * HAL_LPTIM_Init by using hlptimer->Init.Period value */
+        obj->hlptimer->Init.Period = _CYHAL_LPTIMER_MAX_PERIOD;
+        #endif /* defined (TARGET_STM32U5xx) */
+
         if (HAL_LPTIM_Init(obj->hlptimer) != HAL_OK)
         {
             cyhal_lptimer_free(obj);
@@ -421,16 +441,32 @@ cy_rslt_t cyhal_lptimer_init(cyhal_lptimer_t* obj)
             HAL_StatusTypeDef hal_ret;
             /* Set ARR to MAX(16bit) */
             /* Set CMP to MAX(16bit) */
+            #if defined (TARGET_STM32U5xx)
+            hal_ret = HAL_LPTIM_TimeOut_Start_IT(obj->hlptimer,
+                                                 _CYHAL_LPTIMER_MAX_COMPARE);
+            #else
             hal_ret = HAL_LPTIM_TimeOut_Start_IT(obj->hlptimer,
                                                  _CYHAL_LPTIMER_MAX_PERIOD,
                                                  _CYHAL_LPTIMER_MAX_COMPARE);
+            #endif /* defined (TARGET_STM32U5xx) */
+
 
             /* Register Autoreload match callback */
             (void)HAL_LPTIM_RegisterCallback(obj->hlptimer, HAL_LPTIM_AUTORELOAD_MATCH_CB_ID,
                                              &_cyhal_lptimer_autoreload_match_callback);
 
-            /* Enable autoreload write complete interrupt */
-            __HAL_LPTIM_ENABLE_IT(obj->hlptimer, LPTIM_IER_ARRMIE);
+            /* Enable Autoreload match interrupt enable */
+            #if defined (TARGET_STM32U5xx)
+            __HAL_LPTIM_CLEAR_FLAG(obj->hlptimer, _CYHAL_LPTIM_FLAG_DIEROK);
+            __HAL_LPTIM_ENABLE_IT(obj->hlptimer, _CYHAL_LPTIM_IER_ARRMIE);
+            while (!__HAL_LPTIM_GET_FLAG(obj->hlptimer, _CYHAL_LPTIM_FLAG_DIEROK))
+            {
+                /* Wait for _CYHAL_LPTIM_FLAG_DIEROK */
+            }
+            #else
+            __HAL_LPTIM_ENABLE_IT(obj->hlptimer, _CYHAL_LPTIM_IER_ARRMIE);
+            #endif /* defined (TARGET_STM32U5xx) */
+
 
             rslt = (hal_ret == HAL_OK) ? CY_RSLT_SUCCESS : CY_RSLT_TYPE_ERROR;
         }

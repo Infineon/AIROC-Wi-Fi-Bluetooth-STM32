@@ -1,4 +1,4 @@
-# STM32 Connectivity Expansion Pack 1.2.0
+# STM32 Connectivity Expansion Pack 1.3.0
 
 ## Overview
 The STM32 Connectivity Expansion Pack is an extension of the CMSIS-Pack standard established by Arm
@@ -25,8 +25,8 @@ The STM32 Connectivity Expansion Pack uses below assets:
 | ---------------------------------------------------------------------------------------------------------- | ------- |
 | [LwIP](https://git.savannah.nongnu.org/cgit/lwip.git)                                                      |  2.1.2  |
 | [abstraction-rtos](https://github.com/Infineon/abstraction-rtos)                                           |  1.5.0  |
-| [bluetooth-freertos](https://github.com/Infineon/bluetooth-freertos)                                       |  3.4.0  |
-| [btstack](https://github.com/Infineon/btstack)                                                             |  3.5.0  |
+| [bluetooth-freertos](https://github.com/Infineon/btstack-integration)                                      |  4.2.0  |
+| [btstack](https://github.com/Infineon/btstack)                                                             |  3.6.0  |
 | [command-console](https://github.com/Infineon/command-console)                                             |  4.0.0  |
 | [connectivity-utilities](https://github.com/Infineon/connectivity-utilities)                               |  4.0.0  |
 | [core-lib](https://github.com/Infineon/core-lib)                                                           |  1.3.1  |
@@ -45,21 +45,7 @@ The pack is compliant with the full CMSIS-Pack standard, with additional require
 on the final pack to meet the STM standard.
 
 ## Known issues
-
-1. Sometime STM32 detects UART "Frame error" during BLE communication (with CYW43012), which causes
-stop of BLE functionality.
-Workaround:
-Register a User UART Error Callback (by using HAL_UART_RegisterCallback function), where
-implement BLE or System reset, when detect UART errors.
-
-
-2. STM32CubeIDE returns the linkage error "undefined reference to _nx_nd_cache***" when
-IPv6 is enabled in NetxDuo configuration.
-Workaround:
-Manually add to project workspace, the following files: nx_nd_cache_add_entry.c,
-nx_nd_cache_delete_internal.c, nx_nd_cache_fast_periodic_update.c, nx_nd_cache_find_entry.c,
-nx_nd_cache_find_entry_by_mac_addr.c, nx_nd_cache_interface_entries_delete.c,
-nx_nd_cache_slow_periodic_update.c from STM32Cube_FW_U5_V1.1.1\Middlewares\ST\netxduo\common\src
+Refer to section 'Known issues/limitations' of STM32 connectivity expansion pack user guide.
 
 
 ## More information

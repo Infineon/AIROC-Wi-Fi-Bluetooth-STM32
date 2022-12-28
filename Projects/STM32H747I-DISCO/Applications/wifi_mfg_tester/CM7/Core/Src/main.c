@@ -24,6 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
+#include "cy_result.h"
 
 /* USER CODE END Includes */
 
@@ -71,36 +72,77 @@ void mfg_test_client_task(void *argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
 #ifdef __GNUC__
-/* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
-   set to 'Yes') calls __io_putchar() */
-int __io_putchar(int ch)
-#else
-int fputc(int ch, FILE *f)
+    /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
+       set to 'Yes') calls __io_putchar() */
+    /***************************************************************************
+    * Function Name: __io_putchar (GCC)
+    ***************************************************************************/   
+    int __io_putchar(int ch)
+    {
+      HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
+      return ch;
+    }
+
+    /***************************************************************************
+     * Function Name: getchar
+     ***************************************************************************/
+    int getchar(void)
+    {
+        int8_t ch = -1;
+
+        while (HAL_UART_Receive(&huart1, (uint8_t*)&ch, 1, HAL_MAX_DELAY) != HAL_OK)
+        {
+        }
+
+        return ch;
+    }
+
+#elif defined (__ICCARM__) /* IAR */
+    #include <yfuns.h>
+
+    /***************************************************************************
+    * Function Name: __write (IAR)
+    ***************************************************************************/
+    size_t __write(int handle, const unsigned char * buffer, size_t size)
+    {
+        size_t nChars = 0;
+        /* This template only writes to "standard out", for all other file
+         * handles it returns failure. */
+        if (handle != _LLIO_STDOUT)
+        {
+            return (_LLIO_ERROR);
+        }
+        if (buffer != NULL)
+        {
+            for (/* Empty */; nChars < size; ++nChars)
+            {
+                HAL_UART_Transmit(&huart1, (uint8_t *)buffer, 1, 0xFFFF);
+                ++buffer;
+            }
+        }
+        return (nChars);
+    }
+
+    /***************************************************************************
+    * Function Name: __read
+    ***************************************************************************/
+    size_t __read(int handle, unsigned char* buffer, size_t size)
+    {
+        HAL_StatusTypeDef rslt;
+
+        // This template only reads from "standard in", for all other file handles it returns failure.
+        if ((handle != _LLIO_STDIN) || (buffer == NULL))
+        {
+            return (_LLIO_ERROR);
+        }
+        else
+        {
+            rslt = HAL_UART_Receive(&huart1, (uint8_t*)buffer, 1, HAL_MAX_DELAY);
+            return (CY_RSLT_SUCCESS == rslt) ? 1 : 0;
+        }
+    }
 #endif /* __GNUC__ */
-{
-  /* Place your implementation of fputc here */
-  /* e.g. write a character to the USART1 and Loop until the end of transmission */
-  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, (HAL_MAX_DELAY-1));
-
-  return ch;
-}
-
-#ifdef __GNUC__
-//int __io_getchar(void)
-
-int getchar(void)
-#else
-int fgetc(FILE * f)
-#endif /* __GNUC__ */
-{
-    int8_t ch = -1;
-
-    while(HAL_UART_Receive(&huart1, (uint8_t *)&ch, 1, HAL_MAX_DELAY) != HAL_OK);
-
-    return ch;
-}
 /* USER CODE END 0 */
 
 /**

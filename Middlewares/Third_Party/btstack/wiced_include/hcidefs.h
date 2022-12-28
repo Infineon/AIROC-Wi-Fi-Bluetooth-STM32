@@ -52,6 +52,9 @@
 #define HCI_PROTO_VERSION_4_1 0x07      /* Version for BT spec 4.1          */
 #define HCI_PROTO_VERSION_4_2 0x08      /* Version for BT spec 4.2          */
 #define HCI_PROTO_VERSION_5_0 0x09      /* Version for BT spec 5.0          */
+#define HCI_PROTO_VERSION_5_1 0x0A      /* Version for BT spec 5.1          */
+#define HCI_PROTO_VERSION_5_2 0x0B      /* Version for BT spec 5.2          */
+#define HCI_PROTO_VERSION_5_3 0x0C      /* Version for BT spec 5.3          */
 
 /*
 **  Definitions for HCI groups
@@ -428,6 +431,12 @@
 
 #define HCI_BLE_READ_BUFFER_SIZE_V2         (0x0060 | HCI_GRP_BLE_CMDS)
 
+/* PAWR */
+#define HCI_BLE_SET_PAWR_SUBEVENT_IND_DATA  (0x0082 | HCI_GRP_BLE_CMDS)
+#define HCI_BLE_SET_PAWR_SUBEVENT_RSP_DATA  (0x0083 | HCI_GRP_BLE_CMDS)
+#define HCI_BLE_SET_PAWR_SYNC_SUBEVENT      (0x0084 | HCI_GRP_BLE_CMDS)
+#define HCI_BLE_SET_PAWR_PARAMS             (0x0086 | HCI_GRP_BLE_CMDS)
+
 /* LE ISOC */
 #define HCI_BLE_ISOC_READ_TX_SYNC           (0x0061 | HCI_GRP_BLE_CMDS)
 #define HCI_BLE_ISOC_SET_CIG_PARAM          (0x0062 | HCI_GRP_BLE_CMDS)
@@ -776,7 +785,7 @@
 #define HCI_BLE_ADV_SET_TERMINATED_EVT              0x12
 #define HCI_BLE_SCAN_REQ_RECEIVED_EVT               0x13
 #define HCI_BLE_CHANNEL_SELECTION_ALOGRITHEM_EVT    0x14
-#define HCI_BLE_PERIODIC_ADV_SYNC_XFER_RECV_EVT 0x18
+#define HCI_BLE_PERIODIC_ADV_SYNC_XFER_RECV_EVT     0x18
 
 #define HCI_BLE_ISOC_CIS_ESTABLISHED_EVT            0x19
 #define HCI_BLE_ISOC_CIS_REQUEST_EVT                0x1A
@@ -785,7 +794,13 @@
 #define HCI_BLE_ISOC_BIG_SYNC_ESTABLISHED_EVT       0x1D
 #define HCI_BLE_ISOC_BIG_SYNC_LOST_EVT              0x1E
 #define HCI_BLE_ISOC_PEER_SCA_COMPLETE_EVT          0x1F
-#define HCI_BLE_BIGINFO_ADV_REPORT_EVT 0x22
+#define HCI_BLE_BIGINFO_ADV_REPORT_EVT              0x22
+
+/* PAWR */
+#define HCI_BLE_PAWR_SYNC_ESTABLISHED_EVT           0x24
+#define HCI_BLE_PAWR_IND_REPORT_EVT                 0x25
+#define HCI_BLE_PAWR_SUBEVENT_DATA_REQ_EVT          0x27
+#define HCI_BLE_PAWR_RSP_REPORT_EVT                 0x28
 
 /* ConnectionLess Broadcast events */
 #define HCI_SYNC_TRAIN_COMP_EVT             0x4F
@@ -1028,10 +1043,11 @@
 */
 #if BTM_BLE_PRIVACY_SPT == TRUE
 /* BLE event mask */
-#define HCI_BLE_EVENT_MASK_DEF "\x00\x00\x00\x02\x7f\x8f\xff\xff"
+#define HCI_BLE_EVENT_MASK_DEF "\x00\x00\x01\xFA\x7f\x8f\xff\xff"
 #else
-#define HCI_BLE_EVENT_MASK_DEF "\x00\x00\x00\x02\x7F\x8f\xff\x7f"
+#define HCI_BLE_EVENT_MASK_DEF "\x00\x00\x01\xFA\x7F\x8f\xff\x7f"
 #endif
+
 /*
 ** Definitions for packet type masks (BT1.2 and BT2.0 definitions)
 */

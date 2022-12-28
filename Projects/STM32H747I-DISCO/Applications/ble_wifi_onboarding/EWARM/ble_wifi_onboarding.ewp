@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><project>
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
     <fileVersion>3</fileVersion>
     <configuration>
         <name>ble_wifi_onboarding_CM4</name>
@@ -189,11 +190,11 @@
                 </option>
                 <option>
                     <name>GenLocaleTags</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>GenLocaleDisplayOnly</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>DSPExtension</name>
@@ -265,19 +266,19 @@
                 </option>
                 <option>
                     <name>CCDiagSuppress</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>CCDiagRemark</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>CCDiagWarning</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>CCDiagError</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>CCObjPrefix</name>
@@ -306,7 +307,7 @@
                 </option>
                 <option>
                     <name>IExtraOptions</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>CCLangConformance</name>
@@ -342,7 +343,7 @@
                 </option>
                 <option>
                     <name>PreInclude</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>CompilerMisraOverride</name>
@@ -512,15 +513,15 @@
                 </option>
                 <option>
                     <name>AWarnOne</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>AWarnRange1</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>AWarnRange2</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>ADebug</name>
@@ -532,7 +533,7 @@
                 </option>
                 <option>
                     <name>ADefines</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>AList</name>
@@ -632,7 +633,7 @@
                 </option>
                 <option>
                     <name>AExtraOptionsV2</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>AsmNoLiteralPool</name>
@@ -674,22 +675,22 @@
             <name>CUSTOM</name>
             <archiveVersion>3</archiveVersion>
             <data>
-                <extensions/>
-                <cmdline/>
+                <extensions></extensions>
+                <cmdline></cmdline>
                 <hasPrio>0</hasPrio>
             </data>
         </settings>
         <settings>
             <name>BICOMP</name>
             <archiveVersion>0</archiveVersion>
-            <data/>
+            <data />
         </settings>
         <settings>
             <name>BUILDACTION</name>
             <archiveVersion>1</archiveVersion>
             <data>
-                <prebuild/>
-                <postbuild/>
+                <prebuild></prebuild>
+                <postbuild></postbuild>
             </data>
         </settings>
         <settings>
@@ -721,31 +722,31 @@
                 </option>
                 <option>
                     <name>IlinkKeepSymbols</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkRawBinaryFile</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkRawBinarySymbol</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkRawBinarySegment</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkRawBinaryAlign</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkDefines</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkConfigDefines</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkMapFile</name>
@@ -781,7 +782,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkEnableRemarks</name>
@@ -789,19 +790,19 @@
                 </option>
                 <option>
                     <name>IlinkSuppressDiags</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkTreatAsRem</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkTreatAsWarn</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkTreatAsErr</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkWarningsAreErrors</name>
@@ -813,7 +814,7 @@
                 </option>
                 <option>
                     <name>IlinkExtraOptions</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkLowLevelInterfaceSlave</name>
@@ -825,7 +826,7 @@
                 </option>
                 <option>
                     <name>IlinkAdditionalLibs</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkOverrideProgramEntryLabel</name>
@@ -960,11 +961,11 @@
                 </option>
                 <option>
                     <name>IlinkStackControlFile</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkStackCallGraphFile</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>CrcAlgorithm</name>
@@ -986,7 +987,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile_AltDefault</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkEncInput</name>
@@ -1010,7 +1011,7 @@
                 </option>
                 <option>
                     <name>IlinkTrustzoneImportLibraryOut</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>OILinkExtraOption</name>
@@ -1018,19 +1019,19 @@
                 </option>
                 <option>
                     <name>IlinkRawBinaryFile2</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkRawBinarySymbol2</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkRawBinarySegment2</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkRawBinaryAlign2</name>
-                    <state/>
+                    <state></state>
                 </option>
             </data>
         </settings>
@@ -1043,7 +1044,7 @@
                 <debug>1</debug>
                 <option>
                     <name>IarchiveInputs</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IarchiveOverride</name>
@@ -1058,12 +1059,12 @@
         <settings>
             <name>BILINK</name>
             <archiveVersion>0</archiveVersion>
-            <data/>
+            <data />
         </settings>
         <settings>
             <name>Coder</name>
             <archiveVersion>0</archiveVersion>
-            <data/>
+            <data />
         </settings>
     </configuration>
     <configuration>
@@ -1255,11 +1256,11 @@
                 </option>
                 <option>
                     <name>GenLocaleTags</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>GenLocaleDisplayOnly</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>DSPExtension</name>
@@ -1295,7 +1296,7 @@
                     <state>CY_USING_HAL</state>
                     <state>CYBSP_WIFI_CAPABLE</state>
                     <state>STM32_THREAD_SAFE_STRATEGY=4</state>
-                <state/></option>
+                </option>
                 <option>
                     <name>CCPreprocFile</name>
                     <state>0</state>
@@ -1334,19 +1335,19 @@
                 </option>
                 <option>
                     <name>CCDiagSuppress</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>CCDiagRemark</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>CCDiagWarning</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>CCDiagError</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>CCObjPrefix</name>
@@ -1375,7 +1376,7 @@
                 </option>
                 <option>
                     <name>IExtraOptions</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>CCLangConformance</name>
@@ -1411,7 +1412,7 @@
                 </option>
                 <option>
                     <name>PreInclude</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>CompilerMisraOverride</name>
@@ -1428,7 +1429,7 @@
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/FreeRTOS/Source/portable/IAR/ARM_CM4F</state>
                     <state>$PROJ_DIR$/../Drivers/CMSIS/Device/ST/STM32H7xx/Include</state>
                     <state>$PROJ_DIR$/../Drivers/CMSIS/Include</state>
-                <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/include/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/source/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-freertos-integration/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/include/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/include/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/JSON_parser/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/linked_list/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/include</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/arpa</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/net</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/sys</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/stdc</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/apps</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/priv</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/prot</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_43012/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/nvram/COMPONENT_43012/COMPONENT_MURATA-1LV/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_FREERTOS/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_43012</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/nvram/COMPONENT_43012/COMPONENT_MURATA-1LV</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack/wiced_include/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/freertos/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/include/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/common/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/debug/</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack/wiced_include</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/include</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/common</state><state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/debug</state></option>
+                </option>
                 <option>
                     <name>CCStdIncCheck</name>
                     <state>0</state>
@@ -1585,15 +1586,15 @@
                 </option>
                 <option>
                     <name>AWarnOne</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>AWarnRange1</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>AWarnRange2</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>ADebug</name>
@@ -1605,7 +1606,7 @@
                 </option>
                 <option>
                     <name>ADefines</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>AList</name>
@@ -1705,7 +1706,7 @@
                 </option>
                 <option>
                     <name>AExtraOptionsV2</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>AsmNoLiteralPool</name>
@@ -1747,22 +1748,22 @@
             <name>CUSTOM</name>
             <archiveVersion>3</archiveVersion>
             <data>
-                <extensions/>
-                <cmdline/>
+                <extensions></extensions>
+                <cmdline></cmdline>
                 <hasPrio>0</hasPrio>
             </data>
         </settings>
         <settings>
             <name>BICOMP</name>
             <archiveVersion>0</archiveVersion>
-            <data/>
+            <data />
         </settings>
         <settings>
             <name>BUILDACTION</name>
             <archiveVersion>1</archiveVersion>
             <data>
-                <prebuild/>
-                <postbuild/>
+                <prebuild></prebuild>
+                <postbuild></postbuild>
             </data>
         </settings>
         <settings>
@@ -1794,31 +1795,31 @@
                 </option>
                 <option>
                     <name>IlinkKeepSymbols</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkRawBinaryFile</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkRawBinarySymbol</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkRawBinarySegment</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkRawBinaryAlign</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkDefines</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkConfigDefines</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkMapFile</name>
@@ -1854,7 +1855,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkEnableRemarks</name>
@@ -1862,19 +1863,19 @@
                 </option>
                 <option>
                     <name>IlinkSuppressDiags</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkTreatAsRem</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkTreatAsWarn</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkTreatAsErr</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkWarningsAreErrors</name>
@@ -1886,7 +1887,7 @@
                 </option>
                 <option>
                     <name>IlinkExtraOptions</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkLowLevelInterfaceSlave</name>
@@ -1898,7 +1899,7 @@
                 </option>
                 <option>
                     <name>IlinkAdditionalLibs</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkOverrideProgramEntryLabel</name>
@@ -2033,11 +2034,11 @@
                 </option>
                 <option>
                     <name>IlinkStackControlFile</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkStackCallGraphFile</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>CrcAlgorithm</name>
@@ -2059,7 +2060,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile_AltDefault</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkEncInput</name>
@@ -2083,7 +2084,7 @@
                 </option>
                 <option>
                     <name>IlinkTrustzoneImportLibraryOut</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>OILinkExtraOption</name>
@@ -2091,19 +2092,19 @@
                 </option>
                 <option>
                     <name>IlinkRawBinaryFile2</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkRawBinarySymbol2</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkRawBinarySegment2</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IlinkRawBinaryAlign2</name>
-                    <state/>
+                    <state></state>
                 </option>
             </data>
         </settings>
@@ -2116,7 +2117,7 @@
                 <debug>1</debug>
                 <option>
                     <name>IarchiveInputs</name>
-                    <state/>
+                    <state></state>
                 </option>
                 <option>
                     <name>IarchiveOverride</name>
@@ -2131,12 +2132,12 @@
         <settings>
             <name>BILINK</name>
             <archiveVersion>0</archiveVersion>
-            <data/>
+            <data />
         </settings>
         <settings>
             <name>Coder</name>
             <archiveVersion>0</archiveVersion>
-            <data/>
+            <data />
         </settings>
     </configuration>
     <group>
@@ -2158,9 +2159,7 @@
                     <configuration>ble_wifi_onboarding_CM4</configuration>
                 </excluded>
             </file>
-        <file>
-                <name>$PROJ_DIR$/dlib_lock_glue.c</name>
-            </file></group>
+        </group>
         <group>
             <name>User</name>
             <group>
@@ -2168,22 +2167,277 @@
                 <excluded>
                     <configuration>ble_wifi_onboarding_CM7</configuration>
                 </excluded>
-                <group><name>Core</name><excluded><configuration>ble_wifi_onboarding_CM7</configuration></excluded><file><name>$PROJ_DIR$\..\CM4\Core\Src\main.c</name></file><file><name>$PROJ_DIR$\..\CM4\Core\Src\stm32h7xx_it.c</name></file><file><name>$PROJ_DIR$\..\CM4\Core\Src\stm32h7xx_hal_msp.c</name></file></group>
+                <group>
+                    <name>Core</name>
+                    <excluded>
+                        <configuration>ble_wifi_onboarding_CM7</configuration>
+                    </excluded>
+                    <file>
+                        <name>$PROJ_DIR$\..\CM4\Core\Src\main.c</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\..\CM4\Core\Src\stm32h7xx_hal_msp.c</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\..\CM4\Core\Src\stm32h7xx_it.c</name>
+                    </file>
+                </group>
             </group>
             <group>
                 <name>CM7</name>
                 <excluded>
                     <configuration>ble_wifi_onboarding_CM4</configuration>
                 </excluded>
-                <group><name>Core</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded><file><name>$PROJ_DIR$\..\CM7\Core\Src\main.c</name></file><file><name>$PROJ_DIR$\..\CM7\Core\Src\freertos.c</name></file><file><name>$PROJ_DIR$\..\CM7\Core\Src\stm32h7xx_it.c</name></file><file><name>$PROJ_DIR$\..\CM7\Core\Src\stm32h7xx_hal_msp.c</name></file><file><name>$PROJ_DIR$\..\CM7\Core\Src\stm32h7xx_hal_timebase_tim.c</name></file></group>
+                <group>
+                    <name>Core</name>
+                    <excluded>
+                        <configuration>ble_wifi_onboarding_CM4</configuration>
+                    </excluded>
+                    <file>
+                        <name>$PROJ_DIR$\..\CM7\Core\Src\freertos.c</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\..\CM7\Core\Src\main.c</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\..\CM7\Core\Src\stm32h7xx_hal_msp.c</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\..\CM7\Core\Src\stm32h7xx_hal_timebase_tim.c</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\..\CM7\Core\Src\stm32h7xx_it.c</name>
+                    </file>
+                </group>
             </group>
-            <group><name>Core</name><file><name>$PROJ_DIR$\..\CM7\Core\Src\app.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\CM7\Core\Src\app_utils.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\CM7\Core\Src\wifi_task.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\CM7\Core\configs\app_platform_cfg.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\CM7\Core\configs\cycfg_bt_settings.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\CM7\Core\configs\cycfg_gap.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\CM7\Core\configs\cycfg_gatt_db.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file></group>
+            <group>
+                <name>Core</name>
+                <file>
+                    <name>$PROJ_DIR$\..\CM7\Core\Src\app.c</name>
+                    <excluded>
+                        <configuration>ble_wifi_onboarding_CM4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\CM7\Core\configs\app_platform_cfg.c</name>
+                    <excluded>
+                        <configuration>ble_wifi_onboarding_CM4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\CM7\Core\Src\app_utils.c</name>
+                    <excluded>
+                        <configuration>ble_wifi_onboarding_CM4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\CM7\Core\configs\cycfg_bt_settings.c</name>
+                    <excluded>
+                        <configuration>ble_wifi_onboarding_CM4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\CM7\Core\configs\cycfg_gap.c</name>
+                    <excluded>
+                        <configuration>ble_wifi_onboarding_CM4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\CM7\Core\configs\cycfg_gatt_db.c</name>
+                    <excluded>
+                        <configuration>ble_wifi_onboarding_CM4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\CM7\Core\Src\wifi_task.c</name>
+                    <excluded>
+                        <configuration>ble_wifi_onboarding_CM4</configuration>
+                    </excluded>
+                </file>
+            </group>
         </group>
     </group>
     <group>
         <name>Drivers</name>
-        <group><name>CMSIS</name><file><name>$PROJ_DIR$\..\Common\Src\system_stm32h7xx_dualcore_boot_cm4_cm7.c</name></file></group>
-        <group><name>STM32H7xx_HAL_Driver</name><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cortex.c</name></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rcc.c</name></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rcc_ex.c</name></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_flash.c</name></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_flash_ex.c</name></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_gpio.c</name></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_hsem.c</name></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma.c</name></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma_ex.c</name></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_mdma.c</name></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pwr.c</name></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pwr_ex.c</name></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal.c</name></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_i2c.c</name></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_i2c_ex.c</name></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_exti.c</name></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_lptim.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_sdmmc.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_delayblock.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sd.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sd_ex.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_tim.c</name></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_tim_ex.c</name></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_uart.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_uart_ex.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file></group>
+        <group>
+            <name>CMSIS</name>
+            <file>
+                <name>$PROJ_DIR$\..\Common\Src\system_stm32h7xx_dualcore_boot_cm4_cm7.c</name>
+            </file>
+        </group>
+        <group>
+            <name>STM32H7xx_HAL_Driver</name>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cortex.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma_ex.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_exti.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_flash.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_flash_ex.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_gpio.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_hsem.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_i2c.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_i2c_ex.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_lptim.c</name>
+                <excluded>
+                    <configuration>ble_wifi_onboarding_CM4</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_mdma.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pwr.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pwr_ex.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rcc.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rcc_ex.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sd.c</name>
+                <excluded>
+                    <configuration>ble_wifi_onboarding_CM4</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sd_ex.c</name>
+                <excluded>
+                    <configuration>ble_wifi_onboarding_CM4</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_tim.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_tim_ex.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_uart.c</name>
+                <excluded>
+                    <configuration>ble_wifi_onboarding_CM4</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_uart_ex.c</name>
+                <excluded>
+                    <configuration>ble_wifi_onboarding_CM4</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_delayblock.c</name>
+                <excluded>
+                    <configuration>ble_wifi_onboarding_CM4</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_sdmmc.c</name>
+                <excluded>
+                    <configuration>ble_wifi_onboarding_CM4</configuration>
+                </excluded>
+            </file>
+        </group>
     </group>
-    <group><name>Middlewares</name><group><name>FreeRTOS</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded><file><name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\croutine.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\event_groups.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\list.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\queue.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\stream_buffer.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\tasks.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\timers.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\portable\IAR\ARM_CM4F\port.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\portable\IAR\ARM_CM4F\portasm.s</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file></group><group><name>Connectivity</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded><group><name>Wireless/Wifi/network-interface/LWIP</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/source/cy_ethernetif.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/source/cy_lwip_dhcp_server.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/source/cy_network_mw_core.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-freertos-integration/arch/sys_arch.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file></group><group><name>Wireless/Wifi/wifi-host-driver</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols/whd_bus.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols/whd_bus_common.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols/whd_bus_sdio_protocol.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols/whd_bus_spi_protocol.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_ap.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_buffer_api.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_cdc_bdc.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_chip.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_chip_constants.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_clm.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_debug.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_events.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_logging.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_management.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_network_if.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_resource_if.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_sdpcm.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_thread.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_utils.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_wifi.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_wifi_api.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_wifi_p2p.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp/whd_resources.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file></group><group><name>Wireless/Wifi/wcm/WCM</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/cy_wcm.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file></group><group><name>Wireless/Wifi/connectivity-utilities</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log/cy_log.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/JSON_parser/cy_json_parser.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/linked_list/cy_linked_list.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string/cy_string_utils.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/cy_nw_helper_common.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/COMPONENT_LWIP/cy_nw_helper.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file></group><group><name>Wireless/Wifi/whd-bsp-integration</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/cybsp_wifi.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/COMPONENT_LWIP/cy_network_buffer_lwip.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file></group><group><name>Wireless/Wifi/LwIP</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/api/api_lib.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/api/api_msg.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/api/err.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/api/if_api.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/api/netbuf.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/api/netdb.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/api/netifapi.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/api/sockets.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/api/tcpip.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/altcp.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/altcp_alloc.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/altcp_tcp.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/def.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/dns.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/inet_chksum.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/init.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ip.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv4/autoip.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv4/dhcp.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv4/etharp.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv4/icmp.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv4/igmp.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv4/ip4.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv4/ip4_addr.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv4/ip4_frag.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv6/dhcp6.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv6/ethip6.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv6/icmp6.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv6/inet6.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv6/ip6.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv6/ip6_addr.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv6/ip6_frag.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv6/mld6.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv6/nd6.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/mem.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/memp.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/netif.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/pbuf.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/raw.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/stats.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/sys.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/tcp.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/tcp_in.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/tcp_out.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/timeouts.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/udp.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/netif/ethernet.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file></group><group><name>Documentation</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/generated_mac_address.txt</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration><configuration>ble_wifi_onboarding_CM7</configuration></excluded></file></group><group><name>Wireless/Platform/device/CYW43012</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0_bin.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0-mfgtest_bin.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/43012C0-mfgtest_clm_blob.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/43012C0_clm_blob.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/firmware/COMPONENT_43012/COMPONENT_MURATA-1LV/COMPONENT_HCI-UART/w_bt_firmware_controller.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file></group><group><name>Wireless/Platform/pal</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Src/cyhal_system.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Src/wifi_bt_if.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_gpio.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_lptimer.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_sdio.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_spi.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_trng.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_uart.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file></group><group><name>Wireless/Platform/abstraction-rtos/FreeRTOS</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/cyabs_freertos_helpers.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/cyabs_rtos_freertos.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/cy_worker_thread.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file></group><group><name>Wireless/Bluetooth/btstack/BLE_HARDFP</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM7/COMPONENT_HARDFP/TOOLCHAIN_IAR/libbtstack.a</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file></group><group><name>Wireless/Bluetooth/bluetooth-freertos</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/freertos/cybt_platform_freertos.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/common/cybt_hci_rx_task.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/common/cybt_hci_tx_task.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/common/cybt_host_stack_platform_interface.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/common/cybt_patchram_download.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/common/cybt_platform_main.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/common/cybt_platform_task.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/common/cybt_platform_trace.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/common/cybt_prm.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file><file><name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/debug/cybt_debug_uart.c</name><excluded><configuration>ble_wifi_onboarding_CM4</configuration></excluded></file></group></group></group>
+    <group>
+        <name>Middlewares</name>
+        <group>
+            <name>FreeRTOS</name>
+            <excluded>
+                <configuration>ble_wifi_onboarding_CM4</configuration>
+            </excluded>
+            <file>
+                <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.c</name>
+                <excluded>
+                    <configuration>ble_wifi_onboarding_CM4</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\croutine.c</name>
+                <excluded>
+                    <configuration>ble_wifi_onboarding_CM4</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\event_groups.c</name>
+                <excluded>
+                    <configuration>ble_wifi_onboarding_CM4</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c</name>
+                <excluded>
+                    <configuration>ble_wifi_onboarding_CM4</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\list.c</name>
+                <excluded>
+                    <configuration>ble_wifi_onboarding_CM4</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\portable\IAR\ARM_CM4F\port.c</name>
+                <excluded>
+                    <configuration>ble_wifi_onboarding_CM4</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\portable\IAR\ARM_CM4F\portasm.s</name>
+                <excluded>
+                    <configuration>ble_wifi_onboarding_CM4</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\queue.c</name>
+                <excluded>
+                    <configuration>ble_wifi_onboarding_CM4</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\stream_buffer.c</name>
+                <excluded>
+                    <configuration>ble_wifi_onboarding_CM4</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\tasks.c</name>
+                <excluded>
+                    <configuration>ble_wifi_onboarding_CM4</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\timers.c</name>
+                <excluded>
+                    <configuration>ble_wifi_onboarding_CM4</configuration>
+                </excluded>
+            </file>
+        </group>
+    </group>
 </project>

@@ -607,54 +607,54 @@
 			<locationURI>PARENT-2-PROJECT_LOC/CM7/MBEDTLS/Target/custom_rng.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Bluetooth/bluetooth-freertos/cybt_debug_uart.c</name>
+			<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_debug_uart.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/debug/cybt_debug_uart.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/debug/cybt_debug_uart.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Bluetooth/bluetooth-freertos/cybt_hci_rx_task.c</name>
+			<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_hci_rx_task.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/common/cybt_hci_rx_task.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_hci_rx_task.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Bluetooth/bluetooth-freertos/cybt_hci_tx_task.c</name>
+			<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_hci_tx_task.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/common/cybt_hci_tx_task.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_hci_tx_task.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Bluetooth/bluetooth-freertos/cybt_host_stack_platform_interface.c</name>
+			<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_host_stack_platform_interface.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/common/cybt_host_stack_platform_interface.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_host_stack_platform_interface.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Bluetooth/bluetooth-freertos/cybt_patchram_download.c</name>
+			<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_patchram_download.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/common/cybt_patchram_download.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_patchram_download.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Bluetooth/bluetooth-freertos/cybt_platform_freertos.c</name>
+			<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_platform_freertos.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/freertos/cybt_platform_freertos.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/freertos/cybt_platform_freertos.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Bluetooth/bluetooth-freertos/cybt_platform_main.c</name>
+			<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_platform_main.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/common/cybt_platform_main.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_platform_main.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Bluetooth/bluetooth-freertos/cybt_platform_task.c</name>
+			<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_platform_task.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/common/cybt_platform_task.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_platform_task.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Bluetooth/bluetooth-freertos/cybt_platform_trace.c</name>
+			<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_platform_trace.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/common/cybt_platform_trace.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_platform_trace.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Bluetooth/bluetooth-freertos/cybt_prm.c</name>
+			<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_prm.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/platform/common/cybt_prm.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_prm.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/Client.cpp</name>
@@ -1429,7 +1429,7 @@
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Platform/device/CYW43012/w_bt_firmware_controller.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/bluetooth-freertos/firmware/COMPONENT_43012/COMPONENT_MURATA-1LV/COMPONENT_HCI-UART/w_bt_firmware_controller.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43012/COMPONENT_MURATA-1LV/w_bt_firmware_controller.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/network-interface/LWIP/cy_ethernetif.c</name>

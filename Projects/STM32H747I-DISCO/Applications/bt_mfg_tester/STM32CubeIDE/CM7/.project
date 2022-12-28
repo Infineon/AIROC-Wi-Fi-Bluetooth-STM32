@@ -223,7 +223,7 @@
 		<link>
 			<name>Application/User/Core/stm32h7xx_hal_timebase_tim.c</name>
 			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/CM7/Core/Src/stm32h7xx_hal_timebase_tim.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/CM7/Core/Src/stm32h7xx_hal_timebase_tim.c</locationURI>
 		</link>
 		<link>
 			<name>Application/User/Core/stm32h7xx_it.c</name>

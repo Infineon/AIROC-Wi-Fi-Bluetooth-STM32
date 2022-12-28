@@ -52,6 +52,7 @@ extern "C" {
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
+void   MX_SDMMC1_SD_Init(void);
 
 /* USER CODE BEGIN EFP */
 
@@ -62,7 +63,7 @@ void Error_Handler(void);
 #define WIFI_WL_REG_ON_GPIO_Port GPIOC
 #define CYBSP_BT_POWER_Pin GPIO_PIN_13
 #define CYBSP_BT_POWER_GPIO_Port GPIOD
-void   MX_SDMMC1_SD_Init(void);
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

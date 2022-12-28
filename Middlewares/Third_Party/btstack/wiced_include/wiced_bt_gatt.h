@@ -1639,7 +1639,7 @@ wiced_bt_gatt_status_t wiced_bt_gatt_client_send_indication_confirm (uint16_t co
  *
  * NOTE :  If is_direct = WICED_FALSE, it will create background connection.
  *         Default Background connection type is BTM_BLE_CONN_NONE.
- *         Before calling wiced_bt_gatt_le_connect please set background connection type (AUTO / SELECTIVE)
+ *         Before calling wiced_bt_gatt_le_connect please set background connection type (AUTO)
  *         using wiced_bt_ble_set_background_connection_type API
  *
  * @if DUAL_MODE

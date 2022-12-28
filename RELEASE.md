@@ -1,4 +1,4 @@
-# STM32 Connectivity Expansion Pack 1.2.0 Release Notes
+# STM32 Connectivity Expansion Pack 1.3.0 Release Notes
 The STM32 Connectivity Expansion Pack is an extension of the CMSIS-Pack standard established by Arm.
 The pack is compliant with the full CMSIS-Pack standard, with additional requirements/restrictions
 on the final pack to meet the STM standard.
@@ -6,22 +6,18 @@ on the final pack to meet the STM standard.
 This pack uses libraries from the ModusToolbox environment.
 
 ## What's Included?
-* STM32L5, Threadx/NetxDuo, Manufacturing tools Support Release
+* Support Release for STM32U5xx MCUs
 
 ## What Changed?
 
- v1.2.0
-* Added ThreadX/NetxDuo support
-* Added STM32L5 support
-* Added WiFi and BLE/BT Manufacturing tools
-  - Bluetooth Manufacturing Test Application for FreeRTOS (bt_mfg_tester)
-  - WLAN manufacturing test application for FreeRTOS (wifi_mfg_tester)
-  - Tester - Wi-Fi Bluetooth Console (wifi_bt_tester)
+ v1.3.0
+* Added STM32U5 support
 * PAL improvements and fixes
 
 ## Supported STM32 Boards and MCU
 *  STM32L562E-DK kit and STM32L5xx
 *  STM32H747I-DISCO Discovery kit and STM32H7xx
+*  STM32U575I-EV Evaluation board and STM32U5xx
 
 ## Supported Connectivity Modules
 
@@ -53,8 +49,8 @@ NetX UDP server to communicate with a remote client using the NetX UDP socket AP
 
 |  Software                    | Version   |
 | ---------------------------- | --------- |
-| STM32 CubeMX                 |  6.5.0    |
-| STM32 CubeIDE                |  1.9.0    |
+| STM32 CubeMX                 |  6.7.0    |
+| STM32 CubeIDE                |  1.11.0   |
 | IAR Embedded Workbench IDE   |  8.50.4   |
 
 ### Supported Compiler Version
@@ -69,6 +65,7 @@ NetX UDP server to communicate with a remote client using the NetX UDP socket AP
 
 | Version | Changes                                                             | Reason for Change                     |
 | :----:  | :---                                                                | :----                                 |
+| 1.3.0   | Added STM32U5 support.                                              | Add support of new STM32 series       |
 | 1.2.0   | Added STM32L5 support.                                              | Add support of new STM32 series       |
 |         | Added ThreadX/NetxDuo support.                                      | Add support for Azure RTOS            |
 |         | Added WiFi and BLE Manufacturing tools support.                     | Manufacturing tools (Iperf and mfgtest) support. Documentation updates. |
@@ -79,7 +76,7 @@ NetX UDP server to communicate with a remote client using the NetX UDP socket AP
 
 ## Future release
 
-* Add support of STM32U5. 
+* Add support of new STM32 series.
 
 
 ### More information

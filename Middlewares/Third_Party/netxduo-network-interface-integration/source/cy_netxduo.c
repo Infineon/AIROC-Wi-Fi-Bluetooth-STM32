@@ -30,7 +30,9 @@
 #include "nx_api.h"
 #include "nx_arp.h"
 #include "nxd_dhcp_client.h"
+#ifndef CY_DHCP_SERVER_DISABLE
 #include "nxd_dhcp_server.h"
+#endif
 #include "nxd_dns.h"
 #include "cy_wifimwcore_eapol.h"
 
@@ -138,8 +140,10 @@ static UCHAR            wifi_sta_dns_local_cache[DNS_LOCAL_CACHE_SIZE];
 static NX_IP            wifi_ap_ip_handle;
 static char             wifi_ap_ip_stack[IP_STACK_SIZE];
 static char             wifi_ap_arp_cache[ARP_CACHE_SIZE];
+#ifndef CY_DHCP_SERVER_DISABLE
 static NX_DHCP_SERVER   wifi_ap_dhcp_handle;
 static char             wifi_ap_dhcp_stack[NX_DHCP_SERVER_THREAD_STACK_SIZE];
+#endif
 
 static NX_IP *cy_nxd_ip_handle[MAX_NW_INTERFACE] =
 {
@@ -678,7 +682,7 @@ cy_rslt_t cy_network_remove_nw_interface(cy_network_interface_context *iface_con
     free(iface_context);
     return CY_RSLT_SUCCESS;
 }
-
+#ifndef NX_DISABLE_IPV6
 cy_rslt_t cy_netxduo_autoipv6(cy_network_interface_context *iface_context)
 {
     UINT        ipv6_address_index;
@@ -726,7 +730,7 @@ cy_rslt_t cy_netxduo_autoipv6(cy_network_interface_context *iface_context)
 
     return CY_RSLT_SUCCESS;
 }
-
+#endif
 cy_rslt_t cy_network_ip_up(cy_network_interface_context *iface_context)
 {
     UINT status;
@@ -1074,6 +1078,7 @@ static cy_rslt_t dhcp_client_deinit(void)
 
 static cy_rslt_t dhcp_server_init(cy_network_interface_context *iface, NX_PACKET_POOL *packet_pool)
 {
+#ifndef CY_DHCP_SERVER_DISABLE
     NX_IP *ip_handle = IP_HANDLE(iface->iface_type);
     NX_DHCP_SERVER *dhcp_handle = &wifi_ap_dhcp_handle;
     ULONG ip_addr;
@@ -1154,12 +1159,13 @@ static cy_rslt_t dhcp_server_init(cy_network_interface_context *iface, NX_PACKET
     {
         return CY_RSLT_NETWORK_ERROR_STARTING_INTERNAL_DHCP;
     }
-
+#endif
     return CY_RSLT_SUCCESS;
 }
 
 static cy_rslt_t dhcp_server_deinit(void)
 {
+#ifndef CY_DHCP_SERVER_DISABLE
     NX_DHCP_SERVER *dhcp_handle = &wifi_ap_dhcp_handle;
     UINT res;
 
@@ -1178,7 +1184,7 @@ static cy_rslt_t dhcp_server_deinit(void)
 
     /* Clear the DHCP handle structure */
     memset(dhcp_handle, 0, sizeof(*dhcp_handle));
-
+#endif
     return CY_RSLT_SUCCESS;
 }
 

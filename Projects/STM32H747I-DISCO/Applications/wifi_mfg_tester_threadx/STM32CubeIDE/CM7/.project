@@ -191,16 +191,6 @@
 			<locationURI>PARENT-2-PROJECT_LOC/CM7/Core/Src/tx_initialize_low_level.S</locationURI>
 		</link>
 		<link>
-			<name>Application/User/ThreadSafe/newlib_lock_glue.c</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/ThreadSafe/newlib_lock_glue.c</locationURI>
-		</link>
-		<link>
-			<name>Application/User/ThreadSafe/stm32_lock.h</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/ThreadSafe/stm32_lock.h</locationURI>
-		</link>
-		<link>
 			<name>Application/User/AZURE_RTOS/App/app_azure_rtos.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/CM7/AZURE_RTOS/App/app_azure_rtos.c</locationURI>

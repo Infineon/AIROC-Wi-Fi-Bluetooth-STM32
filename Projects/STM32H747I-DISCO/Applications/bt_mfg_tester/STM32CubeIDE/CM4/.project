@@ -126,16 +126,6 @@
 			<locationURI>PARENT-2-PROJECT_LOC/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c</locationURI>
 		</link>
 		<link>
-			<name>Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_uart.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c</locationURI>
-		</link>
-		<link>
-			<name>Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_uart_ex.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c</locationURI>
-		</link>
-		<link>
 			<name>Application/User/Core/main.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/CM4/Core/Src/main.c</locationURI>

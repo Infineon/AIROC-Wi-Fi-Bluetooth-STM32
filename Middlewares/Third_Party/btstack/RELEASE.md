@@ -8,6 +8,18 @@ Following are the limitations when using host based address resolution (only app
 
 ## Changelog
 
+## V3.6.0
+BTSTACK3.6 is BT5.3 certified. QDID: [196979](https://launchstudio.bluetooth.com/ListingDetails/164219).
+Below test cases fail and are under discussion/debug with PTS.
+ - L2CAP/COS/CED/BI-02-C, L2CAP/ECFC/BI-08-C, refer to TSE#17703
+ - L2CAP/ECFC/BI-09-C, refer to TSE#18208
+
+This release contains bug fixes and and an enhancement listed below.
+ - Support HCI_LE_Read_buffer_size [v2].
+ - Fix to return correct BD Address in the encryption status event callback.
+ - Documentation update for wiced_bt_rfcomm_read_data().
+ - The known issue from BTSTACK3.5 related to the handling of directed advertisement flags in the LE Set Extended Adv commands, is handled by changes in the application to set the correct address type to start directed adv.
+
 ## V3.5.0
 BTSTACK3.5 release contains bug fixes and and an enhancement listed below.
  - Updated API description for wiced_bt_gatt_client_send_read_by_type().
@@ -78,7 +90,7 @@ BTSTACK3.1 is BT5.2 certified. Certification includes EATT and ISOC features, QD
    - Fix to allow back to back operations on event complete in gatt read, read multiple, read_by_type_rsp.
 
 ## V3.0.0
-This release contains major updates BTSTACK interfaces requiring modifications in existing applications in order for them to work with BTSTACK3.0. Please see the **[Migration Guide](https://cypresssemiconductorco.github.io/btstack/BTSTACK_2.0_to_3.0_API_Migration_Guide.htm)** for more details on how to migrate your application written for BTSTACK1.X or BTSTACK2.0 to BTSTACK3.0.
+This release contains major updates BTSTACK interfaces requiring modifications in existing applications in order for them to work with BTSTACK3.0. Please see the **[Migration Guide](https://infineon.github.io/btstack/BTSTACK_2.0_to_3.0_API_Migration_Guide.htm)** for more details on how to migrate your application written for BTSTACK1.X or BTSTACK2.0 to BTSTACK3.0.
  - Stack configuration parameters (wiced_bt_cfg_settings_t) are updated for better readability and to remove parameters that are not necessary, providing APIs where requred. Stack APIs such as GATT profile APIs have been modified for ease of use.
  - BT SIG has updated the naming of a number of entities (e.g., roles of bluetooth devices), the stack interfaces and internal code has been updated accordingly.
  - Stack Config Structure - Changes to stack config settings structure has been done to keep the config elements to a minimum and to be able to seperate BLE configuration elements from BR/EDR configuration elements for ease of use and readability. Parameters that can't be modified using config structure are allowed to be modified using APIs where required.

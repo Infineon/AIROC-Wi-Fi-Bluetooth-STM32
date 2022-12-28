@@ -641,7 +641,7 @@ static void _stm32_cyhal_gpio_enable_irq(uint32_t pin_number, uint32_t priority,
         EXTI15_10_IRQn, /* IRQ for EXTI line 14 */
         EXTI15_10_IRQn, /* IRQ for EXTI line 15 */
     };
-    #elif defined (TARGET_STM32L5xx)
+    #elif defined (TARGET_STM32L5xx) || defined (TARGET_STM32U5xx)
     const IRQn_Type exti_table[] =
     {
         EXTI0_IRQn,  /* IRQ for EXTI line 0 */

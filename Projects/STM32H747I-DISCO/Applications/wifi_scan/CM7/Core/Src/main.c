@@ -73,19 +73,43 @@ void WiFiTask(void *argument);
 /* USER CODE BEGIN 0 */
 
 #ifdef __GNUC__
-/* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
-   set to 'Yes') calls __io_putchar() */
-int __io_putchar(int ch)
-#else
-int fputc(int ch, FILE *f)
-#endif /* __GNUC__ */
-{
-  /* Place your implementation of fputc here */
-  /* e.g. write a character to the USART1 and Loop until the end of transmission */
-  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
+    /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
+       set to 'Yes') calls __io_putchar() */
+    /***************************************************************************
+    * Function Name: __io_putchar (GCC)
+    ***************************************************************************/   
+    int __io_putchar(int ch)
+    {
+      HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
+      return ch;
+    }
 
-  return ch;
-}
+#elif defined (__ICCARM__) /* IAR */
+    #include <yfuns.h>
+
+    /***************************************************************************
+    * Function Name: __write (IAR)
+    ***************************************************************************/
+    size_t __write(int handle, const unsigned char * buffer, size_t size)
+    {
+        size_t nChars = 0;
+        /* This template only writes to "standard out", for all other file
+         * handles it returns failure. */
+        if (handle != _LLIO_STDOUT)
+        {
+            return (_LLIO_ERROR);
+        }
+        if (buffer != NULL)
+        {
+            for (/* Empty */; nChars < size; ++nChars)
+            {
+                HAL_UART_Transmit(&huart1, (uint8_t *)buffer, 1, 0xFFFF);
+                ++buffer;
+            }
+        }
+        return (nChars);
+    }
+#endif /* __GNUC__ */
 
 /* USER CODE END 0 */
 
@@ -248,13 +272,13 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLM = 4;
-  RCC_OscInitStruct.PLL.PLLN = 9;
+  RCC_OscInitStruct.PLL.PLLN = 18;
   RCC_OscInitStruct.PLL.PLLP = 2;
   RCC_OscInitStruct.PLL.PLLQ = 6;
   RCC_OscInitStruct.PLL.PLLR = 2;
   RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_3;
-  RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOMEDIUM;
-  RCC_OscInitStruct.PLL.PLLFRACN = 3072;
+  RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOWIDE;
+  RCC_OscInitStruct.PLL.PLLFRACN = 6144;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -267,7 +291,7 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_D3PCLK1|RCC_CLOCKTYPE_D1PCLK1;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_APB1_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV2;

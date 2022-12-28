@@ -38,18 +38,18 @@ ENTRY(Reset_Handler)
 /* Highest address of the user mode stack */
 _estack = ORIGIN(RAM_D1) + LENGTH(RAM_D1); /* end of "RAM_D1" Ram type memory */
 
-_Min_Heap_Size = 0x15000 ; /* required amount of heap  */
-_Min_Stack_Size = 0x2000 ; /* required amount of stack */
+_Min_Heap_Size = 0x15000; /* required amount of heap  */
+_Min_Stack_Size = 0x2000; /* required amount of stack */
 
 /* Memories definition */
 MEMORY
 {
-  RAM_D1 (xrw)    : ORIGIN = 0x24000000, LENGTH =  512K
-  FLASH   (rx)    : ORIGIN = 0x08000000, LENGTH = 1024K /* Memory is divided. Actual start is 0x08000000 and actual length is 2048K */
-  DTCMRAM (xrw)   : ORIGIN = 0x20000000, LENGTH = 128K
-  RAM_D2 (xrw)    : ORIGIN = 0x30000000, LENGTH = 288K
-  RAM_D3 (xrw)    : ORIGIN = 0x38000000, LENGTH = 64K
-  ITCMRAM (xrw)   : ORIGIN = 0x00000000, LENGTH = 64K
+  RAM_D1 (xrw)   : ORIGIN = 0x24000000, LENGTH =  512K
+  FLASH   (rx)   : ORIGIN = 0x08000000, LENGTH = 1024K    /* Memory is divided. Actual start is 0x08000000 and actual length is 2048K */
+  DTCMRAM (xrw)  : ORIGIN = 0x20000000, LENGTH = 128K
+  RAM_D2 (xrw)   : ORIGIN = 0x30000000, LENGTH = 288K
+  RAM_D3 (xrw)   : ORIGIN = 0x38000000, LENGTH = 64K
+  ITCMRAM (xrw)  : ORIGIN = 0x00000000, LENGTH = 64K
   WIFI_FLASH (rx) : ORIGIN = 0x08180000, LENGTH = 512K
 }
 

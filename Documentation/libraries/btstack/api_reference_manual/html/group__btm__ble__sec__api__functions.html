@@ -975,7 +975,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sends HCI command to write the extended adv data. </p>
-<dl class="section note"><dt>Note</dt><dd>This API allows sending data formatted with <a class="el" href="group__btm__ble__adv__scan__functions.html#ga74e692cbbd0a833ff06c1ab4af0b5bda">wiced_bt_ble_build_raw_advertisement_data</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This API allows sending data formatted with <a class="el" href="group__btm__ble__adv__scan__functions.html#ga74e692cbbd0a833ff06c1ab4af0b5bda">wiced_bt_ble_build_raw_advertisement_data</a>. </dd>
+<dd>
+This API cannot be used for the advertising handle with the event_properties that doesn't support advertising data; viz., WICED_BT_BLE_EXT_ADV_EVENT_DIRECTED_ADV, WICED_BT_BLE_EXT_ADV_EVENT_HIGH_DUTY_DIRECTED_CONNECTABLE_ADV</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">adv_handle</td><td>- handle of the advertising set </td></tr>

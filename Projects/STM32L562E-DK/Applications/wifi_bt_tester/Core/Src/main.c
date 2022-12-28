@@ -73,11 +73,11 @@ const osThreadAttr_t ConsoleTask_attributes = {
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_OCTOSPI1_Init(void);
+static void MX_DMA_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_RNG_Init(void);
 static void MX_LPTIM1_Init(void);
-static void MX_DMA_Init(void);
+static void MX_OCTOSPI1_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_ICACHE_Init(void);
 void console_task(void *argument);
@@ -87,27 +87,49 @@ void console_task(void *argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-#if defined (__ICCARM__)
- void* __aeabi_read_tp(void)
-{
-  return 0;
-}
-#endif
 
 #ifdef __GNUC__
-/* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
-   set to 'Yes') calls __io_putchar() */
-int __io_putchar(int ch)
-#else
-int fputc(int ch, FILE *f)
-#endif /* __GNUC__ */
-{
-  /* Place your implementation of fputc here */
-  /* e.g. write a character to the USART1 and Loop until the end of transmission */
-  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
+    /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
+       set to 'Yes') calls __io_putchar() */
+    /***************************************************************************
+    * Function Name: __io_putchar (GCC)
+    ***************************************************************************/   
+    int __io_putchar(int ch)
+    {
+      HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
+      return ch;
+    }
+#elif defined (__ICCARM__) /* IAR */
+    #include <yfuns.h>
 
-  return ch;
-}
+    /***************************************************************************
+    * Function Name: __write (IAR)
+    ***************************************************************************/
+    size_t __write(int handle, const unsigned char * buffer, size_t size)
+    {
+        size_t nChars = 0;
+        /* This template only writes to "standard out", for all other file
+         * handles it returns failure. */
+        if (handle != _LLIO_STDOUT)
+        {
+            return (_LLIO_ERROR);
+        }
+        if (buffer != NULL)
+        {
+            for (/* Empty */; nChars < size; ++nChars)
+            {
+                HAL_UART_Transmit(&huart1, (uint8_t *)buffer, 1, 0xFFFF);
+                ++buffer;
+            }
+        }
+        return (nChars);
+    }
+    
+    void* __aeabi_read_tp(void)
+    {
+      return 0;
+    }
+#endif /* __GNUC__ */
 
 /* USER CODE END 0 */
 
@@ -139,14 +161,16 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_OCTOSPI1_Init();
+  MX_DMA_Init();
   MX_USART1_UART_Init();
   MX_RNG_Init();
   MX_LPTIM1_Init();
-  MX_DMA_Init();
+  MX_OCTOSPI1_Init();
   MX_MBEDTLS_Init();
   MX_USART3_UART_Init();
   MX_ICACHE_Init();
+  /* Call PreOsInit function */
+  MX_MBEDTLS_Init();
   /* USER CODE BEGIN 2 */
 
 
@@ -459,7 +483,7 @@ static void MX_USART1_UART_Init(void)
   {
     Error_Handler();
   }
-  if (HAL_UARTEx_SetRxFifoThreshold(&huart1, UART_TXFIFO_THRESHOLD_7_8) != HAL_OK)
+  if (HAL_UARTEx_SetRxFifoThreshold(&huart1, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
   {
     Error_Handler();
   }

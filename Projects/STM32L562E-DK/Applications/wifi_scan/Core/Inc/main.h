@@ -52,6 +52,7 @@ extern "C" {
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
+void   MX_SDMMC1_SD_Init(void);
 
 /* USER CODE BEGIN EFP */
 
@@ -117,7 +118,7 @@ void Error_Handler(void);
 #define STMOD_SEL_34_GPIO_Port GPIOF
 #define CTP_RST_Pin GPIO_PIN_15
 #define CTP_RST_GPIO_Port GPIOF
-void   MX_SDMMC1_SD_Init(void);
+
 /* USER CODE BEGIN Private defines */
 #define CY_STORAGE_WIFI_DATA ".whd_fw"
 /* USER CODE END Private defines */

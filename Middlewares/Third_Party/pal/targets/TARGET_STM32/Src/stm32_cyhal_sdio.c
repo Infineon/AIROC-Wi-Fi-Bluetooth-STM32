@@ -471,7 +471,12 @@ cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t* obj, cyhal_sdio_transfer_type_t
 
             /* DMA configuration (use single buffer) */
             obj->hsd->Instance->IDMACTRL  = SDMMC_ENABLE_IDMA_SINGLE_BUFF;
+
+            #if defined (TARGET_STM32U5xx)
+            obj->hsd->Instance->IDMABASER = (uint32_t)p_dma_buffer;
+            #else
             obj->hsd->Instance->IDMABASE0 = (uint32_t)p_dma_buffer;
+            #endif
 
             /* Configure the SD DPSM (Data Path State Machine) */
             config.DataTimeOut = SDMMC_DATATIMEOUT;

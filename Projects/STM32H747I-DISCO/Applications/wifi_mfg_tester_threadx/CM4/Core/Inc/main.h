@@ -52,6 +52,8 @@ extern "C" {
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
+void   MX_SDMMC1_SD_Init(void);
+void   MX_USART1_UART_Init(void);
 
 /* USER CODE BEGIN EFP */
 
@@ -84,8 +86,7 @@ void Error_Handler(void);
 #define OSC_OUT_GPIO_Port GPIOH
 #define OSC_IN_Pin GPIO_PIN_0
 #define OSC_IN_GPIO_Port GPIOH
-void   MX_SDMMC1_SD_Init(void);
-void   MX_USART1_UART_Init(void);
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

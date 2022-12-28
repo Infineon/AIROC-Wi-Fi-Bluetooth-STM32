@@ -52,6 +52,7 @@ extern "C" {
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
+void   MX_SDMMC1_SD_Init(void);
 
 /* USER CODE BEGIN EFP */
 
@@ -101,7 +102,7 @@ void Error_Handler(void);
 #define OSC_IN_GPIO_Port GPIOH
 #define LED_BLUE_Pin GPIO_PIN_15
 #define LED_BLUE_GPIO_Port GPIOI
-void   MX_SDMMC1_SD_Init(void);
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

@@ -82,11 +82,11 @@ typedef uint8_t   wiced_bt_ble_scanner_filter_policy_t;  /**< Scanner filter pol
 
 /** Advertising filter policy */
 enum wiced_bt_ble_advert_filter_policy_e {
-    BTM_BLE_ADV_POLICY_ACCEPT_CONN_AND_SCAN               = 0x00,    /**< Process scan and connection requests from all devices (i.e., the Filter Accept List is not in use) (default) */
-    BTM_BLE_ADV_POLICY_ACCEPT_CONN_FILTER_SCAN         = 0x01,    /**< Process connection requests from all devices and only scan requests from devices that are in the Filter Accept List. */
-    BTM_BLE_ADV_POLICY_FILTER_CONN_ACCEPT_SCAN         = 0x02,    /**< Process scan requests from all devices and only connection requests from devices that are in the Filter Accept List */
-    BTM_BLE_ADV_POLICY_FILTER_CONN_FILTER_SCAN   = 0x03,    /**< Process scan and connection requests only from devices in the Filter Accept List. */
-    BTM_BLE_ADV_POLICY_MAX                                                      /**< Max Adv filter value */
+    BTM_BLE_ADV_POLICY_ACCEPT_CONN_AND_SCAN     = 0x00,    /**< Process scan and connection requests from all devices (i.e., the Filter Accept List is not in use) (default) */
+    BTM_BLE_ADV_POLICY_ACCEPT_CONN_FILTER_SCAN  = 0x01,    /**< Process connection requests from all devices and only scan requests from devices that are in the Filter Accept List. */
+    BTM_BLE_ADV_POLICY_FILTER_CONN_ACCEPT_SCAN  = 0x02,    /**< Process scan requests from all devices and only connection requests from devices that are in the Filter Accept List */
+    BTM_BLE_ADV_POLICY_FILTER_CONN_FILTER_SCAN  = 0x03,    /**< Process scan and connection requests only from devices in the Filter Accept List. */
+    BTM_BLE_ADV_POLICY_MAX                                 /**< Max Adv filter value */
 };
 typedef uint8_t   wiced_bt_ble_advert_filter_policy_t;  /**< Advertising filter policy (see #wiced_bt_ble_advert_filter_policy_e) */
 
@@ -108,13 +108,13 @@ typedef uint8_t   wiced_bt_ble_advert_filter_policy_t;  /**< Advertising filter 
 #define BTM_BLE_CONN_PARAM_UNDEF        0xffff  /**< use this value when a specific value not to be overwritten */
 #define BTM_BLE_CONN_SUP_TOUT_DEF       700     /**< Default Supervision Timeout */
 
-/* default connection parameters if not configured, use GAP recommend value for auto/selective connection */
+/* default connection parameters if not configured, use GAP recommend value for auto connection */
 /** default scan interval
  *  30 ~ 60 ms (use 60)  = 96 *0.625
  */
 #define BTM_BLE_SCAN_FAST_INTERVAL      96
 
-/** default scan window for background connection, applicable for auto connection or selective conenction
+/** default scan window (in .625ms slots) for background auto connections
  * 30 ms = 48 *0.625
  */
 #define BTM_BLE_SCAN_FAST_WINDOW        48
@@ -256,8 +256,8 @@ typedef uint8_t wiced_bt_dev_ble_evt_type_t;    /**< Scan result event value (se
 enum wiced_bt_ble_conn_type_e
 {
     BTM_BLE_CONN_NONE,                          /**< No background connection */
-    BTM_BLE_CONN_AUTO,                          /**< Auto connection */
-    BTM_BLE_CONN_SELECTIVE                      /**< Selective connection */
+    BTM_BLE_CONN_AUTO,                          /**< Auto connection based on filter list */
+    BTM_BLE_CONN_SELECTIVE = BTM_BLE_CONN_AUTO  /**< Selective not used */
 };
 typedef uint8_t wiced_bt_ble_conn_type_t;       /**< Connection type (see #wiced_bt_ble_conn_type_e) */
 
@@ -411,19 +411,6 @@ enum wiced_bt_ble_multi_advert_filtering_policy_e
     MULTI_ADVERT_FILTER_POLICY_USE_FOR_ALL                      = 0x03    /**< Multi adv filter filter Accept List for all */
 };
 typedef uint8_t wiced_bt_ble_multi_advert_filtering_policy_t;    /**< BLE advertisement filtering policy (see #wiced_bt_ble_multi_advert_filtering_policy_e) */
-
-/**
- * Callback wiced_bt_ble_selective_conn_cback_t
- *
- * Selective connection callback (registered with  #wiced_bt_ble_set_background_connection_type)
- *
- * @param remote_bda    : remote device
- * @param p_remote_name : remote device name
- *
- * @return
- */
-typedef wiced_bool_t (wiced_bt_ble_selective_conn_cback_t)(wiced_bt_device_address_t remote_bda, uint8_t *p_remote_name);
-
 
 /**
  * Callback wiced_bt_ble_scan_result_cback_t
@@ -777,6 +764,64 @@ typedef struct
     uint16_t service_data; /**< Service Data value provided by the peer device */
 } wiced_bt_ble_periodic_adv_sync_transfer_event_data_t;
 
+/* @cond BETA_API
+   beta APIs for Periodic Advertising with Response*/
+#define WICED_BT_MAX_PAWR_SUBEVENT_DATA_LEN  251
+
+/** Periodic Advertising with Response (PAWR) Sync Established Event Data */
+typedef struct
+{
+    uint8_t                                 status;                     /**< HCI status */
+    wiced_bt_ble_periodic_adv_sync_handle_t sync_handle;                /**< sync handle */
+    wiced_bt_ble_ext_adv_sid_t              adv_sid;                    /**< advertisement set identifier */
+    wiced_bt_ble_address_type_t             adv_addr_type;              /**< advertiser address type */
+    wiced_bt_device_address_t               adv_addr;                   /**< advertiser address */
+    wiced_bt_ble_ext_adv_phy_t              adv_phy;                    /**< advertiser phy */
+    uint16_t                                periodic_adv_int;           /**< Periodic adv interval */
+    wiced_bt_ble_advertiser_clock_accuracy_t advertiser_clock_accuracy; /**< advertiser clock accuracy */
+    uint8_t                                 num_subevents;              /**< number of subevents */
+    uint8_t                                 subevent_interval;          /**< subevent interval */
+    uint8_t                                 response_slot_delay;        /**< response slot delay */
+    uint8_t                                 response_slot_spacing;      /**< response slot spacing */
+} wiced_bt_ble_pawr_sync_established_event_data_t;
+
+/** Periodic Advertising with Response (PAWR) Subevent Data Request Event Data */
+typedef struct
+{
+    wiced_bt_ble_ext_adv_handle_t   adv_handle;                 /**< advertisement set handle */
+    uint8_t                         subevent_start;             /**< first subevent */
+    uint8_t                         subevent_start_count;       /**< number of subevents */
+} wiced_bt_ble_pawr_subevent_data_req_event_data_t;
+
+/** Periodic Advertising with Response (PAWR) Response Report Event Data */
+typedef struct
+{
+    uint8_t     adv_handle;
+    uint8_t     subevent;
+    uint8_t     tx_status;
+    uint8_t     tx_power;
+    uint8_t     rssi;
+    uint8_t     cte_type;
+    uint8_t     response_slot;
+    uint8_t     data_status;
+    uint8_t     data_len;
+    uint8_t     data[WICED_BT_MAX_PAWR_SUBEVENT_DATA_LEN];
+} wiced_bt_ble_pawr_rsp_report_event_data_t;
+
+/** Periodic Advertising with Response (PAWR) Indication Report Event Data */
+typedef struct
+{
+    wiced_bt_ble_periodic_adv_sync_handle_t sync_handle;                /**< sync handle */
+    uint8_t     tx_power;
+    uint8_t     rssi;
+    uint8_t     cte_type;
+    uint8_t     sub_event;
+    uint8_t     data_status;
+    uint8_t     data_length;                                /**< Length of the subevent indication data  */
+    uint8_t     data[WICED_BT_MAX_PAWR_SUBEVENT_DATA_LEN];  /**< Subevent data  */
+} wiced_bt_ble_pawr_ind_report_event_data_t;
+/* @endcond */
+
 /** ADV extension events to the application */
 typedef enum
 {
@@ -785,23 +830,36 @@ typedef enum
     WICED_BT_BLE_PERIODIC_ADV_SYNC_LOST_EVENT,          /**< Periodic sync lost event. Event Data: wiced_bt_ble_periodic_adv_sync_handle_t */
     WICED_BT_BLE_ADV_SET_TERMINATED_EVENT,              /**< Advertising set terminated becaue either connection being created or adv timeout. Event data: wiced_bt_ble_ext_adv_set_terminated_event_data_t */
     WICED_BT_BLE_SCAN_REQUEST_RECEIVED_EVENT,           /**< scan request received event. Event data: wiced_bt_ble_scan_req_received_event_data_t */
-    WICED_BT_BLE_CHANNEL_SEL_ALGO_EVENT, /**< LE Channel selected algorithm event. Event Data: wiced_bt_ble_channel_sel_algo_event_data_t */
-    WICED_BT_BLE_BIGINFO_ADV_REPORT_EVENT, /**< BIGInfo adv report event. Event Data: wiced_bt_ble_biginfo_adv_report_t */
-    WICED_BT_BLE_PERIODIC_ADV_SYNC_TRANSFER_EVENT /**< Periodic Adv Sync Transfer Event. Event Data: wiced_bt_ble_periodic_adv_sync_transfer_event_data_t */
+    WICED_BT_BLE_CHANNEL_SEL_ALGO_EVENT,                /**< LE Channel selected algorithm event. Event Data: wiced_bt_ble_channel_sel_algo_event_data_t */
+    WICED_BT_BLE_BIGINFO_ADV_REPORT_EVENT,              /**< BIGInfo adv report event. Event Data: wiced_bt_ble_biginfo_adv_report_t */
+    WICED_BT_BLE_PERIODIC_ADV_SYNC_TRANSFER_EVENT,      /**< Periodic Adv Sync Transfer Event. Event Data: wiced_bt_ble_periodic_adv_sync_transfer_event_data_t */
+	/* @cond BETA_API
+	beta APIs for Periodic Advertising with Response*/
+    WICED_BT_BLE_PAWR_SYNC_ESTABLISHED_EVENT,           /**< Periodic Adv Sync Transfer Event. Event Data: wiced_bt_ble_pawr_sync_established_event_data_t */
+    WICED_BT_BLE_PAWR_SUBEVENT_DATA_REQ_EVENT,          /**< Periodic Adv Sync Transfer Event. Event Data: wiced_bt_ble_pawr_subevent_data_req_event_data_t */
+    WICED_BT_BLE_PAWR_IND_REPORT_EVENT,                 /**< Periodic Adv Sync Transfer Event. Event Data: wiced_bt_ble_pawr_ind_report_event_data_t */
+    WICED_BT_BLE_PAWR_RSP_REPORT_EVENT                  /**< Periodic Adv Sync Transfer Event. Event Data: wiced_bt_ble_pawr_rsp_report_event_data_t */
+	/* @endcond */
 } wiced_bt_ble_adv_ext_event_t;
 
 /** union of events data */
 typedef union
 {
     wiced_bt_ble_periodic_adv_sync_established_event_data_t sync_establish;     /**< Data for WICED_BT_BLE_PERIODIC_ADV_SYNC_ESTABLISHED_EVENT*/
-    wiced_bt_ble_periodic_adv_report_event_data_t           periodic_adv_report;    /**< Data for WICED_BT_BLE_PERIODIC_ADV_REPORT_EVENT*/
+    wiced_bt_ble_periodic_adv_report_event_data_t           periodic_adv_report;/**< Data for WICED_BT_BLE_PERIODIC_ADV_REPORT_EVENT*/
     wiced_bt_ble_periodic_adv_sync_handle_t                 sync_handle;        /**< Data for WICED_BT_BLE_PERIODIC_ADV_SYNC_LOST_EVENT*/
     wiced_bt_ble_ext_adv_set_terminated_event_data_t        adv_set_terminated; /**< Data for WICED_BT_BLE_ADV_SET_TERMINATED_EVENT*/
     wiced_bt_ble_scan_req_received_event_data_t             scan_req_received;  /**< Data for WICED_BT_BLE_SCAN_REQUEST_RECEIVED_EVENT*/
     wiced_bt_ble_channel_sel_algo_event_data_t              channel_sel_algo;   /**< Data for WICED_BT_BLE_CHANNEL_SEL_ALGO_EVENT*/
-    wiced_bt_ble_biginfo_adv_report_t biginfo_adv_report; /**< Data for WICED_BT_BLE_BIGINFO_ADV_REPORT_EVENT*/
-    wiced_bt_ble_periodic_adv_sync_transfer_event_data_t
-        sync_transfer; /**< Data for WICED_BT_BLE_PERIODIC_ADV_SYNC_TRANSFER_EVENT */
+    wiced_bt_ble_biginfo_adv_report_t                       biginfo_adv_report; /**< Data for WICED_BT_BLE_BIGINFO_ADV_REPORT_EVENT*/
+    wiced_bt_ble_periodic_adv_sync_transfer_event_data_t    sync_transfer;      /**< Data for WICED_BT_BLE_PERIODIC_ADV_SYNC_TRANSFER_EVENT */
+	/* @cond BETA_API
+	beta APIs for Periodic Advertising with Response*/
+    wiced_bt_ble_pawr_sync_established_event_data_t         pawr_sync;          /**< Data for WICED_BT_BLE_PAWR_SYNC_ESTABLISHED_EVENT*/
+    wiced_bt_ble_pawr_subevent_data_req_event_data_t        pawr_data_req;      /**< Data for WICED_BT_BLE_PAWR_SUBEVENT_DATA_REQ_EVENT*/
+    wiced_bt_ble_pawr_ind_report_event_data_t               pawr_ind_report;    /**< Data for WICED_BT_BLE_PAWR_IND_REPORT_EVENT*/
+    wiced_bt_ble_pawr_rsp_report_event_data_t               pawr_rsp_report;    /**< Data for WICED_BT_BLE_PAWR_RSP_REPORT_EVENT*/
+	/* @endcond */
 } wiced_bt_ble_adv_ext_event_data_t;
 
 /** Configuration for extended scanning */
@@ -837,6 +895,21 @@ typedef struct
  */
 typedef void (*wiced_bt_ble_adv_ext_event_cb_fp_t) (wiced_bt_ble_adv_ext_event_t event, wiced_bt_ble_adv_ext_event_data_t *p_data);
 
+/* @cond BETA_API
+   beta APIs for Periodic Advertising with Response*/
+/** Configuration for Periodic Advertising with Response (PAWR) subevent indication data
+**  which is sent by the central device at the start of each subevent
+*/
+typedef struct
+{
+    uint8_t     subevent_num;               /**< The subevent number */
+    uint8_t     rsp_slot_start;             /**< Response slot start */
+    uint8_t     rsp_slot_count;             /**< Response slot count */
+    uint8_t     ind_data_length;            /**< Length of the subevent indication data  */
+    uint8_t     ind_data[WICED_BT_MAX_PAWR_SUBEVENT_DATA_LEN]; /**< Subevent data  */
+} wiced_bt_ble_pawr_subevent_ind_data_t;
+/* @endcond */
+
 
 /******************************************************
  *               Function Declarations
@@ -860,6 +933,12 @@ extern "C" {
  *
  * Use #wiced_bt_ble_set_raw_advertisement_data to configure advertising data
  * prior to starting avertisements. The advertisements are stopped upon successful LE connection establishment.
+ *
+ * @note 1. Steps for undirected ADVs viz., BTM_BLE_ADVERT_UNDIRECTED_HIGH, BTM_BLE_ADVERT_UNDIRECTED_LOW,
+ * and non connectable advs viz., BTM_BLE_ADVERT_NONCONN_HIGH, BTM_BLE_ADVERT_NONCONN_LOW
+ *   a) Set ADV data
+ *   b) Set Scan Response data if adv type is scannable
+ * @note 2. if adv type is set to Directed then the stack resets any advertisement data which has been set for an earlier advertisement. Refer note 1 prior to attempting an undirected advertisement
  *
  * The <b>advert_mode</b> parameter determines what advertising parameters and durations
  * to use (as specified by the application configuration).
@@ -930,6 +1009,22 @@ int wiced_bt_ble_build_raw_advertisement_data(uint8_t *p_adv,
 uint8_t *wiced_bt_ble_check_advertising_data( uint8_t *p_adv, wiced_bt_ble_advert_type_t type, uint8_t *p_length);
 
 /**
+ * When multiple entry for same adv type is available in the adv data this api will help to get next entry of specified advertisement data type
+ * when there is a single instance use wiced_bt_ble_check_advertising_data
+ *
+ * @param[in]       p_adv       : pointer to advertisement data
+ * @param[in]       p_offset    : offset from the start of the adv data recevied, also returns next offset to start searching from
+ * @param[in]       type        : advertisement data type to look for
+ * @param[out]      p_length    : length of advertisement data (if found)
+ *
+ * @return          pointer to next requested advertisement data (if found). NULL if requested data type not found.
+ *
+ */
+uint8_t *wiced_bt_ble_get_next_adv_entry(uint8_t *p_adv,
+                                         int *p_offset,
+                                         wiced_bt_ble_advert_type_t type,
+                                         uint8_t *p_length);
+    /**
  *
  * Update the filter policy of advertiser.
  *
@@ -1075,20 +1170,19 @@ void wiced_bt_ble_update_scanner_filter_policy(wiced_bt_ble_scanner_filter_polic
  *
  * Set BLE background connection procedure type.
  *
- * @param[in]       conn_type: BTM_BLE_CONN_NONE, BTM_BLE_CONN_AUTO, or BTM_BLE_CONN_SELECTIVE
- * @param[in]       p_select_cback: callback for BTM_BLE_CONN_SELECTIVE
+ * @param[in]       conn_type: BTM_BLE_CONN_NONE or BTM_BLE_CONN_AUTO
+ * @param[in]       p_select_cback: UNUSED
  *
  * @return          TRUE if background connection set
  *
  */
-wiced_bool_t wiced_bt_ble_set_background_connection_type (wiced_bt_ble_conn_type_t conn_type, wiced_bt_ble_selective_conn_cback_t *p_select_cback);
+wiced_bool_t wiced_bt_ble_set_background_connection_type (wiced_bt_ble_conn_type_t conn_type, void *p_select_cback);
 
 /**
  *
- * This function is called to add or remove a device into/from
- * background connection procedure. The background connection
- * procedure is decided by the background connection type, it can be
- * auto connection, or selective connection.
+ * This function is called to add or remove a device into/from the
+ * filter list. The background connection procedure is decided by
+ * the background connection type, it can be auto connection, or none.
  *
  * @param[in]       add_remove    : TRUE to add; FALSE to remove.
  * @param[in]       remote_bda    : device address to add/remove.
@@ -1530,6 +1624,8 @@ wiced_bt_dev_status_t wiced_bt_ble_set_ext_adv_parameters(
 /**
  * Sends HCI command to write the extended adv data
  * @note This API allows sending data formatted with \ref wiced_bt_ble_build_raw_advertisement_data.
+ * @note This API cannot be used for the advertising handle with the event_properties that doesn't support advertising data;
+ * viz., WICED_BT_BLE_EXT_ADV_EVENT_DIRECTED_ADV, WICED_BT_BLE_EXT_ADV_EVENT_HIGH_DUTY_DIRECTED_CONNECTABLE_ADV
  *
  * @param[in]       adv_handle  - handle of the advertising set
  * @param[in]       data_len    - length of the adv data to use for this set
@@ -1999,6 +2095,79 @@ wiced_result_t wiced_bt_ble_read_le_features(wiced_bt_device_address_t bda, wice
  *                  WICED_BT_ERROR   otherwise.
  */
 wiced_result_t wiced_bt_ble_address_resolution_list_clear_and_disable(void);
+
+/* @cond BETA_API
+   beta APIs for Periodic Advertising with Response*/
+/**
+* Function         wiced_bt_ble_set_pawr_params
+*
+*                  This API is called on a central to set the PAWR parameters
+*
+* @param[in]  adv_handle    Handle of the Advertising Set
+* @param[out] features  Pointer to store the supported features
+* @return          wiced_result_t
+*                  WICED_BT_SUCCESS contents of features are valid
+*                  WICED_BT_ERROR   otherwise.
+*/
+wiced_bt_dev_status_t wiced_bt_ble_set_pawr_params (wiced_bt_ble_ext_adv_handle_t adv_handle,
+                            uint16_t                         periodic_adv_int_min,
+                            uint16_t                         periodic_adv_int_max,
+                            wiced_bt_ble_periodic_adv_prop_t periodic_adv_properties,
+                            uint8_t                          num_subevents,
+                            uint8_t                          subevent_interval,
+                            uint8_t                          response_slot_delay,
+                            uint8_t                          response_slot_spacing,
+                            uint8_t                          num_response_slots);
+
+/**
+* Function         wiced_bt_ble_set_pawr_subevent_ind_data
+*
+*                  This API is called on a peripheral to set the subevent indication data
+*
+* @param[in]  adv_handle    Handle of the Advertising Set
+* @param[out] features  Pointer to store the supported features
+* @return          wiced_result_t
+*                  WICED_BT_SUCCESS contents of features are valid
+*                  WICED_BT_ERROR   otherwise.
+*/
+wiced_bt_dev_status_t wiced_bt_ble_set_pawr_subevent_ind_data (wiced_bt_ble_ext_adv_handle_t adv_handle,
+    int  num_subevents, wiced_bt_ble_pawr_subevent_ind_data_t *p_se_data);
+
+
+/**
+* Function         wiced_bt_ble_set_pawr_subevent_rsp_data
+*
+*                  This API is called on a peripheral to set the subevent response data
+*
+* @param[in]  sync_handle    Handle of the synchronized advertising train
+* @param[out] features  Pointer to store the supported features
+* @return          wiced_result_t
+*                  WICED_BT_SUCCESS contents of features are valid
+*                  WICED_BT_ERROR   otherwise.
+*/
+wiced_bt_dev_status_t wiced_bt_ble_set_pawr_subevent_rsp_data (uint16_t sync_handle,
+    uint8_t subevent_num, uint8_t rsp_slot, uint8_t rsp_data_len, uint8_t *p_data);
+
+
+/**
+* Function         wiced_bt_ble_pawr_sync_subevents
+*
+*                  This API is called on a peripheral to set the PAWR sunevents
+*                  that it wants to sync to.
+*
+* @param[in]  sync_handle     Handle of the synchronized periodic ADV train
+* @param[in]  properties      Properties of the synchronized periodic ADV train
+* @param[in]  num_subevents   Number of subevents
+* @param[in]  p_subevents     Pointer to an array of subevents
+*
+* @return          wiced_result_t
+*                  WICED_BT_SUCCESS contents of features are valid
+*                  WICED_BT_ERROR   otherwise.
+*/
+wiced_bt_dev_status_t wiced_bt_ble_set_pawr_sync_subevents (uint16_t sync_handle, uint16_t properties,
+                                int num_subevents, uint8_t *p_subevents);
+
+/* @endcond */
 
 /**@} btm_ble_api_functions */
 

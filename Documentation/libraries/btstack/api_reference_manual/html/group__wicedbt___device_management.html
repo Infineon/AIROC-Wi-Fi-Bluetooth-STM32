@@ -386,7 +386,7 @@ Macros</h2></td></tr>
 <tr class="separator:ga739083f7f029919eb7e5b9f5de5bfb48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafc9544680aa55bc9fe1aac63b46f0623"><td class="memItemLeft" align="right" valign="top"><a id="gafc9544680aa55bc9fe1aac63b46f0623"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt___device_management.html#gafc9544680aa55bc9fe1aac63b46f0623">BTM_BLE_SCAN_FAST_WINDOW</a>&#160;&#160;&#160;48</td></tr>
-<tr class="memdesc:gafc9544680aa55bc9fe1aac63b46f0623"><td class="mdescLeft">&#160;</td><td class="mdescRight">default scan window for background connection, applicable for auto connection or selective conenction 30 ms = 48 *0.625 <br /></td></tr>
+<tr class="memdesc:gafc9544680aa55bc9fe1aac63b46f0623"><td class="mdescLeft">&#160;</td><td class="mdescRight">default scan window (in .625ms slots) for background auto connections 30 ms = 48 *0.625 <br /></td></tr>
 <tr class="separator:gafc9544680aa55bc9fe1aac63b46f0623"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7ae1e45420048d29a396fb79a783d1e5"><td class="memItemLeft" align="right" valign="top"><a id="ga7ae1e45420048d29a396fb79a783d1e5"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt___device_management.html#ga7ae1e45420048d29a396fb79a783d1e5">BTM_BLE_SCAN_SLOW_INTERVAL_1</a>&#160;&#160;&#160;2048</td></tr>
@@ -686,9 +686,6 @@ typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el"
 typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt___device_management.html#ga4e4090cd2ec534fe59977f6db1e90dc3">wiced_bt_ble_multi_advert_filtering_policy_t</a></td></tr>
 <tr class="memdesc:ga4e4090cd2ec534fe59977f6db1e90dc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">BLE advertisement filtering policy (see <a class="el" href="group__wicedbt___device_management.html#ga1ec420c6d0f772c040c47950fe990751" title="Multi-advertisement Filtering policy.">wiced_bt_ble_multi_advert_filtering_policy_e</a>) <br /></td></tr>
 <tr class="separator:ga4e4090cd2ec534fe59977f6db1e90dc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad4ab3f807477113a1fc2bd4b70b31f4f"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__gentypes.html#ga2bc92bd117cfd3f6ec4ae452e6ced064">wiced_bool_t</a>()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt___device_management.html#gad4ab3f807477113a1fc2bd4b70b31f4f">wiced_bt_ble_selective_conn_cback_t</a>(<a class="el" href="group__bt__types.html#gacf9a377aceca799be625c0dfe554902e">wiced_bt_device_address_t</a> remote_bda, uint8_t *p_remote_name)</td></tr>
-<tr class="memdesc:gad4ab3f807477113a1fc2bd4b70b31f4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback wiced_bt_ble_selective_conn_cback_t.  <a href="#gad4ab3f807477113a1fc2bd4b70b31f4f">More...</a><br /></td></tr>
-<tr class="separator:gad4ab3f807477113a1fc2bd4b70b31f4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga171a4706dce6ec6d118ec688e7dab0a4"><td class="memItemLeft" align="right" valign="top">typedef void()&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt___device_management.html#ga171a4706dce6ec6d118ec688e7dab0a4">wiced_bt_ble_scan_result_cback_t</a>(<a class="el" href="structwiced__bt__ble__scan__results__t.html">wiced_bt_ble_scan_results_t</a> *p_scan_result, uint8_t *p_adv_data)</td></tr>
 <tr class="memdesc:ga171a4706dce6ec6d118ec688e7dab0a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback wiced_bt_ble_scan_result_cback_t.  <a href="#ga171a4706dce6ec6d118ec688e7dab0a4">More...</a><br /></td></tr>
 <tr class="separator:ga171a4706dce6ec6d118ec688e7dab0a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1001,7 +998,7 @@ Enumerations</h2></td></tr>
 <br />
 &#160;&#160;<a class="el" href="group__wicedbt___device_management.html#gga85abcdffb41185cf65f29c689cf36a16a772682b72fe64ab7101e4bde893a8c47">BTM_BLE_CONN_AUTO</a>, 
 <br />
-&#160;&#160;<a class="el" href="group__wicedbt___device_management.html#gga85abcdffb41185cf65f29c689cf36a16acf3b22bc60f10d65cd68ed08c6c68c75">BTM_BLE_CONN_SELECTIVE</a>
+&#160;&#160;<a class="el" href="group__wicedbt___device_management.html#gga85abcdffb41185cf65f29c689cf36a16acf3b22bc60f10d65cd68ed08c6c68c75">BTM_BLE_CONN_SELECTIVE</a> = BTM_BLE_CONN_AUTO
 <br />
  }</td></tr>
 <tr class="memdesc:ga85abcdffb41185cf65f29c689cf36a16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Background connection type.  <a href="group__wicedbt___device_management.html#ga85abcdffb41185cf65f29c689cf36a16">More...</a><br /></td></tr>
@@ -1746,31 +1743,6 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
-<a id="gad4ab3f807477113a1fc2bd4b70b31f4f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gad4ab3f807477113a1fc2bd4b70b31f4f">&#9670;&nbsp;</a></span>wiced_bt_ble_selective_conn_cback_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef <a class="el" href="group__gentypes.html#ga2bc92bd117cfd3f6ec4ae452e6ced064">wiced_bool_t</a>() wiced_bt_ble_selective_conn_cback_t(<a class="el" href="group__bt__types.html#gacf9a377aceca799be625c0dfe554902e">wiced_bt_device_address_t</a> remote_bda, uint8_t *p_remote_name)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Callback wiced_bt_ble_selective_conn_cback_t. </p>
-<p>Selective connection callback (registered with <a class="el" href="group__btm__ble__conn__filter__accept__list__functions.html#gafd00c59332fb49892049d915769a2f5f" title="Set BLE background connection procedure type.">wiced_bt_ble_set_background_connection_type</a>)</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">remote_bda</td><td>: remote device </td></tr>
-    <tr><td class="paramname">p_remote_name</td><td>: remote device name</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-</div>
-</div>
 <a id="ga171a4706dce6ec6d118ec688e7dab0a4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga171a4706dce6ec6d118ec688e7dab0a4">&#9670;&nbsp;</a></span>wiced_bt_ble_scan_result_cback_t</h2>
 
@@ -2327,9 +2299,9 @@ HCI_ERR_CONN_FAILED_ESTABLISHMENT </b>connection status change callback </td></t
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga85abcdffb41185cf65f29c689cf36a16a262d3de0ebe5bab5fcb4b0e1591e0a0b"></a>BTM_BLE_CONN_NONE&#160;</td><td class="fielddoc"><p>No background connection. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga85abcdffb41185cf65f29c689cf36a16a772682b72fe64ab7101e4bde893a8c47"></a>BTM_BLE_CONN_AUTO&#160;</td><td class="fielddoc"><p>Auto connection. </p>
+<tr><td class="fieldname"><a id="gga85abcdffb41185cf65f29c689cf36a16a772682b72fe64ab7101e4bde893a8c47"></a>BTM_BLE_CONN_AUTO&#160;</td><td class="fielddoc"><p>Auto connection based on filter list. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga85abcdffb41185cf65f29c689cf36a16acf3b22bc60f10d65cd68ed08c6c68c75"></a>BTM_BLE_CONN_SELECTIVE&#160;</td><td class="fielddoc"><p>Selective connection. </p>
+<tr><td class="fieldname"><a id="gga85abcdffb41185cf65f29c689cf36a16acf3b22bc60f10d65cd68ed08c6c68c75"></a>BTM_BLE_CONN_SELECTIVE&#160;</td><td class="fielddoc"><p>Selective not used. </p>
 </td></tr>
 </table>
 

@@ -140,57 +140,6 @@
 									<listOptionValue builtIn="false" value="../../Drivers/BSP/Components/mx25lm51245g"/>
 									<listOptionValue builtIn="false" value="../../Drivers/BSP/STM32L562E-DK"/>
 									<listOptionValue builtIn="false" value="../Application/User/ThreadSafe"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/linked_list/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/source/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_43012/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/priv"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_FREERTOS/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/nvram/COMPONENT_43012/COMPONENT_MURATA-1LV/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/JSON_parser/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/arpa"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/include/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/stdc"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/sys"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_43012"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/apps"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/net"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/prot"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/include/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/include"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/nvram/COMPONENT_43012/COMPONENT_MURATA-1LV"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-freertos-integration/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/include/"/>
-									<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.146053245" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
 							</tool>

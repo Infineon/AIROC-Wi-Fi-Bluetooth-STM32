@@ -80,64 +80,22 @@ volatile int uxTopUsedPriority;
 extern UART_HandleTypeDef huart3;
 extern UART_HandleTypeDef huart1;
 
-
-#if defined (__ICCARM__)
-#include <yfuns.h>
-#endif
-
 #ifdef __GNUC__
 /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
    set to 'Yes') calls __io_putchar() */
-/***************************************************************************************************
- * __io_putchar (GCC)
- **************************************************************************************************/
+/***************************************************************************
+* Function Name: __io_putchar (GCC)
+***************************************************************************/
 int __io_putchar(int ch)
 {
-    /* Place your implementation of fputc here */
-    /* e.g. write a character to the USART1 and Loop until the end of transmission */
-    HAL_UART_Transmit(&huart1, (uint8_t*)&ch, 1, (HAL_MAX_DELAY-1));
-
+    HAL_UART_Transmit(&huart1, (uint8_t*)&ch, 1, 0xFFFF);
     return ch;
 }
 
 
-#else // IAR
-/***************************************************************************************************
- * __write (IAR)
- **************************************************************************************************/
-size_t __write(int handle, const unsigned char* buffer, size_t size)
-{
-    size_t nChars = 0;
-    // This template only writes to "standard out", for all other file handles it returns failure.
-    if (handle != _LLIO_STDOUT)
-    {
-        return (_LLIO_ERROR);
-    }
-    if (buffer != NULL)
-    {
-        HAL_StatusTypeDef rslt = HAL_OK;
-        for (; nChars < size; ++nChars)
-        {
-            rslt = HAL_UART_Transmit(&huart1, (uint8_t*)buffer, 1, (HAL_MAX_DELAY));
-
-            if (rslt != CY_RSLT_SUCCESS)
-            {
-                break;
-            }
-
-            ++buffer;
-        }
-    }
-    return (nChars);
-}
-
-
-#endif // ifdef __GNUC__
-
-#ifdef __GNUC__
-/***************************************************************************************************
- * getchar (GCC)
- **************************************************************************************************/
+/***************************************************************************
+* Function Name: getchar
+***************************************************************************/
 int getchar(void)
 {
     int8_t ch = -1;
@@ -150,11 +108,36 @@ int getchar(void)
 }
 
 
-#else /* IAR */
+#elif defined (__ICCARM__) /* IAR */
+    #include <yfuns.h>
 
-/***************************************************************************************************
- * __read (IAR)
- **************************************************************************************************/
+/***************************************************************************
+* Function Name: __write (IAR)
+***************************************************************************/
+size_t __write(int handle, const unsigned char* buffer, size_t size)
+{
+    size_t nChars = 0;
+    /* This template only writes to "standard out", for all other file
+     * handles it returns failure. */
+    if (handle != _LLIO_STDOUT)
+    {
+        return (_LLIO_ERROR);
+    }
+    if (buffer != NULL)
+    {
+        for (/* Empty */; nChars < size; ++nChars)
+        {
+            HAL_UART_Transmit(&huart1, (uint8_t*)buffer, 1, 0xFFFF);
+            ++buffer;
+        }
+    }
+    return (nChars);
+}
+
+
+/***************************************************************************
+* Function Name: __read
+***************************************************************************/
 size_t __read(int handle, unsigned char* buffer, size_t size)
 {
     HAL_StatusTypeDef rslt;
@@ -173,7 +156,6 @@ size_t __read(int handle, unsigned char* buffer, size_t size)
 
 
 #endif /* __GNUC__ */
-
 
 
 /***************************************************************************************************

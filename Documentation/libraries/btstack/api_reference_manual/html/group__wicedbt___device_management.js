@@ -537,7 +537,6 @@ var group__wicedbt___device_management =
     [ "wiced_bt_ble_multi_advert_type_t", "group__wicedbt___device_management.html#ga9b230bb2ed817386a6067735d397272b", null ],
     [ "wiced_bt_ble_privacy_mode_t", "group__wicedbt___device_management.html#gae0c321e7abc54eeb9b5c39354a36dd8c", null ],
     [ "wiced_bt_ble_multi_advert_filtering_policy_t", "group__wicedbt___device_management.html#ga4e4090cd2ec534fe59977f6db1e90dc3", null ],
-    [ "wiced_bt_ble_selective_conn_cback_t", "group__wicedbt___device_management.html#gad4ab3f807477113a1fc2bd4b70b31f4f", null ],
     [ "wiced_bt_ble_scan_result_cback_t", "group__wicedbt___device_management.html#ga171a4706dce6ec6d118ec688e7dab0a4", null ],
     [ "wiced_bt_ble_read_phy_complete_callback_t", "group__wicedbt___device_management.html#ga1040463e377058992187e0c64e202bd5", null ],
     [ "wiced_bt_ble_ext_adv_phy_t", "group__wicedbt___device_management.html#ga1df2af97f3bf1553de03806b88b4a0b0", null ],

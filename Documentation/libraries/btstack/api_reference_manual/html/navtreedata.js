@@ -32,8 +32,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "group___result.html",
-"group__gatt__common__api.html#ga2bfd5052c63d135f8df4078a61d0938b",
-"group__wiced__mem.html#ga9a5e60280610d3027effc84ee35654b6",
+"group__gatt__common__api.html#ga15d5aff42e22c934fbbde1a7a2680ff6",
+"group__wiced__mem.html#ga97f9f80721d4e711b6243992a9d1939b",
 "group__wicedbt___device_management.html#gga4a427fc37161f2041016d7936399be65ac2e321db33778e75effc95483c14e265",
 "group__wicedbt__gatt.html#ga6bf4e326bf95c613ff59591782abf6b4",
 "index.html",

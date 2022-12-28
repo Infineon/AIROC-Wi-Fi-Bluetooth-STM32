@@ -44,7 +44,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
- OSPI_HandleTypeDef hospi1;
+OSPI_HandleTypeDef hospi1;
 
 SD_HandleTypeDef hsd1;
 
@@ -74,19 +74,42 @@ void WiFiTask(void *argument);
 /* USER CODE BEGIN 0 */
 
 #ifdef __GNUC__
-/* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
-   set to 'Yes') calls __io_putchar() */
-int __io_putchar(int ch)
-#else
-int fputc(int ch, FILE *f)
-#endif /* __GNUC__ */
-{
-  /* Place your implementation of fputc here */
-  /* e.g. write a character to the USART1 and Loop until the end of transmission */
-  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
+    /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
+       set to 'Yes') calls __io_putchar() */
+    /***************************************************************************
+    * Function Name: __io_putchar (GCC)
+    ***************************************************************************/   
+    int __io_putchar(int ch)
+    {
+      HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
+      return ch;
+    }
+#elif defined (__ICCARM__) /* IAR */
+    #include <yfuns.h>
 
-  return ch;
-}
+    /***************************************************************************
+    * Function Name: __write (IAR)
+    ***************************************************************************/
+    __weak size_t __write(int handle, const unsigned char * buffer, size_t size)
+    {
+        size_t nChars = 0;
+        /* This template only writes to "standard out", for all other file
+         * handles it returns failure. */
+        if (handle != _LLIO_STDOUT)
+        {
+            return (_LLIO_ERROR);
+        }
+        if (buffer != NULL)
+        {
+            for (/* Empty */; nChars < size; ++nChars)
+            {
+                HAL_UART_Transmit(&huart1, (uint8_t *)buffer, 1, 0xFFFF);
+                ++buffer;
+            }
+        }
+        return (nChars);
+    }
+#endif /* __GNUC__ */
 
 /* USER CODE END 0 */
 

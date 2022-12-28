@@ -71,6 +71,7 @@ void Error_Handler(void);
 #define CYBSP_BT_UART_CTS_GPIO_Port GPIOB
 #define CYBSP_BT_UART_RTS_Pin GPIO_PIN_14
 #define CYBSP_BT_UART_RTS_GPIO_Port GPIOB
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

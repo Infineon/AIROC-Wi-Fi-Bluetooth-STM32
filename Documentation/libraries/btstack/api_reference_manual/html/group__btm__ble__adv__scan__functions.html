@@ -112,6 +112,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga8d62204cf6ab289f977215c08d5864ca"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__btm__ble__adv__scan__functions.html#ga8d62204cf6ab289f977215c08d5864ca">wiced_bt_ble_check_advertising_data</a> (uint8_t *p_adv, <a class="el" href="group__wicedbt___device_management.html#ga3764eb118b409b406eedbb158262a91f">wiced_bt_ble_advert_type_t</a> type, uint8_t *p_length)</td></tr>
 <tr class="memdesc:ga8d62204cf6ab289f977215c08d5864ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse advertising data (returned from scan results callback <a class="el" href="group__wicedbt___device_management.html#ga171a4706dce6ec6d118ec688e7dab0a4" title="Callback wiced_bt_ble_scan_result_cback_t.">wiced_bt_ble_scan_result_cback_t</a>).  <a href="#ga8d62204cf6ab289f977215c08d5864ca">More...</a><br /></td></tr>
 <tr class="separator:ga8d62204cf6ab289f977215c08d5864ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga42c6e0d99446f4de91d6be2141336309"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__btm__ble__adv__scan__functions.html#ga42c6e0d99446f4de91d6be2141336309">wiced_bt_ble_get_next_adv_entry</a> (uint8_t *p_adv, int *p_offset, <a class="el" href="group__wicedbt___device_management.html#ga3764eb118b409b406eedbb158262a91f">wiced_bt_ble_advert_type_t</a> type, uint8_t *p_length)</td></tr>
+<tr class="memdesc:ga42c6e0d99446f4de91d6be2141336309"><td class="mdescLeft">&#160;</td><td class="mdescRight">When multiple entry for same adv type is available in the adv data this api will help to get next entry of specified advertisement data type when there is a single instance use wiced_bt_ble_check_advertising_data.  <a href="#ga42c6e0d99446f4de91d6be2141336309">More...</a><br /></td></tr>
+<tr class="separator:ga42c6e0d99446f4de91d6be2141336309"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaed7a2250e3d40e66a23167febfbbebd4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__gentypes.html#ga2bc92bd117cfd3f6ec4ae452e6ced064">wiced_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__btm__ble__adv__scan__functions.html#gaed7a2250e3d40e66a23167febfbbebd4">wiced_btm_ble_update_advertisement_filter_policy</a> (<a class="el" href="group__wicedbt___device_management.html#ga9f721100e521471e5a9cc5f9adcd92d4">wiced_bt_ble_advert_filter_policy_t</a> advertising_policy)</td></tr>
 <tr class="memdesc:gaed7a2250e3d40e66a23167febfbbebd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the filter policy of advertiser.  <a href="#gaed7a2250e3d40e66a23167febfbbebd4">More...</a><br /></td></tr>
 <tr class="separator:gaed7a2250e3d40e66a23167febfbbebd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -172,6 +175,9 @@ Functions</h2></td></tr>
 
 <p>Start advertising. </p>
 <p>Use <a class="el" href="group__btm__ble__adv__scan__functions.html#gab51079605334c28e06d02f44ffd5ec6b" title="Set advertisement raw data to the controller.">wiced_bt_ble_set_raw_advertisement_data</a> to configure advertising data prior to starting avertisements. The advertisements are stopped upon successful LE connection establishment.</p>
+<dl class="section note"><dt>Note</dt><dd>1. Steps for undirected ADVs viz., BTM_BLE_ADVERT_UNDIRECTED_HIGH, BTM_BLE_ADVERT_UNDIRECTED_LOW, and non connectable advs viz., BTM_BLE_ADVERT_NONCONN_HIGH, BTM_BLE_ADVERT_NONCONN_LOW a) Set ADV data b) Set Scan Response data if adv type is scannable </dd>
+<dd>
+2. if adv type is set to Directed then the stack resets any advertisement data which has been set for an earlier advertisement. Refer note 1 prior to attempting an undirected advertisement</dd></dl>
 <p>The <b>advert_mode</b> parameter determines what advertising parameters and durations to use (as specified by the application configuration).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -348,6 +354,58 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>pointer to start of requested advertisement data (if found). NULL if requested data type not found. </dd></dl>
+
+</div>
+</div>
+<a id="ga42c6e0d99446f4de91d6be2141336309"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga42c6e0d99446f4de91d6be2141336309">&#9670;&nbsp;</a></span>wiced_bt_ble_get_next_adv_entry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t* wiced_bt_ble_get_next_adv_entry </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>p_adv</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>p_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__wicedbt___device_management.html#ga3764eb118b409b406eedbb158262a91f">wiced_bt_ble_advert_type_t</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>p_length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>When multiple entry for same adv type is available in the adv data this api will help to get next entry of specified advertisement data type when there is a single instance use wiced_bt_ble_check_advertising_data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">p_adv</td><td>: pointer to advertisement data </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">p_offset</td><td>: offset from the start of the adv data recevied, also returns next offset to start searching from </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>: advertisement data type to look for </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">p_length</td><td>: length of advertisement data (if found)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>pointer to next requested advertisement data (if found). NULL if requested data type not found. </dd></dl>
 
 </div>
 </div>

@@ -718,6 +718,10 @@ wiced_bool_t wiced_bt_isoc_setup_data_path(uint16_t conn_hdl,
 
  wiced_bool_t wiced_bt_write_iso_data_to_lower(uint8_t* p_data, uint16_t len);
 
+/** This function returns ISOC buffer size */
+
+ uint16_t wiced_bt_isoc_get_max_data_pkt_len(void);
+
 
 /**@} wicedbt_isoc_functions */
 

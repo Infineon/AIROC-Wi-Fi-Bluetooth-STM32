@@ -54,15 +54,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
-#ifdef __GNUC__
-/* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
-   set to 'Yes') calls __io_putchar() */
-#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
-#else
-#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
-#endif /* __GNUC__ */
-
 #ifndef HSEM_ID_0
 #define HSEM_ID_0 (0U) /* HW semaphore 0*/
 #endif
@@ -558,15 +549,43 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+#ifdef __GNUC__
+    /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
+       set to 'Yes') calls __io_putchar() */
+    /***************************************************************************
+    * Function Name: __io_putchar (GCC)
+    ***************************************************************************/   
+    int __io_putchar(int ch)
+    {
+      HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
+      return ch;
+    }
+#elif defined (__ICCARM__) /* IAR */
+    #include <yfuns.h>
 
-PUTCHAR_PROTOTYPE
-{
-  /* Place your implementation of fputc here */
-  /* e.g. write a character to the USART2 and Loop until the end of transmission */
-  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
-
-  return ch;
-}
+    /***************************************************************************
+    * Function Name: __write (IAR)
+    ***************************************************************************/
+    __weak size_t __write(int handle, const unsigned char * buffer, size_t size)
+    {
+        size_t nChars = 0;
+        /* This template only writes to "standard out", for all other file
+         * handles it returns failure. */
+        if (handle != _LLIO_STDOUT)
+        {
+            return (_LLIO_ERROR);
+        }
+        if (buffer != NULL)
+        {
+            for (/* Empty */; nChars < size; ++nChars)
+            {
+                HAL_UART_Transmit(&huart1, (uint8_t *)buffer, 1, 0xFFFF);
+                ++buffer;
+            }
+        }
+        return (nChars);
+    }
+#endif /* __GNUC__ */
 
 /*******************************************************************************
  * Function Name: SDMMC1_IRQHandler

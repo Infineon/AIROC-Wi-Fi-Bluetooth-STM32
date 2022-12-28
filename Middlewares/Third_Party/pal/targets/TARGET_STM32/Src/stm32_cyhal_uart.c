@@ -111,7 +111,7 @@ static void _stm32_cyhal_uart_critical_section_enter(cyhal_uart_t* obj);
 static void _stm32_cyhal_uart_critical_section_exit(cyhal_uart_t* obj);
 static IRQn_Type _stm32_cyhal_uart_get_irqn(USART_TypeDef* instance);
 static IRQn_Type _stm32_cyhal_uart_get_dma_irqn(DMA_HandleTypeDef* hdma);
-#if (USE_HAL_UART_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_UART_REGISTER_CALLBACKS == 1) || (USE_HAL_USART_REGISTER_CALLBACKS == 1)
 static cyhal_uart_t* _stm32_cyhal_uart_get_obj(UART_HandleTypeDef* huart);
 static void _stm32_cyhal_uart_tx_complete_callback(UART_HandleTypeDef* huart);
 static void _stm32_cyhal_uart_rx_complete_callback(UART_HandleTypeDef* huart);
@@ -645,11 +645,11 @@ bool cyhal_uart_is_rx_active(cyhal_uart_t* obj)
 
 /***************************************************************************************************
  * Callback functions
- * NOTE: For UART callbacks, USE_HAL_UART_REGISTER_CALLBACKS must be enabled
+ * NOTE: For UART/USART callbacks, USE_HAL_UART/USART_REGISTER_CALLBACKS must be enabled
  * in STM32CubeMx
  **************************************************************************************************/
 
-#if (USE_HAL_UART_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_UART_REGISTER_CALLBACKS == 1) || (USE_HAL_USART_REGISTER_CALLBACKS == 1)
 
 /***************************************************************************************************
  * _stm32_cyhal_uart_tx_complete_callback
@@ -796,7 +796,7 @@ void cyhal_uart_register_callback(cyhal_uart_t* obj, cyhal_uart_event_callback_t
 void cyhal_uart_enable_event(cyhal_uart_t* obj, cyhal_uart_event_t event,
                              uint8_t intr_priority, bool enable)
 {
-    #if (USE_HAL_UART_REGISTER_CALLBACKS == 1)
+    #if (USE_HAL_UART_REGISTER_CALLBACKS == 1) || (USE_HAL_USART_REGISTER_CALLBACKS == 1)
     pUART_CallbackTypeDef p_callback;
 
     /* Register CYHAL_UART_IRQ_TX_DONE callback */
@@ -1360,6 +1360,168 @@ static IRQn_Type _stm32_cyhal_uart_get_dma_irqn(DMA_HandleTypeDef* hdma)
     }
     else
     #endif
+
+    /* STM32U5 uses GPDMA Channels */
+    #if defined (GPDMA1_Channel0)
+    if (hdma->Instance == GPDMA1_Channel0)
+    {
+        IRQn = GPDMA1_Channel0_IRQn;
+    }
+    else
+    #endif
+
+    #if defined (GPDMA1_Channel1)
+    if (hdma->Instance == GPDMA1_Channel1)
+    {
+        IRQn = GPDMA1_Channel1_IRQn;
+    }
+    else
+    #endif
+
+    #if defined (GPDMA1_Channel2)
+    if (hdma->Instance == GPDMA1_Channel2)
+    {
+        IRQn = GPDMA1_Channel2_IRQn;
+    }
+    else
+    #endif
+
+    #if defined (GPDMA1_Channel3)
+    if (hdma->Instance == GPDMA1_Channel3)
+    {
+        IRQn = GPDMA1_Channel3_IRQn;
+    }
+    else
+    #endif
+
+    #if defined (GPDMA1_Channel4)
+    if (hdma->Instance == GPDMA1_Channel4)
+    {
+        IRQn = GPDMA1_Channel4_IRQn;
+    }
+    else
+    #endif
+
+    #if defined (GPDMA1_Channel5)
+    if (hdma->Instance == GPDMA1_Channel5)
+    {
+        IRQn = GPDMA1_Channel5_IRQn;
+    }
+    else
+    #endif
+
+    #if defined (GPDMA1_Channel6)
+    if (hdma->Instance == GPDMA1_Channel6)
+    {
+        IRQn = GPDMA1_Channel6_IRQn;
+    }
+    else
+    #endif
+
+    #if defined (GPDMA1_Channel7)
+    if (hdma->Instance == GPDMA1_Channel7)
+    {
+        IRQn = GPDMA1_Channel7_IRQn;
+    }
+    else
+    #endif
+
+    #if defined (GPDMA1_Channel8)
+    if (hdma->Instance == GPDMA1_Channel8)
+    {
+        IRQn = GPDMA1_Channel8_IRQn;
+    }
+    else
+    #endif
+
+    #if defined (GPDMA1_Channel9)
+    if (hdma->Instance == GPDMA1_Channel9)
+    {
+        IRQn = GPDMA1_Channel9_IRQn;
+    }
+    else
+    #endif
+
+    #if defined (GPDMA1_Channel10)
+    if (hdma->Instance == GPDMA1_Channel10)
+    {
+        IRQn = GPDMA1_Channel10_IRQn;
+    }
+    else
+    #endif
+
+    #if defined (GPDMA1_Channel11)
+    if (hdma->Instance == GPDMA1_Channel11)
+    {
+        IRQn = GPDMA1_Channel11_IRQn;
+    }
+    else
+    #endif
+
+    #if defined (GPDMA1_Channel12)
+    if (hdma->Instance == GPDMA1_Channel12)
+    {
+        IRQn = GPDMA1_Channel12_IRQn;
+    }
+    else
+    #endif
+
+    #if defined (GPDMA1_Channel13)
+    if (hdma->Instance == GPDMA1_Channel13)
+    {
+        IRQn = GPDMA1_Channel13_IRQn;
+    }
+    else
+    #endif
+
+    #if defined (GPDMA1_Channel14)
+    if (hdma->Instance == GPDMA1_Channel14)
+    {
+        IRQn = GPDMA1_Channel14_IRQn;
+    }
+    else
+    #endif
+
+    #if defined (GPDMA1_Channel15)
+    if (hdma->Instance == GPDMA1_Channel15)
+    {
+        IRQn = GPDMA1_Channel15_IRQn;
+    }
+    else
+    #endif
+
+    #if defined (LPDMA1_Channel0)
+    if (hdma->Instance == LPDMA1_Channel0)
+    {
+        IRQn = LPDMA1_Channel0_IRQn;
+    }
+    else
+    #endif
+
+    #if defined (LPDMA1_Channel1)
+    if (hdma->Instance == LPDMA1_Channel1)
+    {
+        IRQn = LPDMA1_Channel1_IRQn;
+    }
+    else
+    #endif
+
+    #if defined (LPDMA1_Channel2)
+    if (hdma->Instance == LPDMA1_Channel1)
+    {
+        IRQn = LPDMA1_Channel2_IRQn;
+    }
+    else
+    #endif
+
+    #if defined (LPDMA1_Channel3)
+    if (hdma->Instance == LPDMA1_Channel3)
+    {
+        IRQn = LPDMA1_Channel3_IRQn;
+    }
+    else
+    #endif
+
     {
         assert_param(false); /* wrong instance */
     }
@@ -1497,7 +1659,7 @@ static void _stm32_cyhal_uart_free_hw(cyhal_uart_t* obj)
 /***************************************************************************************************
  * _stm32_cyhal_uart_get_obj
  **************************************************************************************************/
-#if (USE_HAL_UART_REGISTER_CALLBACKS == 1)
+#if (USE_HAL_UART_REGISTER_CALLBACKS == 1) || (USE_HAL_USART_REGISTER_CALLBACKS == 1)
 static cyhal_uart_t* _stm32_cyhal_uart_get_obj(UART_HandleTypeDef* huart)
 {
     for (uint32_t i = 0u; i < CYHAL_UART_MAX_INSTANCES; i++)
