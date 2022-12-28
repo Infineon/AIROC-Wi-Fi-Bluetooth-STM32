@@ -6,7 +6,7 @@
     <license>Infineon-License.txt</license>
     <url>http://iot-webserver.aus.cypress.com/projects/iot_release/ASSETS/repo/mclass_connectivity/develop/Latest/deploy/</url>
     <releases>
-            <release date="2022-12-26" version="1.3.0">
+            <release date="2022-12-27" version="1.3.0">
 Support Release with support for STM32U5xx MCUs
 What's New?
  * Added STM32U5 support
@@ -38,7 +38,7 @@ What's Included?
    - Wi-Fi Onboarding with BLE
    - Azure RTOS NetXDuo Wi-Fi UDP echo server
         </release>    
-        <release date="2022-12-26" version="1.2.0">
+        <release date="2022-12-27" version="1.2.0">
 Threadx/Netxduo, Manufacturing tools Support Release with support for STM32H7xx/STM32L5xx MCUs with Infineon's CYW43xxx Wi-Fi-BT combo chip family listed below.
 
 What's New?
