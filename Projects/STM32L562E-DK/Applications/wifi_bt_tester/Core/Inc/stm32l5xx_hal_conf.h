@@ -217,7 +217,7 @@
 #define USE_HAL_TIM_REGISTER_CALLBACKS        0U
 #define USE_HAL_TSC_REGISTER_CALLBACKS        0U
 #define USE_HAL_UART_REGISTER_CALLBACKS       1U
-#define USE_HAL_USART_REGISTER_CALLBACKS      0U
+#define USE_HAL_USART_REGISTER_CALLBACKS      1U
 #define USE_HAL_WWDG_REGISTER_CALLBACKS       0U
 
 /* ################## SPI peripheral configuration ########################## */

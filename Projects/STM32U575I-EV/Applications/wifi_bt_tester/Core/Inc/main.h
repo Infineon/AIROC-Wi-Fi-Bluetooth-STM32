@@ -51,7 +51,7 @@ extern "C" {
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
-void   MX_SDMMC1_SD_Init(void);
+void MX_SDMMC1_SD_Init(void);
 
 /* USER CODE BEGIN EFP */
 
@@ -86,6 +86,8 @@ void   MX_SDMMC1_SD_Init(void);
 #define IBUS_SENSE_GPIO_Port GPIOA
 #define VBUS_SENSE_Pin GPIO_PIN_5
 #define VBUS_SENSE_GPIO_Port GPIOA
+#define CYBSP_BT_POWER_Pin GPIO_PIN_11
+#define CYBSP_BT_POWER_GPIO_Port GPIOB
 #define MFX_IRQ_OUT_Pin GPIO_PIN_5
 #define MFX_IRQ_OUT_GPIO_Port GPIOC
 #define MFX_WAKEUP_Pin GPIO_PIN_11

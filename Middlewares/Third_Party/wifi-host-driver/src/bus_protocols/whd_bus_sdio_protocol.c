@@ -1707,7 +1707,7 @@ static whd_result_t whd_bus_sdio_write_wifi_nvram_image(whd_driver_t whd_driver)
     CHECK_RETURN(whd_resource_size(whd_driver, WHD_RESOURCE_WLAN_NVRAM, &image_size) );
 
     /* Round up the size of the image */
-    image_size = ROUND_UP(image_size, 4);
+    image_size = ROUND_UP(image_size, 64);
 
     /* Write image */
     img_end = GET_C_VAR(whd_driver, CHIP_RAM_SIZE) - 4;

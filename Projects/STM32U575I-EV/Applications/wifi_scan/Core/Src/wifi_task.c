@@ -130,7 +130,7 @@ void WiFiTask(void* argument)
     cy_wcm_config_t wcm_config;
     wcm_config.interface = CY_WCM_INTERFACE_TYPE_STA;
 
-    printf(" ******************* STM32U5 WiFi-Example app FreeRTOS %s******************* \r\n\r\n",
+    printf("WiFi-Scan app (FreeRTOS %s) \r\n\r\n",
            tskKERNEL_VERSION_NUMBER);
     if (stm32_cypal_wifi_sdio_init(&SDHandle) != CY_RSLT_SUCCESS)
     {
@@ -448,7 +448,7 @@ void wifi_connect()
         result = cy_wcm_ping(CY_WCM_INTERFACE_TYPE_STA, &gateway_addr, 3000, &elapsed_time_ms);
         if (result == CY_RSLT_SUCCESS)
         {
-            printf("ping was successful time elapsed = %lu ms\r\n", elapsed_time_ms);
+            printf("Ping was successful time elapsed = %lu ms\r\n", elapsed_time_ms);
         }
         else
         {

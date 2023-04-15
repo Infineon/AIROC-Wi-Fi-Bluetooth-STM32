@@ -52,4 +52,4 @@
 /* Use Cy HAL UART for BT and command-console library */
 #define CYHAL_UART_MAX_INSTANCES          (2)
 
-//#define SDMMC_CLK_FREQ_OVERRIDE        (6000000) /* Hz */
+#define SDMMC_CLK_FREQ_OVERRIDE        (6000000) /* Hz */

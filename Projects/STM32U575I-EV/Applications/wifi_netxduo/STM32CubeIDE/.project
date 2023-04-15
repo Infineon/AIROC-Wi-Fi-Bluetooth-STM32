@@ -344,6 +344,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/ST/netxduo/common/src/nx_arp_static_entry_delete_internal.c</locationURI>
 		</link>
 		<link>
+			<name>Middlewares/NetXDuo/NX Core/nx_http_proxy_client.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/ST/netxduo/common/src/nx_http_proxy_client.c</locationURI>
+		</link>
+		<link>
 			<name>Middlewares/NetXDuo/NX Core/nx_icmp_cleanup.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/ST/netxduo/common/src/nx_icmp_cleanup.c</locationURI>
@@ -3657,6 +3662,31 @@
 			<name>Middlewares/Connectivity/Wireless/Platform/abstraction-rtos/ThreadX/cyabs_rtos_threadx.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_THREADX/cyabs_rtos_threadx.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1LV/43012C0-mfgtest_bin.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0-mfgtest_bin.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1LV/43012C0-mfgtest_clm_blob.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/43012C0-mfgtest_clm_blob.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1LV/43012C0_bin.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0_bin.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1LV/43012C0_clm_blob.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/43012C0_clm_blob.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1LV/w_bt_firmware_controller.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43012/COMPONENT_MURATA-1LV/w_bt_firmware_controller.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/network-interface/NetXDuo/cy_netxduo.c</name>

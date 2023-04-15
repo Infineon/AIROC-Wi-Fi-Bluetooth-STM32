@@ -1,0 +1,6 @@
+[ProjectFiles]
+HeaderPath=../Core/Inc;../Drivers/CMSIS/RTOS2/Include/;
+[Others]
+Define=CY_RETARGET_IO_CONVERT_LF_TO_CRLF;CYBSP_WIFI_CAPABLE;CY_USING_HAL
+[Groups]
+Application/User/Core/Src=../Core/Src/app_freertos.c;../Core/Src/app_platform_cfg.c;../Core/Src/hello_sensor.c;../Core/Src/wiced_bt_cfg.c

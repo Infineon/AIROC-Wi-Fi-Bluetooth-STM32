@@ -61,7 +61,7 @@ static TX_BYTE_POOL tx_app_byte_pool;
 #pragma data_alignment=4
 #endif
 __ALIGN_BEGIN static UCHAR  nx_byte_pool_buffer[NX_APP_MEM_POOL_SIZE] __ALIGN_END;
-static TX_BYTE_POOL nx_app_byte_pool;
+static TX_BYTE_POOL NETXDUO_MEM_POOL_VAR_NAME;
 
 #endif
 
@@ -112,7 +112,7 @@ VOID tx_application_define(VOID *first_unused_memory)
 
   }
 
-  if (tx_byte_pool_create(&nx_app_byte_pool, "Nx App memory pool", nx_byte_pool_buffer, NX_APP_MEM_POOL_SIZE) != TX_SUCCESS)
+  if (tx_byte_pool_create(&NETXDUO_MEM_POOL_VAR_NAME, "Nx App memory pool", nx_byte_pool_buffer, NX_APP_MEM_POOL_SIZE) != TX_SUCCESS)
   {
     /* USER CODE BEGIN NX_Byte_Pool_Error */
 
@@ -120,11 +120,11 @@ VOID tx_application_define(VOID *first_unused_memory)
   }
   else
   {
-    /* USER CODE BEGIN TX_Byte_Pool_Success */
+    /* USER CODE BEGIN NX_Byte_Pool_Success */
 
-    /* USER CODE END TX_Byte_Pool_Success */
+    /* USER CODE END NX_Byte_Pool_Success */
 
-    memory_ptr = (VOID *)&nx_app_byte_pool;
+    memory_ptr = (VOID *)&NETXDUO_MEM_POOL_VAR_NAME;
     status = MX_NetXDuo_Init(memory_ptr);
     if (status != NX_SUCCESS)
     {

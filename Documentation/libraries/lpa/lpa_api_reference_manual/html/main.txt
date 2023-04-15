@@ -1,0 +1,324 @@
+/* WiFi Example
+ * Copyright (c) 2016 ARM Limited
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#include "mbed.h"
+#include "WhdSTAInterface.h"
+#include "network_activity_handler.h"
+#include "WhdOlmInterface.h"
+#include "cy_lpa_wifi_tko_ol.h"
+
+#define NULL_IP_ADDRESS "0.0.0.0"
+
+// This macro specifies the interval in milliseconds that the device monitors
+// the network for inactivity. If the network is inactive for duration lesser
+// than INACTIVE_WINDOW_MS in this interval, the MCU does not suspend the network
+// stack and informs the calling function that the MCU wait period timed out
+// while waiting for network to become inactive.
+
+#define INACTIVE_INTERVAL_MS    (300u)
+
+// This macro specifies the continuous duration in milliseconds for which the
+// network has to be inactive. If the network is inactive for this duration, the
+// MCU will suspend the network stack. Now, the MCU will not need to service the
+// network timers which allows it to stay longer in sleep/deepsleep.
+
+#define INACTIVE_WINDOW_MS      (200u)
+
+// This macro specifies the MAXIMUM PAYLOAD length for Network Data.
+#define PACKET_PAYLOAD 1500
+
+
+#define TCP_KEEPALIVE_INTERVAL       (5)
+#define TCP_KEEPALIVE_RETRY_INTERVAL (3)
+#define TCP_KEEPALIVE_RETRY_COUNT    (5)
+#define TCPIP_REMOTE_ADDRESS "192.165.100.20"
+#define NULLIP_ADDRESS "0.0.0.0"
+
+// This is sample TCP Data
+#define HARDCODED_STR   "Some random stuff"
+
+TCPSocket *glob_socket[MAX_TKO] = {NULL};
+uint8_t databuf[PACKET_PAYLOAD];
+
+NetworkInterface *networkInterface;
+
+WiFiInterface *wifi;
+
+cy_tko_ol_cfg_t *tko_ol_cfg = NULL;
+
+static uint8_t tko_offload_enabled = false;
+
+static cy_tko_ol_cfg_t tko_default_cfgs[] =
+{
+    {
+        .interval = TCP_KEEPALIVE_INTERVAL,
+        .retry_interval = TCP_KEEPALIVE_RETRY_INTERVAL,
+        .retry_count = TCP_KEEPALIVE_RETRY_COUNT,
+        {
+            {
+                .local_port = 3353,
+                .remote_port = 3360,
+                TCPIP_REMOTE_ADDRESS
+            },
+            {
+                .local_port = 3354,
+                .remote_port = 3361,
+                NULLIP_ADDRESS
+            },
+            {
+                .local_port = 3355,
+                .remote_port = 3362,
+                NULLIP_ADDRESS
+            },
+            {
+                .local_port = 3356,
+                .remote_port = 3363,
+                NULLIP_ADDRESS
+            },
+        },
+    }
+};
+ol_desc_t *find_olm_descriptor(const char *name);
+
+const char *sec2str(nsapi_security_t sec)
+{
+    switch (sec) {
+        case NSAPI_SECURITY_NONE:
+            return "None";
+        case NSAPI_SECURITY_WEP:
+            return "WEP";
+        case NSAPI_SECURITY_WPA:
+            return "WPA";
+        case NSAPI_SECURITY_WPA2:
+            return "WPA2";
+        case NSAPI_SECURITY_WPA_WPA2:
+            return "WPA/WPA2";
+        case NSAPI_SECURITY_UNKNOWN:
+        default:
+            return "Unknown";
+    }
+}
+
+int scan_demo(WiFiInterface *wifi)
+{
+    WiFiAccessPoint *ap;
+
+    printf("Scan:\n");
+
+    int count = wifi->scan(NULL,0);
+
+    if (count <= 0) {
+        printf("scan() failed with return value: %d\n", count);
+        return 0;
+    }
+
+    /* Limit number of network arbitrary to 15 */
+    count = count < 15 ? count : 15;
+
+    ap = new WiFiAccessPoint[count];
+    count = wifi->scan(ap, count);
+
+    if (count <= 0) {
+        printf("scan() failed with return value: %d\n", count);
+        return 0;
+    }
+
+    for (int i = 0; i < count; i++) {
+        printf("Network: %s secured: %s BSSID: %hhX:%hhX:%hhX:%hhx:%hhx:%hhx RSSI: %hhd Ch: %hhd\n", ap[i].get_ssid(),
+               sec2str(ap[i].get_security()), ap[i].get_bssid()[0], ap[i].get_bssid()[1], ap[i].get_bssid()[2],
+               ap[i].get_bssid()[3], ap[i].get_bssid()[4], ap[i].get_bssid()[5], ap[i].get_rssi(), ap[i].get_channel());
+    }
+    printf("%d networks available.\n", count);
+
+    delete[] ap;
+    return count;
+}
+
+int main()
+{
+	ol_desc_t *ofld_list = NULL;
+	int index;
+	cy_tko_ol_connect_t *ports;
+	nsapi_error_t response;
+	int st;
+	SocketAddress sockaddr;
+	int tcp_keep_alive_enable=1;
+
+	printf("WiFi example\n");
+
+#ifdef MBED_MAJOR_VERSION
+    printf("Mbed OS version %d.%d.%d\n\n", MBED_MAJOR_VERSION, MBED_MINOR_VERSION, MBED_PATCH_VERSION);
+#endif
+
+    wifi = WiFiInterface::get_default_instance();
+    if (!wifi) {
+        printf("ERROR: No WiFiInterface found.\n");
+        return -1;
+    }
+
+    int count = scan_demo(wifi);
+    if (count == 0) {
+        printf("No WIFI APs found - can't continue further.\n");
+        return -1;
+    }
+
+    printf("\nConnecting to %s...\n", MBED_CONF_APP_WIFI_SSID);
+    int ret = wifi->connect(MBED_CONF_APP_WIFI_SSID, MBED_CONF_APP_WIFI_PASSWORD, NSAPI_SECURITY_NONE);
+    if (ret != 0) {
+        printf("\nConnection error: %d\n", ret);
+        return -1;
+    }
+
+    networkInterface  = (NetworkInterface *)wifi;
+
+    printf("Success\n\n");
+    networkInterface->get_ip_address(&sockaddr);
+    printf("MAC: %s\n", networkInterface->get_mac_address());
+    printf("IP: %s\n", sockaddr.get_ip_address());
+    networkInterface->get_netmask(&sockaddr);
+    printf("Netmask: %s\n", sockaddr.get_ip_address());
+    networkInterface->get_gateway(&sockaddr);
+    printf("Gateway: %s\n", sockaddr.get_ip_address());
+    printf("RSSI: %d\n\n", wifi->get_rssi());
+
+    ofld_list = find_olm_descriptor("TKO");
+
+    if ( ofld_list == NULL )
+    {
+    	cy_tko_ol_cfg_t *default_offloads = tko_default_cfgs;
+    	printf("TKO not enabled by configurator so using MANUAL CONFIGURATION\n");
+
+    	for ( index = 0; index < MAX_TKO; index++ ) {
+    		ports = &default_offloads->ports[index];
+    		if ( strcmp (ports->remote_ip, NULL_IP_ADDRESS) != 0 )
+    		{
+    		    response = cy_tcp_create_socket_connection((void *)wifi, (void **)&glob_socket[index], ports->remote_ip, ports->remote_port, ports->local_port, default_offloads, tcp_keep_alive_enable);
+    		    if (response != NSAPI_ERROR_OK) {
+    			         printf("Socket[%d]: ERROR %d, Unable to connect:  IP %s, local port %d, remote port %d\n",
+    		             index, response, ports->remote_ip, ports->local_port, ports->remote_port);
+    		     } else {
+    		  	         printf("Socket[%d]: Created connection to IP %s, local port %d, remote port %d\n",
+    		  	                index, ports->remote_ip, ports->local_port, ports->remote_port);
+    		     }
+    		}
+    		else
+    		{
+    		   	 printf("Remote IP Address is not configured for index:%d\n", index );
+    		}
+    	}
+    }
+    else
+    {
+    	printf("TKO is enabled via configurator\n");
+    	tko_offload_enabled = true;
+    	tko_ol_cfg = (cy_tko_ol_cfg_t *)ofld_list->cfg;
+    	for (index = 0; index < MAX_TKO; index++) {
+    	     ports = &tko_ol_cfg->ports[index];
+    	     if ( strcmp (tko_ol_cfg->ports[index].remote_ip, NULL_IP_ADDRESS) != 0 )
+    	     {
+    	       response = cy_tcp_create_socket_connection( (void *)wifi, (void **)&glob_socket[index], ports->remote_ip, ports->remote_port, ports->local_port,
+    	    		                                       tko_ol_cfg, tcp_keep_alive_enable );
+    	       if (response != NSAPI_ERROR_OK) {
+    	         printf("Socket[%d]: ERROR %d, Unable to connect:  IP %s, local port %d, remote port %d\n",
+    	                 index, response, ports->remote_ip, ports->local_port, ports->remote_port);
+    	       } else {
+    	         printf("Socket[%d]: Created connection to IP %s, local port %d, remote port %d\n",
+    	                index, ports->remote_ip, ports->local_port, ports->remote_port);
+    	       }
+    	     }
+    	     else
+    	     {
+    	    	 printf("Remote IP Address is not configured for index:%d\n", index );
+    	     }
+    	 }
+    }
+    while (true) {
+
+    	if ( tko_offload_enabled )
+    	{
+
+          st = wait_net_suspend(static_cast<WhdSTAInterface*>(wifi),
+               osWaitForever, INACTIVE_INTERVAL_MS, INACTIVE_WINDOW_MS);
+
+          switch(st)
+          {
+            case ST_SUCCESS:
+        	  printf("ST_SUCCESS\n");
+        	  break;
+            case  ST_WAIT_TIMEOUT_EXPIRED:
+        	  printf("ST_WAIT_TIMEOUT_EXPIRED\n");
+        	  break;
+            case   ST_WAIT_INACTIVITY_TIMEOUT_EXPIRED:
+        	  printf("ST_WAIT_INACTIVITY_TIMEOUT_EXPIRED\n");
+        	  break;
+            case  ST_WAIT_ACTIVITY_TIMEOUT_EXPIRED:
+        	  printf("ST_WAIT_ACTIVITY_TIMEOUT_EXPIRED\n");
+        	  break;
+            case  ST_BAD_ARGS:
+        	  printf("ST_BAD_ARGS\n");
+        	  break;
+            case ST_BAD_STATE:
+        	  printf("ST_BAD_STATE\n");
+        	  break;
+            case  ST_CONNECT_FAILED:
+        	  printf("ST_CONNECT_FAILED\n");
+        	  break;
+            case  ST_DISCONNECT_FAILED:
+        	  printf("ST_DISCONNECT_FAILED\n");
+        	  break;
+            case  ST_WIFI_NET_SUSPENDED_FAILED:
+        	  printf("ST_WIFI_NET_SUSPENDED_FAILED\n");
+        	  break;
+            case  ST_WIFI_NET_RESUMING_FAILED:
+        	  printf("ST_WIFI_NET_RESUMING_FAILED\n");
+        	  break;
+            case ST_NET_ACTIVITY:
+        	  printf("ST_NET_ACTIVITY\n");
+        	  break;
+            default:
+        	  break;
+          }
+    	}
+        else
+        {
+        	rtos::ThisThread::sleep_for( std::chrono::milliseconds( 1000 ) );
+        }
+    }
+    printf("\nDone\n");
+}
+
+/*
+ * Find the descriptor for the given filter.
+ */
+ol_desc_t *find_olm_descriptor(const char *name)
+{
+	ol_desc_t *oflds_list = NULL;
+
+    oflds_list = (ol_desc_t *)get_default_ol_list();
+    if ( oflds_list == NULL )
+    {
+    	return oflds_list;
+    }
+    /* Find Packet filter offloads */
+    while (oflds_list && oflds_list->name && strncmp(oflds_list->name, name, strlen(name))) {
+        oflds_list++;
+    }
+    if (!oflds_list || !oflds_list->name) {
+        printf("Unable to find %s offloads configuration\n", name);
+        return NULL;
+    }
+    return oflds_list;
+}

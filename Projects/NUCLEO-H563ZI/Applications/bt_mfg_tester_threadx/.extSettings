@@ -1,0 +1,6 @@
+[ProjectFiles]
+HeaderPath=../Core/Inc;
+[Others]
+Define=CY_RETARGET_IO_CONVERT_LF_TO_CRLF;CYBSP_WIFI_CAPABLE;CY_USING_HAL
+[Groups]
+Application/User/Core/Src=../Core/Src/bt_bus.c;../Core/Src/bt_firmware.c;../Core/Src/bt_mfg_test.c;../Core/Src/bt_mfg_test.c;../Core/Src/bt_transport.c

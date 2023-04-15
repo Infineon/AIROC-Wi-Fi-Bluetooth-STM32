@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2022, Cypress Semiconductor Corporation or
+ * Copyright 2019-2023, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -1043,9 +1043,9 @@
 */
 #if BTM_BLE_PRIVACY_SPT == TRUE
 /* BLE event mask */
-#define HCI_BLE_EVENT_MASK_DEF "\x00\x00\x01\xFA\x7f\x8f\xff\xff"
+#define HCI_BLE_EVENT_MASK_DEF "\x00\x00\x00\xFA\x7f\x8f\xff\xff"
 #else
-#define HCI_BLE_EVENT_MASK_DEF "\x00\x00\x01\xFA\x7F\x8f\xff\x7f"
+#define HCI_BLE_EVENT_MASK_DEF "\x00\x00\x00\xFA\x7F\x8f\xff\x7f"
 #endif
 
 /*

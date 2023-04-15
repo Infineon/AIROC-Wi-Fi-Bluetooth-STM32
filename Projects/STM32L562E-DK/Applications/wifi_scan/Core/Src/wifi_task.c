@@ -64,9 +64,16 @@ typedef struct
 
 /* Private macro -------------------------------------------------------------*/
 /* Wi-Fi Connection related parameters */
-#define WIFI_CONNECT_ENABLE                 (0) /* Enable/Disable Wi-Fi Connect */
-#define WIFI_SSID                           "WIFI_SSID"
-#define WIFI_PASSWORD                       "WIFI_PASSWORD"
+#if  !defined(WIFI_CONNECT_ENABLE)
+   #define WIFI_CONNECT_ENABLE             (0) /* Enable/Disable Wi-Fi Connect */
+#endif /* (WIFI_CONNECT_ENABLE) */
+#if  !defined(WIFI_SSID)
+   #define WIFI_SSID                       "WIFI_SSID"
+#endif /* (WIFI_SSID) */
+#if  !defined(WIFI_PASSWORD)
+   #define WIFI_PASSWORD                   "WIFI_PASSWORD"
+#endif /* (WIFI_PASSWORD) */
+
 #define WIFI_SECURITY                       CY_WCM_SECURITY_WPA2_AES_PSK
 #define MAX_WIFI_RETRY_COUNT                (3u)
 #define WIFI_CONN_RETRY_INTERVAL_MSEC       (100u)

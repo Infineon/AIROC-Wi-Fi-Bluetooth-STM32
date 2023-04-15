@@ -1528,13 +1528,13 @@
                     <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\resources\firmware\COMPONENT_43012\43012C0-mfgtest_bin.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\resources\clm\COMPONENT_43012\43012C0-mfgtest_clm_blob.c</name>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\resources\clm\COMPONENT_43012\COMPONENT_MURATA-1LV\43012C0-mfgtest_clm_blob.c</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\resources\firmware\COMPONENT_43012\43012C0_bin.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\resources\clm\COMPONENT_43012\43012C0_clm_blob.c</name>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\resources\clm\COMPONENT_43012\COMPONENT_MURATA-1LV\43012C0_clm_blob.c</name>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\btstack-integration\COMPONENT_HCI-UART\firmware\COMPONENT_43012\COMPONENT_MURATA-1LV\w_bt_firmware_controller.c</name>

@@ -1,4 +1,4 @@
-# STM32 Connectivity Expansion Pack 1.3.0
+# STM32 Connectivity Expansion Pack 1.4.0
 
 ## Overview
 The STM32 Connectivity Expansion Pack is an extension of the CMSIS-Pack standard established by Arm
@@ -26,7 +26,7 @@ The STM32 Connectivity Expansion Pack uses below assets:
 | [LwIP](https://git.savannah.nongnu.org/cgit/lwip.git)                                                      |  2.1.2  |
 | [abstraction-rtos](https://github.com/Infineon/abstraction-rtos)                                           |  1.5.0  |
 | [bluetooth-freertos](https://github.com/Infineon/btstack-integration)                                      |  4.2.0  |
-| [btstack](https://github.com/Infineon/btstack)                                                             |  3.6.0  |
+| [btstack](https://github.com/Infineon/btstack)                                                             |  3.6.1  |
 | [command-console](https://github.com/Infineon/command-console)                                             |  4.0.0  |
 | [connectivity-utilities](https://github.com/Infineon/connectivity-utilities)                               |  4.0.0  |
 | [core-lib](https://github.com/Infineon/core-lib)                                                           |  1.3.1  |
@@ -35,10 +35,14 @@ The STM32 Connectivity Expansion Pack uses below assets:
 | [lwip-freertos-integration](https://github.com/Infineon/lwip-freertos-integration)                         |  1.0.0  |
 | [lwip-network-interface-integration](https://github.com/Infineon/lwip-network-interface-integration)       |  1.0.0  |
 | [netxduo-network-interface-integration](https://github.com/Infineon/netxduo-network-interface-integration) |  1.0.0  |
-| [wifi-host-driver](https://github.com/Infineon/wifi-host-driver)                                           |  2.4.0  |
-| [wifi-mfg-test](https://github.com/Infineon/wifi-mfg-test)                                                 |  3.3.1  |
-| PAL                                                                                                        |  1.2.0  |
-| Device                                                                                                     |  1.2.0  |
+| [wifi-host-driver](https://github.com/Infineon/wifi-host-driver)                                           |  2.5.0  |
+| [wifi-mfg-test](https://github.com/Infineon/wifi-mfg-test)                                                 |  3.3.0  |
+| [secure-sockets](https://github.com/Infineon/secure-sockets)                                               |  3.0.0  |
+| [stm32_mw_freertos](https://github.com/STMicroelectronics/stm32_mw_freertos)                               | 10.4.6  |
+| [wpa3-external-supplicant](https://github.com/Infineon/wpa3-external-supplicant)                           |  1.1.0  |
+| [lpa](https://github.com/Infineon/lpa)                                                                     |  4.0.0  |
+| PAL                                                                                                        |  1.4.0  |
+| Device                                                                                                     |  1.4.0  |
 
 ## Additional details
 The pack is compliant with the full CMSIS-Pack standard, with additional requirements/restrictions
@@ -64,4 +68,4 @@ owners.
 
 -------------------------------------------------------------------------------
 
-© Cypress Semiconductor Corporation, 2021-2022.
+© Cypress Semiconductor Corporation, 2021-2023.

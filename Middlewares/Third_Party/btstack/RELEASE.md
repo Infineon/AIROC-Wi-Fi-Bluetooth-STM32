@@ -8,6 +8,11 @@ Following are the limitations when using host based address resolution (only app
 
 ## Changelog
 
+## V3.6.1
+BTSTACK3.6.1 is a patch release with the following fixes -
+ - Fix to check for ISOC support in controller before issuing read_buf_size_v2 HCI command.
+ - Fix to mask Enhanced Connection Complete Event v2 HCI event in the HCI event mask as this is not handled in stack.
+
 ## V3.6.0
 BTSTACK3.6 is BT5.3 certified. QDID: [196979](https://launchstudio.bluetooth.com/ListingDetails/164219).
 Below test cases fail and are under discussion/debug with PTS.

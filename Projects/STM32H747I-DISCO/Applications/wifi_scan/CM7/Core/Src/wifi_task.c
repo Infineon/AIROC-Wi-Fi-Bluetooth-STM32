@@ -105,8 +105,8 @@ void app_init(void);
 void scan_result_callback(cy_wcm_scan_result_t* result_ptr, void* user_data,
                           cy_wcm_scan_status_t status);
 const char* security_to_str(whd_security_t security);
+void wifi_scan(cy_wcm_scan_filter_t* scan_filter);
 void wifi_connect(void);
-
 extern osThreadId_t       WiFi_TaskHandle;
 extern UART_HandleTypeDef huart1;
 /* Private user code ---------------------------------------------------------*/
@@ -134,6 +134,7 @@ void WiFiTask(void* argument)
     cy_rslt_t       result = CY_RSLT_SUCCESS;
     cy_wcm_config_t wcm_config;
     wcm_config.interface = CY_WCM_INTERFACE_TYPE_STA;
+    cy_wcm_scan_filter_t scan_filter;
 
     /* Wait for the user button press to continue */
     app_init();
@@ -153,43 +154,66 @@ void WiFiTask(void* argument)
     }
 
     #if WIFI_CONNECT_ENABLE
-    /* Wi-Fi connect */
-    wifi_connect();
+    {
+        scan_filter.mode             = CY_WCM_SCAN_FILTER_TYPE_SSID;
+        memcpy(scan_filter.param.SSID, WIFI_SSID, strlen(WIFI_SSID) + 1);
 
+        /* Wi-Fi Scan based on SSID parameter */
+        wifi_scan(&scan_filter);
+
+        /* Wi-Fi connect */
+        wifi_connect();
+    }
     #else /* Wi-Fi Scanning in loop */
     {
-        cy_wcm_scan_filter_t scan_filter =
-        {
-            .mode             = CY_WCM_SCAN_FILTER_TYPE_RSSI,
-            .param.rssi_range = CY_WCM_SCAN_RSSI_FAIR
-        };
-
+        scan_filter.mode             = CY_WCM_SCAN_FILTER_TYPE_RSSI;
+        scan_filter.param.rssi_range = CY_WCM_SCAN_RSSI_FAIR;
         while (true)
         {
-            /* Reset the count everytime before scanning */
-            scan_data.result_count = 0;
-            memset(last_bssid, 0, sizeof(cy_wcm_mac_t));
-
-            /* Print out the scan results*/
-            PRINT_SCAN_TEMPLATE();
-
-            /* Start the scan */
-            HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_PIN_RESET);
-            result =  cy_wcm_start_scan(scan_result_callback, &scan_data, &scan_filter);
-            HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_PIN_SET);
-            if (CY_RSLT_SUCCESS == result)
-            {
-                xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
-            }
-            else
-            {
-                HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
-            }
-            /* Add Delay before starting the scan again */
-            vTaskDelay(pdMS_TO_TICKS(SCAN_DELAY_MS));
+            /* Wi-Fi Scan based on RSSI Filter */
+            wifi_scan(&scan_filter);
         }
     }
     #endif // if WIFI_CONNECT_ENABLE
+}
+
+
+/***************************************************************************************************
+ * Function Name: wifi_scan
+ ***************************************************************************************************
+ * Summary: This Function executes Wi-Fi Scan based on the scan filter
+ *
+ * Parameters:
+ *  cy_wcm_scan_filter_t *scan_filter
+ *
+ * Return:
+ *  void
+ *
+ **************************************************************************************************/
+void wifi_scan(cy_wcm_scan_filter_t* scan_filter)
+{
+    cy_rslt_t       result = CY_RSLT_SUCCESS;
+    /* Reset the count everytime before scanning */
+    scan_data.result_count = 0;
+    memset(last_bssid, 0, sizeof(cy_wcm_mac_t));
+
+    /* Print out the scan results*/
+    PRINT_SCAN_TEMPLATE();
+
+    /* Start the scan */
+    HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_PIN_RESET);
+    result =  cy_wcm_start_scan(scan_result_callback, &scan_data, scan_filter);
+    HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_PIN_SET);
+    if (CY_RSLT_SUCCESS == result)
+    {
+        xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
+    }
+    else
+    {
+        HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
+    }
+    /* Add Delay before starting the scan again */
+    vTaskDelay(pdMS_TO_TICKS(SCAN_DELAY_MS));
 }
 
 
@@ -485,6 +509,10 @@ void wifi_connect()
             return;
         }
         printf("RSSI : %d \r\n", ap_info.signal_strength);
+        printf("channel : %d \r\n", ap_info.channel);
+        printf("BSSID - %x:%x:%x:%x:%x:%x  \r\n", ap_info.BSSID[0], ap_info.BSSID[1],
+               ap_info.BSSID[2],
+               ap_info.BSSID[3], ap_info.BSSID[4], ap_info.BSSID[5]);
 
         /* Get IPv4 address */
         result = cy_wcm_get_ip_addr(CY_WCM_INTERFACE_TYPE_STA, &ip_address);

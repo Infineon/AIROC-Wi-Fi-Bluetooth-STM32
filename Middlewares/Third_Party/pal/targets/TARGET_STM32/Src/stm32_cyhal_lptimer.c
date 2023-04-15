@@ -71,7 +71,7 @@ extern "C" {
 #endif
 
 
-#if defined (TARGET_STM32U5xx)
+#if defined (TARGET_STM32U5xx) || defined (TARGET_STM32H5xx)
     #define _CYHAL_LPTIM_FLAG_DIEROK    LPTIM_FLAG_DIEROK
     #define _CYHAL_LPTIM_FLAG_CMPOK     LPTIM_FLAG_CMP1OK
     #define _CYHAL_LPTIM_IER_ARRMIE     LPTIM_DIER_ARRMIE
@@ -265,7 +265,7 @@ static void _cyhal_lptimer_handle_match(cyhal_lptimer_t* obj)
         __HAL_LPTIM_CLEAR_FLAG(obj->hlptimer, _CYHAL_LPTIM_FLAG_CMPOK);
 
         /* Load the Timeout value in the compare register */
-        #if defined (TARGET_STM32U5xx)
+        #if defined (TARGET_STM32U5xx) || defined (TARGET_STM32H5xx)
         __HAL_LPTIM_COMPARE_SET(obj->hlptimer, LPTIM_CHANNEL_1, cmp_val);
         #else
         __HAL_LPTIM_COMPARE_SET(obj->hlptimer, cmp_val);
@@ -415,7 +415,7 @@ cy_rslt_t cyhal_lptimer_init(cyhal_lptimer_t* obj)
          *
          * LPTIMER IRQs are NOT enabled here
          */
-        #if defined (TARGET_STM32U5xx)
+        #if defined (TARGET_STM32U5xx) || defined (TARGET_STM32H5xx)
         /* For STM32U5 a period of Autoreload register (ARR) configure in
          * HAL_LPTIM_Init by using hlptimer->Init.Period value */
         obj->hlptimer->Init.Period = _CYHAL_LPTIMER_MAX_PERIOD;
@@ -441,7 +441,7 @@ cy_rslt_t cyhal_lptimer_init(cyhal_lptimer_t* obj)
             HAL_StatusTypeDef hal_ret;
             /* Set ARR to MAX(16bit) */
             /* Set CMP to MAX(16bit) */
-            #if defined (TARGET_STM32U5xx)
+            #if defined (TARGET_STM32U5xx) || defined (TARGET_STM32H5xx)
             hal_ret = HAL_LPTIM_TimeOut_Start_IT(obj->hlptimer,
                                                  _CYHAL_LPTIMER_MAX_COMPARE);
             #else
@@ -456,7 +456,7 @@ cy_rslt_t cyhal_lptimer_init(cyhal_lptimer_t* obj)
                                              &_cyhal_lptimer_autoreload_match_callback);
 
             /* Enable Autoreload match interrupt enable */
-            #if defined (TARGET_STM32U5xx)
+            #if defined (TARGET_STM32U5xx) || defined (TARGET_STM32H5xx)
             __HAL_LPTIM_CLEAR_FLAG(obj->hlptimer, _CYHAL_LPTIM_FLAG_DIEROK);
             __HAL_LPTIM_ENABLE_IT(obj->hlptimer, _CYHAL_LPTIM_IER_ARRMIE);
             while (!__HAL_LPTIM_GET_FLAG(obj->hlptimer, _CYHAL_LPTIM_FLAG_DIEROK))

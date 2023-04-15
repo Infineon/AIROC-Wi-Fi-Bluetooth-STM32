@@ -206,7 +206,7 @@ static cy_rslt_t test_ping(void)
         res = cy_wcm_ping(CY_WCM_INTERFACE_TYPE_STA, &gateway_addr, 3000, &elapsed_time_ms);
         if (res == CY_RSLT_SUCCESS)
         {
-            printf("ping was successful time elapsed = %lu ms\r\n", elapsed_time_ms);
+            printf("Ping was successful time elapsed = %lu ms\r\n", elapsed_time_ms);
         }
         else
         {
@@ -283,6 +283,7 @@ static cy_rslt_t test_run_udp_server(void)
 
 
 /* USER CODE END PFP */
+
 /**
   * @brief  Application NetXDuo Initialization.
   * @param memory_ptr: memory pointer
@@ -296,6 +297,9 @@ UINT MX_NetXDuo_Init(VOID *memory_ptr)
    /* USER CODE BEGIN App_NetXDuo_MEM_POOL */
   (void)byte_pool;
   /* USER CODE END App_NetXDuo_MEM_POOL */
+  /* USER CODE BEGIN 0 */
+
+  /* USER CODE END 0 */
 
   /* USER CODE BEGIN MX_NetXDuo_Init */
     /* Allocate the main thread pool. */

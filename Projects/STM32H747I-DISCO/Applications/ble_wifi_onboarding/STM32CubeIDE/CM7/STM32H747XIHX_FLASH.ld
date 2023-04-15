@@ -22,7 +22,7 @@
 *****************************************************************************
 ** @attention
 **
-** Copyright (c) 2022 STMicroelectronics.
+** Copyright (c) 2023 STMicroelectronics.
 ** All rights reserved.
 **
 ** This software is licensed under terms that can be found in the LICENSE file
@@ -50,6 +50,7 @@ MEMORY
   RAM_D2 (xrw)   : ORIGIN = 0x30000000, LENGTH = 288K
   RAM_D3 (xrw)   : ORIGIN = 0x38000000, LENGTH = 64K
   ITCMRAM (xrw)  : ORIGIN = 0x00000000, LENGTH = 64K
+  WIFI_FLASH (rx) : ORIGIN = 0x08120000, LENGTH = 896K
 }
 
 /* Sections */
@@ -89,12 +90,12 @@ SECTIONS
     . = ALIGN(4);
   } >FLASH
 
-  .ARM.extab   : { 
+  .ARM.extab   : {
     . = ALIGN(4);
     *(.ARM.extab* .gnu.linkonce.armextab.*)
     . = ALIGN(4);
   } >FLASH
-  
+
   .ARM : {
     . = ALIGN(4);
     __exidx_start = .;
@@ -111,7 +112,7 @@ SECTIONS
     PROVIDE_HIDDEN (__preinit_array_end = .);
     . = ALIGN(4);
   } >FLASH
-  
+
   .init_array :
   {
     . = ALIGN(4);
@@ -121,7 +122,7 @@ SECTIONS
     PROVIDE_HIDDEN (__init_array_end = .);
     . = ALIGN(4);
   } >FLASH
-  
+
   .fini_array :
   {
     . = ALIGN(4);
@@ -136,7 +137,7 @@ SECTIONS
   _sidata = LOADADDR(.data);
 
   /* Initialized data sections into "RAM" Ram type memory */
-  .data : 
+  .data :
   {
     . = ALIGN(4);
     _sdata = .;        /* create a global symbol at data start */
@@ -175,6 +176,15 @@ SECTIONS
     . = . + _Min_Stack_Size;
     . = ALIGN(8);
   } >RAM_D1
+
+  .whd_fw :
+  {
+    . = ALIGN(4);
+    __whd_fw_start = .;
+    *(.whd_fw)
+    __whd_fw_end = .;
+    . = ALIGN(4);
+  } > WIFI_FLASH
 
   /* Remove information from the compiler libraries */
   /DISCARD/ :

@@ -1,0 +1,6 @@
+[ProjectFiles]
+HeaderPath=../Core/configs
+[Others]
+Define=CYBSP_WIFI_CAPABLE;CY_USING_HAL
+[Groups]
+Application/User/Core/Src=../Core/Src/app.c;../Core/Src/app_utils.c;../Core/Src/wifi_task.c;../Core/configs/app_platform_cfg.c;../Core/configs/cycfg_bt_settings.c;../Core/configs/cycfg_gap.c;../Core/configs/cycfg_gatt_db.c

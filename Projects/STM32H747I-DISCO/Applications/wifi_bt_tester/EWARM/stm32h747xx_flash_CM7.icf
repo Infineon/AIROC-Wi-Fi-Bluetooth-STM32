@@ -10,7 +10,7 @@ define symbol __ICFEDIT_region_RAM_start__     = 0x24000000;
 define symbol __ICFEDIT_region_RAM_end__       = 0x2407FFFF;
 define symbol __ICFEDIT_region_ITCMRAM_start__ = 0x00000000;
 define symbol __ICFEDIT_region_ITCMRAM_end__   = 0x0000FFFF;
-define symbol __ICFEDIT_region_WIFI_start__    = 0x08180000;
+define symbol __ICFEDIT_region_WIFI_start__    = 0x08120000;
 define symbol __ICFEDIT_region_WIFI_end__      = 0x081FFFFF;
 
 /*-Sizes-*/

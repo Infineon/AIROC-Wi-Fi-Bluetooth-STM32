@@ -55,6 +55,8 @@
     defined (STM32U5A5xx)   || \
     defined (STM32U5A9xx)
     #define TARGET_STM32U5xx
+#elif defined (STM32H563xx)
+    #define TARGET_STM32H5xx
 #else
     #error "Selected STM32 device is not supported by this package."
 #endif
@@ -70,6 +72,10 @@
     #include "stm32u5xx.h"
     #include "stm32u5xx_hal.h"
     #include "stm32u5xx_hal_def.h"
+#elif defined (TARGET_STM32H5xx)
+    #include "stm32h5xx.h"
+    #include "stm32h5xx_hal.h"
+    #include "stm32h5xx_hal_def.h"
 #else
     #error "Selected STM32 device is not supported by this package."
 #endif

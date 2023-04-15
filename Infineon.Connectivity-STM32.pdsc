@@ -4,9 +4,53 @@
     <name>Connectivity-STM32</name>
     <description>The STM32 Connectivity Expansion Pack is an extension of the CMSIS-Pack standard established by Arm. The pack is compliant with the full CMSIS-Pack standard, with additional requirements/restrictions on the final pack to meet the STM standard. You can select and configure the pack in the STM32CubeMX tool, make choices appropriate for your design, such as which CYW43xxx device to use, and then generate a project from your selection.</description>
     <license>Infineon-License.txt</license>
-    <url>http://iot-webserver.aus.cypress.com/projects/iot_release/ASSETS/repo/mclass_connectivity/develop/Latest/deploy/</url>
+    <url>https://github.com/cypresssemiconductorco/stm32-connectivity/releases/download/release-v1.4.0/</url>
     <releases>
-            <release date="2022-12-27" version="1.3.0">
+            <release date="2023-04-03" version="1.4.0">
+Support Release with support for STM32H5xx MCUs
+What's New?
+ * Added STM32H5 support
+ * Added New Examples for STM32U5xx and STM32H7xx MCUs 
+ * New libraries:
+   - lpa v.4.0.0
+
+What's Included?
+ * Supported Connectivity Modules
+   - CYW43012
+   - CYW4343W / CYW43438
+   - CYW4373
+ * Expansion Pack Contents
+   - btstack v.3.6.1
+   - btstack-integration v.4.2.0
+   - wifi-host-driver v.2.5.0
+   - wcm v.3.0.0
+   - whd-bsp-integration v.2.1.0
+   - lwip-freertos-integration v.1.0.0
+   - lwip-network-interface-integration v.1.0.0
+   - netxduo-network-interface-integration v.1.0.0
+   - connectivity-utilities v.4.0.0
+   - core-lib v.1.3.1
+   - abstraction-rtos v.1.5.0
+   - LwIP v.2.1.2
+   - PAL v.1.4.0
+   - Device v.1.2.0
+   - command-console v.4.0.0
+   - wifi-mfg-test v.3.3.0
+   - secure-sockets v.3.0.0
+   - stm32_mw_freertos v.10.4.6
+   - wpa3_external_supplicant v.1.1.0
+   - lpa v.4.0.0
+
+ * Examples
+   - Wi-Fi Scan Example
+   - Wi-Fi Onboarding with BLE
+   - Azure RTOS NetXDuo Wi-Fi UDP echo server
+   - Wi-Fi BT Tester
+   - Wi-Fi Manufacturing Tester
+   - Bluetooth Manufacturing Tester
+   - BLE Hello Sensor
+        </release>
+        <release date="2022-12-27" version="1.3.0">
 Support Release with support for STM32U5xx MCUs
 What's New?
  * Added STM32U5 support
@@ -38,7 +82,7 @@ What's Included?
    - Wi-Fi Onboarding with BLE
    - Azure RTOS NetXDuo Wi-Fi UDP echo server
         </release>    
-        <release date="2022-12-27" version="1.2.0">
+        <release date="2022-11-11" version="1.2.0">
 Threadx/Netxduo, Manufacturing tools Support Release with support for STM32H7xx/STM32L5xx MCUs with Infineon's CYW43xxx Wi-Fi-BT combo chip family listed below.
 
 What's New?
@@ -394,7 +438,6 @@ What's Included?
             <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW43439"/>
             <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW43438"/>
             <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW4373"/>
-            <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW4373_STERLING_LWB5PLUS"/>
         </condition>
         
         <condition id="CYW4343W dependencies">
@@ -403,7 +446,6 @@ What's Included?
             <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW43439"/>
             <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW43438"/>
             <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW4373"/>
-            <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW4373_STERLING_LWB5PLUS"/>
         </condition>
         
         <condition id="CYW43439 dependencies">
@@ -412,7 +454,6 @@ What's Included?
             <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW43439"/>
             <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW43438"/>
             <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW4373"/>
-            <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW4373_STERLING_LWB5PLUS"/>
         </condition>
         
         <condition id="CYW43438 dependencies">
@@ -421,7 +462,6 @@ What's Included?
             <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW43439"/>
             <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW43438"/>
             <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW4373"/>
-            <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW4373_STERLING_LWB5PLUS"/>
         </condition>
         
         <condition id="CYW4373 dependencies">
@@ -430,22 +470,16 @@ What's Included?
             <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW43439"/>
             <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW43438"/>
             <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW4373"/>
-            <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW4373_STERLING_LWB5PLUS"/>
         </condition>
         
-        <condition id="CYW4373_STERLING_LWB5PLUS dependencies">
-            <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW43012"/>
-            <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW4343W"/>
-            <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW43439"/>
-            <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW43438"/>
-            <deny Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW4373"/>
-            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW4373_STERLING_LWB5PLUS"/>
+        <condition id="device dependencies">
+            <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device"/>
         </condition>
-        
+
     </conditions>
 
     <components>
-        <bundle Cbundle="Connectivity" Cclass="Wireless" Cversion="1.3.0">
+        <bundle Cbundle="Connectivity" Cclass="Wireless" Cversion="1.4.0">
             <description>Wifi-Bluetooth (BT/BLE) libraries.</description>
             <doc>Documentation/STM32ConnectivityExpansionPack_UserGuide.pdf</doc>
             <component Cgroup="Bluetooth" Csub="btstack" condition="btstack dependencies" maxInstances="1" Cvariant="BLE_HARDFP">
@@ -1196,12 +1230,35 @@ What's Included?
                     <file category="source" name="Middlewares/Third_Party/ARM/mbedtls/library/x509_crt.c"/>
                     <file category="source" name="Middlewares/Third_Party/ARM/mbedtls/library/x509_csr.c"/>
                     <file category="source" name="Middlewares/Third_Party/ARM/mbedtls/library/xtea.c"/>
- 		    <file category="include" name="Middlewares/Third_Party/ARM/mbedtls/include/"/>
+         <file category="include" name="Middlewares/Third_Party/ARM/mbedtls/include/"/>
                     <file category="include" name="Middlewares/Third_Party/ARM/mbedtls/include/mbedtls/"/>
-		    <file category="include" name="Middlewares/Third_Party/ARM/mbedtls/library/"/>
+            <file category="include" name="Middlewares/Third_Party/ARM/mbedtls/library/"/>
                 </files>
             </component>
-
+            <component Cgroup="Wifi" Csub="lpa" condition="Cortex-M Device" maxInstances="1">
+                <description>lpa</description>
+                <files>
+                    <file category="include" name="Middlewares/Third_Party/lpa/helpers/net_activity/"/>
+                    <file category="include" name="Middlewares/Third_Party/lpa/include/"/>
+                    <file category="include" name="Middlewares/Third_Party/lpa/source/"/>
+                    <file category="include" name="Middlewares/Third_Party/lpa/target/"/>
+                    <file category="include" name="Middlewares/Third_Party/lpa/helpers/net_activity/COMPONENT_SECURE_SOCKETS/"/>
+                    <file category="include" name="Middlewares/Third_Party/lpa/target/COMPONENT_WCM/"/>
+                    
+                    <file category="source" name="Middlewares/Third_Party/lpa/helpers/net_activity/COMPONENT_SECURE_SOCKETS/ip4string.c"/>                                    
+                    <file category="source" name="Middlewares/Third_Party/lpa/helpers/net_activity/COMPONENT_SECURE_SOCKETS/network_activity_handler.c"/>
+                    
+                    <file category="source" name="Middlewares/Third_Party/lpa/source/cy_lpa_wifi_arp_ol.c"/>                   
+                    <file category="source" name="Middlewares/Third_Party/lpa/source/cy_lpa_wifi_olm.c"/>
+                    <file category="source" name="Middlewares/Third_Party/lpa/source/cy_lpa_wifi_pf_ol.c"/>
+                    <file category="source" name="Middlewares/Third_Party/lpa/source/cy_lpa_wifi_tko_ol.c"/>
+                    <file category="source" name="Middlewares/Third_Party/lpa/source/cy_whd_stubs.c"/>
+                    <file category="source" name="Middlewares/Third_Party/lpa/source/cy_whd_tko_api.c"/>
+                    
+                    <file category="source" name="Middlewares/Third_Party/lpa/target/COMPONENT_WCM/cy_nw_lpa_helper.c"/>
+                    <file category="source" name="Middlewares/Third_Party/lpa/target/COMPONENT_WCM/cy_OlmInterface.c"/>                    
+                </files>
+            </component>
             <component Cgroup="Platform" Csub="pal" condition="Cortex-M Device" maxInstances="1">
                 <description>Platform</description>
                 <files>
@@ -1259,6 +1316,7 @@ What's Included?
                     <file category="source" name="Middlewares/Third_Party/pal/targets/TARGET_STM32/Src/stm32_cyhal_spi.c"/>
                     <file category="source" name="Middlewares/Third_Party/pal/targets/TARGET_STM32/Src/stm32_cyhal_trng.c"/>
                     <file category="source" name="Middlewares/Third_Party/pal/targets/TARGET_STM32/Src/stm32_cyhal_uart.c"/>
+                    <file category="source" name="Middlewares/Third_Party/pal/targets/TARGET_STM32/Src/stm32_cyhal_syspm.c"/>
 
                     <file category="header" name="Middlewares/Third_Party/pal/targets/TARGET_STM32/Inc/cycfg.h"/>
                     <file category="header" name="Middlewares/Third_Party/pal/targets/TARGET_STM32/Inc/cycfg_system.h"/>
@@ -1306,24 +1364,7 @@ What's Included?
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/inc/"/>
                     <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/inc/whd_resource_api.h"/>
                     <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/resource_imp/wiced_resource.h"/>
-                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43012/"/>
 
-                    <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0.bin"/>
-                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0_bin.c"/>
-                    <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0-mfgtest.bin"/>
-                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0-mfgtest_bin.c"/>
-                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43012/resources.h"/>
-
-                    <!-- wifi clm -->
-                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43012/"/>
-                    <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43012/43012C0.clm_blob"/>
-                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43012/43012C0-mfgtest_clm_blob.c"/>
-                    <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43012/43012C0-mfgtest.clm_blob"/>
-                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43012/43012C0_clm_blob.c"/>
-                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43012/clm_resources.h"/>
-
-                    <!-- bluetooth fw -->
-                    <file category="source"  name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43012/COMPONENT_MURATA-1LV/w_bt_firmware_controller.c"/>
                 </files>
             </component>
             <component Cgroup="Platform" Csub="device" Cvariant="CYW43438" condition="Cortex-M Device" maxInstances="1">
@@ -1336,21 +1377,6 @@ What's Included?
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/inc/"/>
                     <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/inc/whd_resource_api.h"/>
                     <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/resource_imp/wiced_resource.h"/>
-                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43438/"/>
-                    <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43438/43438A1.bin"/>
-                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43438/43438A1_bin.c"/>
-                    <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43438/43438A1-mfgtest.bin"/>
-                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43438/43438A1-mfgtest_bin.c"/>
-                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43438/resources.h"/>
-
-                    <!-- wifi clm -->
-                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43438/"/>
-                    <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43438/43438A1.clm_blob"/>
-                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43438/43438A1-mfgtest_clm_blob.c"/>
-                    <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43438/43438A1-mfgtest.clm_blob"/>
-                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43438/43438A1_clm_blob.c"/>
-                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43438/clm_resources.h"/>
-
 
                     <!-- bluetooth fw -->
                     <file category="source" name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43438/COMPONENT_AW-CU427-P/w_bt_firmware_controller.c"/>
@@ -1366,8 +1392,92 @@ What's Included?
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/inc/"/>
                     <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/inc/whd_resource_api.h"/>
                     <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/resource_imp/wiced_resource.h"/>
-                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43439/"/>
 
+                </files>
+            </component>
+            <component Cgroup="Platform" Csub="device" Cvariant="CYW4343W" condition="Cortex-M Device" maxInstances="1">
+                <description>Device CYW4343W </description>
+                <files>
+                    <file category="include" name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_4343W/"/>
+                    <file category="header"  name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_4343W/cy_chip_constants.h"/>
+
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/inc/"/>
+                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/inc/whd_resource_api.h"/>
+                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/resource_imp/wiced_resource.h"/>
+
+                </files>
+            </component>
+            <component Cgroup="Platform" Csub="device" Cvariant="CYW4373" condition="Cortex-M Device" maxInstances="1">
+                <description>Device CYW4373 </description>
+                <files>
+                    <file category="include" name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_4373/"/>
+                    <file category="header"  name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_4373/cy_chip_constants.h"/>
+
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/inc/"/>
+                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/inc/whd_resource_api.h"/>
+                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/resource_imp/wiced_resource.h"/>
+
+                </files>
+            </component>
+
+            <!-- Module -->
+            <component Cgroup="Platform" Csub="module" Cvariant="MURATA-1LV" condition="CYW43012 dependencies" maxInstances="1">
+                <description>MURATA-1LV module (based on CYW43012)</description>
+                <files>
+                    <!-- wifi fw -->
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43012/"/>
+                    <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0.bin"/>
+                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0_bin.c"/>
+                    <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0-mfgtest.bin"/>
+                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0-mfgtest_bin.c"/>
+                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43012/resources.h"/>
+
+					<!-- wifi clm -->
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV/"/>
+                    <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV/43012C0.clm_blob"/>
+                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV/43012C0-mfgtest_clm_blob.c"/>
+                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV/43012C0_clm_blob.c"/>
+                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV/clm_resources.h"/>
+
+					<!-- nvram -->
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/nvram/COMPONENT_43012/COMPONENT_MURATA-1LV/"/>
+                    <!-- bluetooth fw -->
+                    <file category="source"  name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43012/COMPONENT_MURATA-1LV/w_bt_firmware_controller.c"/>
+                </files>
+            </component>
+
+            <component Cgroup="Platform" Csub="module" Cvariant="MURATA-1YN" condition="CYW43439 dependencies" maxInstances="1">
+                <description>MURATA-1YN module (based on CYW43439)</description>
+                <files>
+                    <!-- wifi fw -->
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43439/"/>
+                    <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43439/43439a0.bin"/>
+                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43439/43439a0_bin.c"/>
+                    <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43439/43439a0-mfgtest.bin"/>
+                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43439/43439a0-mfgtest_bin.c"/>
+                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43439/resources.h"/>
+
+                    <!-- wifi clm -->
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43439/COMPONENT_MURATA-1YN/"/>
+                    <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43439/COMPONENT_MURATA-1YN/43439A0.clm_blob"/>
+                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43439/COMPONENT_MURATA-1YN/43439A0-mfgtest_clm_blob.c"/>
+                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43439/COMPONENT_MURATA-1YN/43439A0_clm_blob.c"/>
+                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43439/COMPONENT_MURATA-1YN/clm_resources.h"/>
+                    
+                    <!-- nvram -->
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/nvram/COMPONENT_43439/COMPONENT_MURATA-1YN/"/>
+
+                    <!-- bluetooth fw -->
+                    <file category="source"  name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43439/COMPONENT_MURATA-1YN/w_bt_firmware_controller.c"/>
+                    
+                </files>
+            </component>
+
+            <component Cgroup="Platform" Csub="module" Cvariant="STERLING-LWBplus" condition="CYW43439 dependencies" maxInstances="1">
+                <description>STERLING-LWBplus module (based on CYW43439)</description>
+                <files>
+                    <!-- wifi fw -->
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43439/"/>
                     <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43439/43439a0.bin"/>
                     <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43439/43439a0_bin.c"/>
                     <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_43439/43439a0-mfgtest.bin"/>
@@ -1381,24 +1491,20 @@ What's Included?
                     <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43439/43439A0-mfgtest.clm_blob"/>
                     <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43439/43439A0_clm_blob.c"/>
                     <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_43439/clm_resources.h"/>
-
+                    
+                    <!-- nvram -->
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/nvram/COMPONENT_43439/COMPONENT_STERLING-LWBplus/"/>
 
                     <!-- bluetooth fw -->
-                    <file category="source" name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43439/COMPONENT_MURATA-1YN/w_bt_firmware_controller.c"/>
+                    <file category="source"  name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43439/COMPONENT_MURATA-1YN/w_bt_firmware_controller.c"/>
+
                 </files>
             </component>
-            <component Cgroup="Platform" Csub="device" Cvariant="CYW4343W" condition="Cortex-M Device" maxInstances="1">
-                <description>Device CYW4343W </description>
+            <component Cgroup="Platform" Csub="module" Cvariant="MURATA-1DX" condition="CYW4343W dependencies" maxInstances="1">
+                <description>MURATA-1DX module (based on CYW4343W)</description>
                 <files>
                     <!-- wifi fw -->
-                    <file category="include" name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_4343W/"/>
-                    <file category="header"  name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_4343W/cy_chip_constants.h"/>
-
-                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/inc/"/>
-                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/inc/whd_resource_api.h"/>
-                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/resource_imp/wiced_resource.h"/>
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4343W/"/>
-
                     <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4343W/4343WA1.bin"/>
                     <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4343W/4343WA1_bin.c"/>
                     <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4343W/4343WA1-mfgtest.bin"/>
@@ -1412,56 +1518,23 @@ What's Included?
                     <file category="other"   name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_4343W/4343WA1-mfgtest.clm_blob"/>
                     <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_4343W/4343WA1_clm_blob.c"/>
                     <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_4343W/clm_resources.h"/>
+                    <!-- nvram -->
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/nvram/COMPONENT_4343W/COMPONENT_MURATA-1DX/"/>
 
-
-                    
                     <!-- bluetooth fw -->
                     <file category="source"  name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_4343W/COMPONENT_MURATA-1DX/w_bt_firmware_controller.c"/>
                 </files>
             </component>
-            <component Cgroup="Platform" Csub="device" Cvariant="CYW4373" condition="Cortex-M Device" maxInstances="1">
-                <description>Device CYW4373 </description>
+            <component Cgroup="Platform" Csub="module" Cvariant="STERLING-LWB5plus" condition="CYW4373 dependencies" maxInstances="1">
+                <description>STERLING-LWB5plus module (based CYW4373)</description>
                 <files>
                     <!-- wifi fw -->
-                    <file category="include" name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_4373/"/>
-                    <file category="header"  name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_4373/cy_chip_constants.h"/>
-
-                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/inc/"/>
-                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/inc/whd_resource_api.h"/>
-                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/resource_imp/wiced_resource.h"/>
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4373/"/>
-                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/nvram_deprecated/TARGET_CYW9P62S2_M2BASE_4373/"/>
                     <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4373/4373A0_bin.c"/>
                     <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4373/4373A0-mfgtest_bin.c"/>
                     <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4373/resources.h"/>
-
-                    <!-- wifi clm -->
-                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_4373/"/>
-                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_4373/4373A0-mfgtest_clm_blob.c"/>
-                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_4373/4373A0_clm_blob.c"/>
-                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_4373/clm_resources.h"/>
-
-                    
-                    <!-- bluetooth fw -->
-                    <file category="source"  name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_4373/COMPONENT_STERLING-LWB5plus/w_bt_firmware_controller.c"/>
-                </files>
-            </component>
-
-            <component Cgroup="Platform" Csub="device" Cvariant="CYW4373_STERLING_LWB5PLUS" condition="Cortex-M Device" maxInstances="1">
-                <description>Device CYW4373 </description>
-                <files>
-                    <!-- wifi fw -->
-                    <file category="include" name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_4373/"/>
-                    <file category="header"  name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_4373/cy_chip_constants.h"/>
-
-                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/inc/"/>
-                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/inc/whd_resource_api.h"/>
-                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/resource_imp/wiced_resource.h"/>
-                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4373/"/>
+                    <!-- wifi nvram -->
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/nvram/COMPONENT_4373/COMPONENT_STERLING-LWB5plus/"/>
-                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4373/4373A0_bin.c"/>
-                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4373/4373A0-mfgtest_bin.c"/>
-                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4373/resources.h"/>
 
                     <!-- wifi clm -->
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_4373/COMPONENT_STERLING-LWB5plus/"/>
@@ -1469,52 +1542,57 @@ What's Included?
                     <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_4373/COMPONENT_STERLING-LWB5plus/4373A0_clm_blob.c"/>
                     <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_4373/COMPONENT_STERLING-LWB5plus/clm_resources.h"/>
 
-                    
                     <!-- bluetooth fw -->
                     <file category="source"  name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_4373/COMPONENT_STERLING-LWB5plus/w_bt_firmware_controller.c"/>
                 </files>
             </component>
-
-            <!-- NVRAM Selection -->
-            <component Cgroup="Platform" Csub="wifi-nvram-configuration" Cvariant="MURATA-1LV" condition="CYW43012 dependencies" maxInstances="1">
-                <description>Nvram configuration for MURATA-1LV module </description>
+            <component Cgroup="Platform" Csub="module" Cvariant="CYW9P62S2-M2BASE-4373" condition="CYW4373 dependencies" maxInstances="1">
+                <description>Reference module for CYW4373</description>
                 <files>
-                    <!-- nvram header file -->
-                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/nvram/COMPONENT_43012/COMPONENT_MURATA-1LV/"/>
-                </files>
-            </component>
-            <component Cgroup="Platform" Csub="wifi-nvram-configuration" Cvariant="MURATA-1DX" condition="CYW4343W dependencies" maxInstances="1">
-                <description>Nvram configuration for MURATA-1DX module </description>
-                <files>
-                    <!-- nvram header file -->
-                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/nvram/COMPONENT_4343W/COMPONENT_MURATA-1DX/"/>
-                </files>
-            </component>
-            <component Cgroup="Platform" Csub="wifi-nvram-configuration" Cvariant="MURATA-1YN" condition="CYW43439 dependencies" maxInstances="1">
-                <description>Nvram configuration for MURATA-1YN module </description>
-                <files>
-                    <!-- nvram header file -->
-                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/nvram/COMPONENT_43439/COMPONENT_MURATA-1YN/"/>
-                </files>
-            </component>
-            <component Cgroup="Platform" Csub="wifi-nvram-configuration" Cvariant="STERLING-LWB5plus" condition="CYW4373_STERLING_LWB5PLUS dependencies" maxInstances="1">
-                <description>Nvram configuration for STERLING-LWB5plus module </description>
-                <files>
-                    <!-- nvram header file -->
-                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/nvram/COMPONENT_4373/COMPONENT_STERLING-LWB5plus/"/>
-                </files>
-            </component>
-            <component Cgroup="Platform" Csub="wifi-nvram-configuration" Cvariant="CYW9P62S2-M2BASE-4373" condition="CYW4373 dependencies" maxInstances="1">
-                <description>Nvram configuration for CYW9P62S2-M2BASE-4373 module </description>
-                <files>
-                    <!-- nvram header file -->
+                    <!-- wifi fw -->
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4373/"/>
+                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4373/4373A0_bin.c"/>
+                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4373/4373A0-mfgtest_bin.c"/>
+                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4373/resources.h"/>
+                    <!-- wifi nvram -->
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/nvram_deprecated/TARGET_CYW9P62S2_M2BASE_4373/"/>
+
+                    <!-- wifi clm -->
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_4373/"/>
+                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_4373/4373A0-mfgtest_clm_blob.c"/>
+                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_4373/4373A0_clm_blob.c"/>
+                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_4373/clm_resources.h"/>
+
+                    <!-- bluetooth fw -->
+                    <file category="source"  name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_4373/COMPONENT_STERLING-LWB5plus/w_bt_firmware_controller.c"/>
                 </files>
             </component>
-            <component Cgroup="Platform" Csub="wifi-nvram-configuration" Cvariant="USER_NVRAM" condition="Cortex-M Device" maxInstances="1">
-                <description>User configuration </description>
+            <component Cgroup="Platform" Csub="module" Cvariant="MURATA-2AE" condition="CYW4373 dependencies" maxInstances="1">
+                <description>MURATA-2AE module (based on CYW4373)</description>
                 <files>
-                    <!-- User should provide own nvram headers somewhere in praject (e.g. in Core/Inc forder)-->    
+                    <!-- wifi fw -->
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4373/"/>
+                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4373/4373A0_bin.c"/>
+                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4373/4373A0-mfgtest_bin.c"/>
+                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/firmware/COMPONENT_4373/resources.h"/>
+                    <!-- wifi nvram -->
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/nvram/COMPONENT_4373/COMPONENT_MURATA-2AE/"/>
+
+                    <!-- wifi clm -->
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_4373/COMPONENT_MURATA-2AE/"/>
+                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_4373/COMPONENT_MURATA-2AE/4373A0-mfgtest_clm_blob.c"/>
+                    <file category="source"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_4373/COMPONENT_MURATA-2AE/4373A0_clm_blob.c"/>
+                    <file category="header"  name="Middlewares/Third_Party/wifi-host-driver/resources/clm/COMPONENT_4373/COMPONENT_MURATA-2AE/clm_resources.h"/>
+
+                    <!-- bluetooth fw -->
+                    <file category="source"  name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_4373/COMPONENT_MURATA-2AE/w_bt_firmware_controller.c"/>
+                </files>
+            </component>
+
+            <component Cgroup="Platform" Csub="module" Cvariant="USER-MODULE" condition="device dependencies" maxInstances="1">
+                <description>Custom User Module</description>
+                <files>
+                    <!-- User should provide own nvram headers somewhere in project (e.g. in Core/Inc forder)-->    
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/inc/"/>
                 </files>
             </component>

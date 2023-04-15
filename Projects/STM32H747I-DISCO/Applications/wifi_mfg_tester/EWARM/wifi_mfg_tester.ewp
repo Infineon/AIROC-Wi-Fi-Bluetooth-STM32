@@ -626,7 +626,7 @@
         </option>
         <option>
           <name>AUserIncludes</name>
-          <state>$PROJ_DIR$\..\CM4\Core\Inc</state>
+          <state>$PROJ_DIR$/../CM4/Core/Inc</state>
         </option>
         <option>
           <name>AExtraOptionsCheckV2</name>
@@ -1296,6 +1296,7 @@
           <state>STM32H747xx</state>
           <state>WLAN_MFG_FIRMWARE</state>
           <state>CYBSP_WIFI_CAPABLE</state>
+          <state>CY_STORAGE_WIFI_DATA=".whd_fw"</state>
           <state></state>
         </option>
         <option>
@@ -1451,22 +1452,13 @@
           <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/apps</state>
           <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/priv</state>
           <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/prot</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_43012/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/</state>
           <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/</state>
           <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/</state>
           <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/</state>
           <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/nvram/COMPONENT_43012/COMPONENT_MURATA-1LV/</state>
           <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/</state>
           <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/</state>
           <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_FREERTOS/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_43012</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012</state>
           <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include</state>
           <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc</state>
           <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc</state>
@@ -1751,7 +1743,7 @@
         </option>
         <option>
           <name>AUserIncludes</name>
-          <state>$PROJ_DIR$\..\CM7\Core\Inc</state>
+          <state>$PROJ_DIR$/../CM7/Core/Inc</state>
         </option>
         <option>
           <name>AExtraOptionsCheckV2</name>
@@ -2978,42 +2970,6 @@
           <excluded>
             <configuration>wifi_mfg_tester_CM4</configuration>
             <configuration>wifi_mfg_tester_CM7</configuration>
-          </excluded>
-        </file>
-      </group>
-      <group>
-        <name>Wireless/Platform/device/CYW43012</name>
-        <excluded>
-          <configuration>wifi_mfg_tester_CM4</configuration>
-        </excluded>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0_bin.c</name>
-          <excluded>
-            <configuration>wifi_mfg_tester_CM4</configuration>
-          </excluded>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0-mfgtest_bin.c</name>
-          <excluded>
-            <configuration>wifi_mfg_tester_CM4</configuration>
-          </excluded>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/43012C0-mfgtest_clm_blob.c</name>
-          <excluded>
-            <configuration>wifi_mfg_tester_CM4</configuration>
-          </excluded>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/43012C0_clm_blob.c</name>
-          <excluded>
-            <configuration>wifi_mfg_tester_CM4</configuration>
-          </excluded>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43012/COMPONENT_MURATA-1LV/w_bt_firmware_controller.c</name>
-          <excluded>
-            <configuration>wifi_mfg_tester_CM4</configuration>
           </excluded>
         </file>
       </group>
