@@ -330,6 +330,16 @@ Bluetooth Configuration Default Values</h2></td></tr>
 <tr class="memitem:gaa7ee2ece60f1e4d174e85167c85377c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___result.html#gacfc32ead8a827d53416f01b19eb58310">wiced_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__bt__cfg.html#gaa7ee2ece60f1e4d174e85167c85377c7">wiced_bt_stack_deinit</a> (void)</td></tr>
 <tr class="memdesc:gaa7ee2ece60f1e4d174e85167c85377c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a blocking call (returns after all de-initialisation procedures are complete) It is recommended that the application disconnect any outstanding connections prior to invoking this function.  <a href="#gaa7ee2ece60f1e4d174e85167c85377c7">More...</a><br /></td></tr>
 <tr class="separator:gaa7ee2ece60f1e4d174e85167c85377c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf247a5b27b1b3c9fafc747c887952d4c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___result.html#gacfc32ead8a827d53416f01b19eb58310">wiced_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__bt__cfg.html#gaf247a5b27b1b3c9fafc747c887952d4c">wiced_bt_l2c_module_init</a> (void)</td></tr>
+<tr class="memdesc:gaf247a5b27b1b3c9fafc747c887952d4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize l2cap.  <a href="#gaf247a5b27b1b3c9fafc747c887952d4c">More...</a><br /></td></tr>
+<tr class="separator:gaf247a5b27b1b3c9fafc747c887952d4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga12ca3e0453fe327c489bd39c520fd452"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___result.html#gacfc32ead8a827d53416f01b19eb58310">wiced_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__bt__cfg.html#ga12ca3e0453fe327c489bd39c520fd452">wiced_bt_smp_module_init</a> (void)</td></tr>
+<tr class="memdesc:ga12ca3e0453fe327c489bd39c520fd452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize SMP.  <a href="#ga12ca3e0453fe327c489bd39c520fd452">More...</a><br /></td></tr>
+<tr class="separator:ga12ca3e0453fe327c489bd39c520fd452"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga26ebacfb0c02e43d4d1b97bbfc22738f"><td class="memItemLeft" align="right" valign="top"><a id="ga26ebacfb0c02e43d4d1b97bbfc22738f"></a>
+<a class="el" href="group___result.html#gacfc32ead8a827d53416f01b19eb58310">wiced_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wiced__bt__cfg.html#ga26ebacfb0c02e43d4d1b97bbfc22738f">wiced_bt_init_resolution</a> (void)</td></tr>
+<tr class="memdesc:ga26ebacfb0c02e43d4d1b97bbfc22738f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable host based resolution This should be invoked in the BTM_ENABLED_EVT event. <br /></td></tr>
+<tr class="separator:ga26ebacfb0c02e43d4d1b97bbfc22738f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="ga363c245dbaa273d5d2a3df18f7f24c64"></a>
@@ -498,6 +508,49 @@ If p_bt_cfg_settings is null, stack uses default parameters defined in wiced_bt_
 <p>This is a blocking call (returns after all de-initialisation procedures are complete) It is recommended that the application disconnect any outstanding connections prior to invoking this function. </p>
 <dl class="section return"><dt>Returns</dt><dd><b> WICED_BT_SUCCESS </b> : on success; <br />
  <b> WICED_BT_ERROR </b> : if an error occurred </dd></dl>
+
+</div>
+</div>
+<a id="gaf247a5b27b1b3c9fafc747c887952d4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf247a5b27b1b3c9fafc747c887952d4c">&#9670;&nbsp;</a></span>wiced_bt_l2c_module_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___result.html#gacfc32ead8a827d53416f01b19eb58310">wiced_result_t</a> wiced_bt_l2c_module_init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize l2cap. </p>
+<dl class="section return"><dt>Returns</dt><dd>wiced_result_t </dd></dl>
+
+</div>
+</div>
+<a id="ga12ca3e0453fe327c489bd39c520fd452"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga12ca3e0453fe327c489bd39c520fd452">&#9670;&nbsp;</a></span>wiced_bt_smp_module_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group___result.html#gacfc32ead8a827d53416f01b19eb58310">wiced_result_t</a> wiced_bt_smp_module_init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize SMP. </p>
+<p>Called by application to accept incoming pairing requests</p>
+<dl class="section return"><dt>Returns</dt><dd>wiced_result_t </dd></dl>
 
 </div>
 </div>

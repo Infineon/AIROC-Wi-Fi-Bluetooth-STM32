@@ -57,7 +57,7 @@ extern "C" {
  *  wifi-host-driver's whd_country_code_t for legal options.
  */
 #if !defined(CY_WIFI_COUNTRY)
-#define CY_WIFI_COUNTRY                     (WHD_COUNTRY_UNITED_STATES)
+#define CY_WIFI_COUNTRY                     (WHD_COUNTRY_AUSTRALIA)
 #endif
 
 /** Defines the priority of the interrupt that handles out-of-band notifications from the wifi

@@ -145,10 +145,14 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">p_gatt_db</td><td>: First element in new GATT database array </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">gatt_db_size</td><td>: Size (in bytes) of GATT database </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">hash</td><td>: The calculated database hash value. The hash pointer passed to this function can be NULL incase the application does not support dynamic databases and does not support database caching</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">hash</td><td>: The calculated database hash value. The hash pointer passed to this function shall be NULL incase the application does not support dynamic databases and does not support database caching</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>GATT server apps which support Robust Caching need to invoke </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__gatt__module__init.html#ga8ccd2cb4b9fb6764bb59768e9d258efd" title="Enables GATT database hashing calculations on the server.">wiced_bt_gatt_server_enable_caching</a> prior to invoking <a class="el" href="group__gattdb__api__functions.html#ga29fd2f86442a2fdadf9c4a05094e5c7f" title="Initialize the GATT database (Please refer Service and Characteristic macros for MACRO&#39;s to create or...">wiced_bt_gatt_db_init</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>In case </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__gatt__module__init.html#ga8ccd2cb4b9fb6764bb59768e9d258efd" title="Enables GATT database hashing calculations on the server.">wiced_bt_gatt_server_enable_caching</a> is not invoked, <code>hash</code> has to be set to NULL</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__wicedbt__gatt.html#ga972f2437538363989cee28019cb06652">wiced_bt_gatt_status_t </a> </dd></dl>
 
 </div>

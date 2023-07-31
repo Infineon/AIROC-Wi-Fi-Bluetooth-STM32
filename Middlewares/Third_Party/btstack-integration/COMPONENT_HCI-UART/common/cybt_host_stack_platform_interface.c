@@ -39,7 +39,7 @@
 
 #include "cyhal_lptimer.h"
 #include "cycfg_system.h"
-#ifdef ENABLE_BT_SPY_LOG
+#ifdef ENABLE_DEBUG_UART
 #include "cybt_debug_uart.h"
 #endif
 

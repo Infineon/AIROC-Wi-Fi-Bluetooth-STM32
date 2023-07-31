@@ -1,8 +1,9 @@
-#ifdef ENABLE_BT_SPY_LOG
+#include "cybt_platform_config.h"
+
+#ifdef ENABLE_DEBUG_UART
 
 #include "cyhal_uart.h"
 #include "cyabs_rtos.h"
-#include "cybt_platform_config.h"
 #include "cybsp_types.h"
 #include "cybt_platform_task.h"
 #include "cybt_debug_uart.h"
@@ -252,7 +253,7 @@ static void cybt_debug_tx_task(void *arg)
 
 cybt_result_t cybt_init_debug_trans_task(void)
 {
-    cybt_result_t result;
+    cy_rslt_t result;
     void *p_heap_mem = NULL;
 
     result = cy_rtos_init_queue(&DEBUG_UART_TX_TASK_QUEUE,
@@ -487,4 +488,4 @@ int _write(int fd, const char* ptr, int len)
     return 0;
 }
 
-#endif // ENABLE_BT_SPY_LOG
+#endif // ENABLE_DEBUG_UART

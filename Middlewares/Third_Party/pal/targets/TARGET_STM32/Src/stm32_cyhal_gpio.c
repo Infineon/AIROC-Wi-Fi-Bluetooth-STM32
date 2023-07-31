@@ -165,6 +165,11 @@ cy_rslt_t cyhal_gpio_init(cyhal_gpio_t pin, cyhal_gpio_direction_t direction,
 {
     cy_rslt_t status = CY_RSLT_SUCCESS;
 
+    /* Return Failure if pin is configured as NC */
+    if (pin == NC)
+    {
+        return CY_RSLT_TYPE_ERROR;
+    }
     /* Get gpio port and pin from cyhal_gpio_t */
     GPIO_TypeDef* gpio_port = CYHAL_GET_PORT(pin);
     uint16_t      gpio_pin  = CYHAL_GET_PIN(pin);
@@ -336,6 +341,12 @@ void cyhal_gpio_write(cyhal_gpio_t pin, bool value)
 void cyhal_gpio_enable_event(cyhal_gpio_t pin, cyhal_gpio_event_t event, uint8_t intr_priority,
                              bool enable)
 {
+    /* Return if pin is configured as NC */
+    if (pin == NC)
+    {
+        return;
+    }
+
     /* Get gpio port and pin from cyhal_gpio_t */
     GPIO_TypeDef* gpio_port  = CYHAL_GET_PORT(pin);
     uint16_t      gpio_pin   = CYHAL_GET_PIN(pin);
@@ -382,6 +393,11 @@ void cyhal_gpio_enable_event(cyhal_gpio_t pin, cyhal_gpio_event_t event, uint8_t
  **************************************************************************************************/
 void cyhal_gpio_register_callback(cyhal_gpio_t pin, cyhal_gpio_callback_data_t* callback_data)
 {
+    /* Return if pin is configured as NC */
+    if (pin == NC)
+    {
+        return;
+    }
     /* Get pin number */
     uint32_t pin_number = CYHAL_GET_PIN_NUMBER(CYHAL_GET_PIN(pin));
 

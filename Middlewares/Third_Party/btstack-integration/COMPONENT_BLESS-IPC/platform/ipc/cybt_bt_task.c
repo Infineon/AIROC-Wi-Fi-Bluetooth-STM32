@@ -49,6 +49,7 @@
 /******************************************************************************
  *                           Variables Definitions
  ******************************************************************************/
+__attribute__((aligned(4))) uint8_t packet_buffer[1024];
 static uint32_t bt_task_dropped_packet_cnt = 0;
 static cy_thread_t bt_task = 0;
 static cy_queue_t  bt_task_queue = 0;
@@ -115,7 +116,6 @@ cybt_result_t cybt_send_msg_to_bt_task(void *p_bt_msg,
 
 static void handle_hci_rx_packet(void *event)
 {
-    static uint8_t packet_buffer[1024];
     hci_packet_type_t pti;
     uint32_t length;
 
@@ -147,7 +147,7 @@ static void handle_hci_rx_packet(void *event)
             wiced_bt_process_isoc_data(&packet_buffer[0], length);
             break;
 
-#ifdef ENABLE_BT_SPY_LOG
+#ifdef ENABLE_DEBUG_UART
         case HCI_PACKET_TYPE_DIAG:
             //sent packet to tracing uart
             break;

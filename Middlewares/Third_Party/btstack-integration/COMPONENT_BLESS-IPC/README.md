@@ -1,7 +1,7 @@
 ﻿#AIROC™ BT STack porting layer for PSoC6 BLESS
 
 ## Overview
-The btstack-port-cyal is the adaptation layer (porting layer) between AIROC™ BT STack and 
+The btstack-integration/COMPONENT_BLESS-IPC is the adaptation layer (porting layer) between AIROC™ BT STack and 
 Cypress Abstraction Layers (CYHAL and CYOSAL). This porting layer is to be used in conjunction with Cypress PSOC 6 BLE platform where the application and host stack are running on the CM4 core of PSOC and BLESS controller FW is running on CM0 core of PSOC.
 The porting layer implements routines to provide OS and memory services from platform and facilitates communication with controller.
 
@@ -31,7 +31,7 @@ Please refer to cybt_debug_uart.h.
 * The received ptrs in events from controller , can be mapped to IPC_CNTR_MSG , processed in bt_task. After processing the event , HOST needs to a post a msg to Controller to free up the memory.
 
 ## API Reference Manual
- - [Bluetooth platform API manual](https://infineon.github.io/bluetooth-freertos/api_reference_manual/html/index.html)
+ - [Bluetooth platform API manual](https://infineon.github.io/btstack-integration/COMPONENT_BLESS-IPC/docs/api_reference_manual/html/index.html)
  - [Bluetooth stack BLE API manual](https://infineon.github.io/btstack/ble/api_reference_manual/html/index.html)
     
-© Cypress Semiconductor Corporation, 2020.
+© Infineon Technologies, 2022.

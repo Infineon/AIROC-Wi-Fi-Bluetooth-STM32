@@ -97,7 +97,8 @@ extern "C"
  * is 1568 bytes, it required by WHD as max backplane transfer size.
  * Overwrite _CYHAL_SDIO_DMA_BUFFER_SIZE in cybsp.h if need to increase the
  * SDIO DMA buffer size */
-#if !defined (_CYHAL_SDIO_DMA_BUFFER_SIZE)
+#if (_CYHAL_SDIO_DMA_BUFFER_SIZE == 0)
+    #undef _CYHAL_SDIO_DMA_BUFFER_SIZE
     #define _CYHAL_SDIO_DMA_BUFFER_SIZE         (1568 / 4)  /* size in words */
 #endif /* !defined (_CYHAL_SDIO_DMA_BUFFER_SIZE) */
 
@@ -264,7 +265,7 @@ cy_rslt_t cyhal_sdio_configure(cyhal_sdio_t* obj, const cyhal_sdio_cfg_t* config
     if (config->frequencyhal_hz != 0u)
     {
         /* Override the SDMMC Clock frequency Configuration if defined */
-        #ifdef SDMMC_CLK_FREQ_OVERRIDE
+        #if SDMMC_CLK_FREQ_OVERRIDE
         clk_freq = SDMMC_CLK_FREQ_OVERRIDE;
         #else
         clk_freq = config->frequencyhal_hz;
@@ -405,22 +406,9 @@ cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t* obj, cyhal_sdio_transfer_type_t
         else
         {
             /* Byte mode */
-            block_size       = _stm32_sdio_find_optimal_block_size(length);
+            arg.cmd53.block_mode = 0;
+            block_size = _stm32_sdio_find_optimal_block_size(length);
             number_of_blocks = 1UL;
-        }
-
-        /* Set the CMD53 byte mode size to be the same as the block size */
-        if (arg.cmd53.block_mode == 0U)
-        {
-            if (_stm32_sdio_find_optimal_block_size(arg.cmd53.count) <
-                _CYHAL_SDIO_DATA_BLOCK_SIZE_512B)
-            {
-                arg.cmd53.count = _stm32_sdio_find_optimal_block_size(arg.cmd53.count);
-            }
-            else
-            {
-                arg.cmd53.count = 0u;
-            }
         }
 
         obj->hsd->ErrorCode = HAL_SD_ERROR_NONE;
@@ -482,11 +470,20 @@ cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t* obj, cyhal_sdio_transfer_type_t
             config.DataTimeOut = SDMMC_DATATIMEOUT;
             config.TransferDir = (direction == CYHAL_SDIO_XFER_TYPE_WRITE) ?
                                  SDMMC_TRANSFER_DIR_TO_CARD : SDMMC_TRANSFER_DIR_TO_SDMMC;
-            config.TransferMode  = SDMMC_TRANSFER_MODE_BLOCK;
-            config.DPSM          = SDMMC_DPSM_DISABLE;
-            config.DataLength    = block_size * number_of_blocks;
-            config.DataBlockSize = _stm32_sdio_convert_block_size((uint16_t)block_size);
+            config.DPSM = SDMMC_DPSM_DISABLE;
 
+            if (arg.cmd53.block_mode == 1)
+            {
+                config.TransferMode  = SDMMC_TRANSFER_MODE_BLOCK;
+                config.DataLength    = block_size * number_of_blocks;
+                config.DataBlockSize = _stm32_sdio_convert_block_size((uint16_t)block_size);
+            }
+            else
+            {
+                config.TransferMode  = SDMMC_DCTRL_DTMODE_0; /* multibyte data transfer mode */
+                config.DataLength    = length;
+                config.DataBlockSize =  0;
+            }
             obj->hsd->Instance->DCTRL |= SDMMC_DCTRL_SDIOEN;  /* SD I/O enable functions */
             (void)SDMMC_ConfigData(obj->hsd->Instance, &config);
 
@@ -801,7 +798,7 @@ static void _stm32_sdio_disable_hw_block(const cyhal_sdio_t* obj)
 /***************************************************************************************************
  * _stm32_sdio_find_optimal_block_size
  **************************************************************************************************/
-static  uint32_t _stm32_sdio_find_optimal_block_size(uint32_t data_size)
+static uint32_t _stm32_sdio_find_optimal_block_size(uint32_t data_size)
 {
     if (data_size > (uint32_t)_CYHAL_SDIO_DATA_BLOCK_SIZE_256B)
     {
@@ -835,7 +832,7 @@ static  uint32_t _stm32_sdio_find_optimal_block_size(uint32_t data_size)
     {
         return _CYHAL_SDIO_DATA_BLOCK_SIZE_4B;
     }
-    return _CYHAL_SDIO_DATA_BLOCK_SIZE_4B;
+    return _CYHAL_SDIO_DATA_BLOCK_SIZE_2B;
 }
 
 

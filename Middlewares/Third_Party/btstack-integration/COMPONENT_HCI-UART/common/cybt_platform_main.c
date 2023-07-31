@@ -27,13 +27,16 @@
 #include "wiced_bt_dev.h"
 #include "wiced_bt_cfg.h"
 #include "wiced_bt_stack_platform.h"
+#include "wiced_bt_stack.h"
+#include "wiced_bt_gatt.h"
+#include "wiced_bt_version.h"
 
 #include "cybt_platform_task.h"
 #include "cybt_platform_trace.h"
 #include "cybt_platform_config.h"
 #include "cybt_platform_interface.h"
 
-
+wiced_result_t cybt_core_management_cback( wiced_bt_management_evt_t event, wiced_bt_management_evt_data_t *p_event_data);
 /******************************************************************************
  *                                Constants
  ******************************************************************************/
@@ -141,11 +144,7 @@ void wiced_post_stack_init_cback( void )
 
     memset(&event_data, 0, sizeof(wiced_bt_management_evt_t));
     event_data.enabled.status = WICED_BT_SUCCESS;
-
-    if(cybt_main_cb.p_app_management_callback)
-    {
-        cybt_main_cb.p_app_management_callback(BTM_ENABLED_EVT, &event_data);
-    }
+    cybt_core_management_cback( BTM_ENABLED_EVT, &event_data);
 
     if((CYBT_SLEEP_MODE_ENABLED == p_sleep_config->sleep_mode_enabled)
        && (NC != p_sleep_config->device_wakeup_pin)
@@ -173,11 +172,44 @@ wiced_bool_t wiced_stack_event_handler_cback (uint8_t *p_event)
     return WICED_FALSE;
 }
 
+#if (defined(BTSTACK_VER) && (BTSTACK_VER >= 0x03070000))
+static wiced_result_t init_layers(void)
+{
+    /* handle in porting layer */
+    return wiced_bt_smp_module_init();
+}
+
+#if (defined(__GNUC__) || defined(__ARMCC_VERSION))
+extern __attribute__((weak)) wiced_result_t app_initialize_btstack_modules(void)
+{
+     return init_layers();
+}
+#endif
+
+#if defined(__ICCARM__)
+extern wiced_result_t app_initialize_btstack_modules(void);
+#pragma weak app_initialize_btstack_modules=init_layers
+#endif
+
+#endif // BTSTACK_VER
+
 wiced_result_t cybt_core_management_cback( wiced_bt_management_evt_t event, wiced_bt_management_evt_data_t *p_event_data )
 {
     wiced_result_t result = WICED_BT_SUCCESS;
+    int send_to_app = 1;
+#if (defined(BTSTACK_VER) && (BTSTACK_VER >= 0x03070000))
+    switch(event)
+    {
+        case BTM_ENABLED_EVT:
+#if (!defined(DISABLE_DEFAULT_BTSTACK_INIT) || (DISABLE_DEFAULT_BTSTACK_INIT == 1))
+            app_initialize_btstack_modules(); // initialize all layers
+#endif
+            wiced_bt_init_resolution(); // To be removed, only required for non-privacy controllers
+        break;
+    }
+#endif // BTSTACK_VER
 
-    if(cybt_main_cb.p_app_management_callback)
+    if(send_to_app && cybt_main_cb.p_app_management_callback)
     {
         result = cybt_main_cb.p_app_management_callback(event, p_event_data);
     }

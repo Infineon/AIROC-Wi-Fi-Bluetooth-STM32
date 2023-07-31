@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -34,12 +34,30 @@
 /**
 * @file cy_wcm.h
 * @brief Wi-Fi Connection Manager (WCM) is a library that helps application developers manage their Wi-Fi connectivity.
-* The library provides a set of APIs that can be used to establish and monitor Wi-Fi connections on Cypress platforms that support Wi-Fi connectivity.
+* The library provides a set of APIs that can be used to establish and monitor Wi-Fi connections on Infineon platforms that support Wi-Fi connectivity.
 * The library APIs are thread-safe. The library monitors the Wi-Fi connection and notifies the connection state change through an event notification mechanism.
 * The library also provides APIs to connect to a Wi-Fi network using Wi-Fi Protected Setup (WPS) methods.
 * See individual APIs for more details.
-* WPS is disabled by default. WPS uses Mbed TLS security stack. Enable the following components for WPS.
+* WPS is disabled by default. WPS uses the Mbed TLS security stack. Enable the following components for WPS:
 * COMPONENTS+=WPS MBEDTLS
+*
+* The library supports multi-core architecture by making a subset of APIs available as virtual APIs.
+* The virtualization of the WCM library helps to access the WCM APIs defined in one core from the other core using Inter Process Communication (IPC).
+* The WCM can now be run on two cores simultaneously, with one core containing the full connectivity stack (primary core) and the other core containing the subset of virtual-only APIs (secondary core).
+* The virtual APIs pipe the API requests over IPC to the primary core where the API is actually executed and the result is passed back to the secondary core.
+* This virtualization abstracts out the implementation details and complexity of IPC, thus making multi-core connectivity application development simple.
+*
+* The following APIs are available as virtual APIs on the secondary core:
+* - cy_wcm_is_connected_to_ap
+* - cy_wcm_register_event_callback
+* - cy_wcm_deregister_event_callback
+*
+* In order to use the virtual APIs, the Virtual Connectivity Manager (VCM) library needs to be included and initialized first.
+* Define the following compile-time macros in the secondary core's application:
+* DEFINES+=ENABLE_MULTICORE_CONN_MW USE_VIRTUAL_API
+* ENABLE_MULTICORE_CONN_MW must be defined on both applications. For more details, see the quick start guide.
+*
+* For more information on virtualization, see the [Virtual Connectivity Manager](https://github.com/Infineon/virtual-connectivity-manager) library.
 */
 
 
@@ -51,6 +69,7 @@ extern "C" {
 
 #include "cy_result.h"
 #include "cy_wcm_error.h"
+#include "whd_types.h"
 
 #if defined(__ICCARM__)
 #define CYPRESS_WEAK            __WEAK
@@ -64,9 +83,9 @@ extern "C" {
 #endif  /* defined(__ICCARM__) */
 
 /**
- * \defgroup group_wcm_mscs Message Sequence Charts
+ * \defgroup group_wcm_mscs Message sequence charts
  * \defgroup group_wcm_macros Macros
- * \defgroup group_wcm_enums Enumerated Types
+ * \defgroup group_wcm_enums Enumerated types
  * \defgroup group_wcm_typedefs Typedefs
  * \defgroup group_wcm_structures Structures
  * \defgroup group_wcm_functions Functions
@@ -106,6 +125,7 @@ extern "C" {
 #define SHARED_ENABLED                     0x00008000  /**< Flag to enable shared key security.    */
 #define WPA_SECURITY                       0x00200000  /**< Flag to enable WPA security.           */
 #define WPA2_SECURITY                      0x00400000  /**< Flag to enable WPA2 security.          */
+#define WPA2_SHA256_SECURITY               0x00800000  /**< Flag to enable WPA2 SHA256 Security    */
 #define WPA3_SECURITY                      0x01000000  /**< Flag to enable WPA3 PSK security.      */
 #define ENTERPRISE_ENABLED                 0x02000000  /**< Flag to enable enterprise security.    */
 #define WPS_ENABLED                        0x10000000  /**< Flag to enable WPS security.           */
@@ -152,49 +172,60 @@ typedef enum
  */
 typedef enum
 {
-    CY_WCM_SECURITY_OPEN               = 0,                                                                   /**< Open security.                                         */
-    CY_WCM_SECURITY_WEP_PSK            = WEP_ENABLED,                                                         /**< WEP PSK security with open authentication.             */
-    CY_WCM_SECURITY_WEP_SHARED         = ( WEP_ENABLED   | SHARED_ENABLED ),                                  /**< WEP PSK security with shared authentication.           */
-    CY_WCM_SECURITY_WPA_TKIP_PSK       = ( WPA_SECURITY  | TKIP_ENABLED ),                                    /**< WPA PSK security with TKIP.                            */
-    CY_WCM_SECURITY_WPA_AES_PSK        = ( WPA_SECURITY  | AES_ENABLED ),                                     /**< WPA PSK security with AES.                             */
-    CY_WCM_SECURITY_WPA_MIXED_PSK      = ( WPA_SECURITY  | AES_ENABLED | TKIP_ENABLED ),                      /**< WPA PSK security with AES and TKIP.                    */
-    CY_WCM_SECURITY_WPA2_AES_PSK       = ( WPA2_SECURITY | AES_ENABLED ),                                     /**< WPA2 PSK security with AES.                            */
-    CY_WCM_SECURITY_WPA2_TKIP_PSK      = ( WPA2_SECURITY | TKIP_ENABLED ),                                    /**< WPA2 PSK security with TKIP.                           */
-    CY_WCM_SECURITY_WPA2_MIXED_PSK     = ( WPA2_SECURITY | AES_ENABLED | TKIP_ENABLED ),                      /**< WPA2 PSK security with AES and TKIP.                   */
-    CY_WCM_SECURITY_WPA2_FBT_PSK       = ( WPA2_SECURITY | AES_ENABLED | FBT_ENABLED),                        /**< WPA2 FBT PSK security with AES and TKIP.               */
-    CY_WCM_SECURITY_WPA3_SAE           = ( WPA3_SECURITY | AES_ENABLED ),                                     /**< WPA3 security with AES.                                */
-    CY_WCM_SECURITY_WPA2_WPA_AES_PSK   = (WPA2_SECURITY | WPA_SECURITY | AES_ENABLED),                        /**< WPA2 WPA PSK Security with AES                         */
-    CY_WCM_SECURITY_WPA2_WPA_MIXED_PSK = (WPA2_SECURITY | WPA_SECURITY | AES_ENABLED | TKIP_ENABLED),         /**< WPA2 WPA PSK Security with AES & TKIP.                  */
-    CY_WCM_SECURITY_WPA3_WPA2_PSK      = ( WPA3_SECURITY | WPA2_SECURITY | AES_ENABLED ),                     /**< WPA3 WPA2 PSK security with AES.                       */
-    CY_WCM_SECURITY_WPA_TKIP_ENT       = (ENTERPRISE_ENABLED | WPA_SECURITY | TKIP_ENABLED),                  /**< WPA Enterprise Security with TKIP.                      */
-    CY_WCM_SECURITY_WPA_AES_ENT        = (ENTERPRISE_ENABLED | WPA_SECURITY | AES_ENABLED),                   /**< WPA Enterprise Security with AES                       */
-    CY_WCM_SECURITY_WPA_MIXED_ENT      = (ENTERPRISE_ENABLED | WPA_SECURITY | AES_ENABLED | TKIP_ENABLED),    /**< WPA Enterprise Security with AES and TKIP.                */
-    CY_WCM_SECURITY_WPA2_TKIP_ENT      = (ENTERPRISE_ENABLED | WPA2_SECURITY | TKIP_ENABLED),                 /**< WPA2 Enterprise Security with TKIP.                     */
-    CY_WCM_SECURITY_WPA2_AES_ENT       = (ENTERPRISE_ENABLED | WPA2_SECURITY | AES_ENABLED),                  /**< WPA2 Enterprise Security with AES.                      */
-    CY_WCM_SECURITY_WPA2_MIXED_ENT     = (ENTERPRISE_ENABLED | WPA2_SECURITY | AES_ENABLED | TKIP_ENABLED),   /**< WPA2 Enterprise Security with AES and TKIP.               */
-    CY_WCM_SECURITY_WPA2_FBT_ENT       = (ENTERPRISE_ENABLED | WPA2_SECURITY | AES_ENABLED | FBT_ENABLED),    /**< WPA2 Enterprise Security with AES and FBT.                */
+    CY_WCM_SECURITY_OPEN                = 0,                                                                   /**< Open security.                                         */
+    CY_WCM_SECURITY_WEP_PSK             = WEP_ENABLED,                                                         /**< WEP PSK security with open authentication.             */
+    CY_WCM_SECURITY_WEP_SHARED          = ( WEP_ENABLED   | SHARED_ENABLED ),                                  /**< WEP PSK security with shared authentication.           */
+    CY_WCM_SECURITY_WPA_TKIP_PSK        = ( WPA_SECURITY  | TKIP_ENABLED ),                                    /**< WPA PSK security with TKIP.                            */
+    CY_WCM_SECURITY_WPA_AES_PSK         = ( WPA_SECURITY  | AES_ENABLED ),                                     /**< WPA PSK security with AES.                             */
+    CY_WCM_SECURITY_WPA_MIXED_PSK       = ( WPA_SECURITY  | AES_ENABLED | TKIP_ENABLED ),                      /**< WPA PSK security with AES and TKIP.                    */
+    CY_WCM_SECURITY_WPA2_AES_PSK        = ( WPA2_SECURITY | AES_ENABLED ),                                     /**< WPA2 PSK security with AES.                            */
+    CY_WCM_SECURITY_WPA2_AES_PSK_SHA256 = ( WPA2_SECURITY | WPA2_SHA256_SECURITY | AES_ENABLED ),              /**< WPA2 PSK SHA256 Security with AES                      */
+    CY_WCM_SECURITY_WPA2_TKIP_PSK       = ( WPA2_SECURITY | TKIP_ENABLED ),                                    /**< WPA2 PSK security with TKIP.                           */
+    CY_WCM_SECURITY_WPA2_MIXED_PSK      = ( WPA2_SECURITY | AES_ENABLED | TKIP_ENABLED ),                      /**< WPA2 PSK security with AES and TKIP.                   */
+    CY_WCM_SECURITY_WPA2_FBT_PSK        = ( WPA2_SECURITY | AES_ENABLED | FBT_ENABLED),                        /**< WPA2 FBT PSK security with AES and TKIP.               */
+    CY_WCM_SECURITY_WPA3_SAE            = ( WPA3_SECURITY | AES_ENABLED ),                                     /**< WPA3 security with AES.                                */
+    CY_WCM_SECURITY_WPA2_WPA_AES_PSK    = (WPA2_SECURITY | WPA_SECURITY | AES_ENABLED),                        /**< WPA2 WPA PSK Security with AES                         */
+    CY_WCM_SECURITY_WPA2_WPA_MIXED_PSK  = (WPA2_SECURITY | WPA_SECURITY | AES_ENABLED | TKIP_ENABLED),         /**< WPA2 WPA PSK Security with AES & TKIP.                 */
+    CY_WCM_SECURITY_WPA3_WPA2_PSK       = ( WPA3_SECURITY | WPA2_SECURITY | AES_ENABLED ),                     /**< WPA3 WPA2 PSK security with AES.                       */
+    CY_WCM_SECURITY_WPA_TKIP_ENT        = (ENTERPRISE_ENABLED | WPA_SECURITY | TKIP_ENABLED),                  /**< WPA Enterprise Security with TKIP.                     */
+    CY_WCM_SECURITY_WPA_AES_ENT         = (ENTERPRISE_ENABLED | WPA_SECURITY | AES_ENABLED),                   /**< WPA Enterprise Security with AES                       */
+    CY_WCM_SECURITY_WPA_MIXED_ENT       = (ENTERPRISE_ENABLED | WPA_SECURITY | AES_ENABLED | TKIP_ENABLED),    /**< WPA Enterprise Security with AES and TKIP.             */
+    CY_WCM_SECURITY_WPA2_TKIP_ENT       = (ENTERPRISE_ENABLED | WPA2_SECURITY | TKIP_ENABLED),                 /**< WPA2 Enterprise Security with TKIP.                    */
+    CY_WCM_SECURITY_WPA2_AES_ENT        = (ENTERPRISE_ENABLED | WPA2_SECURITY | AES_ENABLED),                  /**< WPA2 Enterprise Security with AES.                     */
+    CY_WCM_SECURITY_WPA2_MIXED_ENT      = (ENTERPRISE_ENABLED | WPA2_SECURITY | AES_ENABLED | TKIP_ENABLED),   /**< WPA2 Enterprise Security with AES and TKIP.            */
+    CY_WCM_SECURITY_WPA2_FBT_ENT        = (ENTERPRISE_ENABLED | WPA2_SECURITY | AES_ENABLED | FBT_ENABLED),    /**< WPA2 Enterprise Security with AES and FBT.             */
 
-    CY_WCM_SECURITY_IBSS_OPEN          = ( IBSS_ENABLED ),                                                    /**< Open security on IBSS ad hoc network.                  */
-    CY_WCM_SECURITY_WPS_SECURE         = ( WPS_ENABLED | AES_ENABLED),                                        /**< WPS with AES security.                                 */
+    CY_WCM_SECURITY_IBSS_OPEN           = ( IBSS_ENABLED ),                                                    /**< Open security on IBSS ad hoc network.                  */
+    CY_WCM_SECURITY_WPS_SECURE          = ( WPS_ENABLED | AES_ENABLED),                                        /**< WPS with AES security.                                 */
 
-    CY_WCM_SECURITY_UNKNOWN            = -1,                                                                  /**< Returned by \ref cy_wcm_scan_result_callback_t if security is unknown. Do not pass this to the join function! */
+    CY_WCM_SECURITY_UNKNOWN             = -1,                                                                  /**< Returned by \ref cy_wcm_scan_result_callback_t if security is unknown. Do not pass this to the join function! */
 
-    CY_WCM_SECURITY_FORCE_32_BIT       = 0x7fffffff                                                           /**< Exists only to force whd_security_t type to 32 bits.   */
+    CY_WCM_SECURITY_FORCE_32_BIT        = 0x7fffffff                                                           /**< Exists only to force whd_security_t type to 32 bits.   */
 } cy_wcm_security_t;
 
 /**
- * Enumeration of 802.11 Radio Bands
+ * Enumeration of 802.11 radio bands
  */
 typedef enum
 {
-    CY_WCM_WIFI_BAND_ANY = 0,     /**< The platform will choose an available band.  */
+    CY_WCM_WIFI_BAND_ANY = 0,     /**< Platform will choose an available band.  */
     CY_WCM_WIFI_BAND_5GHZ,        /**< 5-GHz radio band.                            */
     CY_WCM_WIFI_BAND_2_4GHZ,      /**< 2.4-GHz radio band.                          */
+    CY_WCM_WIFI_BAND_6GHZ,        /**< 6-GHz radio band.                            */
 } cy_wcm_wifi_band_t;
 
+/**
+ * Enumeration of TWT profile type
+ */
+typedef enum
+{
+    CY_WCM_ITWT_PROFILE_NONE = 0,  /**< TWT is disabled.  */
+    CY_WCM_ITWT_PROFILE_IDLE,      /**< Idle profile.     */
+    CY_WCM_ITWT_PROFILE_ACTIVE,    /**< Active profile.   */
+} cy_wcm_itwt_profile_t;
 
 /**
- * Enumeration of RSSI Range
+ * Enumeration of RSSI range
  */
 typedef enum
 {
@@ -205,18 +236,27 @@ typedef enum
 
 
 /**
- * Enumeration of WCM Interfaces Types
+ * Enumeration of WCM interfaces types
  */
 typedef enum
 {
-    CY_WCM_INTERFACE_TYPE_STA = 0,    /**< STA or Client interface. */
+    CY_WCM_INTERFACE_TYPE_STA = 0,    /**< STA or client interface. */
     CY_WCM_INTERFACE_TYPE_AP,         /**< SoftAP interface. */
     CY_WCM_INTERFACE_TYPE_AP_STA      /**< Concurrent AP + STA mode. */
 } cy_wcm_interface_t;
 
+/**
+ * Enumeration of WCM Powersave Modes
+ */
+typedef enum
+{
+    CY_WCM_NO_POWERSAVE_MODE  = NO_POWERSAVE_MODE,   /**< No power savings */
+    CY_WCM_PM1_POWERSAVE_MODE = PM1_POWERSAVE_MODE,  /**< Powersave mode on specified interface without regard for throughput reduction */
+    CY_WCM_PM2_POWERSAVE_MODE = PM2_POWERSAVE_MODE,  /**< Powersave mode on specified interface with High throughput */
+} cy_wcm_powersave_mode_t;
 
 /**
- * Enumeration of Scan Status
+ * Enumeration of scan status
  */
 typedef enum
 {
@@ -225,7 +265,7 @@ typedef enum
 } cy_wcm_scan_status_t;
 
 /**
- * Enumeration of WPS Connection Modes
+ * Enumeration of WPS connection modes
  */
 typedef enum
 {
@@ -234,7 +274,7 @@ typedef enum
 } cy_wcm_wps_mode_t;
 
 /**
- * Enumeration of WPS Configuration Method
+ * Enumeration of WPS configuration method
  */
 typedef enum
 {
@@ -255,7 +295,7 @@ typedef enum
 
 
 /**
- * Enumeration of WPS Authentication Types
+ * Enumeration of WPS authentication types
  */
 typedef enum
 {
@@ -269,7 +309,7 @@ typedef enum
 } cy_wcm_wps_authentication_type_t;
 
 /**
- * Enumeration of WPS Encryption Type
+ * Enumeration of WPS encryption type
  */
 typedef enum
 {
@@ -282,7 +322,7 @@ typedef enum
 } cy_wcm_wps_encryption_type_t;
 
 /**
- * Enumeration of WPS Device Category from the WSC 2.0 Spec
+ * Enumeration of WPS device category from the WSC 2.0 spec
  */
 typedef enum
 {
@@ -302,7 +342,7 @@ typedef enum
 } cy_wcm_wps_device_category_t;
 
 /**
- * Enumeration of WCM Events
+ * Enumeration of WCM events
  */
 typedef enum
 {
@@ -318,7 +358,7 @@ typedef enum
 } cy_wcm_event_t;
 
 /**
- * Enumeration of Scan Filter Types
+ * Enumeration of scan filter types
  */
 typedef enum
 {
@@ -329,7 +369,7 @@ typedef enum
 }cy_wcm_scan_filter_type_t;
 
 /**
- * Enumeration of Network Types
+ * Enumeration of network types
  */
 typedef enum
 {
@@ -341,7 +381,7 @@ typedef enum
 } cy_wcm_bss_type_t;
 
 /**
- * Enumeration of applicable packet mask bits for custom Information Elements (IEs)
+ * Enumeration of applicable packet mask bits for custom information elements (IEs)
  */
 typedef enum
 {
@@ -455,6 +495,7 @@ typedef struct
     cy_wcm_mac_t             BSSID;                /**< MAC address of the AP (optional). */
     cy_wcm_ip_setting_t      *static_ip_settings;  /**< Static IP settings of the device (optional). */
     cy_wcm_wifi_band_t       band;                 /**< Radio band to be connected (optional). */
+    cy_wcm_itwt_profile_t    itwt_profile;         /**< Individual TWT profile */
 } cy_wcm_connect_params_t;
 
 /**
@@ -469,7 +510,7 @@ typedef struct
         cy_wcm_mac_t               BSSID;       /**< MAC address of AP. */
         cy_wcm_wifi_band_t         band;        /**< Radio band. */
         cy_wcm_scan_rssi_range_t   rssi_range;  /**< RSSI range. */
-    } param;                                    /**< Paramter specific to scan filter mode.  */
+    } param;                                    /**< Parameter specific to scan filter mode.  */
 } cy_wcm_scan_filter_t;
 
 
@@ -536,7 +577,7 @@ typedef struct
 } cy_wcm_associated_ap_info_t;
 
 /**
- * Structure used to receive the WLAN statistics of the given Interface from the time WLAN driver is up.
+ * Structure used to receive the WLAN statistics of the given interface from the time the WLAN driver is up.
  */
 typedef struct
 {
@@ -562,14 +603,15 @@ typedef struct
 } cy_wcm_custom_ie_info_t;
 
 /**
- * Structure used to configure the Access Point. \ref cy_wcm_start_ap.
+ * Structure used to configure the access point. \ref cy_wcm_start_ap.
  */
 typedef struct
 {
     cy_wcm_ap_credentials_t  ap_credentials;      /**< AP credentials. */
+    cy_wcm_wifi_band_t       band;                /**< Band for the AP. */
     uint8_t                  channel;             /**< Radio channel of the AP. */
     cy_wcm_ip_setting_t      ip_settings;         /**< IP settings of the AP interface. */
-    cy_wcm_custom_ie_info_t  *ie_info;            /**< Optional Custom IE information to be added to SoftAP. */
+    cy_wcm_custom_ie_info_t  *ie_info;            /**< Optional custom IE information to be added to the SoftAP. */
 } cy_wcm_ap_config_t;
 
 /** \} group_wcm_structures */
@@ -583,12 +625,12 @@ typedef struct
  *
  * @param[in] result_ptr       : A pointer to the scan result; the scan result will be freed once the callback function returns from the application.
  *                               There will not be any scan result when the scan status is CY_WCM_SCAN_COMPLETE.
- *                               For more details on content of result_ptr, refer \ref cy_wcm_scan_result_t. 
+ *                               For more details on content of result_ptr, see \ref cy_wcm_scan_result_t.
  * @param[in] user_data        : User-provided data.
  * @param[in] status           : Status of the scan process.
- *                               CY_WCM_SCAN_COMPLETE   : Indicates the scan is completed. In this case the result_ptr will not contain any results.
- *                               CY_WCM_SCAN_INCOMPLETE : Indicates the scan is in progress. In this case result_ptr contains one of the scan result. 
- *                                                        
+ *                               CY_WCM_SCAN_COMPLETE   : Indicates the scan is completed. In this case, the result_ptr will not contain any results.
+ *                               CY_WCM_SCAN_INCOMPLETE : Indicates the scan is in progress. In this case, result_ptr contains one of the scan result.
+ *
  *
  * Note: The callback function will be executed in the context of the WCM.
  */
@@ -621,7 +663,10 @@ typedef void (*cy_wcm_event_callback_t)(cy_wcm_event_t event, cy_wcm_event_data_
  *
  * This function initializes the WCM resources, WHD, and Wi-Fi transport;
  * turns Wi-Fi on; and starts up the network stack. This function should be called before calling other WCM APIs.
- * 
+ *
+ * This function is supported in multi-core environment and it must be called in secondary core application before invoking any virtual WCM APIs.
+ * \note The secondary core can invoke this API by passing the config parameter as NULL.
+ *
  * @param[in]  config: The configuration to be initialized.
  *
  * @return CY_RSLT_SUCCESS if WCM initialization was successful; returns \ref cy_wcm_error otherwise.
@@ -634,6 +679,8 @@ cy_rslt_t cy_wcm_init(cy_wcm_config_t *config);
  *
  * This function cleans up all the resources of the WCM and brings down the Wi-Fi driver.
  *
+ * This function is supported in multi-core environment and can be invoked in the secondary core application which then cleans up all the resources of WCM in secondary core.
+ *
  * \note This API does not bring down the network stack because the default underlying stack does not have
  *       an implementation for deinit. Therefore, the expectation is that \ref cy_wcm_init and this API should
  *       be invoked only once.
@@ -643,7 +690,7 @@ cy_rslt_t cy_wcm_init(cy_wcm_config_t *config);
 cy_rslt_t cy_wcm_deinit(void);
 
 /**
- * Performs Wi-Fi network scan.
+ * Performs a Wi-Fi network scan.
  * The scan progressively accumulates results over time and may take between 1 and 10 seconds to complete.
  * The results of the scan will be individually provided to the callback function.
  * This API can be invoked while being connected to an AP.
@@ -651,7 +698,7 @@ cy_rslt_t cy_wcm_deinit(void);
  *  @param[in]  scan_callback  : Callback function which receives the scan results;
  *                               callback will be executed in the context of the WCM.
  *                               Scan results will be individually provided to this callback function.
- *                               For more details on the scan results refer \ref cy_wcm_scan_result_callback_t.
+ *                               For more details on the scan results, see \ref cy_wcm_scan_result_callback_t.
  *  @param[in]  user_data      : User data to be returned as an argument in the callback function
  *                               when the callback function is invoked.
  *  @param[in]  scan_filter    : Scan filter parameter passed for scanning (optional).
@@ -672,8 +719,8 @@ cy_rslt_t cy_wcm_stop_scan(void);
 
 /**
  * Connects the STA interface to a AP using the Wi-Fi credentials and configuration parameters provided.
- * On successful connection to the Wi-Fi network, the API returns the IP address.
- * If the user does not know the security type of the AP then, connect_param.ap_credentials.security must 
+ * On a successful connection to the Wi-Fi network, the API returns the IP address.
+ * If the user does not know the security type of the AP then, connect_param.ap_credentials.security must
  * be set to CY_WCM_SECURITY_UNKNOWN so that the library will internally find the security type before
  * connecting to AP.
  *
@@ -687,8 +734,8 @@ cy_rslt_t cy_wcm_stop_scan(void);
  * @param[out]  ip_addr             : Pointer to return the IP address (optional).
  *
  * \note WEP (Wired Equivalent Privacy) security is not supported by this API.
- *       WEP based authentication types are considered to be weaker security types,
- *       hence this function doesn't connect to AP that is configured with WEP based authentication.
+ *       WEP-based authentication types are considered to be weaker security types;
+ *       therefore, this function doesn't connect to an AP that is configured with WEP-based authentication.
  *
  * @return CY_RSLT_SUCCESS if connection is successful; returns \ref cy_wcm_error otherwise.
  */
@@ -708,7 +755,7 @@ cy_rslt_t cy_wcm_disconnect_ap(void);
  * @param[in]   interface_type  : Type of the WCM interface.
  * @param[out]  ip_addr         : Pointer to an IP address structure (or) an IP address structure array.
  *                                If the given interface is CY_WCM_INTERFACE_TYPE_STA or CY_WCM_INTERFACE_TYPE_AP upon return, index-0 stores the IPv4 address of the interface.
- *                                If the given interface type is CY_WCM_INTERFACE_TYPE_AP_STA, index-0 stores the IPv4 address of the STA interface and index-1 stores the IPV4 address of the AP interface. ip_addr should have enough valid memory to hold two IP address structures.
+ *                                If the given interface type is CY_WCM_INTERFACE_TYPE_AP_STA, index-0 stores the IPv4 address of the STA interface and index-1 stores the IPv4 address of the AP interface. ip_addr should have enough valid memory to hold two IP address structures.
  *
  * @return CY_RSLT_SUCCESS if IP-address get is successful; returns \ref cy_wcm_error otherwise.
 
@@ -718,7 +765,7 @@ cy_rslt_t cy_wcm_get_ip_addr(cy_wcm_interface_t interface_type, cy_wcm_ip_addres
 /**
  * Retrieves the IPv6 address of the given interface.
  *
- * Note: Currently this API supports only \ref CY_WCM_IPV6_LINK_LOCAL type.
+ * Note: Currently, this API supports only \ref CY_WCM_IPV6_LINK_LOCAL type.
  *
  * @param[in]   interface_type  : Type of the WCM interface.
  * @param[in]   ipv6_addr_type  : IPv6 address type.
@@ -766,7 +813,7 @@ cy_rslt_t cy_wcm_get_ip_netmask(cy_wcm_interface_t interface_type, cy_wcm_ip_add
  *                                If the given interface is CY_WCM_INTERFACE_TYPE_STA or CY_WCM_INTERFACE_TYPE_AP upon return, index-0 stores the MAC address of the interface.
  *                                If the given interface type is CY_WCM_INTERFACE_TYPE_AP_STA, index-0 stores the MAC address of the STA interface and index-1 stores the MAC address of the AP interface. mac_addr should have enough valid memory to hold two MAC address structures.
  *
- * 
+ *
  * @return CY_RSLT_SUCCESS if the MAC address get is successful; returns \ref cy_wcm_error otherwise.
  */
 cy_rslt_t cy_wcm_get_mac_addr(cy_wcm_interface_t interface_type, cy_wcm_mac_t *mac_addr);
@@ -787,7 +834,7 @@ cy_rslt_t cy_wcm_get_mac_addr(cy_wcm_interface_t interface_type, cy_wcm_mac_t *m
 cy_rslt_t cy_wcm_wps_enrollee(cy_wcm_wps_config_t* config, const cy_wcm_wps_device_detail_t *details, cy_wcm_wps_credential_t *credentials, uint16_t *credential_count);
 
 /**
- * Generates random WPS PIN for PIN mode connection.
+ * Generates a random WPS PIN for PIN mode connection.
  *
  * @param[out]  wps_pin_string  : Pointer to store the WPS PIN as a null-terminated string.
  *
@@ -797,7 +844,9 @@ cy_rslt_t cy_wcm_wps_generate_pin(char wps_pin_string[CY_WCM_WPS_PIN_LENGTH]);
 
 /**
  * Registers an event callback to monitor the connection and IP address change events.
- * This is an optional registration; use it if the application needs to monitor events across disconnection and reconnection of STA interface and notifies the clients which are connected or disconnected from the SoftAP.
+ * This is an optional registration; use it if the application needs to monitor events across disconnection and reconnection of the STA interface and notifies the clients which are connected or disconnected from the SoftAP.
+ *
+ * This API is supported in multi-core environment and can be invoked as a virtual API from the secondary core application.
  *
  * Note: This API is expected to be called typically while being connected to an AP or once the SoftAP is up.
  *
@@ -811,6 +860,8 @@ cy_rslt_t cy_wcm_register_event_callback(cy_wcm_event_callback_t event_callback)
 /**
  * De-registers an event callback.
  *
+ * This API is supported in multi-core environment and can be invoked as a virtual API from the secondary core application.
+ *
  * @param[in]  event_callback  : Callback function to de-register from getting notifications.
  *
  * @return CY_RSLT_SUCCESS if application callback de-registration was successful; returns \ref cy_wcm_error otherwise.
@@ -820,12 +871,14 @@ cy_rslt_t cy_wcm_deregister_event_callback(cy_wcm_event_callback_t event_callbac
 /**
  * Checks if the STA interface is connected to an AP.
  *
+ * This API is supported in multi-core environment and can be invoked as a virtual API from the secondary core application.
+ *
  * @return 1 if connected, 0 otherwise.
  */
 uint8_t cy_wcm_is_connected_to_ap(void);
 
 /**
- * This function retrieves the information such as SSID, BSSID, and other details of the AP to which the STA interface is connected.
+ * Retrieves the information such as SSID, BSSID, and other details of the AP to which the STA interface is connected.
  *
  * @param[out] ap_info : Pointer to store the information of the associated AP \ref cy_wcm_associated_ap_info_t.
  *
@@ -834,9 +887,9 @@ uint8_t cy_wcm_is_connected_to_ap(void);
 cy_rslt_t cy_wcm_get_associated_ap_info(cy_wcm_associated_ap_info_t *ap_info);
 
 /**
- * This function gets the WLAN statistics of the given interface from the time WLAN driver is up and running.
+ * Gets the WLAN statistics of the given interface from the time WLAN driver is up and running.
  *
- * The application would typically use this API to get information such as "total transmitted packets" and "total received packets"; 
+ * The application would typically use this API to get information such as "total transmitted packets" and "total received packets";
  * for more details, see members of \ref cy_wcm_wlan_statistics_t.
  *
  * @param[in] interface : Type of the WCM interface.
@@ -872,8 +925,8 @@ cy_rslt_t cy_wcm_ping(cy_wcm_interface_t interface, cy_wcm_ip_address_t *ip_addr
 
 
 /**
- * Start an infrastructure Wi-Fi network (SoftAP).
- * This API is a blocking call; this function adds the Information Element to the SoftAP and starts an internal DHCP server.
+ * Starts an infrastructure Wi-Fi network (SoftAP).
+ * This API is a blocking call; this function adds the information element to the SoftAP and starts an internal DHCP server.
  *
  * @param[in]   ap_config   : Configuration parameters for the SoftAP.
  *
@@ -882,7 +935,7 @@ cy_rslt_t cy_wcm_ping(cy_wcm_interface_t interface, cy_wcm_ip_address_t *ip_addr
 cy_rslt_t cy_wcm_start_ap(const cy_wcm_ap_config_t *ap_config);
 
 /**
- * Stops the infrastructure Wi-Fi network (SoftAP), removes the Information Element and stops the internal DHCP server.
+ * Stops the infrastructure Wi-Fi network (SoftAP), removes the information element and stops the internal DHCP server.
  *
  * @return CY_RSLT_SUCCESS if connection is successful; returns \ref cy_wcm_error otherwise.
  */
@@ -891,12 +944,12 @@ cy_rslt_t cy_wcm_stop_ap(void);
 /**
  * Gets the MAC address of the clients associated with the SoftAP.
  *
- * @param[out] sta_list    : Pointer to MAC address (or) array of MAC addresses. The client's (STA) MAC address is stored on this array before the function returns.
+ * @param[out] sta_list    : Pointer to the MAC address (or) array of MAC addresses. The client's (STA) MAC address is stored on this array before the function returns.
  *
  * @param[in]  num_clients : Length of the array passed in sta_list.
  *
- * \note If the number of connected client are less than the num_clients, then elements of sta_list beyond number of connected clients will be set to zero.
- *       Maximum number of supported client list varies for different Wi-Fi chips.
+ * \note If the number of connected clients is less than the num_clients, then elements of sta_list beyond number of connected clients will be set to zero.
+ *       The maximum number of supported client list varies for different Wi-Fi chips.
  *
  * @return CY_RSLT_SUCCESS If getting the client list is successful; returns \ref cy_wcm_error otherwise.
  */
@@ -906,15 +959,27 @@ cy_rslt_t cy_wcm_get_associated_client_list(cy_wcm_mac_t *sta_list, uint8_t num_
  * Stores the AP settings provided by the user.
  * NOTE: Dotted-decimal format example: 192.168.0.1
  *
- * @param[in] ip_addr       : Pointer to an array containing IP address of the AP in dotted-decimal format.
- * @param[in] netmask       : Pointer to an array containing network mask in dotted-decimal format.
- * @param[in] gateway_addr  : Pointer to an array containing gateway address in dotted-decimal format.
+ * @param[in] ip_addr       : Pointer to an array containing the IP address of the AP in dotted-decimal format.
+ * @param[in] netmask       : Pointer to an array containing the network mask in dotted-decimal format.
+ * @param[in] gateway_addr  : Pointer to an array containing the gateway address in dotted-decimal format.
  * @param[in] ver           : IP version. Possible values \ref CY_WCM_IP_VER_V6 or \ref CY_WCM_IP_VER_V4.
- * @param[in] ap_ip         : Pointer to variable which stores AP settings.
+ * @param[in] ap_ip         : Pointer to the variable which stores AP settings.
  *
- * @result CY_RSLT_SUCCESS if the AP settings are successfully stored in the user provided variable; returns \ref cy_wcm_error otherwise.
+ * @result CY_RSLT_SUCCESS if the AP settings are successfully stored in the user-provided variable; returns \ref cy_wcm_error otherwise.
  */
 cy_rslt_t cy_wcm_set_ap_ip_setting(cy_wcm_ip_setting_t *ap_ip, const char *ip_addr, const char *netmask, const char *gateway_addr, cy_wcm_ip_version_t ver);
+
+/**
+ * Sets low power mode capability for WLAN CPU
+ *
+ * @param[in] mode - can be one of:
+ *                  CY_WCM_NO_POWERSAVE_MODE  WLAN CPU will not go into powersave mode
+ *                  CY_WCM_PM1_POWERSAVE_MODE Powersave mode on specified interface without regard for throughput reduction
+ *                  CY_WCM_PM2_POWERSAVE_MODE Powersave mode on specified interface with High throughput
+ *
+ * @return CY_RSLT_SUCCESS if the Wi-Fi module mode was successfully changed; returns \ref cy_wcm_error otherwise.
+ */
+cy_rslt_t cy_wcm_allow_low_power_mode(cy_wcm_powersave_mode_t mode);
 
 /** \} group_wcm_functions */
 

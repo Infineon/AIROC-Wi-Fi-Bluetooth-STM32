@@ -286,7 +286,7 @@ extern void wiced_bt_process_sco_data(uint8_t *pData, uint32_t length);
  * @param[in] length : Length of the ISOC data buffer
  * @return    void
  */
- void wiced_bt_process_isoc_data(uint8_t *pData, uint32_t length);
+extern void wiced_bt_process_isoc_data(uint8_t *pData, uint32_t length);
 
  /**
  * Called by the porting layer on expiry of the timer to process pending timers

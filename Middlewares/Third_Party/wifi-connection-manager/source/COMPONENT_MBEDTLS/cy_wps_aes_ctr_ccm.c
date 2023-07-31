@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -30,12 +30,12 @@
  * of such system or application assumes all risk of such use and in doing
  * so agrees to indemnify Cypress against all liability.
  */
- 
+
 /** @file cy_wps_aes_ctr_ccm.c
 * @brief AES encryption/decryption functions
-*/ 
+*/
 
-/* These functions are derived from the Broadcom WLAN AES-CTR and AES-CCM implementations */
+/* These functions are derived from the Broadcom WLAN AES-CTR and AES-CCM implementations. */
 
 /* FixMe: This file is specifically used for AES encrypt/decrypt operations in WPS. These can be
  * removed and directly mbedtls AES encrypt/decrypt functions can be used.
@@ -98,7 +98,7 @@ int aes_crypt_ctr( mbedtls_aes_context *ctx, uint32_t length, const unsigned cha
         length -= 16;
     }
 
-    /* handle partial block */
+    /* Handle partial block */
     if ( length % AES_BLOCK_SZ )
     {
         mbedtls_aes_crypt_ecb( ctx, MBEDTLS_AES_ENCRYPT, ctr, tmp );
@@ -149,7 +149,7 @@ int aes_ccm_mac( mbedtls_aes_context *ctx, uint32_t length, uint32_t aad_length,
 
     /* X_i + 1 := E( K, X_i XOR B_i )  for i = 1, ..., n */
 
-    /* first the AAD */
+    /* First the AAD */
     if ( aad_length != 0 )
     {
         X[0] ^= (unsigned char)( ( aad_length >> 8 ) & 0xff );
@@ -166,14 +166,14 @@ int aes_ccm_mac( mbedtls_aes_context *ctx, uint32_t length, uint32_t aad_length,
                 k = 0;
             }
         }
-        /* handle partial last block */
+        /* Handle partial last block */
         if ( k % AES_BLOCK_SZ )
         {
             mbedtls_aes_crypt_ecb( ctx, MBEDTLS_AES_ENCRYPT, X, X );
         }
     }
 
-    /* then the message data */
+    /* Then the message data */
     for ( k = 0; k < ( length / AES_BLOCK_SZ ); k++ )
     {
         int i;
@@ -186,7 +186,7 @@ int aes_ccm_mac( mbedtls_aes_context *ctx, uint32_t length, uint32_t aad_length,
         mbedtls_aes_crypt_ecb( ctx, MBEDTLS_AES_ENCRYPT, X, X );
     }
 
-    /* last block may be partial, padding is implicit in this xor */
+    /* Last block may be partial, padding is implicit in this xor */
     for ( k = 0; k < ( length % AES_BLOCK_SZ ); k++ )
     {
         X[k] ^= *data_input++;
@@ -214,13 +214,13 @@ int aes_encrypt_ccm( mbedtls_aes_context *ctx, uint32_t length, uint32_t aad_len
 {
     unsigned char A[AES_BLOCK_SZ], X[AES_BLOCK_SZ];
 
-    /* initialize counter */
+    /* Initialize counter */
     A[0] = AES_CCM_CRYPT_FLAGS(nonce_len);
 
     memcpy( &A[1], nonce, nonce_len );
     memset( A + 1 + nonce_len, 0, AES_CCM_NONCE_LEN - nonce_len );
 
-    /* calculate and encrypt MAC */
+    /* Calculate and encrypt MAC */
     if (aes_ccm_mac( ctx, length, aad_length, nonce, nonce_len, aad_input, plaintext_input, X))
     {
         return (-1);
@@ -231,7 +231,7 @@ int aes_encrypt_ccm( mbedtls_aes_context *ctx, uint32_t length, uint32_t aad_len
     }
     memcpy( mac_output, X, AES_CCM_AUTH_LEN );
 
-    /* encrypt data */
+    /* Encrypt data */
     A[AES_BLOCK_SZ - 1] = 1;
     if (aes_crypt_ctr( ctx, length, A, plaintext_input, ciphertext_output ))
     {
@@ -254,19 +254,19 @@ int aes_decrypt_ccm( mbedtls_aes_context *ctx, uint32_t length, uint32_t aad_len
     unsigned char A[AES_BLOCK_SZ];
     unsigned char X[AES_BLOCK_SZ];
 
-    /* initialize counter */
+    /* Initialize counter */
     A[0] = AES_CCM_CRYPT_FLAGS(nonce_len);
     memcpy( &A[1], nonce, nonce_len );
     memset( A + 1 + nonce_len, 0, AES_CCM_NONCE_LEN - nonce_len );
     A[AES_BLOCK_SZ - 1] = 1;
 
-    /* decrypt data */
+    /* Decrypt data */
     if ( aes_crypt_ctr( ctx, length - AES_CCM_AUTH_LEN, A, ciphertext_input, plaintext_output ) )
     {
         return ( -1 );
     }
 
-    /* decrypt MAC */
+    /* Decrypt MAC */
     memset( A + 1 + nonce_len, 0, AES_CCM_NONCE_LEN - nonce_len );
 
     if ( aes_crypt_ctr( ctx, AES_CCM_AUTH_LEN, A, ciphertext_input + length - AES_CCM_AUTH_LEN, plaintext_output + length - AES_CCM_AUTH_LEN ) )
@@ -274,7 +274,7 @@ int aes_decrypt_ccm( mbedtls_aes_context *ctx, uint32_t length, uint32_t aad_len
         return ( -1 );
     }
 
-    /* calculate MAC */
+    /* Calculate MAC */
     if ( aes_ccm_mac( ctx, length - AES_CCM_AUTH_LEN, aad_length, nonce, nonce_len,aad_input, plaintext_output, X ) )
     {
         return ( -1 );

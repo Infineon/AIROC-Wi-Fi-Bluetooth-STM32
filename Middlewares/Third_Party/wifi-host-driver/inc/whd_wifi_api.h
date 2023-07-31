@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company)
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -366,6 +366,19 @@ extern uint32_t whd_wifi_join(whd_interface_t ifp, const whd_ssid_t *ssid, whd_s
 extern uint32_t whd_wifi_join_specific(whd_interface_t ifp, const whd_scan_result_t *ap, const uint8_t *security_key,
                                        uint8_t key_length);
 
+/** Set the current chanspec on the WLAN radio
+ *
+ *  @note  On most WLAN devices this will set the chanspec for both AP *AND* STA
+ *        (since there is only one radio - it cannot be on two chanspec simulaneously)
+ *
+ *  @param   ifp           Pointer to handle instance of whd interface
+ *  @param   chanspec      The desired chanspec
+ *
+ *  @return  WHD_SUCCESS   if the chanspec was successfully set
+ *           Error code    if the chanspec was not successfully set
+ */
+extern uint32_t whd_wifi_set_chanspec(whd_interface_t ifp, wl_chanspec_t chanspec);
+
 /*  @} */
 
 /** @addtogroup wifiutilities   WHD Wi-Fi Utility API
@@ -404,7 +417,7 @@ extern uint32_t whd_wifi_get_channel(whd_interface_t ifp, uint32_t *channel);
  *
  *  @param   ifp                 Pointer to handle instance of whd interface
  *  @param   channel_list        Buffer to store list of the supported channels
- *                               and max channel is WL_NUMCHANNELS
+ *                               and max channel is MAXCHANNEL
  *
  *  @return  WHD_SUCCESS         if the active connections was successfully read
  *           WHD_ERROR           if the active connections was not successfully read
@@ -487,6 +500,14 @@ extern uint32_t whd_wifi_enable_supplicant(whd_interface_t ifp, whd_security_t a
  */
 extern whd_result_t whd_wifi_set_pmksa(whd_interface_t ifp, const pmkid_t *pmkid);
 
+/** Clear all PMKIDs in Device (WLAN), especially the PMKIDs in Supplicant module
+ *
+ *  @param   ifp            Pointer to handle instance of whd interface
+ *
+ *  @return whd_result_t
+ */
+extern whd_result_t whd_wifi_pmkid_clear(whd_interface_t ifp);
+
 /** Retrieve the latest RSSI value
  *
  *  @param   ifp           Pointer to handle instance of whd interface
@@ -503,7 +524,7 @@ extern uint32_t whd_wifi_get_rssi(whd_interface_t ifp, int32_t *rssi);
  *  @param   roam_time_threshold  The location where the roam time threshold value will be stored
  *
  *  @return  WHD_SUCCESS   if the roam time threshold was successfully retrieved
- *    	     Error code    if the roam time threshold was not retrieved
+ *           Error code    if the roam time threshold was not retrieved
  */
 extern uint32_t whd_wifi_get_roam_time_threshold(whd_interface_t ifp, uint32_t *roam_time_threshold);
 
@@ -576,13 +597,13 @@ extern uint32_t whd_wifi_get_bssid(whd_interface_t ifp, whd_mac_t *bssid);
  *  @param   auth_type     Authentication type
  *  @param   security_key  A byte array containing the cleartext security key for the network
  *  @param   key_length    The length of the security_key in bytes.
- *  @param   channel       802.11 channel number
+ *  @param   chanspec      The desired chanspec
  *
  *  @return  WHD_SUCCESS   if successfully initialises an AP
  *           Error code    if an error occurred
  */
 extern uint32_t whd_wifi_init_ap(whd_interface_t ifp, whd_ssid_t *ssid, whd_security_t auth_type,
-                                 const uint8_t *security_key, uint8_t key_length, uint8_t channel);
+                                 const uint8_t *security_key, uint8_t key_length, uint16_t chanspec);
 
 /** Start the infrastructure WiFi network (SoftAP)
  *  using the parameter set by whd_wifi_init_ap() and optionaly by whd_wifi_manage_custom_ie()
@@ -861,6 +882,70 @@ extern uint32_t whd_wifi_send_action_frame(whd_interface_t ifp, whd_af_params_t 
  *  @return WHD_SUCCESS or Error code
  */
 extern whd_result_t whd_wifi_send_auth_frame(whd_interface_t ifp, whd_auth_params_t *auth_params);
+
+/** Configure HE OM Control
+ *
+ *  @param  ifp            Pointer to handle instance of whd interface
+ *  @param  he_omi_params  pointer to he_omi parameters
+ *
+ *  @return WHD_SUCCESS or Error code
+ */
+extern uint32_t whd_wifi_he_omi(whd_interface_t ifp, whd_he_omi_params_t *he_omi_params);
+
+/** Configure BSS Max Idle Time
+ *
+ *  @param  ifp            Pointer to handle instance of whd interface
+ *  @param  period         The bss max idle period time unit(seconds)
+ *
+ *  @return WHD_SUCCESS or Error code
+ */
+extern uint32_t whd_wifi_bss_max_idle(whd_interface_t ifp, uint16_t period);
+
+/** Trigger individual TWT session(used by STA)
+ *
+ *  @param  ifp            Pointer to handle instance of whd interface
+ *  @param  twt_params     pointer to itwt_setup parameters
+ *
+ *  @return WHD_SUCCESS or Error code
+ */
+extern uint32_t whd_wifi_itwt_setup(whd_interface_t ifp, whd_itwt_setup_params_t *twt_params);
+
+/** Trigger Join broadcast TWT session(used by STA)
+ *
+ *  @param  ifp            Pointer to handle instance of whd interface
+ *  @param  twt_params     pointer to btwt_join parameters
+ *
+ *  @return WHD_SUCCESS or Error code
+ */
+extern uint32_t whd_wifi_btwt_join(whd_interface_t ifp, whd_btwt_join_params_t *twt_params);
+
+/** Trigger teardown all individual or broadcast TWT sessions
+ *
+ *  @param  ifp            Pointer to handle instance of whd interface
+ *  @param  twt_params     pointer to twt_taerdown parameters
+ *
+ *  @return WHD_SUCCESS or Error code
+ */
+extern uint32_t whd_wifi_twt_teardown(whd_interface_t ifp, whd_twt_teardown_params_t *twt_params);
+
+/** Trigger TWT information frame(used by STA)
+ *
+ *  @param  ifp            Pointer to handle instance of whd interface
+ *  @param  twt_params     pointer to twt_information parameters
+ *
+ *
+ *  @return WHD_SUCCESS or Error code
+ */
+extern uint32_t whd_wifi_twt_information_frame(whd_interface_t ifp, whd_twt_information_params_t *twt_params);
+
+/** Configure TWT IE in beacon(used by AP)
+ *
+ *  @param  ifp            Pointer to handle instance of whd interface
+ *  @param  twt_params     pointer to btwt_config parameters
+ *
+ *  @return WHD_SUCCESS or Error code
+ */
+extern uint32_t whd_wifi_btwt_config(whd_interface_t ifp, whd_btwt_config_params_t *twt_params);
 
 /** Set coex configuration
  *

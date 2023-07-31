@@ -74,17 +74,13 @@ BTSTACK_PORTING_SECTION_BEGIN
 uint8_t *host_stack_get_acl_to_lower_buffer(wiced_bt_transport_t transport, uint32_t size)
 {
     uint8_t *p_bt_msg;
-    const cybt_platform_config_t *p_bt_platform_cfg = cybt_platform_get_config();
-
-    if(CYBT_HCI_IPC != p_bt_platform_cfg->hci_config.hci_transport)
-    {
-        SPIF_TRACE_ERROR("get_acl_to_lower_buffer(): Unknown transport (%d)",
-                         p_bt_platform_cfg->hci_config.hci_transport
-                         );
-        return (NULL);
-    }
 
     p_bt_msg = cybt_platform_hci_get_buffer(HCI_PACKET_TYPE_ACL, size);
+
+    if(NULL == p_bt_msg)
+    {
+        SPIF_TRACE_ERROR("get_acl_to_lower_buffer() failure ");
+    }
 
     return (p_bt_msg);
 }
@@ -98,15 +94,6 @@ wiced_result_t host_stack_send_acl_to_lower(wiced_bt_transport_t transport,
 {
     cybt_result_t result;
     wiced_result_t ret_val = WICED_SUCCESS;
-    const cybt_platform_config_t *p_bt_platform_cfg = cybt_platform_get_config();
-
-    if(CYBT_HCI_IPC != p_bt_platform_cfg->hci_config.hci_transport)
-    {
-        SPIF_TRACE_ERROR("send_acl_to_lower(): Unknown transport (%d)",
-                         p_bt_platform_cfg->hci_config.hci_transport
-                         );
-        return WICED_ERROR;
-    }
 
     SPIF_TRACE_DEBUG("send_acl_to_lower(): p_data = %p, len = %d",
                      p_data,
@@ -142,16 +129,6 @@ wiced_result_t host_stack_send_iso_to_lower(uint8_t *p_data,
     cybt_result_t result;
     wiced_result_t ret_val = WICED_SUCCESS;
     uint8_t *p_bt_msg;
-
-    const cybt_platform_config_t *p_bt_platform_cfg = cybt_platform_get_config();
-
-    if(CYBT_HCI_IPC != p_bt_platform_cfg->hci_config.hci_transport)
-    {
-        SPIF_TRACE_ERROR("send_iso_to_lower(): Unknown transport (%d)",
-                         p_bt_platform_cfg->hci_config.hci_transport
-                         );
-        return WICED_ERROR;
-    }
 
     SPIF_TRACE_DEBUG("send_iso_to_lower(): p_data = %p, len = %d",
                      p_data,
@@ -193,16 +170,7 @@ wiced_result_t host_stack_send_iso_to_lower(uint8_t *p_data,
 wiced_result_t host_stack_send_cmd_to_lower(uint8_t *p_cmd, uint16_t cmd_len)
 {
     cybt_result_t result;
-    const cybt_platform_config_t *p_bt_platform_cfg = cybt_platform_get_config();
     uint8_t *p_bt_msg;
-
-    if(CYBT_HCI_IPC != p_bt_platform_cfg->hci_config.hci_transport)
-    {
-        SPIF_TRACE_ERROR("send_cmd_to_lower(): Unknown transport (%d)",
-                         p_bt_platform_cfg->hci_config.hci_transport
-                         );
-        return WICED_ERROR;
-    }
 
     SPIF_TRACE_DEBUG("send_cmd_to_lower(): cmd = %p, cmd_len = %d",
                      p_cmd,

@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.15">
+  <compounddef id="structcybt__controller__config__t" kind="struct" language="C++" prot="public">
+    <compoundname>cybt_controller_config_t</compoundname>
+    <includes local="no">cybt_platform_config.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcybt__controller__config__t_1a9e5cb5adc8c877db1dac24b1aa4cbe9b" prot="public" static="no" mutable="no">
+        <type>cyhal_gpio_t</type>
+        <definition>cyhal_gpio_t cybt_controller_config_t::bt_power_pin</definition>
+        <argsstring></argsstring>
+        <name>bt_power_pin</name>
+        <briefdescription>
+<para>BT controller power pin. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="194" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__controller__config__t_1a1e78be8859c64969d25bb35569b3d8be" prot="public" static="no" mutable="no">
+        <type><ref refid="structcybt__controller__sleep__config__t" kindref="compound">cybt_controller_sleep_config_t</ref></type>
+        <definition>cybt_controller_sleep_config_t cybt_controller_config_t::sleep_mode</definition>
+        <argsstring></argsstring>
+        <name>sleep_mode</name>
+        <briefdescription>
+<para>sleep mode setting </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="195" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The BT chip control configuration. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>cybt_controller_sleep_config_t</label>
+        <link refid="structcybt__controller__sleep__config__t"/>
+      </node>
+      <node id="1">
+        <label>cybt_controller_config_t</label>
+        <link refid="structcybt__controller__config__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>sleep_mode</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="193" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="192" bodyend="196"/>
+    <listofallmembers>
+      <member refid="structcybt__controller__config__t_1a9e5cb5adc8c877db1dac24b1aa4cbe9b" prot="public" virt="non-virtual"><scope>cybt_controller_config_t</scope><name>bt_power_pin</name></member>
+      <member refid="structcybt__controller__config__t_1a1e78be8859c64969d25bb35569b3d8be" prot="public" virt="non-virtual"><scope>cybt_controller_config_t</scope><name>sleep_mode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

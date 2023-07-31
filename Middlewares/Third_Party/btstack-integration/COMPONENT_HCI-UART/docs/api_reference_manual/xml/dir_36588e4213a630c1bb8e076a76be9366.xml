@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="dir_36588e4213a630c1bb8e076a76be9366" kind="dir">
+    <compoundname>include</compoundname>
+    <innerfile refid="cybt__platform__config_8h">cybt_platform_config.h</innerfile>
+    <innerfile refid="cybt__platform__trace_8h">cybt_platform_trace.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/builds/repo/btstack-port-cyal/platform/include/"/>
+  </compounddef>
+</doxygen>

@@ -5,6 +5,14 @@ Refer to the [README.md](./README.md) for a complete description of the utility 
 
 ## Changelog
 
+### v4.1.1
+* Added error code module base for virtual-connectivity-manager library
+
+### v4.1.0
+* Added support for KIT-XMC72-EVK, KIT_XMC47_RELAX_V1 and KIT_XMC48_RELAX_ECAT_V1 kits
+* Fixed compilation warnings in cy_log.c
+* Minor documentation update
+
 ### v4.0.0
 * Updated to use [lwIP network interface integration library](https://Infineon.github.io/lwip-network-interface-integration) APIs.
 * Introduced error code module base for NetXDuo WHD port library

@@ -52,6 +52,10 @@
 #define IPC_INTR_BLE            (0)
 #define IPC_INTR_MCU            (1)
 
+#define MAX_IPC_RETRIES         (20)
+
+#define RECORD_IPC_STATS
+
 /*****************************************************************************
  *                           Type Definitions
  *****************************************************************************/
@@ -65,6 +69,15 @@ typedef struct
 
 typedef uint16_t bt_task_event_t;
 
+#ifdef RECORD_IPC_STATS
+typedef struct {
+    uint32_t get_buf_fail_count; /* Number of get buffer requests that failed. This does not count number of retries performed for same request.  */
+    uint32_t get_buf_max_retry_count; /* Maximum number of failed retries permormed for get buffer request. 0 <= MAX_IPC_RETRIES */
+    uint32_t write_fail_count; /* Number of write requests that failed. This does not count number of retries performed for same request.  */
+    uint32_t write_max_retry_count; /* Maximum number of failed retries permormed for write request. 0 <= MAX_IPC_RETRIES */
+}cybt_ipc_stats_t;
+#endif
+
 /******************************************************************************
  *                           Variables Definitions
  ******************************************************************************/
@@ -74,6 +87,11 @@ static bt_task_event_t hci_core_msg = BT_EVT_CORE_HCI;
 static bt_task_event_t hci_boot_msg = BT_EVT_TASK_BOOT_COMPLETES;
 static bt_task_event_t shutdown_msg = BT_EVT_TASK_SHUTDOWN;
 static bt_task_event_t buffer_msg = BT_EVT_CORE_HCI_WRITE_BUF_AVAIL;
+
+
+#ifdef RECORD_IPC_STATS
+static cybt_ipc_stats_t ipc_stats;
+#endif
 
 
 /******************************************************************************
@@ -106,7 +124,7 @@ static void notify_rx_not_empty(uint32_t * msg)
 
 static void notify_write_buffer_available(cy_en_btipc_buftype_t type)
 {
-    UNUSED(type);
+    UNUSED_VARIABLE(type);
     cybt_platform_msg_to_bt_task(BT_EVT_CORE_HCI_WRITE_BUF_AVAIL, IN_ISR);
     return;
 }
@@ -143,7 +161,12 @@ static void notify_callback_mcu_longmsg(uint32_t * msg)
             cybt_platform_msg_to_bt_task(BT_EVT_TASK_BOOT_COMPLETES, IN_ISR);
             break;
         case CY_BT_IPC_BOOT_FULLY_UP:
+#ifdef FPGA_TEST_PLATFORM
+            /* On FPGA, controller does not send CY_BT_IPC_BOOT_CONFIG_WAIT and directly sends CY_BT_IPC_BOOT_FULLY_UP */
+            cybt_platform_msg_to_bt_task(BT_EVT_TASK_BOOT_COMPLETES, IN_ISR);
+#else
             cy_rtos_set_semaphore(&hci_cb.boot_fully_up, IN_ISR);
+#endif /* FPGA_TEST_PLATFORM */
             break;
         default:
             break;
@@ -190,7 +213,6 @@ BTSTACK_PORTING_SECTION_BEGIN
 uint8_t *cybt_platform_hci_get_buffer(hci_packet_type_t pti, uint32_t size)
 {
     static uint8_t short_msg[MAX_SHORT_MESG_LENGTH] = {0};
-    static uint16_t fail_count = 0;
     cy_en_btipcdrv_status_t ipc_status;
     uint8_t *p_txbuffer = &short_msg[0];
     cy_en_btipc_hcipti_t hci_pti = (cy_en_btipc_hcipti_t) pti;
@@ -201,17 +223,38 @@ uint8_t *cybt_platform_hci_get_buffer(hci_packet_type_t pti, uint32_t size)
 
     if ( (size > MAX_SHORT_MESG_LENGTH) || (hci_pti == CY_BT_IPC_HCI_ISO) || (hci_pti == CY_BT_IPC_HCI_ACL) )
     {
-        ipc_status = Cy_BTIPC_HCI_GetWriteBufPtr(&hci_cb.ipc_context, hci_pti, (void**)&p_txbuffer, size);
+        int retries = 0;
 
-        if (CY_BT_IPC_DRV_SUCCESS != ipc_status)
+        do
         {
-            /* Unlocking here since no buffer available */
-            CONTROLLER_SLEEP(UNLOCK); // if no ipc_write_buffer
-            fail_count++;
-            return (NULL);
-        }
-    }
+            ipc_status = Cy_BTIPC_HCI_GetWriteBufPtr(&hci_cb.ipc_context, hci_pti, (void**)&p_txbuffer, size);
 
+            if (CY_BT_IPC_DRV_SUCCESS != ipc_status)
+            {
+                /* adding a delay before retrying */
+                {
+                    volatile int delay = 1000;
+                    while(delay--);
+                }
+                //HCIDRV_TRACE_ERROR("MCU Error: IPC Get Buffer to BLE failed 0x%x!\n", ipc_status);
+#ifdef RECORD_IPC_STATS
+                if (!retries)
+                    ++ipc_stats.get_buf_fail_count;
+
+                if (retries > ipc_stats.get_buf_max_retry_count){
+                    ipc_stats.get_buf_max_retry_count = retries;
+                }
+#endif
+            }
+            else {
+                return (p_txbuffer);
+            }
+        }while(++retries < MAX_IPC_RETRIES);
+
+        /* Unlocking here since no buffer available */
+        CONTROLLER_SLEEP(UNLOCK); // if no ipc_write_buffer
+        return (NULL);
+    }
     return (p_txbuffer);
 }
 BTSTACK_PORTING_SECTION_END
@@ -301,9 +344,9 @@ static cy_rslt_t cybt_platform_register_syspm_callback(void)
     static cy_stc_syspm_callback_t        cybt_syspm_callback       =
     {
         .callback       = &cybt_platform_syspm_DeepSleepCallback,
-        .type           = CY_SYSPM_MODE_DEEPSLEEP_RAM,
+        .type           = (cy_en_syspm_callback_type_t) CY_SYSPM_MODE_DEEPSLEEP_RAM,
         .callbackParams = &cybt_syspm_callback_param,
-        .order          = 255u,
+        .order          = 253u,
     };
 
     if (!Cy_SysPm_RegisterCallback(&cybt_syspm_callback))
@@ -318,7 +361,7 @@ cybt_result_t cybt_platform_hci_open(void *p_arg)
     cy_stc_ipc_bt_config_t btIpcHciConfig_mcu;
     cy_en_btipcdrv_status_t ipc_status;
     cy_stc_ipc_hcp_cb_t hpc_cb_params;
-    UNUSED(p_arg);
+    UNUSED_VARIABLE(p_arg);
 
     if(true == hci_cb.inited)
     {
@@ -426,8 +469,7 @@ cybt_result_t cybt_platform_hci_write(hci_packet_type_t pti,
 {
     cybt_result_t status =  CYBT_SUCCESS;
     cy_en_btipcdrv_status_t ipc_status;
-
-    int retries = 10;
+    int retries = 0;
 
     do
     {
@@ -441,13 +483,21 @@ cybt_result_t cybt_platform_hci_write(hci_packet_type_t pti,
                 while(delay--);
             }
 
-            HCIDRV_TRACE_ERROR("MCU Error: IPC HCI Write to BLE failed 0x%x!\n", ipc_status);
             status = CYBT_ERR_HCI_WRITE_FAILED;
+
+#ifdef RECORD_IPC_STATS
+			if (!retries)
+				++ipc_stats.write_fail_count;
+
+			if (retries > ipc_stats.write_max_retry_count){
+				ipc_stats.write_max_retry_count = retries; 
+            }
+#endif
         }else{
             status = CYBT_SUCCESS;
             break;
         }
-    }while(--retries);
+    }while(++retries < MAX_IPC_RETRIES);
 
     /* Sleep unlock which was already locked in cybt_platform_hci_get_buffer */
     CONTROLLER_SLEEP(UNLOCK); // after get_ipc_write_buffer and ipc_write
@@ -473,7 +523,7 @@ cybt_result_t cybt_platform_hci_read(void *event,
     uint8_t *ptr_rx_hci;
     uint32_t *p_msg;
 
-    UNUSED(event);
+    UNUSED_VARIABLE(event);
 
     if(!(hci_cb.inited && pti && p_data && p_length))
     {
@@ -531,7 +581,7 @@ cybt_result_t cybt_platform_hci_set_baudrate(uint32_t baudrate)
      * Only reason to keeping this function is to maintain compatibility
      */
 
-    UNUSED(baudrate);
+    UNUSED_VARIABLE(baudrate);
     return  CYBT_SUCCESS;
 }
 
@@ -549,3 +599,14 @@ bool cybt_platform_hci_process_if_coredump(uint8_t *p_data, uint32_t length)
     cybt_platform_exception_handler(CYBT_CONTROLLER_CORE_DUMP, p_data, length);
     return true;
 }
+
+#ifdef RECORD_IPC_STATS
+cybt_result_t cybt_platform_hci_get_ipc_stats(cybt_ipc_stats_t *p_stats)
+{
+	p_stats->get_buf_fail_count = ipc_stats.get_buf_fail_count;
+	p_stats->get_buf_max_retry_count = ipc_stats.get_buf_max_retry_count;
+	p_stats->write_fail_count = ipc_stats.write_fail_count;
+	p_stats->write_max_retry_count = ipc_stats.write_max_retry_count;
+	return  CYBT_SUCCESS;
+}
+#endif

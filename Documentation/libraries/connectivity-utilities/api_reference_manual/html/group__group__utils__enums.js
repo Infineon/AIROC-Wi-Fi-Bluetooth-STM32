@@ -21,5 +21,6 @@ var group__group__utils__enums =
     [ "CY_RSLT_MODULE_BUFFER_POOL_BASE", "group__group__utils__enums.html#ga7b742b1e1d2741135f10112304d3ce48", null ],
     [ "CY_RSLT_MODULE_NETWORK_PORT_BASE", "group__group__utils__enums.html#ga7e99967f80de6c40e4e79f285b8e3f06", null ],
     [ "CY_RSLT_MODULE_ECM_BASE", "group__group__utils__enums.html#ga9d8b27783084d82f10a8076d35b01333", null ],
-    [ "CY_RSLT_MODULE_NETXDUO_WHD_PORT_BASE", "group__group__utils__enums.html#gad53d84be1df4b80105886dab8e4782da", null ]
+    [ "CY_RSLT_MODULE_NETXDUO_WHD_PORT_BASE", "group__group__utils__enums.html#gad53d84be1df4b80105886dab8e4782da", null ],
+    [ "CY_RSLT_MODULE_VCM_BASE", "group__group__utils__enums.html#ga6744b3f6b19ccf9be95421e7a0970bf0", null ]
 ];

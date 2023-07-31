@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>AIROC™ Bluetooth® Host Stack solution (for FreeRTOS)</title>
+    <detaileddescription>
+<para><heading level="2">Overview</heading>
+</para><para>AIROC<trademark/> Bluetooth<registered/> host stack solution includes Bluetooth<registered/> stack library, Bluetooth<registered/> controller firmware and platform/os porting layer. Bluetooth<registered/> stack library is designed for embedded device, it consumes less RAM/ROM usage but still keeps high performance. With AIROC<trademark/> Bluetooth<registered/> API set, application developers can use them easily to create their own application. The porting layer is implemented by CYHAL and CY_RTOS_AL (Hardware/Operation System Adaptation Layer), hence it can adapt to Cypress platforms, and easy to port to other vendor&apos;s platform.</para><para><heading level="2">Working flow</heading>
+</para><para><heading level="3">~ release-v1.3.0</heading>
+</para><para><itemizedlist>
+<listitem><para>Porting layer create 2 tasks<itemizedlist>
+<listitem><para><bold>HCI task</bold> which handles HCI packet transmission and reception</para></listitem><listitem><para><bold>BTU/BT task</bold> which handles Bluetooth<registered/> core stack and profiles</para></listitem></itemizedlist>
+</para></listitem><listitem><para>TX path:<itemizedlist>
+<listitem><para>Bluetooth<registered/> stack calls pf_write_xxx_to_lower( ) with packet data</para></listitem><listitem><para>Inside those functions,<itemizedlist>
+<listitem><para>Allocate memory from porting layer heap for the TX packet</para></listitem><listitem><para>Put TX packet into HCI task queue</para></listitem></itemizedlist>
+</para></listitem><listitem><para>HCI task gets TX packet from the queue then write the same to HCI UART</para></listitem></itemizedlist>
+</para></listitem><listitem><para>RX path:<itemizedlist>
+<listitem><para>UART driver fires the interrupt when data was coming from Bluetooth<registered/> controller</para></listitem><listitem><para>In IRQ handler, put the related message to HCI task queue</para></listitem><listitem><para>Once HCI task gets the message,<itemizedlist>
+<listitem><para>Allocate memory from porting layer heap, read the packet from UART and write the same to the allocated memory</para></listitem><listitem><para>Put RX packet into Bluetooth<registered/> task queue.</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Bluetooth<registered/> task gets RX packet then calls wiced_bt_process_xxx() to notify Bluetooth<registered/> stack</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para><para><heading level="3">since release-v2.0.0</heading>
+</para><para><itemizedlist>
+<listitem><para>Porting layer create 2 tasks<itemizedlist>
+<listitem><para><bold>HCI_TX task</bold> which handles HCI packet from Bluetooth<registered/> stack to Bluetooth<registered/> controller</para></listitem><listitem><para><bold>HCI_RX task</bold> which handles HCI packet from Bluetooth<registered/> controller to Bluetooth<registered/> stack</para></listitem></itemizedlist>
+</para></listitem><listitem><para>TX path:<itemizedlist>
+<listitem><para>Bluetooth<registered/> stack calls pf_write_xxx_to_lower() with packet data</para></listitem><listitem><para>Inside those functions,<itemizedlist>
+<listitem><para>Allocate memory from porting layer heap for the TX packet</para></listitem><listitem><para>Put TX packet into HCI_TX task queue</para></listitem></itemizedlist>
+</para></listitem><listitem><para>HCI_TX task gets TX packet from the queue then write the same to HCI UART</para></listitem></itemizedlist>
+</para></listitem><listitem><para>RX path:<itemizedlist>
+<listitem><para>UART driver fires the interrupt when data was coming from Bluetooth<registered/> controller</para></listitem><listitem><para>In IRQ handler, put the related message to HCI_RX task queue</para></listitem><listitem><para>Once HCI_RX task gets the message,<itemizedlist>
+<listitem><para>Read the packet from UART and write the same to the static buffer</para></listitem><listitem><para>Call wiced_bt_process_xxx() to notify Bluetooth<registered/> stack</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para><para><heading level="2">API Reference Manual</heading>
+</para><para><itemizedlist>
+<listitem><para><ulink url="https://infineon.github.io/btstack-integration/COMPONENT_HCI-UART/docs/api_reference_manual/html/index.html">Bluetooth<registered/> platform API manual</ulink></para></listitem><listitem><para><ulink url="https://infineon.github.io/btstack/ble/api_reference_manual/html/index.html">Bluetooth<registered/> stack BLE API manual</ulink></para></listitem></itemizedlist>
+</para><para>© Infineon Technologies, 2022. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

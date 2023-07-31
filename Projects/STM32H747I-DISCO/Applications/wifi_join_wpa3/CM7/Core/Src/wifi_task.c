@@ -76,8 +76,8 @@ typedef struct
 #endif /* (WIFI_PASSWORD) */
 
 #define WIFI_SECURITY                       CY_WCM_SECURITY_WPA3_SAE
-#define MAX_WIFI_RETRY_COUNT                (3u)
-#define WIFI_CONN_RETRY_INTERVAL_MSEC       (100u)
+#define MAX_WIFI_RETRY_COUNT                (5u)
+#define WIFI_CONN_RETRY_INTERVAL_MSEC       (500u)
 
 /* The delay in milliseconds between successive scans.*/
 #define SCAN_DELAY_MS                           (3000u)

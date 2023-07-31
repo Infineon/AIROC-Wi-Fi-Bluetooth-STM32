@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="structcybt__hci__transport__config__t" kind="struct" language="C++" prot="public">
+    <compoundname>cybt_hci_transport_config_t</compoundname>
+    <includes local="no">cybt_platform_config.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcybt__hci__transport__config__t_1a49e2aa2bba549df93cb113ecb293801f" prot="public" static="no" mutable="no">
+        <type><ref refid="group__platform__cfg_1ga5f6850727c86459c4c6c11c84870d308" kindref="member">cybt_hci_transport_t</ref></type>
+        <definition>cybt_hci_transport_t cybt_hci_transport_config_t::hci_transport</definition>
+        <argsstring></argsstring>
+        <name>hci_transport</name>
+        <briefdescription>
+<para>HCI transport selection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="103" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__hci__transport__config__t_1a906d2c4cc61e0cfdff53e7f004ac1396" prot="public" static="no" mutable="no">
+        <type><ref refid="structcybt__hci__uart__config__t" kindref="compound">cybt_hci_uart_config_t</ref></type>
+        <definition>cybt_hci_uart_config_t cybt_hci_transport_config_t::hci_uart</definition>
+        <argsstring></argsstring>
+        <name>hci_uart</name>
+        <briefdescription>
+<para>HCI UART configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="107" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__hci__transport__config__t_1a3bafc3651d588022944adae874d66e2a" prot="public" static="no" mutable="no">
+        <type>union cybt_hci_transport_config_t::@0</type>
+        <definition>union cybt_hci_transport_config_t::@0  cybt_hci_transport_config_t::hci</definition>
+        <argsstring></argsstring>
+        <name>hci</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="108" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The configuration of BT HCI transport, to specify which interface is used and its format. </para>    </briefdescription>
+    <detaileddescription>
+<para>Currently only UART is supported. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="7">
+        <label>cybt_hci_uart_config_t</label>
+        <link refid="structcybt__hci__uart__config__t"/>
+      </node>
+      <node id="6">
+        <label>cybt_hci_transport_config_t</label>
+        <link refid="structcybt__hci__transport__config__t"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>hci_uart</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="102" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="101" bodyend="109"/>
+    <listofallmembers>
+      <member refid="structcybt__hci__transport__config__t_1a3bafc3651d588022944adae874d66e2a" prot="public" virt="non-virtual"><scope>cybt_hci_transport_config_t</scope><name>hci</name></member>
+      <member refid="structcybt__hci__transport__config__t_1a49e2aa2bba549df93cb113ecb293801f" prot="public" virt="non-virtual"><scope>cybt_hci_transport_config_t</scope><name>hci_transport</name></member>
+      <member refid="structcybt__hci__transport__config__t_1a906d2c4cc61e0cfdff53e7f004ac1396" prot="public" virt="non-virtual"><scope>cybt_hci_transport_config_t</scope><name>hci_uart</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

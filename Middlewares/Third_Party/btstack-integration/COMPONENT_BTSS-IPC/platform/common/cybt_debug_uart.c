@@ -1,8 +1,9 @@
-#ifdef ENABLE_BT_SPY_LOG
+#include "cybt_platform_config.h"
+
+#ifdef ENABLE_DEBUG_UART
 
 #include "cyhal_uart.h"
 #include "cyabs_rtos.h"
-#include "cybt_platform_config.h"
 #include "cybsp_types.h"
 #include "cybt_platform_task.h"
 #include "cybt_debug_uart.h"
@@ -13,7 +14,7 @@
 
 #ifndef DISABLE_TX_TASK
 #define BT_TASK_NAME_DEBUG_UART_TX       "CYBT_DEBUG_UART_TX_Task"
-#define DEBUG_UART_TX_TASK_STACK_SIZE    (0x1800)
+#define DEBUG_UART_TX_TASK_STACK_SIZE    (0x1700)
 #define DEBUG_UART_TX_TASK_QUEUE_COUNT   (50)
 #define DEBUG_UART_TX_QUEUE_ITEM_SIZE    (sizeof(void *))
 #define DEBUG_UART_TX_TASK_QUEUE         cybt_debug_uart_tx_queue
@@ -26,7 +27,7 @@ wiced_bt_heap_t *debug_task_heap = NULL;
 
 #define BT_TASK_NAME_DEBUG_UART_RX       "CYBT_DEBUG_UART_RX_Task"
 
-#define DEBUG_UART_RX_TASK_STACK_SIZE    (0x1800)
+#define DEBUG_UART_RX_TASK_STACK_SIZE    (0x1700)
 
 #define DEBUG_UART_RX_TASK_PRIORITY     (CY_RTOS_PRIORITY_ABOVENORMAL)
 
@@ -80,7 +81,6 @@ cy_queue_t  cybt_debug_uart_tx_queue;
 cy_thread_t cybt_debug_uart_tx_task;
 #endif
 cy_thread_t cybt_debug_uart_rx_task;
-
 
 /*
  * Global variable declarations
@@ -271,7 +271,7 @@ static void cybt_debug_rx_task(void *arg)
 
 cybt_result_t cybt_init_debug_trans_task(void)
 {
-    cybt_result_t result;
+    cy_rslt_t result;
 
     if(true == trans_setup)
         return CYBT_SUCCESS;
@@ -562,4 +562,4 @@ int _write(int fd, const char* ptr, int len)
     return 0;
 }
 
-#endif // ENABLE_BT_SPY_LOG
+#endif // ENABLE_DEBUG_UART

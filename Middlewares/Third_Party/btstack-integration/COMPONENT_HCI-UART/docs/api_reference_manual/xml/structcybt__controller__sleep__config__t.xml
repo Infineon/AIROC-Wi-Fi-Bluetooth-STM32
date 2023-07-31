@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="structcybt__controller__sleep__config__t" kind="struct" language="C++" prot="public">
+    <compoundname>cybt_controller_sleep_config_t</compoundname>
+    <includes local="no">cybt_platform_config.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcybt__controller__sleep__config__t_1a5fa043774551489ef424852728ec39dc" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t cybt_controller_sleep_config_t::sleep_mode_enabled</definition>
+        <argsstring></argsstring>
+        <name>sleep_mode_enabled</name>
+        <briefdescription>
+<para>Enable or disable the sleep mode of BT chip. </para>        </briefdescription>
+        <detaileddescription>
+<para>Either assign the value CYBT_SLEEP_MODE_DISABLED, or CYBT_SLEEP_MODE_ENABLED</para><para>or CYCFG_BT_LP_ENABLED for ModusToolBox LPA configuration</para><para>Notice that sleep mode will be enabled only if both device and host wakeup pins are assigned. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="118" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__controller__sleep__config__t_1a27cadf5aa335e23250b095f0f213efec" prot="public" static="no" mutable="no">
+        <type>cyhal_gpio_t</type>
+        <definition>cyhal_gpio_t cybt_controller_sleep_config_t::device_wakeup_pin</definition>
+        <argsstring></argsstring>
+        <name>device_wakeup_pin</name>
+        <briefdescription>
+<para>The gpio definition for BT device wakeup pin. </para>        </briefdescription>
+        <detaileddescription>
+<para>It can be assigned by the value with the type cyhal_gpio_t directly. For ModusToolBox, CYCFG_BT_DEV_WAKE_GPIO can be used.</para><para>NC is used as this pin is NOT connected. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="130" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__controller__sleep__config__t_1ad9491b731323d2e17b6836d26b7b238d" prot="public" static="no" mutable="no">
+        <type>cyhal_gpio_t</type>
+        <definition>cyhal_gpio_t cybt_controller_sleep_config_t::host_wakeup_pin</definition>
+        <argsstring></argsstring>
+        <name>host_wakeup_pin</name>
+        <briefdescription>
+<para>The gpio definition for BT host wakeup pin. </para>        </briefdescription>
+        <detaileddescription>
+<para>It can be assigned by the value with the type cyhal_gpio_t directly. For ModusToolBox, CYCFG_BT_HOST_WAKE_GPIO can be used.</para><para>NC is used as this pin is NOT connected. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="137" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__controller__sleep__config__t_1af610fc41d1a3984908fafcf00c7ec76e" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t cybt_controller_sleep_config_t::device_wake_polarity</definition>
+        <argsstring></argsstring>
+        <name>device_wake_polarity</name>
+        <briefdescription>
+<para>The trigger level of device wakeup pin. </para>        </briefdescription>
+        <detaileddescription>
+<para>Either assign the value CYBT_WAKE_ACTIVE_LOW, or<linebreak/>
+ CYBT_WAKE_ACTIVE_HIGH.</para><para>Or CYCFG_BT_DEV_WAKE_POLARITY for ModusToolBox LPA configuration.</para><para>The default value will be active low. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="144" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__controller__sleep__config__t_1a593fd22a6c9987faaef084853b9dd3c6" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t cybt_controller_sleep_config_t::host_wake_polarity</definition>
+        <argsstring></argsstring>
+        <name>host_wake_polarity</name>
+        <briefdescription>
+<para>The trigger level of host wakeup pin. </para>        </briefdescription>
+        <detaileddescription>
+<para>Either assign the value CYBT_WAKE_ACTIVE_LOW, or <linebreak/>
+ CYBT_WAKE_ACTIVE_HIGH,</para><para>Or CYCFG_BT_DEV_WAKE_POLARITY for ModusToolBox LPA configuration.</para><para>The default value will be active low. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="154" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Bluetooth chip sleep mode configuration parameters, including enable status, wakeup pins assignment and their trigger polarity. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="117" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="116" bodyend="164"/>
+    <listofallmembers>
+      <member refid="structcybt__controller__sleep__config__t_1af610fc41d1a3984908fafcf00c7ec76e" prot="public" virt="non-virtual"><scope>cybt_controller_sleep_config_t</scope><name>device_wake_polarity</name></member>
+      <member refid="structcybt__controller__sleep__config__t_1a27cadf5aa335e23250b095f0f213efec" prot="public" virt="non-virtual"><scope>cybt_controller_sleep_config_t</scope><name>device_wakeup_pin</name></member>
+      <member refid="structcybt__controller__sleep__config__t_1a593fd22a6c9987faaef084853b9dd3c6" prot="public" virt="non-virtual"><scope>cybt_controller_sleep_config_t</scope><name>host_wake_polarity</name></member>
+      <member refid="structcybt__controller__sleep__config__t_1ad9491b731323d2e17b6836d26b7b238d" prot="public" virt="non-virtual"><scope>cybt_controller_sleep_config_t</scope><name>host_wakeup_pin</name></member>
+      <member refid="structcybt__controller__sleep__config__t_1a5fa043774551489ef424852728ec39dc" prot="public" virt="non-virtual"><scope>cybt_controller_sleep_config_t</scope><name>sleep_mode_enabled</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

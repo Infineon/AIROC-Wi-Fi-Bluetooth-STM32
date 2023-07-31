@@ -60,11 +60,11 @@
 /******************************************************************************
  *                                Constants
  ******************************************************************************/
-#ifdef ENABLE_BT_SPY_LOG
+#ifdef ENABLE_DEBUG_UART
 #define  CYBT_TRACE_BUFFER_SIZE    (256)
 #else
 #define  CYBT_TRACE_BUFFER_SIZE    (128)
-#endif //ENABLE_BT_SPY_LOG
+#endif //ENABLE_DEBUG_UART
 
 
 #ifdef __cplusplus

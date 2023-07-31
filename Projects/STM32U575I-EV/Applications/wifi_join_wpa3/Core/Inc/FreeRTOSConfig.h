@@ -164,7 +164,8 @@ header file. */
 
 #define configCHECK_FOR_STACK_OVERFLOW           1
 
-
-/* USER CODE END Defines */
+#if defined (__GNUC__) && !defined (__CC_ARM)
+ #define configUSE_NEWLIB_REENTRANT              1
+#endif/* USER CODE END Defines */
 
 #endif /* FREERTOS_CONFIG_H */

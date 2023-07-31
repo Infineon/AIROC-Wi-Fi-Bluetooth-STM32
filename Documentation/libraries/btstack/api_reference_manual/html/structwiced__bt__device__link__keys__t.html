@@ -106,7 +106,7 @@ Data Fields</h2></td></tr>
 <tr class="separator:afee39bc3d694e3ea4e2f1d6e569fb4e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adacd7612dfb1254f2c995c8e38c0b9d8"><td class="memItemLeft" align="right" valign="top"><a id="adacd7612dfb1254f2c995c8e38c0b9d8"></a>
 <a class="el" href="group__bt__types.html#gacf9a377aceca799be625c0dfe554902e">wiced_bt_device_address_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwiced__bt__device__link__keys__t.html#adacd7612dfb1254f2c995c8e38c0b9d8">conn_addr</a></td></tr>
-<tr class="memdesc:adacd7612dfb1254f2c995c8e38c0b9d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">[in] BD Address remote used to originate connection <br /></td></tr>
+<tr class="memdesc:adacd7612dfb1254f2c995c8e38c0b9d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">[in] BD Address remote used to originate the first connection <br /></td></tr>
 <tr class="separator:adacd7612dfb1254f2c995c8e38c0b9d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
@@ -123,7 +123,12 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>[in] BD Address of remote </p>
-<dl class="section note"><dt>Note</dt><dd>For BLE devices address type of the device is in <a class="el" href="structwiced__bt__device__sec__keys__t.html#a662c31c3b4577be030465e29f7ddff8d">wiced_bt_device_sec_keys_t::ble_addr_type</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>For BLE transport<ol type="1">
+<li>device_addr_type for this bd_addr is in <a class="el" href="structwiced__bt__device__sec__keys__t.html#a662c31c3b4577be030465e29f7ddff8d">wiced_bt_device_sec_keys_t::ble_addr_type</a></li>
+<li>if the remote device has shared an IRK, this address will be of type <a class="el" href="group__bt__types.html#ga5ac125aff51458f57329826c93ca922a">BLE_ADDR_PUBLIC_ID</a> or <a class="el" href="group__bt__types.html#ga9c8a7e2651e9ff47b802b09c21b3da3d">BLE_ADDR_RANDOM_ID</a> which may be different from the address used in the connection complete event (<a class="el" href="group__wicedbt__gatt.html#gga1a4943c0f32914d5d939b05e84c99631ab44e413a73125ba989225c6629ec7dc5">GATT_CONNECTION_STATUS_EVT</a>).</li>
+<li>Application must use the address in this structure only for storing/retrieving the keys. For any other API which requires the bd_addr, application must continue to use the address reported in the <a class="el" href="group__wicedbt__gatt.html#gga1a4943c0f32914d5d939b05e84c99631ab44e413a73125ba989225c6629ec7dc5">GATT_CONNECTION_STATUS_EVT</a>. </li>
+</ol>
+</dd></dl>
 
 </div>
 </div>

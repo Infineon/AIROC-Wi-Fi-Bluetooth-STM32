@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="group__platform__cfg" kind="group">
+    <compoundname>platform_cfg</compoundname>
+    <title>Bluetooth Platform Configuration</title>
+    <innerclass refid="structcybt__hci__uart__config__t" prot="public">cybt_hci_uart_config_t</innerclass>
+    <innerclass refid="structcybt__hci__transport__config__t" prot="public">cybt_hci_transport_config_t</innerclass>
+    <innerclass refid="structcybt__controller__sleep__config__t" prot="public">cybt_controller_sleep_config_t</innerclass>
+    <innerclass refid="structcybt__controller__config__t" prot="public">cybt_controller_config_t</innerclass>
+    <innerclass refid="structcybt__platform__config__t" prot="public">cybt_platform_config_t</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__platform__cfg_1ga5f6850727c86459c4c6c11c84870d308" prot="public" static="no">
+        <name>cybt_hci_transport_t</name>
+        <enumvalue id="group__platform__cfg_1gga5f6850727c86459c4c6c11c84870d308af5ee9474117419b2f07127b9ffd0dc99" prot="public">
+          <name>CYBT_HCI_UNKNOWN</name>
+          <initializer>= 0x00</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__platform__cfg_1gga5f6850727c86459c4c6c11c84870d308a154733e718f98e13774fb625df3687f3" prot="public">
+          <name>CYBT_HCI_UART</name>
+          <initializer>= 0x01</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>The BT HCI transport type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="67" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="66" bodyend="70"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__platform__cfg_1ga1ff2a9935b27efb9639974d6ddc1894a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cybt_platform_config_init</definition>
+        <argsstring>(const cybt_platform_config_t *p_bt_platform_cfg)</argsstring>
+        <name>cybt_platform_config_init</name>
+        <param>
+          <type>const <ref refid="structcybt__platform__config__t" kindref="compound">cybt_platform_config_t</ref> *</type>
+          <declname>p_bt_platform_cfg</declname>
+        </param>
+        <briefdescription>
+<para>Configurate the Bluetotoh platform specific settings. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">p_bt_platform_cfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: point to the configuration structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>void </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="205" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__platform__cfg_1ga71a14bd3046f030353a91683577817a6" prot="public" static="no">
+        <name>CYBT_SLEEP_MODE_DISABLED</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="53" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__platform__cfg_1gad9d80ecaf5864c704c87bd0cf7490659" prot="public" static="no">
+        <name>CYBT_SLEEP_MODE_ENABLED</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="54" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__platform__cfg_1gaf7d41be05e1c430256f65d1219abd831" prot="public" static="no">
+        <name>CYBT_WAKE_ACTIVE_LOW</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="56" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__platform__cfg_1gad8d6dd4f2d7b07a29af54ebf34d9be6e" prot="public" static="no">
+        <name>CYBT_WAKE_ACTIVE_HIGH</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="57" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The Bluetooth platform-specific configurations, including hardware pin assignment, HCI (Host Controller Interface) format, sleep mode settings and memory pool size for OS tasks. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

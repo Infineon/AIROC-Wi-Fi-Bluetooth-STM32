@@ -299,9 +299,16 @@ typedef uint8_t wiced_bt_ble_sec_action_type_t;  /**< BLE security type. refer #
  */
 typedef uint8_t   wiced_bt_ble_host_phy_preferences_t;
 
-#define BTM_BLE_PREFER_NO_LELR                         0x0000 /**< No preferred coding */
-#define BTM_BLE_PREFER_LELR_125K                       0x0001 /**< Preferred coding is S=2 */
-#define BTM_BLE_PREFER_LELR_512K                       0x0002 /**< Preferred coding is S=8 */
+#define BTM_BLE_PREFER_NO_LELR    0x0000 /**< No preferred coding */
+#define BTM_BLE_PREFER_LELR_S2    0x0001 /**< Preferred coding is S=2, 500 kb/s */
+#define BTM_BLE_PREFER_LELR_S8    0x0002 /**< Preferred coding is S=8, 125 kb/s */
+
+/**
+ * @note BTM_BLE_PREFER_LELR_512K and BTM_BLE_PREFER_LELR_125K are going to be deprecated.
+ * Use BTM_BLE_PREFER_LELR_S2 and BTM_BLE_PREFER_LELR_S8 instead.
+ */
+#define BTM_BLE_PREFER_LELR_512K    BTM_BLE_PREFER_LELR_S2 /**< @note To be deprecated use \ref BTM_BLE_PREFER_LELR_S2 */
+#define BTM_BLE_PREFER_LELR_125K    BTM_BLE_PREFER_LELR_S8 /**< @note To be deprecated use \ref BTM_BLE_PREFER_LELR_S8 */
 
 /**  The PHY_options parameter is a bit field that allows the Host to specify options
  *    for LE long range PHY. Default connection is with no LE coded PHY.The Controller may override any
@@ -310,7 +317,7 @@ typedef uint8_t   wiced_bt_ble_host_phy_preferences_t;
  *    The Host may specify a preferred coding even if it prefers not to use the LE
  *    Coded transmitter PHY since the Controller may override the PHY preference.
  *    Bit 2-15 reserved for future use.
- *  @note  These preferences applicable only when BTM_BLE_PREFER_LELR_PHY flag gest set
+ *  @note  These preferences applicable only when BTM_BLE_PREFER_LELR_PHY flag is set
  */
 typedef uint16_t  wiced_bt_ble_lelr_phy_preferences_t;
 
@@ -571,6 +578,75 @@ enum wiced_bt_ble_periodic_adv_sync_transfer_mode_e
 /** Mode used in create periodic sync to periodic adv command (see #wiced_bt_ble_periodic_adv_sync_transfer_mode_e)*/
 typedef uint8_t wiced_bt_ble_periodic_adv_sync_transfer_mode_t;
 
+enum
+{
+    /** The Host has no preferred or required coding when transmitting on the LE Coded PHY  */
+    WICED_BT_BLE_PHY_ADV_OPTIONS_NO_PREFERENCE = 0,
+    /** The Host prefers that S=2 coding be used when transmitting on the LE Coded PHY */
+    WICED_BT_BLE_PHY_ADV_OPTIONS_PREFER_S2 = 1,
+    /** The Host prefers that S=8 coding be used when transmitting on the LE Coded PHY */
+    WICED_BT_BLE_PHY_ADV_OPTIONS_PREFER_S8 = 2,
+    /** The Host requires that S=2 coding be used when transmitting on the LE Coded PHY */
+    WICED_BT_BLE_PHY_ADV_OPTIONS_REQUIRE_S2 = 3,
+    /** The Host requires that S=8 coding be used when transmitting on the LE Coded PHY */
+    WICED_BT_BLE_PHY_ADV_OPTIONS_REQUIRE_S8 = 4,
+};
+/** Phy adv options to be set in \ref wiced_bt_ble_set_ext_adv_params_v2 */
+typedef uint8_t wiced_bt_ble_phy_adv_options_t;
+
+/** Parameters for extended adv */
+typedef struct
+{
+    /** event_properties Bit mask to specify connectable, scannable, low duty, high duty, directed, legacy adv */
+    wiced_bt_ble_ext_adv_event_property_t event_properties;
+    /** primary_adv_int_min Range : 0x000020 to 0xFFFFFF(20 ms to 10, 485.759375 s) */
+    uint32_t primary_adv_int_min;
+
+    /** primary_adv_int_max Range : 0x000020 to 0xFFFFFF(20 ms to 10, 485.759375 s) */
+    uint32_t primary_adv_int_max;
+
+    /** primary_adv_channel_map BLE advertisement channel map(see #wiced_bt_ble_advert_chnl_map_e) */
+    wiced_bt_ble_advert_chnl_map_t primary_adv_channel_map;
+
+    /** own_addr_type Ignored in case of anonymous adv.See event_properties */
+    wiced_bt_ble_address_type_t own_addr_type;
+
+    /** peer_addr_type Peer address type */
+    wiced_bt_ble_address_type_t peer_addr_type;
+
+    /** peer_addr peer address */
+    wiced_bt_device_address_t peer_addr;
+
+    /** adv_filter_policy Adv filter policy */
+    wiced_bt_ble_advert_filter_policy_t adv_filter_policy;
+
+    /** adv_tx_power - 127 to + 126. 127 means host has no preference */
+    int8_t adv_tx_power;
+
+    /** primary_adv_phy Phy used to transmit ADV packets on Primary ADV channels */
+    wiced_bt_ble_ext_adv_phy_t primary_adv_phy;
+
+    /** secondary_adv_max_skip Valid only in case of extended ADV.Range 0 to FF.Maximum advertising events controller
+        can skip before sending auxiliary adv packets on the secondary adv channel */
+    uint8_t secondary_adv_max_skip;
+
+    /** secondary_adv_phy Phy used to transmit ADV packets on secondary ADV channels .Valid only in case of extended ADV */
+    wiced_bt_ble_ext_adv_phy_t secondary_adv_phy;
+
+    /** adv_sid Advertisement set identifier is the value to be transmitted in extended ADV PDUs */
+    wiced_bt_ble_ext_adv_sid_t adv_sid;
+
+    /** scan_request_not scan request received notification enable/ disable */
+    wiced_bt_ble_ext_adv_scan_req_notification_setting_t scan_request_not;
+
+    /** primary phy adv options */
+    wiced_bt_ble_phy_adv_options_t primary_phy_opts;
+
+    /** secondary phy adv options */
+    wiced_bt_ble_phy_adv_options_t secondary_phy_opts;
+} wiced_bt_ble_ext_adv_params_t;
+
+
 /** Extended ADV connection configuration structure */
 typedef struct
 {
@@ -815,6 +891,7 @@ typedef struct
     uint8_t     tx_power;
     uint8_t     rssi;
     uint8_t     cte_type;
+    uint16_t    periodic_evt_counter;
     uint8_t     sub_event;
     uint8_t     data_status;
     uint8_t     data_length;                                /**< Length of the subevent indication data  */
@@ -1622,6 +1699,25 @@ wiced_bt_dev_status_t wiced_bt_ble_set_ext_adv_parameters(
     wiced_bt_ble_ext_adv_scan_req_notification_setting_t scan_request_not);
 
 /**
+ * Sends the HCI command to set the parameters for extended advetisement
+ *
+ * @param[in]        adv_handle Advertisement set handle
+ * @param[in]        p_params   Extended adv parameters
+
+ * @return          wiced_bt_dev_status_t
+ *
+ * <b> WICED_BT_SUCCESS </b>       : If all extended adv params are set successfully\n
+ * <b> WICED_BT_ILLEGAL_VALUE </b> : If paramer is wrong \n
+ * <b> WICED_BT_UNSUPPORTED </b>   : If command not supported \n
+ * <b> WICED_BT_NO_RESOURCES </b>  : If no memory to issue the command \n
+ * <b> WICED_BT_PENDING </b>       : If command queued to send down \n
+ *
+ */
+wiced_bt_dev_status_t wiced_bt_ble_set_ext_adv_parameters_v2(wiced_bt_ble_ext_adv_handle_t adv_handle,
+                                                             wiced_bt_ble_ext_adv_params_t *p_params);
+
+
+/**
  * Sends HCI command to write the extended adv data
  * @note This API allows sending data formatted with \ref wiced_bt_ble_build_raw_advertisement_data.
  * @note This API cannot be used for the advertising handle with the event_properties that doesn't support advertising data;
@@ -2168,6 +2264,23 @@ wiced_bt_dev_status_t wiced_bt_ble_set_pawr_sync_subevents (uint16_t sync_handle
                                 int num_subevents, uint8_t *p_subevents);
 
 /* @endcond */
+
+
+/**
+* Function wiced_bt_ble_set_host_features
+*
+*          This API is called to set the supported host features
+*
+* @param[in]  feature   bit position of required feature
+* @param[in]  bit_value Value to enable or disable Advertising Coding Selection Host Support feature bit
+*
+* @return          wiced_result_t
+*                  WICED_BT_SUCCESS Advertising Coding Selection Host Support feature bit is modified
+*                  WICED_BT_ERROR   otherwise.
+*/
+wiced_bt_dev_status_t wiced_bt_ble_set_host_features(wiced_bt_ble_feature_bit_t feature, uint8_t bit_value);
+
+
 
 /**@} btm_ble_api_functions */
 

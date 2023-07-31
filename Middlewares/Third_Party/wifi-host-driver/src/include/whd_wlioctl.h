@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company)
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -81,6 +81,219 @@ typedef struct wl_rx_mgmt_data
 #define WL_EXTAUTH_ABORT      2
 #define WL_EXTAUTH_FAIL       3
 #define WL_EXTAUTH_SUCCESS    4
+
+/* HE top level command IDs */
+enum
+{
+    /* 0-12 Reserved */
+    WL_HE_CMD_OMI = 13,
+    /* 14-27 Reserved */
+    WL_HE_CMD_MUEDCA_OPT = 28,
+    WL_HE_CMD_LAST
+};
+
+#define INVALID_HE_OMI_ARG 255
+
+#define WL_HE_OMI_V1 1
+typedef struct wl_he_omi_v1
+{
+    uint8_t version;
+    uint8_t length;
+    uint8_t rx_nss;
+    uint8_t chnl_wdth;
+    uint8_t ul_mu_dis;
+    uint8_t tx_nsts;
+    uint8_t er_su_dis;
+    uint8_t dl_mu_resound;
+    uint8_t ul_mu_data_dis;
+} wl_he_omi_v1_t;
+
+#define WL_HE_OMI_VER (WL_HE_OMI_V1)
+typedef wl_he_omi_v1_t wl_he_omi_t;
+
+/* TWT top level command IDs */
+enum
+{
+    WL_TWT_CMD_ENAB = 0,
+    WL_TWT_CMD_SETUP = 1,
+    WL_TWT_CMD_TEARDOWN = 2,
+    WL_TWT_CMD_INFO = 3,
+    WL_TWT_CMD_AUTOSCHED = 4,
+    WL_TWT_CMD_STATS = 5,
+    WL_TWT_CMD_EARLY_TERM_TIME = 6,
+    WL_TWT_CMD_RESP_CONFIG = 7,
+    WL_TWT_CMD_SPPS_ENAB = 8,
+    WL_TWT_CMD_FEATURES = 9,
+    WL_TWT_CMD_LAST
+};
+
+/* Setup Command field (Table 9-262k) */
+#define TWT_SETUP_CMD_REQUEST_TWT   0u  /* Request TWT */
+#define TWT_SETUP_CMD_SUGGEST_TWT   1u  /* Suggest TWT */
+#define TWT_SETUP_CMD_DEMAND_TWT    2u  /* Demand TWT */
+#define TWT_SETUP_CMD_GROUPING_TWT  3u  /* Grouping TWT */
+#define TWT_SETUP_CMD_ACCEPT_TWT    4u  /* Accept TWT */
+#define TWT_SETUP_CMD_ALTERNATE_TWT     5u  /* Alternate TWT */
+#define TWT_SETUP_CMD_DICTATE_TWT   6u  /* Dictate TWT */
+#define TWT_SETUP_CMD_REJECT_TWT    7u  /* Reject TWT */
+
+typedef enum twt_ctrl_nego_type
+{
+    TWT_CTRL_NEGO_TYPE_0    = 0,    /* Individual TWT Setup */
+    TWT_CTRL_NEGO_TYPE_1    = 1,    /* Wake TBTT Negotiation */
+    TWT_CTRL_NEGO_TYPE_2    = 2,    /* Broadcast TWT IE in Beacon */
+    TWT_CTRL_NEGO_TYPE_3    = 3,    /* Broadcast TWT memberships */
+} twt_ctrl_nego_type_t;
+
+/* TWT Setup descriptor */
+typedef struct wl_twt_sdesc
+{
+    /* Setup Command. */
+    uint8_t setup_cmd;        /* See TWT_SETUP_CMD_XXXX in 802.11ah.h */
+    uint8_t flow_flags;       /* Flow attributes. See WL_TWT_FLOW_FLAG_XXXX below */
+    uint8_t flow_id;      /* must be between 0 and 7. Set 0xFF for auto assignment */
+    uint8_t wake_type;    /* See WL_TWT_TIME_TYPE_XXXX below */
+    uint32_t wake_time_h; /* target wake time - BSS TSF (us) */
+    uint32_t wake_time_l;
+    uint32_t wake_dur;    /* target wake duration in unit of microseconds */
+    uint32_t wake_int;    /* target wake interval */
+    uint32_t btwt_persistence;    /* Broadcast TWT Persistence */
+    uint32_t wake_int_max;    /* max wake interval(uS) for TWT */
+    uint8_t duty_cycle_min;   /* min duty cycle for TWT(Percentage) */
+    uint8_t pad;
+    uint8_t bid;      /* must be between 0 and 31. Set 0xFF for auto assignment */
+    uint8_t channel;      /* Twt channel - Not used for now */
+    uint8_t negotiation_type; /* Negotiation Type: See macros TWT_NEGO_TYPE_X */
+    uint8_t frame_recomm; /* frame recommendation for broadcast TWTs - Not used for now	 */
+    /* deprecated - to be removed */
+    uint16_t li;
+} wl_twt_sdesc_t;
+
+#define WL_TWT_FLOW_FLAG_BROADCAST  (1 << 0)
+#define WL_TWT_FLOW_FLAG_IMPLICIT   (1 << 1)
+#define WL_TWT_FLOW_FLAG_UNANNOUNCED    (1 << 2)
+#define WL_TWT_FLOW_FLAG_TRIGGER    (1 << 3)
+#define WL_TWT_FLOW_FLAG_WAKE_TBTT_NEGO (1 << 4)
+#define WL_TWT_FLOW_FLAG_REQUEST    (1 << 5)
+
+#define WL_TWT_FLOW_FLAG_PROTECT    (1u << 0u)
+#define WL_TWT_FLOW_FLAG_RESPONDER_PM   (1u << 6u)
+#define WL_TWT_FLOW_FLAG_UNSOLICITED    (1u << 7u)
+
+/* Flow id */
+#define WL_TWT_FLOW_ID_FID  0x07u   /* flow id */
+#define WL_TWT_FLOW_ID_GID_MASK 0x70u   /* group id - broadcast TWT only */
+#define WL_TWT_FLOW_ID_GID_SHIFT 4u
+
+#define WL_TWT_INV_BCAST_ID 0xFFu
+#define WL_TWT_INV_FLOW_ID  0xFFu
+
+/* auto flow_id */
+#define WL_TWT_SETUP_FLOW_ID_AUTO   0xFFu
+/* auto broadcast ID */
+#define WL_TWT_SETUP_BCAST_ID_AUTO  0xFFu
+/* Infinite persistence for broadcast schedule */
+#define WL_TWT_INFINITE_BTWT_PERSIST    0xFFFFFFFFu
+
+/* Wake type */
+#define WL_TWT_TIME_TYPE_BSS    0u
+#define WL_TWT_TIME_TYPE_OFFSET 1u
+#define WL_TWT_TIME_TYPE_AUTO   2u
+
+#define WL_TWT_SETUP_VER    0u
+
+/* HE TWT Setup command */
+typedef struct wl_twt_setup
+{
+    /* structure control */
+    uint16_t version; /* structure version */
+    uint16_t length;  /* data length (starting after this field) */
+    /* peer address */
+    wl_ether_addr_t peer;   /* leave it all 0s' for AP */
+    uint8_t pad[2];
+    /* setup descriptor */
+    wl_twt_sdesc_t desc;
+    /* deprecated - to be removed */
+    uint16_t dialog;
+    uint8_t pad1[2];
+} wl_twt_setup_t;
+
+/* deprecated -to be removed */
+#define WL_TWT_DIALOG_TOKEN_AUTO 0xFFFF
+
+#define WL_TWT_TEARDOWN_VER 0u
+
+/* twt teardown descriptor */
+typedef struct wl_twt_teardesc
+{
+    uint8_t negotiation_type;
+    uint8_t flow_id;      /* must be between 0 and 7 */
+    uint8_t bid;      /* must be between 0 and 31 */
+    uint8_t alltwt;       /* all twt teardown - 0 or 1 */
+} wl_twt_teardesc_t;
+
+/* HE TWT Teardown command */
+typedef struct wl_twt_teardown
+{
+    /* structure control */
+    uint16_t version; /* structure version */
+    uint16_t length;  /* data length (starting after this field) */
+    /* peer address */
+    wl_ether_addr_t peer;   /* leave it all 0s' for AP */
+    wl_twt_teardesc_t teardesc; /* Teardown descriptor */
+
+    /* deprecated - to be removed */
+    uint8_t flow_flags;
+    uint8_t flow_id;
+    uint8_t bid;
+    uint8_t pad;
+} wl_twt_teardown_t;
+
+/* twt information descriptor */
+typedef struct wl_twt_infodesc
+{
+    uint8_t flow_flags;   /* See WL_TWT_INFO_FLAG_XXX below */
+    uint8_t flow_id;
+    uint8_t pad[2];
+    uint32_t next_twt_h;
+    uint32_t next_twt_l;
+    /* deprecated - to be removed */
+    uint8_t wake_type;
+    uint8_t pad1[3];
+} wl_twt_infodesc_t;
+
+/* Flow flags */
+#define WL_TWT_INFO_FLAG_ALL_TWT    (1u << 0u)  /* All TWT */
+#define WL_TWT_INFO_FLAG_RESUME     (1u << 1u)  /* 1 is TWT Resume, 0 is TWT Suspend */
+
+/* deprecated - to be removed */
+#define WL_TWT_INFO_FLAG_RESP_REQ   (1 << 0)    /* Response Requested */
+#define WL_TWT_INFO_FLAG_NEXT_TWT_REQ   (1 << 1)    /* Next TWT Request */
+#define WL_TWT_INFO_FLAG_BTWT_RESCHED   (1 << 2)    /* Broadcast Reschedule */
+typedef wl_twt_infodesc_t wl_twt_idesc_t;
+
+#define WL_TWT_INFO_VER 0u
+
+/* HE TWT Information command */
+typedef struct wl_twt_info
+{
+    /* structure control */
+    uint16_t version; /* structure version */
+    uint16_t length;  /* data length (starting after this field) */
+    /* peer address */
+    wl_ether_addr_t peer;   /* leave it all 0s' for AP */
+    uint8_t pad[2];
+    wl_twt_infodesc_t infodesc; /* information descriptor */
+    /* deprecated - to be removed */
+    wl_twt_idesc_t desc;
+} wl_twt_info_t;
+
+typedef struct whd_xtlv
+{
+    uint16_t id;
+    uint16_t len;
+    uint8_t data[1];
+} whd_xtlv_t;
 
 /* ether types */
 #define ETHER_TYPE_LEN      2
@@ -408,6 +621,8 @@ typedef struct wl_wsec_key
 #define WSEC_MIN_PSK_LEN    8
 #define WSEC_MAX_PSK_LEN    64
 #define WSEC_PMK_LEN        32
+#define WSEC_PMK_WPA3_ENT_192_LEN        48
+#define WSEC_PMK_MAX_LEN    64
 #define WSEC_PASSPHRASE        (1 << 0)
 typedef struct
 {
@@ -469,6 +684,7 @@ typedef enum
 #define WPA2_AUTH_IS_FILS(auth) ( (auth) & (WPA2_AUTH_FILS_SHA256 | WPA2_AUTH_FILS_SHA384) )
 #define WPA3_AUTH_SAE_PSK       0x40000 /* SAE authentication with SHA-256 */
 #define WPA3_AUTH_SAE_FBT       0x80000 /* FT authentication over SAE */
+#define WPA3_AUTH_1X_SUITE_B_SHA384 0x400000 /* Suite B-192 SHA384 */
 #define WPA3_AUTH_OWE           0x100000  /* OWE */
 #define WPA_AUTH_PFN_ANY        0xffffffff  /* for PFN, match only ssid */
 
@@ -860,6 +1076,7 @@ typedef struct eventmsgs_ext
 #define IOVAR_STR_SAE_PASSWORD           "sae_password"
 #define IOVAR_STR_SAE_PWE_LOOP           "sae_max_pwe_loop"
 #define IOVAR_STR_PMKID_INFO             "pmkid_info"
+#define IOVAR_STR_PMKID_CLEAR            "pmkid_clear"
 #define IOVAR_STR_AUTH_STATUS            "auth_status"
 
 #define IOVAR_STR_BTC_LESCAN_PARAMS      "btc_lescan_params"
@@ -875,6 +1092,10 @@ typedef struct eventmsgs_ext
 #define IOVAR_STR_ARP_STATS_CLEAR        "arp_stats_clear"
 #define IOVAR_STR_TKO                    "tko"
 #define IOVAR_STR_ROAM_TIME_THRESH       "roam_time_thresh"
+
+#define IOVAR_WNM_MAXIDLE                "wnm_maxidle"
+#define IOVAR_STR_HE                     "he"
+#define IOVAR_STR_TWT                    "twt"
 
 /* This value derived from the above strings, which appear maxed out in the 20s */
 #define IOVAR_NAME_STR_MAX_SIZE          32
@@ -1236,10 +1457,11 @@ typedef struct _wl_assoc_result
 #define WL_DIAGERR_DMA_FAIL           (10)
 #define WL_DIAGERR_MEMORY_TIMEOUT     (11)
 #define WL_DIAGERR_MEMORY_BADPATTERN  (12)
-#define    WLC_BAND_AUTO                (0)
-#define    WLC_BAND_5G                  (1)
-#define    WLC_BAND_2G                  (2)
-#define    WLC_BAND_ALL                 (3)
+#define WLC_BAND_AUTO                 (0)
+#define WLC_BAND_5G                   (1)
+#define WLC_BAND_2G                   (2)
+#define WLC_BAND_6G                   (3)
+#define WLC_BAND_ALL                  (4)
 #define WL_CHAN_FREQ_RANGE_2G           (0)
 #define WL_CHAN_FREQ_RANGE_5GL          (1)
 #define WL_CHAN_FREQ_RANGE_5GM          (2)
@@ -1514,6 +1736,8 @@ typedef struct tx_inst_power
 #define WL_WDS_WPA_ROLE_SUP    1
 #define WL_WDS_WPA_ROLE_AUTO    255
 #define WL_EVENTING_MASK_LEN    16
+
+#define MAXCHANNEL              236
 
 #define VNDR_IE_CMD_LEN        4
 #define VNDR_IE_BEACON_FLAG    0x1

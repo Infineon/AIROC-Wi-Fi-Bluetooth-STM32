@@ -11,7 +11,12 @@
 
 #include "cyabs_rtos.h"
 
+#ifdef FPGA_TEST_PLATFORM
+#define PATCH_DOWNLOAD_FN    NULL
+#else
 #define PATCH_DOWNLOAD_FN    bt_post_reset_cback
+#endif /* FPGA_TEST_PLATFORM */
+
 #define BLESS_CONTROLLER     WICED_FALSE
 
 #if !defined (DISABLE_LPTIMER)

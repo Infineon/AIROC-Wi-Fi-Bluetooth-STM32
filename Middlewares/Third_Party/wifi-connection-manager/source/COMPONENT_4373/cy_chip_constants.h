@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -33,7 +33,7 @@
 
 /**
 * @file cy_chip_constant.h
-* @brief Chip specific constants
+* @brief Chip-specific constants
 */
 
 #define WL_CHANSPEC_BAND_MASK           (0xc000)

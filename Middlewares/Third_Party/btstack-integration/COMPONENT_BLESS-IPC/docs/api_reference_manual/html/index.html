@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <div class="contents">
 <div class="textblock"><p>#AIROC™ BT STack porting layer for PSoC6 BLESS</p>
 <h2>Overview</h2>
-<p>The btstack-port-cyal is the adaptation layer (porting layer) between AIROC™ BT STack and Cypress Abstraction Layers (CYHAL and CYOSAL). This porting layer is to be used in conjunction with Cypress PSOC 6 BLE platform where the application and host stack are running on the CM4 core of PSOC and BLESS controller FW is running on CM0 core of PSOC. The porting layer implements routines to provide OS and memory services from platform and facilitates communication with controller.</p>
+<p>The btstack-integration/COMPONENT_BLESS-IPC is the adaptation layer (porting layer) between AIROC™ BT STack and Cypress Abstraction Layers (CYHAL and CYOSAL). This porting layer is to be used in conjunction with Cypress PSOC 6 BLE platform where the application and host stack are running on the CM4 core of PSOC and BLESS controller FW is running on CM0 core of PSOC. The porting layer implements routines to provide OS and memory services from platform and facilitates communication with controller.</p>
 <h2>Platform HCI transport config</h2>
 <p>Application shall call <b><a class="el" href="group__platform__cfg.html#ga1ff2a9935b27efb9639974d6ddc1894a" title="Configurate the Bluetotoh platform specific settings.">cybt_platform_config_init( )</a></b> API to initialize the porting layer before calling any stack API. IPC Pipe is used to communicate with the controller running on CM0 processor, hence the member variable hci_config.hci_transport of input argument <a class="el" href="structcybt__platform__config__t.html" title="The overall configuration for Cypress WICED BT/BLE stack and BT chip.">cybt_platform_config_t</a> shall be set to CYBT_HCI_IPC. Other parameters are ignored by the porting layer.</p>
 <p>Please refer to cybt_platform_config.h</p>
@@ -116,10 +116,10 @@ $(document).ready(function(){initNavTree('index.html','');});
 </ul>
 <h2>API Reference Manual</h2>
 <ul>
-<li><a href="https://infineon.github.io/bluetooth-freertos/api_reference_manual/html/index.html">Bluetooth platform API manual</a></li>
+<li><a href="https://infineon.github.io/btstack-integration/COMPONENT_BLESS-IPC/docs/api_reference_manual/html/index.html">Bluetooth platform API manual</a></li>
 <li><a href="https://infineon.github.io/btstack/ble/api_reference_manual/html/index.html">Bluetooth stack BLE API manual</a></li>
 </ul>
-<p>© Cypress Semiconductor Corporation, 2020. </p>
+<p>© Infineon Technologies, 2022. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->

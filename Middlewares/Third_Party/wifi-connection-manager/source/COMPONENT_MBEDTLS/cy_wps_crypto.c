@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -32,7 +32,7 @@
  */
 
 /** @file cy_wps_crypto.c
-* @brief AES and SHA hash related functions required for WPS. Implementation here is specific to MBEDTLS library
+* @brief AES and SHA hash related functions required for WPS. Implementation here is specific to Mbed TLS library.
 */
 
 #include <string.h>
@@ -153,15 +153,15 @@ void cy_sha2_hmac_finish(cy_sha2_hmac_context * ctx, unsigned char output[32])
     unsigned char tmpbuf[32];
 
     /*
-     * Work Around: Instead of hard coding is224 to zero, we have to use ctx->ctx.is224;
-     * But mbedtls_sha256_context structure in cy-mbedtls-acceleration(HW Crypto) does not
-     * have is224 field. Verified in entire WPS code that, is224 is always used as zero, so
+     * Work Around: Instead of hard-coding is224 to zero, use ctx->ctx.is224;
+     * However, mbedtls_sha256_context structure in cy-mbedtls-acceleration(HW Crypto) does not
+     * have a is224 field. Verified in entire WPS code that is224 is always used as zero, so
      * it is safe to initialize is224 with 0.
      */
     is224 = 0;
-    /* CID 465080: Deadcode. Since is224 is initialized with 0, 
+    /* CID 465080: Deadcode. Since is224 is initialized with 0,
        hlen = (is224 == 0) ? 32 : 28 will never evaluate to 28.
-       Hence initializing hlen to 32 directly.
+       Therefore, initializing hlen to 32 directly.
     */
     hlen = 32;
 
@@ -176,7 +176,7 @@ void cy_sha2_hmac_finish(cy_sha2_hmac_context * ctx, unsigned char output[32])
 }
 
 /*
- * output = HMAC-SHA-256( hmac key, input buffer )
+ * Output = HMAC-SHA-256( hmac key, input buffer )
  */
 void cy_sha2_hmac(const unsigned char *key, uint32_t keylen,
            const unsigned char *input, uint32_t ilen,

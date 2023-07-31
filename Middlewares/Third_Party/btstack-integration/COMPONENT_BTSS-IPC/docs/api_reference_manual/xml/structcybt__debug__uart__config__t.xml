@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.15">
+  <compounddef id="structcybt__debug__uart__config__t" kind="struct" language="C++" prot="public">
+    <compoundname>cybt_debug_uart_config_t</compoundname>
+    <includes local="no">cybt_debug_uart.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcybt__debug__uart__config__t_1a704afa40225e32731d606d2488a50496" prot="public" static="no" mutable="no">
+        <type>cyhal_gpio_t</type>
+        <definition>cyhal_gpio_t cybt_debug_uart_config_t::uart_tx_pin</definition>
+        <argsstring></argsstring>
+        <name>uart_tx_pin</name>
+        <briefdescription>
+<para>Uart TXD pin. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" line="48" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__debug__uart__config__t_1a109bf7ff2f78d5c2b3d8447ecefbc3e5" prot="public" static="no" mutable="no">
+        <type>cyhal_gpio_t</type>
+        <definition>cyhal_gpio_t cybt_debug_uart_config_t::uart_rx_pin</definition>
+        <argsstring></argsstring>
+        <name>uart_rx_pin</name>
+        <briefdescription>
+<para>Uart RXD pin. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" line="49" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__debug__uart__config__t_1a1442253ba42008c899c18fa135bfeb21" prot="public" static="no" mutable="no">
+        <type>cyhal_gpio_t</type>
+        <definition>cyhal_gpio_t cybt_debug_uart_config_t::uart_rts_pin</definition>
+        <argsstring></argsstring>
+        <name>uart_rts_pin</name>
+        <briefdescription>
+<para>Uart RTS pin. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" line="50" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__debug__uart__config__t_1ad2a825e22ae429addfec61fe09f3451b" prot="public" static="no" mutable="no">
+        <type>cyhal_gpio_t</type>
+        <definition>cyhal_gpio_t cybt_debug_uart_config_t::uart_cts_pin</definition>
+        <argsstring></argsstring>
+        <name>uart_cts_pin</name>
+        <briefdescription>
+<para>Uart CTS pin. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" line="51" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__debug__uart__config__t_1a60d99e8cf844de2b090ac19c3291ee03" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t cybt_debug_uart_config_t::baud_rate</definition>
+        <argsstring></argsstring>
+        <name>baud_rate</name>
+        <briefdescription>
+<para>Uart baud rate. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" line="53" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__debug__uart__config__t_1adf606b6502f0bb0fdd741edf575599ec" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool cybt_debug_uart_config_t::flow_control</definition>
+        <argsstring></argsstring>
+        <name>flow_control</name>
+        <briefdescription>
+<para>flow control status </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" line="55" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Debug Uart Configuration. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" line="47" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" bodystart="46" bodyend="56"/>
+    <listofallmembers>
+      <member refid="structcybt__debug__uart__config__t_1a60d99e8cf844de2b090ac19c3291ee03" prot="public" virt="non-virtual"><scope>cybt_debug_uart_config_t</scope><name>baud_rate</name></member>
+      <member refid="structcybt__debug__uart__config__t_1adf606b6502f0bb0fdd741edf575599ec" prot="public" virt="non-virtual"><scope>cybt_debug_uart_config_t</scope><name>flow_control</name></member>
+      <member refid="structcybt__debug__uart__config__t_1ad2a825e22ae429addfec61fe09f3451b" prot="public" virt="non-virtual"><scope>cybt_debug_uart_config_t</scope><name>uart_cts_pin</name></member>
+      <member refid="structcybt__debug__uart__config__t_1a1442253ba42008c899c18fa135bfeb21" prot="public" virt="non-virtual"><scope>cybt_debug_uart_config_t</scope><name>uart_rts_pin</name></member>
+      <member refid="structcybt__debug__uart__config__t_1a109bf7ff2f78d5c2b3d8447ecefbc3e5" prot="public" virt="non-virtual"><scope>cybt_debug_uart_config_t</scope><name>uart_rx_pin</name></member>
+      <member refid="structcybt__debug__uart__config__t_1a704afa40225e32731d606d2488a50496" prot="public" virt="non-virtual"><scope>cybt_debug_uart_config_t</scope><name>uart_tx_pin</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

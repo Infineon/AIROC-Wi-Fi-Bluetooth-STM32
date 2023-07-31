@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company)
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,6 +33,11 @@ extern "C"
 #endif
 
 #define BLOCK_SIZE 1024 /**< Size of the block */
+
+#ifndef NVM_IMAGE_SIZE_ALIGNMENT
+#define NVM_IMAGE_SIZE_ALIGNMENT 4 /**< The alignment size of NVRAM image */
+#endif
+
 /**
  * Type of resources
  */

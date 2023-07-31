@@ -35,6 +35,9 @@
 #define L2C_HEADER_LEN 0x04
 #define BT_TASK_EVENT_BUFFERS_CNT 10
 
+#define MAX_WRITE_RETRIES       (10)
+#define RECORD_IPC_STATS
+
 /*****************************************************************************
  *                           Type Definitions
  *****************************************************************************/
@@ -68,6 +71,14 @@ typedef struct
     uint16_t dataLen;
 } cy_stc_ble_ipc_msg_t;
 
+#ifdef RECORD_IPC_STATS
+typedef struct {
+    uint32_t write_fail_count; /* Number of write requests that failed. This does not count number of retries performed for same request.  */
+    uint32_t write_max_retry_count; /* Maximum number of failed retries permormed for write request. 0 <= MAX_WRITE_RETRIES */
+}cybt_ipc_stats_t;
+
+#endif
+
 /******************************************************************************
  *                           Variables Definitions
  ******************************************************************************/
@@ -95,6 +106,10 @@ static volatile cy_stc_ble_ipc_msg_t controllerMsg =
 };
 
 static IPC_HOST_MSG msg_comp;
+
+#ifdef RECORD_IPC_STATS
+static cybt_ipc_stats_t ipc_stats;
+#endif
 
 /******************************************************************************
  *                          Function Declarations
@@ -313,8 +328,7 @@ cybt_result_t cybt_platform_hci_write(hci_packet_type_t pti,
     IPC_HOST_MSG *host_msg;
     uint8_t* ipc_tx_buffer;
     uint32_t wait_for = HCI_TASK_EVENT;
-
-
+    int retries = 0;
     host_msg = (IPC_HOST_MSG *)(p_data-sizeof(IPC_HOST_MSG));
     ipc_tx_buffer = p_data;
 
@@ -335,14 +349,39 @@ cybt_result_t cybt_platform_hci_write(hci_packet_type_t pti,
         host_msg->pktDataPointer = (uint32_t)ipc_tx_buffer;
     }
 
-    result = Cy_IPC_Pipe_SendMessage(CY_BLE_IPC_CONTROLLER_ADDR,CY_BLE_IPC_HOST_ADDR, (uint32_t *)host_msg,
-                                     &cybt_platform_ipc_pipe_release_cb);
-    if(result != CY_IPC_PIPE_SUCCESS)
-    	status = CYBT_ERR_GENERIC;
+    do
+    {
+        result = Cy_IPC_Pipe_SendMessage(CY_BLE_IPC_CONTROLLER_ADDR,CY_BLE_IPC_HOST_ADDR, (uint32_t *)host_msg,
+        		&cybt_platform_ipc_pipe_release_cb);
 
+        if (result)
+        {
+            /* adding a delay before retrying */
+            {
+                volatile int delay = 1000;
+                while(delay--);
+            }
+
+            status = CYBT_ERR_HCI_WRITE_FAILED;
+
+#ifdef RECORD_IPC_STATS
+			if (!retries)
+				++ipc_stats.write_fail_count;
+
+			if (retries > ipc_stats.write_max_retry_count){
+				ipc_stats.write_max_retry_count = retries;
+            }
+#endif
+        }else{
+            status = CYBT_SUCCESS;
+            break;
+        }
+    }while(++retries < MAX_WRITE_RETRIES);
 
     //TODO: Instead of blocking wait, manage this by buffer queue or a new thread
-    cy_rtos_waitbits_event(&hci_task_event, &wait_for, true, false, CY_RTOS_NEVER_TIMEOUT);
+
+    if (status == CYBT_SUCCESS)
+        cy_rtos_waitbits_event(&hci_task_event, &wait_for, true, false, CY_RTOS_NEVER_TIMEOUT);
 
     return status;
 }
@@ -381,7 +420,7 @@ uint16_t cybt_platform_get_event_id(void *event)
 
 void cybt_platform_hci_wait_for_boot_fully_up(bool is_from_isr)
 {
-    UNUSED(is_from_isr);
+    UNUSED_VARIABLE(is_from_isr);
 }
 
 void cybt_platform_hci_post_stack_init(void)
@@ -395,14 +434,23 @@ cybt_result_t cybt_platform_hci_set_baudrate(uint32_t baudrate)
      * Only reason to keeping this function is to maintain compatibility
      */
 
-    UNUSED(baudrate);
+    UNUSED_VARIABLE(baudrate);
     return  CYBT_SUCCESS;
 }
 
 bool cybt_platform_hci_process_if_coredump(uint8_t *p_data, uint32_t length)
 {
     /* Todo: decode according to bless controller core dump format */
-    UNUSED(p_data);
-    UNUSED(length);
+    UNUSED_VARIABLE(p_data);
+    UNUSED_VARIABLE(length);
     return (false);
 }
+
+#ifdef RECORD_IPC_STATS
+cybt_result_t cybt_platform_hci_get_ipc_stats(cybt_ipc_stats_t *p_stats)
+{
+	p_stats->write_fail_count = ipc_stats.write_fail_count;
+	p_stats->write_max_retry_count = ipc_stats.write_max_retry_count;
+	return  CYBT_SUCCESS;
+}
+#endif

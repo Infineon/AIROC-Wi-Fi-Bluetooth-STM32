@@ -5,7 +5,7 @@ var group__bt__types =
       [ "uuid16", "structwiced__bt__uuid__t.html#aeecb37fde2935fb7e2900da67a380be7", null ],
       [ "uuid32", "structwiced__bt__uuid__t.html#a4ab339dc4a43df2dc88f2acd787e7493", null ],
       [ "uuid128", "structwiced__bt__uuid__t.html#a0043e23b06269285293d4cab5555ca0f", null ],
-      [ "uu", "structwiced__bt__uuid__t.html#a59bd0f2faad4065ba61dc1813f2f58d1", null ]
+      [ "uu", "structwiced__bt__uuid__t.html#ad085f86ef8ac3141f2cb65a2689ea169", null ]
     ] ],
     [ "wiced_bt_flow_spec_t", "structwiced__bt__flow__spec__t.html", [
       [ "qos_flags", "structwiced__bt__flow__spec__t.html#afe795b08b556ade0405dc3ed8f9a53ab", null ],

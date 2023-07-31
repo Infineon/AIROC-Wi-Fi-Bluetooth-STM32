@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.15">
+  <compounddef id="structcybt__platform__config__t" kind="struct" language="C++" prot="public">
+    <compoundname>cybt_platform_config_t</compoundname>
+    <includes local="no">cybt_platform_config.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcybt__platform__config__t_1a5ed1a8d945e1ed12a4181df867d41dc7" prot="public" static="no" mutable="no">
+        <type><ref refid="structcybt__hci__transport__config__t" kindref="compound">cybt_hci_transport_config_t</ref></type>
+        <definition>cybt_hci_transport_config_t cybt_platform_config_t::hci_config</definition>
+        <argsstring></argsstring>
+        <name>hci_config</name>
+        <briefdescription>
+<para>Bluetooth HCI transport configuration. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="203" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__platform__config__t_1a0ed2b4e529564a9210e5d80c4e59b4bd" prot="public" static="no" mutable="no">
+        <type><ref refid="structcybt__controller__config__t" kindref="compound">cybt_controller_config_t</ref></type>
+        <definition>cybt_controller_config_t cybt_platform_config_t::controller_config</definition>
+        <argsstring></argsstring>
+        <name>controller_config</name>
+        <briefdescription>
+<para>Cypress Bluetooth chip configuration. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="204" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__platform__config__t_1a31c8f2a35e4006fef44c65bb7dea5d4e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t cybt_platform_config_t::task_mem_pool_size</definition>
+        <argsstring></argsstring>
+        <name>task_mem_pool_size</name>
+        <briefdescription>
+<para>memory pool size for Bluetotoh task communication. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The default size is 2048 bytes if it wasn&apos;t specified. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="205" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The overall configuration for Cypress WICED BT/BLE stack and BT chip. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="17">
+        <label>cybt_controller_sleep_config_t</label>
+        <link refid="structcybt__controller__sleep__config__t"/>
+      </node>
+      <node id="16">
+        <label>cybt_controller_config_t</label>
+        <link refid="structcybt__controller__config__t"/>
+        <childnode refid="17" relation="usage">
+          <edgelabel>sleep_mode</edgelabel>
+        </childnode>
+      </node>
+      <node id="15">
+        <label>cybt_hci_uart_config_t</label>
+        <link refid="structcybt__hci__uart__config__t"/>
+      </node>
+      <node id="13">
+        <label>cybt_platform_config_t</label>
+        <link refid="structcybt__platform__config__t"/>
+        <childnode refid="14" relation="usage">
+          <edgelabel>hci_config</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>controller_config</edgelabel>
+        </childnode>
+      </node>
+      <node id="14">
+        <label>cybt_hci_transport_config_t</label>
+        <link refid="structcybt__hci__transport__config__t"/>
+        <childnode refid="15" relation="usage">
+          <edgelabel>hci_uart</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="202" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="201" bodyend="209"/>
+    <listofallmembers>
+      <member refid="structcybt__platform__config__t_1a0ed2b4e529564a9210e5d80c4e59b4bd" prot="public" virt="non-virtual"><scope>cybt_platform_config_t</scope><name>controller_config</name></member>
+      <member refid="structcybt__platform__config__t_1a5ed1a8d945e1ed12a4181df867d41dc7" prot="public" virt="non-virtual"><scope>cybt_platform_config_t</scope><name>hci_config</name></member>
+      <member refid="structcybt__platform__config__t_1a31c8f2a35e4006fef44c65bb7dea5d4e" prot="public" virt="non-virtual"><scope>cybt_platform_config_t</scope><name>task_mem_pool_size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

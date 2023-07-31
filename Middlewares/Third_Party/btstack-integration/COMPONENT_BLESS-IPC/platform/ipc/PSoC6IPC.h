@@ -177,9 +177,6 @@ typedef struct
 } cy_stc_ble_stack_params_t;
 
 
-#define CY_GPIO_PACKAGE_TYPE            CY_GPIO_PACKAGE_BGA
-#define CY_GPIO_PIN_COUNT               116u
-
 /* Package type constants */
 #define CY_BLE_PACKAGE_TYPE_MASK             (0x00FFu)
 #define CY_BLE_PACKAGE_PIN_NUM_MASK          (0xFF00u)

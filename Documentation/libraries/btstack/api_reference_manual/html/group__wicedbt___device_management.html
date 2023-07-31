@@ -149,6 +149,9 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwiced__bt__ble__ext__adv__duration__config__t.html">wiced_bt_ble_ext_adv_duration_config_t</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advertisement duration configuration for specified adv handle.  <a href="structwiced__bt__ble__ext__adv__duration__config__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwiced__bt__ble__ext__adv__params__t.html">wiced_bt_ble_ext_adv_params_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameters for extended adv.  <a href="structwiced__bt__ble__ext__adv__params__t.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwiced__bt__ble__ext__conn__cfg__t.html">wiced_bt_ble_ext_conn_cfg_t</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extended ADV connection configuration structure.  <a href="structwiced__bt__ble__ext__conn__cfg__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -486,14 +489,18 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt___device_management.html#ga1e9fce50c1372ef1f7e039a73ebbdd05">BTM_BLE_PREFER_NO_LELR</a>&#160;&#160;&#160;0x0000</td></tr>
 <tr class="memdesc:ga1e9fce50c1372ef1f7e039a73ebbdd05"><td class="mdescLeft">&#160;</td><td class="mdescRight">No preferred coding. <br /></td></tr>
 <tr class="separator:ga1e9fce50c1372ef1f7e039a73ebbdd05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaac5b059c70c77bd60ef818f9491bf9b0"><td class="memItemLeft" align="right" valign="top"><a id="gaac5b059c70c77bd60ef818f9491bf9b0"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt___device_management.html#gaac5b059c70c77bd60ef818f9491bf9b0">BTM_BLE_PREFER_LELR_125K</a>&#160;&#160;&#160;0x0001</td></tr>
-<tr class="memdesc:gaac5b059c70c77bd60ef818f9491bf9b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Preferred coding is S=2. <br /></td></tr>
-<tr class="separator:gaac5b059c70c77bd60ef818f9491bf9b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa7695ce7aa2436f89c3d0f259fc8d503"><td class="memItemLeft" align="right" valign="top"><a id="gaa7695ce7aa2436f89c3d0f259fc8d503"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt___device_management.html#gaa7695ce7aa2436f89c3d0f259fc8d503">BTM_BLE_PREFER_LELR_512K</a>&#160;&#160;&#160;0x0002</td></tr>
-<tr class="memdesc:gaa7695ce7aa2436f89c3d0f259fc8d503"><td class="mdescLeft">&#160;</td><td class="mdescRight">Preferred coding is S=8. <br /></td></tr>
+<tr class="memitem:ga1743115b0b1445c29ac41956c77c14a0"><td class="memItemLeft" align="right" valign="top"><a id="ga1743115b0b1445c29ac41956c77c14a0"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt___device_management.html#ga1743115b0b1445c29ac41956c77c14a0">BTM_BLE_PREFER_LELR_S2</a>&#160;&#160;&#160;0x0001</td></tr>
+<tr class="memdesc:ga1743115b0b1445c29ac41956c77c14a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Preferred coding is S=2, 500 kb/s. <br /></td></tr>
+<tr class="separator:ga1743115b0b1445c29ac41956c77c14a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab113c1cd72c76bb1a57727f1d9ae54a8"><td class="memItemLeft" align="right" valign="top"><a id="gab113c1cd72c76bb1a57727f1d9ae54a8"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt___device_management.html#gab113c1cd72c76bb1a57727f1d9ae54a8">BTM_BLE_PREFER_LELR_S8</a>&#160;&#160;&#160;0x0002</td></tr>
+<tr class="memdesc:gab113c1cd72c76bb1a57727f1d9ae54a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Preferred coding is S=8, 125 kb/s. <br /></td></tr>
+<tr class="separator:gab113c1cd72c76bb1a57727f1d9ae54a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa7695ce7aa2436f89c3d0f259fc8d503"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt___device_management.html#gaa7695ce7aa2436f89c3d0f259fc8d503">BTM_BLE_PREFER_LELR_512K</a>&#160;&#160;&#160;<a class="el" href="group__wicedbt___device_management.html#ga1743115b0b1445c29ac41956c77c14a0">BTM_BLE_PREFER_LELR_S2</a></td></tr>
 <tr class="separator:gaa7695ce7aa2436f89c3d0f259fc8d503"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaac5b059c70c77bd60ef818f9491bf9b0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt___device_management.html#gaac5b059c70c77bd60ef818f9491bf9b0">BTM_BLE_PREFER_LELR_125K</a>&#160;&#160;&#160;<a class="el" href="group__wicedbt___device_management.html#gab113c1cd72c76bb1a57727f1d9ae54a8">BTM_BLE_PREFER_LELR_S8</a></td></tr>
+<tr class="separator:gaac5b059c70c77bd60ef818f9491bf9b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9367f8902700749fba1acce4f379ebf7"><td class="memItemLeft" align="right" valign="top"><a id="ga9367f8902700749fba1acce4f379ebf7"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt___device_management.html#ga9367f8902700749fba1acce4f379ebf7">MULTI_ADV_TX_POWER_MIN_INDEX</a>&#160;&#160;&#160;0</td></tr>
 <tr class="memdesc:ga9367f8902700749fba1acce4f379ebf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi adv tx min power index. <br /></td></tr>
@@ -735,6 +742,10 @@ typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el"
 typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt___device_management.html#ga0fcc30537c71955222aa684d4529f488">wiced_bt_ble_periodic_adv_sync_transfer_mode_t</a></td></tr>
 <tr class="memdesc:ga0fcc30537c71955222aa684d4529f488"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode used in create periodic sync to periodic adv command (see <a class="el" href="group__wicedbt___device_management.html#gad87f6ef7689d0d4d3cdaf1a43b4032a6" title="Mode used in Periodic Advertising Sync Transfer Parameters.">wiced_bt_ble_periodic_adv_sync_transfer_mode_e</a>) <br /></td></tr>
 <tr class="separator:ga0fcc30537c71955222aa684d4529f488"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6dbdc6514657b7399033c11f9bbeab35"><td class="memItemLeft" align="right" valign="top"><a id="ga6dbdc6514657b7399033c11f9bbeab35"></a>
+typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt___device_management.html#ga6dbdc6514657b7399033c11f9bbeab35">wiced_bt_ble_phy_adv_options_t</a></td></tr>
+<tr class="memdesc:ga6dbdc6514657b7399033c11f9bbeab35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Phy adv options to be set in wiced_bt_ble_set_ext_adv_params_v2. <br /></td></tr>
+<tr class="separator:ga6dbdc6514657b7399033c11f9bbeab35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga70c1c3632c806556629a4009d009ed8d"><td class="memItemLeft" align="right" valign="top">typedef uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt___device_management.html#ga70c1c3632c806556629a4009d009ed8d">wiced_bt_ble_periodic_adv_sync_handle_t</a></td></tr>
 <tr class="memdesc:ga70c1c3632c806556629a4009d009ed8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sync_Handle to be used to identify the periodic advertiser.  <a href="#ga70c1c3632c806556629a4009d009ed8d">More...</a><br /></td></tr>
 <tr class="separator:ga70c1c3632c806556629a4009d009ed8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1161,14 +1172,27 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:gad87f6ef7689d0d4d3cdaf1a43b4032a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode used in Periodic Advertising Sync Transfer Parameters.  <a href="group__wicedbt___device_management.html#gad87f6ef7689d0d4d3cdaf1a43b4032a6">More...</a><br /></td></tr>
 <tr class="separator:gad87f6ef7689d0d4d3cdaf1a43b4032a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga726ca809ffd3d67ab4b8476646f26635"><td class="memItemLeft" align="right" valign="top"><a id="ga726ca809ffd3d67ab4b8476646f26635"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
+<tr class="memitem:ga726ca809ffd3d67ab4b8476646f26635"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
+&#160;&#160;<a class="el" href="group__wicedbt___device_management.html#gga726ca809ffd3d67ab4b8476646f26635ad15fb4e53675e80ddbaf9b56da54d9c2">WICED_BT_BLE_PHY_ADV_OPTIONS_NO_PREFERENCE</a> = 0, 
+<br />
+&#160;&#160;<a class="el" href="group__wicedbt___device_management.html#gga726ca809ffd3d67ab4b8476646f26635a78a755f6f52e1e428ff6fef358a89ecf">WICED_BT_BLE_PHY_ADV_OPTIONS_PREFER_S2</a> = 1, 
+<br />
+&#160;&#160;<a class="el" href="group__wicedbt___device_management.html#gga726ca809ffd3d67ab4b8476646f26635af402915af25ed8e476de994de095ba38">WICED_BT_BLE_PHY_ADV_OPTIONS_PREFER_S8</a> = 2, 
+<br />
+&#160;&#160;<a class="el" href="group__wicedbt___device_management.html#gga726ca809ffd3d67ab4b8476646f26635a9fa026a32f840c2c8b6089b0c2cc7dec">WICED_BT_BLE_PHY_ADV_OPTIONS_REQUIRE_S2</a> = 3, 
+<br />
+&#160;&#160;<a class="el" href="group__wicedbt___device_management.html#gga726ca809ffd3d67ab4b8476646f26635a03a513fc30fbc12b7b2866c798f60e08">WICED_BT_BLE_PHY_ADV_OPTIONS_REQUIRE_S8</a> = 4
+<br />
+ }</td></tr>
+<tr class="separator:ga726ca809ffd3d67ab4b8476646f26635"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0411cd49bb5b71852cecd93bcbf0ca2d"><td class="memItemLeft" align="right" valign="top"><a id="ga0411cd49bb5b71852cecd93bcbf0ca2d"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
 &#160;&#160;<b>PERIODIC_SYNC_HANDLE_MIN</b> = 0, 
 <br />
 &#160;&#160;<b>PERIODIC_SYNC_HANDLE_MAX</b> = 0x0EFF
 <br />
  }</td></tr>
-<tr class="memdesc:ga726ca809ffd3d67ab4b8476646f26635"><td class="mdescLeft">&#160;</td><td class="mdescRight">When controller receives succesfully periodic adv event based on create sync to periodic advertiser command, sync handle get generated by controller and reported in periodic sync established event scanner uniquely identifies periodic adv data from adv reports using this handle and advertismenet set id(SID) <br /></td></tr>
-<tr class="separator:ga726ca809ffd3d67ab4b8476646f26635"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:ga0411cd49bb5b71852cecd93bcbf0ca2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">When controller receives succesfully periodic adv event based on create sync to periodic advertiser command, sync handle get generated by controller and reported in periodic sync established event scanner uniquely identifies periodic adv data from adv reports using this handle and advertismenet set id(SID) <br /></td></tr>
+<tr class="separator:ga0411cd49bb5b71852cecd93bcbf0ca2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8739336a6d1ebba1faaf824bc5c1024d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__wicedbt___device_management.html#ga8739336a6d1ebba1faaf824bc5c1024d">wiced_bt_ble_ext_adv_report_count_e</a> { <br />
 &#160;&#160;<a class="el" href="group__wicedbt___device_management.html#gga8739336a6d1ebba1faaf824bc5c1024da2e150f9aebb639d8b399e3063d3db808">ADV_REP_EVT_COUNT_MIN</a> = 1, 
 <br />
@@ -1623,6 +1647,38 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
+<a id="gaa7695ce7aa2436f89c3d0f259fc8d503"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa7695ce7aa2436f89c3d0f259fc8d503">&#9670;&nbsp;</a></span>BTM_BLE_PREFER_LELR_512K</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BTM_BLE_PREFER_LELR_512K&#160;&#160;&#160;<a class="el" href="group__wicedbt___device_management.html#ga1743115b0b1445c29ac41956c77c14a0">BTM_BLE_PREFER_LELR_S2</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section note"><dt>Note</dt><dd>BTM_BLE_PREFER_LELR_512K and BTM_BLE_PREFER_LELR_125K are going to be deprecated. Use BTM_BLE_PREFER_LELR_S2 and BTM_BLE_PREFER_LELR_S8 instead.</dd>
+<dd>
+To be deprecated use <a class="el" href="group__wicedbt___device_management.html#ga1743115b0b1445c29ac41956c77c14a0">BTM_BLE_PREFER_LELR_S2</a> </dd></dl>
+
+</div>
+</div>
+<a id="gaac5b059c70c77bd60ef818f9491bf9b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaac5b059c70c77bd60ef818f9491bf9b0">&#9670;&nbsp;</a></span>BTM_BLE_PREFER_LELR_125K</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BTM_BLE_PREFER_LELR_125K&#160;&#160;&#160;<a class="el" href="group__wicedbt___device_management.html#gab113c1cd72c76bb1a57727f1d9ae54a8">BTM_BLE_PREFER_LELR_S8</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section note"><dt>Note</dt><dd>To be deprecated use <a class="el" href="group__wicedbt___device_management.html#gab113c1cd72c76bb1a57727f1d9ae54a8">BTM_BLE_PREFER_LELR_S8</a> </dd></dl>
+
+</div>
+</div>
 <a id="ga5b389d0200be0a871a4258d88a8ae79c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga5b389d0200be0a871a4258d88a8ae79c">&#9670;&nbsp;</a></span>SMP_SEC_NONE</h2>
 
@@ -1722,7 +1778,7 @@ Enumerations</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The PHY_options parameter is a bit field that allows the Host to specify options for LE long range PHY. </p>
-<p>Default connection is with no LE coded PHY.The Controller may override any preferred coding (S2 coded phy for 512k speed and s8 coded phy for 128K) for transmitting on the LE Coded PHY. The Host may specify a preferred coding even if it prefers not to use the LE Coded transmitter PHY since the Controller may override the PHY preference. Bit 2-15 reserved for future use. </p><dl class="section note"><dt>Note</dt><dd>These preferences applicable only when BTM_BLE_PREFER_LELR_PHY flag gest set </dd></dl>
+<p>Default connection is with no LE coded PHY.The Controller may override any preferred coding (S2 coded phy for 512k speed and s8 coded phy for 128K) for transmitting on the LE Coded PHY. The Host may specify a preferred coding even if it prefers not to use the LE Coded transmitter PHY since the Controller may override the PHY preference. Bit 2-15 reserved for future use. </p><dl class="section note"><dt>Note</dt><dd>These preferences applicable only when BTM_BLE_PREFER_LELR_PHY flag is set </dd></dl>
 
 </div>
 </div>
@@ -2692,6 +2748,32 @@ HCI_ERR_CONN_FAILED_ESTABLISHMENT </b>connection status change callback </td></t
 </td></tr>
 <tr><td class="fieldname"><a id="ggad87f6ef7689d0d4d3cdaf1a43b4032a6aa0a144bf54726daeab19fdca5d168040"></a>WICED_BT_BLE_ENABLE_PA_SYNC_TRANSFER_ENABLE_PA_REPORT_EVT&#160;</td><td class="fielddoc"><p>An HCI_LE_Periodic_Advertising_Sync_Transfer_Received event is sent to the Host. </p>
 <p>HCI_LE_Periodic_Advertising_Report events will be enabled. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga726ca809ffd3d67ab4b8476646f26635"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga726ca809ffd3d67ab4b8476646f26635">&#9670;&nbsp;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga726ca809ffd3d67ab4b8476646f26635ad15fb4e53675e80ddbaf9b56da54d9c2"></a>WICED_BT_BLE_PHY_ADV_OPTIONS_NO_PREFERENCE&#160;</td><td class="fielddoc"><p>The Host has no preferred or required coding when transmitting on the LE Coded PHY. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga726ca809ffd3d67ab4b8476646f26635a78a755f6f52e1e428ff6fef358a89ecf"></a>WICED_BT_BLE_PHY_ADV_OPTIONS_PREFER_S2&#160;</td><td class="fielddoc"><p>The Host prefers that S=2 coding be used when transmitting on the LE Coded PHY. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga726ca809ffd3d67ab4b8476646f26635af402915af25ed8e476de994de095ba38"></a>WICED_BT_BLE_PHY_ADV_OPTIONS_PREFER_S8&#160;</td><td class="fielddoc"><p>The Host prefers that S=8 coding be used when transmitting on the LE Coded PHY. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga726ca809ffd3d67ab4b8476646f26635a9fa026a32f840c2c8b6089b0c2cc7dec"></a>WICED_BT_BLE_PHY_ADV_OPTIONS_REQUIRE_S2&#160;</td><td class="fielddoc"><p>The Host requires that S=2 coding be used when transmitting on the LE Coded PHY. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga726ca809ffd3d67ab4b8476646f26635a03a513fc30fbc12b7b2866c798f60e08"></a>WICED_BT_BLE_PHY_ADV_OPTIONS_REQUIRE_S8&#160;</td><td class="fielddoc"><p>The Host requires that S=8 coding be used when transmitting on the LE Coded PHY. </p>
 </td></tr>
 </table>
 

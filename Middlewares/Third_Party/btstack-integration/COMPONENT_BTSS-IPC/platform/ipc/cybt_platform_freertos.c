@@ -27,9 +27,9 @@
 #include "cybt_platform_interface.h"
 #include "cybt_platform_trace.h"
 
-#ifdef ENABLE_BT_SPY_LOG
+#ifdef ENABLE_DEBUG_UART
 #include "cybt_debug_uart.h"
-#endif // ENABLE_BT_SPY_LOG
+#endif // ENABLE_DEBUG_UART
 
 /******************************************************************************
  *                                Constants
@@ -99,10 +99,10 @@ void cybt_platform_log_print(const char *fmt_str, ...)
     len = vsnprintf(buffer, CYBT_TRACE_BUFFER_SIZE, fmt_str, ap);
     va_end(ap);
 
-#ifdef ENABLE_BT_SPY_LOG
+#ifdef ENABLE_DEBUG_UART
     cybt_debug_uart_send_trace(len, (uint8_t*)buffer);
-#else // ENABLE_BT_SPY_LOG
-    UNUSED(len);
+#else // ENABLE_DEBUG_UART
+    UNUSED_VARIABLE(len);
     printf("[%u] %s\r\n", (unsigned int)time, buffer);
-#endif // ENABLE_BT_SPY_LOG
+#endif // ENABLE_DEBUG_UART
 }

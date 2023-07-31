@@ -245,7 +245,7 @@ void handle_hci_rx_sco(void)
                              );
 }
 
-#ifdef ENABLE_BT_SPY_LOG
+#ifdef ENABLE_DEBUG_UART
 void handle_hci_diag(void)
 {
 #define EDR_LMP_RECV 1
@@ -257,7 +257,7 @@ void handle_hci_diag(void)
     uint8_t output_buf[64];
     cybt_result_t result;
 
-    result = cybt_platform_hci_read(7,
+    result = cybt_platform_hci_read(HCI_PACKET_TYPE_DIAG,
         (uint8_t*)& output_buf,
         &read_len,
         CY_RTOS_NEVER_TIMEOUT
@@ -276,7 +276,7 @@ void handle_hci_diag(void)
     else
         return;
 }
-#endif // ENABLE_BT_SPY_LOG
+#endif // ENABLE_DEBUG_UART
 
 void handle_hci_rx_data_ready(hci_packet_type_t hci_packet_type)
 {
@@ -313,11 +313,11 @@ void handle_hci_rx_data_ready(hci_packet_type_t hci_packet_type)
                 case HCI_PACKET_TYPE_SCO:
                     handle_hci_rx_sco();
                     break;
-#ifdef ENABLE_BT_SPY_LOG
+#ifdef ENABLE_DEBUG_UART
                 case HCI_PACKET_TYPE_DIAG:
                     handle_hci_diag();
                     break;
-#endif // ENABLE_BT_SPY_LOG
+#endif // ENABLE_DEBUG_UART
                 default:
                     HCIRXTASK_TRACE_ERROR("handle_hci_rx_data_ready(): unknown type (0x%02x)",
                                           hci_packet_type

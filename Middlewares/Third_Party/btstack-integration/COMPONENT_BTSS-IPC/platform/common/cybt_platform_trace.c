@@ -92,8 +92,8 @@ void cybt_platform_set_trace_level(cybt_trace_id_t id,
         }
     }
 #else
-    UNUSED(id);
-    UNUSED(level);
+    UNUSED_VARIABLE(id);
+    UNUSED_VARIABLE(level);
 #endif
 }
 

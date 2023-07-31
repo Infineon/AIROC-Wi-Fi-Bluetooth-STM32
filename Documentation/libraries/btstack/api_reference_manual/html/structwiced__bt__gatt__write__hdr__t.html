@@ -109,11 +109,28 @@ uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="
 uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwiced__bt__gatt__write__hdr__t.html#aa826f858994d6ef50959dbcded42882b">len</a></td></tr>
 <tr class="memdesc:aa826f858994d6ef50959dbcded42882b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of attribute value. <br /></td></tr>
 <tr class="separator:aa826f858994d6ef50959dbcded42882b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3e36a684eb09260e544126525c233e3"><td class="memItemLeft" align="right" valign="top"><a id="ab3e36a684eb09260e544126525c233e3"></a>
-<a class="el" href="group__wicedbt__gatt.html#ga44fcc1fe578d11d29279b92a7fcc936d">wiced_bt_gatt_auth_req_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwiced__bt__gatt__write__hdr__t.html#ab3e36a684eb09260e544126525c233e3">auth_req</a></td></tr>
-<tr class="memdesc:ab3e36a684eb09260e544126525c233e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Authentication requirement (see <a class="el" href="group__wicedbt__gatt.html#gabda9597f28d2e1ddbdd82b7785a4659f">wiced_bt_gatt_auth_req_t </a>) <br /></td></tr>
+<tr class="memitem:ab3e36a684eb09260e544126525c233e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__wicedbt__gatt.html#ga44fcc1fe578d11d29279b92a7fcc936d">wiced_bt_gatt_auth_req_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwiced__bt__gatt__write__hdr__t.html#ab3e36a684eb09260e544126525c233e3">auth_req</a></td></tr>
+<tr class="memdesc:ab3e36a684eb09260e544126525c233e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Authentication requirement (see <a class="el" href="group__wicedbt__gatt.html#gabda9597f28d2e1ddbdd82b7785a4659f">wiced_bt_gatt_auth_req_t </a>) For most applications value is expected to be set to <a class="el" href="group__wicedbt__gatt.html#ggabda9597f28d2e1ddbdd82b7785a4659fa3a6cc08277ea15ef3a398696a45ca878">GATT_AUTH_REQ_NONE</a> Set value to <a class="el" href="group__wicedbt__gatt.html#ggabda9597f28d2e1ddbdd82b7785a4659fa5d336bc84dd9c89c8fe9b51d6a052f03">GATT_AUTH_REQ_SIGNED_NO_MITM</a> or <a class="el" href="group__wicedbt__gatt.html#ggabda9597f28d2e1ddbdd82b7785a4659fa6dde4da438650d50f37163f0a6951158">GATT_AUTH_REQ_SIGNED_MITM</a> if the data is required to be signed prior to sending over an unencrypted link.  <a href="#ab3e36a684eb09260e544126525c233e3">More...</a><br /></td></tr>
 <tr class="separator:ab3e36a684eb09260e544126525c233e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Field Documentation</h2>
+<a id="ab3e36a684eb09260e544126525c233e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3e36a684eb09260e544126525c233e3">&#9670;&nbsp;</a></span>auth_req</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__wicedbt__gatt.html#ga44fcc1fe578d11d29279b92a7fcc936d">wiced_bt_gatt_auth_req_t</a> wiced_bt_gatt_write_hdr_t::auth_req</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Authentication requirement (see <a class="el" href="group__wicedbt__gatt.html#gabda9597f28d2e1ddbdd82b7785a4659f">wiced_bt_gatt_auth_req_t </a>) For most applications value is expected to be set to <a class="el" href="group__wicedbt__gatt.html#ggabda9597f28d2e1ddbdd82b7785a4659fa3a6cc08277ea15ef3a398696a45ca878">GATT_AUTH_REQ_NONE</a> Set value to <a class="el" href="group__wicedbt__gatt.html#ggabda9597f28d2e1ddbdd82b7785a4659fa5d336bc84dd9c89c8fe9b51d6a052f03">GATT_AUTH_REQ_SIGNED_NO_MITM</a> or <a class="el" href="group__wicedbt__gatt.html#ggabda9597f28d2e1ddbdd82b7785a4659fa6dde4da438650d50f37163f0a6951158">GATT_AUTH_REQ_SIGNED_MITM</a> if the data is required to be signed prior to sending over an unencrypted link. </p>
+<p>Refer BLUETOOTH CORE SPECIFICATION Version 5.3 | Vol 3, Part C, section 10.4 </p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

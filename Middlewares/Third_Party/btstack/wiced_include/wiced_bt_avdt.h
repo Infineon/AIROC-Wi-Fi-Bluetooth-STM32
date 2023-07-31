@@ -973,12 +973,24 @@ uint16_t wiced_bt_avdt_security_rsp(uint8_t handle, uint8_t label, uint8_t error
  * The opt parameter allows passing specific options like:
  * - NO_RTP : do not add the RTP header to buffer
  *
+ * Market bit is 1-bit field in RTP header could be
+ * used to distinguished the first packet after a silence
+ * period during which packets have not been transmitted
+ * contiguously,should be distinguished by setting the
+ * marker bit in the RTP data header to one.
+ * The marker bit in all other packets is zero.
+ * (Refer https://www.rfc-editor.org/rfc/rfc3550.html)
+ *
+ * Payload type is 7-bit field in RTP header which denotes the media type defined
+ * in RTP spec(Refer https://datatracker.ietf.org/doc/html/rfc3551 )
+ *
  * @param[in]       handle      : AVDT connection handle
  * @param[in]       p_media_buf : Pointer to the media buffer to write
  * @param[in]       buf_len     : Size of the buffer
  * @param[in]       time_stamp  : Time stamp
- * @param[in]       m_pt        : Marker and payload byte
- * @param[in]       opt         : Date option mask (see @ref AVDT_DATA_OPT "AVDT data options")
+ * @param[in]       m_pt        : Marker and Payload type
+ * @param[in]       opt         : Data option mask either to include or skip
+ *                                RTP header in media packet(see @ref AVDT_DATA_OPT "AVDT data options")
  *
  * @return          Result code (see @ref AVDT_RESULT "AVDT result codes")
  *                  AVDT_SUCCESS if successful, otherwise error.

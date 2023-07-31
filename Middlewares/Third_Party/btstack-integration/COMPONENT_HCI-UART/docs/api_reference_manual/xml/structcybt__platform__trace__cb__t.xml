@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="structcybt__platform__trace__cb__t" kind="struct" language="C++" prot="public">
+    <compoundname>cybt_platform_trace_cb_t</compoundname>
+    <includes local="no">cybt_platform_trace.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcybt__platform__trace__cb__t_1aff6cbe7223f753c87f870ff5cab4333d" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t cybt_platform_trace_cb_t::trace_level[CYBT_TRACE_ID_MAX]</definition>
+        <argsstring>[CYBT_TRACE_ID_MAX]</argsstring>
+        <name>trace_level</name>
+        <briefdescription>
+<para>BT trace level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="100" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>trace control block </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="99" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="98" bodyend="101"/>
+    <listofallmembers>
+      <member refid="structcybt__platform__trace__cb__t_1aff6cbe7223f753c87f870ff5cab4333d" prot="public" virt="non-virtual"><scope>cybt_platform_trace_cb_t</scope><name>trace_level</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

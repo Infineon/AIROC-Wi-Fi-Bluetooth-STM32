@@ -23,5 +23,6 @@ var group__group__wcm__functions =
     [ "cy_wcm_start_ap", "group__group__wcm__functions.html#ga4b6c66ca0e28ef817bdab02c56d180e6", null ],
     [ "cy_wcm_stop_ap", "group__group__wcm__functions.html#gaaf300adeaed2e9251dc85d6c85be9d72", null ],
     [ "cy_wcm_get_associated_client_list", "group__group__wcm__functions.html#gac2570e24e41dc550252205489f56cc0f", null ],
-    [ "cy_wcm_set_ap_ip_setting", "group__group__wcm__functions.html#gadfcd3cdd92c62bcfd7b0ee53c7e4da7b", null ]
+    [ "cy_wcm_set_ap_ip_setting", "group__group__wcm__functions.html#gadfcd3cdd92c62bcfd7b0ee53c7e4da7b", null ],
+    [ "cy_wcm_allow_low_power_mode", "group__group__wcm__functions.html#ga1d1d49639c74d84d8a609ee437a3c1c7", null ]
 ];

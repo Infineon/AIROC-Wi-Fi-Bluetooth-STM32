@@ -116,7 +116,6 @@ int main(void)
   /* USER CODE END 1 */
 /* USER CODE BEGIN Boot_Mode_Sequence_0 */
 	int32_t timeout;
-	static SD_HandleTypeDef SDHandle = { .Instance = SDMMC1 };
 /* USER CODE END Boot_Mode_Sequence_0 */
 
   /* Enable I-Cache---------------------------------------------------------*/
@@ -182,13 +181,6 @@ int main(void)
   	  printf("\r\n    ERROR: stm32_cypal_bt_init failed\r\n\r\n");
   	  Error_Handler();
   }
-
-  if (stm32_cypal_wifi_sdio_init(&SDHandle) != CY_RSLT_SUCCESS)
-  {
-	  printf("\r\n    ERROR: stm32_cypal_wifi_sdio_init failed\r\n\r\n");
-	  Error_Handler();
-  }
-
 
   /* Start BLE application */
   application_start();

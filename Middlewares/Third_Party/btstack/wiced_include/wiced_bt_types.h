@@ -320,7 +320,7 @@ typedef uint16_t wiced_bt_gatt_eatt_conn_id_list[L2CAP_ECRB_MAX_CHANNELS_PER_CMD
 #define BCM_STRNCPY_S(x1,x2,x3,x4)  strncpy((x1),(x3),(x4))
 
 /* Based on the BT Controller ARM architecture, or possibly other hosts, we can optimize these macros. */
-#if ((defined STACK_INSIDE_BT_CTRLR) && (STACK_INSIDE_BT_CTRLR == TRUE)) || (defined OPTIMISE_FOR_LITTLE_ENDIAN)
+#if ((defined STACK_INSIDE_BT_CTRLR) && (STACK_INSIDE_BT_CTRLR == 1)) || (defined OPTIMISE_FOR_LITTLE_ENDIAN)
 /** Covert uint32_t to Stream */
 #define UINT32_TO_STREAM(p, u32) {*(uint32_t *)(p) = u32; (p) += 4;}
 /** Covert uint16_t to Stream */

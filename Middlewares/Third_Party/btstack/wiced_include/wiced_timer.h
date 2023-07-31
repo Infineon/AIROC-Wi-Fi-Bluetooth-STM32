@@ -105,6 +105,7 @@ wiced_result_t wiced_init_timer (wiced_timer_t* p_timer, wiced_timer_callback_t 
                                  wiced_timer_callback_arg_t cb_arg, wiced_timer_type_e timer_type);
 
 /** Starts a timer
+ * @note: Starting an already running timer restarts the timer timeout
  *
  * @param[in]    p_timer                :Pointer to the timer structure
  * @param[in]    timeout_ms             :timeout in milliseconds

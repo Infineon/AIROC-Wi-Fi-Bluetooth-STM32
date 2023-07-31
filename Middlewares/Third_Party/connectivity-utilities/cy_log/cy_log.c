@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2019-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -77,7 +77,7 @@ typedef struct
     bool                init;
     cy_mutex_t          mutex;
     CY_LOG_LEVEL_T      loglevel[CYLF_MAX];
-    uint32_t            start_time;
+    cy_time_t           start_time;
     char                logbuf[CY_LOGBUF_SIZE];
     uint16_t            seq_num;
     log_output          platform_log;
@@ -115,7 +115,7 @@ static int cy_log_output(CY_LOG_FACILITY_T facility, CY_LOG_LEVEL_T level, char 
 /*
  * Default implementation to get the time. This function is called, if the user doesn't provide a callback function to get time.
  */
-static cy_rslt_t cy_log_get_time(uint32_t* time)
+static cy_rslt_t cy_log_get_time(cy_time_t* time)
 {
     cy_rtos_get_time(time);
     return CY_RSLT_SUCCESS;
@@ -300,7 +300,7 @@ cy_rslt_t cy_log_msg(CY_LOG_FACILITY_T facility, CY_LOG_LEVEL_T level, const cha
 {
     cy_rslt_t result = CY_RSLT_SUCCESS;
     uint32_t time_from_start;
-    uint32_t cur_time;
+    cy_time_t cur_time;
     int hrs, mins, secs, ms;
     va_list args;
     int len;

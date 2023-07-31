@@ -50,6 +50,9 @@ var group__cy__wcm__error =
     [ "CY_RSLT_WCM_WPS_FAILED", "group__cy__wcm__error.html#ga46d6e7393784bb35e110d5fe42c004e9", null ],
     [ "CY_RSLT_WCM_DHCP_TIMEOUT", "group__cy__wcm__error.html#gaadcc9a3f04cb2e2846a8d77489476fa1", null ],
     [ "CY_RSLT_WCM_WPA3_SUPPLICANT_ERROR", "group__cy__wcm__error.html#ga9cd976a0636639966074db15a9a5c05f", null ],
+    [ "CY_RSLT_WCM_UNSUPPORTED_API", "group__cy__wcm__error.html#ga5153e6403ae2d0922fca3ade7b5c9a01", null ],
+    [ "CY_RSLT_WCM_VCM_ERROR", "group__cy__wcm__error.html#ga9adcd70a5436106169a7bee6563f04d6", null ],
+    [ "CY_RSLT_WCM_POWERSAVE_MODE_NOT_SUPPORTED", "group__cy__wcm__error.html#gab9f38ee443708d934fa38f6e0bc838ab", null ],
     [ "cy_wcm_reason_code", "group__cy__wcm__error.html#ga355e10b22c86485f15fc32e2b748b854", [
       [ "CY_WCM_REASON_INITIAL_ASSOC", "group__cy__wcm__error.html#gga355e10b22c86485f15fc32e2b748b854a4800c6dc735976f52fc6306bf4c6f7af", null ],
       [ "CY_WCM_REASON_LOW_RSSI", "group__cy__wcm__error.html#gga355e10b22c86485f15fc32e2b748b854a6ddcbff02ba36b33fbd75df02c773155", null ],

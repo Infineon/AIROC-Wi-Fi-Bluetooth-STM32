@@ -515,7 +515,7 @@ L2CAP LE PSM</h2></td></tr>
 <tr class="memdesc:gacfa5536d207a4b9bb796e31ad37b09b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update BLE connection parameters.  <a href="#gacfa5536d207a4b9bb796e31ad37b09b6">More...</a><br /></td></tr>
 <tr class="separator:gacfa5536d207a4b9bb796e31ad37b09b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga84c66f4df107063ddb0adc482b5491ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__gentypes.html#ga2bc92bd117cfd3f6ec4ae452e6ced064">wiced_bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__l2cap.html#ga84c66f4df107063ddb0adc482b5491ae">wiced_bt_l2cap_enable_update_ble_conn_params</a> (<a class="el" href="group__bt__types.html#gacf9a377aceca799be625c0dfe554902e">wiced_bt_device_address_t</a> rem_bda, <a class="el" href="group__gentypes.html#ga2bc92bd117cfd3f6ec4ae452e6ced064">wiced_bool_t</a> enable)</td></tr>
-<tr class="memdesc:ga84c66f4df107063ddb0adc482b5491ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable updating BLE connection params based on the request from the peer.  <a href="#ga84c66f4df107063ddb0adc482b5491ae">More...</a><br /></td></tr>
+<tr class="memdesc:ga84c66f4df107063ddb0adc482b5491ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Application requests to disable or enable parameters update.  <a href="#ga84c66f4df107063ddb0adc482b5491ae">More...</a><br /></td></tr>
 <tr class="separator:ga84c66f4df107063ddb0adc482b5491ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9b246f3663cee7a53e788c47172413d9"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__l2cap.html#ga9b246f3663cee7a53e788c47172413d9">wiced_bt_l2cap_get_ble_conn_role</a> (<a class="el" href="group__bt__types.html#gacf9a377aceca799be625c0dfe554902e">wiced_bt_device_address_t</a> bd_addr)</td></tr>
 <tr class="memdesc:ga9b246f3663cee7a53e788c47172413d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the connection role.  <a href="#ga9b246f3663cee7a53e788c47172413d9">More...</a><br /></td></tr>
@@ -1939,11 +1939,12 @@ L2CAP LE PSM</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Enable or disable updating BLE connection params based on the request from the peer. </p>
+<p>Application requests to disable or enable parameters update. </p>
+<dl class="section note"><dt>Note</dt><dd>By default parameter updates are allowed on connection complete This API is typically used to pause parameter updates.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">rem_bda</td><td>Remote Bd Address </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">enable</td><td>TRUE to enable,FALSE to disable.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">enable</td><td>TRUE to enable,FALSE to disable. If <code>enable</code> = FALSE, and if parameters are already updated, this API resets them to what was requested during connection establishement If <code>enable</code> = TRUE, then any pending request sent through <a class="el" href="group__l2cap.html#gacfa5536d207a4b9bb796e31ad37b09b6">wiced_bt_l2cap_update_ble_conn_params</a> is processed</td></tr>
   </table>
   </dd>
 </dl>

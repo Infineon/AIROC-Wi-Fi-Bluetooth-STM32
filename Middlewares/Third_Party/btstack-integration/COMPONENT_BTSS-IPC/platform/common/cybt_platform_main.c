@@ -25,6 +25,8 @@
 #include "wiced_bt_dev.h"
 #include "wiced_bt_cfg.h"
 #include "wiced_bt_stack_platform.h"
+#include "wiced_bt_stack.h"
+#include "wiced_bt_gatt.h"
 
 #include "cybt_platform_task.h"
 #include "cybt_platform_trace.h"
@@ -78,13 +80,15 @@ cybt_platform_main_cb_t cybt_main_cb = {0};
  *                          Function Declarations
  ******************************************************************************/
 extern void host_stack_platform_interface_init(void);
-#ifdef ENABLE_BT_SPY_LOG
+#ifdef ENABLE_DEBUG_UART
 extern cybt_result_t cybt_send_coredump_hci_trace (uint16_t data_size, uint8_t *p_data);
 #endif
 
 #ifdef RESET_LOCAL_SUPPORT_FEATURE
 extern void wiced_bt_btm_ble_reset_local_supported_features(uint32_t feature);
 #endif
+
+wiced_result_t cybt_core_management_cback( wiced_bt_management_evt_t event, wiced_bt_management_evt_data_t *p_event_data );
 /******************************************************************************
  *                           Function Definitions
  ******************************************************************************/
@@ -162,13 +166,10 @@ void wiced_post_stack_init_cback( void )
     memset(&event_data, 0, sizeof(wiced_bt_management_evt_t));
     event_data.enabled.status = WICED_BT_SUCCESS;
 
-    if(cybt_main_cb.p_app_management_callback)
-    {
-        cybt_main_cb.p_app_management_callback(BTM_ENABLED_EVT, &event_data);
+    cybt_core_management_cback(BTM_ENABLED_EVT, &event_data);
 #ifdef RESET_LOCAL_SUPPORT_FEATURE
-        wiced_bt_btm_ble_reset_local_supported_features(CONNECTION_PARAMETER_REQUEST_PROCEDURE);
+    wiced_bt_btm_ble_reset_local_supported_features(CONNECTION_PARAMETER_REQUEST_PROCEDURE);
 #endif
-    }
 
     if(CYBT_SLEEP_MODE_ENABLED == p_sleep_config->sleep_mode_enabled)
     {
@@ -210,11 +211,48 @@ wiced_bool_t wiced_stack_event_handler_cback (uint8_t *p_event)
     return WICED_FALSE;
 }
 
+
+
+#if (defined(BTSTACK_VER) && (BTSTACK_VER >= 0x03070000))
+static wiced_result_t init_layers(void)
+{
+    /* handle in porting layer */
+    return wiced_bt_smp_module_init();
+}
+
+#if (defined(__GNUC__) || defined(__ARMCC_VERSION))
+extern __attribute__((weak)) wiced_result_t app_initialize_btstack_modules(void)
+{
+     return init_layers();
+}
+#endif
+
+#if defined(__ICCARM__)
+extern wiced_result_t app_initialize_btstack_modules(void);
+#pragma weak app_initialize_btstack_modules=init_layers
+
+#endif
+#endif // BTSTACK_VER
+
 wiced_result_t cybt_core_management_cback( wiced_bt_management_evt_t event, wiced_bt_management_evt_data_t *p_event_data )
 {
     wiced_result_t result = WICED_BT_SUCCESS;
+    int send_to_app = 1;
 
-    if(cybt_main_cb.p_app_management_callback)
+#if (defined(BTSTACK_VER) && (BTSTACK_VER >= 0x03070000))
+    switch(event)
+    {
+        case BTM_ENABLED_EVT:
+            #if (!defined(DISABLE_DEFAULT_BTSTACK_INIT) || (DISABLE_DEFAULT_BTSTACK_INIT == 1))
+            app_initialize_btstack_modules();
+            #endif
+        
+           wiced_bt_init_resolution(); /* to be removed subsequently. only required for non-privacy controllers */
+        break;
+    }
+#endif // BTSTACK_VER
+
+    if(send_to_app && cybt_main_cb.p_app_management_callback)
     {
         result = cybt_main_cb.p_app_management_callback(event, p_event_data);
     }
@@ -295,7 +333,7 @@ static void trace_exception(cybt_exception_t error, uint8_t *info, uint32_t leng
         case CYBT_CONTROLLER_CORE_DUMP:
             MAIN_TRACE_ERROR("Exception: case: %x [CoreDump], len:%d reason:0x%x", error, length, *(uint32_t *)info);
 
-#ifdef ENABLE_BT_SPY_LOG
+#ifdef ENABLE_DEBUG_UART
             cybt_send_coredump_hci_trace(length, &info[0]);
 #else
             for (uint32_t i = 0; i < length; i++)

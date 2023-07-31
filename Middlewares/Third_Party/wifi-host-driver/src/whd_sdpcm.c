@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company)
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +22,7 @@
  *  It is required when communicating with Broadcom 802.11 devices.
  *
  */
+#ifndef PROTO_MSGBUF
 #include "whd_sdpcm.h"
 #include "bus_protocols/whd_bus_protocol_interface.h"
 #include "whd_endian.h"
@@ -686,3 +687,5 @@ static void whd_sdpcm_set_next_buffer_in_queue(whd_driver_t whd_driver, whd_buff
         (whd_buffer_header_t *)whd_buffer_get_current_piece_data_pointer(whd_driver, prev_buffer);
     packet->queue_next = buffer;
 }
+
+#endif /* PROTO_MSGBUF */

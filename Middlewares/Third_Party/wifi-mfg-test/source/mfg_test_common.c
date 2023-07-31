@@ -76,7 +76,6 @@ static int wl_remote_rx_header( rem_ioctl_t *rem_ptr );
 static rem_ioctl_t rem_cdc;
 #define IOCTL_MED_LEN   (8192)
 static char g_rem_ifname[32] = "wl";
-static unsigned char buf[IOCTL_MED_LEN] = {0};
 
 #ifdef __cplusplus
 extern "C" {
@@ -274,16 +273,14 @@ int wl_read_serial_data( unsigned char *readbuf, uint32_t len, uint32_t *numread
     int c;
     int i = 0;
 
-    memset(buf, 0, sizeof(buf));
     while ( i < (int)len )
     {
         c = getchar();
-        buf[i++] = c;
+        readbuf[i++] = c;
     } /* end of while ( i < (int)len ) */
 
     if ( i > 0 )
     {
-        memcpy(readbuf, buf, i);
         *numread = i;
     } /* end of if */
 

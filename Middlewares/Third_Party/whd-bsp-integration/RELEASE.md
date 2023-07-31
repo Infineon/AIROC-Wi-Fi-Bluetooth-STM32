@@ -7,6 +7,8 @@ This library helps streamline the process of getting the WiFi Host Driver (WHD) 
 * Framework for connecting WHD to LwIP/NetXDuo network interface (whd_netif_funcs_t)
 
 ### What Changed?
+#### v2.2.0
+* Fixed issue where some 3.0-style BSPs were inappropriately using SDIO interface.
 #### v2.1.0
 * Added support for dyanmically allocated NetX Duo packets to support WHD IOVARs with payloads larger than MTU.
 * Added support for NetX Duo
@@ -55,4 +57,4 @@ Use the following links for more information, as needed:
 * [ModusToolbox™](https://www.cypress.com/products/modustoolbox-software-environment)
 
 ---
-© Cypress Semiconductor Corporation (an Infineon company) or an affiliate of Cypress Semiconductor Corporation, 2019-2022.
+© Cypress Semiconductor Corporation (an Infineon company) or an affiliate of Cypress Semiconductor Corporation, 2019-2023.

@@ -79,7 +79,7 @@ cybt_result_t cybt_platform_task_init(void *p_arg)
 
     cy_rslt_t cy_result;
     cybt_result_t task_result;
-    UNUSED(p_arg);
+    UNUSED_VARIABLE(p_arg);
     const cybt_platform_config_t *p_bt_platform_cfg = cybt_platform_get_config();
 
     uint32_t total_mem_pool_size =

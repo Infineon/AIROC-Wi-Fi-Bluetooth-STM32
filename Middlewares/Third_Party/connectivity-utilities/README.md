@@ -42,11 +42,14 @@ This middleware library and its features are supported on following Infineon pla
 * [CYW954907AEVAL1F evaluation kit (CYW954907AEVAL1F)](https://www.infineon.com/cms/en/product/evaluation-boards/cyw954907aeval1f/)
 * [CYW943907AEVAL1F Evaluation Kit (CYW943907AEVAL1F)](https://www.infineon.com/cms/en/product/evaluation-boards/cyw943907aeval1f/)
 * [PSoC&trade; 62S2 evaluation kit (CY8CEVAL-062S2-MUR-43439M2)](https://www.infineon.com/cms/en/product/evaluation-boards/cy8ceval-062s2/)
+* [XMC7200D-E272K8384 kit (KIT-XMC72-EVK)](https://www.infineon.com/KIT_XMC72_EVK)
+* [XMC4700 Relax Kit (KIT_XMC47_RELAX_V1)](https://www.infineon.com/cms/en/product/evaluation-boards/kit_xmc47_relax_v1/)
+* [XMC4800 Relax EtherCAT Kit (KIT_XMC48_RELAX_ECAT_V1)](https://www.infineon.com/cms/en/product/evaluation-boards/kit_xmc48_relax_ecat_v1/)
 
 ## Integration Notes
 * The connectivity utilities library has been designed to work with both the ARM mbed ecosystem and ModusToolbox&trade; environment. 
 * It is adequate to include this library in the desired ecosystem to use these utilities. Depending on the ecosystem, the respective source files will get picked up and linked. This is accomplished using the COMPONENT_ model.
-* In order to ease integration of Wi-Fi connectivity components to code examples, this connectivity utilities library has been bundled into the [wifi-core-freertos-lwip-mbedtls library v1.0.0](https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls).
+* In order to ease integration of Wi-Fi connectivity components to code examples, this connectivity utilities library has been bundled into the [Wi-Fi core Freertos lwIP mbedtls library](https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls). Similarly for Ethernet, this connectivity utilities library has been bundled into the [Ethernet core Freertos lwIP mbedtls library](https://github.com/Infineon/ethernet-core-freertos-lwip-mbedtls)
 * For mbed ecosystem, this library has to be included by the respective code examples.
 * NOTE: Refer to the COMPOMENT_ folders for implementation details pertinent to the ecosystem. For instance, certain network helper functions are not implemented on AnyCloud, and are leveraged from Wi-Fi Connection Manager
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company)
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,8 +18,8 @@
 /** @file
  *
  */
-#include <stdlib.h>
 #include "cyabs_rtos.h"
+#include "whd_utils.h"
 
 #include "whd_bus.h"
 #include "whd_bus_common.h"
@@ -116,10 +116,9 @@ whd_result_t whd_bus_set_backplane_window(whd_driver_t whd_driver, uint32_t addr
     return whd_driver->bus_if->whd_bus_set_backplane_window_fptr(whd_driver, addr, curbase);
 }
 
-
 void whd_bus_common_info_init(whd_driver_t whd_driver)
 {
-    struct whd_bus_common_info *bus_common = (struct whd_bus_common_info *)malloc(sizeof(struct whd_bus_common_info) );
+    struct whd_bus_common_info *bus_common = (struct whd_bus_common_info *)whd_mem_malloc(sizeof(struct whd_bus_common_info) );
 
     if (bus_common != NULL)
     {
@@ -146,7 +145,7 @@ void whd_bus_common_info_deinit(whd_driver_t whd_driver)
 {
     if (whd_driver->bus_common_info != NULL)
     {
-        free(whd_driver->bus_common_info);
+        whd_mem_free(whd_driver->bus_common_info);
         whd_driver->bus_common_info = NULL;
     }
 }
@@ -238,6 +237,10 @@ whd_result_t whd_bus_write_wifi_firmware_image(whd_driver_t whd_driver)
     uint32_t ram_start_address;
     uint32_t image_size;
 
+#ifdef BLHS_SUPPORT
+    CHECK_RETURN(whd_bus_common_blhs(whd_driver, PREP_FW_DOWNLOAD) );
+#endif
+
     /* Pass the ram_start_address to the firmware Download
      * CR4 chips have offset and CM3 starts from 0 */
 
@@ -259,10 +262,16 @@ whd_result_t whd_bus_write_wifi_firmware_image(whd_driver_t whd_driver)
         return WHD_BADARG;
     }
 
-    result = whd_bus_download_resource(whd_driver, WHD_RESOURCE_WLAN_FIRMWARE, WHD_FALSE, ram_start_address, image_size);
+    result =
+        whd_bus_download_resource(whd_driver, WHD_RESOURCE_WLAN_FIRMWARE, WHD_FALSE, ram_start_address, image_size);
 
     if (result != WHD_SUCCESS)
         WPRINT_WHD_ERROR( ("Bus common resource download failed, %s failed at %d \n", __func__, __LINE__) );
+
+#ifdef BLHS_SUPPORT
+    CHECK_RETURN(whd_bus_common_blhs(whd_driver, POST_FW_DOWNLOAD) );
+    CHECK_RETURN(whd_bus_common_blhs(whd_driver, CHK_FW_VALIDATION) );
+#endif
 
     return result;
 }
@@ -295,7 +304,7 @@ whd_result_t whd_bus_transfer_backplane_bytes(whd_driver_t whd_driver, whd_bus_t
     uint32_t transfer_size;
     uint32_t remaining_buf_size;
     uint32_t window_offset_address;
-	uint32_t trans_addr;
+    uint32_t trans_addr;
     whd_result_t result;
 
     result = whd_host_buffer_get(whd_driver, &pkt_buffer, (direction == BUS_READ) ? WHD_NETWORK_RX : WHD_NETWORK_TX,
@@ -364,7 +373,7 @@ whd_result_t whd_bus_transfer_backplane_bytes(whd_driver_t whd_driver, whd_bus_t
             }
             DISABLE_COMPILER_WARNING(diag_suppress = Pa039)
             memcpy(data + size - remaining_buf_size, (uint8_t *)( (whd_transfer_bytes_packet_t *)packet )->data +
-                                                     whd_bus_backplane_read_padd_size(whd_driver), transfer_size);
+                   whd_bus_backplane_read_padd_size(whd_driver), transfer_size);
             ENABLE_COMPILER_WARNING(diag_suppress = Pa039)
         }
     }

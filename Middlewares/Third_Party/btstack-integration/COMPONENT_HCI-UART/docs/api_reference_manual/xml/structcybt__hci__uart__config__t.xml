@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="structcybt__hci__uart__config__t" kind="struct" language="C++" prot="public">
+    <compoundname>cybt_hci_uart_config_t</compoundname>
+    <includes local="no">cybt_platform_config.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcybt__hci__uart__config__t_1aa9fc00eb1a4889f2a526a3175d57c93c" prot="public" static="no" mutable="no">
+        <type>cyhal_gpio_t</type>
+        <definition>cyhal_gpio_t cybt_hci_uart_config_t::uart_tx_pin</definition>
+        <argsstring></argsstring>
+        <name>uart_tx_pin</name>
+        <briefdescription>
+<para>Uart TXD pin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="81" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__hci__uart__config__t_1ac76ec7bcdc6221e98b1bc6fa09b46644" prot="public" static="no" mutable="no">
+        <type>cyhal_gpio_t</type>
+        <definition>cyhal_gpio_t cybt_hci_uart_config_t::uart_rx_pin</definition>
+        <argsstring></argsstring>
+        <name>uart_rx_pin</name>
+        <briefdescription>
+<para>Uart RXD pin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="82" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__hci__uart__config__t_1a782d923640613d1e4cf5122e02a0c579" prot="public" static="no" mutable="no">
+        <type>cyhal_gpio_t</type>
+        <definition>cyhal_gpio_t cybt_hci_uart_config_t::uart_rts_pin</definition>
+        <argsstring></argsstring>
+        <name>uart_rts_pin</name>
+        <briefdescription>
+<para>Uart RTS pin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="83" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__hci__uart__config__t_1a4ab1e920e897867f8e6bcf55c300b677" prot="public" static="no" mutable="no">
+        <type>cyhal_gpio_t</type>
+        <definition>cyhal_gpio_t cybt_hci_uart_config_t::uart_cts_pin</definition>
+        <argsstring></argsstring>
+        <name>uart_cts_pin</name>
+        <briefdescription>
+<para>Uart CTS pin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="84" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__hci__uart__config__t_1ab39743cee6567b888d268b63bc46b257" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t cybt_hci_uart_config_t::baud_rate_for_fw_download</definition>
+        <argsstring></argsstring>
+        <name>baud_rate_for_fw_download</name>
+        <briefdescription>
+<para>Uart baud rate for firmware downloading. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="86" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__hci__uart__config__t_1ae8006ab108f355520ca3a97e849bd404" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t cybt_hci_uart_config_t::baud_rate_for_feature</definition>
+        <argsstring></argsstring>
+        <name>baud_rate_for_feature</name>
+        <briefdescription>
+<para>Uart baud rate for feature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="87" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__hci__uart__config__t_1a7523d7315b657beda91ab9749b2e3539" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t cybt_hci_uart_config_t::data_bits</definition>
+        <argsstring></argsstring>
+        <name>data_bits</name>
+        <briefdescription>
+<para>the size of data bits </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="89" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__hci__uart__config__t_1abeabe54dd2ff31c28bf8c53f910e0d39" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t cybt_hci_uart_config_t::stop_bits</definition>
+        <argsstring></argsstring>
+        <name>stop_bits</name>
+        <briefdescription>
+<para>the size of stop bits </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="90" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__hci__uart__config__t_1ad4167be34fe428606a8a84feca8c1cc4" prot="public" static="no" mutable="no">
+        <type>cyhal_uart_parity_t</type>
+        <definition>cyhal_uart_parity_t cybt_hci_uart_config_t::parity</definition>
+        <argsstring></argsstring>
+        <name>parity</name>
+        <briefdescription>
+<para>parity check control </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="91" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcybt__hci__uart__config__t_1ac3f12365296f74616019face05d4aac8" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool cybt_hci_uart_config_t::flow_control</definition>
+        <argsstring></argsstring>
+        <name>flow_control</name>
+        <briefdescription>
+<para>flow control status </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="92" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The HCI UART configuration, including: </para>    </briefdescription>
+    <detaileddescription>
+<para><itemizedlist>
+<listitem><para>hardware pin assignment</para></listitem><listitem><para>baud rate</para></listitem><listitem><para>data format</para></listitem><listitem><para>flow control support </para></listitem></itemizedlist>
+</para>    </detaileddescription>
+    <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="80" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="79" bodyend="93"/>
+    <listofallmembers>
+      <member refid="structcybt__hci__uart__config__t_1ae8006ab108f355520ca3a97e849bd404" prot="public" virt="non-virtual"><scope>cybt_hci_uart_config_t</scope><name>baud_rate_for_feature</name></member>
+      <member refid="structcybt__hci__uart__config__t_1ab39743cee6567b888d268b63bc46b257" prot="public" virt="non-virtual"><scope>cybt_hci_uart_config_t</scope><name>baud_rate_for_fw_download</name></member>
+      <member refid="structcybt__hci__uart__config__t_1a7523d7315b657beda91ab9749b2e3539" prot="public" virt="non-virtual"><scope>cybt_hci_uart_config_t</scope><name>data_bits</name></member>
+      <member refid="structcybt__hci__uart__config__t_1ac3f12365296f74616019face05d4aac8" prot="public" virt="non-virtual"><scope>cybt_hci_uart_config_t</scope><name>flow_control</name></member>
+      <member refid="structcybt__hci__uart__config__t_1ad4167be34fe428606a8a84feca8c1cc4" prot="public" virt="non-virtual"><scope>cybt_hci_uart_config_t</scope><name>parity</name></member>
+      <member refid="structcybt__hci__uart__config__t_1abeabe54dd2ff31c28bf8c53f910e0d39" prot="public" virt="non-virtual"><scope>cybt_hci_uart_config_t</scope><name>stop_bits</name></member>
+      <member refid="structcybt__hci__uart__config__t_1a4ab1e920e897867f8e6bcf55c300b677" prot="public" virt="non-virtual"><scope>cybt_hci_uart_config_t</scope><name>uart_cts_pin</name></member>
+      <member refid="structcybt__hci__uart__config__t_1a782d923640613d1e4cf5122e02a0c579" prot="public" virt="non-virtual"><scope>cybt_hci_uart_config_t</scope><name>uart_rts_pin</name></member>
+      <member refid="structcybt__hci__uart__config__t_1ac76ec7bcdc6221e98b1bc6fa09b46644" prot="public" virt="non-virtual"><scope>cybt_hci_uart_config_t</scope><name>uart_rx_pin</name></member>
+      <member refid="structcybt__hci__uart__config__t_1aa9fc00eb1a4889f2a526a3175d57c93c" prot="public" virt="non-virtual"><scope>cybt_hci_uart_config_t</scope><name>uart_tx_pin</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

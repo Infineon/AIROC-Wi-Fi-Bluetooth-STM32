@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -30,9 +30,9 @@
  * of such system or application assumes all risk of such use and in doing
  * so agrees to indemnify Cypress against all liability.
  */
- 
+
 /** @file cy_wps_crypto.h
-* @brief Helper functions for WPS AES encryption/decryption and SHA hash. These are the specific to MBEDTLS security stack
+* @brief Helper functions for WPS AES encryption/decryption and SHA hash. These are the specific to the Mbed TLS security stack.
 */
 
 #pragma once
@@ -69,8 +69,8 @@ extern "C" {
 typedef union
 {
     /* This anonymous structure members should be
-     * used only within mbedtls s/w crypto code
-     * and not in h/w crypto code */
+     * used only within Mbed TLS s/w crypto code
+     * and not in h/w crypto code. */
     struct
     {
         mbedtls_sha256_context ctx;
@@ -79,7 +79,7 @@ typedef union
         unsigned char opad[64];     /*!< HMAC: outer padding        */
     };
     /* This anonymous structure member should be
-     * used only within h/w crypto code*/
+     * used only within h/w crypto code.*/
     struct
     {
         void* sha2_hmac_hw_ctx;

@@ -1,0 +1,349 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.15">
+  <compounddef id="cybt__debug__uart_8h" kind="file" language="C++">
+    <compoundname>cybt_debug_uart.h</compoundname>
+    <includes refid="cybt__result_8h" local="yes">cybt_result.h</includes>
+    <includes local="yes">wiced_bt_dev.h</includes>
+    <incdepgraph>
+      <node id="0">
+        <label>cybt_debug_uart.h</label>
+        <link refid="cybt__debug__uart_8h"/>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>wiced_bt_dev.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structcybt__debug__uart__config__t" prot="public">cybt_debug_uart_config_t</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__debug__uart__cfg_1gad9ac57d78f046b0d5dbcf3f32e54e1fd" prot="public" static="no">
+        <type>uint32_t(*</type>
+        <definition>typedef uint32_t(* cybt_debug_uart_data_handler_t) (uint8_t *p_data, uint32_t data_len)</definition>
+        <argsstring>)(uint8_t *p_data, uint32_t data_len)</argsstring>
+        <name>cybt_debug_uart_data_handler_t</name>
+        <briefdescription>
+<para>Received data handler callback type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">p_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: received data pointer </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">data_len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: data length </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" line="43" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__debug__uart__cfg_1ga16bde8710d82bdc7086fa44f6103ccf3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cybt_result_t</type>
+        <definition>cybt_result_t cybt_debug_uart_init</definition>
+        <argsstring>(cybt_debug_uart_config_t *config, cybt_debug_uart_data_handler_t p_data_handler)</argsstring>
+        <name>cybt_debug_uart_init</name>
+        <param>
+          <type><ref refid="structcybt__debug__uart__config__t" kindref="compound">cybt_debug_uart_config_t</ref> *</type>
+          <declname>config</declname>
+        </param>
+        <param>
+          <type><ref refid="group__debug__uart__cfg_1gad9ac57d78f046b0d5dbcf3f32e54e1fd" kindref="member">cybt_debug_uart_data_handler_t</ref></type>
+          <declname>p_data_handler</declname>
+        </param>
+        <briefdescription>
+<para>Initialize Debug UART. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This debug UART is used for communication between the PSOC and host connected via USB cable.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: uart configuration </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p_data_handler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: received data handler callback pointer</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>CYBT_SUCCESS if success else error reason.</para>
+</simplesect>
+<simplesect kind="note"><para>: Debug UART Must be initialized to send traces over Debug UART. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" line="68" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__debug__uart__cfg_1ga138649c1c5091bd65757aa23db3b55a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cybt_result_t</type>
+        <definition>cybt_result_t cybt_debug_uart_send_trace</definition>
+        <argsstring>(uint16_t length, uint8_t *p_data)</argsstring>
+        <name>cybt_debug_uart_send_trace</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>p_data</declname>
+        </param>
+        <briefdescription>
+<para>Sends traces over Debug UART. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>data pointer</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>CYBT_SUCCESS if success else error reason. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" line="79" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__debug__uart__cfg_1ga7a64b5c537dd7068dcbaf5efa6ed57be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cybt_result_t</type>
+        <definition>cybt_result_t cybt_debug_uart_send_hci_trace</definition>
+        <argsstring>(uint8_t type, uint16_t length, uint8_t *p_data)</argsstring>
+        <name>cybt_debug_uart_send_hci_trace</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>p_data</declname>
+        </param>
+        <briefdescription>
+<para>Sends HCI traces over Debug UART. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Trace data type (refer wiced_bt_hci_trace_type_t in wiced_bt_dev.h) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>data pointer</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>CYBT_SUCCESS if success else error reason. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" line="91" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__debug__uart__cfg_1gaa5b2fd8df23a303ef08508db24792e24" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cybt_result_t</type>
+        <definition>cybt_result_t cybt_debug_uart_send_data</definition>
+        <argsstring>(uint16_t opcode, uint16_t data_size, uint8_t *p_data)</argsstring>
+        <name>cybt_debug_uart_send_data</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>opcode</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>data_size</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>p_data</declname>
+        </param>
+        <briefdescription>
+<para>Sends data over Debug UART. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">opcode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Opcode </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>data pointer</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>CYBT_SUCCESS if success else error reason.</para>
+</simplesect>
+<simplesect kind="note"><para>This can be used from register callback of wiced_bt_dev_register_hci_trace function. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" line="104" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__debug__uart__cfg_1gab95329f3931af04a9e15431f51f47498" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cybt_result_t</type>
+        <definition>cybt_result_t cybt_send_coredump_hci_trace</definition>
+        <argsstring>(uint16_t data_size, uint8_t *p_data)</argsstring>
+        <name>cybt_send_coredump_hci_trace</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>data_size</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>p_data</declname>
+        </param>
+        <briefdescription>
+<para>Sends coredump HCI traces over Debug UART. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>data pointer</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>CYBT_SUCCESS if success else error reason. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" line="114" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>\file<sp/>cybt_debug_uart.h</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"></highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*<sp/>\brief</highlight></codeline>
+<codeline lineno="6"><highlight class="comment">*<sp/>Provides<sp/>API<sp/>to<sp/>access<sp/>Debug<sp/>transport.</highlight></codeline>
+<codeline lineno="7"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment">********************************************************************************</highlight></codeline>
+<codeline lineno="9"><highlight class="comment">*<sp/>\copyright</highlight></codeline>
+<codeline lineno="10"><highlight class="comment">*<sp/>Copyright<sp/>2018-2019<sp/>Cypress<sp/>Semiconductor<sp/>Corporation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>Apache-2.0</highlight></codeline>
+<codeline lineno="12"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="13"><highlight class="comment">*<sp/>Licensed<sp/>under<sp/>the<sp/>Apache<sp/>License,<sp/>Version<sp/>2.0<sp/>(the<sp/>&quot;License&quot;);</highlight></codeline>
+<codeline lineno="14"><highlight class="comment">*<sp/>you<sp/>may<sp/>not<sp/>use<sp/>this<sp/>file<sp/>except<sp/>in<sp/>compliance<sp/>with<sp/>the<sp/>License.</highlight></codeline>
+<codeline lineno="15"><highlight class="comment">*<sp/>You<sp/>may<sp/>obtain<sp/>a<sp/>copy<sp/>of<sp/>the<sp/>License<sp/>at</highlight></codeline>
+<codeline lineno="16"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="17"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/>http://www.apache.org/licenses/LICENSE-2.0</highlight></codeline>
+<codeline lineno="18"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="19"><highlight class="comment">*<sp/>Unless<sp/>required<sp/>by<sp/>applicable<sp/>law<sp/>or<sp/>agreed<sp/>to<sp/>in<sp/>writing,<sp/>software</highlight></codeline>
+<codeline lineno="20"><highlight class="comment">*<sp/>distributed<sp/>under<sp/>the<sp/>License<sp/>is<sp/>distributed<sp/>on<sp/>an<sp/>&quot;AS<sp/>IS&quot;<sp/>BASIS,</highlight></codeline>
+<codeline lineno="21"><highlight class="comment">*<sp/>WITHOUT<sp/>WARRANTIES<sp/>OR<sp/>CONDITIONS<sp/>OF<sp/>ANY<sp/>KIND,<sp/>either<sp/>express<sp/>or<sp/>implied.</highlight></codeline>
+<codeline lineno="22"><highlight class="comment">*<sp/>See<sp/>the<sp/>License<sp/>for<sp/>the<sp/>specific<sp/>language<sp/>governing<sp/>permissions<sp/>and</highlight></codeline>
+<codeline lineno="23"><highlight class="comment">*<sp/>limitations<sp/>under<sp/>the<sp/>License.</highlight></codeline>
+<codeline lineno="24"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cybt_result.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;wiced_bt_dev.h&quot;</highlight></codeline>
+<codeline lineno="43"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint32_t<sp/>(*<ref refid="group__debug__uart__cfg_1gad9ac57d78f046b0d5dbcf3f32e54e1fd" kindref="member">cybt_debug_uart_data_handler_t</ref>)(<sp/>uint8_t*<sp/>p_data,<sp/>uint32_t<sp/>data_len<sp/>);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="structcybt__debug__uart__config__t" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>cyhal_gpio_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uart_tx_pin;<sp/><sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>cyhal_gpio_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uart_rx_pin;<sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>cyhal_gpio_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uart_rts_pin;<sp/><sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>cyhal_gpio_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uart_cts_pin;<sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>baud_rate;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flow_control;<sp/><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="normal">}<sp/><ref refid="structcybt__debug__uart__config__t" kindref="compound">cybt_debug_uart_config_t</ref>;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">cybt_result_t<sp/><ref refid="group__debug__uart__cfg_1ga16bde8710d82bdc7086fa44f6103ccf3" kindref="member">cybt_debug_uart_init</ref>(<ref refid="structcybt__debug__uart__config__t" kindref="compound">cybt_debug_uart_config_t</ref>*<sp/>config,<sp/><ref refid="group__debug__uart__cfg_1gad9ac57d78f046b0d5dbcf3f32e54e1fd" kindref="member">cybt_debug_uart_data_handler_t</ref><sp/>p_data_handler);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal">cybt_result_t<sp/><ref refid="group__debug__uart__cfg_1ga138649c1c5091bd65757aa23db3b55a4" kindref="member">cybt_debug_uart_send_trace</ref><sp/>(uint16_t<sp/>length,<sp/>uint8_t*<sp/>p_data);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal">cybt_result_t<sp/><ref refid="group__debug__uart__cfg_1ga7a64b5c537dd7068dcbaf5efa6ed57be" kindref="member">cybt_debug_uart_send_hci_trace</ref><sp/>(uint8_t<sp/>type,<sp/>uint16_t<sp/>length,<sp/>uint8_t*<sp/>p_data);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal">cybt_result_t<sp/><ref refid="group__debug__uart__cfg_1gaa5b2fd8df23a303ef08508db24792e24" kindref="member">cybt_debug_uart_send_data</ref><sp/>(uint16_t<sp/>opcode,<sp/>uint16_t<sp/>data_size,<sp/>uint8_t<sp/>*p_data);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal">cybt_result_t<sp/><ref refid="group__debug__uart__cfg_1gab95329f3931af04a9e15431f51f47498" kindref="member">cybt_send_coredump_hci_trace</ref><sp/>(uint16_t<sp/>data_size,<sp/>uint8_t<sp/>*p_data);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h"/>
+  </compounddef>
+</doxygen>

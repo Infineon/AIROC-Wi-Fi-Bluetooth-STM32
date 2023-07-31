@@ -1,0 +1,230 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.15">
+  <compounddef id="group__platform__cfg" kind="group">
+    <compoundname>platform_cfg</compoundname>
+    <title>Bluetooth Platform Configuration</title>
+    <innerclass refid="structcybt__hci__uart__config__t" prot="public">cybt_hci_uart_config_t</innerclass>
+    <innerclass refid="structcybt__hci__transport__config__t" prot="public">cybt_hci_transport_config_t</innerclass>
+    <innerclass refid="structcybt__controller__sleep__config__t" prot="public">cybt_controller_sleep_config_t</innerclass>
+    <innerclass refid="structcybt__controller__config__t" prot="public">cybt_controller_config_t</innerclass>
+    <innerclass refid="structcybt__platform__config__t" prot="public">cybt_platform_config_t</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__platform__cfg_1ga5f6850727c86459c4c6c11c84870d308" prot="public" static="no" strong="no">
+        <type></type>
+        <name>cybt_hci_transport_t</name>
+        <enumvalue id="group__platform__cfg_1gga5f6850727c86459c4c6c11c84870d308af5ee9474117419b2f07127b9ffd0dc99" prot="public">
+          <name>CYBT_HCI_UNKNOWN</name>
+          <initializer>= 0x00</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__platform__cfg_1gga5f6850727c86459c4c6c11c84870d308a154733e718f98e13774fb625df3687f3" prot="public">
+          <name>CYBT_HCI_UART</name>
+          <initializer>= 0x01</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__platform__cfg_1gga5f6850727c86459c4c6c11c84870d308a48f801ad425fc5626b5c34098bec2501" prot="public">
+          <name>CYBT_HCI_IPC</name>
+          <initializer>= 0x02</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>The BT HCI transport type. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="64" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="63" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__platform__cfg_1gab887149c4cb3cd34b2984638c6c1aebb" prot="public" static="no" strong="no">
+        <type></type>
+        <name>cybt_exception_t</name>
+        <enumvalue id="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebbabaa7aa6502eac7036fcce924e0dedad7" prot="public">
+          <name>CYBT_NO_EXCEPTION</name>
+          <initializer>= 0x00</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebbae03d841bfda8775d8111602c1e49a948" prot="public">
+          <name>CYBT_HCI_IPC_REL_BUFFER</name>
+          <initializer>= 0x01</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebbad91487056c5b8bf58595982b8a43488e" prot="public">
+          <name>CYBT_CONTROLLER_CORE_DUMP</name>
+          <initializer>= 0x02</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebba8b6e17328b8bb844642c3426418162f3" prot="public">
+          <name>CYBT_CONTROLLER_RESTARTED</name>
+          <initializer>= 0x03</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebbabac28d431cb536959b4db3cbd7c7d7b6" prot="public">
+          <name>CYBT_MAX_EXCEPTION</name>
+          <initializer>= 0xFF</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>The Porting layer exception list which is causing by low level. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="74" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="73" bodyend="80"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__platform__cfg_1ga6a50ab63c021eaee65d2a2ce9ec26833" prot="public" static="no">
+        <type>bool(*</type>
+        <definition>typedef bool(*  cybt_exception_callback_t) (cybt_exception_t error, uint8_t *info, uint32_t length)</definition>
+        <argsstring>)(cybt_exception_t error, uint8_t *info, uint32_t length)</argsstring>
+        <name>cybt_exception_callback_t</name>
+        <briefdescription>
+<para>Typedef for exception callback function pointer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>which may occur due to low level API failures and if controller triggers coredump</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cybt_exception_t</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Reason for the exception cause </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">info</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Exception data buffer </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Exception data buffer length</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>bool : [true] If app handled this error and wants to continue from porting layer, [false] porting layer will issue assert. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="116" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__platform__cfg_1ga1ff2a9935b27efb9639974d6ddc1894a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cybt_platform_config_init</definition>
+        <argsstring>(const cybt_platform_config_t *p_bt_platform_cfg)</argsstring>
+        <name>cybt_platform_config_init</name>
+        <param>
+          <type>const <ref refid="structcybt__platform__config__t" kindref="compound">cybt_platform_config_t</ref> *</type>
+          <declname>p_bt_platform_cfg</declname>
+        </param>
+        <briefdescription>
+<para>Configurate the Bluetotoh platform specific settings. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">p_bt_platform_cfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: point to the configuration structure</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>void </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="228" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__platform__cfg_1ga71a14bd3046f030353a91683577817a6" prot="public" static="no">
+        <name>CYBT_SLEEP_MODE_DISABLED</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="51" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__platform__cfg_1gad9d80ecaf5864c704c87bd0cf7490659" prot="public" static="no">
+        <name>CYBT_SLEEP_MODE_ENABLED</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="52" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__platform__cfg_1gaf7d41be05e1c430256f65d1219abd831" prot="public" static="no">
+        <name>CYBT_WAKE_ACTIVE_LOW</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="54" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__platform__cfg_1gad8d6dd4f2d7b07a29af54ebf34d9be6e" prot="public" static="no">
+        <name>CYBT_WAKE_ACTIVE_HIGH</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="55" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The Bluetooth platform-specific configurations, including hardware pin assignment, HCI (Host Controller Interface) format, sleep mode settings and memory pool size for OS tasks. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

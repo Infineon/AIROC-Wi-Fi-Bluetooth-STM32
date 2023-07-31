@@ -1,7 +1,7 @@
 ﻿#AIROC™ BT STack porting layer for CYW20829
 
 ## Overview
-The bluetooth-20829 is the adaptation layer (porting layer) between AIROC™ BT STack and 
+The btstack-integration/COMPONENT_BTSS-IPC is the adaptation layer (porting layer) between AIROC™ BT STack and 
 Cypress Abstraction Layers (CYHAL and CYOSAL) for CYW20829 BLE platform where the application and host stack are running on the one CM33 core of CYW20829 and BLE controller firmware is running on another CM33 core of CYW20829.
 The porting layer implements routines to provide OS and memory services from platform and facilitates communication with controller over BT-IPC.
 
@@ -31,7 +31,7 @@ Please refer to cybt_debug_uart.h.
 
 
 ## API Reference Manual
- - [Bluetooth platform API manual](https://infineon.github.io/bluetooth-freertos/api_reference_manual/html/index.html)
+ - [Bluetooth platform API manual](https://infineon.github.io/btstack-integration/COMPONENT_BTSS-IPC/docs/api_reference_manual/html/index.html)
  - [Bluetooth stack BLE API manual](https://infineon.github.io/btstack/ble/api_reference_manual/html/index.html)
     
-© Cypress Semiconductor Corporation, 2020.
+© Infineon Technologies, 2022.

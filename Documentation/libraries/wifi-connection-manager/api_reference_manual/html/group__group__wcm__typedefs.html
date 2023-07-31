@@ -127,9 +127,9 @@ typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>cy_wcm_pas
 <p>Wi-Fi scan result callback function pointer type. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">result_ptr</td><td>: A pointer to the scan result; the scan result will be freed once the callback function returns from the application. There will not be any scan result when the scan status is CY_WCM_SCAN_COMPLETE. For more details on content of result_ptr, refer <a class="el" href="structcy__wcm__scan__result__t.html">cy_wcm_scan_result_t</a>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">result_ptr</td><td>: A pointer to the scan result; the scan result will be freed once the callback function returns from the application. There will not be any scan result when the scan status is CY_WCM_SCAN_COMPLETE. For more details on content of result_ptr, see <a class="el" href="structcy__wcm__scan__result__t.html">cy_wcm_scan_result_t</a>. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">user_data</td><td>: User-provided data. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">status</td><td>: Status of the scan process. CY_WCM_SCAN_COMPLETE : Indicates the scan is completed. In this case the result_ptr will not contain any results. CY_WCM_SCAN_INCOMPLETE : Indicates the scan is in progress. In this case result_ptr contains one of the scan result.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">status</td><td>: Status of the scan process. CY_WCM_SCAN_COMPLETE : Indicates the scan is completed. In this case, the result_ptr will not contain any results. CY_WCM_SCAN_INCOMPLETE : Indicates the scan is in progress. In this case, result_ptr contains one of the scan result.</td></tr>
   </table>
   </dd>
 </dl>

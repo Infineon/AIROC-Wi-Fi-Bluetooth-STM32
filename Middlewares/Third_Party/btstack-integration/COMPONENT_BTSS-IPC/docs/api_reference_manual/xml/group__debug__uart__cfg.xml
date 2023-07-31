@@ -1,0 +1,289 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.15">
+  <compounddef id="group__debug__uart__cfg" kind="group">
+    <compoundname>debug_uart_cfg</compoundname>
+    <title>Debug UART Configuration</title>
+    <innerclass refid="structcybt__debug__uart__config__t" prot="public">cybt_debug_uart_config_t</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__debug__uart__cfg_1gad9ac57d78f046b0d5dbcf3f32e54e1fd" prot="public" static="no">
+        <type>uint32_t(*</type>
+        <definition>typedef uint32_t(* cybt_debug_uart_data_handler_t) (uint8_t *p_data, uint32_t data_len)</definition>
+        <argsstring>)(uint8_t *p_data, uint32_t data_len)</argsstring>
+        <name>cybt_debug_uart_data_handler_t</name>
+        <briefdescription>
+<para>Received data handler callback type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">p_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: received data pointer </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">data_len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: data length </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" line="43" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__debug__uart__cfg_1ga16bde8710d82bdc7086fa44f6103ccf3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cybt_result_t</type>
+        <definition>cybt_result_t cybt_debug_uart_init</definition>
+        <argsstring>(cybt_debug_uart_config_t *config, cybt_debug_uart_data_handler_t p_data_handler)</argsstring>
+        <name>cybt_debug_uart_init</name>
+        <param>
+          <type><ref refid="structcybt__debug__uart__config__t" kindref="compound">cybt_debug_uart_config_t</ref> *</type>
+          <declname>config</declname>
+        </param>
+        <param>
+          <type><ref refid="group__debug__uart__cfg_1gad9ac57d78f046b0d5dbcf3f32e54e1fd" kindref="member">cybt_debug_uart_data_handler_t</ref></type>
+          <declname>p_data_handler</declname>
+        </param>
+        <briefdescription>
+<para>Initialize Debug UART. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This debug UART is used for communication between the PSOC and host connected via USB cable.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: uart configuration </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p_data_handler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: received data handler callback pointer</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>CYBT_SUCCESS if success else error reason.</para>
+</simplesect>
+<simplesect kind="note"><para>: Debug UART Must be initialized to send traces over Debug UART. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" line="68" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__debug__uart__cfg_1ga138649c1c5091bd65757aa23db3b55a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cybt_result_t</type>
+        <definition>cybt_result_t cybt_debug_uart_send_trace</definition>
+        <argsstring>(uint16_t length, uint8_t *p_data)</argsstring>
+        <name>cybt_debug_uart_send_trace</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>p_data</declname>
+        </param>
+        <briefdescription>
+<para>Sends traces over Debug UART. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>data pointer</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>CYBT_SUCCESS if success else error reason. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" line="79" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__debug__uart__cfg_1ga7a64b5c537dd7068dcbaf5efa6ed57be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cybt_result_t</type>
+        <definition>cybt_result_t cybt_debug_uart_send_hci_trace</definition>
+        <argsstring>(uint8_t type, uint16_t length, uint8_t *p_data)</argsstring>
+        <name>cybt_debug_uart_send_hci_trace</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>p_data</declname>
+        </param>
+        <briefdescription>
+<para>Sends HCI traces over Debug UART. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Trace data type (refer wiced_bt_hci_trace_type_t in wiced_bt_dev.h) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>data pointer</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>CYBT_SUCCESS if success else error reason. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" line="91" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__debug__uart__cfg_1gaa5b2fd8df23a303ef08508db24792e24" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cybt_result_t</type>
+        <definition>cybt_result_t cybt_debug_uart_send_data</definition>
+        <argsstring>(uint16_t opcode, uint16_t data_size, uint8_t *p_data)</argsstring>
+        <name>cybt_debug_uart_send_data</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>opcode</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>data_size</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>p_data</declname>
+        </param>
+        <briefdescription>
+<para>Sends data over Debug UART. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">opcode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Opcode </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>data pointer</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>CYBT_SUCCESS if success else error reason.</para>
+</simplesect>
+<simplesect kind="note"><para>This can be used from register callback of wiced_bt_dev_register_hci_trace function. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" line="104" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__debug__uart__cfg_1gab95329f3931af04a9e15431f51f47498" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cybt_result_t</type>
+        <definition>cybt_result_t cybt_send_coredump_hci_trace</definition>
+        <argsstring>(uint16_t data_size, uint8_t *p_data)</argsstring>
+        <name>cybt_send_coredump_hci_trace</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>data_size</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>p_data</declname>
+        </param>
+        <briefdescription>
+<para>Sends coredump HCI traces over Debug UART. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">p_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>data pointer</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>CYBT_SUCCESS if success else error reason. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_debug_uart.h" line="114" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The BLESS UART-specific configurations, including hardware pin assignment. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This debug UART is used for communication between the PSOC and host connected via USB cable. </para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

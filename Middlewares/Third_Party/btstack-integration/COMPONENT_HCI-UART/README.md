@@ -47,7 +47,7 @@ port to other vendor's platform.
      - Call wiced_bt_process_xxx() to notify Bluetooth&reg; stack
 
 ## API Reference Manual
- - [Bluetooth&reg; platform API manual](https://infineon.github.io/bluetooth-freertos/api_reference_manual/html/index.html)
+ - [Bluetooth&reg; platform API manual](https://infineon.github.io/btstack-integration/COMPONENT_HCI-UART/docs/api_reference_manual/html/index.html)
  - [Bluetooth&reg; stack BLE API manual](https://infineon.github.io/btstack/ble/api_reference_manual/html/index.html)
     
-© Infineon Technologies, 2019.
+© Infineon Technologies, 2022.

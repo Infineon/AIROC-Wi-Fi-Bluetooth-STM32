@@ -169,7 +169,6 @@ cybt_result_t cybt_platform_hci_close(void);
  */
 cybt_result_t cybt_platform_hci_set_baudrate(uint32_t baudrate);
 
-
 #ifdef __cplusplus
 } /* extern "C" */
 #endif

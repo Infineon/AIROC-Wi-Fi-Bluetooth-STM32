@@ -750,12 +750,13 @@ typedef uint8_t wiced_bt_br_chnl_map_t[BTM_AFH_CHNL_MAP_SIZE];  /**< Array of Ch
   */
 enum wiced_bt_management_evt_e {
     /* Bluetooth status events */
+
     /**
      * Event notifies Bluetooth controller and host stack is enabled.
      * Event data: \ref wiced_bt_management_evt_data_t.enabled
      * Indicates the stack is up. Application can now start calling bluetooth wiced bt APIs
      */
-    BTM_ENABLED_EVT,                    /*0, 0x0 */
+    BTM_ENABLED_EVT,                    /* 0, 0x0 */
 
     /**
      * Event notifies Bluetooth controller and host stack disabled.
@@ -827,7 +828,7 @@ enum wiced_bt_management_evt_e {
      * Event data: \ref wiced_bt_management_evt_data_t.pairing_io_capabilities_br_edr_response
      * @note  BR/EDR Only
      */
-    BTM_PAIRING_IO_CAPABILITIES_BR_EDR_RESPONSE_EVT,/* 10, 0xA */
+    BTM_PAIRING_IO_CAPABILITIES_BR_EDR_RESPONSE_EVT, /* 10, 0xA */
 
     /**
      * Event requests BLE IO capabilities for BLE pairing from app.
@@ -1006,13 +1007,14 @@ enum wiced_bt_management_evt_e {
      */
     BTM_BLE_DATA_LENGTH_UPDATE_EVENT,               /* 36, 0x24 */
 
+
+
 #if SMP_CATB_CONFORMANCE_TESTER == TRUE
     /**
      * The Secure Connections support information of the peer device.
      */
-    BTM_SMP_SC_PEER_INFO_EVT                        /* 37, 0x25 */
+    BTM_SMP_SC_PEER_INFO_EVT,                        /* 37, 0x25 */
 #endif
-
 };
 #endif
 typedef uint8_t wiced_bt_management_evt_t;          /**< Bluetooth management events (see #wiced_bt_management_evt_e) */
@@ -1128,12 +1130,17 @@ typedef struct wiced_bt_device_sec_keys_s
 typedef struct wiced_bt_device_link_keys_s
 {
     wiced_bt_device_address_t   bd_addr;         /**< [in] BD Address of remote
-                                                 @note For BLE devices address type of the device is in
-                                                 \ref wiced_bt_device_sec_keys_t.ble_addr_type
-                                                 */
+                                                 @note For BLE transport
+                                                    1. device_addr_type for this bd_addr is in \ref wiced_bt_device_sec_keys_t.ble_addr_type
+                                                    2. if the remote device has shared an IRK, this address will be of type \ref BLE_ADDR_PUBLIC_ID or
+                                                       \ref BLE_ADDR_RANDOM_ID which may be different from the address used in the connection
+                                                       complete event (\ref GATT_CONNECTION_STATUS_EVT).
+                                                    3. Application must use the address in this structure only for storing/retrieving the keys. For any
+                                                       other API which requires the bd_addr, application must continue to use the address reported in the
+                                                       \ref GATT_CONNECTION_STATUS_EVT.                                                 */
 
     wiced_bt_device_sec_keys_t  key_data;        /**< [in/out] Key data */
-    wiced_bt_device_address_t   conn_addr;       /**< [in] BD Address remote used to originate connection */
+    wiced_bt_device_address_t   conn_addr;       /**< [in] BD Address remote used to originate the first connection */
 } wiced_bt_device_link_keys_t;
 
 /** BR packets statistics details */
@@ -2267,7 +2274,6 @@ wiced_result_t wiced_bt_dev_sec_bond_cancel (wiced_bt_device_address_t bd_addr);
 /**
  *
  * Encrypt the specified connection.
- * Status is notified using <b>BTM_ENCRYPTION_STATUS_EVT </b> of #wiced_bt_management_cback_t.
  *
  *  @param[in]      bd_addr         : Address of peer device
  *  @param[in]      transport       : BT_TRANSPORT_BR_EDR or BT_TRANSPORT_LE
@@ -2276,7 +2282,7 @@ wiced_result_t wiced_bt_dev_sec_bond_cancel (wiced_bt_device_address_t bd_addr);
  * @return
  *
  * <b> WICED_BT_SUCCESS </b>     : already encrypted \n
- * <b> WICED_BT_PENDING </b>     : command will be returned in the callback \n
+ * <b> WICED_BT_PENDING </b>     : Status is notified using <b>BTM_ENCRYPTION_STATUS_EVT </b> of #wiced_bt_management_cback_t.\n
  * <b> WICED_BT_WRONG_MODE </b>  : connection not up. \n
  * <b> WICED_BT_BUSY </b>        : security procedures are currently active
  */

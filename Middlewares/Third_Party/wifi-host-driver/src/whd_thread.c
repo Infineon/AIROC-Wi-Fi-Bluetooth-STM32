@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company)
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,7 +41,13 @@
 #include "whd_int.h"
 #include "whd_chip.h"
 #include "whd_poll.h"
+#ifndef PROTO_MSGBUF
 #include "whd_sdpcm.h"
+#else
+#include "whd_msgbuf.h"
+#include "whd_ring.h"
+#include "whd_utils.h"
+#endif /* PROTO_MSGBUF */
 #include "whd_buffer_api.h"
 #include "whd_chip_constants.h"
 
@@ -73,14 +79,14 @@ whd_result_t whd_thread_init(whd_driver_t whd_driver)
 {
     whd_result_t retval;
 
-    retval = whd_sdpcm_init(whd_driver);
-
-    if (retval != WHD_SUCCESS)
+#ifndef PROTO_MSGBUF
+    if ( (retval = whd_sdpcm_init(whd_driver) ) != WHD_SUCCESS )
     {
         WPRINT_WHD_ERROR( ("Could not initialize SDPCM codec\n") );
         /* Lint: Reachable after hitting assert & globals not defined due to error */
         return retval;
     }
+#endif /* PROTO_MSGBUF */
 
     /* Create the event flag which signals the WHD thread needs to wake up */
     retval = cy_rtos_init_semaphore(&whd_driver->thread_info.transceive_semaphore, 1, 0);
@@ -122,8 +128,9 @@ whd_result_t whd_thread_init(whd_driver_t whd_driver)
  */
 int8_t whd_thread_send_one_packet(whd_driver_t whd_driver)
 {
-    whd_buffer_t tmp_buf_hnd = NULL;
     whd_result_t result;
+#ifndef PROTO_MSGBUF
+    whd_buffer_t tmp_buf_hnd = NULL;
 
     if (whd_sdpcm_get_packet_to_send(whd_driver, &tmp_buf_hnd) != WHD_SUCCESS)
     {
@@ -148,6 +155,38 @@ int8_t whd_thread_send_one_packet(whd_driver_t whd_driver)
     }
 
     WHD_STATS_INCREMENT_VARIABLE(whd_driver, tx_total);
+#else
+    uint16_t local_id = 0;
+
+    /* Ensure the wlan backplane bus is up */
+    result = whd_ensure_wlan_bus_is_up(whd_driver);
+    if (result != WHD_SUCCESS)
+    {
+        whd_assert("Could not bring bus back up", 0 != 0);
+        return 0;
+    }
+
+    /* Prefer to IOCTL Data than Tx Data */
+    if (whd_driver->msgbuf->ioctl_queue)
+    {
+        (void)whd_msgbuf_ioctl_dequeue(whd_driver);
+        DELAYED_BUS_RELEASE_SCHEDULE(whd_driver, WHD_TRUE);
+    }
+
+    for (local_id = 0; local_id < whd_driver->ram_shared->max_flowrings; local_id++)
+    {
+        if (isset(whd_driver->msgbuf->flow_map, local_id) )
+        {
+            clrbit(whd_driver->msgbuf->flow_map, local_id);
+            whd_msgbuf_txflow(whd_driver, local_id);
+            DELAYED_BUS_RELEASE_SCHEDULE(whd_driver, WHD_TRUE);
+        }
+    }
+
+    if (local_id == whd_driver->ram_shared->max_flowrings)
+        return 0;
+#endif /* PROTO_MSGBUF */
+
     return (int8_t)1;
 }
 
@@ -166,6 +205,7 @@ int8_t whd_thread_send_one_packet(whd_driver_t whd_driver)
  */
 int8_t whd_thread_receive_one_packet(whd_driver_t whd_driver)
 {
+#ifndef PROTO_MSGBUF
     /* Check if there is a packet ready to be received */
     whd_buffer_t recv_buffer;
     if (whd_bus_read_frame(whd_driver, &recv_buffer) != WHD_SUCCESS)
@@ -183,6 +223,21 @@ int8_t whd_thread_receive_one_packet(whd_driver_t whd_driver)
         /* Send received buffer up to SDPCM layer */
         whd_sdpcm_process_rx_packet(whd_driver, recv_buffer);
     }
+#else
+    whd_result_t result;
+
+    /* Ensure the wlan backplane bus is up */
+    result = whd_ensure_wlan_bus_is_up(whd_driver);
+    if (result != WHD_SUCCESS)
+    {
+        whd_assert("Could not bring bus back up", 0 != 0);
+        return 0;
+    }
+
+    /* Send Received Information to the Rings */
+    whd_msgbuf_process_rx_packet(whd_driver);
+#endif /* PROTO_MSGBUF */
+
     return (int8_t)1;
 }
 
@@ -354,7 +409,9 @@ static void whd_thread_func(cy_thread_arg_t thread_input)
     /* Reset the quit flag */
     thread_info->thread_quit_flag = WHD_FALSE;
 
+#ifndef PROTO_MSGBUF
     whd_sdpcm_quit(whd_driver);
+#endif /* PROTO_MSGBUF */
 
     WPRINT_WHD_DATA_LOG( ("Stopped whd Thread\n") );
 

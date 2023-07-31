@@ -14,6 +14,7 @@ var searchData=
   ['encryption',['encryption',['../structwiced__bt__ble__biginfo__adv__report__t.html#a0070c3c6850fee141440bc469f59ed3c',1,'wiced_bt_ble_biginfo_adv_report_t']]],
   ['encryption_5fstatus',['encryption_status',['../unionwiced__bt__management__evt__data__t.html#a9d21953e55a1a582f0ff357a625b5797',1,'wiced_bt_management_evt_data_t']]],
   ['er',['er',['../structwiced__bt__local__identity__keys__t.html#ac6e3ff909692540005f590411e7d14dc',1,'wiced_bt_local_identity_keys_t']]],
+  ['event_5fproperties',['event_properties',['../structwiced__bt__ble__ext__adv__params__t.html#ad79e7e013ed1de5d6cab6b523c189b31',1,'wiced_bt_ble_ext_adv_params_t']]],
   ['event_5ftype',['event_type',['../structwiced__bt__ble__ext__adv__report__t.html#ace6aae799d872a84a20b4e2b1e151fdf',1,'wiced_bt_ble_ext_adv_report_t']]],
   ['exec_5fwrite',['exec_write',['../structwiced__bt__gatt__execute__write__req__t.html#ae4406f95c53dbb43608a1e3d9e401290',1,'wiced_bt_gatt_execute_write_req_t']]],
   ['exec_5fwrite_5freq',['exec_write_req',['../unionwiced__bt__gatt__request__params__t.html#af6214f8e69716aeec126e9560dea5ca1',1,'wiced_bt_gatt_request_params_t']]],

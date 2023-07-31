@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company)
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,9 @@
 #include "whd_chip_constants.h"
 #include "whd_debug.h"
 #include "whd_events_int.h"
+#ifndef PROTO_MSGBUF
 #include "whd_sdpcm.h"
+#endif /* PROTO_MSGBUF */
 #include "whd_thread_internal.h"
 #include "whd_utils.h"
 #include "whd_wifi_api.h"

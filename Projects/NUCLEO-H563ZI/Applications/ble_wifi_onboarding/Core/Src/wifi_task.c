@@ -61,7 +61,7 @@
  **************************************************************************************************/
 /* If you want to use WPA3 you need enable wpa3-external-supplicant. By default it will use security
  * defined in USE_SECURITY_FOR_WAP2_WAP3 */
-//#define USE_SECURITY_FOR_WAP2_WAP3 CY_WCM_SECURITY_WPA2_AES_PSK
+#define USE_SECURITY_FOR_WAP2_WAP3 CY_WCM_SECURITY_WPA2_AES_PSK
 
 /***************************************************************************************************
  *                             Global Variables

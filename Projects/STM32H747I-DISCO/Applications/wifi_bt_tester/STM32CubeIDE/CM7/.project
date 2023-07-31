@@ -1332,6 +1332,11 @@
 			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_clm.c</locationURI>
 		</link>
 		<link>
+			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_commonring.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_commonring.c</locationURI>
+		</link>
+		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_debug.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_debug.c</locationURI>
@@ -1340,6 +1345,11 @@
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_events.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_events.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_flowring.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_flowring.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_logging.c</name>
@@ -1357,6 +1367,11 @@
 			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_network_if.c</locationURI>
 		</link>
 		<link>
+			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_proto.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_proto.c</locationURI>
+		</link>
+		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_resource_if.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_resource_if.c</locationURI>
@@ -1365,6 +1380,11 @@
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_resources.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp/whd_resources.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_ring.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_ring.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_sdpcm.c</name>

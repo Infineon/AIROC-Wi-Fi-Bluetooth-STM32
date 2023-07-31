@@ -292,7 +292,12 @@ typedef struct
     uint16_t                    handle;                     /**< Attribute handle */
     uint16_t                    offset;                     /**< Attribute value offset, ignored if not needed for a command */
     uint16_t                    len;                        /**< Length of attribute value */
-    wiced_bt_gatt_auth_req_t    auth_req;                   /**< Authentication requirement (see @link wiced_bt_gatt_auth_req_e wiced_bt_gatt_auth_req_t @endlink) */
+    wiced_bt_gatt_auth_req_t    auth_req;                   /**< Authentication requirement (see @link wiced_bt_gatt_auth_req_e wiced_bt_gatt_auth_req_t @endlink)
+                                                            * For most applications value is expected to be set to \ref GATT_AUTH_REQ_NONE
+                                                            * Set value to \ref GATT_AUTH_REQ_SIGNED_NO_MITM or \ref GATT_AUTH_REQ_SIGNED_MITM if the data
+                                                            * is required to be signed prior to sending over an unencrypted link.
+                                                            * Refer BLUETOOTH CORE SPECIFICATION Version 5.3 | Vol 3, Part C, section 10.4
+                                                            */
 } wiced_bt_gatt_write_hdr_t;
 
 /** Attribute write request */
@@ -743,7 +748,7 @@ typedef struct
 {
     uint16_t                                conn_id;            /**< ID of the connection */
     wiced_bt_gatt_optype_t                  op;                 /**< Type of operation completed (see @link wiced_bt_gatt_optype_e wiced_bt_gatt_optype_t @endlink) */
-    wiced_bt_gatt_status_t                  status;             /**< Status of clcb_operation */
+    wiced_bt_gatt_status_t                  status;             /**< Status of operation  */
     uint8_t                                 pending_events;     /**< Number of pending events, used to initiate next read */
     wiced_bt_gatt_operation_complete_rsp_t  response_data;      /**< Response data (dependent on optype) */
 } wiced_bt_gatt_operation_complete_t;
@@ -920,6 +925,11 @@ typedef enum
     * be released/freed by the application using the application provided context in
     * \ref wiced_bt_gatt_buffer_transmitted_t.p_app_ctxt
     *
+    * @note: For all cases where data is written or responded by the application this
+    * event is received when the data is transferred over to the controller, except in
+    * case of \ref GATT_REQ_PREPARE_WRITE where the event is sent after receiving a confirm
+    * or error from the remote side
+    *
     * Event data: \ref wiced_bt_gatt_event_data_t.buffer_xmitted
     */
     GATT_APP_BUFFER_TRANSMITTED_EVT,   /* 7, 0x7 */
@@ -1059,6 +1069,34 @@ extern "C"
  */
 
 /**
+ * GATT Profile Module Init
+ *
+ *  @addtogroup  gatt_module_init       GATT Module Initialization
+ *  @ingroup wicedbt_gatt
+ *
+ *  <b> GATT Module Initialization Functions </b> sub module for @b GATT.
+ */
+
+/**
+ * Enables GATT database hashing calculations on the server.
+ * Required to called for servers which need support for robust caching.
+ * @note: This API should be called prior to calling \ref wiced_bt_gatt_db_init,
+ * with an non-NULL \p wiced_bt_gatt_db_init.hash parameter
+ *
+ *  @return \ref wiced_result_t
+ *  @ingroup gatt_module_init
+ */
+wiced_result_t wiced_bt_gatt_server_enable_caching(void);
+
+/**
+ * Enables code for enabling and checking data signing on the server and client
+ *
+ *  @return \ref wiced_result_t
+ *  @ingroup gatt_module_init
+ */
+wiced_result_t wiced_bt_gatt_server_enable_signing(void);
+
+/**
  * GATT Profile Server Functions
  *
  *  @addtogroup  gatt_server_api_functions       Server API
@@ -1163,8 +1201,12 @@ wiced_bt_gatt_status_t wiced_bt_gatt_server_send_multiple_notifications(uint16_t
  * @param[in]   p_gatt_db       : First element in new GATT database array
  * @param[in]   gatt_db_size    : Size (in bytes) of GATT database
  * @param[out]  hash            : The calculated database hash value. The hash pointer passed to
- *                                this function can be NULL incase the application does not support
+ *                                this function shall be NULL incase the application does not support
  *                                dynamic databases and does not support database caching
+ *
+ * @note GATT server apps which support Robust Caching need to invoke \sa wiced_bt_gatt_server_enable_caching
+ * prior to invoking wiced_bt_gatt_db_init
+ * @note In case \sa wiced_bt_gatt_server_enable_caching is not invoked, \p hash has to be set to NULL
  *
  * @return @link wiced_bt_gatt_status_e wiced_bt_gatt_status_t @endlink
  *  @ingroup gattdb_api_functions

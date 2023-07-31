@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.15">
+  <compounddef id="_r_e_a_d_m_e__bless_8md" kind="file" language="Markdown">
+    <compoundname>README_bless.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#AIROC™<sp/>BT<sp/>STack<sp/>porting<sp/>layer<sp/>for<sp/>PSoC6<sp/>BLESS</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Overview</highlight></codeline>
+<codeline><highlight class="normal">The<sp/>btstack-integration/COMPONENT_BLESS-IPC<sp/>is<sp/>the<sp/>adaptation<sp/>layer<sp/>(porting<sp/>layer)<sp/>between<sp/>AIROC™<sp/>BT<sp/>STack<sp/>and<sp/></highlight></codeline>
+<codeline><highlight class="normal">Cypress<sp/>Abstraction<sp/>Layers<sp/>(CYHAL<sp/>and<sp/>CYOSAL).<sp/>This<sp/>porting<sp/>layer<sp/>is<sp/>to<sp/>be<sp/>used<sp/>in<sp/>conjunction<sp/>with<sp/>Cypress<sp/>PSOC<sp/>6<sp/>BLE<sp/>platform<sp/>where<sp/>the<sp/>application<sp/>and<sp/>host<sp/>stack<sp/>are<sp/>running<sp/>on<sp/>the<sp/>CM4<sp/>core<sp/>of<sp/>PSOC<sp/>and<sp/>BLESS<sp/>controller<sp/>FW<sp/>is<sp/>running<sp/>on<sp/>CM0<sp/>core<sp/>of<sp/>PSOC.</highlight></codeline>
+<codeline><highlight class="normal">The<sp/>porting<sp/>layer<sp/>implements<sp/>routines<sp/>to<sp/>provide<sp/>OS<sp/>and<sp/>memory<sp/>services<sp/>from<sp/>platform<sp/>and<sp/>facilitates<sp/>communication<sp/>with<sp/>controller.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Platform<sp/>HCI<sp/>transport<sp/>config</highlight></codeline>
+<codeline><highlight class="normal">Application<sp/>shall<sp/>call<sp/>**cybt_platform_config_init(<sp/>)**<sp/>API<sp/>to<sp/>initialize<sp/>the<sp/>porting<sp/>layer<sp/>before<sp/>calling<sp/>any<sp/>stack<sp/>API.</highlight></codeline>
+<codeline><highlight class="normal">IPC<sp/>Pipe<sp/>is<sp/>used<sp/>to<sp/>communicate<sp/>with<sp/>the<sp/>controller<sp/>running<sp/>on<sp/>CM0<sp/>processor,<sp/>hence<sp/>the<sp/>member<sp/>variable<sp/>hci_config.hci_transport<sp/>of<sp/>input<sp/>argument<sp/>cybt_platform_config_t<sp/>shall<sp/>be<sp/>set<sp/>to<sp/>CYBT_HCI_IPC.</highlight></codeline>
+<codeline><highlight class="normal">Other<sp/>parameters<sp/>are<sp/>ignored<sp/>by<sp/>the<sp/>porting<sp/>layer.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Please<sp/>refer<sp/>to<sp/>cybt_platform_config.h<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/><sp/>structure<sp/>**cybt_platform_config_t**</highlight></codeline>
+<codeline><highlight class="normal">*<sp/><sp/>API<sp/>**cybt_platform_config_init(<sp/>)**</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Debug<sp/>uart<sp/>configuration</highlight></codeline>
+<codeline><highlight class="normal">The<sp/>UART<sp/>on<sp/>PSOC<sp/>can<sp/>be<sp/>configured<sp/>for<sp/>capturing<sp/>application<sp/>and<sp/>HCI<sp/>traces<sp/>by<sp/>calling<sp/>**cybt_debug_uart_init()**<sp/>with<sp/>appropriate<sp/>configuration<sp/>in<sp/>**cybt_debug_uart_config_t**.</highlight></codeline>
+<codeline><highlight class="normal">Passing<sp/>a<sp/>valid<sp/>function<sp/>pointer<sp/>to<sp/>cybt_debug_uart_data_handler_t<sp/>allows<sp/>application<sp/>to<sp/>handle<sp/>any<sp/>data<sp/>received<sp/>over<sp/>UART.<sp/>However,<sp/>it<sp/>can<sp/>be<sp/>set<sp/>to<sp/>NULL<sp/>if<sp/>the<sp/>application<sp/>is<sp/>not<sp/>required<sp/>to<sp/>handle<sp/>any<sp/>data.</highlight></codeline>
+<codeline><highlight class="normal">Please<sp/>refer<sp/>to<sp/>cybt_debug_uart.h.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/><sp/>structure<sp/>**cybt_debug_uart_config_t**</highlight></codeline>
+<codeline><highlight class="normal">*<sp/><sp/>API<sp/>**cybt_debug_uart_init(<sp/>)**</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Design<sp/></highlight></codeline>
+<codeline><highlight class="normal">*<sp/>To<sp/>initialize<sp/>BLESS<sp/>controller,<sp/>Porting<sp/>layer<sp/>will<sp/>send<sp/>ENABLE_CNTR_CMD<sp/>IPC<sp/>msg<sp/>to<sp/>BLESS<sp/>controller<sp/>module<sp/>via<sp/>CYPIPE<sp/>IPC<sp/>mechanism</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Porting<sp/>layer<sp/>can<sp/>receive<sp/>the<sp/>HCI<sp/>events<sp/>and<sp/>Command<sp/>complete<sp/>events<sp/>from<sp/>BLESS<sp/>controller<sp/>module<sp/>as<sp/>IPC<sp/>msgs<sp/>via<sp/>CYPIPE.<sp/></highlight></codeline>
+<codeline><highlight class="normal">*<sp/>All<sp/>received<sp/>events<sp/>from<sp/>BLESS<sp/>controller<sp/>module<sp/>are<sp/>queued<sp/>in<sp/>bt_task_queue.<sp/>bt_task<sp/>thread<sp/>in<sp/>porting<sp/>layer<sp/>would<sp/>process<sp/>the<sp/>msgs<sp/>and<sp/>make<sp/>calls<sp/>to<sp/>BTStack<sp/>for<sp/>further<sp/>processing.</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Porting<sp/>layer<sp/>could<sp/>send<sp/>hci<sp/>commands<sp/>and<sp/>data<sp/>by<sp/>filling<sp/>IPC_HOST_MSG<sp/>structure<sp/>with<sp/>details<sp/>and<sp/>call<sp/>IPC_Pipe_SendMsg<sp/>api<sp/>with<sp/>destination<sp/>as<sp/>CM0<sp/>address.while<sp/>sending<sp/>the<sp/>cmds<sp/>to<sp/>controller,<sp/>HOST<sp/>has<sp/>to<sp/>allocate<sp/>memory<sp/>for<sp/>the<sp/>cmd<sp/>and<sp/>its<sp/>parameters</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>The<sp/>received<sp/>ptrs<sp/>in<sp/>events<sp/>from<sp/>controller<sp/>,<sp/>can<sp/>be<sp/>mapped<sp/>to<sp/>IPC_CNTR_MSG<sp/>,<sp/>processed<sp/>in<sp/>bt_task.<sp/>After<sp/>processing<sp/>the<sp/>event<sp/>,<sp/>HOST<sp/>needs<sp/>to<sp/>a<sp/>post<sp/>a<sp/>msg<sp/>to<sp/>Controller<sp/>to<sp/>free<sp/>up<sp/>the<sp/>memory.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>API<sp/>Reference<sp/>Manual</highlight></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>[Bluetooth<sp/>platform<sp/>API<sp/>manual](https://infineon.github.io/btstack-integration/COMPONENT_BLESS-IPC/docs/api_reference_manual/html/index.html)</highlight></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>[Bluetooth<sp/>stack<sp/>BLE<sp/>API<sp/>manual](https://infineon.github.io/btstack/ble/api_reference_manual/html/index.html)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">©<sp/>Infineon<sp/>Technologies,<sp/>2022.</highlight></codeline>
+    </programlisting>
+    <location file="/builds/repo/btstack-port-cyal/README_bless.md"/>
+  </compounddef>
+</doxygen>

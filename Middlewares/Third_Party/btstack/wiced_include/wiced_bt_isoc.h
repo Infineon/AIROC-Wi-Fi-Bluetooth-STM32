@@ -47,6 +47,7 @@
 
 #include "wiced_bt_types.h"
 #include "wiced_result.h"
+#include "wiced_bt_cfg.h"
 
 /**
  * @defgroup  wicedbt_isoc        Ischoronous (ISOC)
@@ -351,11 +352,25 @@ typedef struct
     uint8_t *bis_idx_list;
 } wiced_bt_isoc_big_create_sync_t;
 
+/** ISOC Data callbacks */
+/**
+* Callback for receiving ISOC data
+*
+* @param[in] p_data : incoming ISOC data
+* @param[in] length : length of the data
+*/
 typedef void (*wiced_bt_iso_rx_cb_t)(uint8_t *p_data, uint32_t length);
-typedef void (*wiced_bt_iso_num_complete_cb_t)(uint8_t *p_buf);
 
-extern wiced_bt_iso_rx_cb_t g_iso_rx_data_cb;
-extern wiced_bt_iso_num_complete_cb_t g_iso_num_complete_cb;
+/**
+* Callback for receiving number of completed packets
+*
+* @param[in] p_buf : incoming number of completed packets event
+*
+* @return wiced_bool_t, return FALSE in case any of the connection handles
+* in the event are not handled/(ISOC)
+*/
+typedef wiced_bool_t (*wiced_bt_iso_num_complete_cb_t)(uint8_t *p_buf);
+
 
 /******************************************************
  *               Function Declarations
@@ -389,7 +404,6 @@ typedef void wiced_bt_isoc_cback_t(wiced_bt_isoc_event_t event, wiced_bt_isoc_ev
  *
  * @{
  */
-
 /**
  *
  * Function         wiced_bt_isoc_register_cb

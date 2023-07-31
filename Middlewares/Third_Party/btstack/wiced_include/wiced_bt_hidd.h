@@ -200,6 +200,7 @@ typedef union {
     wiced_bt_hidd_get_rep_data_t        get_rep;        /**< Get report data */
     uint8_t                             pm_err_code;    /**< Power mode error code */
     uint16_t                            pm_interval;    /**< Power mode interval */
+	wiced_result_t						error;          /**< Error code in case of failure */
 } wiced_bt_hidd_event_data_t;
 
 /**

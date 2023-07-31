@@ -1370,6 +1370,10 @@ cy_rslt_t wpa3_supplicant_deinit_workspace(wpa3_supplicant_workspace_t *wksp)
     {
         return WPA3_EXT_SUPP_ERROR;
     }
+    /* Enter to tast critical sections, to ensure that another tasks
+     * (e.g WCM worker) will not interrupt during Workspace memory free.
+     */
+    taskENTER_CRITICAL();
 
     /* stop auth request */
     WHD_WIFI_STUB_IMPL(whd_wifi_stop_external_auth_request,_stub)(wksp->interface);
@@ -1420,11 +1424,15 @@ cy_rslt_t wpa3_supplicant_deinit_workspace(wpa3_supplicant_workspace_t *wksp)
     WPA3_EXT_LOG_MSG(("WPA3-EXT-SUPP:SAE RTOS information deleted\n"));
 
     /* delete workspace */
+
     if ( wksp != NULL )
     {
         free(wksp);
     }
+    wpa3_sae_set_workspace(NULL);
     wpa3_sae_supplicant_deinit_done = true;
+
+    taskEXIT_CRITICAL();
 
     if ( wpa3_sae_wcm_registered_callback == true)
     {
@@ -1432,7 +1440,6 @@ cy_rslt_t wpa3_supplicant_deinit_workspace(wpa3_supplicant_workspace_t *wksp)
         WPA3_EXT_LOG_MSG(("***WPA3-EXT-SUPP:SAE cy_wcm_deregister_event_callback result=%ld*** \n", result));
         wpa3_sae_wcm_registered_callback = false;
     }
-    wpa3_sae_set_workspace(NULL);
     WPA3_EXT_LOG_MSG(("***WPA3-EXT-SUPP:SAE workspace deleted*** \n"));
     return result;
 }

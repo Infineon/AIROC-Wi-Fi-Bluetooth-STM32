@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company)
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,9 @@
  * Defines WHD resource functions for BCM943340WCD1 platform
  */
 #include "resources.h"
+#if !defined(NO_CLM_BLOB_FILE)
 #include "clm_resources.h"
+#endif /* NO_CLM_BLOB_FILE */
 #include "wifi_nvram_image.h"
 #include "whd_resource_api.h"
 #include "whd_debug.h"
@@ -196,11 +198,15 @@ uint32_t host_platform_resource_size(whd_driver_t whd_drv, whd_resource_type_t r
     }
     else
     {
+#if defined(NO_CLM_BLOB_FILE)
+        *size_out = 0;
+#else
 #ifdef WLAN_MFG_FIRMWARE
         *size_out = (uint32_t)resource_get_size(&wifi_mfg_firmware_clm_blob);
 #else
         *size_out = (uint32_t)resource_get_size(&wifi_firmware_clm_blob);
 #endif /* WLAN_MFG_FIRMWARE */
+#endif /* NO_CLM_BLOB_FILE */
     }
     return WHD_SUCCESS;
 }
@@ -263,6 +269,10 @@ uint32_t host_get_resource_block(whd_driver_t whd_drv, whd_resource_type_t type,
     }
     else
     {
+#if defined(NO_CLM_BLOB_FILE)
+        size_out = 0;
+        return WHD_SUCCESS;
+#else
 #ifdef WLAN_MFG_FIRMWARE
         result = resource_read( (const resource_hnd_t *)&wifi_mfg_firmware_clm_blob, read_pos, block_size,
                                 size_out,
@@ -272,6 +282,7 @@ uint32_t host_get_resource_block(whd_driver_t whd_drv, whd_resource_type_t type,
                                 size_out,
                                 r_buffer );
 #endif /* WLAN_MFG_FIRMWARE */
+#endif /* NO_CLM_BLOB_FILE */
         if (result != WHD_SUCCESS)
         {
             return result;

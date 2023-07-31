@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company)
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,6 +21,7 @@
 
 #include "whd_bus_protocol_interface.h"
 #include "whd_resource_api.h"
+#include "whd_bus_common.h"
 
 #ifndef INCLUDED_WHD_BUS_H_
 #define INCLUDED_WHD_BUS_H_
@@ -80,6 +81,7 @@ typedef whd_result_t (*whd_bus_irq_enable_t)(whd_driver_t whd_driver, whd_bool_t
 typedef whd_result_t (*whd_bus_download_resource_t)(whd_driver_t whd_driver, whd_resource_type_t resource,
                                                     whd_bool_t direct_resource, uint32_t address,
                                                     uint32_t image_size);
+typedef whd_result_t (*whd_bus_blhs_t)(whd_driver_t whd_driver, whd_bus_blhs_stage_t stage);
 
 typedef struct whd_bus_info
 {
@@ -120,6 +122,7 @@ typedef struct whd_bus_info
     whd_bus_irq_register_t whd_bus_irq_register_fptr;
     whd_bus_irq_enable_t whd_bus_irq_enable_fptr;
     whd_bus_download_resource_t whd_bus_download_resource_fptr;
+    whd_bus_blhs_t whd_bus_blhs_fptr;
 } whd_bus_info_t;
 
 

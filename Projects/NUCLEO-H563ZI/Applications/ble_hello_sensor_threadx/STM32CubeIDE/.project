@@ -3509,6 +3509,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_spi.c</locationURI>
 		</link>
 		<link>
+			<name>Middlewares/Connectivity/Wireless/Platform/pal/stm32_cyhal_syspm.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_syspm.c</locationURI>
+		</link>
+		<link>
 			<name>Middlewares/Connectivity/Wireless/Platform/pal/stm32_cyhal_trng.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_trng.c</locationURI>
@@ -3534,29 +3539,29 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_THREADX/cyabs_rtos_threadx.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1DX/4343WA1-mfgtest_bin.c</name>
+			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1LV/43012C0-mfgtest_bin.c</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_4343W/4343WA1-mfgtest_bin.c</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0-mfgtest_bin.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1DX/4343WA1-mfgtest_clm_blob.c</name>
+			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1LV/43012C0-mfgtest_clm_blob.c</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_4343W/4343WA1-mfgtest_clm_blob.c</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV/43012C0-mfgtest_clm_blob.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1DX/4343WA1_bin.c</name>
+			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1LV/43012C0_bin.c</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_4343W/4343WA1_bin.c</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0_bin.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1DX/4343WA1_clm_blob.c</name>
+			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1LV/43012C0_clm_blob.c</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_4343W/4343WA1_clm_blob.c</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV/43012C0_clm_blob.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1DX/w_bt_firmware_controller.c</name>
+			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1LV/w_bt_firmware_controller.c</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_4343W/COMPONENT_MURATA-1DX/w_bt_firmware_controller.c</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43012/COMPONENT_MURATA-1LV/w_bt_firmware_controller.c</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

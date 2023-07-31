@@ -42,9 +42,9 @@
 #include "cybt_platform_trace.h"
 #include "cybt_platform_config.h"
 #include "cybt_platform_util.h"
-#ifdef ENABLE_BT_SPY_LOG
+#ifdef ENABLE_DEBUG_UART
 #include "cybt_debug_uart.h"
-#endif // ENABLE_BT_SPY_LOG
+#endif // ENABLE_DEBUG_UART
 
 /******************************************************************************
  *                                Constants
@@ -319,12 +319,12 @@ void cybt_platform_log_print(const char *fmt_str, ...)
     len = vsnprintf(buffer, CYBT_TRACE_BUFFER_SIZE, fmt_str, ap);
     va_end(ap);
 
-#ifdef ENABLE_BT_SPY_LOG
+#ifdef ENABLE_DEBUG_UART
     cybt_debug_uart_send_trace(len, (uint8_t*)buffer);
-#else // ENABLE_BT_SPY_LOG
+#else // ENABLE_DEBUG_UART
     printf("[%u] %s\r\n", (unsigned int)time, buffer);
     UNUSED_VARIABLE(len);
-#endif // ENABLE_BT_SPY_LOG
+#endif // ENABLE_DEBUG_UART
 }
 
 static void cybt_uart_rx_not_empty(void)
@@ -464,7 +464,7 @@ cybt_result_t cybt_platform_hci_open(void *p_arg)
     uint32_t actual_baud_rate;
     cy_rslt_t result;
     cyhal_uart_cfg_t bt_uart_cfg = {0};
-    UNUSED(p_arg);
+    UNUSED_VARIABLE(p_arg);
     const cybt_platform_config_t *p_bt_platform_cfg = cybt_platform_get_config();
 
     if(true == hci_uart_cb.inited)

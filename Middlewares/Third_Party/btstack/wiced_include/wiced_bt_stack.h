@@ -92,6 +92,27 @@ wiced_result_t wiced_bt_stack_init(wiced_bt_management_cback_t *p_bt_management_
  */
 wiced_result_t wiced_bt_stack_deinit( void );
 
+/**
+* Initialize l2cap
+*
+* @return wiced_result_t
+*/
+wiced_result_t wiced_bt_l2c_module_init(void);
+
+ /**
+ * Initialize SMP.
+ * Called by application to accept incoming pairing requests
+ *
+ * @result wiced_result_t
+ */
+wiced_result_t wiced_bt_smp_module_init(void);
+
+/**
+* Enable host based resolution
+* This should be invoked in the BTM_ENABLED_EVT event
+*/
+wiced_result_t wiced_bt_init_resolution(void);
+
 
 /**@} wicedbt_Framework */
 

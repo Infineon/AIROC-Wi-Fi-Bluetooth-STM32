@@ -51,6 +51,7 @@ var searchData=
   ['gatt_5fhandle_5fvalue_5fmulti_5fnotif',['GATT_HANDLE_VALUE_MULTI_NOTIF',['../group__wicedbt__gatt.html#gga1bec0037cd2837dc90a967458b3cc68ba3fa94b7f9da8171102100b0d8a429be7',1,'wiced_bt_gatt.h']]],
   ['gatt_5fhandle_5fvalue_5fnotif',['GATT_HANDLE_VALUE_NOTIF',['../group__wicedbt__gatt.html#gga1bec0037cd2837dc90a967458b3cc68ba737c0a35667f9c3064bf1e223324b96e',1,'wiced_bt_gatt.h']]],
   ['gatt_5fis_5fcsf_5ffeature_5fsupported',['GATT_IS_CSF_FEATURE_SUPPORTED',['../group__wicedbt__gatt.html#ga36965fa4b563345ed44729d4867d7a8b',1,'wiced_bt_gatt.h']]],
+  ['gatt_20module_20initialization',['GATT Module Initialization',['../group__gatt__module__init.html',1,'']]],
   ['gatt_5foperation_5fcplt_5fevt',['GATT_OPERATION_CPLT_EVT',['../group__wicedbt__gatt.html#gga1a4943c0f32914d5d939b05e84c99631adf101f3e076dc63ca400446bac43a463',1,'wiced_bt_gatt.h']]],
   ['gatt_5fpeer_5fclient_5fcache_5fchange_5faware',['GATT_PEER_CLIENT_CACHE_CHANGE_AWARE',['../group__wicedbt__gatt.html#gga37752af067adb29bf256c7b130b18ac5a87f80cbd4cca0e10f8fceefa157b5c95',1,'wiced_bt_gatt.h']]],
   ['gatt_5fpeer_5fclient_5fcache_5fchange_5funaware',['GATT_PEER_CLIENT_CACHE_CHANGE_UNAWARE',['../group__wicedbt__gatt.html#gga37752af067adb29bf256c7b130b18ac5a5ba60ac4dac59215913f2c9841f76298',1,'wiced_bt_gatt.h']]],

@@ -6,6 +6,20 @@ This release of AIROC&trade; BT/BLE stack solution package includes as following
 * Infineon Bluetooth&reg; BT controller firmware (CYW4343W, CYW43012, 20829)
 * Platform and Operating system porting layers for P6+43xx, 20829 and P6+BLESS.
 
+#### v4.3.1
+btstack-integration v4.3.1 is a patch release with below mentioned enhancements and fixes:
+* Added BT controller firmware for 20829B0
+* Increased number of IPC retries
+* Fixed memory alignment issue observed with ARM compiler
+
+#### v4.3.0
+btstack-integration v4.3.0 contains below updates:
+* Added FW patch from Laird(LWB+) for 43439
+* Added FW patches from Murata for 4373-2AE and 4373-2BC
+* Added code size optimization changes in porting layer
+* Added APIs to get IPC operation failure details
+* Added changes to separate out HCI BTSpy traces from debug UART logs
+
 #### v4.2.0
 btstack-integration v4.2.0 contains below updates:
 * Updated BT controller firmware for 20829
@@ -47,4 +61,4 @@ This version of Infineon BT/BLE stack API was validated for compatibility with t
 | FreeRTOS                                  | 10.4.3  |
 
 ---
-© Infineon Technologies, 2019.
+© Infineon Technologies, 2022.

@@ -114,7 +114,7 @@ void MX_SDMMC1_SD_Init(void);
 #define SWCLK_GPIO_Port GPIOA
 #define T_JTDI_Pin GPIO_PIN_15
 #define T_JTDI_GPIO_Port GPIOA
-#define WIFI_WL_REG_ON_Pin GPIO_PIN_1
+#define WIFI_WL_REG_ON_Pin GPIO_PIN_0
 #define WIFI_WL_REG_ON_GPIO_Port GPIOD
 #define RMII_TXT_EN_Pin GPIO_PIN_11
 #define RMII_TXT_EN_GPIO_Port GPIOG

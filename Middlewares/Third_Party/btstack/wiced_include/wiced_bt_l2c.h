@@ -1103,10 +1103,16 @@ wiced_bool_t wiced_bt_l2cap_update_ble_conn_params (wiced_bt_device_address_t re
 
 
 /**
- *  @brief          Enable or disable updating BLE connection params based on the request from the peer.
+ *  @brief          Application requests to disable or enable parameters update
+ *  @note           By default parameter updates are allowed on connection complete
+ *                  This API is typically used to pause parameter updates.
  *
  *  @param[in]      rem_bda: Remote Bd Address
  *  @param[in]      enable: TRUE to enable,FALSE to disable.
+ *                  If \p enable = FALSE, and if parameters are already updated, this API resets them
+ *                  to what was requested during connection establishement
+ *                  If \p enable = TRUE, then any pending request sent through \ref wiced_bt_l2cap_update_ble_conn_params
+ *                  is processed
  *
  *  @return:        TRUE if update started
  *

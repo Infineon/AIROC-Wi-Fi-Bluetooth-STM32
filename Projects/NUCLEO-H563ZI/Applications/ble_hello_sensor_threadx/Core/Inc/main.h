@@ -97,6 +97,8 @@ void Error_Handler(void);
 #define T_VCP_TX_GPIO_Port GPIOD
 #define T_VCP_RX_Pin GPIO_PIN_9
 #define T_VCP_RX_GPIO_Port GPIOD
+#define CYBSP_BT_POWER_Pin GPIO_PIN_3
+#define CYBSP_BT_POWER_GPIO_Port GPIOG
 #define LED3_RED_Pin GPIO_PIN_4
 #define LED3_RED_GPIO_Port GPIOG
 #define UCPD_FLT_Pin GPIO_PIN_7

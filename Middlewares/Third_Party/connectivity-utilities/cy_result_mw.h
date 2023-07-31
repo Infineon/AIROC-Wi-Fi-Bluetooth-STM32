@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2019-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -120,6 +120,8 @@ extern "C" {
 #define CY_RSLT_MODULE_ECM_BASE                          CY_RSLT_MODULE_MIDDLEWARE_BASE + 17
 /** NetXDuo WHD port module base */
 #define CY_RSLT_MODULE_NETXDUO_WHD_PORT_BASE             CY_RSLT_MODULE_MIDDLEWARE_BASE + 18
+/** Virtual connectivity Manager module base */
+#define CY_RSLT_MODULE_VCM_BASE                          CY_RSLT_MODULE_MIDDLEWARE_BASE + 19
 
 /**
  * @}

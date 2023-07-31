@@ -31,6 +31,10 @@
 #include "cyhal_gpio.h"
 #include "cyhal_uart.h"
 
+#ifdef ENABLE_BT_SPY_LOG
+#define ENABLE_DEBUG_UART
+#endif
+
 /**
  *  @addtogroup    platform_cfg   Bluetooth Platform Configuration
  *

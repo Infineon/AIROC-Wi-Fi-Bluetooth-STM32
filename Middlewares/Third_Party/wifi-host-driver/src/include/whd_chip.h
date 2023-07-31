@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company)
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company)
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -116,6 +116,7 @@ typedef enum
 typedef struct whd_chip_info
 {
     uint16_t chip_id;
+    uint8_t chipid_in_sdiocore;    /* To check ChipId is present in SdioCore */
     whd_bool_t save_restore_enable;
     uint32_t fwcap_flags;
 } whd_chip_info_t;
@@ -306,6 +307,15 @@ typedef struct
     uint console_addr;
     uint msgtrace_addr;
     uint fwid;
+    uint total_lfrag_pktcount;
+    uint reserved;
+    uint reserved1;
+    uint h2d_mb_addr;
+    uint d2h_mb_addr;
+    uint ring_info_ptr;
+    uint scratch_mem_size;
+    uint scratch_mem_ptr_low;
+    uint scratch_mem_ptr_high;
 } wlan_shared_t;
 
 /* Buffer size to be allocated to read wlan log */
@@ -371,9 +381,14 @@ whd_result_t whd_internal_info_deinit(whd_driver_t whd_driver);
 ******************************************************/
 
 extern void whd_wifi_chip_info_init(whd_driver_t whd_driver);
+#ifndef ULP_SUPPORT
 extern whd_result_t whd_wlan_bus_complete_ds_wake(whd_driver_t whd_driver, whd_bool_t wake_from_firmware,
                                                   uint32_t wake_event_indication_addr, uint32_t wake_indication_addr,
                                                   uint32_t sdio_control_addr);
+#else
+whd_result_t whd_wlan_bus_complete_ds_wake(whd_driver_t whd_driver, whd_bool_t wake_from_ucode );
+whd_result_t whd_ensure_wlan_bus_not_in_deep_sleep(whd_driver_t whd_driver);
+#endif
 extern whd_result_t whd_wifi_set_custom_country_code(whd_interface_t ifp, const whd_country_info_t *country_code);
 
 /* Device core control functions */

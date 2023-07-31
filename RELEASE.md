@@ -1,5 +1,5 @@
-# STM32 Connectivity Expansion Pack 1.4.0 Release Notes
-The STM32 Connectivity Expansion Pack is an extension of the CMSIS-Pack standard established by Arm.
+# Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack 1.5.0 Release Notes
+The Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack is an extension of the CMSIS-Pack standard established by Arm.
 The pack is compliant with the full CMSIS-Pack standard, with additional requirements/restrictions
 on the final pack to meet the STM standard.
 
@@ -10,10 +10,9 @@ This pack uses libraries from the ModusToolbox environment.
 
 ## What Changed?
 
- v1.4.0
-* Added STM32H5 support
-* PAL improvements and fixes
-* New Examples added for STM32H747I-DISCO and STM32U575I-EV
+ v1.5.0
+* Added New CYWxx Modules support
+* Pack Name change to AIROC-Wi-Fi-Bluetooth-STM32
 
 ## Supported STM32 Boards and MCU
 *  STM32L562E-DK kit and STM32L5xx
@@ -27,7 +26,9 @@ Infineon's CYW43xxx Wi-Fi-BT combo chip family:
 *  CYW43012
 *  CYW43439 / CYW43438 / CYW4343W
 *  CYW4373 / CYW4373/E
-
+*  CYW43022
+*  CYW55560
+*  CYW55572
 
 ## Example apps inside the Pack
 
@@ -52,16 +53,6 @@ This code example demonstrates the implementation of a simple Bluetooth Stack fu
 Peripheral role. During initialization the app registers with LE stack to receive various notifications
 including bonding complete, connection status change and peer write.
 
-Refer to Section `BLE Hello Sensor Example` in STM32 connectivity expansion pack user guide for more details.
-
-### Wi-Fi TCP keepalive offload
-The TCP keepalive offload feature of the Low Power Assistant (LPA) improves the power consumption
-of your connected system by reducing the time the Host needs to stay awake to support a TCP keepalive
-request. This example describes how to enable TCP keepalive offload and configure four different
-sockets for TCP keepalive that can be incorporated into your project from LPA Middleware.
-
-Refer to Projects/STM32H747I-DISCO/Applications/wifi_tko/readme.txt for more details.
-
 ## Compatible Software
 
 |  Software                    | Version   |
@@ -82,6 +73,7 @@ Refer to Projects/STM32H747I-DISCO/Applications/wifi_tko/readme.txt for more det
 
 | Version | Changes                                                             | Reason for Change                     |
 | :----:  | :---                                                                | :----                                 |
+| 1.5.0   | Added New Connectivity Module support                               | Update Pack Name and new CYWxx modules      |
 | 1.4.0   | Added STM32H5 support.                                              | Add support of new STM32 series       |
 | 1.3.0   | Added STM32U5 support.                                              | Add support of new STM32 series       |
 | 1.2.0   | Added STM32L5 support.                                              | Add support of new STM32 series       |
@@ -99,7 +91,7 @@ Refer to Projects/STM32H747I-DISCO/Applications/wifi_tko/readme.txt for more det
 
 ### More information
 * [README.md](./README.md)
-* [STM32 Connectivity Expansion Pack User Guide](./Documentation/STM32ConnectivityExpansionPack_UserGuide.pdf)
+* [Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack User Guide](./Documentation/InfineonAIROC-Wi-Fi-Bluetooth-STM32ExpansionPack_UserGuide.pdf)
 * [Cypress Semiconductor, an Infineon Technologies Company](http://www.infineon.com)
 * [Infineon GitHub](https://github.com/Infineon/)
 * [ModusToolbox](https://www.infineon.com/cms/en/design-support/tools/sdk/modustoolbox-software/)

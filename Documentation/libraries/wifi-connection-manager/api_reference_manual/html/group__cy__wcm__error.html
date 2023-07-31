@@ -90,34 +90,34 @@ $(document).ready(function(){initNavTree('group__cy__wcm__error.html',''); initR
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">General Description</h2>
-<p >Cypress middleware APIs return results of type cy_rslt_t. </p>
+<p >Infineon middleware APIs return results of type cy_rslt_t. </p>
 <p >It consists of three parts:</p><ul>
 <li>module base</li>
 <li>type</li>
 <li>error code</li>
 </ul>
-<dl class="section user"><dt>Result Format</dt><dd></dd></dl>
-<pre class="fragment">           Module base                   Type    Library specific error code
+<dl class="section user"><dt>Result format</dt><dd></dd></dl>
+<pre class="fragment">           Module base                   Type    Library-specific error code
    +-----------------------------------+------+------------------------------+
-   |CY_RSLT_MODULE_WCM_BASE            | 0x2  |           Error Code         |
+   |CY_RSLT_MODULE_WCM_BASE            | 0x2  |           Error code         |
    +-----------------------------------+------+------------------------------+
              14-bits                    2-bits            16-bits
 
 See the macro section of this document for library-specific error codes.
 </pre><p >The data structure cy_rslt_t is part of cy_result.h located in &lt;core_lib/include&gt;.</p>
-<p >Module base: This base is derived from CY_RSLT_MODULE_MIDDLEWARE_BASE (defined in cy_result.h) and is an offset of the CY_RSLT_MODULE_MIDDLEWARE_BASE. The details of the offset and the middleware base are defined in cy_result_mw.h, that is part of <a href="https://github.com/cypresssemiconductorco/connectivity-utilities">GitHub connectivity-utilities</a> For example, Wi-Fi Connection Manager (WCM) uses CY_RSLT_MODULE_WCM_BASE as the module base.</p>
+<p >Module base: This base is derived from CY_RSLT_MODULE_MIDDLEWARE_BASE (defined in cy_result.h) and is an offset of the CY_RSLT_MODULE_MIDDLEWARE_BASE. The details of the offset and the middleware base are defined in cy_result_mw.h, that is part of <a href="https://github.com/infineon/connectivity-utilities">GitHub connectivity-utilities</a> For example, Wi-Fi Connection Manager (WCM) uses CY_RSLT_MODULE_WCM_BASE as the module base.</p>
 <p >Type: This type is defined in cy_result.h and can be one of CY_RSLT_TYPE_FATAL, CY_RSLT_TYPE_ERROR, CY_RSLT_TYPE_WARNING, or CY_RSLT_TYPE_INFO. AWS library error codes are of type CY_RSLT_TYPE_ERROR.</p>
-<p >Library-specific error code: These error codes are library-specific and defined in the macro section.</p>
+<p >Library-specific error codes: These error codes are library-specific and defined in the macro section.</p>
 <p >Helper macros used for creating the library-specific result are provided as part of cy_result.h. </p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:ga9fdce87b59ad5de873e8cda4a5939689"><td class="memItemLeft" align="right" valign="top"><a id="ga9fdce87b59ad5de873e8cda4a5939689" name="ga9fdce87b59ad5de873e8cda4a5939689"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CY_RSLT_WCM_ERR_BASE</b>&#160;&#160;&#160;CY_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_WCM_BASE, 0)</td></tr>
-<tr class="memdesc:ga9fdce87b59ad5de873e8cda4a5939689"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic wcm base error code. <br /></td></tr>
+<tr class="memdesc:ga9fdce87b59ad5de873e8cda4a5939689"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic WCM base error code. <br /></td></tr>
 <tr class="separator:ga9fdce87b59ad5de873e8cda4a5939689"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6944ac1b7cf6a45da8cef5b7aaccee43"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cy__wcm__error.html#ga6944ac1b7cf6a45da8cef5b7aaccee43">CY_RSLT_WCM_WAIT_TIMEOUT</a>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 1)</td></tr>
-<tr class="memdesc:ga6944ac1b7cf6a45da8cef5b7aaccee43"><td class="mdescLeft">&#160;</td><td class="mdescRight">WCM Error Codes.  <a href="group__cy__wcm__error.html#ga6944ac1b7cf6a45da8cef5b7aaccee43">More...</a><br /></td></tr>
+<tr class="memdesc:ga6944ac1b7cf6a45da8cef5b7aaccee43"><td class="mdescLeft">&#160;</td><td class="mdescRight">WCM error codes.  <a href="group__cy__wcm__error.html#ga6944ac1b7cf6a45da8cef5b7aaccee43">More...</a><br /></td></tr>
 <tr class="separator:ga6944ac1b7cf6a45da8cef5b7aaccee43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9ed4661440bde1d143da250f5e9aa1d2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cy__wcm__error.html#ga9ed4661440bde1d143da250f5e9aa1d2">CY_RSLT_WCM_BAD_NETWORK_PARAM</a>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 2)</td></tr>
 <tr class="memdesc:ga9ed4661440bde1d143da250f5e9aa1d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bad network parameters.  <a href="group__cy__wcm__error.html#ga9ed4661440bde1d143da250f5e9aa1d2">More...</a><br /></td></tr>
@@ -183,7 +183,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:gaf238a2679be63d6c347384309d0ecdec"><td class="mdescLeft">&#160;</td><td class="mdescRight">IPv6 global IP not supported.  <a href="group__cy__wcm__error.html#gaf238a2679be63d6c347384309d0ecdec">More...</a><br /></td></tr>
 <tr class="separator:gaf238a2679be63d6c347384309d0ecdec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaec2dc6ae38fe8d511c6e9341a87460d4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cy__wcm__error.html#gaec2dc6ae38fe8d511c6e9341a87460d4">CY_RSLT_WCM_IPV6_INTERFACE_NOT_READY</a>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 23)</td></tr>
-<tr class="memdesc:gaec2dc6ae38fe8d511c6e9341a87460d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">IPV6 interface not ready.  <a href="group__cy__wcm__error.html#gaec2dc6ae38fe8d511c6e9341a87460d4">More...</a><br /></td></tr>
+<tr class="memdesc:gaec2dc6ae38fe8d511c6e9341a87460d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">IPv6 interface not ready.  <a href="group__cy__wcm__error.html#gaec2dc6ae38fe8d511c6e9341a87460d4">More...</a><br /></td></tr>
 <tr class="separator:gaec2dc6ae38fe8d511c6e9341a87460d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga25e7e3f701dc1fb8d7695f12b197e792"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cy__wcm__error.html#ga25e7e3f701dc1fb8d7695f12b197e792">CY_RSLT_WCM_PING_FAILURE</a>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 24)</td></tr>
 <tr class="memdesc:ga25e7e3f701dc1fb8d7695f12b197e792"><td class="mdescLeft">&#160;</td><td class="mdescRight">Failure in executing ping.  <a href="group__cy__wcm__error.html#ga25e7e3f701dc1fb8d7695f12b197e792">More...</a><br /></td></tr>
@@ -230,43 +230,29 @@ Macros</h2></td></tr>
 <tr class="memitem:gaced51f450b0f6fd546796bf4528731ee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cy__wcm__error.html#gaced51f450b0f6fd546796bf4528731ee">CY_RSLT_WCM_SEMAPHORE_ERROR</a>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 37)</td></tr>
 <tr class="memdesc:gaced51f450b0f6fd546796bf4528731ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Semaphore error.  <a href="group__cy__wcm__error.html#gaced51f450b0f6fd546796bf4528731ee">More...</a><br /></td></tr>
 <tr class="separator:gaced51f450b0f6fd546796bf4528731ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2fac4f4f7090c94a3a3afe0da414bd56"><td class="memItemLeft" align="right" valign="top"><a id="ga2fac4f4f7090c94a3a3afe0da414bd56" name="ga2fac4f4f7090c94a3a3afe0da414bd56"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CY_RSLT_WCM_SECURITY_NOT_FOUND</b>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 38)</td></tr>
-<tr class="memdesc:ga2fac4f4f7090c94a3a3afe0da414bd56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Security type could not be determined <br  />
- <br /></td></tr>
+<tr class="memitem:ga2fac4f4f7090c94a3a3afe0da414bd56"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cy__wcm__error.html#ga2fac4f4f7090c94a3a3afe0da414bd56">CY_RSLT_WCM_SECURITY_NOT_FOUND</a>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 38)</td></tr>
+<tr class="memdesc:ga2fac4f4f7090c94a3a3afe0da414bd56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Security type could not be determined.  <a href="group__cy__wcm__error.html#ga2fac4f4f7090c94a3a3afe0da414bd56">More...</a><br /></td></tr>
 <tr class="separator:ga2fac4f4f7090c94a3a3afe0da414bd56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7dffbb58af81a1b0e981d9082b371c3e"><td class="memItemLeft" align="right" valign="top"><a id="ga7dffbb58af81a1b0e981d9082b371c3e" name="ga7dffbb58af81a1b0e981d9082b371c3e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CY_RSLT_WCM_CONNECT_IN_PROGRESS</b>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 39)</td></tr>
-<tr class="memdesc:ga7dffbb58af81a1b0e981d9082b371c3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connect to AP is in progress <br  />
- <br /></td></tr>
+<tr class="memitem:ga7dffbb58af81a1b0e981d9082b371c3e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cy__wcm__error.html#ga7dffbb58af81a1b0e981d9082b371c3e">CY_RSLT_WCM_CONNECT_IN_PROGRESS</a>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 39)</td></tr>
+<tr class="memdesc:ga7dffbb58af81a1b0e981d9082b371c3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connect to AP is in progress.  <a href="group__cy__wcm__error.html#ga7dffbb58af81a1b0e981d9082b371c3e">More...</a><br /></td></tr>
 <tr class="separator:ga7dffbb58af81a1b0e981d9082b371c3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga66ea9e4d1224a2c6c5431e8519f3da92"><td class="memItemLeft" align="right" valign="top"><a id="ga66ea9e4d1224a2c6c5431e8519f3da92" name="ga66ea9e4d1224a2c6c5431e8519f3da92"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CY_RSLT_WCM_GATEWAY_ADDR_ERROR</b>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 40)</td></tr>
-<tr class="memdesc:ga66ea9e4d1224a2c6c5431e8519f3da92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Failed to get the Gateway address <br  />
- <br /></td></tr>
+<tr class="memitem:ga66ea9e4d1224a2c6c5431e8519f3da92"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cy__wcm__error.html#ga66ea9e4d1224a2c6c5431e8519f3da92">CY_RSLT_WCM_GATEWAY_ADDR_ERROR</a>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 40)</td></tr>
+<tr class="memdesc:ga66ea9e4d1224a2c6c5431e8519f3da92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Failed to get the Gateway address.  <a href="group__cy__wcm__error.html#ga66ea9e4d1224a2c6c5431e8519f3da92">More...</a><br /></td></tr>
 <tr class="separator:ga66ea9e4d1224a2c6c5431e8519f3da92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga97f842b10b5705529d20bac2ecd607b8"><td class="memItemLeft" align="right" valign="top"><a id="ga97f842b10b5705529d20bac2ecd607b8" name="ga97f842b10b5705529d20bac2ecd607b8"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CY_RSLT_WCM_NETMASK_ADDR_ERROR</b>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 41)</td></tr>
-<tr class="memdesc:ga97f842b10b5705529d20bac2ecd607b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Failed to get the netmask address <br  />
- <br /></td></tr>
+<tr class="memitem:ga97f842b10b5705529d20bac2ecd607b8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cy__wcm__error.html#ga97f842b10b5705529d20bac2ecd607b8">CY_RSLT_WCM_NETMASK_ADDR_ERROR</a>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 41)</td></tr>
+<tr class="memdesc:ga97f842b10b5705529d20bac2ecd607b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Failed to get the netmask address.  <a href="group__cy__wcm__error.html#ga97f842b10b5705529d20bac2ecd607b8">More...</a><br /></td></tr>
 <tr class="separator:ga97f842b10b5705529d20bac2ecd607b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6a00fe62638c4d5613a0ce165dc53b0c"><td class="memItemLeft" align="right" valign="top"><a id="ga6a00fe62638c4d5613a0ce165dc53b0c" name="ga6a00fe62638c4d5613a0ce165dc53b0c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CY_RSLT_WCM_IP_ADDR_ERROR</b>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 42)</td></tr>
-<tr class="memdesc:ga6a00fe62638c4d5613a0ce165dc53b0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Failed to get the IP address <br  />
- <br /></td></tr>
+<tr class="memitem:ga6a00fe62638c4d5613a0ce165dc53b0c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cy__wcm__error.html#ga6a00fe62638c4d5613a0ce165dc53b0c">CY_RSLT_WCM_IP_ADDR_ERROR</a>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 42)</td></tr>
+<tr class="memdesc:ga6a00fe62638c4d5613a0ce165dc53b0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Failed to get the IP address.  <a href="group__cy__wcm__error.html#ga6a00fe62638c4d5613a0ce165dc53b0c">More...</a><br /></td></tr>
 <tr class="separator:ga6a00fe62638c4d5613a0ce165dc53b0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9ed0487c0b8a7d8727c236ac8f390d13"><td class="memItemLeft" align="right" valign="top"><a id="ga9ed0487c0b8a7d8727c236ac8f390d13" name="ga9ed0487c0b8a7d8727c236ac8f390d13"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CY_RSLT_WCM_GATEWAY_MAC_ADDR_ERROR</b>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 43)</td></tr>
-<tr class="memdesc:ga9ed0487c0b8a7d8727c236ac8f390d13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Failed to get the Gateway MAC address <br  />
- <br /></td></tr>
+<tr class="memitem:ga9ed0487c0b8a7d8727c236ac8f390d13"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cy__wcm__error.html#ga9ed0487c0b8a7d8727c236ac8f390d13">CY_RSLT_WCM_GATEWAY_MAC_ADDR_ERROR</a>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 43)</td></tr>
+<tr class="memdesc:ga9ed0487c0b8a7d8727c236ac8f390d13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Failed to get the Gateway MAC address.  <a href="group__cy__wcm__error.html#ga9ed0487c0b8a7d8727c236ac8f390d13">More...</a><br /></td></tr>
 <tr class="separator:ga9ed0487c0b8a7d8727c236ac8f390d13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab23fabb9d3d91efcf1fde0a610bf6fd4"><td class="memItemLeft" align="right" valign="top"><a id="gab23fabb9d3d91efcf1fde0a610bf6fd4" name="gab23fabb9d3d91efcf1fde0a610bf6fd4"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>CY_RSLT_WCM_NW_INIT_ERROR</b>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 44)</td></tr>
-<tr class="memdesc:gab23fabb9d3d91efcf1fde0a610bf6fd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Failed to initialize the network stack <br  />
- <br /></td></tr>
+<tr class="memitem:gab23fabb9d3d91efcf1fde0a610bf6fd4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cy__wcm__error.html#gab23fabb9d3d91efcf1fde0a610bf6fd4">CY_RSLT_WCM_NW_INIT_ERROR</a>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 44)</td></tr>
+<tr class="memdesc:gab23fabb9d3d91efcf1fde0a610bf6fd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Failed to initialize the network stack.  <a href="group__cy__wcm__error.html#gab23fabb9d3d91efcf1fde0a610bf6fd4">More...</a><br /></td></tr>
 <tr class="separator:gab23fabb9d3d91efcf1fde0a610bf6fd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab647206b775cba6ee4b7b7b19c583f7b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cy__wcm__error.html#gab647206b775cba6ee4b7b7b19c583f7b">CY_RSLT_WCM_WPS_PBC_OVERLAP</a>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 45)</td></tr>
-<tr class="memdesc:gab647206b775cba6ee4b7b7b19c583f7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">WPS Error Codes.  <a href="group__cy__wcm__error.html#gab647206b775cba6ee4b7b7b19c583f7b">More...</a><br /></td></tr>
+<tr class="memdesc:gab647206b775cba6ee4b7b7b19c583f7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">WPS error codes.  <a href="group__cy__wcm__error.html#gab647206b775cba6ee4b7b7b19c583f7b">More...</a><br /></td></tr>
 <tr class="separator:gab647206b775cba6ee4b7b7b19c583f7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac6347a8774ce04d4e63619b0f7bf64f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cy__wcm__error.html#gac6347a8774ce04d4e63619b0f7bf64f1">CY_RSLT_WCM_WPS_ERROR_RECEIVED_WEP_CREDENTIALS</a>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 46)</td></tr>
 <tr class="memdesc:gac6347a8774ce04d4e63619b0f7bf64f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">WPS received incorrect credentials.  <a href="group__cy__wcm__error.html#gac6347a8774ce04d4e63619b0f7bf64f1">More...</a><br /></td></tr>
@@ -275,11 +261,20 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga46d6e7393784bb35e110d5fe42c004e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">WPS PBC/PIN mode failed.  <a href="group__cy__wcm__error.html#ga46d6e7393784bb35e110d5fe42c004e9">More...</a><br /></td></tr>
 <tr class="separator:ga46d6e7393784bb35e110d5fe42c004e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaadcc9a3f04cb2e2846a8d77489476fa1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cy__wcm__error.html#gaadcc9a3f04cb2e2846a8d77489476fa1">CY_RSLT_WCM_DHCP_TIMEOUT</a>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 48)</td></tr>
-<tr class="memdesc:gaadcc9a3f04cb2e2846a8d77489476fa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">DHCP Error Code.  <a href="group__cy__wcm__error.html#gaadcc9a3f04cb2e2846a8d77489476fa1">More...</a><br /></td></tr>
+<tr class="memdesc:gaadcc9a3f04cb2e2846a8d77489476fa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">DHCP error code.  <a href="group__cy__wcm__error.html#gaadcc9a3f04cb2e2846a8d77489476fa1">More...</a><br /></td></tr>
 <tr class="separator:gaadcc9a3f04cb2e2846a8d77489476fa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9cd976a0636639966074db15a9a5c05f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cy__wcm__error.html#ga9cd976a0636639966074db15a9a5c05f">CY_RSLT_WCM_WPA3_SUPPLICANT_ERROR</a>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 49)</td></tr>
-<tr class="memdesc:ga9cd976a0636639966074db15a9a5c05f"><td class="mdescLeft">&#160;</td><td class="mdescRight">WPA3 Supplicant Error Code.  <a href="group__cy__wcm__error.html#ga9cd976a0636639966074db15a9a5c05f">More...</a><br /></td></tr>
+<tr class="memdesc:ga9cd976a0636639966074db15a9a5c05f"><td class="mdescLeft">&#160;</td><td class="mdescRight">WPA3 supplicant error code.  <a href="group__cy__wcm__error.html#ga9cd976a0636639966074db15a9a5c05f">More...</a><br /></td></tr>
 <tr class="separator:ga9cd976a0636639966074db15a9a5c05f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5153e6403ae2d0922fca3ade7b5c9a01"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cy__wcm__error.html#ga5153e6403ae2d0922fca3ade7b5c9a01">CY_RSLT_WCM_UNSUPPORTED_API</a>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 50)</td></tr>
+<tr class="memdesc:ga5153e6403ae2d0922fca3ade7b5c9a01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsupported WCM API error code.  <a href="group__cy__wcm__error.html#ga5153e6403ae2d0922fca3ade7b5c9a01">More...</a><br /></td></tr>
+<tr class="separator:ga5153e6403ae2d0922fca3ade7b5c9a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9adcd70a5436106169a7bee6563f04d6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cy__wcm__error.html#ga9adcd70a5436106169a7bee6563f04d6">CY_RSLT_WCM_VCM_ERROR</a>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 51)</td></tr>
+<tr class="memdesc:ga9adcd70a5436106169a7bee6563f04d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">VCM error code.  <a href="group__cy__wcm__error.html#ga9adcd70a5436106169a7bee6563f04d6">More...</a><br /></td></tr>
+<tr class="separator:ga9adcd70a5436106169a7bee6563f04d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab9f38ee443708d934fa38f6e0bc838ab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cy__wcm__error.html#gab9f38ee443708d934fa38f6e0bc838ab">CY_RSLT_WCM_POWERSAVE_MODE_NOT_SUPPORTED</a>&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 52)</td></tr>
+<tr class="memdesc:gab9f38ee443708d934fa38f6e0bc838ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Powersave Mode error code.  <a href="group__cy__wcm__error.html#gab9f38ee443708d934fa38f6e0bc838ab">More...</a><br /></td></tr>
+<tr class="separator:gab9f38ee443708d934fa38f6e0bc838ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -465,7 +460,7 @@ Enumerations</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>WCM Error Codes. </p>
+<p>WCM error codes. </p>
 <p >Wait timeout. <br  />
  </p>
 
@@ -861,7 +856,7 @@ Enumerations</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>IPV6 interface not ready. </p>
+<p>IPv6 interface not ready. </p>
 <p ><br  />
  </p>
 
@@ -1083,6 +1078,132 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
+<a id="ga2fac4f4f7090c94a3a3afe0da414bd56" name="ga2fac4f4f7090c94a3a3afe0da414bd56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2fac4f4f7090c94a3a3afe0da414bd56">&#9670;&nbsp;</a></span>CY_RSLT_WCM_SECURITY_NOT_FOUND</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_RSLT_WCM_SECURITY_NOT_FOUND&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 38)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Security type could not be determined. </p>
+<p ><br  />
+ </p>
+
+</div>
+</div>
+<a id="ga7dffbb58af81a1b0e981d9082b371c3e" name="ga7dffbb58af81a1b0e981d9082b371c3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7dffbb58af81a1b0e981d9082b371c3e">&#9670;&nbsp;</a></span>CY_RSLT_WCM_CONNECT_IN_PROGRESS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_RSLT_WCM_CONNECT_IN_PROGRESS&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 39)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Connect to AP is in progress. </p>
+<p ><br  />
+ </p>
+
+</div>
+</div>
+<a id="ga66ea9e4d1224a2c6c5431e8519f3da92" name="ga66ea9e4d1224a2c6c5431e8519f3da92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga66ea9e4d1224a2c6c5431e8519f3da92">&#9670;&nbsp;</a></span>CY_RSLT_WCM_GATEWAY_ADDR_ERROR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_RSLT_WCM_GATEWAY_ADDR_ERROR&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 40)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Failed to get the Gateway address. </p>
+<p ><br  />
+ </p>
+
+</div>
+</div>
+<a id="ga97f842b10b5705529d20bac2ecd607b8" name="ga97f842b10b5705529d20bac2ecd607b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga97f842b10b5705529d20bac2ecd607b8">&#9670;&nbsp;</a></span>CY_RSLT_WCM_NETMASK_ADDR_ERROR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_RSLT_WCM_NETMASK_ADDR_ERROR&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 41)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Failed to get the netmask address. </p>
+<p ><br  />
+ </p>
+
+</div>
+</div>
+<a id="ga6a00fe62638c4d5613a0ce165dc53b0c" name="ga6a00fe62638c4d5613a0ce165dc53b0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6a00fe62638c4d5613a0ce165dc53b0c">&#9670;&nbsp;</a></span>CY_RSLT_WCM_IP_ADDR_ERROR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_RSLT_WCM_IP_ADDR_ERROR&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 42)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Failed to get the IP address. </p>
+<p ><br  />
+ </p>
+
+</div>
+</div>
+<a id="ga9ed0487c0b8a7d8727c236ac8f390d13" name="ga9ed0487c0b8a7d8727c236ac8f390d13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9ed0487c0b8a7d8727c236ac8f390d13">&#9670;&nbsp;</a></span>CY_RSLT_WCM_GATEWAY_MAC_ADDR_ERROR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_RSLT_WCM_GATEWAY_MAC_ADDR_ERROR&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 43)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Failed to get the Gateway MAC address. </p>
+<p ><br  />
+ </p>
+
+</div>
+</div>
+<a id="gab23fabb9d3d91efcf1fde0a610bf6fd4" name="gab23fabb9d3d91efcf1fde0a610bf6fd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab23fabb9d3d91efcf1fde0a610bf6fd4">&#9670;&nbsp;</a></span>CY_RSLT_WCM_NW_INIT_ERROR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_RSLT_WCM_NW_INIT_ERROR&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 44)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Failed to initialize the network stack. </p>
+<p ><br  />
+ </p>
+
+</div>
+</div>
 <a id="gab647206b775cba6ee4b7b7b19c583f7b" name="gab647206b775cba6ee4b7b7b19c583f7b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gab647206b775cba6ee4b7b7b19c583f7b">&#9670;&nbsp;</a></span>CY_RSLT_WCM_WPS_PBC_OVERLAP</h2>
 
@@ -1095,7 +1216,7 @@ Enumerations</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>WPS Error Codes. </p>
+<p>WPS error codes. </p>
 <p >WPS PBC overlap. <br  />
  </p>
 
@@ -1149,7 +1270,7 @@ Enumerations</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>DHCP Error Code. </p>
+<p>DHCP error code. </p>
 <p >DHCP timeout. <br  />
  </p>
 
@@ -1167,8 +1288,62 @@ Enumerations</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>WPA3 Supplicant Error Code. </p>
-<p >WPA3 Supplicant Error <br  />
+<p>WPA3 supplicant error code. </p>
+<p >WPA3 supplicant error. <br  />
+ </p>
+
+</div>
+</div>
+<a id="ga5153e6403ae2d0922fca3ade7b5c9a01" name="ga5153e6403ae2d0922fca3ade7b5c9a01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5153e6403ae2d0922fca3ade7b5c9a01">&#9670;&nbsp;</a></span>CY_RSLT_WCM_UNSUPPORTED_API</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_RSLT_WCM_UNSUPPORTED_API&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 50)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unsupported WCM API error code. </p>
+<p >Unsupported WCM API. <br  />
+ </p>
+
+</div>
+</div>
+<a id="ga9adcd70a5436106169a7bee6563f04d6" name="ga9adcd70a5436106169a7bee6563f04d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9adcd70a5436106169a7bee6563f04d6">&#9670;&nbsp;</a></span>CY_RSLT_WCM_VCM_ERROR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_RSLT_WCM_VCM_ERROR&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 51)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>VCM error code. </p>
+<p >Failed to execute virtual API using VCM. <br  />
+ </p>
+
+</div>
+</div>
+<a id="gab9f38ee443708d934fa38f6e0bc838ab" name="gab9f38ee443708d934fa38f6e0bc838ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab9f38ee443708d934fa38f6e0bc838ab">&#9670;&nbsp;</a></span>CY_RSLT_WCM_POWERSAVE_MODE_NOT_SUPPORTED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CY_RSLT_WCM_POWERSAVE_MODE_NOT_SUPPORTED&#160;&#160;&#160;(<a class="el" href="group__cy__wcm__error.html#ga9fdce87b59ad5de873e8cda4a5939689">CY_RSLT_WCM_ERR_BASE</a> + 52)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Powersave Mode error code. </p>
+<p >Powersave mode not supported on this device. <br  />
  </p>
 
 </div>
@@ -1189,233 +1364,298 @@ Enumerations</h2></td></tr>
 <p>Reason codes for disconnection based on WHD enums. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a4800c6dc735976f52fc6306bf4c6f7af" name="gga355e10b22c86485f15fc32e2b748b854a4800c6dc735976f52fc6306bf4c6f7af"></a>CY_WCM_REASON_INITIAL_ASSOC&#160;</td><td class="fielddoc"><p >roam reason codes </p>
-<p >initial assoc <br  />
+<p >Initial assoc. <br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a6ddcbff02ba36b33fbd75df02c773155" name="gga355e10b22c86485f15fc32e2b748b854a6ddcbff02ba36b33fbd75df02c773155"></a>CY_WCM_REASON_LOW_RSSI&#160;</td><td class="fielddoc"><p >roamed due to low RSSI <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a6ddcbff02ba36b33fbd75df02c773155" name="gga355e10b22c86485f15fc32e2b748b854a6ddcbff02ba36b33fbd75df02c773155"></a>CY_WCM_REASON_LOW_RSSI&#160;</td><td class="fielddoc"><p >Roamed due to low RSSI. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854aafb34128fe9e4d1cbba4ba42b1abe59b" name="gga355e10b22c86485f15fc32e2b748b854aafb34128fe9e4d1cbba4ba42b1abe59b"></a>CY_WCM_REASON_DEAUTH&#160;</td><td class="fielddoc"><p >roamed due to DEAUTH indication <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854aafb34128fe9e4d1cbba4ba42b1abe59b" name="gga355e10b22c86485f15fc32e2b748b854aafb34128fe9e4d1cbba4ba42b1abe59b"></a>CY_WCM_REASON_DEAUTH&#160;</td><td class="fielddoc"><p >Roamed due to DEAUTH indication. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a34fe36eb4696f0dfbaf864c4ffe378d1" name="gga355e10b22c86485f15fc32e2b748b854a34fe36eb4696f0dfbaf864c4ffe378d1"></a>CY_WCM_REASON_DISASSOC&#160;</td><td class="fielddoc"><p >roamed due to DISASSOC indication </p>
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a34fe36eb4696f0dfbaf864c4ffe378d1" name="gga355e10b22c86485f15fc32e2b748b854a34fe36eb4696f0dfbaf864c4ffe378d1"></a>CY_WCM_REASON_DISASSOC&#160;</td><td class="fielddoc"><p >Roamed due to DISASSOC indication. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a9cda1b95b662813cc5c51e70d4731823" name="gga355e10b22c86485f15fc32e2b748b854a9cda1b95b662813cc5c51e70d4731823"></a>CY_WCM_REASON_BCNS_LOST&#160;</td><td class="fielddoc"><p >roamed due to lost beacons <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a9cda1b95b662813cc5c51e70d4731823" name="gga355e10b22c86485f15fc32e2b748b854a9cda1b95b662813cc5c51e70d4731823"></a>CY_WCM_REASON_BCNS_LOST&#160;</td><td class="fielddoc"><p >Roamed due to lost beacons. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ac267573f45441a34e119547fc25cffa5" name="gga355e10b22c86485f15fc32e2b748b854ac267573f45441a34e119547fc25cffa5"></a>CY_WCM_REASON_FAST_ROAM_FAILED&#160;</td><td class="fielddoc"><p >roamed due to fast roam failure <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ac267573f45441a34e119547fc25cffa5" name="gga355e10b22c86485f15fc32e2b748b854ac267573f45441a34e119547fc25cffa5"></a>CY_WCM_REASON_FAST_ROAM_FAILED&#160;</td><td class="fielddoc"><p >Roamed due to fast roam failure. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ad229179e9687fbfc4b80534e76271575" name="gga355e10b22c86485f15fc32e2b748b854ad229179e9687fbfc4b80534e76271575"></a>CY_WCM_REASON_DIRECTED_ROAM&#160;</td><td class="fielddoc"><p >roamed due to request by AP <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ad229179e9687fbfc4b80534e76271575" name="gga355e10b22c86485f15fc32e2b748b854ad229179e9687fbfc4b80534e76271575"></a>CY_WCM_REASON_DIRECTED_ROAM&#160;</td><td class="fielddoc"><p >Roamed due to request by AP. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a886a080482b9b4ae9646f7d11b6d1e62" name="gga355e10b22c86485f15fc32e2b748b854a886a080482b9b4ae9646f7d11b6d1e62"></a>CY_WCM_REASON_TSPEC_REJECTED&#160;</td><td class="fielddoc"><p >roamed due to TSPEC rejection <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a886a080482b9b4ae9646f7d11b6d1e62" name="gga355e10b22c86485f15fc32e2b748b854a886a080482b9b4ae9646f7d11b6d1e62"></a>CY_WCM_REASON_TSPEC_REJECTED&#160;</td><td class="fielddoc"><p >Roamed due to TSPEC rejection. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a39b0d5cc4fd08e12d9b15c9a2a024f55" name="gga355e10b22c86485f15fc32e2b748b854a39b0d5cc4fd08e12d9b15c9a2a024f55"></a>CY_WCM_REASON_BETTER_AP&#160;</td><td class="fielddoc"><p >roamed due to finding better AP <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a39b0d5cc4fd08e12d9b15c9a2a024f55" name="gga355e10b22c86485f15fc32e2b748b854a39b0d5cc4fd08e12d9b15c9a2a024f55"></a>CY_WCM_REASON_BETTER_AP&#160;</td><td class="fielddoc"><p >Roamed due to finding better AP. </p>
+<p ><br  />
  </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a388d1aaef6a0f9857d0eb69781c4bb7d" name="gga355e10b22c86485f15fc32e2b748b854a388d1aaef6a0f9857d0eb69781c4bb7d"></a>CY_WCM_REASON_NAN_EVENT_STATUS_CHG&#160;</td><td class="fielddoc"><p >NAN sub-events comes as a reason code with event as CY_WCM_REASON_NAN. </p>
-<p >generated on any change in nan_mac status </p>
+<p >Generated on any change in nan_mac status. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a83e108ebd575011ec196647c3e941302" name="gga355e10b22c86485f15fc32e2b748b854a83e108ebd575011ec196647c3e941302"></a>CY_WCM_REASON_NAN_EVENT_MERGE&#160;</td><td class="fielddoc"><p >Merged to a NAN cluster <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a83e108ebd575011ec196647c3e941302" name="gga355e10b22c86485f15fc32e2b748b854a83e108ebd575011ec196647c3e941302"></a>CY_WCM_REASON_NAN_EVENT_MERGE&#160;</td><td class="fielddoc"><p >Merged to a NAN cluster. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854afb1f9935eb9e18663a81dd5aadc065d1" name="gga355e10b22c86485f15fc32e2b748b854afb1f9935eb9e18663a81dd5aadc065d1"></a>CY_WCM_REASON_NAN_EVENT_STOP&#160;</td><td class="fielddoc"><p >NAN stopped <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854afb1f9935eb9e18663a81dd5aadc065d1" name="gga355e10b22c86485f15fc32e2b748b854afb1f9935eb9e18663a81dd5aadc065d1"></a>CY_WCM_REASON_NAN_EVENT_STOP&#160;</td><td class="fielddoc"><p >NAN stopped. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854aa70a11277d4e2dda380b52a5e5442bb0" name="gga355e10b22c86485f15fc32e2b748b854aa70a11277d4e2dda380b52a5e5442bb0"></a>CY_WCM_REASON_NAN_EVENT_P2P&#160;</td><td class="fielddoc"><p >NAN P2P EVENT <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854aa70a11277d4e2dda380b52a5e5442bb0" name="gga355e10b22c86485f15fc32e2b748b854aa70a11277d4e2dda380b52a5e5442bb0"></a>CY_WCM_REASON_NAN_EVENT_P2P&#160;</td><td class="fielddoc"><p >NAN P2P EVENT. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a7ab4c49a5544b6bde1c53803153feb30" name="gga355e10b22c86485f15fc32e2b748b854a7ab4c49a5544b6bde1c53803153feb30"></a>CY_WCM_REASON_NAN_EVENT_WINDOW_BEGIN_P2P&#160;</td><td class="fielddoc"><p >XXX: Dont use below four events: They will be cleanup, use WL_NAN_EVENT_POST_DISC. </p>
-<p >Event for begin of P2P further availability window </p>
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a7ab4c49a5544b6bde1c53803153feb30" name="gga355e10b22c86485f15fc32e2b748b854a7ab4c49a5544b6bde1c53803153feb30"></a>CY_WCM_REASON_NAN_EVENT_WINDOW_BEGIN_P2P&#160;</td><td class="fielddoc"><p >XXX: Don't use the following four events: They will be cleaned up; use WL_NAN_EVENT_POST_DISC. </p>
+<p >Event for beginning of P2P further availability window. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854aa390d31bf58858d1ecbc605ddbb52bcc" name="gga355e10b22c86485f15fc32e2b748b854aa390d31bf58858d1ecbc605ddbb52bcc"></a>CY_WCM_REASON_NAN_EVENT_POST_DISC&#160;</td><td class="fielddoc"><p >Event for post discovery data <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854aa390d31bf58858d1ecbc605ddbb52bcc" name="gga355e10b22c86485f15fc32e2b748b854aa390d31bf58858d1ecbc605ddbb52bcc"></a>CY_WCM_REASON_NAN_EVENT_POST_DISC&#160;</td><td class="fielddoc"><p >Event for post discovery data. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a1670847ad66c2faf93b39cdbad4257ee" name="gga355e10b22c86485f15fc32e2b748b854a1670847ad66c2faf93b39cdbad4257ee"></a>CY_WCM_REASON_NAN_EVENT_DATA_IF_ADD&#160;</td><td class="fielddoc"><p >Event for Data IF add <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a1670847ad66c2faf93b39cdbad4257ee" name="gga355e10b22c86485f15fc32e2b748b854a1670847ad66c2faf93b39cdbad4257ee"></a>CY_WCM_REASON_NAN_EVENT_DATA_IF_ADD&#160;</td><td class="fielddoc"><p >Event for Data IF add. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a91f11135008c909e3f4f3c424911b1f6" name="gga355e10b22c86485f15fc32e2b748b854a91f11135008c909e3f4f3c424911b1f6"></a>CY_WCM_REASON_NAN_EVENT_DATA_PEER_ADD&#160;</td><td class="fielddoc"><p >Event for peer add <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a91f11135008c909e3f4f3c424911b1f6" name="gga355e10b22c86485f15fc32e2b748b854a91f11135008c909e3f4f3c424911b1f6"></a>CY_WCM_REASON_NAN_EVENT_DATA_PEER_ADD&#160;</td><td class="fielddoc"><p >Event for peer add. </p>
+<p ><br  />
  </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a4133be037a265c79c56d9bacea414edc" name="gga355e10b22c86485f15fc32e2b748b854a4133be037a265c79c56d9bacea414edc"></a>CY_WCM_REASON_NAN_EVENT_DATA_IND&#160;</td><td class="fielddoc"><p >nan 2.0 </p>
-<p >Data Indication to Host <br  />
+<p >Data indication to host. <br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a527107d0d504c0e1cf56d3fc4b101190" name="gga355e10b22c86485f15fc32e2b748b854a527107d0d504c0e1cf56d3fc4b101190"></a>CY_WCM_REASON_NAN_EVENT_DATA_CONF&#160;</td><td class="fielddoc"><p >Data Response to Host <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a527107d0d504c0e1cf56d3fc4b101190" name="gga355e10b22c86485f15fc32e2b748b854a527107d0d504c0e1cf56d3fc4b101190"></a>CY_WCM_REASON_NAN_EVENT_DATA_CONF&#160;</td><td class="fielddoc"><p >Data response to host. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854aed1b112b160994bc7d164d4f910dcdd1" name="gga355e10b22c86485f15fc32e2b748b854aed1b112b160994bc7d164d4f910dcdd1"></a>CY_WCM_REASON_NAN_EVENT_SDF_RX&#160;</td><td class="fielddoc"><p >entire service discovery frame </p>
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854aed1b112b160994bc7d164d4f910dcdd1" name="gga355e10b22c86485f15fc32e2b748b854aed1b112b160994bc7d164d4f910dcdd1"></a>CY_WCM_REASON_NAN_EVENT_SDF_RX&#160;</td><td class="fielddoc"><p >Entire service discovery frame. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a368b1b5d15121997bf3c8c136b9e6564" name="gga355e10b22c86485f15fc32e2b748b854a368b1b5d15121997bf3c8c136b9e6564"></a>CY_WCM_REASON_NAN_EVENT_BCN_RX&#160;</td><td class="fielddoc"><p >received beacon payload <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a368b1b5d15121997bf3c8c136b9e6564" name="gga355e10b22c86485f15fc32e2b748b854a368b1b5d15121997bf3c8c136b9e6564"></a>CY_WCM_REASON_NAN_EVENT_BCN_RX&#160;</td><td class="fielddoc"><p >Received beacon payload. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a7cdf024d6d8f2a332d208bfe1a911503" name="gga355e10b22c86485f15fc32e2b748b854a7cdf024d6d8f2a332d208bfe1a911503"></a>CY_WCM_REASON_PRUNE_ENCR_MISMATCH&#160;</td><td class="fielddoc"><p >prune reason codes </p>
-<p >encryption mismatch <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a7cdf024d6d8f2a332d208bfe1a911503" name="gga355e10b22c86485f15fc32e2b748b854a7cdf024d6d8f2a332d208bfe1a911503"></a>CY_WCM_REASON_PRUNE_ENCR_MISMATCH&#160;</td><td class="fielddoc"><p >Prune reason codes. </p>
+<p >Encryption mismatch. <br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a52cf9017f999cc2ae4d60ce9c6a1687a" name="gga355e10b22c86485f15fc32e2b748b854a52cf9017f999cc2ae4d60ce9c6a1687a"></a>CY_WCM_REASON_PRUNE_BCAST_BSSID&#160;</td><td class="fielddoc"><p >AP uses a broadcast BSSID <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a52cf9017f999cc2ae4d60ce9c6a1687a" name="gga355e10b22c86485f15fc32e2b748b854a52cf9017f999cc2ae4d60ce9c6a1687a"></a>CY_WCM_REASON_PRUNE_BCAST_BSSID&#160;</td><td class="fielddoc"><p >AP uses a broadcast BSSID. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a2efb56f1cba5b5c796437c738afc9c73" name="gga355e10b22c86485f15fc32e2b748b854a2efb56f1cba5b5c796437c738afc9c73"></a>CY_WCM_REASON_PRUNE_MAC_DENY&#160;</td><td class="fielddoc"><p >STA's MAC addr is in AP's MAC deny list <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a2efb56f1cba5b5c796437c738afc9c73" name="gga355e10b22c86485f15fc32e2b748b854a2efb56f1cba5b5c796437c738afc9c73"></a>CY_WCM_REASON_PRUNE_MAC_DENY&#160;</td><td class="fielddoc"><p >STA's MAC address is in AP's MAC deny list. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a008e36588da10a6f35ea11b857352c3f" name="gga355e10b22c86485f15fc32e2b748b854a008e36588da10a6f35ea11b857352c3f"></a>CY_WCM_REASON_PRUNE_MAC_NA&#160;</td><td class="fielddoc"><p >STA's MAC addr is not in AP's MAC allow list. </p>
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a008e36588da10a6f35ea11b857352c3f" name="gga355e10b22c86485f15fc32e2b748b854a008e36588da10a6f35ea11b857352c3f"></a>CY_WCM_REASON_PRUNE_MAC_NA&#160;</td><td class="fielddoc"><p >STA's MAC addrress is not in AP's MAC allow list. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ab5e50feda39cef0ae0f23c03249de27f" name="gga355e10b22c86485f15fc32e2b748b854ab5e50feda39cef0ae0f23c03249de27f"></a>CY_WCM_REASON_PRUNE_REG_PASSV&#160;</td><td class="fielddoc"><p >AP not allowed due to regulatory restriction. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a4028b0587a7454b59c59207cc8092934" name="gga355e10b22c86485f15fc32e2b748b854a4028b0587a7454b59c59207cc8092934"></a>CY_WCM_REASON_PRUNE_SPCT_MGMT&#160;</td><td class="fielddoc"><p >AP does not support STA locale spectrum mgmt. </p>
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a4028b0587a7454b59c59207cc8092934" name="gga355e10b22c86485f15fc32e2b748b854a4028b0587a7454b59c59207cc8092934"></a>CY_WCM_REASON_PRUNE_SPCT_MGMT&#160;</td><td class="fielddoc"><p >AP does not support STA locale spectrum management. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ae949fad81ff6766b3ceb3ee0924b5894" name="gga355e10b22c86485f15fc32e2b748b854ae949fad81ff6766b3ceb3ee0924b5894"></a>CY_WCM_REASON_PRUNE_RADAR&#160;</td><td class="fielddoc"><p >AP is on a radar channel of STA locale <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ae949fad81ff6766b3ceb3ee0924b5894" name="gga355e10b22c86485f15fc32e2b748b854ae949fad81ff6766b3ceb3ee0924b5894"></a>CY_WCM_REASON_PRUNE_RADAR&#160;</td><td class="fielddoc"><p >AP is on a radar channel of STA locale. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a1994030d6b090aa84ccdce48da209a65" name="gga355e10b22c86485f15fc32e2b748b854a1994030d6b090aa84ccdce48da209a65"></a>CY_WCM_REASON_RSN_MISMATCH&#160;</td><td class="fielddoc"><p >STA does not support AP's RSN <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a1994030d6b090aa84ccdce48da209a65" name="gga355e10b22c86485f15fc32e2b748b854a1994030d6b090aa84ccdce48da209a65"></a>CY_WCM_REASON_RSN_MISMATCH&#160;</td><td class="fielddoc"><p >STA does not support AP's RSN. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854abd2aa51118e81b86bb6329559c9ea690" name="gga355e10b22c86485f15fc32e2b748b854abd2aa51118e81b86bb6329559c9ea690"></a>CY_WCM_REASON_PRUNE_NO_COMMON_RATES&#160;</td><td class="fielddoc"><p >No rates in common with AP <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854abd2aa51118e81b86bb6329559c9ea690" name="gga355e10b22c86485f15fc32e2b748b854abd2aa51118e81b86bb6329559c9ea690"></a>CY_WCM_REASON_PRUNE_NO_COMMON_RATES&#160;</td><td class="fielddoc"><p >No rates in common with AP. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a262ff65a76b1ddb9b26acd199a62f4fd" name="gga355e10b22c86485f15fc32e2b748b854a262ff65a76b1ddb9b26acd199a62f4fd"></a>CY_WCM_REASON_PRUNE_BASIC_RATES&#160;</td><td class="fielddoc"><p >STA does not support all basic rates of BSS <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a262ff65a76b1ddb9b26acd199a62f4fd" name="gga355e10b22c86485f15fc32e2b748b854a262ff65a76b1ddb9b26acd199a62f4fd"></a>CY_WCM_REASON_PRUNE_BASIC_RATES&#160;</td><td class="fielddoc"><p >STA does not support all basic rates of BSS. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a7b0c4135ec311326096e3a7794067dae" name="gga355e10b22c86485f15fc32e2b748b854a7b0c4135ec311326096e3a7794067dae"></a>CY_WCM_REASON_PRUNE_CCXFAST_PREVAP&#160;</td><td class="fielddoc"><p >CCX FAST ROAM: prune previous AP <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a7b0c4135ec311326096e3a7794067dae" name="gga355e10b22c86485f15fc32e2b748b854a7b0c4135ec311326096e3a7794067dae"></a>CY_WCM_REASON_PRUNE_CCXFAST_PREVAP&#160;</td><td class="fielddoc"><p >CCX FAST ROAM: prune previous AP. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a3de36299f00f06c17ae5744a8056b79a" name="gga355e10b22c86485f15fc32e2b748b854a3de36299f00f06c17ae5744a8056b79a"></a>CY_WCM_REASON_PRUNE_CIPHER_NA&#160;</td><td class="fielddoc"><p >BSS's cipher not supported <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a3de36299f00f06c17ae5744a8056b79a" name="gga355e10b22c86485f15fc32e2b748b854a3de36299f00f06c17ae5744a8056b79a"></a>CY_WCM_REASON_PRUNE_CIPHER_NA&#160;</td><td class="fielddoc"><p >BSS's cipher not supported. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a17dc15556f93784e808806d050204202" name="gga355e10b22c86485f15fc32e2b748b854a17dc15556f93784e808806d050204202"></a>CY_WCM_REASON_PRUNE_KNOWN_STA&#160;</td><td class="fielddoc"><p >AP is already known to us as a STA <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a17dc15556f93784e808806d050204202" name="gga355e10b22c86485f15fc32e2b748b854a17dc15556f93784e808806d050204202"></a>CY_WCM_REASON_PRUNE_KNOWN_STA&#160;</td><td class="fielddoc"><p >AP is already known to us as a STA. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a1e2f0f2eb766627ab44eb3277a9abce2" name="gga355e10b22c86485f15fc32e2b748b854a1e2f0f2eb766627ab44eb3277a9abce2"></a>CY_WCM_REASON_PRUNE_CCXFAST_DROAM&#160;</td><td class="fielddoc"><p >CCX FAST ROAM: prune unqualified AP <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a1e2f0f2eb766627ab44eb3277a9abce2" name="gga355e10b22c86485f15fc32e2b748b854a1e2f0f2eb766627ab44eb3277a9abce2"></a>CY_WCM_REASON_PRUNE_CCXFAST_DROAM&#160;</td><td class="fielddoc"><p >CCX FAST ROAM: prune unqualified AP. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a4fd3ff97be48ae15f17e0a03786417a1" name="gga355e10b22c86485f15fc32e2b748b854a4fd3ff97be48ae15f17e0a03786417a1"></a>CY_WCM_REASON_PRUNE_WDS_PEER&#160;</td><td class="fielddoc"><p >AP is already known to us as a WDS peer <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a4fd3ff97be48ae15f17e0a03786417a1" name="gga355e10b22c86485f15fc32e2b748b854a4fd3ff97be48ae15f17e0a03786417a1"></a>CY_WCM_REASON_PRUNE_WDS_PEER&#160;</td><td class="fielddoc"><p >AP is already known to us as a WDS peer. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ab0125a4409c14603359467d2b6be3ab3" name="gga355e10b22c86485f15fc32e2b748b854ab0125a4409c14603359467d2b6be3ab3"></a>CY_WCM_REASON_PRUNE_QBSS_LOAD&#160;</td><td class="fielddoc"><p >QBSS LOAD - AAC is too low <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ab0125a4409c14603359467d2b6be3ab3" name="gga355e10b22c86485f15fc32e2b748b854ab0125a4409c14603359467d2b6be3ab3"></a>CY_WCM_REASON_PRUNE_QBSS_LOAD&#160;</td><td class="fielddoc"><p >QBSS LOAD - AAC is too low. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854aeb2455827b70e660a78f40bb9fda5c00" name="gga355e10b22c86485f15fc32e2b748b854aeb2455827b70e660a78f40bb9fda5c00"></a>CY_WCM_REASON_PRUNE_HOME_AP&#160;</td><td class="fielddoc"><p >prune home AP <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854aeb2455827b70e660a78f40bb9fda5c00" name="gga355e10b22c86485f15fc32e2b748b854aeb2455827b70e660a78f40bb9fda5c00"></a>CY_WCM_REASON_PRUNE_HOME_AP&#160;</td><td class="fielddoc"><p >Prune home AP. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a8bc81736e1b9d31ac1b27abd3177c4ea" name="gga355e10b22c86485f15fc32e2b748b854a8bc81736e1b9d31ac1b27abd3177c4ea"></a>CY_WCM_REASON_PRUNE_AP_BLOCKED&#160;</td><td class="fielddoc"><p >prune blocked AP <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a8bc81736e1b9d31ac1b27abd3177c4ea" name="gga355e10b22c86485f15fc32e2b748b854a8bc81736e1b9d31ac1b27abd3177c4ea"></a>CY_WCM_REASON_PRUNE_AP_BLOCKED&#160;</td><td class="fielddoc"><p >Prune blocked AP. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854adcb8a141ad7abb91936d7f4a763ed68f" name="gga355e10b22c86485f15fc32e2b748b854adcb8a141ad7abb91936d7f4a763ed68f"></a>CY_WCM_REASON_PRUNE_NO_DIAG_SUPPORT&#160;</td><td class="fielddoc"><p >prune due to diagnostic mode not supported <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854adcb8a141ad7abb91936d7f4a763ed68f" name="gga355e10b22c86485f15fc32e2b748b854adcb8a141ad7abb91936d7f4a763ed68f"></a>CY_WCM_REASON_PRUNE_NO_DIAG_SUPPORT&#160;</td><td class="fielddoc"><p >Prune due to diagnostic mode not supported. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ab4a5c176620010f3fa192a83808b24f7" name="gga355e10b22c86485f15fc32e2b748b854ab4a5c176620010f3fa192a83808b24f7"></a>CY_WCM_REASON_SUP_OTHER&#160;</td><td class="fielddoc"><p >Other reason <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ab4a5c176620010f3fa192a83808b24f7" name="gga355e10b22c86485f15fc32e2b748b854ab4a5c176620010f3fa192a83808b24f7"></a>CY_WCM_REASON_SUP_OTHER&#160;</td><td class="fielddoc"><p >Other reason. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a8d664c78dcd164efd7d7fb1d956b2915" name="gga355e10b22c86485f15fc32e2b748b854a8d664c78dcd164efd7d7fb1d956b2915"></a>CY_WCM_REASON_SUP_DECRYPT_KEY_DATA&#160;</td><td class="fielddoc"><p >Decryption of key data failed <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a8d664c78dcd164efd7d7fb1d956b2915" name="gga355e10b22c86485f15fc32e2b748b854a8d664c78dcd164efd7d7fb1d956b2915"></a>CY_WCM_REASON_SUP_DECRYPT_KEY_DATA&#160;</td><td class="fielddoc"><p >Decryption of key data failed. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a1abf3a4a576add8ca191070efcd6a870" name="gga355e10b22c86485f15fc32e2b748b854a1abf3a4a576add8ca191070efcd6a870"></a>CY_WCM_REASON_SUP_BAD_UCAST_WEP128&#160;</td><td class="fielddoc"><p >Illegal use of ucast WEP128 <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a1abf3a4a576add8ca191070efcd6a870" name="gga355e10b22c86485f15fc32e2b748b854a1abf3a4a576add8ca191070efcd6a870"></a>CY_WCM_REASON_SUP_BAD_UCAST_WEP128&#160;</td><td class="fielddoc"><p >Illegal use of ucast WEP-128. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a8e99b90694e448385199ba8f90d62372" name="gga355e10b22c86485f15fc32e2b748b854a8e99b90694e448385199ba8f90d62372"></a>CY_WCM_REASON_SUP_BAD_UCAST_WEP40&#160;</td><td class="fielddoc"><p >Illegal use of ucast WEP40 <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a8e99b90694e448385199ba8f90d62372" name="gga355e10b22c86485f15fc32e2b748b854a8e99b90694e448385199ba8f90d62372"></a>CY_WCM_REASON_SUP_BAD_UCAST_WEP40&#160;</td><td class="fielddoc"><p >Illegal use of ucast WEP-40. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a8480edae9aec4201b8ad7c629cbbe3e2" name="gga355e10b22c86485f15fc32e2b748b854a8480edae9aec4201b8ad7c629cbbe3e2"></a>CY_WCM_REASON_SUP_UNSUP_KEY_LEN&#160;</td><td class="fielddoc"><p >Unsupported key length <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a8480edae9aec4201b8ad7c629cbbe3e2" name="gga355e10b22c86485f15fc32e2b748b854a8480edae9aec4201b8ad7c629cbbe3e2"></a>CY_WCM_REASON_SUP_UNSUP_KEY_LEN&#160;</td><td class="fielddoc"><p >Unsupported key length. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ae57b3d4936562ed194aa221ffa9b2585" name="gga355e10b22c86485f15fc32e2b748b854ae57b3d4936562ed194aa221ffa9b2585"></a>CY_WCM_REASON_SUP_PW_KEY_CIPHER&#160;</td><td class="fielddoc"><p >Unicast cipher mismatch in pairwise key <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ae57b3d4936562ed194aa221ffa9b2585" name="gga355e10b22c86485f15fc32e2b748b854ae57b3d4936562ed194aa221ffa9b2585"></a>CY_WCM_REASON_SUP_PW_KEY_CIPHER&#160;</td><td class="fielddoc"><p >Unicast cipher mismatch in pairwise key. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854acc320c76dab5050277b693d36a557526" name="gga355e10b22c86485f15fc32e2b748b854acc320c76dab5050277b693d36a557526"></a>CY_WCM_REASON_SUP_MSG3_TOO_MANY_IE&#160;</td><td class="fielddoc"><p >WPA IE contains &gt; 1 RSN IE in key msg 3 <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854acc320c76dab5050277b693d36a557526" name="gga355e10b22c86485f15fc32e2b748b854acc320c76dab5050277b693d36a557526"></a>CY_WCM_REASON_SUP_MSG3_TOO_MANY_IE&#160;</td><td class="fielddoc"><p >WPA IE contains &gt; 1 RSN IE in key message 3. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854abf07e5afffb68df02a2b0ee752ed9113" name="gga355e10b22c86485f15fc32e2b748b854abf07e5afffb68df02a2b0ee752ed9113"></a>CY_WCM_REASON_SUP_MSG3_IE_MISMATCH&#160;</td><td class="fielddoc"><p >WPA IE mismatch in key message 3 <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854abf07e5afffb68df02a2b0ee752ed9113" name="gga355e10b22c86485f15fc32e2b748b854abf07e5afffb68df02a2b0ee752ed9113"></a>CY_WCM_REASON_SUP_MSG3_IE_MISMATCH&#160;</td><td class="fielddoc"><p >WPA IE mismatch in key message 3. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a7d4b4e1595733699094fbc1f54724ce1" name="gga355e10b22c86485f15fc32e2b748b854a7d4b4e1595733699094fbc1f54724ce1"></a>CY_WCM_REASON_SUP_NO_INSTALL_FLAG&#160;</td><td class="fielddoc"><p >INSTALL flag unset in 4-way msg <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a7d4b4e1595733699094fbc1f54724ce1" name="gga355e10b22c86485f15fc32e2b748b854a7d4b4e1595733699094fbc1f54724ce1"></a>CY_WCM_REASON_SUP_NO_INSTALL_FLAG&#160;</td><td class="fielddoc"><p >INSTALL flag unset in 4-way message. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a040271bf6e4ec8f27d0a2545639c194e" name="gga355e10b22c86485f15fc32e2b748b854a040271bf6e4ec8f27d0a2545639c194e"></a>CY_WCM_REASON_SUP_MSG3_NO_GTK&#160;</td><td class="fielddoc"><p >encapsulated GTK missing from msg 3 <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a040271bf6e4ec8f27d0a2545639c194e" name="gga355e10b22c86485f15fc32e2b748b854a040271bf6e4ec8f27d0a2545639c194e"></a>CY_WCM_REASON_SUP_MSG3_NO_GTK&#160;</td><td class="fielddoc"><p >Encapsulated GTK missing from message 3. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a3fec68d3d2abeb846bbae9823da3e745" name="gga355e10b22c86485f15fc32e2b748b854a3fec68d3d2abeb846bbae9823da3e745"></a>CY_WCM_REASON_SUP_GRP_KEY_CIPHER&#160;</td><td class="fielddoc"><p >Multicast cipher mismatch in group key <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a3fec68d3d2abeb846bbae9823da3e745" name="gga355e10b22c86485f15fc32e2b748b854a3fec68d3d2abeb846bbae9823da3e745"></a>CY_WCM_REASON_SUP_GRP_KEY_CIPHER&#160;</td><td class="fielddoc"><p >Multicast cipher mismatch in group key. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a59a31c815fb7fa933fb20829f1a08f3d" name="gga355e10b22c86485f15fc32e2b748b854a59a31c815fb7fa933fb20829f1a08f3d"></a>CY_WCM_REASON_SUP_GRP_MSG1_NO_GTK&#160;</td><td class="fielddoc"><p >encapsulated GTK missing from group msg 1 </p>
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a59a31c815fb7fa933fb20829f1a08f3d" name="gga355e10b22c86485f15fc32e2b748b854a59a31c815fb7fa933fb20829f1a08f3d"></a>CY_WCM_REASON_SUP_GRP_MSG1_NO_GTK&#160;</td><td class="fielddoc"><p >Encapsulated GTK missing from group message 1. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ad424577344102e21a2f36a6fcacb86fe" name="gga355e10b22c86485f15fc32e2b748b854ad424577344102e21a2f36a6fcacb86fe"></a>CY_WCM_REASON_SUP_GTK_DECRYPT_FAIL&#160;</td><td class="fielddoc"><p >GTK decrypt failure <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ad424577344102e21a2f36a6fcacb86fe" name="gga355e10b22c86485f15fc32e2b748b854ad424577344102e21a2f36a6fcacb86fe"></a>CY_WCM_REASON_SUP_GTK_DECRYPT_FAIL&#160;</td><td class="fielddoc"><p >GTK decrypt failure. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a93a2296119bda8d50bffe0333562e952" name="gga355e10b22c86485f15fc32e2b748b854a93a2296119bda8d50bffe0333562e952"></a>CY_WCM_REASON_SUP_SEND_FAIL&#160;</td><td class="fielddoc"><p >message send failure <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a93a2296119bda8d50bffe0333562e952" name="gga355e10b22c86485f15fc32e2b748b854a93a2296119bda8d50bffe0333562e952"></a>CY_WCM_REASON_SUP_SEND_FAIL&#160;</td><td class="fielddoc"><p >Message send failure. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ab8fcedbc7dfa813b32e8568341f32786" name="gga355e10b22c86485f15fc32e2b748b854ab8fcedbc7dfa813b32e8568341f32786"></a>CY_WCM_REASON_SUP_DEAUTH&#160;</td><td class="fielddoc"><p >received FC_DEAUTH <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ab8fcedbc7dfa813b32e8568341f32786" name="gga355e10b22c86485f15fc32e2b748b854ab8fcedbc7dfa813b32e8568341f32786"></a>CY_WCM_REASON_SUP_DEAUTH&#160;</td><td class="fielddoc"><p >Received FC_DEAUTH. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a581abae3872944c65d596ade24a0467f" name="gga355e10b22c86485f15fc32e2b748b854a581abae3872944c65d596ade24a0467f"></a>CY_WCM_REASON_SUP_WPA_PSK_TMO&#160;</td><td class="fielddoc"><p >WPA PSK 4-way handshake timeout <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a581abae3872944c65d596ade24a0467f" name="gga355e10b22c86485f15fc32e2b748b854a581abae3872944c65d596ade24a0467f"></a>CY_WCM_REASON_SUP_WPA_PSK_TMO&#160;</td><td class="fielddoc"><p >WPA PSK 4-way handshake timeout. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a2f27aacc054b9f88e7484ebfd5dc64f3" name="gga355e10b22c86485f15fc32e2b748b854a2f27aacc054b9f88e7484ebfd5dc64f3"></a>CY_WCM_DOT11_RC_RESERVED&#160;</td><td class="fielddoc"><p >d11 RC reserved <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a2f27aacc054b9f88e7484ebfd5dc64f3" name="gga355e10b22c86485f15fc32e2b748b854a2f27aacc054b9f88e7484ebfd5dc64f3"></a>CY_WCM_DOT11_RC_RESERVED&#160;</td><td class="fielddoc"><p >d11 RC reserved. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a291264c5cec6d27191cb4cb8c0626b83" name="gga355e10b22c86485f15fc32e2b748b854a291264c5cec6d27191cb4cb8c0626b83"></a>CY_WCM_DOT11_RC_UNSPECIFIED&#160;</td><td class="fielddoc"><p >Unspecified reason <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a291264c5cec6d27191cb4cb8c0626b83" name="gga355e10b22c86485f15fc32e2b748b854a291264c5cec6d27191cb4cb8c0626b83"></a>CY_WCM_DOT11_RC_UNSPECIFIED&#160;</td><td class="fielddoc"><p >Unspecified reason. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a3ea5d5e3df34cfb8effabdadc232c68c" name="gga355e10b22c86485f15fc32e2b748b854a3ea5d5e3df34cfb8effabdadc232c68c"></a>CY_WCM_DOT11_RC_AUTH_INVAL&#160;</td><td class="fielddoc"><p >Previous authentication no longer valid <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a3ea5d5e3df34cfb8effabdadc232c68c" name="gga355e10b22c86485f15fc32e2b748b854a3ea5d5e3df34cfb8effabdadc232c68c"></a>CY_WCM_DOT11_RC_AUTH_INVAL&#160;</td><td class="fielddoc"><p >Previous authentication no longer valid. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a663d354b1add73566887cba68a5a0023" name="gga355e10b22c86485f15fc32e2b748b854a663d354b1add73566887cba68a5a0023"></a>CY_WCM_DOT11_RC_DEAUTH_LEAVING&#160;</td><td class="fielddoc"><p >Deauthenticated because sending station is leaving (or has left) IBSS or ESS <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a663d354b1add73566887cba68a5a0023" name="gga355e10b22c86485f15fc32e2b748b854a663d354b1add73566887cba68a5a0023"></a>CY_WCM_DOT11_RC_DEAUTH_LEAVING&#160;</td><td class="fielddoc"><p >De-authenticated because sending station is leaving (or has left) IBSS or ESS. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854abd770d846b1a7ba05f54f0da9eceaec2" name="gga355e10b22c86485f15fc32e2b748b854abd770d846b1a7ba05f54f0da9eceaec2"></a>CY_WCM_DOT11_RC_INACTIVITY&#160;</td><td class="fielddoc"><p >Disassociated due to inactivity <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854abd770d846b1a7ba05f54f0da9eceaec2" name="gga355e10b22c86485f15fc32e2b748b854abd770d846b1a7ba05f54f0da9eceaec2"></a>CY_WCM_DOT11_RC_INACTIVITY&#160;</td><td class="fielddoc"><p >Disassociated due to inactivity. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854adf8948d768d2727e57e3e665b3ce4b1a" name="gga355e10b22c86485f15fc32e2b748b854adf8948d768d2727e57e3e665b3ce4b1a"></a>CY_WCM_DOT11_RC_BUSY&#160;</td><td class="fielddoc"><p >Disassociated because AP is unable to handle all currently associated stations <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854adf8948d768d2727e57e3e665b3ce4b1a" name="gga355e10b22c86485f15fc32e2b748b854adf8948d768d2727e57e3e665b3ce4b1a"></a>CY_WCM_DOT11_RC_BUSY&#160;</td><td class="fielddoc"><p >Disassociated because AP is unable to handle all currently associated stations. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854aa9010a4994467e6b5e3846a569c7146e" name="gga355e10b22c86485f15fc32e2b748b854aa9010a4994467e6b5e3846a569c7146e"></a>CY_WCM_DOT11_RC_INVAL_CLASS_2&#160;</td><td class="fielddoc"><p >Class 2 frame received from nonauthenticated station <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854aa9010a4994467e6b5e3846a569c7146e" name="gga355e10b22c86485f15fc32e2b748b854aa9010a4994467e6b5e3846a569c7146e"></a>CY_WCM_DOT11_RC_INVAL_CLASS_2&#160;</td><td class="fielddoc"><p >Class 2 frame received from non-authenticated station. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a2f35b8cc19519373645dc26fc1ee32d7" name="gga355e10b22c86485f15fc32e2b748b854a2f35b8cc19519373645dc26fc1ee32d7"></a>CY_WCM_DOT11_RC_INVAL_CLASS_3&#160;</td><td class="fielddoc"><p >Class 3 frame received from nonassociated station <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a2f35b8cc19519373645dc26fc1ee32d7" name="gga355e10b22c86485f15fc32e2b748b854a2f35b8cc19519373645dc26fc1ee32d7"></a>CY_WCM_DOT11_RC_INVAL_CLASS_3&#160;</td><td class="fielddoc"><p >Class 3 frame received from non-associated station. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ac301f537b8d7ffcae8c08141fe76a20d" name="gga355e10b22c86485f15fc32e2b748b854ac301f537b8d7ffcae8c08141fe76a20d"></a>CY_WCM_DOT11_RC_DISASSOC_LEAVING&#160;</td><td class="fielddoc"><p >Disassociated because sending station is leaving (or has left) BSS <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ac301f537b8d7ffcae8c08141fe76a20d" name="gga355e10b22c86485f15fc32e2b748b854ac301f537b8d7ffcae8c08141fe76a20d"></a>CY_WCM_DOT11_RC_DISASSOC_LEAVING&#160;</td><td class="fielddoc"><p >Disassociated because sending station is leaving (or has left) BSS. </p>
+<p ><br  />
  </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a225e11a67e5dae2af79525e696fa21d3" name="gga355e10b22c86485f15fc32e2b748b854a225e11a67e5dae2af79525e696fa21d3"></a>CY_WCM_DOT11_RC_NOT_AUTH&#160;</td><td class="fielddoc"><p >Station requesting (re)association is not * authenticated with responding station. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a609090ee01a86cbacbf7c857b9a1c586" name="gga355e10b22c86485f15fc32e2b748b854a609090ee01a86cbacbf7c857b9a1c586"></a>CY_WCM_DOT11_RC_BAD_PC&#160;</td><td class="fielddoc"><p >Unacceptable power capability element <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a609090ee01a86cbacbf7c857b9a1c586" name="gga355e10b22c86485f15fc32e2b748b854a609090ee01a86cbacbf7c857b9a1c586"></a>CY_WCM_DOT11_RC_BAD_PC&#160;</td><td class="fielddoc"><p >Unacceptable power capability element. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854aa6dce8d709fddc06618a812e92be7478" name="gga355e10b22c86485f15fc32e2b748b854aa6dce8d709fddc06618a812e92be7478"></a>CY_WCM_DOT11_RC_BAD_CHANNELS&#160;</td><td class="fielddoc"><p >Unacceptable supported channels element <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854aa6dce8d709fddc06618a812e92be7478" name="gga355e10b22c86485f15fc32e2b748b854aa6dce8d709fddc06618a812e92be7478"></a>CY_WCM_DOT11_RC_BAD_CHANNELS&#160;</td><td class="fielddoc"><p >Unacceptable supported channels element. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a50bde9cdd8b6b69af20c337f630133a2" name="gga355e10b22c86485f15fc32e2b748b854a50bde9cdd8b6b69af20c337f630133a2"></a>CY_WCM_DOT11_RC_UNSPECIFIED_QOS&#160;</td><td class="fielddoc"><p >unspecified QoS-related reason <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a50bde9cdd8b6b69af20c337f630133a2" name="gga355e10b22c86485f15fc32e2b748b854a50bde9cdd8b6b69af20c337f630133a2"></a>CY_WCM_DOT11_RC_UNSPECIFIED_QOS&#160;</td><td class="fielddoc"><p >Unspecified QoS-related reason. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a8ba38e1174cbf606d782b185bc654bcf" name="gga355e10b22c86485f15fc32e2b748b854a8ba38e1174cbf606d782b185bc654bcf"></a>CY_WCM_DOT11_RC_INSUFFCIENT_BW&#160;</td><td class="fielddoc"><p >QAP lacks sufficient bandwidth <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a8ba38e1174cbf606d782b185bc654bcf" name="gga355e10b22c86485f15fc32e2b748b854a8ba38e1174cbf606d782b185bc654bcf"></a>CY_WCM_DOT11_RC_INSUFFCIENT_BW&#160;</td><td class="fielddoc"><p >QAP lacks sufficient bandwidth. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a2c1b5b910860e2887c4296bd8b18195c" name="gga355e10b22c86485f15fc32e2b748b854a2c1b5b910860e2887c4296bd8b18195c"></a>CY_WCM_DOT11_RC_EXCESSIVE_FRAMES&#160;</td><td class="fielddoc"><p >excessive number of frames need ack <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a2c1b5b910860e2887c4296bd8b18195c" name="gga355e10b22c86485f15fc32e2b748b854a2c1b5b910860e2887c4296bd8b18195c"></a>CY_WCM_DOT11_RC_EXCESSIVE_FRAMES&#160;</td><td class="fielddoc"><p >Excessive number of frames need ack. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ad1857a5e35c35649f56287df02e2853b" name="gga355e10b22c86485f15fc32e2b748b854ad1857a5e35c35649f56287df02e2853b"></a>CY_WCM_DOT11_RC_TX_OUTSIDE_TXOP&#160;</td><td class="fielddoc"><p >transmitting outside the limits of txop <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ad1857a5e35c35649f56287df02e2853b" name="gga355e10b22c86485f15fc32e2b748b854ad1857a5e35c35649f56287df02e2853b"></a>CY_WCM_DOT11_RC_TX_OUTSIDE_TXOP&#160;</td><td class="fielddoc"><p >Transmitting outside the limits of txop. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a168a124c4605c6a845525d2336b39bcc" name="gga355e10b22c86485f15fc32e2b748b854a168a124c4605c6a845525d2336b39bcc"></a>CY_WCM_DOT11_RC_LEAVING_QBSS&#160;</td><td class="fielddoc"><p >QSTA is leaving the QBSS (or restting) <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a168a124c4605c6a845525d2336b39bcc" name="gga355e10b22c86485f15fc32e2b748b854a168a124c4605c6a845525d2336b39bcc"></a>CY_WCM_DOT11_RC_LEAVING_QBSS&#160;</td><td class="fielddoc"><p >QSTA is leaving the QBSS (or restting). </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a9b1d39a94b88d2b7e8fc2d6b1954dc10" name="gga355e10b22c86485f15fc32e2b748b854a9b1d39a94b88d2b7e8fc2d6b1954dc10"></a>CY_WCM_DOT11_RC_BAD_MECHANISM&#160;</td><td class="fielddoc"><p >does not want to use the mechanism <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a9b1d39a94b88d2b7e8fc2d6b1954dc10" name="gga355e10b22c86485f15fc32e2b748b854a9b1d39a94b88d2b7e8fc2d6b1954dc10"></a>CY_WCM_DOT11_RC_BAD_MECHANISM&#160;</td><td class="fielddoc"><p >Does not want to use the mechanism. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ab929e3f389686ff739c7a12ff003d733" name="gga355e10b22c86485f15fc32e2b748b854ab929e3f389686ff739c7a12ff003d733"></a>CY_WCM_DOT11_RC_SETUP_NEEDED&#160;</td><td class="fielddoc"><p >mechanism needs a setup <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854ab929e3f389686ff739c7a12ff003d733" name="gga355e10b22c86485f15fc32e2b748b854ab929e3f389686ff739c7a12ff003d733"></a>CY_WCM_DOT11_RC_SETUP_NEEDED&#160;</td><td class="fielddoc"><p >Mechanism needs a setup. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a65957de2f237e4ecf9dfdeff7a7a5b48" name="gga355e10b22c86485f15fc32e2b748b854a65957de2f237e4ecf9dfdeff7a7a5b48"></a>CY_WCM_DOT11_RC_TIMEOUT&#160;</td><td class="fielddoc"><p >timeout <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a65957de2f237e4ecf9dfdeff7a7a5b48" name="gga355e10b22c86485f15fc32e2b748b854a65957de2f237e4ecf9dfdeff7a7a5b48"></a>CY_WCM_DOT11_RC_TIMEOUT&#160;</td><td class="fielddoc"><p >Timeout. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854af7e83a7350f960b73b3a5b044fe1de96" name="gga355e10b22c86485f15fc32e2b748b854af7e83a7350f960b73b3a5b044fe1de96"></a>CY_WCM_DOT11_RC_MAX&#160;</td><td class="fielddoc"><p >Reason codes &gt; 23 are reserved <br  />
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854af7e83a7350f960b73b3a5b044fe1de96" name="gga355e10b22c86485f15fc32e2b748b854af7e83a7350f960b73b3a5b044fe1de96"></a>CY_WCM_DOT11_RC_MAX&#160;</td><td class="fielddoc"><p >Reason codes &gt; 23 are reserved. </p>
+<p ><br  />
  </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a0bf03c64188c8af371d80cdd6c90c021" name="gga355e10b22c86485f15fc32e2b748b854a0bf03c64188c8af371d80cdd6c90c021"></a>CY_WCM_REASON_FORCE_32_BIT&#160;</td><td class="fielddoc"><p >Force enum to be stored in 32 bit variable. </p>
+<tr><td class="fieldname"><a id="gga355e10b22c86485f15fc32e2b748b854a0bf03c64188c8af371d80cdd6c90c021" name="gga355e10b22c86485f15fc32e2b748b854a0bf03c64188c8af371d80cdd6c90c021"></a>CY_WCM_REASON_FORCE_32_BIT&#160;</td><td class="fielddoc"><p >Force enum to be stored in a 32-bit variable. </p>
 </td></tr>
 </table>
 

@@ -54,7 +54,8 @@
 #include "stdbool.h"
 
 #include "cy_utils.h"
-
+#include "cyhal_sdio.h"
+#include "wifi_bt_if.h"
 /***************************************************************************************************
  *                             Defines
  **************************************************************************************************/
@@ -70,6 +71,7 @@ cy_wcm_connect_params_t wifi_conn_param;
 
 wifi_details_t wifi_details;
 
+SD_HandleTypeDef SDHandle = { .Instance = SDMMC1 };
 /***************************************************************************************************
  *                        Extern Functions and Variables
  **************************************************************************************************/
@@ -111,6 +113,11 @@ void wifi_task(void* arg)
 
     wifi_config.interface = CY_WCM_INTERFACE_TYPE_STA;
 
+    if (stm32_cypal_wifi_sdio_init(&SDHandle) != CY_RSLT_SUCCESS)
+    {
+        printf("\r\n    ERROR: stm32_cypal_wifi_sdio_init failed\r\n\r\n");
+        CY_ASSERT(0);
+    }
     /* Initialize WCM */
     printf("\n");
     result = cy_wcm_init(&wifi_config);

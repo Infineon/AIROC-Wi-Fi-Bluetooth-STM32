@@ -8,6 +8,30 @@ Following are the limitations when using host based address resolution (only app
 
 ## Changelog
 
+## V3.7.1
+BTSTACK3.7.1 is a patch release with following enhancements -
+ - Add v2 support for HCI_LE_Set_Extended_Advertising_Parameters present in BT Core Spec 5.4
+
+## V3.7.0
+BTSTACK3.7 contains following enhancements and fixes -
+ - Enhancements for lowering stack library code size. Only the part of the stack code that is used by application is included in the linked image.
+   - Applications which do not create GATT/ACL connections or those which do not need SMP may override the default initializations done in the stack by defining the macro **DISABLE_DEFAULT_BTSTACK_INIT** in the applicatin Makefile.
+       #Set DISABLE_DEFAULT_BTSTACK_INIT=1
+       DEFINES+=DISABLE_DEFAULT_BTSTACK_INIT=1
+   - GATT Server applications which need to implement GATT Robust Caching will need to invoke **wiced_bt_gatt_server_enable_caching** in the **BTM_ENABLED_EVT**
+   - GATT applications work with signed data will need to invoke **wiced_bt_gatt_enable_signing** in the **BTM_ENABLED_EVT**
+ - New APIs added (See API documentation for details)
+   - wiced_bt_gatt_server_enable_caching
+   - wiced_bt_gatt_server_enable_signing
+ - Fix to Correct macro names used for S=2 and S=8 coding
+ - Fix for A2DP/SNK/AVP/BI-20-C, A2DP/SNK/AVP/BI-10-C failures
+ - Fix issue setting default Tx power with CY BLESS controller.
+ - Updated document for following APIs -
+   - wiced_bt_l2cap_enable_update_ble_conn_params
+   - wiced_bt_avdt_write_req
+   - wiced_bt_l2cap_update_ble_conn_params
+ - L2CAP/ECFC/BI-08-C is under discussion/debug with PTS (see TSE#17703).
+
 ## V3.6.1
 BTSTACK3.6.1 is a patch release with the following fixes -
  - Fix to check for ISOC support in controller before issuing read_buf_size_v2 HCI command.

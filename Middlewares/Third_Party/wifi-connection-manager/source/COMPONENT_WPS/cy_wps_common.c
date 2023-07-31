@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -192,7 +192,7 @@ static cy_rslt_t    cy_wps_calculate_psk               ( cy_wps_agent_t* workspa
 
 static void         cy_wps_cleanup_workspace           ( cy_wps_agent_t* workspace );
 
-#ifdef COMPONENT_43907
+#ifdef COMPONENT_4390X
 extern cy_rslt_t cy_prng_get_random( void* buffer, uint32_t buffer_length );
 #endif
 /******************************************************
@@ -336,7 +336,7 @@ uint32_t cy_host_get_timer( void* workspace )
     return host->timer_timeout;
 }
 
-#ifndef COMPONENT_43907
+#ifndef COMPONENT_4390X
 static int trng_get_bytes(cyhal_trng_t *obj, uint8_t *output, size_t length, size_t *output_length)
 {
     uint32_t offset = 0;
@@ -365,7 +365,7 @@ static int trng_get_bytes(cyhal_trng_t *obj, uint8_t *output, size_t length, siz
 #endif
 cy_rslt_t cy_host_random_bytes( void* buffer, size_t buffer_length, size_t* output_length )
 {
-#ifndef COMPONENT_43907
+#ifndef COMPONENT_4390X
     uint8_t* p = buffer;
     size_t length = 0;
 
