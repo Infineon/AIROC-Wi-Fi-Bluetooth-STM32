@@ -18,6 +18,8 @@ design, such as which CYW43xxx device to use, and then generate a project from y
 Wi-Fi application requires all the assets mentioned in the wifi group of expansion pack to be
 selected along with proper CYW43xxx selected in the Device dropbox in STM32CubeMX.
 
+## Infineon AIROC Wi-Fi/Bluetooth Combo chip support
+
 ## Expansion Pack Contents
 The Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack uses below assets:
 
