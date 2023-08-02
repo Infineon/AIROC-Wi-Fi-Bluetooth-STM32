@@ -14,10 +14,6 @@ https://www.cypress.com/products/modustoolbox.
 You can select and configure the pack in the STM32CubeMX tool, make choices appropriate for your
 design, such as which CYW43xxx device to use, and then generate a project from your selection.
 
-## Dependencies
-Wi-Fi application requires all the assets mentioned in the wifi group of expansion pack to be
-selected along with proper CYW43xxx selected in the Device dropbox in STM32CubeMX.
-
 ## Infineon AIROC Wi-Fi/Bluetooth Combo chip support
 |  AIROC Wi-Fi/BT Combo        | Wi-Fi 4/5/6/6E|  STM32H7xx     | STM32H5xx| STM32U5xx     | STM32L5xx | Infineon WHD 
 | ---------------------------- | ---------  | ---------------------------- | ---------  | ---------------------------- | ---------  | ---------  |
@@ -27,6 +23,10 @@ selected along with proper CYW43xxx selected in the Device dropbox in STM32CubeM
 | CYW4373/CYW4373E             |  Wi-Fi 5   |<img width="23" alt="check_ifx" src="https://github.com/Infineon/stm32-connectivity/assets/105271488/33108d4b-bd72-4039-a962-d5d0ddb9f7f5">                     |  <img width="23" alt="check_ifx" src="https://github.com/Infineon/stm32-connectivity/assets/105271488/33108d4b-bd72-4039-a962-d5d0ddb9f7f5">   | <img width="23" alt="check_ifx" src="https://github.com/Infineon/stm32-connectivity/assets/105271488/33108d4b-bd72-4039-a962-d5d0ddb9f7f5">                     |  <img width="23" alt="check_ifx" src="https://github.com/Infineon/stm32-connectivity/assets/105271488/33108d4b-bd72-4039-a962-d5d0ddb9f7f5">   | v2.5.0   |
 | CYW55513                     |  Wi-Fi 6/6E|<img width="23" alt="check_ifx" src="https://github.com/Infineon/stm32-connectivity/assets/105271488/33108d4b-bd72-4039-a962-d5d0ddb9f7f5">                     |  <img width="23" alt="check_ifx" src="https://github.com/Infineon/stm32-connectivity/assets/105271488/33108d4b-bd72-4039-a962-d5d0ddb9f7f5">   | <img width="23" alt="check_ifx" src="https://github.com/Infineon/stm32-connectivity/assets/105271488/33108d4b-bd72-4039-a962-d5d0ddb9f7f5">                     |  PENDING   | v3.1.x   |
 | CYW55572                     |  Wi-Fi 6   |<img width="23" alt="check_ifx" src="https://github.com/Infineon/stm32-connectivity/assets/105271488/33108d4b-bd72-4039-a962-d5d0ddb9f7f5">                     |  <img width="23" alt="check_ifx" src="https://github.com/Infineon/stm32-connectivity/assets/105271488/33108d4b-bd72-4039-a962-d5d0ddb9f7f5">   | PENDING                     |  PENDING   | v3.1.x   |
+
+## Dependencies
+Wi-Fi application requires all the assets mentioned in the wifi group of expansion pack to be
+selected along with proper CYW43xxx selected in the Device dropbox in STM32CubeMX.
 
 ## Expansion Pack Contents
 The Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack uses below assets:
