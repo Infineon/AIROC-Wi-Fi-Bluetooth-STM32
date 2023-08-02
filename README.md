@@ -19,6 +19,14 @@ Wi-Fi application requires all the assets mentioned in the wifi group of expansi
 selected along with proper CYW43xxx selected in the Device dropbox in STM32CubeMX.
 
 ## Infineon AIROC Wi-Fi/Bluetooth Combo chip support
+|  AIROC Wi-Fi/BT Combo        | Wi-Fi 4/5/6/6E|  STM32H7xx     | STM32H5xx| STM32U5xx     | STM32L5xx | Infineon WHD 
+| ---------------------------- | ---------  | ---------------------------- | ---------  | ---------------------------- | ---------  | ---------  |
+| CYW43012                     |  Wi-Fi 5   | CYW43012                     |  Wi-Fi 5   | CYW43012                     |  Wi-Fi 5   | Wi-Fi 5   |
+| CYW43022                     |  Wi-Fi 5   |
+| CYW43439                     |  Wi-Fi 4   |
+| CYW4373/CYW4373E             |  Wi-Fi 5   |
+| CYW55513                     |  Wi-Fi 6/6E|
+| CYW55572                     |  Wi-Fi 6   |
 
 ## Expansion Pack Contents
 The Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack uses below assets:
