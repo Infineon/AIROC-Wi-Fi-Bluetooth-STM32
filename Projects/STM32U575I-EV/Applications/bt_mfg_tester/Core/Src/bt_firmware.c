@@ -213,7 +213,8 @@ bool bt_firmware_download(const uint8_t* firmware_image, uint32_t size)
                                                               opcode and 1 byte of data length */
         uint8_t              residual_data  = 0;
         hci_command_opcode_t command_opcode = *(hci_command_opcode_t*)data;
-        uint8_t              temp_data[256];
+        uint8_t              temp_data[259]; /* content of 1 byte of packet type + 2 bytes of opcode
+                                              + 1 byte of data length + max data 255 bytes*/
 
         memset(&hci_event, 0, sizeof(hci_event));
         memset(temp_data, 0, sizeof(temp_data));

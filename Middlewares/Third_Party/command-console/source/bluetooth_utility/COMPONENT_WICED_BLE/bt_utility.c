@@ -168,6 +168,7 @@ wiced_bt_l2cap_le_appl_information_t l2c_appl_info =
  ******************************************************/
 bool bt_state         = WICED_FALSE;
 cy_thread_t           ble_thread;
+static bool           ble_thread_init=false;
 static volatile bool  send_data;
 static uint32_t       data_le_tx_counter;
 static uint32_t       data_le_rx_counter;
@@ -175,11 +176,13 @@ static bool           le_coc_data_rx_flag;
 static cy_time_t      start_time;
 static cy_time_t      end_time;
 cy_semaphore_t        send_data_semaphore;
+static bool           send_data_semaphore_init=false;
 uint16_t              psm;
 uint16_t              our_mtu;
 uint8_t               lec_coc_data[ BLE_COC_MTU_SIZE ];
 le_coc_cb_t           le_coc_cb;
 static cy_mutex_t     bt_mutex;
+static bool           bt_mutex_init=false;
 
 const cy_command_console_cmd_t bt_coex_command_table[] =
 {
@@ -210,6 +213,19 @@ int handle_bt_off(int argc, char *argv[], tlv_buffer_t** data)
 
     wiced_bt_stack_deinit( );
     bt_state = WICED_FALSE;
+
+    if (ble_thread_init) {
+    	cy_rtos_terminate_thread(&ble_thread);
+    	ble_thread_init = false;
+    }
+    if (send_data_semaphore_init) {
+    	cy_rtos_deinit_semaphore(&send_data_semaphore);
+    	send_data_semaphore_init = false;
+    }
+    if (bt_mutex_init) {
+        cy_rtos_deinit_mutex(&bt_mutex);
+        bt_mutex_init = false;
+    }
 
     return result;
 }
@@ -306,12 +322,16 @@ void start_data_thread()
     if(cy_rtos_init_semaphore(&send_data_semaphore, MAX_SEMA_COUNT, 0) != CY_RSLT_SUCCESS)
     {
         BT_LE_ERROR(("unable to create semaphore \n"));
+    } else {
+    	send_data_semaphore_init = true;
     }
 
     /* start BLE TX/RX data Thread */
     if (cy_rtos_create_thread(&ble_thread, send_data_thread, "BLE Data Thread", NULL, BLE_WORKER_THREAD_STACK_SIZE, BLE_WORKER_THREAD_PRIORITY, NULL) != CY_RSLT_SUCCESS)
     {
         BT_LE_ERROR(("unable to create the thread \n"));
+    } else {
+    	ble_thread_init = true;
     }
 }
 
@@ -340,6 +360,8 @@ wiced_bt_dev_status_t bt_management_cback( wiced_bt_management_evt_t event, wice
             if (cy_rtos_init_mutex(&bt_mutex) != CY_RSLT_SUCCESS)
             {
                 BT_LE_INFO(("Unable to init the mutex \n"));
+            } else {
+            	bt_mutex_init = true;
             }
 
             start_data_thread();

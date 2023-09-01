@@ -3,9 +3,56 @@
     <vendor>Infineon</vendor>
     <name>AIROC-Wi-Fi-Bluetooth-STM32</name>
     <description>The Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack is an extension of the CMSIS-Pack standard established by Arm. The pack is compliant with the full CMSIS-Pack standard, with additional requirements/restrictions on the final pack to meet the STM standard. You can select and configure the pack in the STM32CubeMX tool, make choices appropriate for your design, such as which CYW43xxx device to use, and then generate a project from your selection.</description>
-    <url>https://github.com/Infineon/stm32-connectivity/releases/tag/release-v1.5.0/</url>
+    <url>https://github.com/Infineon/AIROC-Wi-Fi-Bluetooth-STM32/releases/download/packs/</url>
     <license>Infineon-License.txt</license>
     <releases>
+	        <release date="2023-09-01" version="1.5.1">
+Patch Release (maintenance Bluetooth FW)
+
+What's New?
+ * Update Bluetooth FW for Murata 2BC/2AE modules
+ * Update Bluetooth FW for Laird STERLING-LWB5plus module
+ * Update PDSC
+
+What's Included?
+ * Supported Connectivity Modules
+   - CYW43012
+   - CYW4343W / CYW43438
+   - CYW4373
+   - CYW55500
+   - CYW55572
+   - CYW43022
+ 
+ * Expansion Pack Contents
+   - btstack v.3.7.1
+   - btstack-integration v.4.3.1
+   - wifi-host-driver v.3.1.0
+   - wcm v.3.1.1
+   - whd-bsp-integration v.2.3.0
+   - lwip-freertos-integration v.1.0.0
+   - lwip-network-interface-integration v.1.0.0
+   - netxduo-network-interface-integration v.1.0.0
+   - connectivity-utilities v.4.1.1
+   - core-lib v.1.3.1
+   - abstraction-rtos v.1.5.0
+   - LwIP v.2.1.2
+   - PAL v.1.4.0
+   - Device v.1.2.0
+   - command-console v.4.0.0
+   - wifi-mfg-test v.3.3.0
+   - secure-sockets v.3.0.0
+   - stm32_mw_freertos v.10.4.6
+   - wpa3_external_supplicant v.1.1.0
+
+ * Examples
+   - Wi-Fi Scan Example
+   - Wi-Fi Onboarding with BLE
+   - Azure RTOS NetXDuo Wi-Fi UDP echo server
+   - Wi-Fi BT Tester
+   - Wi-Fi Manufacturing Tester
+   - Bluetooth Manufacturing Tester
+   - BLE Hello Sensor
+        </release>
         <release date="2023-06-21" version="1.5.0">
 Support Release with new Connectivity Modules
 What's New?
@@ -50,204 +97,6 @@ What's Included?
    - Bluetooth Manufacturing Tester
    - BLE Hello Sensor
         </release>
-        <release date="2023-06-21" version="1.4.0">
-Support Release with support for STM32H5xx MCUs
-What's New?
- * Added STM32H5 support
- * Added New Examples for STM32U5xx and STM32H7xx MCUs 
-
-What's Included?
- * Supported Connectivity Modules
-   - CYW43012
-   - CYW4343W / CYW43438
-   - CYW4373
- * Expansion Pack Contents
-   - btstack v.3.6.1
-   - btstack-integration v.4.2.0
-   - wifi-host-driver v.2.5.0
-   - wcm v.3.0.0
-   - whd-bsp-integration v.2.1.0
-   - lwip-freertos-integration v.1.0.0
-   - lwip-network-interface-integration v.1.0.0
-   - netxduo-network-interface-integration v.1.0.0
-   - connectivity-utilities v.4.0.0
-   - core-lib v.1.3.1
-   - abstraction-rtos v.1.5.0
-   - LwIP v.2.1.2
-   - PAL v.1.4.0
-   - Device v.1.2.0
-   - command-console v.4.0.0
-   - wifi-mfg-test v.3.3.0
-   - secure-sockets v.3.0.0
-   - stm32_mw_freertos v.10.4.6
-   - wpa3_external_supplicant v.1.1.0
-
- * Examples
-   - Wi-Fi Scan Example
-   - Wi-Fi Onboarding with BLE
-   - Azure RTOS NetXDuo Wi-Fi UDP echo server
-   - Wi-Fi BT Tester
-   - Wi-Fi Manufacturing Tester
-   - Bluetooth Manufacturing Tester
-   - BLE Hello Sensor
-        </release>
-        <release date="2022-12-27" version="1.3.0">
-Support Release with support for STM32U5xx MCUs
-What's New?
- * Added STM32U5 support
- 
-What's Included?
- * Supported Connectivity Modules
-   - CYW43012
-   - CYW4343W / CYW43438
-   - CYW4373
- * Expansion Pack Contents
-   - btstack v.3.6.0
-   - btstack-integration v.4.2.0
-   - wifi-host-driver v.2.5.0
-   - wcm v.3.0.0
-   - wifi-mw-core v.3.1.0
-   - whd-bsp-integration v.2.1.0
-   - lwip-freertos-integration v.1.0.0
-   - lwip-network-interface-integration v.1.0.0
-   - netxduo-network-interface-integration v.1.0.0
-   - connectivity-utilities v.4.0.0
-   - core-lib v.1.3.0
-   - abstraction-rtos v.1.5.0
-   - LwIP v.2.1.2
-   - PAL v.1.2.0
-   - Device v.1.2.0  
-
- * Examples
-   - Wi-Fi Scan Example
-   - Wi-Fi Onboarding with BLE
-   - Azure RTOS NetXDuo Wi-Fi UDP echo server
-        </release>
-        <release date="2022-11-11" version="1.2.0">
-Threadx/Netxduo, Manufacturing tools Support Release with support for STM32H7xx/STM32L5xx MCUs with Infineon's CYW43xxx Wi-Fi-BT combo chip family listed below.
-
-What's New?
- * Added ThreadX/Netx Duo support
- * Added STM32L5 support
- * Added WiFi and BLE/BT Manufacturing tools:
-   - Bluetooth Manufacturing Test Application for FreeRTOS (bt_mfg_tester)
-   - WLAN manufacturing test application for FreeRTOS (wifi_mfg_tester)
-   - Tester - Wi-Fi Bluetooth Console (wifi_bt_tester)
- * PAL improvements and fixes
- * New examples:
-   - Azure RTOS NetXDuo Wi-Fi UDP echo server
-
-What's Included?
- * Supported Connectivity Modules
-   - CYW43012
-   - CYW4343W / CYW43438
-   - CYW4373
- * Expansion Pack Contents
-   - btstack v.3.5.0
-   - bluetooth-freertos v.3.4.0
-   - wifi-host-driver v.3.4.0
-   - wcm v.3.0.0
-   - wifi-mw-core v.3.1.0
-   - whd-bsp-integration v.2.1.0
-   - lwip-freertos-integration v.1.0.0
-   - lwip-network-interface-integration v.1.0.0
-   - netxduo-network-interface-integration v.1.0.0
-   - connectivity-utilities v.4.0.0
-   - core-lib v.1.3.0
-   - abstraction-rtos v.1.5.0
-   - LwIP v.2.1.2
-   - PAL v.1.2.0
-   - Device v.1.2.0  
-
- * Examples
-   - Wi-Fi Scan Example
-   - Wi-Fi Onboarding with BLE
-   - Azure RTOS NetXDuo Wi-Fi UDP echo server
-        </release>
-        <release date="2021-06-07" version="1.1.0">
-BLE Release with support for STM32H7xx MCUs with Infineon's CYW43xxx Wi-Fi-BT combo chip family listed below.
-
-What's New?
- * Added BLE support
- * PAL improvements and fixes
- * New libraries:
-   - btstack v.3.0.0
-   - bluetooth-freertos v.3.0.0
- * New examples:
-   - wifi onboarding with ble
-
-What's Included?
- * Supported Connectivity Modules
-   - CYW43012
-   - CYW4343W / CYW43438
-   - CYW4373
- * Expansion Pack Contents
-   - btstack v.3.0.0
-   - bluetooth-freertos v.3.0.0
-   - wifi-host-driver v.1.94.0
-   - wcm v.2.0.3
-   - wifi-mw-core v.3.1.0
-   - whd-bsp-integration v.1.2.0
-   - connectivity-utilities v.3.0.2
-   - core-lib v.1.2.0
-   - abstraction-rtos v.1.4.0
-   - LwIP v.2.1.2
-   - PAL v.1.1.0
-   - Device v.1.1.0
-
- * Examples
-   - Wi-Fi Scan Example running on STM32H747I-DISCO Discovery kit
-   - Wi-Fi Onboarding with BLE
-        </release>
-        <release date="2021-04-30" version="1.0.1">
-Patch release with updated SDIO and GPIO PAL drivers
-
-What Changed?
- * PAL updates:
-   - SDIO: fixed memory corruption bug;
-   - SDIO, GPIO: fixed functional issues found by static analysis;
-
-What's Included?
- * Supported Connectivity Modules
-   - CYW43012
-   - CYW4343W / CYW43438
-   - CYW4373
- * Expansion Pack Contents
-   - wifi-host-driver v.1.93.0
-   - wcm v.2.0.1
-   - wifi-mw-core v.3.0.0
-   - whd-bsp-integration v.1.1.1
-   - connectivity-utilities v.3.0.1
-   - core-lib v.1.1.4
-   - abstraction-rtos v.1.3.0
-   - LwIP v.2.1.2
-   - PAL v.1.0.1
-   - Device v.1.0.1
- * Examples
-   - Wi-Fi Scan Example running on STM32H747I-DISCO Discovery kit
-    </release>
-        <release date="2021-03-31" version="1.0.0">
-Initial Release with support for STM32H7xx MCUs with Infineon's CYW43xxx Wi-Fi-BT combo chip family listed below.
-
-What's Included?
- * Supported Connectivity Modules
-   - CYW43012
-   - CYW4343W / CYW43438
-   - CYW4373
- * Expansion Pack Contents
-   - wifi-host-driver v.1.93.0
-   - wcm v.2.0.1
-   - wifi-mw-core v.3.0.0
-   - whd-bsp-integration v.1.1.1
-   - connectivity-utilities v.3.0.1
-   - core-lib v.1.1.4
-   - abstraction-rtos v.1.3.0
-   - LwIP v.2.1.2
-   - PAL v.1.0.0
-   - Device v.1.0.0
- * Examples
-   - Wi-Fi Scan Example running on STM32H747I-DISCO Discovery kit
-    </release>
     </releases>
 
     <keywords>
@@ -564,7 +413,7 @@ What's Included?
     </conditions>
 
     <components>
-        <bundle Cbundle="Connectivity" Cclass="Wireless" Cversion="1.5.0">
+        <bundle Cbundle="Connectivity" Cclass="Wireless" Cversion="1.5.1">
             <description>Wifi-Bluetooth (BT/BLE) libraries.</description>
             <doc>Documentation/InfineonAIROC-Wi-Fi-Bluetooth-STM32ExpansionPack_UserGuide.pdf</doc>
             <component Cgroup="Bluetooth" Csub="btstack" Cvariant="BLE_HARDFP" condition="btstack dependencies" maxInstances="1">

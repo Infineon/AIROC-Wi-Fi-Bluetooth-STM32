@@ -61,7 +61,8 @@
 #define BAUDRATE_115KBPS     (115200)
 
 /* Task parameters for MfgTest App Task. */
-#define MFG_TEST_TASK_PRIORITY       CY_RTOS_PRIORITY_NORMAL
+#define MFG_TEST_TX_TASK_PRIORITY    CY_RTOS_PRIORITY_NORMAL
+#define MFG_TEST_RX_TASK_PRIORITY    CY_RTOS_PRIORITY_ABOVENORMAL
 #define MFG_TEST_TASK_STACK_SIZE     (1024)
 
 #define TRANSPORT_TASK_PRIORITY      CY_RTOS_PRIORITY_NORMAL
@@ -245,11 +246,11 @@ void bt_mfgtest_task(void* pvParameters)
 
     /* transport Tx thread - Grab message from PC and pass it over to the controller */
     xTaskCreate(bt_tx_transport_task, "Transport Tx task", TRANSPORT_TASK_STACK_SIZE,
-                NULL, TRANSPORT_TASK_PRIORITY, NULL);
+                NULL, MFG_TEST_TX_TASK_PRIORITY, NULL);
 
     /* transport Rx thread - Grab message from controller and pass it over to the PC */
     xTaskCreate(bt_rx_transport_task, "Transport Rx task", TRANSPORT_TASK_STACK_SIZE,
-                NULL, TRANSPORT_TASK_PRIORITY, NULL);
+                NULL, MFG_TEST_RX_TASK_PRIORITY, NULL);
 
     /* Cleanup section for various operations. */
     vTaskDelete(NULL);

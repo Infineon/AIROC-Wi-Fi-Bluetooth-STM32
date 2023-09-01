@@ -1,4 +1,4 @@
-# Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack 1.5.0 Release Notes
+# Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack 1.5.1 Release Notes
 The Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack is an extension of the CMSIS-Pack standard established by Arm.
 The pack is compliant with the full CMSIS-Pack standard, with additional requirements/restrictions
 on the final pack to meet the STM standard.
@@ -6,13 +6,15 @@ on the final pack to meet the STM standard.
 This pack uses libraries from the ModusToolbox environment.
 
 ## What's Included?
-* Support Release for STM32U5xx MCUs
+* Patch Release (maintenance Bluetooth Firmware)
 
 ## What Changed?
 
- v1.5.0
-* Added New CYWxx Modules support
-* Pack Name change to AIROC-Wi-Fi-Bluetooth-STM32
+ v1.5.1
+* Update Bluetooth FW for Murata 2BC/2AE modules
+* Update Bluetooth FW for Laird STERLING-LWB5plus module
+* Update URL in pdsc 
+
 
 ## Supported STM32 Boards and MCU
 *  STM32L562E-DK kit and STM32L5xx
@@ -73,6 +75,7 @@ including bonding complete, connection status change and peer write.
 
 | Version | Changes                                                             | Reason for Change                     |
 | :----:  | :---                                                                | :----                                 |
+| 1.5.1   | Update Bluetooth FW for CYW4373 modules                             | Update Bluetooth Firmware             |
 | 1.5.0   | Added New Connectivity Module support                               | Update Pack Name and new CYWxx modules      |
 | 1.4.0   | Added STM32H5 support.                                              | Add support of new STM32 series       |
 | 1.3.0   | Added STM32U5 support.                                              | Add support of new STM32 series       |
