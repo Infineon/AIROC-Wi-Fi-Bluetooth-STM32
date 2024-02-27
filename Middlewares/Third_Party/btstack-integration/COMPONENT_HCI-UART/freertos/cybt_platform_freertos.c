@@ -170,7 +170,8 @@ void cybt_platform_init(void)
                       );
     MAIN_TRACE_DEBUG("cybt_platform_init(): platform_sleep_idle_timer = 0x%x", &platform_sleep_idle_timer);
 #endif
-
+    memset(&hci_uart_cb, 0, sizeof(hci_uart_cb_t));
+    
     cyhal_lptimer_init(&bt_stack_lptimer);
     cyhal_lptimer_enable_event(&bt_stack_lptimer,
                                CYHAL_LPTIMER_COMPARE_MATCH,
