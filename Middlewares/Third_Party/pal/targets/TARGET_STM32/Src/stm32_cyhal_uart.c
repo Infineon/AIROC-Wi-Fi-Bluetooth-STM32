@@ -449,9 +449,17 @@ static void cyhal_uart_prepare_dma_buffer(cyhal_uart_t* obj, void* buffer, size_
         /* Copy data to DMA buffer */
         (void)memcpy((void*)obj->dma_buff.tx, buffer, length);
 
-        /* D-cache maintenance */
+        /* D-cache maintenance
+         *
+         * NOTE: Cache clean/invalidation functions require to have the
+         * address 32-byte aligned, UART driver allocates DMA UART TX buffers
+         * aligned to a 32-byte boundary.
+         */
         #if defined(_CYHAL_DCACHE_MAINTENANCE)
-        SCB_CleanDCache_by_Addr((uint32_t*)obj->dma_buff.tx, CYHAL_UART_TX_DMA_BUFFER_SIZE);
+        if (SCB->CCR & SCB_CCR_DC_Msk)
+        {
+            SCB_CleanDCache_by_Addr((uint32_t*)obj->dma_buff.tx, CYHAL_UART_TX_DMA_BUFFER_SIZE);
+        }
         #endif
     }
     else
@@ -461,10 +469,19 @@ static void cyhal_uart_prepare_dma_buffer(cyhal_uart_t* obj, void* buffer, size_
         obj->rx_async_buff     = (void*)buffer;
         obj->rx_async_buff_len = length;
 
-        /* D-cache maintenance */
+        /* D-cache maintenance
+         *
+         * NOTE: Cache clean/invalidation functions require to have the
+         * address 32-byte aligned, UART driver allocates DMA UART RX buffer
+         * aligned to a 32-byte boundary.
+         */
         #if defined(_CYHAL_DCACHE_MAINTENANCE)
         /* Cache-Invalidate the output from DMA */
-        SCB_InvalidateDCache_by_Addr((uint32_t*)obj->dma_buff.rx, CYHAL_UART_RX_DMA_BUFFER_SIZE);
+        if (SCB->CCR & SCB_CCR_DC_Msk)
+        {
+            SCB_InvalidateDCache_by_Addr((uint32_t*)obj->dma_buff.rx,
+                                         CYHAL_UART_RX_DMA_BUFFER_SIZE);
+        }
         #endif
     }
 }

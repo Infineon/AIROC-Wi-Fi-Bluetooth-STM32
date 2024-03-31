@@ -257,7 +257,7 @@ wiced_result_t app_management_callback(wiced_bt_management_evt_t event,
     {
         case BTM_ENABLED_EVT:
             /* Initialize the application */
-            wiced_bt_set_local_bdaddr((uint8_t*)cy_bt_device_address, BLE_ADDR_PUBLIC);
+
             /* Bluetooth is enabled */
             wiced_bt_dev_read_local_addr(bda);
             printf("Local Bluetooth Address: ");

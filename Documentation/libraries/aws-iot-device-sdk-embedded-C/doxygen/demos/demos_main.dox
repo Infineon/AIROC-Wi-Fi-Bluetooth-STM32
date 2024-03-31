@@ -1,0 +1,13 @@
+/**
+@page demos_main Demos
+@brief These demos demonstrate usage of the AWS IoT Device SDK for Embedded C libraries.
+
+Demos for the following libraries are provided:
+- @subpage mqtt_demo
+- @subpage http_demo
+- @subpage pkcs11_demo
+- @subpage shadow_demo
+- @subpage jobs_demo
+- @subpage defender_demo
+- @subpage ota_demos
+*/

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -55,7 +55,6 @@
 #include "lwip/inet.h"
 #include "lwip/netdb.h"
 
-#include "cy_lwip_error.h"
 #include "cy_lwip_dhcp_server.h"
 #include "cy_network_mw_core.h"
 #include "cy_result.h"
@@ -267,24 +266,40 @@ __WEAK void ETH_LWIP_Error (ETH_LWIP_ERROR_t error_code)
 {
     switch (error_code)
     {
-      case ETH_LWIP_ERROR_PHY_DEVICE_ID:
-         /* Incorrect PHY address configured in the ETH_LWIP APP network interface.
-          * Because the connect PHY does not match the configuration or the PHYADR is incorrect*/
-         break;
+        case ETH_LWIP_ERROR_PHY_DEVICE_ID:
+        {
+            /* Incorrect PHY address configured in the ETH_LWIP APP network interface.
+            * Because the connect PHY does not match the configuration or the PHYADR is incorrect*/
+            cm_cy_log_msg( CYLF_MIDDLEWARE, CY_LOG_ERR, "%s(): Wrong PHY ID used \n", __FUNCTION__ );
+            break;
+        }
 
-     case ETH_LWIP_ERROR_PHY_TIMEOUT:
-        /* PHY did not respond.*/
-        break;
+        case ETH_LWIP_ERROR_PHY_TIMEOUT:
+        {
+            /* PHY did not respond.*/
+            cm_cy_log_msg( CYLF_MIDDLEWARE, CY_LOG_ERR, "%s(): PHY read failed \n", __FUNCTION__ );
+            break;
+        }
 
-     case ETH_LWIP_ERROR_PHY_ERROR:
-       /*PHY register update failed.*/
-       break;
+        case ETH_LWIP_ERROR_PHY_ERROR:
+        {
+            /*PHY register update failed.*/
+            cm_cy_log_msg( CYLF_MIDDLEWARE, CY_LOG_ERR, "%s(): PHY status error \n", __FUNCTION__ );
+            break;
+        }
 
-     default:
-       break;
+        case ETH_LWIP_ERROR_PHY_BUSY:
+        {
+            cm_cy_log_msg( CYLF_MIDDLEWARE, CY_LOG_ERR, "%s(): PHY is busy \n", __FUNCTION__ );
+            break;
+        }
+        default:
+        {
+            cm_cy_log_msg( CYLF_MIDDLEWARE, CY_LOG_ERR, "%s(): Generic PHY error \n", __FUNCTION__ );
+            break;
+        }
     }
-
-    for (;;);
+    return;
 }
 
 #if LWIP_NETIF_LINK_CALLBACK == 1
@@ -470,21 +485,65 @@ static err_t igmp_eth_filter(struct netif *iface, const ip4_addr_t *group, enum 
     filter_config.filterAddr.byte[5] = mac_addr[5];
     filter_config.ignoreBytes        = 0x00;
 
+    cy_network_interface_context *if_ctx;
+    if_ctx = (cy_network_interface_context *)iface->state;
+
     switch ( action )
     {
         case NETIF_ADD_MAC_FILTER:
-            if (Cy_ETHIF_SetFilterAddress(ETH1, CY_ETHIF_FILTER_NUM_1, &filter_config) != CY_ETHIF_SUCCESS)
+#if (CY_IP_MXETH_INSTANCES > 1u)
+            if(if_ctx->iface_idx == (uint8_t)CY_ECM_INTERFACE_ETH1)
             {
-                return ERR_VAL;
+                if (Cy_ETHIF_SetFilterAddress(ETH1, CY_ETHIF_FILTER_NUM_1, &filter_config) != CY_ETHIF_SUCCESS)
+                {
+                    return ERR_VAL;
+                }
             }
+            else if(if_ctx->iface_idx == (uint8_t)CY_ECM_INTERFACE_ETH0)
+            {
+                if (Cy_ETHIF_SetFilterAddress(ETH0, CY_ETHIF_FILTER_NUM_1, &filter_config) != CY_ETHIF_SUCCESS)
+                {
+                    return ERR_VAL;
+                }
+            }
+#else
+            if(if_ctx->iface_idx == (uint8_t)CY_ECM_INTERFACE_ETH0)
+            {
+                if (Cy_ETHIF_SetFilterAddress(ETH0, CY_ETHIF_FILTER_NUM_1, &filter_config) != CY_ETHIF_SUCCESS)
+                {
+                    return ERR_VAL;
+                }
+            }
+#endif
             break;
 
         case NETIF_DEL_MAC_FILTER:
             memset((void *)&(filter_config.filterAddr.byte[0]), 0, CY_MAC_ADDR_LEN);
-            if (Cy_ETHIF_SetFilterAddress(ETH1, CY_ETHIF_FILTER_NUM_1, &filter_config) != CY_ETHIF_SUCCESS)
+#if (CY_IP_MXETH_INSTANCES > 1u)
+            if(if_ctx->iface_idx == (uint8_t)CY_ECM_INTERFACE_ETH1)
             {
-                return ERR_VAL;
+                if (Cy_ETHIF_SetFilterAddress(ETH1, CY_ETHIF_FILTER_NUM_1, &filter_config) != CY_ETHIF_SUCCESS)
+                {
+                    return ERR_VAL;
+                }
             }
+            else if(if_ctx->iface_idx == (uint8_t)CY_ECM_INTERFACE_ETH0)
+            {
+                if (Cy_ETHIF_SetFilterAddress(ETH0, CY_ETHIF_FILTER_NUM_1, &filter_config) != CY_ETHIF_SUCCESS)
+                {
+                    return ERR_VAL;
+                }
+            }
+
+#else
+            if(if_ctx->iface_idx == (uint8_t)CY_ECM_INTERFACE_ETH0)
+            {
+                if (Cy_ETHIF_SetFilterAddress(ETH0, CY_ETHIF_FILTER_NUM_1, &filter_config) != CY_ETHIF_SUCCESS)
+                {
+                    return ERR_VAL;
+                }
+            }
+#endif
             break;
 
         default:
@@ -605,15 +664,21 @@ void cy_process_ethernet_data_cb( ETH_Type *eth_type, uint8_t *rx_buffer, uint32
 
     rx_params = (cy_rx_buffer_info_t *)(rx_buffer - sizeof(cy_rx_buffer_info_t));
     rx_params->rx_data_ptr = rx_buffer;
-
+#if (CY_IP_MXETH_INSTANCES > 1u)
     if(base_reg == ETH1)
     {
         rx_params->eth_idx = 1;
     }
-    else
+    else if(base_reg == ETH0)
     {
         rx_params->eth_idx = 0;
     }
+#else
+    if(base_reg == ETH0)
+    {
+        rx_params->eth_idx = 0;
+    }
+#endif
     rx_params->length = length;
 
     if((cy_worker_thread_enqueue(&cy_rx_worker_thread, rx_data_event_handler, (void *)rx_params)) != CY_RSLT_SUCCESS)
@@ -808,7 +873,7 @@ static err_t ethif_output(struct netif *netif, struct pbuf *p)
 #endif
 
     cm_cy_log_msg( CYLF_MIDDLEWARE, CY_LOG_DEBUG, "%s(): Before Start transmitting frame p->tot_len:[%d] p->len:[%d] \n", __FUNCTION__, p->tot_len, p->len );
-
+#if (CY_IP_MXETH_INSTANCES > 1u)
     if(if_ctx->iface_idx == (uint8_t)CY_ECM_INTERFACE_ETH1)
     {
         cm_cy_log_msg( CYLF_MIDDLEWARE, CY_LOG_DEBUG, "%s(): Start transmitting frame ETH1 \n", __FUNCTION__ );
@@ -828,6 +893,18 @@ static err_t ethif_output(struct netif *netif, struct pbuf *p)
             cm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "failed to send outgoing packet :[%d]\n", eth_status);
         }
     }
+#else
+    if(if_ctx->iface_idx == (uint8_t)CY_ECM_INTERFACE_ETH0)
+    {
+        cm_cy_log_msg( CYLF_MIDDLEWARE, CY_LOG_DEBUG, "%s(): Start transmitting frame ETH0 \n", __FUNCTION__ );
+        eth_status = Cy_ETHIF_TransmitFrame(ETH0, (uint8_t*)data_buffer[tx_free_buf_index], framelen, CY_ETH_QS0_0, true);
+        if(eth_status != CY_ETHIF_SUCCESS)
+        {
+            cm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "failed to send outgoing packet :[%d]\n", eth_status);
+        }
+    }
+
+#endif
     result = cy_rtos_get_mutex( &tx_mutex , CY_RTOS_NEVER_TIMEOUT);
     if(result != CY_RSLT_SUCCESS)
     {
@@ -936,13 +1013,12 @@ static void ethernetif_input(void *arg)
     struct pbuf *p = NULL;
     struct eth_hdr *ethhdr;
     struct netif *netif = (struct netif *)arg;
-    bool is_from_isr = false;
 
     cm_cy_log_msg( CYLF_MIDDLEWARE, CY_LOG_DEBUG, "%s():%d netif:[%p]\n", __func__, __LINE__, netif);
 
     while(1)
     {
-        cy_rtos_get_semaphore( &rx_semaphore, CY_RTOS_NEVER_TIMEOUT, is_from_isr );
+        cy_rtos_get_semaphore( &rx_semaphore, CY_RTOS_NEVER_TIMEOUT, false );
 
         /* Receive data from RX descriptor, post data to queue, enable IRQ. */
         NVIC_DisableIRQ((IRQn_Type)108);
@@ -998,12 +1074,14 @@ err_t ethernetif_init(struct netif* netif)
 
     cm_cy_log_msg( CYLF_MIDDLEWARE, CY_LOG_DEBUG, "%s(): START \n", __FUNCTION__ );
 
+#ifdef COMPONENT_CAT1
     /* Initialize the RX POOL */
     LWIP_MEMPOOL_INIT(RX_POOL);
     /* Initialise the buffer index */
     tx_free_buf_index = 0;
     /* Set the maximum buffers available initially */
     tx_buf_available = TX_DATA_BUF_MAX;
+#endif
 
     /* Set the MAC hardware address to the interface.*/
     for(int i=0; i<ETH_HWADDR_LEN; i++)

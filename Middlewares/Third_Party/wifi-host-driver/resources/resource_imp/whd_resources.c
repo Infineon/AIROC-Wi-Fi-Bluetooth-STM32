@@ -22,7 +22,9 @@
 #if !defined(NO_CLM_BLOB_FILE)
 #include "clm_resources.h"
 #endif /* NO_CLM_BLOB_FILE */
+#if !defined(NO_NVRAM_FILE)
 #include "wifi_nvram_image.h"
+#endif /* NO_NVRAM_FILE */
 #include "whd_resource_api.h"
 #include "whd_debug.h"
 #include "whd.h"
@@ -35,7 +37,7 @@
 /******************************************************
 *                    Constants
 ******************************************************/
-
+#if !defined(NO_NVRAM_FILE)
 #if defined(WHD_DYNAMIC_NVRAM)
 #define NVRAM_SIZE             dynamic_nvram_size
 #define NVRAM_IMAGE_VARIABLE   dynamic_nvram_image
@@ -43,6 +45,7 @@
 #define NVRAM_SIZE             sizeof(wifi_nvram_image)
 #define NVRAM_IMAGE_VARIABLE   wifi_nvram_image
 #endif
+#endif /* NO_NVRAM_FILE */
 
 /******************************************************
 *                   Enumerations
@@ -192,10 +195,12 @@ uint32_t host_platform_resource_size(whd_driver_t whd_drv, whd_resource_type_t r
 #endif /* NO_WIFI_FIRMWARE */
 
     }
+#if !defined(NO_NVRAM_FILE)
     else if (resource == WHD_RESOURCE_WLAN_NVRAM)
     {
         *size_out = NVRAM_SIZE;
     }
+#endif /* NO_NVRAM_FILE */
     else
     {
 #if defined(NO_CLM_BLOB_FILE)
@@ -255,6 +260,7 @@ uint32_t host_get_resource_block(whd_driver_t whd_drv, whd_resource_type_t type,
          *  *size_out = (uint32_t)resource_get_size(&wifi_firmware_image);
          */
     }
+#if !defined(NO_NVRAM_FILE)
     else if (type == WHD_RESOURCE_WLAN_NVRAM)
     {
         if (NVRAM_SIZE - read_pos > block_size)
@@ -267,6 +273,7 @@ uint32_t host_get_resource_block(whd_driver_t whd_drv, whd_resource_type_t type,
         }
         *data = ( (uint8_t *)NVRAM_IMAGE_VARIABLE ) + read_pos;
     }
+#endif /* NO_NVRAM_FILE */
     else
     {
 #if defined(NO_CLM_BLOB_FILE)
@@ -342,6 +349,7 @@ uint32_t host_resource_read(whd_driver_t whd_drv, whd_resource_type_t type,
             return result;
 
     }
+#if !defined(NO_NVRAM_FILE)
     else if (type == WHD_RESOURCE_WLAN_NVRAM)
     {
         if (size != sizeof(wifi_nvram_image) )
@@ -351,6 +359,7 @@ uint32_t host_resource_read(whd_driver_t whd_drv, whd_resource_type_t type,
         memcpy( (uint8_t *)buffer, wifi_nvram_image, sizeof(wifi_nvram_image) );
         *size_out = sizeof(wifi_nvram_image);
     }
+#endif /* NO_NVRAM_FILE */
     return WHD_SUCCESS;
 }
 

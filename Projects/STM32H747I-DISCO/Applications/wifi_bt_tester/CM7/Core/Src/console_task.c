@@ -66,6 +66,7 @@
 /* Private define ------------------------------------------------------------*/
 
 /* Private macro -------------------------------------------------------------*/
+#define WIFI_CONNECT_ENABLE             (0) /* Enable/Disable Wi-Fi Connect */
 #define WIFI_SSID                        ""
 #define WIFI_KEY                         ""
 #define WIFI_BAND                        CY_WCM_WIFI_BAND_ANY
@@ -225,8 +226,10 @@ cy_rslt_t command_console_add_command(void)
     /* Initialize IPERF utility and add IPERF commands */
     iperf_utility_init(&wcm_config.interface);
 
+    #if !defined(DISABLE_COMMAND_CONSOLE_BT)
     /* Initialize Bluetooth utility and add BT commands */
     bt_utility_init();
+    #endif /* !defined(DISABLE_COMMAND_CONSOLE_BT) */
 
     return CY_RSLT_SUCCESS;
 }

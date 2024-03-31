@@ -66,6 +66,7 @@
 /* Private define ------------------------------------------------------------*/
 
 /* Private macro -------------------------------------------------------------*/
+#define WIFI_CONNECT_ENABLE             (0) /* Enable/Disable Wi-Fi Connect */
 #define WIFI_SSID                        ""
 #define WIFI_KEY                         ""
 #define WIFI_BAND                        CY_WCM_WIFI_BAND_ANY
@@ -299,7 +300,9 @@ void console_task(void* argument)
     printf("WCM Initialized\n");
 
     /* Connect to an AP for which credentials are specified */
+    #if defined(WIFI_CONNECT_ENABLE) && (WIFI_CONNECT_ENABLE == 1)
     connect_wifi();
+    #endif /* defined(WIFI_CONNECT_ENABLE) && (WIFI_CONNECT_ENABLE == 1) */
 
     command_console_add_command();
 

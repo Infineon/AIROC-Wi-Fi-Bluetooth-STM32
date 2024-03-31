@@ -25,6 +25,8 @@
 #include "whd_chip.h"
 #ifndef PROTO_MSGBUF
 #include "whd_sdpcm.h"
+#else
+#include "whd_msgbuf.h"
 #endif /* PROTO_MSGBUF */
 #include "whd_thread_internal.h"
 #include "whd_events_int.h"
@@ -181,7 +183,7 @@ static void *whd_handle_apsta_event(whd_interface_t ifp, const whd_event_header_
 }
 
 /* All chips */
-uint32_t whd_wifi_init_ap(whd_interface_t ifp, whd_ssid_t *ssid, whd_security_t auth_type,
+whd_result_t whd_wifi_init_ap(whd_interface_t ifp, whd_ssid_t *ssid, whd_security_t auth_type,
                           const uint8_t *security_key, uint8_t key_length, uint16_t chanspec)
 {
     whd_driver_t whd_driver;
@@ -565,7 +567,7 @@ uint32_t whd_wifi_init_ap(whd_interface_t ifp, whd_ssid_t *ssid, whd_security_t 
     return WHD_SUCCESS;
 }
 
-uint32_t whd_wifi_start_ap(whd_interface_t ifp)
+whd_result_t whd_wifi_start_ap(whd_interface_t ifp)
 {
     whd_buffer_t buffer;
     uint32_t *data;
@@ -603,7 +605,7 @@ uint32_t whd_wifi_start_ap(whd_interface_t ifp)
     return WHD_SUCCESS;
 }
 
-uint32_t whd_wifi_stop_ap(whd_interface_t ifp)
+whd_result_t whd_wifi_stop_ap(whd_interface_t ifp)
 {
     uint32_t *data;
     whd_buffer_t buffer;

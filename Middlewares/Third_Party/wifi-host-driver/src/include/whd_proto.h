@@ -47,7 +47,7 @@ struct whd_proto
     void *pd;
 };
 
-uint32_t whd_proto_attach(whd_driver_t whd_driver);
+whd_result_t whd_proto_attach(whd_driver_t whd_driver);
 
 uint32_t whd_proto_detach(whd_driver_t whd_driver);
 

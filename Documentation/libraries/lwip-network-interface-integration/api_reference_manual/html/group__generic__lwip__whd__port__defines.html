@@ -104,7 +104,7 @@ $(document).ready(function(){initNavTree('group__generic__lwip__whd__port__defin
 
 Refer to the macro section of this document for library-specific error codes.
 </pre><p >The data structure cy_rslt_t is part of cy_result.h located in &lt;core_lib/include&gt;.</p>
-<p >Module base: This base is derived from CY_RSLT_MODULE_MIDDLEWARE_BASE (defined in cy_result.h) and is an offset of the CY_RSLT_MODULE_MIDDLEWARE_BASE. The details of the offset and the middleware base are defined in cy_result_mw.h, that is part of <a href="https://github.com/cypresssemiconductorco/connectivity-utilities">Github connectivity-utilities</a>. For example, lwIP WHD PORT (CY_NETWORK_PORT) uses CY_RSLT_MODULE_NETWORK_PORT_BASE as the module base.</p>
+<p >Module base: This base is derived from CY_RSLT_MODULE_MIDDLEWARE_BASE (defined in cy_result.h) and is an offset of the CY_RSLT_MODULE_MIDDLEWARE_BASE. The details of the offset and the middleware base are defined in cy_result_mw.h, that is part of <a href="https://github.com/infineon/connectivity-utilities">Github connectivity-utilities</a>. For example, lwIP WHD PORT (CY_NETWORK_PORT) uses CY_RSLT_MODULE_NETWORK_PORT_BASE as the module base.</p>
 <p >Type: This type is defined in cy_result.h and can be one of CY_RSLT_TYPE_FATAL, CY_RSLT_TYPE_ERROR, CY_RSLT_TYPE_WARNING, or CY_RSLT_TYPE_INFO. AWS library error codes are of type CY_RSLT_TYPE_ERROR.</p>
 <p >Library-specific error codes: These error codes are library-specific and defined in the macro section.</p>
 <p >Helper macros used for creating the library-specific result are provided as part of cy_result.h. </p>
@@ -209,6 +209,10 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CY_RSLT_NETWORK_NOT_SUPPORTED</b>&#160;&#160;&#160;(<a class="el" href="group__generic__lwip__whd__port__defines.html#ga64411e3dd47f1879323877c2370b9eec">CY_RSLT_NETWORK_PORT_ERR_BASE</a> + 22)</td></tr>
 <tr class="memdesc:ga1ae343f44b7540a45f3680ba6d1a7226"><td class="mdescLeft">&#160;</td><td class="mdescRight">Denotes that the feature is not supported. <br /></td></tr>
 <tr class="separator:ga1ae343f44b7540a45f3680ba6d1a7226"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadd0ef95e5fb952dd62156060eaf25d2e"><td class="memItemLeft" align="right" valign="top"><a id="gadd0ef95e5fb952dd62156060eaf25d2e" name="gadd0ef95e5fb952dd62156060eaf25d2e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CY_RSLT_NETWORK_LINK_NOT_UP</b>&#160;&#160;&#160;(<a class="el" href="group__generic__lwip__whd__port__defines.html#ga64411e3dd47f1879323877c2370b9eec">CY_RSLT_NETWORK_PORT_ERR_BASE</a> + 23)</td></tr>
+<tr class="memdesc:gadd0ef95e5fb952dd62156060eaf25d2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Denotes that the Link is not up. <br /></td></tr>
+<tr class="separator:gadd0ef95e5fb952dd62156060eaf25d2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ga66482668f42e202a2d493782ea856270" name="ga66482668f42e202a2d493782ea856270"></a>

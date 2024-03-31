@@ -47,6 +47,10 @@
 #define MINIMUM_WHD_STACK_SIZE        (1024 + 1200 + 2500)
 
 #define DEFAULT_PM2_SLEEP_RET_TIME  200
+
+#ifdef PROTO_MSGBUF
+#define DMA_ALLOC_SIZE                 (15000)
+#endif
 /******************************************************
 *             Static Variables
 ******************************************************/
@@ -139,7 +143,7 @@ uint32_t whd_add_secondary_interface(whd_driver_t whd_driver, whd_mac_t *mac_add
     return whd_add_interface(whd_driver, 1, 1, "wlan1", mac_addr, ifpp);
 }
 
-uint32_t whd_init(whd_driver_t *whd_driver_ptr, whd_init_config_t *whd_init_config,
+whd_result_t whd_init(whd_driver_t *whd_driver_ptr, whd_init_config_t *whd_init_config,
                   whd_resource_source_t *resource_ops, whd_buffer_funcs_t *buffer_ops,
                   whd_netif_funcs_t *network_ops)
 {
@@ -171,6 +175,12 @@ uint32_t whd_init(whd_driver_t *whd_driver_ptr, whd_init_config_t *whd_init_conf
         //whd_wifi_sleep_info_init(whd_drv);
         whd_wifi_chip_info_init(whd_drv);
 
+#ifdef PROTO_MSGBUF
+        /* Initialize pool for WLAN M2M DMA to access, WHD has to request pool memory
+           and open the access for WLAN through APIs(Secure Call in BTFW)*/
+        whd_dmapool_init(DMA_ALLOC_SIZE);
+#endif
+
         whd_drv->bus_gspi_32bit = WHD_FALSE;
 
         if (whd_init_config->country == 0)
@@ -185,7 +195,7 @@ uint32_t whd_init(whd_driver_t *whd_driver_ptr, whd_init_config_t *whd_init_conf
     return WHD_SUCCESS;
 }
 
-uint32_t whd_deinit(whd_interface_t ifp)
+whd_result_t whd_deinit(whd_interface_t ifp)
 {
     uint8_t i;
     whd_driver_t whd_driver;
@@ -291,7 +301,7 @@ whd_result_t whd_management_wifi_platform_init(whd_driver_t whd_driver, whd_coun
  *
  * @return WHD_SUCCESS if initialization is successful, error code otherwise
  */
-uint32_t whd_wifi_on(whd_driver_t whd_driver, whd_interface_t *ifpp)
+whd_result_t whd_wifi_on(whd_driver_t whd_driver, whd_interface_t *ifpp)
 {
     wl_country_t *country_struct;
     uint32_t *ptr;
@@ -339,11 +349,13 @@ uint32_t whd_wifi_on(whd_driver_t whd_driver, whd_interface_t *ifpp)
         return retval;
     }
 
+#ifndef PROTO_MSGBUF
     retval = whd_bus_share_bt_init(whd_driver);
     if (retval != WHD_SUCCESS)
     {
         WPRINT_WHD_INFO( ("Shared bus for bt is fail\n") );
     }
+#endif
 
     /* Get FW Capability */
     retval = whd_wifi_read_fw_capabilities(ifp);
@@ -352,6 +364,7 @@ uint32_t whd_wifi_on(whd_driver_t whd_driver, whd_interface_t *ifpp)
         WPRINT_WHD_INFO( ("Get FW Capabilities Fail\n") );
     }
 
+#ifndef PROTO_MSGBUF    /* This is needed for cdc/bcd - sdpcm protocol */
     /* Turn off SDPCM TX Glomming */
     /* Note: This is only required for later chips.
      * The 4319 has glomming off by default however the 43362 has it on by default.
@@ -370,6 +383,7 @@ uint32_t whd_wifi_on(whd_driver_t whd_driver, whd_interface_t *ifpp)
         WPRINT_WHD_ERROR( ("Could not turn off TX glomming\n") );
         return retval;
     }
+#endif
 
     /* Turn APSTA on */
     data = (uint32_t *)whd_proto_get_iovar_buffer(whd_driver, &buffer, (uint16_t)sizeof(*data), IOVAR_STR_APSTA);
@@ -458,6 +472,17 @@ uint32_t whd_wifi_on(whd_driver_t whd_driver, whd_interface_t *ifpp)
     /* Send UP command */
     CHECK_RETURN(whd_wifi_set_up(ifp) );
 
+    if (whd_driver->chip_info.fwcap_flags & (1 << WHD_FWCAP_OFFLOADS) )
+    {
+        retval = whd_wifi_offload_config(ifp, OFFLOAD_FEATURE, 0);
+        if (retval != WHD_SUCCESS)
+        {
+           /* Could not initialization offload config */
+           WPRINT_WHD_ERROR( ("Could not init offload config\n") );
+           return retval;
+        }
+    }
+
     wlan_chip_id = whd_chip_get_chip_id(whd_driver);
     /* WAR: Disable WLAN PM/mpc for 43907 low power issue */
     if ( (wlan_chip_id == 43909) || (wlan_chip_id == 43907) || (wlan_chip_id == 54907) )
@@ -475,11 +500,23 @@ uint32_t whd_wifi_on(whd_driver_t whd_driver, whd_interface_t *ifpp)
             return retval;
         }
     }
+#ifdef PROTO_MSGBUF	/* To be reviewed once power save is done for H1-CP */
+    else if((wlan_chip_id == 55500) || (wlan_chip_id == 55900))
+    {
+        retval = whd_wifi_disable_powersave(ifp);
+        if (retval != WHD_SUCCESS)
+        {
+            WPRINT_WHD_ERROR( ("Failed to disable PM for CP\n") );
+            return retval;
+        }
+    }
+#endif
     else
     {
         whd_wifi_enable_powersave_with_throughput(ifp, DEFAULT_PM2_SLEEP_RET_TIME);
     }
 
+#ifndef PROTO_MSGBUF
     /* Set the GMode */
     data = (uint32_t *)whd_proto_get_ioctl_buffer(whd_driver, &buffer, (uint16_t)4);
     if (data == NULL)
@@ -495,6 +532,7 @@ uint32_t whd_wifi_on(whd_driver_t whd_driver, whd_interface_t *ifpp)
         WPRINT_WHD_ERROR( ("Error setting gmode\n") );
         return retval;
     }
+#endif
 
     return WHD_SUCCESS;
 }
@@ -510,7 +548,7 @@ uint32_t whd_wifi_on(whd_driver_t whd_driver, whd_interface_t *ifpp)
  *
  * @return WHD_SUCCESS if deinitialization is successful, error code otherwise
  */
-uint32_t whd_wifi_off(whd_interface_t ifp)
+whd_result_t whd_wifi_off(whd_interface_t ifp)
 {
     whd_result_t retval;
     whd_driver_t whd_driver;

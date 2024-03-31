@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#ifdef PROTO_MSGBUF
 
 #include "whd_flowring.h"
 #include "whd_buffer_api.h"
@@ -274,9 +275,10 @@ struct whd_flowring *whd_flowring_attach(struct whd_driver *dev, uint16_t nrofri
     uint32_t i;
 
     flow = whd_mem_malloc(sizeof(*flow) );
+
     if (flow)
     {
-
+        memset(flow, 0, sizeof(*flow));
         flow->dev = dev;
         flow->nrofrings = nrofrings;
 
@@ -311,3 +313,5 @@ void whd_flowring_open(struct whd_flowring *flow, uint16_t flowid)
 
     ring->status = RING_OPEN;
 }
+
+#endif /* PROTO_MSGBUF */

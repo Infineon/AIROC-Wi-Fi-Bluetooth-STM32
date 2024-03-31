@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -43,7 +43,7 @@
 #if LWIP_IPV4
 
 #include "cy_lwip_dhcp_server.h"
-#include "cy_lwip_error.h"
+#include "cy_nw_mw_core_error.h"
 #include "cyabs_rtos.h"
 #include "cy_lwip_log.h"
 #include <string.h>
@@ -296,13 +296,15 @@ static void cy_dhcp_thread_func(cy_thread_arg_t thread_input)
     uint32_t                     ip_mask;
     uint32_t                     subnet;
     uint32_t                     netmask_htobe;
+    uint32_t                     server_ip_addr_htobe;
     char                         *option_ptr;
     cy_lwip_dhcp_server_t        *server                      = (cy_lwip_dhcp_server_t*)thread_input;
     uint8_t                      subnet_mask_option_buff[]    = { DHCP_SUBNETMASK_OPTION_CODE, 4, 0, 0, 0, 0 };
     uint8_t                      server_ip_addr_option_buff[] = { DHCP_SERVER_IDENTIFIER_OPTION_CODE, 4, 0, 0, 0, 0 };
-    uint32_t                     *server_ip_addr_ptr          = (uint32_t*)&server_ip_addr_option_buff[2];
     uint8_t                      wpad_option_buff[ 2 + sizeof(WPAD_SAMPLE_URL)-1 ] = { DHCP_WPAD_OPTION_CODE, sizeof(WPAD_SAMPLE_URL)-1 };
     cy_lwip_ip_address_t         broadcast_addr;
+
+    memset(&local_ip_address, 0x00, sizeof(cy_lwip_ip_address_t));
 
     SET_IPV4_ADDRESS(broadcast_addr, MAKE_IPV4_ADDRESS(255, 255, 255, 255));
     /* Save the local IP address to be sent in DHCP packets */
@@ -317,7 +319,9 @@ static void cy_dhcp_thread_func(cy_thread_arg_t thread_input)
     local_ip_address.ip.v4 = ntohl(net_interface->ip_addr.addr);
 #endif
 
-    *server_ip_addr_ptr = htobe32(GET_IPV4_ADDRESS(local_ip_address));
+    server_ip_addr_htobe = htobe32(GET_IPV4_ADDRESS(local_ip_address));
+    memcpy(&server_ip_addr_option_buff[2], &server_ip_addr_htobe, 4);
+
     /* Save the current netmask to be sent in DHCP packets as the 'subnet mask option' */
     netmask.version = CY_LWIP_IP_VER_V4;
 #if LWIP_IPV4 && LWIP_IPV6
@@ -335,7 +339,7 @@ static void cy_dhcp_thread_func(cy_thread_arg_t thread_input)
 
     /* Prepare the web proxy auto-discovery URL */
     memcpy(&wpad_option_buff[2], WPAD_SAMPLE_URL, sizeof(WPAD_SAMPLE_URL)-1);
-    ipv4_to_string( (char*)&wpad_option_buff[2 + 7], *server_ip_addr_ptr);
+    ipv4_to_string((char*)&wpad_option_buff[2 + 7], server_ip_addr_option_buff[2]);
 
     /* Loop endlessly */
     while ( server->quit == false )
@@ -482,9 +486,13 @@ static void cy_dhcp_thread_func(cy_thread_arg_t thread_input)
 
                 /* Copy the DHCP header content from the received request packet into the reply packet */
                 memcpy( reply_header, request_header, sizeof(dhcp_header_t) - sizeof(reply_header->options) );
-
+                
+                /* Initialize requested address*/
+                memset( &requested_ip_address, 0, sizeof(requested_ip_address));
+                
                 /* Record the client MAC address */
                 memcpy( &client_mac_address, request_header->client_hardware_addr, sizeof( client_mac_address ) );
+
 
                 /* Locate the requested address in the options and keep the requested address */
                 requested_ip_address.version = CY_LWIP_IP_VER_V4;
@@ -735,16 +743,16 @@ uint8_t unsigned_to_decimal_string( uint32_t value, char* output, uint8_t min_le
  * @param[out] buffer       : Buffer which will receive the IPv4 string
  * @param[in]  ipv4_address : IPv4 address to convert
  */
-static void ipv4_to_string( char buffer[16], uint32_t ipv4_address )
+static void ipv4_to_string( char* buffer, uint32_t ipv4_address )
 {
     uint8_t* ip = (uint8_t*)&ipv4_address;
-    unsigned_to_decimal_string(ip[0], &buffer[0], 3, 3);
-    buffer[3] = '.';
-    unsigned_to_decimal_string(ip[1], &buffer[4], 3, 3);
-    buffer[7] = '.';
-    unsigned_to_decimal_string(ip[2], &buffer[8], 3, 3);
-    buffer[11] = '.';
-    unsigned_to_decimal_string(ip[3], &buffer[12], 3, 3);
+    unsigned_to_decimal_string(ip[0], buffer, 3, 3);
+    *(buffer + 3) = '.';
+    unsigned_to_decimal_string(ip[1], buffer + 4, 3, 3);
+    *(buffer + 7) = '.';
+    unsigned_to_decimal_string(ip[2], buffer + 8, 3, 3);
+    *(buffer + 11) = '.';
+    unsigned_to_decimal_string(ip[3], buffer + 12, 3, 3);
 }
 
 
@@ -789,7 +797,7 @@ static cy_rslt_t udp_create_socket(cy_lwip_udp_socket_t *socket, uint16_t port, 
 
 static cy_rslt_t udp_delete_socket(cy_lwip_udp_socket_t *socket)
 {
-	cm_cy_log_msg( CYLF_MIDDLEWARE, CY_LOG_DEBUG, "%s(): START \n", __FUNCTION__ );
+    cm_cy_log_msg( CYLF_MIDDLEWARE, CY_LOG_DEBUG, "%s(): START \n", __FUNCTION__ );
     if (socket->conn_handler == NULL)
     {
         cm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Error : Socket deletion failed due to invalid socket \n");

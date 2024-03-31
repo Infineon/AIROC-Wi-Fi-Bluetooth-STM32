@@ -18,8 +18,7 @@
 #ifndef INCLUDED_WHD_FLOWRING_H
 #define INCLUDED_WHD_FLOWRING_H
 
-//#include <stdlib.h>
-//#include <string.h>
+#include "stdlib.h"
 #include "whd_msgbuf.h"
 #include "whd_int.h"
 
@@ -28,7 +27,7 @@ extern "C"
 {
 #endif
 
-#define WHD_FLOWRING_HASHSIZE       512     /* has to be 2^x */
+#define WHD_FLOWRING_HASHSIZE       32     /* has to be 2^x */
 #define WHD_FLOWRING_INVALID_ID     0xFFFFFFFF
 
 enum proto_addr_mode

@@ -25,8 +25,13 @@ extern "C"
 {
 #endif
 
+#ifndef MIN
 #define MIN(x, y) ( (x) < (y) ? (x) : (y) )
+#endif /* MIN */
+
+#ifndef MAX
 #define MAX(x, y) ( (x) > (y) ? (x) : (y) )
+#endif /* MAX */
 
 struct whd_commonring
 {
@@ -60,7 +65,7 @@ void whd_commonring_register_cb(struct whd_commonring *commonring,
                                 int (*cr_update_wptr)(void *ctx),
                                 int (*cr_write_rptr)(void *ctx),
                                 int (*cr_write_wptr)(void *ctx), void *ctx);
-void whd_commonring_config(struct whd_commonring *commonring, uint16_t depth,
+whd_result_t whd_commonring_config(struct whd_commonring *commonring, uint16_t depth,
                            uint16_t item_len, void *buf_addr);
 whd_result_t whd_commonring_lock(struct whd_commonring *commonring);
 void whd_commonring_unlock(struct whd_commonring *commonring);

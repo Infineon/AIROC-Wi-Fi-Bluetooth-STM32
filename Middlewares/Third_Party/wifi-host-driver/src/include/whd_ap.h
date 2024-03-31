@@ -47,14 +47,14 @@ extern "C" {
 
 #define CHECK_IOCTL_BUFFER_WITH_SEMAPHORE(buff, \
                                           sema)  if (buff == \
-                                                     NULL){ WPRINT_WHD_ERROR( ("Buffer alloc failed in %s at %d \n", \
+                                                     NULL){ WPRINT_WHD_ERROR_RETURN( ("Buffer alloc failed in %s at %d \n", \
                                                                                __func__, __LINE__) ); \
                                                             whd_assert("Buffer alloc failed\n", 0 == 1); \
                                                             (void)cy_rtos_deinit_semaphore(sema); \
                                                             return WHD_BUFFER_ALLOC_FAIL; }
 
 #define CHECK_RETURN_WITH_SEMAPHORE(expr, sema)  { whd_result_t check_res = (expr); if (check_res != WHD_SUCCESS) \
-                                                   { WPRINT_WHD_ERROR( ("Command failed in %s at %d \n", __func__, \
+                                                   { WPRINT_WHD_ERROR_RETURN( ("Command failed in %s at %d \n", __func__, \
                                                                         __LINE__) ); \
                                                      whd_assert("Command failed\n", 0 == 1); \
                                                      (void)cy_rtos_deinit_semaphore(sema); \

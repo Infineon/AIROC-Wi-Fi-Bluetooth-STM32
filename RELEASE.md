@@ -1,4 +1,4 @@
-# Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack 1.5.1 Release Notes
+# Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack 1.6.0 Release Notes
 The Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack is an extension of the CMSIS-Pack standard established by Arm.
 The pack is compliant with the full CMSIS-Pack standard, with additional requirements/restrictions
 on the final pack to meet the STM standard.
@@ -6,21 +6,26 @@ on the final pack to meet the STM standard.
 This pack uses libraries from the ModusToolbox environment.
 
 ## What's Included?
-* Patch Release (maintenance Bluetooth Firmware)
+* Maintenance Release
 
 ## What Changed?
 
- v1.5.1
-* Update Bluetooth FW for Murata 2BC/2AE modules
-* Update Bluetooth FW for Laird STERLING-LWB5plus module
-* Update URL in pdsc 
-
+ v1.6.0
+* Added new modules
+  - Quectel FC909A (base on CYW43439)
+  - Murata 2EA (base on CYW55573)
+* Updated applications to use STM32CubeMx 6.10.0.
+* Added MQTT libraries (mqtt, aws-iot-device-sdk-port, aws-iot-device-sdk-embedded-C)
+* Added Wi-Fi MQTT Client application (available for STM32U575I-EV board)
+* Added wifi_bt_tester application for Nucleo-H745ZI-Q and NUCLEO-U575ZI-Q boards
 
 ## Supported STM32 Boards and MCU
 *  STM32L562E-DK kit and STM32L5xx
 *  STM32H747I-DISCO Discovery kit and STM32H7xx
 *  STM32U575I-EV Evaluation board and STM32U5xx
 *  NUCLEO-H563ZI board and STM32H5xx
+*  NUCLEO-H745ZI-I board
+*  NUCLEO-U575ZI-Q board
 
 ## Supported Connectivity Modules
 
@@ -55,19 +60,24 @@ This code example demonstrates the implementation of a simple Bluetooth Stack fu
 Peripheral role. During initialization the app registers with LE stack to receive various notifications
 including bonding complete, connection status change and peer write.
 
+### Wi-Fi MQTT Client Example
+This code example demonstrates implementing an MQTT client using the MQTT library. The library uses
+the AWS IoT device SDK Port library and implements the glue layer that is required for the library to
+work with Infineon connectivity platforms.
+
 ## Compatible Software
 
 |  Software                    | Version   |
 | ---------------------------- | --------- |
-| STM32 CubeMX                 |  6.8.0    |
-| STM32 CubeIDE                |  1.12.0   |
+| STM32 CubeMX                 |  6.10.0   |
+| STM32 CubeIDE                |  1.14.0   |
 | IAR Embedded Workbench IDE   |  9.30.1   |
 
 ### Supported Compiler Version
 
 | Compiler                     | Version |
 | :---                         | :----:  |
-| GCC Compiler                 | 10.3     |
+| GCC Compiler                 | 11.3    |
 | IAR Compiler                 | 9.30.1  |
 
 
@@ -75,6 +85,7 @@ including bonding complete, connection status change and peer write.
 
 | Version | Changes                                                             | Reason for Change                     |
 | :----:  | :---                                                                | :----                                 |
+| 1.6.0   | Added New Connectivity Module support                               | New CYWxx modules, assets update, mqtt|
 | 1.5.1   | Update Bluetooth FW for CYW4373 modules                             | Update Bluetooth Firmware             |
 | 1.5.0   | Added New Connectivity Module support                               | Update Pack Name and new CYWxx modules      |
 | 1.4.0   | Added STM32H5 support.                                              | Add support of new STM32 series       |
@@ -102,4 +113,4 @@ including bonding complete, connection status change and peer write.
 
 -------------------------------------------------------------------------------
 
-© Cypress Semiconductor Corporation, 2021-2023.
+© Cypress Semiconductor Corporation, 2021-2024.

@@ -226,7 +226,7 @@
           <name>CCDefines</name>
           <state>CYBSP_WIFI_CAPABLE</state>
           <state>CY_USING_HAL</state>
-          <state>CY_DHCP_SERVER_DISABLE</state>
+          <state>CY_NETWORK_DISABLE_DHCP_SERVER</state>
           <state>NX_INCLUDE_USER_DEFINE_FILE</state>
           <state>TX_INCLUDE_USER_DEFINE_FILE</state>
           <state>TX_SINGLE_MODE_NON_SECURE=1</state>

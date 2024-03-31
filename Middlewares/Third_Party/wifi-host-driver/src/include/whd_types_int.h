@@ -69,15 +69,15 @@ extern "C"
 #define WHD_ETHER_ADDR_LEN              (6)
 
 #define CHECK_IOCTL_BUFFER(buff)  if (buff == \
-                                      NULL){ WPRINT_WHD_ERROR( ("Buffer alloc failed in function %s at line %d \n", \
+                                      NULL){ WPRINT_WHD_ERROR_RETURN( ("Buffer alloc failed in function %s at line %d \n", \
                                                                 __func__, __LINE__) ); \
                                              return WHD_BUFFER_ALLOC_FAIL; }
 #define CHECK_PACKET_NULL(buff, err)  if (buff == \
-                                          NULL){ WPRINT_WHD_ERROR( ("No register function pointer in %s at line %d \n", \
+                                          NULL){ WPRINT_WHD_ERROR_RETURN( ("No register function pointer in %s at line %d \n", \
                                                                     __func__, __LINE__) ); \
                                                  return err;}
 #define CHECK_PACKET_WITH_NULL_RETURN(buff)  if (buff == \
-                                                 NULL){ WPRINT_WHD_ERROR( ( \
+                                                 NULL){ WPRINT_WHD_ERROR_RETURN( ( \
                                                                               "No register function pointer in %s at line %d \n", \
                                                                               __func__, __LINE__) ); \
                                                         return;}
@@ -86,7 +86,7 @@ extern "C"
         whd_result_t check_res = (expr); \
         if (check_res != WHD_SUCCESS) \
         { \
-            WPRINT_WHD_ERROR( ("Function %s failed at line %d checkres = %u \n", \
+            WPRINT_WHD_ERROR_RETURN( ("Function %s failed at line %d checkres = %u \n", \
                                __func__, __LINE__, \
                                (unsigned int)check_res) ); \
             return check_res; \
@@ -116,13 +116,13 @@ extern "C"
 }
 
 #define CHECK_IFP_NULL(ifp)  if (ifp == \
-                                 NULL){ WPRINT_WHD_ERROR( ( \
+                                 NULL){ WPRINT_WHD_ERROR_RETURN( ( \
                                                               "Interface is not up/NULL and failed in function %s at line %d \n", \
                                                               __func__, __LINE__) ); \
                                         return WHD_UNKNOWN_INTERFACE; }
 
 #define CHECK_DRIVER_NULL(driver)  if (driver == \
-                                       NULL){ WPRINT_WHD_ERROR( ( \
+                                       NULL){ WPRINT_WHD_ERROR_RETURN( ( \
                                                                     "WHD driver is not up/NULL and failed in function %s at line %d \n", \
                                                                     __func__, __LINE__) ); \
                                               return WHD_DOES_NOT_EXIST; }
@@ -192,11 +192,21 @@ extern "C"
 *             Structures and Enumerations
 ******************************************************/
 #pragma pack(1)
+
+#ifndef PROTO_MSGBUF
 typedef struct
 {
     whd_buffer_queue_ptr_t queue_next;
     char bus_header[MAX_BUS_HEADER_SIZE];
 } whd_buffer_header_t;
+#else
+typedef struct
+{
+    whd_buffer_queue_ptr_t queue_next;
+    char pad[2];
+} whd_buffer_header_t;
+#endif /* PROTO_MSGBUF */
+
 #pragma pack()
 
 /* 802.11 Information Element Identification Numbers (as per section 8.4.2.1 of 802.11-2012) */
@@ -357,7 +367,7 @@ typedef enum
     /* 17-255 Reserved */
 } dot11_sc_t;
 
-uint32_t whd_wifi_get_iovar_value(whd_interface_t ifp, const char *iovar, uint32_t *value);
+whd_result_t whd_wifi_get_iovar_value(whd_interface_t ifp, const char *iovar, uint32_t *value);
 uint32_t whd_wifi_set_iovar_buffers(whd_interface_t ifp, const char *iovar, const void **in_buffers,
                                     const uint16_t *lengths, const uint8_t num_buffers);
 uint32_t whd_wifi_set_iovar_value(whd_interface_t ifp, const char *iovar, uint32_t value);
@@ -431,7 +441,7 @@ extern uint32_t whd_wifi_set_iovar_buffer(whd_interface_t ifp, const char *iovar
 extern uint32_t whd_wifi_set_iovar_buffers(whd_interface_t ifp, const char *iovar, const void **in_buffers,
                                            const uint16_t *in_buffer_lengths, const uint8_t num_buffers);
 
-extern uint32_t whd_wifi_set_mac_address(whd_interface_t ifp, whd_mac_t mac);
+extern whd_result_t whd_wifi_set_mac_address(whd_interface_t ifp, whd_mac_t mac);
 
 #ifdef __cplusplus
 }     /* extern "C" */

@@ -30,7 +30,9 @@
 #include <stdbool.h>
 
 #include "tx_api.h"
-
+#if defined (COMPONENT_CAT5)
+#include "cyabs_rtos_impl_cat5.h"
+#endif
 
 #ifdef __cplusplus
 extern "C"
@@ -40,27 +42,34 @@ extern "C"
 /******************************************************
 *                 Constants
 ******************************************************/
-#define CY_RTOS_MIN_STACK_SIZE  TX_MINIMUM_STACK /** Minimum stack size in bytes */
-#define CY_RTOS_ALIGNMENT       0x00000008UL     /** Minimum alignment for RTOS objects */
-#define CY_RTOS_ALIGNMENT_MASK  0x00000007UL     /** Checks for 8-byte alignment */
+#define CY_RTOS_MIN_STACK_SIZE  TX_MINIMUM_STACK /**< Minimum stack size in bytes */
+#define CY_RTOS_ALIGNMENT       0x00000008UL     /**< Minimum alignment for RTOS objects */
+#define CY_RTOS_ALIGNMENT_MASK  0x00000007UL     /**< Checks for 8-byte alignment */
 
 
 /******************************************************
 *                 Type Definitions
 ******************************************************/
 
-// RTOS thread priority
+#if !defined (COMPONENT_CAT5)
+// RTOS thread priority. See /ref cy_thread_priority_t in the
+// cyabs_rtos_impl_cat5.h for the CAT5 thread priority definitions
 typedef enum
 {
-    CY_RTOS_PRIORITY_MIN         = TX_MAX_PRIORITIES - 1,
-    CY_RTOS_PRIORITY_LOW         = (TX_MAX_PRIORITIES * 6 / 7),
-    CY_RTOS_PRIORITY_BELOWNORMAL = (TX_MAX_PRIORITIES * 5 / 7),
-    CY_RTOS_PRIORITY_NORMAL      = (TX_MAX_PRIORITIES * 4 / 7),
-    CY_RTOS_PRIORITY_ABOVENORMAL = (TX_MAX_PRIORITIES * 3 / 7),
-    CY_RTOS_PRIORITY_HIGH        = (TX_MAX_PRIORITIES * 2 / 7),
-    CY_RTOS_PRIORITY_REALTIME    = (TX_MAX_PRIORITIES * 1 / 7),
-    CY_RTOS_PRIORITY_MAX         = 0
+    CY_RTOS_PRIORITY_MIN         = TX_MAX_PRIORITIES - 1,         /**< Minumum allowable Thread
+                                                                     priority */
+    CY_RTOS_PRIORITY_LOW         = (TX_MAX_PRIORITIES * 6 / 7),   /**< A low priority Thread */
+    CY_RTOS_PRIORITY_BELOWNORMAL = (TX_MAX_PRIORITIES * 5 / 7),   /**< A slightly below normal
+                                                                     Thread priority */
+    CY_RTOS_PRIORITY_NORMAL      = (TX_MAX_PRIORITIES * 4 / 7),   /**< The normal Thread priority */
+    CY_RTOS_PRIORITY_ABOVENORMAL = (TX_MAX_PRIORITIES * 3 / 7),   /**< A slightly elevated Thread
+                                                                     priority */
+    CY_RTOS_PRIORITY_HIGH        = (TX_MAX_PRIORITIES * 2 / 7),   /**< A high priority Thread */
+    CY_RTOS_PRIORITY_REALTIME    = (TX_MAX_PRIORITIES * 1 / 7),   /**< Realtime Thread priority */
+    CY_RTOS_PRIORITY_MAX         = 0                              /**< Maximum allowable Thread
+                                                                     priority */
 } cy_thread_priority_t;
+#endif // if !defined (COMPONENT_CAT5)
 
 typedef struct
 {

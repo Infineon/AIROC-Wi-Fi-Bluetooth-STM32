@@ -18,42 +18,37 @@
 /** @file
  *  Provides generic Ring functionality that chip specific files use
  */
+#ifdef PROTO_MSGBUF
+
 #include "whd_utils.h"
 #include "whd_int.h"
 #include "whd_ring.h"
 #include "whd_chip_constants.h"
 #include "bus_protocols/whd_bus_protocol_interface.h"
-#include "bus_protocols/whd_m2m.h"
+#include "whd_oci.h"
+#include "whd_buffer_api.h"
+
+#ifdef GCI_SECURE_ACCESS
+#include "whd_hw.h"
+#endif
 
 #define HT_AVAIL_WAIT_MS            (1)
 #define WLAN_BUS_UP_ATTEMPTS        (1000)
 #define WHD_HOST_TRIGGER_SUSPEND_TIMEOUT (WHD_MBDATA_TIMEOUT + 2 * 1000)
 #define HOST_TRIGGER_SUSPEND_COMPLETE  (1UL << 0)
 
-#define WLAN_M2M_SHARED_VERSION_MASK    (0x00ff)
-#define WLAN_M2M_SHARED_VERSION         (0x0007)
-
-#ifndef REG32
-#define REG32(address)    (*(volatile uint32_t *)(address) )
-#endif
-
-#ifndef REG16
-#define REG16(address)    (*(volatile uint16_t *)(address) )
-#endif
-
-#ifndef REG8
-#define REG8(address)     (*(volatile uint8_t *)(address) )
-#endif
-
 static int whd_ring_mb_ring_bell(void *ctx)
 {
-    struct whd_ringbuf *ring = (struct whd_ringbuf *)ctx;
-    whd_driver_t whd_driver = ring->whd_drv;
-
     WPRINT_WHD_DEBUG( ("RINGING !!!\n") );
 
     /* Any arbitrary value will do, lets use 1 */
+#ifndef GCI_SECURE_ACCESS
+    struct whd_ringbuf *ring = (struct whd_ringbuf *)ctx;
+    whd_driver_t whd_driver = ring->whd_drv;
     CHECK_RETURN(whd_bus_write_backplane_value(whd_driver, (uint32_t)GCI_BT2WL_DB0_REG, 4, 0x01) );
+#else
+    CHECK_RETURN(whd_hw_generateBt2WlDbInterruptApi(0, 0x01));
+#endif
 
     return WHD_SUCCESS;
 }
@@ -127,16 +122,6 @@ static void whd_write_tcm16(whd_driver_t whd_driver, uint32_t mem_offset, uint16
 
     REG16(TRANS_ADDR(address) ) = value;
 }
-
-#if 0
-static uint32_t whd_read_tcm32(whd_driver_t whd_driver, unsigned int mem_offset)
-{
-    uint32_t address = mem_offset;
-
-    return REG32(TRANS_ADDR(address) );
-}
-
-#endif
 
 static void whd_write_tcm32(whd_driver_t whd_driver, uint32_t mem_offset, uint32_t value)
 {
@@ -290,7 +275,7 @@ whd_result_t whd_bus_resume(whd_driver_t whd_driver)
 static struct whd_ringbuf *whd_allocate_ring_and_handle(whd_driver_t whd_driver, uint32_t ring_id,
                                                         uint32_t tcm_ring_phys_addr)
 {
-    void *ring_handle;
+    uint32_t* ring_handle = NULL;
     struct whd_ringbuf *ring;
     uint32_t size;
     uint32_t addr;
@@ -305,9 +290,13 @@ static struct whd_ringbuf *whd_allocate_ring_and_handle(whd_driver_t whd_driver,
     size = whd_ring_max_item[ring_id] * ring_itemsize_array[ring_id];
 
     WPRINT_WHD_DEBUG( ("Allocate Ring Handle: %s\n", __func__) );
-    ring_handle = whd_mem_malloc(size);
+    ring_handle = whd_dmapool_alloc(size);
+
+    if(ring_handle == NULL)
+        return NULL;
 
     ring_addr = (uint32_t)ring_handle;
+
     WPRINT_WHD_DEBUG( ("tcm_ring_phys_addr is 0x%lx, ring_addr is 0x%lx, ring_handle is 0x%lx \n", tcm_ring_phys_addr,
                        ring_addr, (uint32_t)ring_handle) );
 
@@ -320,9 +309,6 @@ static struct whd_ringbuf *whd_allocate_ring_and_handle(whd_driver_t whd_driver,
     WPRINT_WHD_DEBUG( ("Read the value at ringmem ptr[0x%lx] at TCM - 0x%lx \n",
                        (tcm_ring_phys_addr + WHD_RING_MEM_BASE_ADDR_OFFSET),
                        REG32(TRANS_ADDR(tcm_ring_phys_addr + WHD_RING_MEM_BASE_ADDR_OFFSET) ) ) );
-
-    if (!ring_handle)
-        return NULL;
 
     addr = tcm_ring_phys_addr + WHD_RING_MAX_ITEM_OFFSET;
     whd_write_tcm16(whd_driver, addr, whd_ring_max_item[ring_id]);
@@ -337,7 +323,7 @@ static struct whd_ringbuf *whd_allocate_ring_and_handle(whd_driver_t whd_driver,
     }
     memset(ring, 0, sizeof(*ring) );
     whd_commonring_config(&ring->commonring, whd_ring_max_item[ring_id],
-                          ring_itemsize_array[ring_id], ring_handle);
+                          ring_itemsize_array[ring_id], (void*)ring_handle);
 
     ring->ring_handle = ring_handle;
     ring->whd_drv = whd_driver;
@@ -352,13 +338,13 @@ static struct whd_ringbuf *whd_allocate_ring_and_handle(whd_driver_t whd_driver,
     return (ring);
 }
 
-static void whd_release_ringbuffer(whd_driver_t whd_driver,
+static whd_result_t whd_release_ringbuffer(whd_driver_t whd_driver,
                                    struct whd_ringbuf *ring)
 {
     void *dma_buf;
 
     if (!ring)
-        return;
+        return WHD_BUFFER_ALLOC_FAIL;
 
     dma_buf = ring->commonring.buf_addr;
     if (dma_buf)
@@ -366,6 +352,8 @@ static void whd_release_ringbuffer(whd_driver_t whd_driver,
         whd_mem_free(ring->ring_handle);
     }
     whd_mem_free(ring);
+
+    return WHD_SUCCESS;
 }
 
 static void whd_release_ringbuffers(whd_driver_t whd_driver)
@@ -475,7 +463,12 @@ uint32_t whd_bus_m2m_ring_init(whd_driver_t whd_driver)
         ring_mem_ptr += WHD_RING_MEM_SZ;
     }
 
+#if 0    /* Currently WLAN FW is returning the max flowring req count as 40, which needs to be fixed */
     whd_driver->ram_shared->max_flowrings = max_flowrings;
+#else
+    whd_driver->ram_shared->max_flowrings = 4;    /* This will be increased for concurrent mode later */
+#endif
+
     whd_driver->ram_shared->max_submissionrings = max_submissionrings;
     whd_driver->ram_shared->max_completionrings = max_completionrings;
     rings = whd_mem_malloc(max_flowrings * sizeof(*ring) );
@@ -508,7 +501,11 @@ uint32_t whd_bus_m2m_ring_init(whd_driver_t whd_driver)
     WPRINT_WHD_DEBUG( ("CommonRings Init Done \n") );
 
     WPRINT_WHD_DEBUG( ("Notify Firmware about HOST READY!!! \n") );
+#ifndef GCI_SECURE_ACCESS
     result = whd_bus_write_backplane_value(whd_driver, (uint32_t)GCI_BT2WL_DB1_REG, 4, (1 << 9) );
+#else
+    result = whd_hw_generateBt2WlDbInterruptApi(1, (1 << 9));
+#endif
     if (result != WHD_SUCCESS)
     {
         WPRINT_WHD_ERROR( ("whd_bus_write_backplane_value failed in %s at %d \n", __func__, __LINE__) );
@@ -540,9 +537,11 @@ whd_result_t whd_bus_m2m_sharedmem_init(whd_driver_t whd_driver)
     {
         return WHD_MALLOC_FAILURE;
     }
+    memset(ram_shared_info, 0, sizeof(struct whd_ram_shared_info));
+
     whd_driver->ram_shared = ram_shared_info;
 
-    wlan_shared_address = GET_C_VAR(whd_driver, ATCM_RAM_BASE_ADDRESS) + GET_C_VAR(whd_driver, CHIP_RAM_SIZE) - 4; //(0x3a0000 + 0x2b4 + 0x800) + (0xe0000 - 0x800 - 0x2b4) - 4;
+    wlan_shared_address = GET_C_VAR(whd_driver, ATCM_RAM_BASE_ADDRESS) + GET_C_VAR(whd_driver, CHIP_RAM_SIZE) - 4;
 
     WPRINT_WHD_DEBUG( ("%s: WLAN Shared Area Space is 0x%lx\n", __func__, wlan_shared_address) );
 
@@ -551,8 +550,7 @@ whd_result_t whd_bus_m2m_sharedmem_init(whd_driver_t whd_driver)
     while ( (shared_addr == 0) || (shared_addr <= GET_C_VAR(whd_driver, ATCM_RAM_BASE_ADDRESS) ) ||
             (shared_addr >= (GET_C_VAR(whd_driver, ATCM_RAM_BASE_ADDRESS) + GET_C_VAR(whd_driver, CHIP_RAM_SIZE) ) ) )
     {
-        WPRINT_WHD_DEBUG( ("Value at Shared Space is 0x%lx \n", REG32(wlan_shared_address) ) );
-        result = whd_bus_read_backplane_value(whd_driver, TRANS_ADDR(wlan_shared_address), 4, (uint8_t *)&shared_addr);
+        result = whd_bus_read_backplane_value(whd_driver, wlan_shared_address, 4, (uint8_t *)&shared_addr);
     }
 
     WPRINT_WHD_DEBUG( ("%s: WLAN Shared Address is 0x%lx\n", __func__,  shared_addr) );
@@ -615,27 +613,30 @@ whd_result_t whd_bus_m2m_sharedmem_init(whd_driver_t whd_driver)
     whd_driver->ram_shared->tcm_base_address = shared_addr;
     whd_driver->ram_shared->version_new = internal_info.sh.flags & WLAN_M2M_SHARED_VERSION_MASK;
 
+#if 0	/* To be verified after TO for alignment issue */
     addr = shared_addr + WHD_SHARED_MAX_RXBUFPOST_OFFSET;
-    result = whd_bus_read_backplane_value(whd_driver, TRANS_ADDR(addr), 4,
+    result = whd_bus_read_backplane_value(whd_driver, addr, 4,
                                           (uint8_t *)&whd_driver->ram_shared->max_rxbufpost);
+
     if (result != WHD_SUCCESS)
     {
         WPRINT_WHD_ERROR( ("whd_bus_read_backplane_value failed in %s at %d \n", __func__, __LINE__) );
         goto fail;
     }
+#endif
 
     if (whd_driver->ram_shared->max_rxbufpost == 0)
         whd_driver->ram_shared->max_rxbufpost = WHD_DEF_MAX_RXBUFPOST;
 
     addr = shared_addr + WHD_SHARED_RX_DATAOFFSET_OFFSET;
-    result = whd_bus_read_backplane_value(whd_driver, TRANS_ADDR(addr), 4,
+    result = whd_bus_read_backplane_value(whd_driver, addr, 4,
                                           (uint8_t *)&whd_driver->ram_shared->rx_dataoffset);
     if (result != WHD_SUCCESS)
     {
         WPRINT_WHD_ERROR( ("whd_bus_read_backplane_value failed in %s at %d \n", __func__, __LINE__) );
         goto fail;
     }
-
+#if 0	/* To be verified after TO for alignment issue */
     addr = shared_addr + WHD_SHARED_HTOD_MB_DATA_ADDR_OFFSET;
     result = whd_bus_read_backplane_value(whd_driver, TRANS_ADDR(addr), 4,
                                           (uint8_t *)&whd_driver->ram_shared->htod_mb_data_addr);
@@ -646,16 +647,16 @@ whd_result_t whd_bus_m2m_sharedmem_init(whd_driver_t whd_driver)
     }
 
     addr = shared_addr + WHD_SHARED_DTOH_MB_DATA_ADDR_OFFSET;
-    result = whd_bus_read_backplane_value(whd_driver, TRANS_ADDR(addr), 4,
+    result = whd_bus_read_backplane_value(whd_driver, addr, 4,
                                           (uint8_t *)&whd_driver->ram_shared->dtoh_mb_data_addr);
     if (result != WHD_SUCCESS)
     {
         WPRINT_WHD_ERROR( ("whd_bus_read_backplane_value failed in %s at %d \n", __func__, __LINE__) );
         goto fail;
     }
-
+#endif
     addr = shared_addr + WHD_SHARED_RING_INFO_ADDR_OFFSET;
-    result = whd_bus_read_backplane_value(whd_driver, TRANS_ADDR(addr), 4,
+    result = whd_bus_read_backplane_value(whd_driver, addr, 4,
                                           (uint8_t *)&whd_driver->ram_shared->ring_info_addr);
     if (result != WHD_SUCCESS)
     {
@@ -664,7 +665,7 @@ whd_result_t whd_bus_m2m_sharedmem_init(whd_driver_t whd_driver)
     }
 
     addr = shared_addr + WHD_SHARED_HOST_CAP_OFFSET;
-    result = whd_bus_write_backplane_value(whd_driver, TRANS_ADDR(addr), host_capability, 4);
+    result = whd_bus_write_backplane_value(whd_driver, addr, host_capability, 4);
     if (result != WHD_SUCCESS)
     {
         WPRINT_WHD_ERROR( ("whd_bus_write_backplane_value failed in %s at %d \n", __func__, __LINE__) );
@@ -708,3 +709,5 @@ fail:
     whd_driver->ram_shared = NULL;
     return result;
 }
+
+#endif /* PROTO_MSGBUF */

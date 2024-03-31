@@ -438,15 +438,22 @@ cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t* obj, cyhal_sdio_transfer_type_t
 
             /* Maintenance D-cache for DMA buffers */
             #if defined(_CYHAL_DCACHE_MAINTENANCE)
-            if (direction == CYHAL_SDIO_XFER_TYPE_WRITE)
+            if (SCB->CCR & SCB_CCR_DC_Msk)
             {
-                SCB_CleanDCache_by_Addr((uint32_t*)p_dma_buffer, block_size * number_of_blocks);
-            }
-            else
-            {
-                /* Cache-Invalidate the output from DMA */
-                SCB_InvalidateDCache_by_Addr((uint32_t*)p_dma_buffer,
-                                             length + __SCB_DCACHE_LINE_SIZE);
+                /* NOTE: Cache clean/invalidation functions require to have the
+                 * address 32-byte aligned, SDIO driver allocates DMA buffer
+                 * aligned to a 32-byte boundary.
+                 */
+                if (direction == CYHAL_SDIO_XFER_TYPE_WRITE)
+                {
+                    SCB_CleanDCache_by_Addr((uint32_t*)p_dma_buffer, block_size * number_of_blocks);
+                }
+                else
+                {
+                    /* Cache-Invalidate the output from DMA */
+                    SCB_InvalidateDCache_by_Addr((uint32_t*)p_dma_buffer,
+                                                 length + __SCB_DCACHE_LINE_SIZE);
+                }
             }
             #endif /* if defined(_CYHAL_DCACHE_MAINTENANCE) */
 
@@ -556,9 +563,12 @@ cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t* obj, cyhal_sdio_transfer_type_t
         if ((direction == CYHAL_SDIO_XFER_TYPE_READ) && (result == CY_RSLT_SUCCESS))
         {
             #if defined(_CYHAL_DCACHE_MAINTENANCE)
-            SCB_CleanInvalidateDCache_by_Addr(
-                (uint32_t*)((uint32_t)_temp_dma_buffer & ~(__SCB_DCACHE_LINE_SIZE - 1U)),
-                length + __SCB_DCACHE_LINE_SIZE);
+            if (SCB->CCR & SCB_CCR_DC_Msk)
+            {
+                SCB_CleanInvalidateDCache_by_Addr(
+                    (uint32_t*)((uint32_t)_temp_dma_buffer & ~(__SCB_DCACHE_LINE_SIZE - 1U)),
+                    length + __SCB_DCACHE_LINE_SIZE);
+            }
             #endif /* if defined(_CYHAL_DCACHE_MAINTENANCE) */
 
             (void)memcpy((void*)data, (void*)_temp_dma_buffer, (size_t)length);

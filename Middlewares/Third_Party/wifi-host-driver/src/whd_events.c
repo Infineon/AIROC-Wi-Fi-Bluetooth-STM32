@@ -422,6 +422,7 @@ whd_result_t whd_management_set_event_handler(whd_interface_t ifp, const whd_eve
     if (res != WHD_SUCCESS)
     {
         WPRINT_WHD_ERROR( ("%s: send event_msgs(iovar) failed\n", __func__) );
+        goto set_event_handler_exit;
     }
 
     /* set the event_list_mutex here after sending iovar.
@@ -593,7 +594,7 @@ whd_result_t whd_wifi_set_error_handler(whd_interface_t ifp, const uint8_t *erro
 
 }
 
-uint32_t whd_wifi_deregister_event_handler(whd_interface_t ifp, uint16_t event_index)
+whd_result_t whd_wifi_deregister_event_handler(whd_interface_t ifp, uint16_t event_index)
 {
     whd_driver_t whd_driver;
 
@@ -624,7 +625,7 @@ uint32_t whd_wifi_deregister_event_handler(whd_interface_t ifp, uint16_t event_i
     return WHD_BADARG;
 }
 
-uint32_t whd_wifi_deregister_error_handler(whd_interface_t ifp, uint16_t error_index)
+whd_result_t whd_wifi_deregister_error_handler(whd_interface_t ifp, uint16_t error_index)
 {
     whd_driver_t whd_driver;
     whd_error_info_t *error_info;

@@ -136,7 +136,7 @@ void whd_bus_m2m_irq_handler(void *callback_arg, cyhal_m2m_event_t events);
 ******************************************************/
 
 // Functions for whd_driver->bus_if function list
-uint32_t whd_bus_m2m_attach(whd_driver_t whd_driver, whd_m2m_config_t *whd_m2m_config, cyhal_m2m_t *m2m_obj)
+whd_result_t whd_bus_m2m_attach(whd_driver_t whd_driver, whd_m2m_config_t *whd_m2m_config, cyhal_m2m_t *m2m_obj)
 {
     WPRINT_WHD_INFO( ("m2m_attach\n") );
 

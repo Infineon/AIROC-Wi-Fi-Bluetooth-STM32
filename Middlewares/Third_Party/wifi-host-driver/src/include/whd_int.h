@@ -26,6 +26,8 @@
 #ifndef PROTO_MSGBUF
 #include "whd_sdpcm.h"
 #include "whd_cdc_bdc.h"
+#else
+#include "whd_msgbuf.h"
 #endif /* PROTO_MSGBUF */
 #include "whd_chip.h"
 #include "whd_ap.h"
@@ -142,8 +144,8 @@ struct whd_driver
     uint8_t host_trigger_suspend_flag;
     uint8_t ack_d2h_suspend; /* 1: D3_ack_suspend(suspend from host), 0: Non D3_ack_suspend(suspend from WHD) */
     uint8_t dma_index_sz;
-#ifdef DM_43022C1
-    uint8_t re_download_fw;
+#ifdef ULP_SUPPORT
+    uint32_t ds_exit_in_progress;
 #endif
 };
 

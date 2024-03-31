@@ -155,6 +155,8 @@ int8_t whd_thread_send_one_packet(whd_driver_t whd_driver)
     }
 
     WHD_STATS_INCREMENT_VARIABLE(whd_driver, tx_total);
+
+    return (int8_t)1;
 #else
     uint16_t local_id = 0;
 
@@ -169,25 +171,26 @@ int8_t whd_thread_send_one_packet(whd_driver_t whd_driver)
     /* Prefer to IOCTL Data than Tx Data */
     if (whd_driver->msgbuf->ioctl_queue)
     {
+        WPRINT_WHD_DEBUG(("Wcd:> Sending pkt ioctl_queue - %p\n", whd_driver->msgbuf->ioctl_queue));
         (void)whd_msgbuf_ioctl_dequeue(whd_driver);
         DELAYED_BUS_RELEASE_SCHEDULE(whd_driver, WHD_TRUE);
     }
 
-    for (local_id = 0; local_id < whd_driver->ram_shared->max_flowrings; local_id++)
+    for (local_id = 0; local_id < whd_driver->msgbuf->current_flowring_count; local_id++)
     {
         if (isset(whd_driver->msgbuf->flow_map, local_id) )
         {
+            WPRINT_WHD_DEBUG(("Wcd:> Sending Data pkt through Flowring\n"));
             clrbit(whd_driver->msgbuf->flow_map, local_id);
-            whd_msgbuf_txflow(whd_driver, local_id);
+            CHECK_RETURN(whd_msgbuf_txflow(whd_driver, local_id));
             DELAYED_BUS_RELEASE_SCHEDULE(whd_driver, WHD_TRUE);
         }
     }
 
-    if (local_id == whd_driver->ram_shared->max_flowrings)
-        return 0;
+    /* In MSGBUF protocol case, all the queued packets
+       are sent through flowrings so, no need to check return 1 */
+    return (int8_t)0;
 #endif /* PROTO_MSGBUF */
-
-    return (int8_t)1;
 }
 
 /** Receives a packet if one is waiting
@@ -220,9 +223,36 @@ int8_t whd_thread_receive_one_packet(whd_driver_t whd_driver)
         WPRINT_WHD_DATA_LOG( ("Wcd:< Rcvd pkt 0x%08lX\n", (unsigned long)recv_buffer) );
         WHD_STATS_INCREMENT_VARIABLE(whd_driver, rx_total);
 
+
+#if (CYBSP_WIFI_INTERFACE_TYPE == CYBSP_USB_INTERFACE)
+        uint8_t *data = whd_buffer_get_current_piece_data_pointer(whd_driver, recv_buffer);
+
+        if (data[0] == 0x20)
+        {
+        	/* Check if recive bdc Event or Data pack */
+			whd_event_t *event = (whd_event_t *)(data + sizeof(bdc_header_t));
+
+			if (ntoh16(event->eth.ethertype) == 0x886C /* <- ETHER_TYPE_BRCM */)
+			{
+				whd_process_bdc_event(whd_driver, recv_buffer,
+										whd_buffer_get_current_piece_size(whd_driver, recv_buffer));
+			}
+			else
+			{
+				whd_process_bdc(whd_driver, recv_buffer);
+			}
+        }
+        else
+        {
+        	whd_process_cdc(whd_driver, recv_buffer);
+        }
+#else
         /* Send received buffer up to SDPCM layer */
         whd_sdpcm_process_rx_packet(whd_driver, recv_buffer);
+#endif /* (CYBSP_WIFI_INTERFACE_TYPE == CYBSP_USB_INTERFACE) */
     }
+
+    return (int8_t)1;
 #else
     whd_result_t result;
 
@@ -235,10 +265,9 @@ int8_t whd_thread_receive_one_packet(whd_driver_t whd_driver)
     }
 
     /* Send Received Information to the Rings */
-    whd_msgbuf_process_rx_packet(whd_driver);
+    return whd_msgbuf_process_rx_packet(whd_driver);
 #endif /* PROTO_MSGBUF */
 
-    return (int8_t)1;
 }
 
 /** Sends and Receives all waiting packets

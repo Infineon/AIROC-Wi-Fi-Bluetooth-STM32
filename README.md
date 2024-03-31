@@ -1,4 +1,4 @@
-# Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack 1.5.1
+# Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack 1.6.0
 
 ## Overview
 The Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack is an extension of the CMSIS-Pack standard established by Arm
@@ -34,7 +34,7 @@ The Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack uses below assets:
 |  Asset                                                                                                     | Version |
 | ---------------------------------------------------------------------------------------------------------- | ------- |
 | [LwIP](https://git.savannah.nongnu.org/cgit/lwip.git)                                                      |  2.1.2  |
-| [abstraction-rtos](https://github.com/Infineon/abstraction-rtos)                                           |  1.5.0  |
+| [abstraction-rtos](https://github.com/Infineon/abstraction-rtos)                                           |  1.8.0  |
 | [bluetooth-freertos](https://github.com/Infineon/btstack-integration)                                      |  4.3.1  |
 | [btstack](https://github.com/Infineon/btstack)                                                             |  3.7.1  |
 | [command-console](https://github.com/Infineon/command-console)                                             |  4.0.0  |
@@ -43,15 +43,18 @@ The Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack uses below assets:
 | [wcm](https://github.com/Infineon/wifi-connection-manager)                                                 |  3.1.1  |
 | [whd-bsp-integration](https://github.com/Infineon/whd-bsp-integration)                                     |  2.3.0  |
 | [lwip-freertos-integration](https://github.com/Infineon/lwip-freertos-integration)                         |  1.0.0  |
-| [lwip-network-interface-integration](https://github.com/Infineon/lwip-network-interface-integration)       |  1.0.0  |
-| [netxduo-network-interface-integration](https://github.com/Infineon/netxduo-network-interface-integration) |  1.0.0  |
-| [wifi-host-driver](https://github.com/Infineon/wifi-host-driver)                                           |  3.1.0  |
+| [lwip-network-interface-integration](https://github.com/Infineon/lwip-network-interface-integration)       |  1.1.3  |
+| [netxduo-network-interface-integration](https://github.com/Infineon/netxduo-network-interface-integration) |  1.1.1  |
+| [wifi-host-driver](https://github.com/Infineon/wifi-host-driver)                                           |  3.2.1  |
 | [wifi-mfg-test](https://github.com/Infineon/wifi-mfg-test)                                                 |  3.3.0  |
 | [secure-sockets](https://github.com/Infineon/secure-sockets)                                               |  3.0.0  |
 | [stm32_mw_freertos](https://github.com/STMicroelectronics/stm32_mw_freertos)                               | 10.4.6  |
 | [wpa3-external-supplicant](https://github.com/Infineon/wpa3-external-supplicant)                           |  1.1.0  |
-| PAL                                                                                                        |  1.5.0  |
-| Device                                                                                                     |  1.5.0  |
+| [aws-iot-device-sdk-port](https://github.com/Infineon/aws-iot-device-sdk-port)                             |  2.3.0  |
+| [aws-iot-device-sdk-embedded-C](https://github.com/aws/aws-iot-device-sdk-embedded-C)                      | 202103  |
+| [mqtt](https://github.com/Infineon/mqtt)                                                                   |  4.3.0  |
+| PAL                                                                                                        |  1.6.0  |
+| Device                                                                                                     |  1.6.0  |
 
 ## Additional details
 The pack is compliant with the full CMSIS-Pack standard, with additional requirements/restrictions
@@ -77,4 +80,4 @@ owners.
 
 -------------------------------------------------------------------------------
 
-© Cypress Semiconductor Corporation, 2021-2023.
+© Cypress Semiconductor Corporation, 2021-2024.

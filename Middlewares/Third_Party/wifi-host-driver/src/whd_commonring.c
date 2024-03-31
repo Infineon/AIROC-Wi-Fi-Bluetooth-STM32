@@ -18,9 +18,11 @@
 /** @file
  *  Provides generic COMMON RING functionality that chip specific files use
  */
+#ifdef PROTO_MSGBUF
 
 #include "whd_debug.h"
 #include "whd_commonring.h"
+#include "whd_types_int.h"
 
 void whd_commonring_register_cb(struct whd_commonring *commonring,
                                 int (*cr_ring_bell)(void *ctx),
@@ -37,7 +39,7 @@ void whd_commonring_register_cb(struct whd_commonring *commonring,
     commonring->cr_ctx = ctx;
 }
 
-void whd_commonring_config(struct whd_commonring *commonring, uint16_t depth,
+whd_result_t whd_commonring_config(struct whd_commonring *commonring, uint16_t depth,
                            uint16_t item_len, void *buf_addr)
 {
     commonring->depth = depth;
@@ -46,6 +48,7 @@ void whd_commonring_config(struct whd_commonring *commonring, uint16_t depth,
     if (!commonring->inited)
     {
         (void)cy_rtos_init_semaphore(&commonring->lock, 1, 0);
+        CHECK_RETURN(cy_rtos_set_semaphore(&commonring->lock, WHD_FALSE));
         commonring->inited = true;
     }
     commonring->r_ptr = 0;
@@ -55,6 +58,8 @@ void whd_commonring_config(struct whd_commonring *commonring, uint16_t depth,
     if (commonring->cr_write_wptr)
         commonring->cr_write_wptr(commonring->cr_ctx);
     commonring->f_ptr = 0;
+
+    return 0;
 }
 
 whd_result_t whd_commonring_lock(struct whd_commonring *commonring)
@@ -251,3 +256,5 @@ int whd_commonring_read_complete(struct whd_commonring *commonring,
 
     return -1;
 }
+
+#endif /* PROTO_MSGBUF */

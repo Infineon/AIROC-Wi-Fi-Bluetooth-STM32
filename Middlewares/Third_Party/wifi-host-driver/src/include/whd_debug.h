@@ -16,7 +16,6 @@
  */
 
 #include <stdio.h>
-#include <stdio.h>
 #include <string.h>
 #include "whd.h"
 
@@ -32,6 +31,7 @@ extern "C"
 *                      Macros
 ******************************************************/
 #define WPRINT_ENABLE_WHD_ERROR
+/* #define WPRINT_ENABLE_WHD_ERROR_RETURN */
 /* #define WPRINT_ENABLE_WHD_INFO */
 /* #define WPRINT_ENABLE_WHD_DEBUG */
 
@@ -94,6 +94,12 @@ extern "C"
 #define WPRINT_WHD_ERROR(args) WPRINT_MACRO(args);
 #else
 #define WPRINT_WHD_ERROR(args)
+#endif
+
+#ifdef WPRINT_ENABLE_WHD_ERROR_RETURN
+#define WPRINT_WHD_ERROR_RETURN(args) WPRINT_MACRO(args);
+#else
+#define WPRINT_WHD_ERROR_RETURN(args)
 #endif
 
 #ifdef WPRINT_ENABLE_WHD_DATA_LOG

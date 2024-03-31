@@ -1,10 +1,25 @@
 # NetXDuo network interface integration library
 
-## What's iIncluded?
+## What's Included?
 
 See the [README.md](./README.md) for a complete description of the [NetXDuo network interface integration](https://github.com/Infineon/netxduo-network-interface-integration) library.
 
+## Known Issues
+| Problem | Workaround |
+| ------- | ---------- |
+| DHCP negotiation fails for the wifi interface type CY_NETWORK_WIFI_AP_INTERFACE when used with GCC 11.3.1, which inturn causes wifi-connection-manager SoftAP failure | Add '-fno-strict-aliasing' to CFLAGS in application Makefile |
+
 ## Changelog
+
+### v1.1.1
+
+- Moved netxduo and netxsecure configuration files to wifi-core-threadx-netxduo-netxsecure repo.
+
+### v1.1.0
+
+- Upgraded to netxduo v6.2.0_rel
+- Added true random number generation function
+- Updated DNS address retrieval from DHCP configuration
 
 ### v1.0.0
 
@@ -18,11 +33,9 @@ This version of the library was validated for compatibility with the following s
 
 | Software and tools  | Version |
 | :---                | :----:  |
-| ModusToolbox&trade; software environment  | 3.0     |
-| ModusToolbox&trade; Device Configurator | 3.20    |
-| ModusToolbox&trade; CAPSENSE&trade; Configurator/Tuner tools | 4.1     |
-| PSoC&trade; 6 Peripheral Driver Library (PDL) | 2.2.1   |
-| GCC compiler           | 10.3.1  |
+| ModusToolbox&trade; software environment  | 3.1     |
+| ModusToolbox&trade; Device Configurator | 4.10    |
+| GCC compiler           | 11.3.1  |
 | IAR compiler      | 9.30    |
 | Arm&reg; compiler 6         | 6.16    |
 

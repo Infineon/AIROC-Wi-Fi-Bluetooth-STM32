@@ -6,7 +6,7 @@
  *
  ***************************************************************************************************
  * \copyright
- * Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2018-2022 Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation
  *
  * SPDX-License-Identifier: Apache-2.0
@@ -33,13 +33,14 @@
 #include "cyabs_rtos_internal.h"
 
 static const uint32_t  TASK_IDENT = 0xABCDEF01U;
-static cy_rtos_error_t last_error;
+
 
 typedef struct
 {
     cy_timer_callback_t     cb;
     cy_timer_callback_arg_t arg;
 } callback_data_t;
+
 
 // Wrapper function to convert FreeRTOS callback signature to match expectation
 // for our cyabs_rtos abstraction API.
@@ -62,7 +63,7 @@ static void timer_callback(TimerHandle_t arg)
 //--------------------------------------------------------------------------------------------------
 cy_rtos_error_t cy_rtos_last_error(void)
 {
-    return last_error;
+    return pdFALSE;
 }
 
 
@@ -80,9 +81,9 @@ typedef struct
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_create_thread
+// cy_rtos_thread_create
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_create_thread(cy_thread_t* thread, cy_thread_entry_fn_t entry_function,
+cy_rslt_t cy_rtos_thread_create(cy_thread_t* thread, cy_thread_entry_fn_t entry_function,
                                 const char* name, void* stack, uint32_t stack_size,
                                 cy_thread_priority_t priority, cy_thread_arg_t arg)
 {
@@ -132,7 +133,7 @@ cy_rslt_t cy_rtos_create_thread(cy_thread_t* thread, cy_thread_entry_fn_t entry_
             wrapper->memptr = ident;
             CY_ASSERT(((uint32_t)wrapper & CY_RTOS_ALIGNMENT_MASK) == 0UL);
             *thread = xTaskCreateStatic((TaskFunction_t)entry_function, name, stack_size_rtos, arg,
-                                        priority, stack_rtos, &(wrapper->task));
+                                        (UBaseType_t)priority, stack_rtos, &(wrapper->task));
             CY_ASSERT(((void*)*thread == (void*)&(wrapper->task)) || (*thread == NULL));
             status = CY_RSLT_SUCCESS;
         }
@@ -142,9 +143,9 @@ cy_rslt_t cy_rtos_create_thread(cy_thread_t* thread, cy_thread_entry_fn_t entry_
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_exit_thread
+// cy_rtos_thread_exit
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_exit_thread(void)
+cy_rslt_t cy_rtos_thread_exit(void)
 {
     TaskHandle_t handle = xTaskGetCurrentTaskHandle();
     // Ideally this would just call vTaskDelete(NULL); however FreeRTOS
@@ -188,9 +189,9 @@ cy_rslt_t cy_rtos_exit_thread(void)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_terminate_thread
+// cy_rtos_thread_terminate
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_terminate_thread(cy_thread_t* thread)
+cy_rslt_t cy_rtos_thread_terminate(cy_thread_t* thread)
 {
     cy_rslt_t status;
     if (thread == NULL)
@@ -217,9 +218,9 @@ cy_rslt_t cy_rtos_terminate_thread(cy_thread_t* thread)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_is_thread_running
+// cy_rtos_thread_is_running
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_is_thread_running(cy_thread_t* thread, bool* running)
+cy_rslt_t cy_rtos_thread_is_running(cy_thread_t* thread, bool* running)
 {
     cy_rslt_t status;
     if ((thread == NULL) || (running == NULL))
@@ -237,9 +238,9 @@ cy_rslt_t cy_rtos_is_thread_running(cy_thread_t* thread, bool* running)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_get_thread_state
+// cy_rtos_thread_get_state
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_get_thread_state(cy_thread_t* thread, cy_thread_state_t* state)
+cy_rslt_t cy_rtos_thread_get_state(cy_thread_t* thread, cy_thread_state_t* state)
 {
     cy_rslt_t status;
     if ((thread == NULL) || (state == NULL))
@@ -284,9 +285,9 @@ cy_rslt_t cy_rtos_get_thread_state(cy_thread_t* thread, cy_thread_state_t* state
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_join_thread
+// cy_rtos_thread_join
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_join_thread(cy_thread_t* thread)
+cy_rslt_t cy_rtos_thread_join(cy_thread_t* thread)
 {
     cy_rslt_t status = CY_RSLT_SUCCESS;
     if (thread == NULL)
@@ -310,9 +311,9 @@ cy_rslt_t cy_rtos_join_thread(cy_thread_t* thread)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_get_thread_handle
+// cy_rtos_thread_get_handle
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_get_thread_handle(cy_thread_t* thread)
+cy_rslt_t cy_rtos_thread_get_handle(cy_thread_t* thread)
 {
     cy_rslt_t status = CY_RSLT_SUCCESS;
 
@@ -330,14 +331,14 @@ cy_rslt_t cy_rtos_get_thread_handle(cy_thread_t* thread)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_wait_thread_notification
+// cy_rtos_thread_wait_notification
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_wait_thread_notification(cy_time_t num_ms)
+cy_rslt_t cy_rtos_thread_wait_notification(cy_time_t timeout_ms)
 {
     uint32_t ret;
 
-    ret = ulTaskNotifyTake(pdTRUE, (num_ms == CY_RTOS_NEVER_TIMEOUT) ?
-                           portMAX_DELAY : pdMS_TO_TICKS(num_ms));
+    ret = ulTaskNotifyTake(pdTRUE, (timeout_ms == CY_RTOS_NEVER_TIMEOUT) ?
+                           portMAX_DELAY : convert_ms_to_ticks(timeout_ms));
     if (0 != ret)
     {
         /* Received notify from another thread or ISR */
@@ -351,9 +352,9 @@ cy_rslt_t cy_rtos_wait_thread_notification(cy_time_t num_ms)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_set_thread_notification
+// cy_rtos_thread_set_notification
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_set_thread_notification(cy_thread_t* thread, bool in_isr)
+cy_rslt_t cy_rtos_thread_set_notification(cy_thread_t* thread)
 {
     cy_rslt_t status;
     if (thread == NULL)
@@ -362,7 +363,7 @@ cy_rslt_t cy_rtos_set_thread_notification(cy_thread_t* thread, bool in_isr)
     }
     else
     {
-        if (in_isr)
+        if (is_in_isr())
         {
             BaseType_t taskWoken = pdFALSE;
             /* No error checking as this function always returns pdPASS. */
@@ -380,14 +381,99 @@ cy_rslt_t cy_rtos_set_thread_notification(cy_thread_t* thread, bool in_isr)
 }
 
 
+//--------------------------------------------------------------------------------------------------
+// cy_rtos_thread_get_name
+//--------------------------------------------------------------------------------------------------
+cy_rslt_t cy_rtos_thread_get_name(cy_thread_t* thread, const char** thread_name)
+{
+    *thread_name = pcTaskGetName(*thread);
+    return CY_RSLT_SUCCESS;
+}
+
+
+//==================================================================================================
+// Scheduler
+//==================================================================================================
+static uint16_t _cy_rtos_suspend_count = 0;
+static uint16_t _cy_rtos_suspend_count_from_ISR = 0;
+UBaseType_t uxSavedInterruptStatus[CY_RTOS_MAX_SUSPEND_NESTING];
+//--------------------------------------------------------------------------------------------------
+// cy_rtos_scheduler_suspend
+//--------------------------------------------------------------------------------------------------
+cy_rslt_t cy_rtos_scheduler_suspend(void)
+{
+    cy_rslt_t status = CY_RSLT_SUCCESS;
+    if (is_in_isr())
+    {
+        if (_cy_rtos_suspend_count_from_ISR < (CY_RTOS_MAX_SUSPEND_NESTING -1))
+        {
+            uxSavedInterruptStatus[_cy_rtos_suspend_count_from_ISR] = taskENTER_CRITICAL_FROM_ISR();
+            ++_cy_rtos_suspend_count_from_ISR;
+        }
+        else
+        {
+            status = CY_RTOS_BAD_PARAM;
+        }
+    }
+    else
+    {
+        taskENTER_CRITICAL();
+    }
+
+    if (status == CY_RSLT_SUCCESS)
+    {
+        ++_cy_rtos_suspend_count;
+    }
+
+    return status;
+}
+
+
+//--------------------------------------------------------------------------------------------------
+// cy_rtos_scheduler_resume
+//--------------------------------------------------------------------------------------------------
+cy_rslt_t cy_rtos_scheduler_resume(void)
+{
+    cy_rslt_t status;
+    if (_cy_rtos_suspend_count > 0)
+    {
+        if (is_in_isr())
+        {
+            if (_cy_rtos_suspend_count_from_ISR > 0) //We have at least one suspend from ISR call
+            {
+                taskEXIT_CRITICAL_FROM_ISR(uxSavedInterruptStatus[_cy_rtos_suspend_count_from_ISR -
+                                                                  1]);
+                --_cy_rtos_suspend_count_from_ISR;
+                status = CY_RSLT_SUCCESS;
+            }
+            else
+            {
+                status = CY_RTOS_BAD_PARAM;
+            }
+        }
+        else
+        {
+            taskEXIT_CRITICAL();
+            status = CY_RSLT_SUCCESS;
+        }
+        --_cy_rtos_suspend_count;
+    }
+    else
+    {
+        status = CY_RTOS_BAD_PARAM;
+    }
+    return status;
+}
+
+
 //==================================================================================================
 // Mutexes
 //==================================================================================================
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_init_mutex2
+// cy_rtos_mutex_init
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_init_mutex2(cy_mutex_t* mutex, bool recursive)
+cy_rslt_t cy_rtos_mutex_init(cy_mutex_t* mutex, bool recursive)
 {
     cy_rslt_t status;
     if (mutex == NULL)
@@ -414,9 +500,9 @@ cy_rslt_t cy_rtos_init_mutex2(cy_mutex_t* mutex, bool recursive)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_get_mutex
+// cy_rtos_mutex_get
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_get_mutex(cy_mutex_t* mutex, cy_time_t timeout_ms)
+cy_rslt_t cy_rtos_mutex_get(cy_mutex_t* mutex, cy_time_t timeout_ms)
 {
     cy_rslt_t status;
     if (mutex == NULL)
@@ -425,7 +511,7 @@ cy_rslt_t cy_rtos_get_mutex(cy_mutex_t* mutex, cy_time_t timeout_ms)
     }
     else
     {
-        TickType_t ticks  = pdMS_TO_TICKS(timeout_ms);
+        TickType_t ticks  = convert_ms_to_ticks(timeout_ms);
         BaseType_t result = (mutex->is_recursive)
                     ? xSemaphoreTakeRecursive(mutex->mutex_handle, ticks)
                     : xSemaphoreTake(mutex->mutex_handle, ticks);
@@ -439,9 +525,9 @@ cy_rslt_t cy_rtos_get_mutex(cy_mutex_t* mutex, cy_time_t timeout_ms)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_set_mutex
+// cy_rtos_mutex_set
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_set_mutex(cy_mutex_t* mutex)
+cy_rslt_t cy_rtos_mutex_set(cy_mutex_t* mutex)
 {
     cy_rslt_t status;
     if (mutex == NULL)
@@ -463,9 +549,9 @@ cy_rslt_t cy_rtos_set_mutex(cy_mutex_t* mutex)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_deinit_mutex
+// cy_rtos_mutex_deinit
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_deinit_mutex(cy_mutex_t* mutex)
+cy_rslt_t cy_rtos_mutex_deinit(cy_mutex_t* mutex)
 {
     cy_rslt_t status;
     if (mutex == NULL)
@@ -486,9 +572,9 @@ cy_rslt_t cy_rtos_deinit_mutex(cy_mutex_t* mutex)
 //==================================================================================================
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_init_semaphore
+// cy_rtos_semaphore_init
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_init_semaphore(cy_semaphore_t* semaphore, uint32_t maxcount, uint32_t initcount)
+cy_rslt_t cy_rtos_semaphore_init(cy_semaphore_t* semaphore, uint32_t maxcount, uint32_t initcount)
 {
     cy_rslt_t status;
     if (semaphore == NULL)
@@ -512,25 +598,25 @@ cy_rslt_t cy_rtos_init_semaphore(cy_semaphore_t* semaphore, uint32_t maxcount, u
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_get_semaphore
+// cy_rtos_semaphore_get
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_get_semaphore(cy_semaphore_t* semaphore, uint32_t timeout_ms, bool in_isr)
+cy_rslt_t cy_rtos_semaphore_get(cy_semaphore_t* semaphore, cy_time_t timeout_ms)
 {
     cy_rslt_t status;
     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
     // xSemaphoreTakeFromISR does not take timeout as a parameter
     // since it cannot block. Hence we return an error if the user
     // tries to set a timeout.
-    if ((semaphore == NULL) || (in_isr && (timeout_ms != 0)))
+    if ((semaphore == NULL) || (is_in_isr() && (timeout_ms != 0)))
     {
         status = CY_RTOS_BAD_PARAM;
     }
     else
     {
-        TickType_t ticks = pdMS_TO_TICKS(timeout_ms);
+        TickType_t ticks = convert_ms_to_ticks(timeout_ms);
         status = CY_RSLT_SUCCESS;
 
-        if (in_isr)
+        if (is_in_isr())
         {
             if (pdFALSE == xSemaphoreTakeFromISR(*semaphore, &xHigherPriorityTaskWoken))
             {
@@ -551,9 +637,9 @@ cy_rslt_t cy_rtos_get_semaphore(cy_semaphore_t* semaphore, uint32_t timeout_ms, 
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_set_semaphore
+// cy_rtos_semaphore_set
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_set_semaphore(cy_semaphore_t* semaphore, bool in_isr)
+cy_rslt_t cy_rtos_semaphore_set(cy_semaphore_t* semaphore)
 {
     cy_rslt_t status;
     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
@@ -565,7 +651,7 @@ cy_rslt_t cy_rtos_set_semaphore(cy_semaphore_t* semaphore, bool in_isr)
     {
         BaseType_t ret;
 
-        if (in_isr)
+        if (is_in_isr())
         {
             ret = xSemaphoreGiveFromISR(*semaphore, &xHigherPriorityTaskWoken);
             #if configUSE_PREEMPTION == 1
@@ -592,9 +678,9 @@ cy_rslt_t cy_rtos_set_semaphore(cy_semaphore_t* semaphore, bool in_isr)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_get_count_semaphore
+// cy_rtos_semaphore_get_count
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_get_count_semaphore(cy_semaphore_t* semaphore, size_t* count)
+cy_rslt_t cy_rtos_semaphore_get_count(cy_semaphore_t* semaphore, size_t* count)
 {
     cy_rslt_t status;
     if (semaphore == NULL)
@@ -611,9 +697,9 @@ cy_rslt_t cy_rtos_get_count_semaphore(cy_semaphore_t* semaphore, size_t* count)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_deinit_semaphore
+// cy_rtos_semaphore_deinit
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_deinit_semaphore(cy_semaphore_t* semaphore)
+cy_rslt_t cy_rtos_semaphore_deinit(cy_semaphore_t* semaphore)
 {
     cy_rslt_t status;
     if (semaphore == NULL)
@@ -636,7 +722,7 @@ cy_rslt_t cy_rtos_deinit_semaphore(cy_semaphore_t* semaphore)
 //--------------------------------------------------------------------------------------------------
 // cy_rtos_init_event
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_init_event(cy_event_t* event)
+cy_rslt_t cy_rtos_event_init(cy_event_t* event)
 {
     cy_rslt_t status;
     if (event == NULL)
@@ -660,9 +746,9 @@ cy_rslt_t cy_rtos_init_event(cy_event_t* event)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_setbits_event
+// cy_rtos_event_setbits
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_setbits_event(cy_event_t* event, uint32_t bits, bool in_isr)
+cy_rslt_t cy_rtos_event_setbits(cy_event_t* event, uint32_t bits)
 {
     cy_rslt_t status;
     if (event == NULL)
@@ -672,14 +758,19 @@ cy_rslt_t cy_rtos_setbits_event(cy_event_t* event, uint32_t bits, bool in_isr)
     else
     {
         BaseType_t ret;
-        if (in_isr)
+        if (is_in_isr())
         {
             BaseType_t bt = pdFALSE;
-            ret = xEventGroupSetBitsFromISR(*event, bits, &bt);
+            ret = xEventGroupSetBitsFromISR(*event, (EventBits_t)bits, &bt);
         }
         else
         {
-            ret = xEventGroupSetBits(*event, bits);
+            // xEventGroupSetBits does not return pass/fail, but instead returns the value of the
+            // event bits at the time the function returns. There is potential to
+            // return 0 (value equal to pdFALSE), so instead treat it as successful after the call
+            // to xEventGroupSetBits to avoid false error.
+            xEventGroupSetBits(*event, (EventBits_t)bits);
+            ret = pdTRUE;
         }
 
         if (ret == pdFALSE)
@@ -696,9 +787,9 @@ cy_rslt_t cy_rtos_setbits_event(cy_event_t* event, uint32_t bits, bool in_isr)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_clearbits_event
+// cy_rtos_event_clearbits
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_clearbits_event(cy_event_t* event, uint32_t bits, bool in_isr)
+cy_rslt_t cy_rtos_event_clearbits(cy_event_t* event, uint32_t bits)
 {
     cy_rslt_t status;
     if (event == NULL)
@@ -708,13 +799,18 @@ cy_rslt_t cy_rtos_clearbits_event(cy_event_t* event, uint32_t bits, bool in_isr)
     else
     {
         BaseType_t ret;
-        if (in_isr)
+        if (is_in_isr())
         {
-            ret = xEventGroupClearBitsFromISR(*event, bits);
+            ret = xEventGroupClearBitsFromISR(*event, (EventBits_t)bits);
         }
         else
         {
-            ret = xEventGroupClearBits(*event, bits);
+            // xEventGroupClearBits does not return pass/fail, but instead returns the value of the
+            // event bits before the requested bits were cleared. There is potential to
+            // return 0 (value equal to pdFALSE), so instead treat it as successful after the call
+            // to xEventGroupClearBits to avoid false error.
+            xEventGroupClearBits(*event, (EventBits_t)bits);
+            ret = pdTRUE;
         }
 
         if (ret == pdFALSE)
@@ -731,9 +827,9 @@ cy_rslt_t cy_rtos_clearbits_event(cy_event_t* event, uint32_t bits, bool in_isr)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_getbits_event
+// cy_rtos_event_getbits
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_getbits_event(cy_event_t* event, uint32_t* bits)
+cy_rslt_t cy_rtos_event_getbits(cy_event_t* event, uint32_t* bits)
 {
     cy_rslt_t status;
     if ((event == NULL) || (bits == NULL))
@@ -750,23 +846,24 @@ cy_rslt_t cy_rtos_getbits_event(cy_event_t* event, uint32_t* bits)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_waitbits_event
+// cy_rtos_event_waitbits
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_waitbits_event(cy_event_t* event, uint32_t* waitfor, bool clear, bool allset,
-                                 cy_time_t timeout)
+cy_rslt_t cy_rtos_event_waitbits(cy_event_t* event, uint32_t* bits, bool clear, bool all,
+                                 cy_time_t timeout_ms)
 {
     cy_rslt_t status;
-    if ((event == NULL) || (waitfor == NULL))
+    if ((event == NULL) || (bits == NULL))
     {
         status = CY_RTOS_BAD_PARAM;
     }
     else
     {
-        TickType_t ticks = pdMS_TO_TICKS(timeout);
-        uint32_t   bits  = *waitfor;
+        TickType_t ticks = convert_ms_to_ticks(timeout_ms);
+        uint32_t   bitsVal  = *bits;
 
-        *waitfor = xEventGroupWaitBits(*event, bits, clear, allset, ticks);
-        status   = (((bits & *waitfor) == bits) || (((bits & *waitfor) > 0) & !allset))
+        *bits = xEventGroupWaitBits(*event, (EventBits_t)bitsVal, (BaseType_t)clear,
+                                    (BaseType_t)all, ticks);
+        status   = (((bitsVal & *bits) == bitsVal) || (((bitsVal & *bits) > 0) & !all))
             ? CY_RSLT_SUCCESS
             : CY_RTOS_TIMEOUT;
     }
@@ -775,9 +872,9 @@ cy_rslt_t cy_rtos_waitbits_event(cy_event_t* event, uint32_t* waitfor, bool clea
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_deinit_event
+// cy_rtos_event_deinit
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_deinit_event(cy_event_t* event)
+cy_rslt_t cy_rtos_event_deinit(cy_event_t* event)
 {
     cy_rslt_t status;
     if (event == NULL)
@@ -798,9 +895,9 @@ cy_rslt_t cy_rtos_deinit_event(cy_event_t* event)
 //==================================================================================================
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_init_queue
+// cy_rtos_queue_init
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_init_queue(cy_queue_t* queue, size_t length, size_t itemsize)
+cy_rslt_t cy_rtos_queue_init(cy_queue_t* queue, size_t length, size_t itemsize)
 {
     cy_rslt_t status;
     if (queue == NULL)
@@ -824,10 +921,9 @@ cy_rslt_t cy_rtos_init_queue(cy_queue_t* queue, size_t length, size_t itemsize)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_put_queue
+// cy_rtos_queue_put
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_put_queue(cy_queue_t* queue, const void* item_ptr, cy_time_t timeoutms,
-                            bool in_isr)
+cy_rslt_t cy_rtos_queue_put(cy_queue_t* queue, const void* item_ptr, cy_time_t timeout_ms)
 {
     cy_rslt_t status;
     if ((queue == NULL) || (item_ptr == NULL))
@@ -837,13 +933,13 @@ cy_rslt_t cy_rtos_put_queue(cy_queue_t* queue, const void* item_ptr, cy_time_t t
     else
     {
         BaseType_t ret;
-        if (in_isr)
+        if (is_in_isr())
         {
             ret = xQueueSendToBackFromISR(*queue, item_ptr, NULL);
         }
         else
         {
-            TickType_t ticks = pdMS_TO_TICKS(timeoutms);
+            TickType_t ticks = convert_ms_to_ticks(timeout_ms);
             ret = xQueueSendToBack(*queue, item_ptr, ticks);
         }
 
@@ -861,9 +957,9 @@ cy_rslt_t cy_rtos_put_queue(cy_queue_t* queue, const void* item_ptr, cy_time_t t
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_get_queue
+// cy_rtos_queue_get
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_get_queue(cy_queue_t* queue, void* item_ptr, cy_time_t timeoutms, bool in_isr)
+cy_rslt_t cy_rtos_queue_get(cy_queue_t* queue, void* item_ptr, cy_time_t timeout_ms)
 {
     cy_rslt_t status;
     if ((queue == NULL) || (item_ptr == NULL))
@@ -873,13 +969,13 @@ cy_rslt_t cy_rtos_get_queue(cy_queue_t* queue, void* item_ptr, cy_time_t timeout
     else
     {
         BaseType_t ret;
-        if (in_isr)
+        if (is_in_isr())
         {
             ret = xQueueReceiveFromISR(*queue, item_ptr, NULL);
         }
         else
         {
-            TickType_t ticks = pdMS_TO_TICKS(timeoutms);
+            TickType_t ticks = convert_ms_to_ticks(timeout_ms);
             ret = xQueueReceive(*queue, item_ptr, ticks);
         }
 
@@ -897,9 +993,9 @@ cy_rslt_t cy_rtos_get_queue(cy_queue_t* queue, void* item_ptr, cy_time_t timeout
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_count_queue
+// cy_rtos_queue_count
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_count_queue(cy_queue_t* queue, size_t* num_waiting)
+cy_rslt_t cy_rtos_queue_count(cy_queue_t* queue, size_t* num_waiting)
 {
     cy_rslt_t status;
     if ((queue == NULL) || (num_waiting == NULL))
@@ -918,9 +1014,9 @@ cy_rslt_t cy_rtos_count_queue(cy_queue_t* queue, size_t* num_waiting)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_space_queue
+// cy_rtos_queue_space
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_space_queue(cy_queue_t* queue, size_t* num_spaces)
+cy_rslt_t cy_rtos_queue_space(cy_queue_t* queue, size_t* num_spaces)
 {
     cy_rslt_t status;
     if ((queue == NULL) || (num_spaces == NULL))
@@ -937,9 +1033,9 @@ cy_rslt_t cy_rtos_space_queue(cy_queue_t* queue, size_t* num_spaces)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_reset_queue
+// cy_rtos_queue_reset
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_reset_queue(cy_queue_t* queue)
+cy_rslt_t cy_rtos_queue_reset(cy_queue_t* queue)
 {
     cy_rslt_t status;
     if (queue == NULL)
@@ -964,9 +1060,9 @@ cy_rslt_t cy_rtos_reset_queue(cy_queue_t* queue)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_deinit_queue
+// cy_rtos_queue_deinit
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_deinit_queue(cy_queue_t* queue)
+cy_rslt_t cy_rtos_queue_deinit(cy_queue_t* queue)
 {
     cy_rslt_t status;
     if (queue == NULL)
@@ -987,9 +1083,9 @@ cy_rslt_t cy_rtos_deinit_queue(cy_queue_t* queue)
 //==================================================================================================
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_init_timer
+// cy_rtos_timer_init
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_init_timer(cy_timer_t* timer, cy_timer_trigger_type_t type,
+cy_rslt_t cy_rtos_timer_init(cy_timer_t* timer, cy_timer_trigger_type_t type,
                              cy_timer_callback_t fun, cy_timer_callback_arg_t arg)
 {
     cy_rslt_t status;
@@ -999,8 +1095,6 @@ cy_rslt_t cy_rtos_init_timer(cy_timer_t* timer, cy_timer_trigger_type_t type,
     }
     else
     {
-        BaseType_t reload = (type == CY_TIMER_TYPE_PERIODIC) ? pdTRUE : pdFALSE;
-
         // Create a wrapper callback to make sure to call fun() with arg as opposed
         // to providing the timer reference as FreeRTOS does by default.
         callback_data_t* cb_arg = (callback_data_t*)malloc(sizeof(callback_data_t));
@@ -1013,7 +1107,8 @@ cy_rslt_t cy_rtos_init_timer(cy_timer_t* timer, cy_timer_trigger_type_t type,
             cb_arg->cb  = fun;
             cb_arg->arg = arg;
 
-            *timer = xTimerCreate("", 1, reload, cb_arg, &timer_callback);
+            BaseType_t reload = (type == CY_TIMER_TYPE_PERIODIC) ? pdTRUE : pdFALSE;
+            *timer = xTimerCreate("", 1, (UBaseType_t)reload, cb_arg, &timer_callback);
 
             if (*timer == NULL)
             {
@@ -1031,9 +1126,9 @@ cy_rslt_t cy_rtos_init_timer(cy_timer_t* timer, cy_timer_trigger_type_t type,
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_start_timer
+// cy_rtos_timer_start
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_start_timer(cy_timer_t* timer, cy_time_t num_ms)
+cy_rslt_t cy_rtos_timer_start(cy_timer_t* timer, cy_time_t num_ms)
 {
     cy_rslt_t status;
     if (timer == NULL)
@@ -1042,7 +1137,7 @@ cy_rslt_t cy_rtos_start_timer(cy_timer_t* timer, cy_time_t num_ms)
     }
     else
     {
-        TickType_t ticks = pdMS_TO_TICKS(num_ms);
+        TickType_t ticks = convert_ms_to_ticks(num_ms);
         BaseType_t ret   = xTimerChangePeriod(*timer, ticks, 0);
 
         if (ret == pdPASS)
@@ -1064,9 +1159,9 @@ cy_rslt_t cy_rtos_start_timer(cy_timer_t* timer, cy_time_t num_ms)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_stop_timer
+// cy_rtos_timer_stop
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_stop_timer(cy_timer_t* timer)
+cy_rslt_t cy_rtos_timer_stop(cy_timer_t* timer)
 {
     cy_rslt_t status;
     if (timer == NULL)
@@ -1091,9 +1186,9 @@ cy_rslt_t cy_rtos_stop_timer(cy_timer_t* timer)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_is_running_timer
+// cy_rtos_timer_is_running
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_is_running_timer(cy_timer_t* timer, bool* state)
+cy_rslt_t cy_rtos_timer_is_running(cy_timer_t* timer, bool* state)
 {
     cy_rslt_t status;
     if ((timer == NULL) || (state == NULL))
@@ -1112,9 +1207,9 @@ cy_rslt_t cy_rtos_is_running_timer(cy_timer_t* timer, bool* state)
 
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_deinit_timer
+// cy_rtos_timer_deinit
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_deinit_timer(cy_timer_t* timer)
+cy_rslt_t cy_rtos_timer_deinit(cy_timer_t* timer)
 {
     cy_rslt_t status;
     if (timer == NULL)
@@ -1145,9 +1240,9 @@ cy_rslt_t cy_rtos_deinit_timer(cy_timer_t* timer)
 //==================================================================================================
 
 //--------------------------------------------------------------------------------------------------
-// cy_rtos_get_time
+// cy_rtos_time_get
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_get_time(cy_time_t* tval)
+cy_rslt_t cy_rtos_time_get(cy_time_t* tval)
 {
     cy_rslt_t status;
     if (tval == NULL)
@@ -1166,8 +1261,8 @@ cy_rslt_t cy_rtos_get_time(cy_time_t* tval)
 //--------------------------------------------------------------------------------------------------
 // cy_rtos_delay_milliseconds
 //--------------------------------------------------------------------------------------------------
-cy_rslt_t cy_rtos_delay_milliseconds(uint32_t num_ms)
+cy_rslt_t cy_rtos_delay_milliseconds(cy_time_t num_ms)
 {
-    vTaskDelay(pdMS_TO_TICKS(num_ms));
+    vTaskDelay(convert_ms_to_ticks(num_ms));
     return CY_RSLT_SUCCESS;
 }

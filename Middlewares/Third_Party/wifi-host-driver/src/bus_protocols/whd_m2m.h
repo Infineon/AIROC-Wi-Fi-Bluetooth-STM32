@@ -31,8 +31,6 @@ extern "C" {
 #define GCI_DB_INT_STATUS_REG       0x4fe4063c   /* To check which DB interrupt is triggerd by WLAN */
 #define GCI_DB_INT_MASK_REG         0x4fe40640   /*  This register is writable by BT only and readable by both WLAN and BT. This register resets with BT reset */
 
-#define GCI_DB_INT_STS_BIT          (1 << 31)      /* 31st bit of  GCI_INT_MASK_REG */
-
 /* DB Bits for Doorbell Interrupt Mask Register(GCI_DB_INT_MASK_REG) */
 #define GCI_H2D_SET_BIT_DB0         0x0001
 #define GCI_H2D_SET_BIT_DB1         0x0002

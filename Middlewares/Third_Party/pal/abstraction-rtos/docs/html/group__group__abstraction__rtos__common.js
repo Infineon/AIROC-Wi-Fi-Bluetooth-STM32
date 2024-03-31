@@ -8,5 +8,6 @@ var group__group__abstraction__rtos__common =
     [ "CY_RTOS_GENERAL_ERROR", "group__group__abstraction__rtos__common.html#ga89a0a071bd7a41b5d1f3edb969ee1647", null ],
     [ "CY_RTOS_BAD_PARAM", "group__group__abstraction__rtos__common.html#ga3b106a6fcedd377b05769dbf2b6f97a9", null ],
     [ "CY_RTOS_ALIGNMENT_ERROR", "group__group__abstraction__rtos__common.html#ga7eac5e076f6f4b70e3478b507a9d90f2", null ],
+    [ "CY_RTOS_UNSUPPORTED", "group__group__abstraction__rtos__common.html#ga02c5dfbf101b3f6dcbe1879466c74a1f", null ],
     [ "cy_rtos_last_error", "group__group__abstraction__rtos__common.html#ga3139176b7294e8b283d4f8b56dea3e54", null ]
 ];

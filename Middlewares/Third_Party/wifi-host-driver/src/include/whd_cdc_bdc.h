@@ -104,6 +104,8 @@ typedef struct whd_cdc_info
     cy_semaphore_t ioctl_sleep;
 
 } whd_cdc_bdc_info_t;
+
+#ifndef PROTO_MSGBUF
 /** Error list element structure
  *
  * events : set event of error type
@@ -126,6 +128,7 @@ typedef struct whd_error_info
     error_list_elem_t whd_event_list[WHD_EVENT_HANDLER_LIST_SIZE];
     cy_semaphore_t event_list_mutex;
 } whd_error_info_t;
+#endif
 
 /******************************************************
 *               Function Declarations

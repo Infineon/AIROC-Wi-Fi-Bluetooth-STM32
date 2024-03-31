@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -52,7 +52,6 @@
 #include "lwip/inet.h"
 #include "lwip/netdb.h"
 
-#include "cy_lwip_error.h"
 #include "cy_lwip_dhcp_server.h"
 #include "cy_network_mw_core.h"
 #include "cy_result.h"
@@ -66,7 +65,7 @@
 #include "whd_network_types.h"
 #include "whd_buffer_api.h"
 #include "cy_wifimwcore_eapol.h"
-#ifdef COMPONENT_43907
+#ifdef COMPONENT_4390X
 #include "whd_wlioctl.h"
 #endif
 #endif
@@ -128,7 +127,7 @@ int errno;
 
 #define MAX_AUTO_IP_RETRIES                      (5)
 
-#ifdef COMPONENT_43907
+#ifdef COMPONENT_4390X
 #define CY_PRNG_SEED_FEEDBACK_MAX_LOOPS          (1000)
 #define CY_PRNG_CRC32_POLYNOMIAL                 (0xEDB88320)
 #define CY_PRNG_ADD_CYCLECNT_ENTROPY_EACH_N_BYTE (1024)
@@ -204,7 +203,7 @@ static uint8_t iface_count = 0;
 static uint8_t connectivity_lib_init = 0;
 static bool is_tcp_initialized       = false;
 
-#ifdef COMPONENT_43907
+#ifdef COMPONENT_4390X
 static uint32_t prng_well512_state[CY_PRNG_WELL512_STATE_SIZE];
 static uint32_t prng_well512_index = 0;
 
@@ -249,7 +248,7 @@ static err_t ping_send(int socket_hnd, const cy_nw_ip_address_t* address, struct
 static err_t ping_recv(int socket_hnd, cy_nw_ip_address_t* address, uint16_t *ping_seq_num);
 #endif
 
-#ifdef COMPONENT_43907
+#ifdef COMPONENT_4390X
 static uint32_t prng_well512_get_random ( void );
 static void     prng_well512_add_entropy( const void* buffer, uint16_t buffer_length );
 cy_rslt_t cy_prng_get_random( void* buffer, uint32_t buffer_length );
@@ -477,9 +476,8 @@ static err_t wifiinit(struct netif *iface)
 
     whd_mac_t macaddr;
     whd_interface_t whd_iface = (whd_interface_t)if_ctx->hw_interface;
-#ifdef COMPONENT_43907
-    whd_buffer_t buffer;
-    whd_buffer_t response;
+#ifdef COMPONENT_4390X
+    uint8_t buffer[WLC_GET_RANDOM_BYTES];
     uint32_t *wlan_rand = NULL;
 #endif
 
@@ -497,35 +495,20 @@ static err_t wifiinit(struct netif *iface)
     memcpy(&iface->hwaddr, &macaddr, sizeof(macaddr));
     iface->hwaddr_len = sizeof(macaddr);
 
-#ifdef COMPONENT_43907
+#ifdef COMPONENT_4390X
     /*
      * CYW43907 kits do not have the TRNG module. Get a random number from the WLAN and feed
      * it as a seed to the PRNG function.
-     * Before invoking whd_cdc_get_iovar_buffer, WHD interface should be initialized.
+     * Before invoking whd_wifi_get_iovar_buffer, WHD interface should be initialized.
      * However, wcminit is called from cy_lwip_add_interface; the WHD interface is an
      * input to the cy_lwip_add_interface API. So it is safe to invoke
-     * whd_cdc_get_iovar_buffer here.
+     * whd_wifi_get_iovar_buffer here.
      */
-    if (NULL != whd_cdc_get_iovar_buffer(whd_iface->whd_driver, &buffer, WLC_GET_RANDOM_BYTES, IOVAR_STR_RAND) )
-    {
-        whd_result_t whd_result;
-        whd_result = whd_cdc_send_iovar(whd_iface, CDC_GET, buffer, &response);
-        if (whd_result != WHD_SUCCESS)
-        {
-            whd_buffer_release(whd_iface->whd_driver, response, WHD_NETWORK_RX);
-            return ERR_IF;
-        }
-        wlan_rand = (uint32_t *)whd_buffer_get_current_piece_data_pointer(whd_iface->whd_driver, response);
-        if ( wlan_rand == NULL )
-        {
-            whd_buffer_release(whd_iface->whd_driver, response, WHD_NETWORK_RX);
-            return ERR_IF;
-        }
-    }
-    else
+    if(WHD_SUCCESS != whd_wifi_get_iovar_buffer(whd_iface, IOVAR_STR_RAND, buffer, WLC_GET_RANDOM_BYTES))
     {
         return ERR_IF;
     }
+    wlan_rand = (uint32_t *)buffer;
 
     /* Initialize the mutex to protect the PRNG WELL512 state */
     if (cy_prng_mutex_ptr == NULL)
@@ -537,11 +520,6 @@ static err_t wifiinit(struct netif *iface)
      * algorithm as the initial seed value.
      */
     cy_prng_add_entropy((const void *)wlan_rand, 4);
-
-    /*
-     * Free the WHD buffer used to get the random number from the WLAN.
-     */
-    whd_buffer_release(whd_iface->whd_driver, response, WHD_NETWORK_RX);
 #endif
     /*
      * Set up the information associated with sending packets
@@ -643,10 +621,10 @@ static cy_rslt_t cy_buffer_pool_create(uint32_t no_of_buffers, uint32_t sizeof_b
 
     /* Allocate memory for the actual buffer. Allocate additional MEM_BYTE_ALIGNMENT bytes to accommodate if the pointer returned is not 32 byte aligned */
     data_buffer = malloc((no_of_buffers * sizeof_buffer) + (header_size * no_of_buffers) + MEM_BYTE_ALIGNMENT);
-
     if (NULL == data_buffer)
     {
         cm_cy_log_msg( CYLF_MIDDLEWARE, CY_LOG_DEBUG, "Failed to allocate memory for actual data\n");
+        free(pool_handle);
         return CY_RSLT_NETWORK_ERROR_NOMEM;
     }
     cm_cy_log_msg( CYLF_MIDDLEWARE, CY_LOG_DEBUG, "Base address of allocated buffer : [%0x] sizeof(list_node_t):[%d]\n", data_buffer, sizeof(list_node_t));
@@ -654,7 +632,8 @@ static cy_rslt_t cy_buffer_pool_create(uint32_t no_of_buffers, uint32_t sizeof_b
     pool_handle->total_num_buf_created = no_of_buffers;
     pool_handle->sizeof_buffer = sizeof_buffer;
     pool_handle->data_buffer = data_buffer;
-
+    pool_handle->head = NULL;
+    
     /* Update the allocated data_buffer pointer to be 32 byte aligned */
     data_buffer_aligned = (uint8_t*)((size_t)data_buffer + ((size_t)MEM_BYTE_ALIGNMENT - ((size_t)data_buffer & 0x1F)));
     /* Iterate over and build up the chain of buffers */
@@ -1011,6 +990,12 @@ cy_rslt_t cy_network_add_nw_interface(cy_network_hw_interface_type_t iface_type,
                 break;
             }
         }
+
+        /* Handling index out of bound exception */
+        if( index == 4 )
+        {
+            return CY_RSLT_NETWORK_BAD_ARG;
+        }
     }
 
 #if LWIP_IPV4
@@ -1222,7 +1207,7 @@ cy_rslt_t cy_network_remove_nw_interface(cy_network_interface_context *iface_con
 
     SET_IP_NETWORK_INITED(interface_index, false);
 
-#ifdef COMPONENT_43907
+#ifdef COMPONENT_4390X
     /* cy_prng_mutex_ptr is initialized when the first network interface is initialized.
      * Deinitialize the mutex only after all the interfaces are deinitialized.
      */
@@ -1275,6 +1260,14 @@ cy_rslt_t cy_network_ip_up(cy_network_interface_context *iface)
 
     interface_index = (uint8_t)((iface->iface_type == CY_NETWORK_ETH_INTERFACE)? (CY_NETWORK_ETH_INTERFACE + iface->iface_idx) : iface->iface_type);
     cm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "interface_index:[%d] \n", interface_index);
+
+#ifdef COMPONENT_CAT3
+    if(!netif_is_up(LWIP_IP_HANDLE(interface_index)))
+    {
+        cm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Link is not up \n");
+        return CY_RSLT_NETWORK_LINK_NOT_UP;
+    }
+#endif
 
     if(is_network_up(interface_index))
     {
@@ -1881,7 +1874,7 @@ cy_rslt_t cy_network_dhcp_renew(cy_network_interface_context *iface)
     }
 
     /* Renew DHCP */
-    netifapi_netif_common(LWIP_IP_HANDLE(interface_index), (netifapi_void_fn)dhcp_renew, NULL);
+    netifapi_netif_common(LWIP_IP_HANDLE(interface_index), NULL, dhcp_renew);
 
     cy_rtos_delay_milliseconds(DCHP_RENEWAL_DELAY_IN_MS);
 
@@ -2109,6 +2102,8 @@ static bool is_network_up(uint8_t interface_index)
 static cy_rslt_t is_interface_valid(cy_network_interface_context *iface)
 {
     if( (iface == NULL) ||
+        (iface->nw_interface == NULL) ||
+        (iface->hw_interface == NULL) ||
         (((iface->iface_type != CY_NETWORK_WIFI_STA_INTERFACE) && (iface->iface_type != CY_NETWORK_WIFI_AP_INTERFACE)) &&
         (iface->iface_type != CY_NETWORK_ETH_INTERFACE) && (iface->iface_idx >= MAX_ETHERNET_PORT))
       )
@@ -2120,7 +2115,7 @@ static cy_rslt_t is_interface_valid(cy_network_interface_context *iface)
     return CY_RSLT_SUCCESS;
 }
 
-#ifdef COMPONENT_43907
+#ifdef COMPONENT_4390X
 /* CYW43907 kits do not have a TRNG module.
  * The following are the functions to generate pseudorandon numbers.
  * These functions are internal to the AnyCloud library; currently used

@@ -7,7 +7,7 @@
  * a worker thread.
  ***************************************************************************************************
  * \copyright
- * Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2018-2022 Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation
  *
  * SPDX-License-Identifier: Apache-2.0
@@ -141,5 +141,3 @@ cy_rslt_t cy_worker_thread_enqueue(cy_worker_thread_info_t* worker_info,
 #ifdef __cplusplus
 }
 #endif
-
-/** \} group_abstraction_resource */

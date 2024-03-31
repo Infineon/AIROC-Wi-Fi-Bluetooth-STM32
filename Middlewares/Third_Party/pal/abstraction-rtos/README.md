@@ -35,6 +35,7 @@ To use the RTOS Abstraction, simply include a reference to `cyabs_rtos.h` and up
     * FreeRTOS
     * RTX (CMSIS RTOS)
     * ThreadX
+    * WICED RTOS
 
 ## RTOS Configuration Requirements
 ### FreeRTOS
@@ -66,6 +67,9 @@ This library provides an API `vApplicationSleep` which can be used to enable tic
 \c \#define `configUSE_TICKLESS_IDLE                       2`
 * Hook `portSUPPRESS_TICKS_AND_SLEEP` macro to `vApplicationSleep` implementation.<br>
 \c \#define `portSUPPRESS_TICKS_AND_SLEEP( xIdleTime )    vApplicationSleep( xIdleTime )`
+
+Functions cy_rtos_scheduler_suspend/cy_rtos_scheduler_resume can be called from ISR but calls need to be paired to restore the saved interrupt status correctly so a structure to save these values has been implemented.
+The size of this structure can be controlled with CY_RTOS_MAX_SUSPEND_NESTING. This macro is overridable and its default value is 3.
 
 For further details on Low power support in FreeRTOS please refer to documentation [here](https://www.freertos.org/low-power-tickless-rtos.html)
 
@@ -108,4 +112,4 @@ Finally, the following macros need to be defined for memory allocations:
 * [ModusToolbox™](https://www.cypress.com/products/modustoolbox-software-environment)
 
 ---
-© Cypress Semiconductor Corporation (an Infineon company) or an affiliate of Cypress Semiconductor Corporation, 2019-2021.
+© Cypress Semiconductor Corporation (an Infineon company) or an affiliate of Cypress Semiconductor Corporation, 2019-2022.

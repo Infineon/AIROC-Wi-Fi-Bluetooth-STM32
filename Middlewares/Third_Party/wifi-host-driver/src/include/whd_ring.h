@@ -31,6 +31,9 @@
 extern "C" {
 #endif
 
+/* Translated Address for CM33 to access CR4 memory */
+#define TRANS_ADDR(addr)                    ( (0x8F620000 - 0x003A0000) + addr )
+
 #define WHD_RING_MEM_BASE_ADDR_OFFSET       8
 #define WHD_RING_MAX_ITEM_OFFSET            4
 #define WHD_RING_LEN_ITEMS_OFFSET           6
@@ -63,9 +66,10 @@ extern "C" {
 
 #define WHD_H2D_ENABLE_HOSTRDY              0x400
 
-#define WHD_DEF_MAX_RXBUFPOST               255
+#define WHD_DEF_MAX_RXBUFPOST               8
 
-#define TRANS_ADDR(addr)                    ( (0x9F620000 - 0x003A0000) + addr )
+#define WLAN_M2M_SHARED_VERSION_MASK    (0x00ff)
+#define WLAN_M2M_SHARED_VERSION         (0x0007)
 
 #define WHD_D2H_DEV_D3_ACK                0x00000001
 #define WHD_D2H_DEV_DS_ENTER_REQ          0x00000002
@@ -79,13 +83,14 @@ extern "C" {
 
 #define WHD_MBDATA_TIMEOUT                (2000)
 
-#define WHD_H2D_MSGRING_CONTROL_SUBMIT_MAX_ITEM     64
-#define WHD_H2D_MSGRING_RXPOST_SUBMIT_MAX_ITEM      512
-#define WHD_D2H_MSGRING_CONTROL_COMPLETE_MAX_ITEM   64
-#define WHD_D2H_MSGRING_TX_COMPLETE_MAX_ITEM        1024
-#define WHD_D2H_MSGRING_RX_COMPLETE_MAX_ITEM        512
-#define WHD_H2D_TXFLOWRING_MAX_ITEM                 512
+#define WHD_H2D_MSGRING_CONTROL_SUBMIT_MAX_ITEM     16
+#define WHD_H2D_MSGRING_RXPOST_SUBMIT_MAX_ITEM      32
+#define WHD_D2H_MSGRING_CONTROL_COMPLETE_MAX_ITEM   16
+#define WHD_D2H_MSGRING_TX_COMPLETE_MAX_ITEM        32
+#define WHD_D2H_MSGRING_RX_COMPLETE_MAX_ITEM        32
+#define WHD_H2D_TXFLOWRING_MAX_ITEM                 32
 
+/* Submit Itemsize for rings should match with FW item sizes */
 #define WHD_H2D_MSGRING_CONTROL_SUBMIT_ITEMSIZE     40
 #define WHD_H2D_MSGRING_RXPOST_SUBMIT_ITEMSIZE      32
 #define WHD_D2H_MSGRING_CONTROL_COMPLETE_ITEMSIZE   24

@@ -39,7 +39,7 @@ void whd_init_stats(whd_driver_t whd_driver)
     memset(&whd_driver->whd_stats, 0, sizeof(whd_driver->whd_stats) );
 }
 
-uint32_t whd_print_stats(whd_driver_t whd_driver, whd_bool_t reset_after_print)
+whd_result_t whd_print_stats(whd_driver_t whd_driver, whd_bool_t reset_after_print)
 {
     CHECK_DRIVER_NULL(whd_driver);
 

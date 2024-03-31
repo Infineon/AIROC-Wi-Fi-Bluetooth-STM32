@@ -349,10 +349,14 @@ whd_result_t get_chip_ram_size(uint16_t wlan_chip_id, uint32_t *size)
     {
         *size = 0x150000 - 0x800 - 0x2b4;
     }
-#ifdef PROTO_MSGBUF
-    else if (wlan_chip_id == 55500)
+#ifdef TRXV5
+    else if ((wlan_chip_id == 55500) || (wlan_chip_id == 55900)) /* Hatchet1-A1 and Hatchet1-CP supports TRXv5 */
     {
-        *size = 0xE0000 - 0x20;
+#ifndef DOWNLOAD_RAM_BOOTLOADER
+        *size = 0xE0000 - 0x20 - 0x1000;
+#else
+        *size = 0xE0000 - 0x20 - 0x800;
+#endif
     }
 #else
     else if (wlan_chip_id == 55500)
@@ -382,10 +386,14 @@ whd_result_t get_atcm_ram_base_address(uint16_t wlan_chip_id, uint32_t *size)
     {
         *size = 0x370000 + 0x2b4 + 0x800;
     }
-#ifdef PROTO_MSGBUF
-    else if (wlan_chip_id == 55500)
+#ifdef TRXV5
+    else if ((wlan_chip_id == 55500) || (wlan_chip_id == 55900)) /* Hatchet1-A1 and Hatchet1-CP supports TRXv5 */
     {
-        *size = 0x3a0000 + 0x20;
+#ifndef DOWNLOAD_RAM_BOOTLOADER
+        *size = 0x3a0000 + 0x20 + 0x1000;
+#else
+        *size = 0x3a0000 + 0x20 + 0x800;
+#endif
     }
 #else
     else if (wlan_chip_id == 55500)

@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#ifdef PROTO_MSGBUF
 
 #include "whd_buffer_api.h"
 #include "whd_msgbuf.h"
@@ -200,17 +201,16 @@ static void *whd_msgbuf_get_iovar_buffer(whd_driver_t whd_driver,
                                          const char *name)
 {
     uint32_t name_length = (uint32_t)strlen(name) + 1;    /* + 1 for terminating null */
-    uint32_t name_length_alignment_offset = (64 - name_length) % sizeof(uint32_t);
 
     if (whd_host_buffer_get(whd_driver, buffer, WHD_NETWORK_TX,
-                            (uint16_t)(data_length + name_length + name_length_alignment_offset),
+                            (uint16_t)(data_length + name_length),
                             (uint32_t)WHD_IOCTL_PACKET_TIMEOUT) == WHD_SUCCESS)
     {
         uint8_t *data = whd_buffer_get_current_piece_data_pointer(whd_driver, *buffer);
         CHECK_PACKET_NULL(data, NULL);
-        memset(data, 0, name_length_alignment_offset);
-        memcpy(data + name_length_alignment_offset, name, name_length);
-        return (data + name_length + name_length_alignment_offset);
+        memset(data, 0, (name_length + data_length));
+        memcpy(data, name, name_length);
+        return (data + name_length);
     }
     else
     {
@@ -283,6 +283,7 @@ int whd_msgbuf_ioctl_dequeue(struct whd_driver *whd_driver)
     uint32_t buf_len = 0, data_length = 0;
     void *ret_ptr;
     int retval;
+    uint8_t *ioctl_queue_buf = NULL;
 
     /* Get the data length */
     data_length = (uint32_t)(whd_buffer_get_current_piece_size(whd_driver, msgbuf->ioctl_queue) );
@@ -318,7 +319,8 @@ int whd_msgbuf_ioctl_dequeue(struct whd_driver *whd_driver)
 
     if (msgbuf->ioctl_queue)
     {
-        memcpy(msgbuf->ioctbuf, msgbuf->ioctl_queue, buf_len);
+        ioctl_queue_buf = whd_buffer_get_current_piece_data_pointer(whd_driver, (whd_buffer_t)msgbuf->ioctl_queue);
+        memcpy(msgbuf->ioctbuf, ioctl_queue_buf, buf_len);
         CHECK_RETURN(whd_buffer_release(whd_driver, msgbuf->ioctl_queue, WHD_NETWORK_TX) );
         msgbuf->ioctl_queue = NULL;
     }
@@ -495,15 +497,17 @@ static whd_result_t whd_msgbuf_get_iovar(whd_interface_t ifp,
     return retval;
 }
 
-static void
+static whd_result_t
 whd_msgbuf_remove_flowring(struct whd_msgbuf *msgbuf, uint16_t flowid)
 {
 
     WPRINT_WHD_DEBUG( ("Removing flowring %d\n", flowid) );
 
-    whd_mem_free( (void *)msgbuf->flowring_handle[flowid] );
+    CHECK_RETURN(whd_buffer_release(msgbuf->drvr, (whd_buffer_t)msgbuf->flowring_handle[flowid], WHD_NETWORK_TX));
 
     whd_flowring_delete(msgbuf->flow, flowid);
+
+    return WHD_SUCCESS;
 }
 
 static void whd_msgbuf_process_gen_status(struct whd_msgbuf *msgbuf, void *buf)
@@ -550,6 +554,7 @@ whd_msgbuf_process_flow_ring_create_response(struct whd_msgbuf *msgbuf, void *bu
     WPRINT_WHD_DEBUG( ("Flowring %d Create response status %d\n", flowid, status) );
 
     whd_flowring_open(msgbuf->flow, flowid);
+    msgbuf->current_flowring_count++;
 
     whd_msgbuf_schedule_txdata(msgbuf, flowid, WHD_TRUE);
 }
@@ -576,6 +581,8 @@ whd_msgbuf_process_flow_ring_delete_response(struct whd_msgbuf *msgbuf, void *bu
     WPRINT_WHD_DEBUG( ("Flowring %d Delete response status %d\n", flowid, status) );
 
     whd_msgbuf_remove_flowring(msgbuf, flowid);
+    msgbuf->current_flowring_count--;
+
 }
 
 static void
@@ -584,7 +591,6 @@ whd_msgbuf_process_ioctl_complete(whd_driver_t whd_driver, struct whd_msgbuf *ms
     struct msgbuf_ioctl_resp_hdr *ioctl_resp;
     whd_result_t result;
     whd_result_t ioctl_mutex_res;
-    whd_buffer_t skb = NULL;
 
     ioctl_resp = (struct msgbuf_ioctl_resp_hdr *)buf;
     whd_msgbuf_info_t *msgbuf_info = whd_driver->proto->pd;
@@ -621,9 +627,6 @@ whd_msgbuf_process_ioctl_complete(whd_driver_t whd_driver, struct whd_msgbuf *ms
             WPRINT_WHD_ERROR( ("Received a response for a different IOCTL - retry\n") );
         }
 
-        result = whd_buffer_release(whd_driver, skb, WHD_NETWORK_RX);
-        if (result != WHD_SUCCESS)
-            WPRINT_WHD_ERROR( ("buffer release failed in %s at %d \n", __func__, __LINE__) );
     }
 
     if (msgbuf->cur_ioctlrespbuf)
@@ -779,16 +782,12 @@ whd_msgbuf_process_event(struct whd_msgbuf *msgbuf, void *buf)
     idx = dtoh32(event->msg.request_ptr);
     buflen = dtoh16(event->event_data_len);
 
-    if (msgbuf->cur_eventbuf)
-        msgbuf->cur_eventbuf--;
-    whd_msgbuf_rxbuf_event_post(msgbuf);
-
     skb = whd_msgbuf_get_pktid(drvr, msgbuf->rx_pktids, idx);
     if (!skb)
         return;
 
     if (msgbuf->rx_dataoffset)
-        (void)whd_buffer_add_remove_at_front(drvr, skb, msgbuf->rx_dataoffset);
+        (void)whd_buffer_add_remove_at_front(drvr, &skb, msgbuf->rx_dataoffset);
 
     (void)whd_buffer_set_size(drvr, skb, buflen);
 
@@ -807,6 +806,10 @@ exit:
     result = whd_buffer_release(drvr, skb, WHD_NETWORK_RX);
     if (result != WHD_SUCCESS)
         WPRINT_WHD_ERROR( ("buffer release failed in %s at %d \n", __func__, __LINE__) );
+
+    if (msgbuf->cur_eventbuf)
+        msgbuf->cur_eventbuf--;
+    whd_msgbuf_rxbuf_event_post(msgbuf);
 
 }
 
@@ -850,8 +853,6 @@ whd_msgbuf_process_rx_complete(struct whd_msgbuf *msgbuf, void *buf)
     uint16_t flags;
     uint32_t idx;
 
-    whd_msgbuf_update_rxbufpost_count(msgbuf, 1);
-
     WPRINT_WHD_DEBUG( ("%s : buf is 0x%lx \n", __func__, (uint32_t)buf) );
 
     if (buf != NULL)
@@ -867,9 +868,9 @@ whd_msgbuf_process_rx_complete(struct whd_msgbuf *msgbuf, void *buf)
             return;
 
         if (data_offset)
-            (void)whd_buffer_add_remove_at_front(drvr, skb, data_offset);
+            (void)whd_buffer_add_remove_at_front(drvr, &skb, data_offset);
         else if (msgbuf->rx_dataoffset)
-            (void)whd_buffer_add_remove_at_front(drvr, skb, msgbuf->rx_dataoffset);
+            (void)whd_buffer_add_remove_at_front(drvr, &skb, msgbuf->rx_dataoffset);
 
         (void)whd_buffer_set_size(drvr, skb, buflen);
 
@@ -901,6 +902,8 @@ whd_msgbuf_process_rx_complete(struct whd_msgbuf *msgbuf, void *buf)
     }
     else
         WPRINT_WHD_DEBUG( ("%s : RECEIVED BUFFER IS NULL \n", __func__) );
+
+    whd_msgbuf_update_rxbufpost_count(msgbuf, 1);
 
     return;
 
@@ -957,7 +960,7 @@ static void whd_msgbuf_process_msgtype(struct whd_msgbuf *msgbuf, void *buf)
             whd_msgbuf_process_ioctl_complete(drvr, msgbuf, buf);
             break;
         case MSGBUF_TYPE_WL_EVENT:
-            WPRINT_WHD_DEBUG( ("MSGBUF_TYPE_WL_EVENT - NOT IMPLEMENTED\n") );
+            WPRINT_WHD_DEBUG( ("MSGBUF_TYPE_WL_EVENT\n") );
             whd_msgbuf_process_event(msgbuf, buf);
             break;
         case MSGBUF_TYPE_TX_STATUS:
@@ -979,7 +982,7 @@ static void whd_msgbuf_process_msgtype(struct whd_msgbuf *msgbuf, void *buf)
     }
 }
 
-static void whd_msgbuf_process_rx_buffer(struct whd_msgbuf *msgbuf,
+static uint32_t whd_msgbuf_process_rx_buffer(struct whd_msgbuf *msgbuf,
                                          struct whd_commonring *commonring)
 {
     void *buf;
@@ -990,7 +993,7 @@ again:
     buf = whd_commonring_get_read_ptr(commonring, &count);
 
     if (buf == NULL)
-        return;
+        return 0;
     else
         WPRINT_WHD_DEBUG( ("<== %s: Received read pointer is NOT NULL \n", __func__) );
 
@@ -1014,21 +1017,24 @@ again:
         goto again;
 
     DELAYED_BUS_RELEASE_SCHEDULE(msgbuf->drvr, WHD_TRUE);
+
+    return 1;
 }
 
 uint32_t whd_msgbuf_process_rx_packet(struct whd_driver *dev)
 {
     struct whd_msgbuf *msgbuf = (struct whd_msgbuf *)dev->msgbuf;
     void *buf;
+    uint32_t result;
 
     buf = msgbuf->commonrings[WHD_D2H_MSGRING_RX_COMPLETE];
-    whd_msgbuf_process_rx_buffer(msgbuf, buf);
+    result = whd_msgbuf_process_rx_buffer(msgbuf, buf);
     buf = msgbuf->commonrings[WHD_D2H_MSGRING_TX_COMPLETE];
-    whd_msgbuf_process_rx_buffer(msgbuf, buf);
+    result = whd_msgbuf_process_rx_buffer(msgbuf, buf);
     buf = msgbuf->commonrings[WHD_D2H_MSGRING_CONTROL_COMPLETE];
-    whd_msgbuf_process_rx_buffer(msgbuf, buf);
+    result = whd_msgbuf_process_rx_buffer(msgbuf, buf);
 
-    return 0;
+    return result;
 }
 
 void whd_msgbuf_delete_flowring(struct whd_driver *drvr, uint16_t flowid)
@@ -1046,27 +1052,6 @@ void whd_msgbuf_delete_flowring(struct whd_driver *drvr, uint16_t flowid)
     whd_commonring_lock(commonring_del);
     flow->rings[flowid]->status = RING_CLOSING;
     whd_commonring_unlock(commonring_del);
-#if 0 //TODO
-    /* wait for commonring txflow finished */
-    while (retry && atomic_read(&commonring_del->outstanding_tx) )
-    {
-        usleep_range(5000, 10000);
-        retry--;
-    }
-    if (!retry)
-    {
-        brcmf_err("timed out waiting for txstatus\n");
-        atomic_set(&commonring_del->outstanding_tx, 0);
-    }
-
-    /* no need to submit if firmware can not be reached */
-    if (drvr->bus_if->state != WHD_BUS_UP)
-    {
-        brcmf_dbg(MSGBUF, "bus down, flowring will be removed\n");
-        brcmf_msgbuf_remove_flowring(msgbuf, flowid);
-        return;
-    }
-#endif
 
     commonring = msgbuf->commonrings[WHD_H2D_MSGRING_CONTROL_SUBMIT];
     whd_commonring_lock(commonring);
@@ -1103,7 +1088,7 @@ void whd_msgbuf_delete_flowring(struct whd_driver *drvr, uint16_t flowid)
     }
 }
 
-static uint32_t whd_msgbuf_txflow_reinsert(struct whd_flowring *flow, uint16_t flowid,
+static whd_result_t whd_msgbuf_txflow_reinsert(struct whd_flowring *flow, uint16_t flowid,
                                            whd_buffer_t skb)
 {
     struct whd_flowring_ring *ring = flow->rings[flowid];
@@ -1146,7 +1131,7 @@ static uint32_t whd_msgbuf_txflow_reinsert(struct whd_flowring *flow, uint16_t f
     return WHD_SUCCESS;
 }
 
-void whd_msgbuf_txflow(struct whd_driver *drvr, uint16_t flowid)
+whd_result_t whd_msgbuf_txflow(struct whd_driver *drvr, uint16_t flowid)
 {
     struct whd_msgbuf *msgbuf = drvr->msgbuf;
     struct whd_commonring *commonring;
@@ -1165,9 +1150,9 @@ void whd_msgbuf_txflow(struct whd_driver *drvr, uint16_t flowid)
 
     commonring = msgbuf->flowrings[flowid];
     if (!whd_commonring_write_available(commonring) )
-        return;
+        return WHD_BUS_MEM_RESERVE_FAIL;
 
-    whd_commonring_lock(commonring);
+    //whd_commonring_lock(commonring);	//to be fixed
 
     count = WHD_MSGBUF_TX_FLUSH_CNT2 - WHD_MSGBUF_TX_FLUSH_CNT1;
     while (whd_flowring_qlen(flow, flowid) )
@@ -1178,13 +1163,14 @@ void whd_msgbuf_txflow(struct whd_driver *drvr, uint16_t flowid)
             WPRINT_WHD_ERROR( ("No SKB, but qlen %u\n", (unsigned int)whd_flowring_qlen(flow, flowid) ) );
             break;
         }
-        WPRINT_WHD_DEBUG( ("Dequeuing --- \n") );
+        CHECK_RETURN(whd_buffer_add_remove_at_front(drvr, &skb, (int32_t)(sizeof(whd_buffer_header_t)) ) );
 
         if (whd_msgbuf_alloc_pktid(drvr, msgbuf->tx_pktids, skb, WHD_ETHERNET_SIZE,
                                    &physaddr, &pktid) )
         {
             whd_msgbuf_txflow_reinsert(flow, flowid, skb);
             WPRINT_WHD_ERROR( ("No PKTID available !!\n") );
+            result = WHD_NO_PKT_ID_AVAILABLE;
             break;
         }
 
@@ -1195,6 +1181,7 @@ void whd_msgbuf_txflow(struct whd_driver *drvr, uint16_t flowid)
             whd_msgbuf_get_pktid(drvr, msgbuf->tx_pktids, pktid);
             whd_msgbuf_txflow_reinsert(flow, flowid, skb);
             WPRINT_WHD_ERROR( ("%s: ERROR in Reserving  for Write \n", __func__) );
+            result = WHD_BUS_MEM_RESERVE_FAIL;
             break;
         }
         WPRINT_WHD_DATA_LOG( ("Wcd:> Sending pkt 0x%08lX\n", (unsigned long)skb) );
@@ -1207,7 +1194,7 @@ void whd_msgbuf_txflow(struct whd_driver *drvr, uint16_t flowid)
         tx_msghdr->msg.request_ptr = htod32(pktid + 1);
         tx_msghdr->msg.ifidx = flow->hash[ring->hash_id].ifidx;
         tx_msghdr->flags = WHD_MSGBUF_PKT_FLAGS_FRAME_802_3;
-        tx_msghdr->flags |= (1 & 0x07) << WHD_MSGBUF_PKT_FLAGS_PRIO_SHIFT;
+        tx_msghdr->flags |= ((msgbuf->priority) & 0x07) << WHD_MSGBUF_PKT_FLAGS_PRIO_SHIFT;
         tx_msghdr->seg_cnt = 1;
         memcpy(tx_msghdr->txhdr, whd_buffer_get_current_piece_data_pointer(drvr, skb), WHD_ETHERNET_SIZE);
         tx_msghdr->data_len = (whd_buffer_get_current_piece_size(drvr, skb) - htod16(WHD_ETHERNET_SIZE) );
@@ -1226,9 +1213,9 @@ void whd_msgbuf_txflow(struct whd_driver *drvr, uint16_t flowid)
 
     if (count)
         whd_commonring_write_complete(commonring);
-    whd_commonring_unlock(commonring);
+    //whd_commonring_unlock(commonring);	//to be fixed
 
-    return;
+    return result;
 }
 
 whd_result_t whd_msgbuf_txflow_init(whd_msgbuftx_info_t *msgtx_info)
@@ -1313,6 +1300,7 @@ whd_result_t whd_msgbuf_txflow_dequeue(whd_driver_t whd_driver, whd_buffer_t *bu
     }
 
     /* Pop the head off and set the new send_queue head */
+    WPRINT_WHD_DEBUG( ("Dequeuing --- \n") );
     *buffer = msgtx_info->send_queue_head;
     msgtx_info->send_queue_head = whd_msgbuf_get_next_buffer_in_queue(whd_driver, *buffer);
 
@@ -1321,6 +1309,7 @@ whd_result_t whd_msgbuf_txflow_dequeue(whd_driver_t whd_driver, whd_buffer_t *bu
         msgtx_info->send_queue_tail = NULL;
     }
 
+    WPRINT_WHD_DEBUG(("Dequeue --> send_queue_head - %p\n", *buffer));
     msgtx_info->npkt_in_q--;
 
     result = cy_rtos_set_semaphore(&msgtx_info->send_queue_mutex, WHD_FALSE);
@@ -1343,6 +1332,7 @@ static whd_result_t whd_msgbuf_txflow_enqueue(whd_driver_t whd_driver, whd_buffe
     struct whd_flowring_ring *ring;
     ring = flow->rings[flowid];
     whd_msgbuftx_info_t *msgtx_info = &ring->txflow_queue;
+    msgbuf->priority = prio;
 
     CHECK_PACKET_NULL(buffer, WHD_NO_REGISTER_FUNCTION_POINTER);
 
@@ -1359,6 +1349,8 @@ static whd_result_t whd_msgbuf_txflow_enqueue(whd_driver_t whd_driver, whd_buffe
         return WHD_SEMAPHORE_ERROR;
     }
 
+    WPRINT_WHD_DEBUG(("Enqueuing +++ \n"));
+    CHECK_RETURN(whd_buffer_add_remove_at_front(whd_driver, &buffer, -(int)(sizeof(whd_buffer_header_t)) ) );
     whd_msgbuf_set_next_buffer_in_queue(whd_driver, NULL, buffer);
     if (msgtx_info->send_queue_tail != NULL)
     {
@@ -1370,6 +1362,8 @@ static whd_result_t whd_msgbuf_txflow_enqueue(whd_driver_t whd_driver, whd_buffe
     {
         msgtx_info->send_queue_head = buffer;
     }
+
+    WPRINT_WHD_DEBUG(("Enqueue <-- send_queue_head - %p\n", msgtx_info->send_queue_head));
     msgtx_info->npkt_in_q++;
 
     result = cy_rtos_set_semaphore(&msgtx_info->send_queue_mutex, WHD_FALSE);
@@ -1394,12 +1388,11 @@ whd_msgbuf_flowring_create_worker(struct whd_msgbuf *msgbuf, struct whd_msgbuf_w
     flowid = work->flowid;
     flow_sz = WHD_H2D_TXFLOWRING_MAX_ITEM * WHD_H2D_TXFLOWRING_ITEMSIZE;
 
-    WPRINT_WHD_DEBUG( ("Check the following \n") );
-    msgbuf->flowring_handle[flowid] = (uint32_t)whd_mem_malloc(flow_sz);
+    msgbuf->flowring_handle[flowid] = (uint32_t)whd_dmapool_alloc(flow_sz);
 
     if (!(msgbuf->flowring_handle[flowid]) )
     {
-        WPRINT_WHD_ERROR( ("FlowRing Alloc failed\n") );
+        WPRINT_WHD_ERROR( ("DMA Alloc for FlowRingfailed\n") );
         whd_flowring_delete(msgbuf->flow, flowid);
         return WHD_FLOWRING_INVALID_ID;
     }
@@ -1453,14 +1446,14 @@ whd_msgbuf_flowring_create_worker(struct whd_msgbuf *msgbuf, struct whd_msgbuf_w
 static uint32_t whd_msgbuf_flowring_create(struct whd_msgbuf *msgbuf, int ifidx, void *skb, uint32_t prio)
 {
     struct whd_msgbuf_work_item *create;
-    ether_header_t *eh = (ether_header_t *)(skb);
+    ether_header_t *eh = (ether_header_t *)whd_buffer_get_current_piece_data_pointer(msgbuf->drvr, skb);
     uint32_t flowid;
 
     create = whd_mem_malloc(sizeof(*create) );
-    memset(create, 0, sizeof(*create) );
-
     if (create == NULL)
         return WHD_FLOWRING_INVALID_ID;
+
+    memset(create, 0, sizeof(*create) );
 
     flowid = whd_flowring_create(msgbuf->flow, eh->destination_address, prio, ifidx);
 
@@ -1475,7 +1468,10 @@ static uint32_t whd_msgbuf_flowring_create(struct whd_msgbuf *msgbuf, int ifidx,
     memcpy(create->sa, eh->source_address, ETHER_ADDR_LEN);
     memcpy(create->da, eh->destination_address, ETHER_ADDR_LEN);
 
-    whd_msgbuf_flowring_create_worker(msgbuf, create);
+    if (whd_msgbuf_flowring_create_worker(msgbuf, create) == WHD_FLOWRING_INVALID_ID)
+    {
+        flowid = WHD_FLOWRING_INVALID_ID;
+    }
     whd_mem_free(create);
 
     return flowid;
@@ -1542,7 +1538,7 @@ whd_result_t whd_msgbuf_tx_queue_data(whd_interface_t ifp, whd_buffer_t buffer)
     return WHD_SUCCESS;
 }
 
-static uint32_t whd_msgbuf_rxbuf_data_post(struct whd_msgbuf *msgbuf, uint32_t count)
+static whd_result_t whd_msgbuf_rxbuf_data_post(struct whd_msgbuf *msgbuf, uint32_t count)
 {
     struct whd_driver *drvr = msgbuf->drvr;
     struct whd_commonring *commonring;
@@ -1554,7 +1550,8 @@ static uint32_t whd_msgbuf_rxbuf_data_post(struct whd_msgbuf *msgbuf, uint32_t c
     uint32_t physaddr;
     uint32_t address;
     uint32_t pktid;
-    uint8_t i = 0, result = -1;
+    uint8_t i = 0;
+    uint32_t result = 0;
 
     commonring = msgbuf->commonrings[WHD_H2D_MSGRING_RXPOST_SUBMIT];
 
@@ -1574,14 +1571,17 @@ static uint32_t whd_msgbuf_rxbuf_data_post(struct whd_msgbuf *msgbuf, uint32_t c
         memset(rx_bufpost, 0, sizeof(*rx_bufpost) );
 
         result = whd_host_buffer_get(drvr, &rx_databuf, WHD_NETWORK_RX,
-                                     (uint16_t)WHD_MSGBUF_DATA_MAX_RX_SIZE, WHD_RX_BUF_TIMEOUT);
+                                     (uint16_t)(WHD_MSGBUF_DATA_MAX_RX_SIZE + sizeof(whd_buffer_header_t)), WHD_RX_BUF_TIMEOUT);
 
         if (result != WHD_SUCCESS)
         {
-            WPRINT_WHD_ERROR( ("%s : Allocation Failed \n", __func__) );
+            WPRINT_WHD_ERROR( ("%s : Allocation Failed error - %lu\n", __func__, result) );
             whd_commonring_write_cancel(commonring, alloced - i);
             break;
         }
+        /* Since the buffer to be given to WLAN DMA, Adding 2 bytes for DMA Alignment */
+        CHECK_RETURN(whd_buffer_add_remove_at_front(drvr, &rx_databuf, (int)(sizeof(whd_buffer_header_t) + 2)));
+
         pktlen = whd_buffer_get_current_piece_size(drvr, rx_databuf);
 
         WPRINT_WHD_DEBUG( ("RX Buf Data Address is 0x%lx \n", (uint32_t)rx_databuf) );
@@ -1676,7 +1676,7 @@ whd_msgbuf_rxbuf_ctrl_post(struct whd_msgbuf *msgbuf, uint8_t event_buf,
     {
         WPRINT_WHD_ERROR( ("Failed to reserve space in commonring\n") );
         whd_commonring_unlock(commonring);
-        return WHD_SUCCESS;
+        return WHD_BUS_MEM_RESERVE_FAIL;
     }
 
     WPRINT_WHD_DEBUG( ("%s - allocated is %d \n", __func__, allocated) );
@@ -1687,7 +1687,8 @@ whd_msgbuf_rxbuf_ctrl_post(struct whd_msgbuf *msgbuf, uint8_t event_buf,
         memset(rx_bufpost, 0, sizeof(*rx_bufpost) );
 
         result = whd_host_buffer_get(drvr, &rx_ctlbuf, WHD_NETWORK_RX,
-                                     (uint16_t)WHD_MSGBUF_IOCTL_MAX_RX_SIZE, WHD_RX_BUF_TIMEOUT);
+                                     (uint16_t)((event_buf) ? WHD_MSGBUF_EVENT_MAX_RX_SIZE : WHD_MSGBUF_IOCTL_MAX_RX_SIZE),
+                                    WHD_RX_BUF_TIMEOUT);
 
         if (result != WHD_SUCCESS)
         {
@@ -1756,6 +1757,7 @@ whd_msgbuf_init_pktids(uint32_t nr_array_entries)
 {
     struct whd_msgbuf_pktid *array;
     struct whd_msgbuf_pktids *pktids;
+    uint32_t i = 0;
 
     array = (struct whd_msgbuf_pktid *)whd_mem_malloc(nr_array_entries * sizeof(*array) );
     if (array == NULL)
@@ -1764,6 +1766,11 @@ whd_msgbuf_init_pktids(uint32_t nr_array_entries)
         return NULL;
     }
     memset(array, 0, sizeof(struct whd_msgbuf_pktid) );
+
+    for(i = 0; i < nr_array_entries; i++)
+    {
+        array[i].allocated = 0;
+    }
 
     pktids = (struct whd_msgbuf_pktids *)whd_mem_malloc(sizeof(*pktids) );
     if (pktids == NULL)
@@ -1784,28 +1791,28 @@ static void whd_msgbuf_detach(struct whd_driver *whd_driver)
 {
     struct whd_msgbuf *msgbuf;
 
-    if (whd_driver->proto->pd)
+    if (whd_driver->msgbuf)
     {
-        msgbuf = (struct whd_msgbuf *)whd_driver->proto->pd;
+        msgbuf = (struct whd_msgbuf *)whd_driver->msgbuf;
 
         //whd_mem_free(msgbuf->txstatus_done_map);
         whd_mem_free(msgbuf->flow_map);
 
         whd_flowring_detach(msgbuf->flow);
-        whd_mem_free(msgbuf->ioctbuf);
+        whd_buffer_release(whd_driver, msgbuf->ioctl_buffer, WHD_NETWORK_TX);
+        msgbuf->ioctbuf = NULL;
         whd_mem_free(msgbuf->flowring_handle);
         whd_mem_free(msgbuf->flowrings);
         whd_msgbuf_release_pktids(whd_driver, msgbuf);
         whd_mem_free(msgbuf);
-        whd_driver->proto->pd = NULL;
     }
 }
 
-static uint32_t whd_msgbuf_attach(struct whd_driver *whd_driver)
+static whd_result_t whd_msgbuf_attach(struct whd_driver *whd_driver)
 {
     struct whd_msgbuf *msgbuf;
     struct whd_commonring **flowrings = NULL;
-    uint32_t address = 0;
+    uint32_t address = 0, result = 0;
     uint32_t i = 0, count = 0;
 
     WPRINT_WHD_DEBUG( ("Msgbuf Attach Start \n") );
@@ -1829,7 +1836,17 @@ static uint32_t whd_msgbuf_attach(struct whd_driver *whd_driver)
     memset(msgbuf->flow_map, 0, count);
 
     msgbuf->drvr = whd_driver;
-    msgbuf->ioctbuf = whd_mem_malloc(WHD_MSGBUF_IOCTL_MAX_TX_SIZE);
+
+    result = whd_host_buffer_get(whd_driver, (whd_buffer_t )&(msgbuf->ioctl_buffer), WHD_NETWORK_TX,
+                                     (uint16_t)WHD_MSGBUF_IOCTL_MAX_TX_SIZE, WHD_RX_BUF_TIMEOUT);
+    if (result != WHD_SUCCESS)
+    {
+        WPRINT_WHD_ERROR( ("%s : Allocation Failed \n", __func__) );
+        return result;
+    }
+
+    msgbuf->ioctbuf = whd_buffer_get_current_piece_data_pointer(whd_driver, (whd_buffer_t)msgbuf->ioctl_buffer);
+
     if (msgbuf->ioctbuf == NULL)
     {
         WPRINT_WHD_ERROR( ("Ioctbuf allocation failed \n") );
@@ -1912,7 +1929,7 @@ static uint32_t whd_msgbuf_attach(struct whd_driver *whd_driver)
 
         if (msgbuf->max_rxbufpost != msgbuf->rxbufpost)
         {
-            cy_rtos_delay_milliseconds(10);
+            cy_rtos_delay_milliseconds(1);
         }
         else
         {
@@ -1994,7 +2011,7 @@ whd_result_t whd_msgbuf_info_init(whd_driver_t whd_driver)
     /* Create the event flag which signals the whd thread needs to wake up */
     if (cy_rtos_init_semaphore(&msgbuf_info->ioctl_sleep, 1, 0) != WHD_SUCCESS)
     {
-        cy_rtos_deinit_semaphore(&msgbuf_info->ioctl_mutex);
+        cy_rtos_deinit_semaphore(&msgbuf_info->ioctl_sleep);
         return WHD_SEMAPHORE_ERROR;
     }
 
@@ -2042,3 +2059,5 @@ whd_result_t whd_msgbuf_info_init(whd_driver_t whd_driver)
 
     return WHD_SUCCESS;
 }
+
+#endif /* PROTO_MSGBUF */

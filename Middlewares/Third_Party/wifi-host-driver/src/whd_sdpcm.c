@@ -486,6 +486,7 @@ whd_result_t whd_sdpcm_get_packet_to_send(whd_driver_t whd_driver, whd_buffer_t 
         return WHD_NO_PACKET_TO_SEND;
     }
 
+#if (CYBSP_WIFI_INTERFACE_TYPE != CYBSP_USB_INTERFACE)
     /* Check if we're being flow controlled for Data packet only. */
     if ( (whd_bus_is_flow_controlled(whd_driver) == WHD_TRUE) && (sdpcm_info->npkt_in_q[MAX_WMM_AC] == 0) )
     {
@@ -500,6 +501,7 @@ whd_result_t whd_sdpcm_get_packet_to_send(whd_driver_t whd_driver, whd_buffer_t 
         WHD_STATS_INCREMENT_VARIABLE(whd_driver, no_credit);
         return WHD_NO_CREDITS;
     }
+#endif /* (CYBSP_WIFI_INTERFACE_TYPE != CYBSP_USB_INTERFACE) */
 
     /* There is a packet waiting to be sent - send it then fix up queue and release packet */
     if (cy_rtos_get_semaphore(&sdpcm_info->send_queue_mutex, CY_RTOS_NEVER_TIMEOUT, WHD_FALSE) != WHD_SUCCESS)
@@ -585,6 +587,14 @@ whd_result_t whd_send_to_bus(whd_driver_t whd_driver, whd_buffer_t buffer,
     whd_sdpcm_info_t *sdpcm_info = &whd_driver->sdpcm_info;
     whd_result_t result;
     int ac;
+
+#ifdef ULP_SUPPORT
+    if(!(whd_ensure_wlan_bus_not_in_deep_sleep(whd_driver)))
+    {
+        WPRINT_WHD_DEBUG(("Could not send pkt - F2 is not ready\n"));
+        return WHD_BUS_FAIL;
+    }
+#endif
 
     CHECK_PACKET_NULL(packet, WHD_NO_REGISTER_FUNCTION_POINTER);
     size = whd_buffer_get_current_piece_size(whd_driver, buffer);

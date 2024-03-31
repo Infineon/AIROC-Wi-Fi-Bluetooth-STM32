@@ -74,6 +74,36 @@ typedef struct wl_rx_mgmt_data
     uint32_t rate;
 } wl_rx_mgmt_data_t;
 
+/* tlv used to return wl_wsec_info properties */
+typedef struct wl_wsec_info_tlv {
+    uint16_t type;
+    uint16_t len;        /* data length */
+    uint8_t data[1];     /* data follows */
+}wl_wsec_info_tlv_t;
+
+/* input/output data type for wsec_info iovar */
+typedef struct wl_wsec_info {
+        uint8_t version; /* structure version */
+        uint8_t pad[2];
+        uint8_t num_tlvs;
+        wl_wsec_info_tlv_t tlvs[1]; /* tlv data follows */
+}wl_wsec_info_t;
+
+/* algo bit vector */
+#define KEY_ALGO_MASK(_algo)    (1 << (_algo))
+/* version of the wl_wsec_info structure */
+#define WL_WSEC_INFO_VERSION 0x01
+#define CRYPTO_ALGO_AES_GCM     14  /* 128 bit GCM */
+#define CRYPTO_ALGO_AES_CCM256  15  /* 256 bit CCM */
+#define CRYPTO_ALGO_AES_GCM256  16  /* 256 bit GCM */
+#define CRYPTO_ALGO_BIP_CMAC256 17  /* 256 bit BIP CMAC */
+#define CRYPTO_ALGO_BIP_GMAC    18  /* 128 bit BIP GMAC */
+#define CRYPTO_ALGO_BIP_GMAC256 19  /* 256 bit BIP GMAC */
+
+/* start enum value for BSS properties */
+#define WL_WSEC_INFO_BSS_BASE 0x0100
+#define WL_WSEC_INFO_BSS_ALGOS (WL_WSEC_INFO_BSS_BASE + 6)
+
 #define WL_WIFI_AF_PARAMS_SIZE sizeof(struct wl_af_params)
 
 /* External Auth Code Type(SAE) */
@@ -1007,6 +1037,7 @@ typedef struct eventmsgs_ext
 
 #define IOVAR_STR_WOWL                   "wowl"
 #define IOVAR_STR_WOWL_OS                "wowl_os"
+#define IOVAR_STR_WOWL_ACTIVATE          "wowl_activate"
 #define IOVAR_STR_WOWL_KEEP_ALIVE        "wowl_keepalive"
 #define IOVAR_STR_WOWL_PATTERN           "wowl_pattern"
 #define IOVAR_STR_WOWL_PATTERN_CLR       "clr"
@@ -1054,6 +1085,7 @@ typedef struct eventmsgs_ext
 #define IOVAR_STR_FBT_CAPABILITIES       "fbt_cap"
 
 #define IOVAR_STR_MFP                    "mfp"
+#define IOVAR_STR_BIP                    "bip"
 
 #define IOVAR_STR_OTPRAW                 "otpraw"
 #define IOVAR_NAN                        "nan"
@@ -1096,6 +1128,8 @@ typedef struct eventmsgs_ext
 #define IOVAR_WNM_MAXIDLE                "wnm_maxidle"
 #define IOVAR_STR_HE                     "he"
 #define IOVAR_STR_TWT                    "twt"
+#define IOVAR_STR_OFFLOAD_CONFIG         "offload_config"
+#define IOVAR_STR_WSEC_INFO              "wsec_info"
 
 /* This value derived from the above strings, which appear maxed out in the 20s */
 #define IOVAR_NAME_STR_MAX_SIZE          32
@@ -3558,7 +3592,7 @@ typedef struct wl_sslpnphy_percal_debug_data
 #define WL_WOWL_RETR        (1 << 3)
 #define WL_WOWL_BCN         (1 << 4)
 #define WL_WOWL_TST         (1 << 5)
-#define WL_WOWL_TRAFFIC     (1 << 12)
+#define WL_WOWL_ARPOFFLOAD  (1 << 12)
 #define WL_WOWL_BCAST       (1 << 15)
 #define WL_WOWL_GTK         (0x441f)
 #define WL_WOWL_DEAUTH      (0x1F)
@@ -4084,7 +4118,6 @@ struct whd_arp_stats_s
  * TCP keepalive offload definitions
  */
 #define MAX_TKO_CONN                 4
-#define IPV4_ADDR_LEN                4      /* IPV4 address length   */
 
 /* Default TCP Keepalive retry parameters.  */
 #define TCP_KEEPALIVE_OFFLOAD_INTERVAL_SEC       (20)
@@ -4227,6 +4260,86 @@ struct whd_tko_connect
                                *		 offset 32+request_length - TCP keepalive response packet
                                */
 };
+
+#define IPV4_ADDR_LEN           4       /* IPV4 address length */
+#define IPV6_ADDR_LEN           16      /* IPV6 address length */
+
+/* IPV4 address */
+struct ipv4_addr {
+        uint8_t addr[IPV4_ADDR_LEN];
+};
+
+/* IPV6 address */
+struct ipv6_addr {
+        uint8_t addr[IPV6_ADDR_LEN];
+};
+
+/* Versions of Offload config */
+#define WL_OL_CFG_VER_1    1
+
+typedef enum wl_ol_cfg_id {
+	WL_OL_CFG_ID_PROF = 1,	/* Offload Profile Update */
+	WL_OL_CFG_ID_INET_V4,	/* ADD/DEL IPv4 Address */
+	WL_OL_CFG_ID_INET_V6,	/* ADD/DEL IPv6 Address */
+	WL_OL_CFG_ID_ACTIVATE,	/* Activate/Deactivate Offload */
+	/*	Add new type before this line */
+	WL_OL_CFG_ID_MAX		/* Last Offload Config ID */
+} wl_ol_cfg_id_t;
+
+typedef enum wl_ol_prof_type {
+	WL_OL_PROF_TYPE_LOW_PWR = 1,   /* Low Power Profile */
+	WL_OL_PROF_TYPE_MID_PWR = 2,   /* Mid Power Profile */
+	WL_OL_PROF_TYPE_HIGH_PWR = 3,  /* High Power Profile */
+	/*	Add new type before this line */
+	WL_OL_PROF_MAX = 4			   /* Last Offload Profile */
+} wl_ol_prof_type_t;
+
+/* Offload configuration */
+typedef struct wl_ol_cfg_v1 {
+	uint16_t ver; 			/* version of this structure */
+	uint16_t len; 			/* length of structure in bytes */
+	uint32_t id;		    /* Offload Config ID */
+
+	union {
+		struct {
+			uint32_t type;            /* offload profile type */
+			whd_bool_t reset; 			  /* Remove profile configuration */
+			uint8_t pad[3];
+		} ol_profile;
+		struct {
+			struct ipv4_addr host_ipv4;
+			whd_bool_t del;				 /* 1:del 0:add host ipv4 address */
+			uint8_t pad[3];
+		} ol_inet_v4;
+		struct {
+			struct ipv6_addr host_ipv6;
+			uint8_t type; 			/* 0:unicast 1:anycast */
+			whd_bool_t del;				/* 1:del 0:add host ipv6 address */
+			uint8_t pad[2];
+		} ol_inet_v6;
+		struct {
+			whd_bool_t enable;		   /* enable/disable offload feature */
+			uint8_t pad[3];
+		} ol_activate;
+	} u;
+
+	uint32_t offload_skip;		  /* Bitmap of offload to be skipped */
+} wl_ol_cfg_v1_t;
+
+/* Offload Skip Bitmap */
+#define WL_OL_ARP         (1 << 0)
+#define WL_OL_ND          (1 << 1)
+#define WL_OL_BDO         (1 << 2)
+#define WL_OL_ICMP        (1 << 3)
+#define WL_OL_TKO         (1 << 4)
+#define WL_OL_DLTRO       (1 << 5)
+#define WL_OL_PNO         (1 << 6)
+#define WL_OL_KEEPALIVE   (1 << 7)
+#define WL_OL_GTKOE       (1 << 8)
+#define WL_OL_WOWLPF      (1 << 9)
+
+#define OFFLOAD_FEATURE   WL_OL_ARP | WL_OL_ND | WL_OL_BDO | WL_OL_ICMP | WL_OL_TKO | WL_OL_DLTRO | WL_OL_PNO | WL_OL_KEEPALIVE | WL_OL_GTKOE
+
 
 #ifdef __cplusplus
 } /* extern "C" */

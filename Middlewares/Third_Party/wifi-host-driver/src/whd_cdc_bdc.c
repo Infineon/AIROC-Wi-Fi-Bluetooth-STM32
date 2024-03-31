@@ -237,6 +237,7 @@ whd_result_t whd_cdc_send_ioctl(whd_interface_t ifp, cdc_command_type_t type, ui
     if (retval != WHD_SUCCESS)
     {
         /* Release the mutex since ioctl response will no longer be referenced. */
+        WPRINT_WHD_DEBUG(("Release the mutex since ioctl response will no longer be referenced !\n"));
         CHECK_RETURN(cy_rtos_set_semaphore(&cdc_bdc_info->ioctl_mutex, WHD_FALSE) );
         return retval;
     }

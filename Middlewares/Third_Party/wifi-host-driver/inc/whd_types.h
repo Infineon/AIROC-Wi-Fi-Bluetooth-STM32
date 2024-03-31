@@ -20,15 +20,24 @@
  *
  */
 
-#include <stdint.h>
-
-#include "cybsp.h"
-#include "cy_result.h"
-#include "cyhal_hw_types.h"
-#include "cyhal_gpio.h"
-
 #ifndef INCLUDED_WHD_TYPES_H_
 #define INCLUDED_WHD_TYPES_H_
+
+#include <stdint.h>
+#include "cybsp.h"
+#include "cy_result.h"
+
+#ifndef WHD_USE_CUSTOM_HAL_IMPL
+	#include "cyhal_hw_types.h"
+	#include "cyhal_gpio.h"
+#if (CYBSP_WIFI_INTERFACE_TYPE == CYBSP_SDIO_INTERFACE)
+	#include "cyhal_sdio.h"
+#elif (CYBSP_WIFI_INTERFACE_TYPE == CYBSP_SPI_INTERFACE)
+	#include "cyhal_spi.h"
+#elif (CYBSP_WIFI_INTERFACE_TYPE == CYBSP_M2M_INTERFACE)
+	#include "cyhal_m2m.h"
+#endif
+#endif /* ifndef WHD_USE_CUSTOM_HAL_IMPL */
 
 #ifdef __cplusplus
 extern "C"
@@ -46,11 +55,12 @@ extern "C"
 #define SHARED_ENABLED     0x00008000  /**< Flag to enable Shared key Security */
 #define WPA_SECURITY       0x00200000  /**< Flag to enable WPA Security        */
 #define WPA2_SECURITY      0x00400000  /**< Flag to enable WPA2 Security       */
-#define WPA2_SHA256_SECURITY 0x00800000 /**< Flag to enable WPA2 SHA256 Security */
 #define WPA3_SECURITY      0x01000000  /**< Flag to enable WPA3 PSK Security   */
 #define SECURITY_MASK      (WEP_ENABLED | TKIP_ENABLED | AES_ENABLED) /**< Flag to Security mask */
 
 #define ENTERPRISE_ENABLED 0x02000000  /**< Flag to enable Enterprise Security */
+#define SHA256_1X          0x04000000  /**< Flag 1X with SHA256 key derivation */
+#define SUITE_B_SHA384     0x08000000  /**< Flag to enable Suite B-192 SHA384 Security */
 #define WPS_ENABLED        0x10000000  /**< Flag to enable WPS Security        */
 #define IBSS_ENABLED       0x20000000  /**< Flag to enable IBSS mode           */
 #define FBT_ENABLED        0x40000000  /**< Flag to enable FBT                 */
@@ -60,6 +70,10 @@ extern "C"
 #define NO_POWERSAVE_MODE           (0) /**< No Powersave mode */
 
 #define PMKID_LEN                   (16) /**< PMKID LENGTH */
+
+#define ULP_NO_SUPPORT              (0) /* Flag to disable ULP in 43022 */
+#define ULP_DS1_SUPPORT             (1) /* Flag to enable DS1 mode in 43022 */
+#define ULP_DS2_SUPPORT             (2) /* Flag to enable DS2 mode in 43022(Only supported in DM) */
 
 /**
  * Suppress unused parameter warning
@@ -94,6 +108,28 @@ typedef struct wl_pkt_filter_stats whd_pkt_filter_stats_t;
 typedef struct whd_tko_retry whd_tko_retry_t;
 typedef struct whd_tko_connect whd_tko_connect_t;
 typedef struct whd_tko_status whd_tko_status_t;
+
+#ifndef WHD_USE_CUSTOM_HAL_IMPL
+#define WHD_NC_PIN_VALUE CYHAL_NC_PIN_VALUE
+typedef cyhal_gpio_t whd_gpio_t;
+typedef cyhal_gpio_drive_mode_t whd_gpio_drive_mode_t;
+#if (CYBSP_WIFI_INTERFACE_TYPE == CYBSP_SDIO_INTERFACE)
+typedef cyhal_sdio_t whd_sdio_t;
+#elif (CYBSP_WIFI_INTERFACE_TYPE == CYBSP_SPI_INTERFACE)
+typedef cyhal_spi_t whd_spi_t;
+#elif (CYBSP_WIFI_INTERFACE_TYPE == CYBSP_M2M_INTERFACE)
+typedef cyhal_m2m_t whd_m2m_t;
+#endif
+#else
+#define WHD_NC_PIN_VALUE	NULL
+typedef void* whd_gpio_t;
+typedef uint8_t whd_gpio_drive_mode_t;
+typedef void* whd_sdio_t;
+typedef void* whd_spi_t;
+typedef void* whd_m2m_t;
+#endif /* ifndef WHD_USE_CUSTOM_HAL_IMPL */
+
+
 /** @endcond */
 /******************************************************
 *                    Constants
@@ -106,6 +142,8 @@ typedef struct whd_tko_status whd_tko_status_t;
 
 #define BDC_HEADER_WITH_PAD 6  /**< BDC Header with padding 4 + 2 */
 
+#define MSGBUF_OVERHEAD_WITH_PAD 6  /**< Overhaed Space with padding 4 + 2 */
+
 /** From bdc header, Ethernet data starts after an offset of (bdc_header->data_offset<<2).
  * It is variable, but usually 4.
  */
@@ -117,24 +155,32 @@ typedef struct whd_tko_status whd_tko_status_t;
 #define MAX_BUS_HEADER_SIZE 4 /**< Max bus header size for all bus types (sdio) */
 #elif (CYBSP_WIFI_INTERFACE_TYPE == CYBSP_SPI_INTERFACE)
 #define MAX_BUS_HEADER_SIZE 4 /**< Max bus header size for all bus types (spi) */
+#elif (CYBSP_WIFI_INTERFACE_TYPE == CYBSP_USB_INTERFACE)
+#define MAX_BUS_HEADER_SIZE 4 /**< Max bus header size for all bus types (usb) */
 #elif (CYBSP_WIFI_INTERFACE_TYPE == CYBSP_M2M_INTERFACE)
-#ifndef PROTO_MSGBUF
 #define MAX_BUS_HEADER_SIZE 8 /**< Max bus header size for all bus types (m2m) */
+#elif defined(COMPONENT_WIFI_INTERFACE_OCI)
+#define MAX_BUS_HEADER_SIZE 8 /**< Max bus header size for all bus types (custom/oci) */
 #else
-#define MAX_BUS_HEADER_SIZE 0 /**< Max bus header size for all bus types (m2m) */
-#endif /* PROTO_MSGBUF */
-#else
-#error "CYBSP_WIFI_INTERFACE_TYPE is not defined"
+#error "CYBSP_WIFI_INTERFACE_TYPE or COMPONENT_WIFI_INTERFACE_OCI is not defined"
 #endif
 
 #define BUFFER_OVERHEAD 4 /**< Buffer overhead, sizeof(void *) */
 
+#ifndef PROTO_MSGBUF
 /**
  * The maximum space in bytes required for headers in front of the Ethernet header.
  * 6 + (8 + 4) + 4 + 4 + 4 = 30 bytes
  */
 #define WHD_LINK_HEADER (BDC_HEADER_WITH_PAD + BDC_HEADER_OFFSET_TO_DATA + \
                          SDPCM_HEADER + MAX_BUS_HEADER_SIZE + BUFFER_OVERHEAD)
+#else
+/*
+ * In nx_user.h NX_PHYSICAL_HEADER is (14(Ethernet) + 4(Overhaed) + 2(pad)),
+ * so we are doing the similar here -> 4(hedaer) + 2(pad) in front of ethernet header
+ */
+#define WHD_LINK_HEADER (MSGBUF_OVERHEAD_WITH_PAD)
+#endif /* PROTO_MSGBUF */
 
 /**
  * The size of an Ethernet header
@@ -213,7 +259,7 @@ typedef enum
     WHD_SECURITY_WPA_AES_PSK      = (WPA_SECURITY | AES_ENABLED),                                      /**< WPA PSK Security with AES                             */
     WHD_SECURITY_WPA_MIXED_PSK    = (WPA_SECURITY | AES_ENABLED | TKIP_ENABLED),                       /**< WPA PSK Security with AES & TKIP                      */
     WHD_SECURITY_WPA2_AES_PSK     = (WPA2_SECURITY | AES_ENABLED),                                     /**< WPA2 PSK Security with AES                            */
-    WHD_SECURITY_WPA2_AES_PSK_SHA256 = (WPA2_SECURITY | WPA2_SHA256_SECURITY | AES_ENABLED),           /**< WPA2 PSK SHA256 Security with AES                     */
+    WHD_SECURITY_WPA2_AES_PSK_SHA256 = (WPA2_SECURITY | SHA256_1X | AES_ENABLED),                      /**< WPA2 PSK SHA256 Security with AES                     */
     WHD_SECURITY_WPA2_TKIP_PSK    = (WPA2_SECURITY | TKIP_ENABLED),                                    /**< WPA2 PSK Security with TKIP                           */
     WHD_SECURITY_WPA2_MIXED_PSK   = (WPA2_SECURITY | AES_ENABLED | TKIP_ENABLED),                      /**< WPA2 PSK Security with AES & TKIP                     */
     WHD_SECURITY_WPA2_FBT_PSK     = (WPA2_SECURITY | AES_ENABLED | FBT_ENABLED),                       /**< WPA2 FBT PSK Security with AES & TKIP */
@@ -230,7 +276,9 @@ typedef enum
     WHD_SECURITY_WPA2_AES_ENT     = (ENTERPRISE_ENABLED | WPA2_SECURITY | AES_ENABLED),                /**< WPA2 Enterprise Security with AES                     */
     WHD_SECURITY_WPA2_MIXED_ENT   = (ENTERPRISE_ENABLED | WPA2_SECURITY | AES_ENABLED | TKIP_ENABLED), /**< WPA2 Enterprise Security with AES & TKIP              */
     WHD_SECURITY_WPA2_FBT_ENT     = (ENTERPRISE_ENABLED | WPA2_SECURITY | AES_ENABLED | FBT_ENABLED),  /**< WPA2 Enterprise Security with AES & FBT               */
-    WHD_SECURITY_WPA3_192BIT_ENT  = (ENTERPRISE_ENABLED | WPA3_SECURITY | AES_ENABLED),                /**< WPA3 192-BIT Enterprise Security with AES             */
+
+    WHD_SECURITY_WPA3_192BIT_ENT  = (ENTERPRISE_ENABLED | WPA3_SECURITY | SUITE_B_SHA384 | AES_ENABLED),/**< WPA3 192-BIT Enterprise Security with AES            */
+    WHD_SECURITY_WPA3_ENT         = (ENTERPRISE_ENABLED | WPA3_SECURITY | SHA256_1X | AES_ENABLED),     /**< WPA3 Enterprise Security with AES                    */
 
     WHD_SECURITY_IBSS_OPEN        = (IBSS_ENABLED),                                                    /**< Open security on IBSS ad-hoc network                  */
     WHD_SECURITY_WPS_SECURE       = AES_ENABLED,                                                       /**< WPS with AES security                                 */
@@ -426,8 +474,10 @@ typedef enum
  */
 typedef enum
 {
-    WHD_FWCAP_SAE = 0,     /**< Internal SAE */
-    WHD_FWCAP_SAE_EXT = 1, /**< External SAE */
+    WHD_FWCAP_SAE = 0,        /**< Internal SAE */
+    WHD_FWCAP_SAE_EXT = 1,    /**< External SAE */
+    WHD_FWCAP_OFFLOADS = 2,   /**< Offload config */
+    WHD_FWCAP_GCMP = 3,       /**< GCMP */
 } whd_fwcap_id_t;
 
 /******************************************************
@@ -928,7 +978,9 @@ typedef uint32_t whd_result_t;
 #define WHD_RTOS_STATIC_MEM_LIMIT        WHD_RESULT_CREATE(1070)   /**< Exceeding the RTOS static objects memory */
 #define WHD_NO_REGISTER_FUNCTION_POINTER WHD_RESULT_CREATE(1071)   /**< No register function pointer */
 #define WHD_BLHS_VALIDATE_FAILED         WHD_RESULT_CREATE(1072)   /**< Bootloader handshake validation failed */
-#define WHD_BUS_UP_FAIL                  WHD_RESULT_CREATE(1023)   /**< bus failed to come up */
+#define WHD_BUS_UP_FAIL                  WHD_RESULT_CREATE(1073)   /**< bus failed to come up */
+#define WHD_BUS_MEM_RESERVE_FAIL         WHD_RESULT_CREATE(1074)   /**< commonring reserve for write failed */
+#define WHD_NO_PKT_ID_AVAILABLE          WHD_RESULT_CREATE(1075)   /**< commonring reserve for write failed */
 
 #define WLAN_ENUM_OFFSET 2000            /**< WLAN enum offset for WHD_WLAN error processing */
 
@@ -1160,8 +1212,8 @@ typedef struct
  */
 typedef struct whd_oob_config
 {
-    cyhal_gpio_t host_oob_pin;          /**< Host-side GPIO pin selection */
-    cyhal_gpio_drive_mode_t drive_mode; /**< Host-side GPIO pin drive mode */
+    whd_gpio_t host_oob_pin;          /**< Host-side GPIO pin selection */
+    whd_gpio_drive_mode_t drive_mode; /**< Host-side GPIO pin drive mode */
     whd_bool_t init_drive_state;        /**< Host-side GPIO pin initial drive state */
     uint8_t dev_gpio_sel;               /**< WiFi device-side GPIO pin selection (must be zero) */
     whd_bool_t is_falling_edge;         /**< Interrupt trigger (polarity) */
@@ -1198,6 +1250,14 @@ typedef struct whd_m2m_config
     whd_bool_t is_normal_mode; /**< Default is false */
 } whd_m2m_config_t;
 
+/**
+ * Structure for OCI config parameters which can be set by application during whd power up
+ */
+typedef struct whd_oci_config
+{
+    /* Bus config */
+    whd_bool_t is_normal_mode; /**< Default is false */
+} whd_oci_config_t;
 
 /**
  * Enumeration of applicable packet mask bits for custom Information Elements (IEs)

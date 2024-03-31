@@ -6,7 +6,7 @@
  * threads and deferring work to a worker thread.
  ***************************************************************************************************
  * \copyright
- * Copyright 2018-2021 Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2018-2022 Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation
  *
  * SPDX-License-Identifier: Apache-2.0
@@ -64,8 +64,7 @@ static void cy_worker_thread_func(cy_thread_arg_t arg)
 
     while (1)
     {
-        result = cy_rtos_get_queue(&worker->event_queue, &dispatch_info, CY_RTOS_NEVER_TIMEOUT,
-                                   false);
+        result = cy_rtos_queue_get(&worker->event_queue, &dispatch_info, CY_RTOS_NEVER_TIMEOUT);
         if (result == CY_RSLT_SUCCESS)
         {
             if (dispatch_info.work_func != NULL)
@@ -78,7 +77,7 @@ static void cy_worker_thread_func(cy_thread_arg_t arg)
             }
         }
     }
-    cy_rtos_exit_thread();
+    cy_rtos_thread_exit();
 }
 
 
@@ -95,7 +94,7 @@ cy_rslt_t cy_worker_thread_create(cy_worker_thread_info_t* new_worker,
     // Start with a clean structure
     memset(new_worker, 0, sizeof(cy_worker_thread_info_t));
 
-    cy_rslt_t result = cy_rtos_init_queue(&new_worker->event_queue,
+    cy_rslt_t result = cy_rtos_queue_init(&new_worker->event_queue,
                                           (params->num_entries != 0)
                                           ? params->num_entries
                                           : CY_WORKER_DEFAULT_ENTRIES,
@@ -103,7 +102,7 @@ cy_rslt_t cy_worker_thread_create(cy_worker_thread_info_t* new_worker,
     if (result == CY_RSLT_SUCCESS)
     {
         new_worker->state = CY_WORKER_THREAD_VALID;
-        result            = cy_rtos_create_thread(&new_worker->thread,
+        result            = cy_rtos_thread_create(&new_worker->thread,
                                                   cy_worker_thread_func,
                                                   (params->name != NULL)
                                                   ? params->name
@@ -116,7 +115,7 @@ cy_rslt_t cy_worker_thread_create(cy_worker_thread_info_t* new_worker,
         if (result != CY_RSLT_SUCCESS)
         {
             new_worker->state = CY_WORKER_THREAD_INVALID;
-            cy_rtos_deinit_queue(&new_worker->event_queue);
+            cy_rtos_queue_deinit(&new_worker->event_queue);
         }
     }
     return result;
@@ -142,8 +141,7 @@ cy_rslt_t cy_worker_thread_delete(cy_worker_thread_info_t* old_worker)
             old_worker->state = CY_WORKER_THREAD_TERMINATING;
             cyhal_system_critical_section_exit(state);
             cy_worker_dispatch_info_t dispatch_info = { NULL, NULL };
-            bool in_isr = is_in_isr();
-            result = cy_rtos_put_queue(&old_worker->event_queue, &dispatch_info, 0, in_isr);
+            result = cy_rtos_queue_put(&old_worker->event_queue, &dispatch_info, 0);
             if (result != CY_RSLT_SUCCESS)
             {
                 // Could not enqueue termination task, return to valid state
@@ -158,7 +156,7 @@ cy_rslt_t cy_worker_thread_delete(cy_worker_thread_info_t* old_worker)
         if (old_worker->state != CY_WORKER_THREAD_JOIN_COMPLETE)
         {
             cyhal_system_critical_section_exit(state);
-            result = cy_rtos_join_thread(&old_worker->thread);
+            result = cy_rtos_thread_join(&old_worker->thread);
             if (result != CY_RSLT_SUCCESS)
             {
                 return result;
@@ -170,7 +168,7 @@ cy_rslt_t cy_worker_thread_delete(cy_worker_thread_info_t* old_worker)
         if (old_worker->state != CY_WORKER_THREAD_INVALID)
         {
             cyhal_system_critical_section_exit(state);
-            result = cy_rtos_deinit_queue(&old_worker->event_queue);
+            result = cy_rtos_queue_deinit(&old_worker->event_queue);
             if (result != CY_RSLT_SUCCESS)
             {
                 return result;
@@ -207,8 +205,7 @@ cy_rslt_t cy_worker_thread_enqueue(cy_worker_thread_info_t* worker_info,
 
     cy_worker_dispatch_info_t dispatch_info = { work_func, arg };
     // Queue an event to be run by the worker thread
-    bool in_isr = is_in_isr();
-    cy_rslt_t result = cy_rtos_put_queue(&worker_info->event_queue, &dispatch_info, 0, in_isr);
+    cy_rslt_t result = cy_rtos_queue_put(&worker_info->event_queue, &dispatch_info, 0);
 
     state = cyhal_system_critical_section_enter();
     worker_info->enqueue_count--;

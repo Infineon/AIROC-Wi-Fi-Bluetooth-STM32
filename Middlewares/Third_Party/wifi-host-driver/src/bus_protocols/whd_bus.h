@@ -31,14 +31,6 @@ extern "C"
 {
 #endif
 
-#if 0
-typedef struct whd_bus_if *whd_bus_if_t;
-
-typedef whd_result_t (*whd_bus_transfer_t)(whd_bus_if_t *bus_if, whd_bus_transfer_direction_t dir,
-                                           uint8_t *data, uint16_t data_size, void *arg1, void *arg2, void *arg3,
-                                           void *arg4);
-#endif
-
 typedef whd_result_t (*whd_bus_init_t)(whd_driver_t whd_driver);
 typedef whd_result_t (*whd_bus_deinit_t)(whd_driver_t whd_driver);
 
@@ -94,8 +86,9 @@ typedef struct whd_bus_info
     whd_bus_wake_interrupt_present_t whd_bus_wake_interrupt_present_fptr;
     whd_bus_packet_available_to_read_t whd_bus_packet_available_to_read_fptr;
     whd_bus_read_frame_t whd_bus_read_frame_fptr;
-
+#ifndef PROTO_MSGBUF
     whd_bus_set_backplane_window_t whd_bus_set_backplane_window_fptr;
+#endif
     whd_bus_write_backplane_value_t whd_bus_write_backplane_value_fptr;
     whd_bus_read_backplane_value_t whd_bus_read_backplane_value_fptr;
 
@@ -122,7 +115,9 @@ typedef struct whd_bus_info
     whd_bus_irq_register_t whd_bus_irq_register_fptr;
     whd_bus_irq_enable_t whd_bus_irq_enable_fptr;
     whd_bus_download_resource_t whd_bus_download_resource_fptr;
+#ifdef BLHS_SUPPORT
     whd_bus_blhs_t whd_bus_blhs_fptr;
+#endif
 } whd_bus_info_t;
 
 

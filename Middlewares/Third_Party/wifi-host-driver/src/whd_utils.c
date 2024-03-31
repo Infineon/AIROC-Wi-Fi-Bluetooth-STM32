@@ -37,6 +37,47 @@
 #define OTP_WORD_SIZE 16    /* Word size in bits */
 #define WPA_OUI_TYPE1                     "\x00\x50\xF2\x01"   /** WPA OUI */
 
+#ifdef PROTO_MSGBUF
+typedef struct dma_pool
+{
+    int offset;
+    int poolsize;
+    uint8_t big_buffer[0];
+}dma_pool;
+
+dma_pool *pool_mem;
+
+uint32_t whd_dmapool_init(uint32_t memory_size)
+{
+    WPRINT_WHD_DEBUG(("WHD allocating %lu bytes for DMA pool\n", memory_size));
+    pool_mem = (dma_pool*)whd_hw_allocatePermanentApi(memory_size);
+
+    if (pool_mem == NULL)
+      return -1;
+
+    pool_mem->offset = 0;
+    pool_mem->poolsize = memory_size - (sizeof(dma_pool));
+
+    if (!whd_hw_openDeviceAccessApi(WHD_HW_DEVICE_WLAN, pool_mem->big_buffer, pool_mem->poolsize, 0 ))
+       return -1;
+
+    return 0;
+}
+
+void* whd_dmapool_alloc( int size)
+{
+    uint8_t* allocbuf;
+
+    if ((pool_mem->offset + size) >= pool_mem->poolsize)
+     return NULL;
+
+    allocbuf = pool_mem->big_buffer + pool_mem->offset;
+    pool_mem->offset += size;
+
+    return allocbuf;
+}
+#endif
+
 /******************************************************
 *             Static Variables
 ******************************************************/

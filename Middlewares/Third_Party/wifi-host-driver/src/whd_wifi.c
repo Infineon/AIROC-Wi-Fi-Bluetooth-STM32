@@ -56,7 +56,7 @@ void (*whd_wifi_link_update_callback)(void) = NULL;
 *             Function definitions
 ******************************************************/
 
-uint32_t whd_wifi_set_mac_address(whd_interface_t ifp, whd_mac_t mac)
+whd_result_t whd_wifi_set_mac_address(whd_interface_t ifp, whd_mac_t mac)
 {
     whd_buffer_t buffer;
     uint32_t *data;

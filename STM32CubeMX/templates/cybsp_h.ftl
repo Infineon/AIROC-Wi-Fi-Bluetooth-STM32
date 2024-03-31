@@ -21,13 +21,21 @@
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#define false 0
-#define true 1
 [#if includes??]
 [#list includes as include]
 #include "${include}"
 [/#list]
 [/#if]
+
+/* Defines ------------------------------------------------------------------*/
+#define false 0
+#define true 1
+
+/* WIFI interface types */
+#define CYBSP_SDIO_INTERFACE    (0)
+#define CYBSP_SPI_INTERFACE     (1)
+#define CYBSP_M2M_INTERFACE     (2)
+#define CYBSP_USB_INTERFACE     (3)
 
 [#-- SWIPdatas is a list of SWIPconfigModel --]  
 [#list SWIPdatas as SWIP]  
@@ -57,8 +65,6 @@ extern ${variable.value} ${variable.name};
 	[/#list]
 [/#if]
 
-
-
 [/#list]
 
 #if COUNTRY_CUSTOM_ENABLE == 1
@@ -67,6 +73,11 @@ extern ${variable.value} ${variable.name};
 #define CY_WIFI_COUNTRY CY_WIFI_COUNTRY_CUSTOM
 #endif
 #endif
+
+#if !defined(CYBSP_WIFI_INTERFACE_TYPE)
+#define CYBSP_WIFI_INTERFACE_TYPE 	(CYBSP_SDIO_INTERFACE)
+#endif
+
 
 #ifdef __cplusplus
 }

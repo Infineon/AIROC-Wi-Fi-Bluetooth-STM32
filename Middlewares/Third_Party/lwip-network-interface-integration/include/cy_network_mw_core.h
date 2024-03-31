@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -45,6 +45,7 @@
 
 #include "cy_result.h"
 #include "cy_nw_helper.h"
+#include "cy_nw_mw_core_error.h"
 
 #ifdef __cplusplus
 extern "C" {

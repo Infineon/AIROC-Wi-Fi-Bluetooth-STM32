@@ -4,7 +4,7 @@
 
 This library is an integration layer that links the lwIP network stack with the underlying Wi-Fi host driver (WHD) and Ethernet driver. This library interacts with FreeRTOS, lwIP TCP/IP stack, Wi-Fi host driver (WHD), and Ethernet driver. It contains the associated code to bind these components together.
 
-*lwIP network interface integration* library is an equivalent of *Wi-Fi middleware core* is now deprecated. *Wi-Fi middleware core* users can use the [porting guide](https://infineon.github.io/lwip-network-interface-integration/porting_guide.md) to migrate the application to use *lwIP network interface integration* library.
+*lwIP network interface integration* library is an equivalent of *Wi-Fi middleware core* is now deprecated. *Wi-Fi middleware core* users can use the [porting guide](https://github.com/Infineon/lwip-network-interface-integration/blob/master/porting_guide.md) to migrate the application to use *lwIP network interface integration* library.
 
 ## Features and functionality
 
@@ -32,7 +32,9 @@ This library and its features are supported on the following platforms:
 
 - [XMC7200D-E272K8384 kit (KIT-XMC72-EVK)](https://www.infineon.com/KIT_XMC72_EVK)
 
-- [XMC4700/XMC4800 relax kit (KIT-XMC47-V1)](https://www.infineon.com/cms/en/product/evaluation-boards/kit_xmc47_relax_v1)
+- [XMC4700 Relax Kit (KIT_XMC47_RELAX_V1)](https://www.infineon.com/cms/en/product/evaluation-boards/kit_xmc47_relax_v1/)
+
+- [XMC4800 Relax EtherCAT Kit (KIT_XMC48_RELAX_ECAT_V1)](https://www.infineon.com/cms/en/product/evaluation-boards/kit_xmc48_relax_ecat_v1/)
 
 ## Log messages
 
@@ -58,13 +60,13 @@ To ensure that all required libraries are fetched, include [ethernet-core-freert
 
    Create the *wifi-core-freertos-lwip-mbedtls.mtb* file with the following content:
 
-   https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls#latest-v1.X#\$$ASSET_REPO$$/wifi-core-freertos-lwip-mbedtls/latest-v1.X
+   `https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls#latest-v1.X#\$$ASSET_REPO$$/wifi-core-freertos-lwip-mbedtls/latest-v1.X`
 
 - *For Ethernet applications:*
 
    Create the *ethernet-core-freertos-lwip-mbedtls.mtb* file with the following content:
 
-   https://github.com/Infineon/ethernet-core-freertos-lwip-mbedtls#latest-v1.X#\$$ASSET_REPO$$/ethernet-core-freertos-lwip-mbedtls/latest-v1.X
+   `https://github.com/Infineon/ethernet-core-freertos-lwip-mbedtls#latest-v1.X#\$$ASSET_REPO$$/ethernet-core-freertos-lwip-mbedtls/latest-v1.X`
 
 - Run `make getlibs` to fetch all required libraries including the lwip-network-interface-integration library.
 
@@ -74,7 +76,7 @@ To ensure that all required libraries are fetched, include [ethernet-core-freert
 
 - [lwIP network interface integration API reference guide](https://infineon.github.io/lwip-network-interface-integration/api_reference_manual/html/index.html)
 
-- [Porting guide for lwIP network interface integration](https://infineon.github.io/lwip-network-interface-integration/porting_guide.md)
+- [Porting guide for lwIP network interface integration](https://github.com/Infineon/lwip-network-interface-integration/blob/master/porting_guide.md)
 
 - [ModusToolbox&trade; software environment, quick start guide, documentation, and videos](https://www.infineon.com/cms/en/design-support/tools/sdk/modustoolbox-software/)
 

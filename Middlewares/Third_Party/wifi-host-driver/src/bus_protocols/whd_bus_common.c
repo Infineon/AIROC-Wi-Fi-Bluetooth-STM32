@@ -35,6 +35,9 @@
 #include "whd_resource_api.h"
 #include "whd_types_int.h"
 
+#ifdef DOWNLOAD_RAM_BOOTLOADER
+#include "resources.h"
+#endif
 
 /******************************************************
 *                      Macros
@@ -109,13 +112,13 @@ whd_bool_t whd_bus_is_flow_controlled(whd_driver_t whd_driver)
 {
     return whd_driver->bus_common_info->bus_flow_control;
 }
-
+#ifndef PROTO_MSGBUF
 whd_result_t whd_bus_set_backplane_window(whd_driver_t whd_driver, uint32_t addr)
 {
     uint32_t *curbase = &whd_driver->bus_common_info->backplane_window_current_base_address;
     return whd_driver->bus_if->whd_bus_set_backplane_window_fptr(whd_driver, addr, curbase);
 }
-
+#endif
 void whd_bus_common_info_init(whd_driver_t whd_driver)
 {
     struct whd_bus_common_info *bus_common = (struct whd_bus_common_info *)whd_mem_malloc(sizeof(struct whd_bus_common_info) );
@@ -237,6 +240,32 @@ whd_result_t whd_bus_write_wifi_firmware_image(whd_driver_t whd_driver)
     uint32_t ram_start_address;
     uint32_t image_size;
 
+#ifdef DOWNLOAD_RAM_BOOTLOADER
+    uint32_t bl_start_address = ( (0x8F620000) + (0x460000  - 0x003A0000) );
+    volatile uint32_t *rom_address = (volatile uint32_t *)0x8F7C0000;
+    volatile uint32_t *cr4_rst_address = (volatile uint32_t*)0x8F782800;
+    uint32_t romword;
+
+    WPRINT_WHD_DEBUG(("Entering Bootloader Download \n"));
+
+    cyhal_system_delay_ms(1000);
+    WPRINT_WHD_DEBUG(("Bootloader Download Starts \n"));
+    memcpy( (void *)bl_start_address, (void*)wifi_bootloader_image_data, sizeof(wifi_bootloader_image_data));
+    WPRINT_WHD_DEBUG(("Bootloader Download Done \n"));
+
+    romword = wifi_bootloader_image_data[0] | (wifi_bootloader_image_data[1] << 8) | (wifi_bootloader_image_data[2] << 16) | (wifi_bootloader_image_data[3] << 24);
+
+    *rom_address = romword;
+
+    *cr4_rst_address = 1;
+
+    cyhal_system_delay_ms(500);
+
+    *cr4_rst_address = 0;
+
+    cyhal_system_delay_ms(500);
+#endif /* DOWNLOAD_RAM_BOOTLOADER */
+
 #ifdef BLHS_SUPPORT
     CHECK_RETURN(whd_bus_common_blhs(whd_driver, PREP_FW_DOWNLOAD) );
 #endif
@@ -293,7 +322,11 @@ whd_result_t whd_bus_mem_bytes(whd_driver_t whd_driver, uint8_t direct,
 {
     whd_bus_transfer_direction_t direction = direct ? BUS_WRITE : BUS_READ;
     CHECK_RETURN(whd_ensure_wlan_bus_is_up(whd_driver) );
+#ifndef PROTO_MSGBUF
     return whd_bus_transfer_backplane_bytes(whd_driver, direction, address, size, data);
+#else
+    return whd_bus_transfer_bytes(whd_driver, direction, BACKPLANE_FUNCTION, address, size, (whd_transfer_bytes_packet_t *)data);
+#endif
 }
 
 whd_result_t whd_bus_transfer_backplane_bytes(whd_driver_t whd_driver, whd_bus_transfer_direction_t direction,
@@ -332,7 +365,9 @@ whd_result_t whd_bus_transfer_backplane_bytes(whd_driver_t whd_driver, whd_bus_t
             /* Adjust the transfer size to within current window */
             transfer_size = BACKPLANE_WINDOW_SIZE - window_offset_address;
         }
+#ifndef PROTO_MSGBUF
         result = whd_bus_set_backplane_window(whd_driver, address);
+#endif
         if (result == WHD_UNSUPPORTED)
         {
             /* No backplane support, write data to address directly */
@@ -379,7 +414,9 @@ whd_result_t whd_bus_transfer_backplane_bytes(whd_driver_t whd_driver, whd_bus_t
     }
 
 done:
+#ifndef PROTO_MSGBUF
     whd_bus_set_backplane_window(whd_driver, CHIPCOMMON_BASE_ADDRESS);
+#endif
     if (pkt_buffer != NULL)
     {
         CHECK_RETURN(whd_buffer_release(whd_driver, pkt_buffer,

@@ -24,6 +24,10 @@
 #include "whd_events_int.h"
 #include "whd_types_int.h"
 
+#ifdef PROTO_MSGBUF
+#include "whd_hw.h"
+#endif
+
 #ifndef INCLUDED_WHD_UTILS_H_
 #define INCLUDED_WHD_UTILS_H_
 
@@ -50,6 +54,11 @@ extern "C" {
  * determine size (number of elements) in an array
  */
 #define ARRAY_SIZE(a)                                 (sizeof(a) / sizeof(a[0]) )
+
+#ifdef PROTO_MSGBUF
+uint32_t whd_dmapool_init(uint32_t memory_size);
+void* whd_dmapool_alloc( int size);
+#endif
 
 /** Searches for a specific WiFi Information Element in a byte array
  *
