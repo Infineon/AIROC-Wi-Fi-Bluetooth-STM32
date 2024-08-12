@@ -1,296 +1,182 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
-<storageModule moduleId="org.eclipse.cdt.core.settings">
-<cconfiguration id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1274856656">
-<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1274856656" moduleId="org.eclipse.cdt.core.settings" name="Debug">
-<externalSettings/>
-<extensions>
-<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
-<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
-<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-</extensions>
-</storageModule>
-<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-<configuration artifactExtension="elf" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf" description="" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1274856656" name="Debug" parent="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug">
-<folderInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1274856656." name="/" resourcePath="">
-<toolChain id="com.st.stm32cube.ide.mcu.gnu.managedbuild.toolchain.exe.debug.1779044716" name="MCU ARM GCC" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.toolchain.exe.debug">
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_mcu.1589524874" name="MCU" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_mcu" useByScannerDiscovery="true" value="STM32U575AIIxQ" valueType="string"/>
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_cpuid.396960418" name="CPU" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_cpuid" useByScannerDiscovery="false" value="0" valueType="string"/>
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_coreid.640585343" name="Core" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_coreid" useByScannerDiscovery="false" value="0" valueType="string"/>
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.fpu.893008324" name="Floating-point unit" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.fpu" useByScannerDiscovery="true" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.fpu.value.fpv5-sp-d16" valueType="enumerated"/>
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.floatabi.902955736" name="Floating-point ABI" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.floatabi" useByScannerDiscovery="true" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.floatabi.value.hard" valueType="enumerated"/>
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_board.666866229" name="Board" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_board" useByScannerDiscovery="false" value="STM32U575I-EV" valueType="string"/>
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.defaults.1480425770" name="Defaults" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.defaults" useByScannerDiscovery="false" value="com.st.stm32cube.ide.common.services.build.inputs.revA.1.0.6 || Debug || true || Executable || com.st.stm32cube.ide.mcu.gnu.managedbuild.option.toolchain.value.workspace || STM32U575I-EV || 0 || 0 || arm-none-eabi- || ${gnu_tools_for_stm32_compiler_path} || ../../Core/Inc | ../../Drivers/STM32U5xx_HAL_Driver/Inc | ../../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy | ../../Drivers/CMSIS/Device/ST/STM32U5xx/Include | ../../Drivers/CMSIS/Include | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/include/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/source/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-freertos-integration/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/include/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/include/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/JSON_parser/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/linked_list/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/include | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/arpa | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/net | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/sys | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/stdc | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/apps | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/priv | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/prot | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_FREERTOS/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include | ../../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/CMSIS_RTOS_V2/ | ../../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/include/ | ../../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ | ../../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/include | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mfg-test/include/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mfg-test/source | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mfg-test/include | ../../Drivers/CMSIS/RTOS2/Include | ../Application/User/ThreadSafe ||  ||  || WLAN_MFG_FIRMWARE | CYBSP_WIFI_CAPABLE | USE_HAL_DRIVER | STM32U575xx | STM32_THREAD_SAFE_STRATEGY=2 ||  ||  ||  ||  || ${workspace_loc:/${ProjName}/STM32U575AIIXQ_FLASH.ld} || true || NonSecure ||  || secure_nsclib.o ||  || Generic_AllowLockFromIRQ ||  ||  || |" valueType="string"/>
-<option id="com.st.stm32cube.ide.mcu.debug.option.cpuclock.104690511" name="Cpu clock frequence" superClass="com.st.stm32cube.ide.mcu.debug.option.cpuclock" useByScannerDiscovery="false" value="160" valueType="string"/>
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.converthex.2139560230" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.converthex" useByScannerDiscovery="false" value="true" valueType="boolean"/>
-<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.targetplatform.601731400" isAbstract="false" osList="all" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.targetplatform"/>
-<builder buildPath="${workspace_loc:/wifi_mfg_tester}/Debug" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.builder.1842247193" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.builder"/>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.1092682948" name="MCU GCC Assembler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler">
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel.251949953" name="Debug level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel.value.g3" valueType="enumerated"/>
-<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.definedsymbols.1104089049" name="Define symbols (-D)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.definedsymbols" useByScannerDiscovery="false" valueType="definedSymbols">
-<listOptionValue builtIn="false" value="DEBUG"/>
-</option>
-<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.input.2079568723" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.input"/>
-</tool>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1759924556" name="MCU GCC Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler">
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.debuglevel.488927179" name="Debug level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.debuglevel" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.debuglevel.value.g3" valueType="enumerated"/>
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.optimization.level.1859324241" name="Optimization level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.optimization.level" useByScannerDiscovery="false"/>
-<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.definedsymbols.1308877121" name="Define symbols (-D)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.definedsymbols" useByScannerDiscovery="false" valueType="definedSymbols">
-<listOptionValue builtIn="false" value="DEBUG"/>
-<listOptionValue builtIn="false" value="WLAN_MFG_FIRMWARE"/>
-<listOptionValue builtIn="false" value="CYBSP_WIFI_CAPABLE"/>
-<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
-<listOptionValue builtIn="false" value="STM32U575xx"/>
-<listOptionValue builtIn="false" value="STM32_THREAD_SAFE_STRATEGY=2"/>
-<listOptionValue builtIn="false" value="CY_USING_HAL"/>
-</option>
-<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths.601459466" name="Include paths (-I)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths" useByScannerDiscovery="false" valueType="includePath">
-<listOptionValue builtIn="false" value="../../Core/Inc"/>
-<listOptionValue builtIn="false" value="../../Drivers/STM32U5xx_HAL_Driver/Inc"/>
-<listOptionValue builtIn="false" value="../../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy"/>
-<listOptionValue builtIn="false" value="../../Drivers/CMSIS/Device/ST/STM32U5xx/Include"/>
-<listOptionValue builtIn="false" value="../../Drivers/CMSIS/Include"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/include/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/source/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-freertos-integration/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/include/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/include/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/JSON_parser/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/linked_list/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/include"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/arpa"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/net"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/sys"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/stdc"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/apps"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/priv"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/prot"/>
-
-
-
-
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_FREERTOS/"/>
-
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp"/>
-
-
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/CMSIS_RTOS_V2/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/include/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/include"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mfg-test/include/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mfg-test/source"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mfg-test/include"/>
-<listOptionValue builtIn="false" value="../../Drivers/CMSIS/RTOS2/Include"/>
-<listOptionValue builtIn="false" value="../Application/User/ThreadSafe"/>
-</option>
-<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.2032890776" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
-</tool>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.645463495" name="MCU G++ Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler">
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.debuglevel.2131855557" name="Debug level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.debuglevel" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.debuglevel.value.g3" valueType="enumerated"/>
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.optimization.level.108609657" name="Optimization level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.optimization.level" useByScannerDiscovery="false"/>
-</tool>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.1868951001" name="MCU GCC Linker" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker">
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.script.469761944" name="Linker Script (-T)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.script" useByScannerDiscovery="false" value="${workspace_loc:/${ProjName}/STM32U575AIIXQ_FLASH.ld}" valueType="string"/>
-<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.input.1254157769" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.input">
-<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
-<additionalInput kind="additionalinput" paths="$(LIBS)"/>
-</inputType>
-</tool>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.707440312" name="MCU G++ Linker" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker"/>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.archiver.952151499" name="MCU GCC Archiver" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.archiver"/>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.size.1060124721" name="MCU Size" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.size"/>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objdump.listfile.1597752664" name="MCU Output Converter list file" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objdump.listfile"/>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.hex.1834333944" name="MCU Output Converter Hex" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.hex"/>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.binary.2064594503" name="MCU Output Converter Binary" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.binary"/>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.verilog.687998626" name="MCU Output Converter Verilog" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.verilog"/>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.srec.1768874393" name="MCU Output Converter Motorola S-rec" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.srec"/>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec.573587436" name="MCU Output Converter Motorola S-rec with symbols" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec"/>
-</toolChain>
-</folderInfo>
-</configuration>
-</storageModule>
-<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
-</cconfiguration>
-<cconfiguration id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.190355066">
-<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.190355066" moduleId="org.eclipse.cdt.core.settings" name="Release">
-<externalSettings/>
-<extensions>
-<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
-<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
-<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-</extensions>
-</storageModule>
-<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-<configuration artifactExtension="elf" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="rm -rf" description="" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.190355066" name="Release" parent="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release">
-<folderInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.190355066." name="/" resourcePath="">
-<toolChain id="com.st.stm32cube.ide.mcu.gnu.managedbuild.toolchain.exe.release.1610877739" name="MCU ARM GCC" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.toolchain.exe.release">
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_mcu.630869257" name="MCU" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_mcu" useByScannerDiscovery="true" value="STM32U575AIIxQ" valueType="string"/>
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_cpuid.1314197266" name="CPU" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_cpuid" useByScannerDiscovery="false" value="0" valueType="string"/>
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_coreid.1033168704" name="Core" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_coreid" useByScannerDiscovery="false" value="0" valueType="string"/>
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.fpu.1527615454" name="Floating-point unit" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.fpu" useByScannerDiscovery="true" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.fpu.value.fpv5-sp-d16" valueType="enumerated"/>
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.floatabi.587302284" name="Floating-point ABI" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.floatabi" useByScannerDiscovery="true" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.floatabi.value.hard" valueType="enumerated"/>
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_board.1619960437" name="Board" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_board" useByScannerDiscovery="false" value="STM32U575I-EV" valueType="string"/>
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.defaults.125334520" name="Defaults" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.defaults" useByScannerDiscovery="false" value="com.st.stm32cube.ide.common.services.build.inputs.revA.1.0.6 || Release || false || Executable || com.st.stm32cube.ide.mcu.gnu.managedbuild.option.toolchain.value.workspace || STM32U575I-EV || 0 || 0 || arm-none-eabi- || ${gnu_tools_for_stm32_compiler_path} || ../../Core/Inc | ../../Drivers/STM32U5xx_HAL_Driver/Inc | ../../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy | ../../Drivers/CMSIS/Device/ST/STM32U5xx/Include | ../../Drivers/CMSIS/Include | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/include/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/source/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-freertos-integration/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/include/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/include/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/JSON_parser/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/linked_list/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/include | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/arpa | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/net | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/sys | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/stdc | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/apps | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/priv | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/prot | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_FREERTOS/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include | ../../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/CMSIS_RTOS_V2/ | ../../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/include/ | ../../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/ | ../../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/include | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mfg-test/include/ | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mfg-test/source | ../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mfg-test/include | ../../Drivers/CMSIS/RTOS2/Include | ../Application/User/ThreadSafe ||  ||  || WLAN_MFG_FIRMWARE | CYBSP_WIFI_CAPABLE | USE_HAL_DRIVER | STM32U575xx | STM32_THREAD_SAFE_STRATEGY=2 ||  ||  ||  ||  || ${workspace_loc:/${ProjName}/STM32U575AIIXQ_FLASH.ld} || true || NonSecure ||  || secure_nsclib.o ||  || Generic_AllowLockFromIRQ ||  ||  || |" valueType="string"/>
-<option id="com.st.stm32cube.ide.mcu.debug.option.cpuclock.1742196706" name="Cpu clock frequence" superClass="com.st.stm32cube.ide.mcu.debug.option.cpuclock" useByScannerDiscovery="false" value="160" valueType="string"/>
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.converthex.64523448" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.converthex" value="true" valueType="boolean"/>
-<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.targetplatform.1643570117" isAbstract="false" osList="all" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.targetplatform"/>
-<builder buildPath="${workspace_loc:/wifi_mfg_tester}/Release" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.builder.817912309" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.builder"/>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.241764911" name="MCU GCC Assembler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler">
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel.64241873" name="Debug level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel.value.g0" valueType="enumerated"/>
-<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.input.1640884090" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.input"/>
-</tool>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1621053693" name="MCU GCC Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler">
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.debuglevel.637303037" name="Debug level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.debuglevel" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.debuglevel.value.g0" valueType="enumerated"/>
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.optimization.level.661439731" name="Optimization level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.optimization.level" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.optimization.level.value.os" valueType="enumerated"/>
-<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.definedsymbols.1339655204" name="Define symbols (-D)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.definedsymbols" useByScannerDiscovery="false" valueType="definedSymbols">
-<listOptionValue builtIn="false" value="WLAN_MFG_FIRMWARE"/>
-<listOptionValue builtIn="false" value="CYBSP_WIFI_CAPABLE"/>
-<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
-<listOptionValue builtIn="false" value="STM32U575xx"/>
-<listOptionValue builtIn="false" value="STM32_THREAD_SAFE_STRATEGY=2"/>
-<listOptionValue builtIn="false" value="CY_USING_HAL"/>
-</option>
-<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths.377571135" name="Include paths (-I)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths" useByScannerDiscovery="false" valueType="includePath">
-<listOptionValue builtIn="false" value="../../Core/Inc"/>
-<listOptionValue builtIn="false" value="../../Drivers/STM32U5xx_HAL_Driver/Inc"/>
-<listOptionValue builtIn="false" value="../../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy"/>
-<listOptionValue builtIn="false" value="../../Drivers/CMSIS/Device/ST/STM32U5xx/Include"/>
-<listOptionValue builtIn="false" value="../../Drivers/CMSIS/Include"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/include/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/source/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-freertos-integration/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/include/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/include/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/JSON_parser/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/linked_list/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/include"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/arpa"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/net"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/sys"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/stdc"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/apps"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/priv"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/prot"/>
-
-
-
-
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_FREERTOS/"/>
-
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp"/>
-
-
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/CMSIS_RTOS_V2/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/include/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/include"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mfg-test/include/"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mfg-test/source"/>
-<listOptionValue builtIn="false" value="../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mfg-test/include"/>
-<listOptionValue builtIn="false" value="../../Drivers/CMSIS/RTOS2/Include"/>
-<listOptionValue builtIn="false" value="../Application/User/ThreadSafe"/>
-</option>
-<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.55290398" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
-</tool>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.886000866" name="MCU G++ Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler">
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.debuglevel.1541081466" name="Debug level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.debuglevel" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.debuglevel.value.g0" valueType="enumerated"/>
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.optimization.level.2069650787" name="Optimization level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.optimization.level" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.optimization.level.value.os" valueType="enumerated"/>
-</tool>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.285722223" name="MCU GCC Linker" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker">
-<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.script.1259703291" name="Linker Script (-T)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.script" value="${workspace_loc:/${ProjName}/STM32U575AIIXQ_FLASH.ld}" valueType="string"/>
-<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.input.1315969421" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.input">
-<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
-<additionalInput kind="additionalinput" paths="$(LIBS)"/>
-</inputType>
-</tool>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.1757299486" name="MCU G++ Linker" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker"/>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.archiver.1287897401" name="MCU GCC Archiver" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.archiver"/>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.size.1481293888" name="MCU Size" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.size"/>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objdump.listfile.1966624835" name="MCU Output Converter list file" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objdump.listfile"/>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.hex.596279660" name="MCU Output Converter Hex" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.hex"/>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.binary.1631141792" name="MCU Output Converter Binary" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.binary"/>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.verilog.781496402" name="MCU Output Converter Verilog" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.verilog"/>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.srec.734724142" name="MCU Output Converter Motorola S-rec" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.srec"/>
-<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec.1350573741" name="MCU Output Converter Motorola S-rec with symbols" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec"/>
-</toolChain>
-</folderInfo>
-</configuration>
-</storageModule>
-<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
-</cconfiguration>
-</storageModule>
-<storageModule moduleId="org.eclipse.cdt.core.pathentry"/>
-<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-<project id="wifi_mfg_tester.null.1234296529" name="wifi_mfg_tester"/>
-</storageModule>
-<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
-<storageModule moduleId="scannerConfiguration">
-<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1274856656;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1274856656.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1759924556;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.2032890776">
-<autodiscovery enabled="false" problemReportingEnabled="true" selectedProfileId=""/>
-</scannerConfigBuildInfo>
-<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.190355066;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.190355066.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1621053693;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.55290398">
-<autodiscovery enabled="false" problemReportingEnabled="true" selectedProfileId=""/>
-</scannerConfigBuildInfo>
-</storageModule>
-<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1821721776">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1821721776" moduleId="org.eclipse.cdt.core.settings" name="Debug">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="elf" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf" description="" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1821721776" name="Debug" parent="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug">
+					<folderInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1821721776." name="/" resourcePath="">
+						<toolChain id="com.st.stm32cube.ide.mcu.gnu.managedbuild.toolchain.exe.debug.1637892596" name="MCU ARM GCC" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.toolchain.exe.debug">
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_mcu.180185071" name="MCU" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_mcu" useByScannerDiscovery="true" value="STM32U575AIIxQ" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_cpuid.300805543" name="CPU" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_cpuid" useByScannerDiscovery="false" value="0" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_coreid.1084006091" name="Core" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_coreid" useByScannerDiscovery="false" value="0" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.fpu.1364683793" name="Floating-point unit" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.fpu" useByScannerDiscovery="true" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.fpu.value.fpv5-sp-d16" valueType="enumerated"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.floatabi.988707840" name="Floating-point ABI" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.floatabi" useByScannerDiscovery="true" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.floatabi.value.hard" valueType="enumerated"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_board.2058942368" name="Board" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_board" useByScannerDiscovery="false" value="STM32U575I-EV" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.defaults.1890432282" name="Defaults" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.defaults" useByScannerDiscovery="false" value="com.st.stm32cube.ide.common.services.build.inputs.revA.1.0.6 || Debug || true || Executable || com.st.stm32cube.ide.mcu.gnu.managedbuild.option.toolchain.value.workspace || STM32U575I-EV || 0 || 0 || arm-none-eabi- || ${gnu_tools_for_stm32_compiler_path} || ../../Core/Inc | ../../Drivers/STM32U5xx_HAL_Driver/Inc | ../../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy | ../../Drivers/CMSIS/Device/ST/STM32U5xx/Include | ../../Drivers/CMSIS/Include | ../../Drivers/CMSIS/RTOS2/Include | ../Application/User/ThreadSafe ||  ||  || WLAN_MFG_FIRMWARE | CYBSP_WIFI_CAPABLE | CY_USING_HAL | USE_HAL_DRIVER | STM32U575xx | STM32_THREAD_SAFE_STRATEGY=2 ||  ||  ||  ||  || ${workspace_loc:/${ProjName}/STM32U575AIIXQ_FLASH.ld} || true || NonSecure ||  || secure_nsclib.o ||  || Generic_AllowLockFromIRQ ||  ||  || " valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.debug.option.cpuclock.603099040" name="Cpu clock frequence" superClass="com.st.stm32cube.ide.mcu.debug.option.cpuclock" useByScannerDiscovery="false" value="160" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.converthex.2084990382" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.converthex" value="true" valueType="boolean"/>
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.targetplatform.395169169" isAbstract="false" osList="all" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.targetplatform"/>
+							<builder buildPath="${workspace_loc:/wifi_mfg_tester}/Debug" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.builder.747362065" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.builder"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.1312922443" name="MCU GCC Assembler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler">
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel.1959838806" name="Debug level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel.value.g3" valueType="enumerated"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.definedsymbols.2099680016" name="Define symbols (-D)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.definedsymbols" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="DEBUG"/>
+								</option>
+								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.input.1544080179" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.input"/>
+							</tool>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.276865128" name="MCU GCC Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler">
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.debuglevel.871957420" name="Debug level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.debuglevel" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.debuglevel.value.g3" valueType="enumerated"/>
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.optimization.level.1962048705" name="Optimization level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.optimization.level" useByScannerDiscovery="false"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.definedsymbols.608838883" name="Define symbols (-D)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.definedsymbols" useByScannerDiscovery="false" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="DEBUG"/>
+									<listOptionValue builtIn="false" value="WLAN_MFG_FIRMWARE"/>
+									<listOptionValue builtIn="false" value="CYBSP_WIFI_CAPABLE"/>
+									<listOptionValue builtIn="false" value="CY_USING_HAL"/>
+									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
+									<listOptionValue builtIn="false" value="STM32U575xx"/>
+									<listOptionValue builtIn="false" value="STM32_THREAD_SAFE_STRATEGY=2"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths.231697242" name="Include paths (-I)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="../../Core/Inc"/>
+									<listOptionValue builtIn="false" value="../../Drivers/STM32U5xx_HAL_Driver/Inc"/>
+									<listOptionValue builtIn="false" value="../../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy"/>
+									<listOptionValue builtIn="false" value="../../Drivers/CMSIS/Device/ST/STM32U5xx/Include"/>
+									<listOptionValue builtIn="false" value="../../Drivers/CMSIS/Include"/>
+									<listOptionValue builtIn="false" value="../../Drivers/CMSIS/RTOS2/Include"/>
+									<listOptionValue builtIn="false" value="../Application/User/ThreadSafe"/>
+								</option>
+								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.1204857626" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
+							</tool>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.1255984583" name="MCU G++ Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler">
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.debuglevel.310180289" name="Debug level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.debuglevel" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.debuglevel.value.g3" valueType="enumerated"/>
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.optimization.level.458759920" name="Optimization level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.optimization.level" useByScannerDiscovery="false"/>
+							</tool>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.861119000" name="MCU GCC Linker" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker">
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.script.774855660" name="Linker Script (-T)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.script" value="${workspace_loc:/${ProjName}/STM32U575AIIXQ_FLASH.ld}" valueType="string"/>
+								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.input.1901113164" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.415837563" name="MCU G++ Linker" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.archiver.2076019418" name="MCU GCC Archiver" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.archiver"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.size.1359151306" name="MCU Size" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.size"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objdump.listfile.586359688" name="MCU Output Converter list file" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objdump.listfile"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.hex.1459139318" name="MCU Output Converter Hex" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.hex"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.binary.603549423" name="MCU Output Converter Binary" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.binary"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.verilog.1841344697" name="MCU Output Converter Verilog" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.verilog"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.srec.1161679859" name="MCU Output Converter Motorola S-rec" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.srec"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec.417790659" name="MCU Output Converter Motorola S-rec with symbols" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec"/>
+						</toolChain>
+					</folderInfo>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+		<cconfiguration id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.1422137834">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.1422137834" moduleId="org.eclipse.cdt.core.settings" name="Release">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="elf" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="rm -rf" description="" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.1422137834" name="Release" parent="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release">
+					<folderInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.1422137834." name="/" resourcePath="">
+						<toolChain id="com.st.stm32cube.ide.mcu.gnu.managedbuild.toolchain.exe.release.1452857097" name="MCU ARM GCC" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.toolchain.exe.release">
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_mcu.34432626" name="MCU" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_mcu" useByScannerDiscovery="true" value="STM32U575AIIxQ" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_cpuid.88410238" name="CPU" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_cpuid" useByScannerDiscovery="false" value="0" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_coreid.1945459031" name="Core" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_coreid" useByScannerDiscovery="false" value="0" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.fpu.1296678515" name="Floating-point unit" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.fpu" useByScannerDiscovery="true" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.fpu.value.fpv5-sp-d16" valueType="enumerated"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.floatabi.748237226" name="Floating-point ABI" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.floatabi" useByScannerDiscovery="true" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.floatabi.value.hard" valueType="enumerated"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_board.887688805" name="Board" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_board" useByScannerDiscovery="false" value="STM32U575I-EV" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.defaults.392255677" name="Defaults" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.defaults" useByScannerDiscovery="false" value="com.st.stm32cube.ide.common.services.build.inputs.revA.1.0.6 || Release || false || Executable || com.st.stm32cube.ide.mcu.gnu.managedbuild.option.toolchain.value.workspace || STM32U575I-EV || 0 || 0 || arm-none-eabi- || ${gnu_tools_for_stm32_compiler_path} || ../../Core/Inc | ../../Drivers/STM32U5xx_HAL_Driver/Inc | ../../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy | ../../Drivers/CMSIS/Device/ST/STM32U5xx/Include | ../../Drivers/CMSIS/Include | ../../Drivers/CMSIS/RTOS2/Include | ../Application/User/ThreadSafe ||  ||  || WLAN_MFG_FIRMWARE | CYBSP_WIFI_CAPABLE | CY_USING_HAL | USE_HAL_DRIVER | STM32U575xx | STM32_THREAD_SAFE_STRATEGY=2 ||  ||  ||  ||  || ${workspace_loc:/${ProjName}/STM32U575AIIXQ_FLASH.ld} || true || NonSecure ||  || secure_nsclib.o ||  || Generic_AllowLockFromIRQ ||  ||  || " valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.debug.option.cpuclock.481438006" name="Cpu clock frequence" superClass="com.st.stm32cube.ide.mcu.debug.option.cpuclock" useByScannerDiscovery="false" value="160" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.converthex.956199208" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.converthex" value="true" valueType="boolean"/>
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.targetplatform.31217464" isAbstract="false" osList="all" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.targetplatform"/>
+							<builder buildPath="${workspace_loc:/wifi_mfg_tester}/Release" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.builder.227543808" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.builder"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.670653384" name="MCU GCC Assembler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler">
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel.1556813464" name="Debug level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel.value.g0" valueType="enumerated"/>
+								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.input.818528436" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.input"/>
+							</tool>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1999973547" name="MCU GCC Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler">
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.debuglevel.1568808057" name="Debug level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.debuglevel" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.debuglevel.value.g0" valueType="enumerated"/>
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.optimization.level.1350623994" name="Optimization level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.optimization.level" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.optimization.level.value.os" valueType="enumerated"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.definedsymbols.2010846300" name="Define symbols (-D)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.definedsymbols" useByScannerDiscovery="false" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="WLAN_MFG_FIRMWARE"/>
+									<listOptionValue builtIn="false" value="CYBSP_WIFI_CAPABLE"/>
+									<listOptionValue builtIn="false" value="CY_USING_HAL"/>
+									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
+									<listOptionValue builtIn="false" value="STM32U575xx"/>
+									<listOptionValue builtIn="false" value="STM32_THREAD_SAFE_STRATEGY=2"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths.1162487380" name="Include paths (-I)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="../../Core/Inc"/>
+									<listOptionValue builtIn="false" value="../../Drivers/STM32U5xx_HAL_Driver/Inc"/>
+									<listOptionValue builtIn="false" value="../../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy"/>
+									<listOptionValue builtIn="false" value="../../Drivers/CMSIS/Device/ST/STM32U5xx/Include"/>
+									<listOptionValue builtIn="false" value="../../Drivers/CMSIS/Include"/>
+									<listOptionValue builtIn="false" value="../../Drivers/CMSIS/RTOS2/Include"/>
+									<listOptionValue builtIn="false" value="../Application/User/ThreadSafe"/>
+								</option>
+								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.627574738" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
+							</tool>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.1050191284" name="MCU G++ Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler">
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.debuglevel.1070648688" name="Debug level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.debuglevel" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.debuglevel.value.g0" valueType="enumerated"/>
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.optimization.level.1973276226" name="Optimization level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.optimization.level" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.optimization.level.value.os" valueType="enumerated"/>
+							</tool>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.1728237074" name="MCU GCC Linker" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker">
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.script.1810850134" name="Linker Script (-T)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.script" value="${workspace_loc:/${ProjName}/STM32U575AIIXQ_FLASH.ld}" valueType="string"/>
+								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.input.963194523" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.1486783806" name="MCU G++ Linker" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.archiver.418646980" name="MCU GCC Archiver" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.archiver"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.size.1919830988" name="MCU Size" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.size"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objdump.listfile.503961512" name="MCU Output Converter list file" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objdump.listfile"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.hex.2076893800" name="MCU Output Converter Hex" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.hex"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.binary.414208439" name="MCU Output Converter Binary" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.binary"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.verilog.1748195309" name="MCU Output Converter Verilog" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.verilog"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.srec.786662046" name="MCU Output Converter Motorola S-rec" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.srec"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec.1378542226" name="MCU Output Converter Motorola S-rec with symbols" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec"/>
+						</toolChain>
+					</folderInfo>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.pathentry"/>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="wifi_mfg_tester.null.256481028" name="wifi_mfg_tester"/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.1422137834;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.1422137834.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1999973547;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.627574738">
+			<autodiscovery enabled="false" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1821721776;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1821721776.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.276865128;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.1204857626">
+			<autodiscovery enabled="false" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>

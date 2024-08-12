@@ -5298,8 +5298,8 @@
         </enumvalue>
         <enumvalue id="whd__types_8h_1a07b4f24f4e2abacc45a9ad29f008488fadb54e31649be7a9a80ad7cc34c2c4394" prot="public">
           <name>VENDOR_IE_UNKNOWN</name>
-          <initializer>= ~(VENDOR_IE_BEACON | VENDOR_IE_PROBE_RESPONSE | VENDOR_IE_ASSOC_RESPONSE |
-                          VENDOR_IE_AUTH_RESPONSE | VENDOR_IE_PROBE_REQUEST | VENDOR_IE_ASSOC_REQUEST |
+          <initializer>= ~(VENDOR_IE_BEACON | VENDOR_IE_PROBE_RESPONSE | VENDOR_IE_ASSOC_RESPONSE | 
+                          VENDOR_IE_AUTH_RESPONSE | VENDOR_IE_PROBE_REQUEST | VENDOR_IE_ASSOC_REQUEST | 
                           VENDOR_IE_CUSTOM)</initializer>
           <briefdescription>
           </briefdescription>

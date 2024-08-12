@@ -1,5 +1,5 @@
 /*
-* Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
 *
 * This software, including source code, documentation and related
@@ -321,6 +321,7 @@ void Server::InitTrafficLoop (void) {
     PostFirstReport(mSettings);
     /* IPERF_MODIFIED Start */
     reportstruct = (ReportStruct*) malloc( sizeof( ReportStruct ) );
+    memset(reportstruct, 0, sizeof(ReportStruct));
     /* IPERF_MODIFIED End */
     FAIL(reportstruct == NULL, "Out of memory! Closing server thread\n", mSettings);
     reportstruct->packetID = 0;
@@ -423,6 +424,9 @@ int Server::ReadWithRxTimestamp (int *readerr) {
         currLen= 0;
          goto exit;
     }
+#ifdef DEFAULT_IPERF_SERVER_TIMEOUT_SEC
+    FAIL_errno(currLen == -1, "UDP socket closed\n", mSettings);
+#endif
     /* IPERF_MODIFIED End */
 
 	// except for socket read timeout
@@ -739,9 +743,9 @@ void Server::write_UDP_AckFIN( ) {
             hdr->base.outorder_cnt = htonl( (long) (stats->cntOutofOrder  & 0xFFFFFFFF));
 	    hdr->base.datagrams    = htonl( (long) (stats->cntDatagrams & 0xFFFFFFFF) );
 	    if (flags & HEADER_SEQNO64B) {
-	      hdr->extend2.error_cnt2    = htonl( (long) ( stats->cntError >> 32) );
-	      hdr->extend2.outorder_cnt2 = htonl( (long) ( stats->cntOutofOrder >> 32)  );
-	      hdr->extend2.datagrams2    = htonl( (long) (stats->cntDatagrams >> 32) );
+	      hdr->extend2.error_cnt2    = htonl( (long) ( (long long)stats->cntError >> 32) );
+	      hdr->extend2.outorder_cnt2 = htonl( (long) ( (long long)stats->cntOutofOrder >> 32)  );
+	      hdr->extend2.datagrams2    = htonl( (long) ( (long long)stats->cntDatagrams >> 32) );
 	    }
 
             hdr->base.jitter1      = htonl( (long) stats->jitter );

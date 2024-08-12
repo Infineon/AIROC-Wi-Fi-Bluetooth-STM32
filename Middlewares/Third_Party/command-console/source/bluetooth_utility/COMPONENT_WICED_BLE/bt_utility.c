@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -35,10 +35,13 @@
  *
  */
 #ifndef DISABLE_COMMAND_CONSOLE_BT
+
 #include "command_console.h"
 #include "bt_cfg.h"
 #include "wiced_bt_stack.h"
+#ifndef COMPONENT_CAT5
 #include "cybt_platform_trace.h"
+#endif
 #include "wiced_memory.h"
 #include "stdio.h"
 #include "stdlib.h"
@@ -167,8 +170,8 @@ wiced_bt_l2cap_le_appl_information_t l2c_appl_info =
  *               Variable Definitions
  ******************************************************/
 bool bt_state         = WICED_FALSE;
+static bool           bt_on_init_done = false;
 cy_thread_t           ble_thread;
-static bool           ble_thread_init=false;
 static volatile bool  send_data;
 static uint32_t       data_le_tx_counter;
 static uint32_t       data_le_rx_counter;
@@ -176,13 +179,11 @@ static bool           le_coc_data_rx_flag;
 static cy_time_t      start_time;
 static cy_time_t      end_time;
 cy_semaphore_t        send_data_semaphore;
-static bool           send_data_semaphore_init=false;
 uint16_t              psm;
 uint16_t              our_mtu;
 uint8_t               lec_coc_data[ BLE_COC_MTU_SIZE ];
 le_coc_cb_t           le_coc_cb;
 static cy_mutex_t     bt_mutex;
-static bool           bt_mutex_init=false;
 
 const cy_command_console_cmd_t bt_coex_command_table[] =
 {
@@ -197,7 +198,9 @@ int handle_bt_on(int argc, char *argv[], tlv_buffer_t** data)
         BT_LE_DEBUG(("BT is already ON \n"));
         return result;
     }
+#ifndef COMPONENT_CAT5
     cybt_platform_config_init(&bt_platform_cfg_settings);
+#endif
     wiced_bt_stack_init(bt_management_cback, &wiced_bt_command_console_cfg_settings);
     // create application heap for BT
     wiced_bt_create_heap ("app", NULL, 0x1000, NULL, WICED_TRUE);\
@@ -208,23 +211,22 @@ int handle_bt_on(int argc, char *argv[], tlv_buffer_t** data)
 
 int handle_bt_off(int argc, char *argv[], tlv_buffer_t** data)
 {
+#ifdef COMPONENT_CAT5
+    BT_LE_INFO(("BT OFF is not supported on CAT5 devices \n"));
+    return 0;
+#endif
     int result = 0;
     BT_LE_DEBUG(("bt_off\n"));
 
     wiced_bt_stack_deinit( );
     bt_state = WICED_FALSE;
 
-    if (ble_thread_init) {
-    	cy_rtos_terminate_thread(&ble_thread);
-    	ble_thread_init = false;
-    }
-    if (send_data_semaphore_init) {
-    	cy_rtos_deinit_semaphore(&send_data_semaphore);
-    	send_data_semaphore_init = false;
-    }
-    if (bt_mutex_init) {
+    if(bt_on_init_done)
+    {
+        cy_rtos_terminate_thread(&ble_thread);
+        cy_rtos_deinit_semaphore(&send_data_semaphore);
         cy_rtos_deinit_mutex(&bt_mutex);
-        bt_mutex_init = false;
+        bt_on_init_done = false;
     }
 
     return result;
@@ -239,7 +241,7 @@ int handle_ble_start_adv(int argc, char *argv[], tlv_buffer_t** data)
 
     BT_LE_INFO(("Starting advertisement \n"));
     result = wiced_bt_start_advertisements(BTM_BLE_ADVERT_UNDIRECTED_HIGH, 0, NULL);
-    BT_LE_INFO(("Start advertisement,  result =  %d\n", result));
+    BT_LE_INFO(("Start advertisement,  result =  0x%X\n", (unsigned int)result));
 
     return result;
 }
@@ -251,7 +253,7 @@ int handle_ble_stop_adv(int argc, char *argv[], tlv_buffer_t** data)
 
     BT_LE_INFO(("Stopping advertisement \n"));
     result = wiced_bt_start_advertisements(BTM_BLE_ADVERT_OFF, 0, NULL);
-    BT_LE_INFO(("Stop advertisement, result = %d\n", result));
+    BT_LE_INFO(("Stop advertisement, result = 0x%X\n", (unsigned int)result));
 
     return result;
 }
@@ -263,7 +265,7 @@ int handle_ble_start_scan(int argc, char *argv[], tlv_buffer_t** data)
 
     BT_LE_INFO(("Starting scan operation \n"));
     result = wiced_bt_ble_scan( BTM_BLE_SCAN_TYPE_HIGH_DUTY, WICED_TRUE, scan_result_cback);
-    BT_LE_INFO(("Start Scan, result = %d\n", result));
+    BT_LE_INFO(("Start Scan, result = 0x%X\n", (unsigned int)result));
 
     return result;
 }
@@ -273,7 +275,7 @@ int handle_ble_stop_scan(int argc, char *argv[], tlv_buffer_t** data)
     int result = 0;
     IS_BT_ON();
     result = wiced_bt_ble_scan(BTM_BLE_SCAN_TYPE_NONE, WICED_TRUE, NULL);
-    BT_LE_DEBUG(("Stop Scan result = %d\n", result) );
+    BT_LE_DEBUG(("Stop Scan result = 0x%X\n", (unsigned int)result) );
     return result;
 }
 
@@ -292,9 +294,9 @@ int handle_ble_get_throughput(int argc, char *argv[], tlv_buffer_t** data)
         data_rate = (((float)data_le_rx_counter * 8)/elapsed_time);
         BT_LE_INFO(("start Time = %u ...\n", (unsigned int)start_time));
         BT_LE_INFO(("END Time = %u ...\n", (unsigned int)end_time));
-        BT_LE_INFO(("elapsed time in seconds = %f \n", elapsed_time));
+        BT_LE_INFO(("elapsed time in seconds = %f \n", (double)elapsed_time));
         BT_LE_INFO(("total le bytes recieved  = %u \n", (unsigned int)data_le_rx_counter));
-        BT_LE_INFO(("RX throughput =  %f bps\n", data_rate));
+        BT_LE_INFO(("RX throughput =  %f bps\n", (double)data_rate));
         le_coc_data_rx_flag = false;
         data_le_rx_counter = 0;
         start_time = 0;
@@ -308,9 +310,9 @@ int handle_ble_get_throughput(int argc, char *argv[], tlv_buffer_t** data)
         data_rate = (((float)data_le_tx_counter * 8)/elapsed_time);
         BT_LE_INFO(("start Time = %u ...\n", (unsigned int)start_time));
         BT_LE_INFO(("END Time = %u ...\n", (unsigned int)end_time));
-        BT_LE_INFO(("elapsed time in seconds = %f \n", elapsed_time));
+        BT_LE_INFO(("elapsed time in seconds = %f \n", (double)elapsed_time));
         BT_LE_INFO(("total le bytes transferred  = %u \n", (unsigned int)data_le_tx_counter));
-        BT_LE_INFO(("TX throughput =  %f bps\n", data_rate));
+        BT_LE_INFO(("TX throughput =  %f bps\n", (double)data_rate));
         data_le_tx_counter = 0;
         start_time = 0;
         end_time = 0;
@@ -319,20 +321,28 @@ int handle_ble_get_throughput(int argc, char *argv[], tlv_buffer_t** data)
 }
 void start_data_thread()
 {
+    if (cy_rtos_init_mutex(&bt_mutex) != CY_RSLT_SUCCESS)
+    {
+        BT_LE_INFO(("Unable to init the mutex \n"));
+        return;
+    }
+
     if(cy_rtos_init_semaphore(&send_data_semaphore, MAX_SEMA_COUNT, 0) != CY_RSLT_SUCCESS)
     {
         BT_LE_ERROR(("unable to create semaphore \n"));
-    } else {
-    	send_data_semaphore_init = true;
+        cy_rtos_deinit_mutex(&bt_mutex);
+        return;
     }
 
     /* start BLE TX/RX data Thread */
-    if (cy_rtos_create_thread(&ble_thread, send_data_thread, "BLE Data Thread", NULL, BLE_WORKER_THREAD_STACK_SIZE, BLE_WORKER_THREAD_PRIORITY, NULL) != CY_RSLT_SUCCESS)
+    if (cy_rtos_create_thread(&ble_thread, send_data_thread, "BLE Data Thread", NULL, BLE_WORKER_THREAD_STACK_SIZE, BLE_WORKER_THREAD_PRIORITY, 0) != CY_RSLT_SUCCESS)
     {
         BT_LE_ERROR(("unable to create the thread \n"));
-    } else {
-    	ble_thread_init = true;
+        cy_rtos_deinit_semaphore(&send_data_semaphore);
+        cy_rtos_deinit_mutex(&bt_mutex);
+        return;
     }
+    bt_on_init_done = true;
 }
 
 wiced_bt_dev_status_t bt_management_cback( wiced_bt_management_evt_t event, wiced_bt_management_evt_data_t *p_event_data )
@@ -355,13 +365,6 @@ wiced_bt_dev_status_t bt_management_cback( wiced_bt_management_evt_t event, wice
                 wiced_bt_dev_read_local_addr( bda );
                 BT_LE_INFO(("Local Bluetooth Address: [%02X:%02X:%02X:%02X:%02X:%02X]\n", bda[0], bda[1], bda[2], bda[3], bda[4], bda[5]));
 
-            }
-
-            if (cy_rtos_init_mutex(&bt_mutex) != CY_RSLT_SUCCESS)
-            {
-                BT_LE_INFO(("Unable to init the mutex \n"));
-            } else {
-            	bt_mutex_init = true;
             }
 
             start_data_thread();

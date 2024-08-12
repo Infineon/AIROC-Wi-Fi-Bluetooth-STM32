@@ -1,5 +1,5 @@
 /*
-* Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
 *
 * This software, including source code, documentation and related
@@ -84,8 +84,9 @@
  * ------------------------------------------------------------------- */
 
 /* IPERF_MODIFIED Start */
+
 #include "iperf_util.h"
-#include "lwip/sockets.h"
+#include "iperf_sockets_internal.h"
 /* IPERF_MODIFIED End */
 #include "headers.h"
 #ifdef __cplusplus

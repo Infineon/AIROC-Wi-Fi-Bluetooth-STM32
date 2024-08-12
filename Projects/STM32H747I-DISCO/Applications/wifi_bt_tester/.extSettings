@@ -1,7 +1,8 @@
 [CortexM7:ProjectFiles]
-HeaderPath=
+HeaderPath=../CM7/Core/Inc;../CM7/MBEDTLS/App;
 [CortexM7:Others]
-Define=HAVE_SNPRINTF;CY_USING_HAL;CYBSP_WIFI_CAPABLE;CY_STORAGE_WIFI_DATA:".whd_fw";
+Define=HAVE_SNPRINTF;CY_USING_HAL;CYBSP_WIFI_CAPABLE;CY_STORAGE_WIFI_DATA:".whd_fw";COMPONENT_LWIP;
 [CortexM7:Groups]
 Application/User/Core/Src=../CM7/Core/Src/console_task.c;
+Application/User/MBEDTLS=../CM7/MBEDTLS/App/mbedtls.c;../CM7/MBEDTLS/Target/custom_rng.c;
 

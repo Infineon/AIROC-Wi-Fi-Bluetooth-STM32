@@ -17,5 +17,6 @@ var group__generic__netxduo__whd__port__defines =
     [ "CY_RSLT_NETWORK_GW_ADDRESS_NOT_FOUND", "group__generic__netxduo__whd__port__defines.html#gac2fb987abf9c2260f9c7497b6f3f5ac9", null ],
     [ "CY_RSLT_NETWORK_ARP_REQUEST_FAILURE", "group__generic__netxduo__whd__port__defines.html#ga655451c65733528780f54523d33e4927", null ],
     [ "CY_RSLT_NETWORK_WAIT_TIMEOUT", "group__generic__netxduo__whd__port__defines.html#gaeb3fb5a4aa8a2f6fee3a8233986ba0e6", null ],
-    [ "CY_RSLT_NETWORK_PING_FAILURE", "group__generic__netxduo__whd__port__defines.html#gace4025d551e67221ece7c2969e596de5", null ]
+    [ "CY_RSLT_NETWORK_PING_FAILURE", "group__generic__netxduo__whd__port__defines.html#gace4025d551e67221ece7c2969e596de5", null ],
+    [ "CY_RSLT_NETWORK_ERROR_TRNG", "group__generic__netxduo__whd__port__defines.html#gac6ccfbb53bcd02d7017e9de24c3e0856", null ]
 ];

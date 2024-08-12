@@ -1,5 +1,5 @@
 /*
- * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -50,7 +50,7 @@ extern "C" {
  *                      Macros
  ******************************************************/
 #define CY_WPS_SSID_LENGTH             32
-#define CY_WPS_PASSPHRASE_LENGTH       64
+#define CY_WPS_PASSPHRASE_LENGTH       63
 /******************************************************
  *                   Enumerations
  ******************************************************/

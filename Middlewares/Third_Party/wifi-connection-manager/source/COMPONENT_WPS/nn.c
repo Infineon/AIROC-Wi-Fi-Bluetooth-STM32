@@ -1,5 +1,5 @@
 /*
- * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -200,6 +200,11 @@ the transformation back is negligible compared to the savings you make
 on the multiplies. The best known such situation is exponentiation.
 */
 
+
+/* Note : Only few functions are used by WPS from NN library. Hence adding functions which are not used
+ * under ENABLE_UNUSED_NN_FUNCTIONS define to improve the code coverage of WCM asset. Please define ENABLE_UNUSED_NN_FUNCTIONS
+ * if you need to use the remaining functions
+ */
 /****************************************************************************/
 /*                  Local definitions and types                             */
 /****************************************************************************/
@@ -227,6 +232,7 @@ void NN_Clr( NN_t* m )
 }
 
 
+#ifdef ENABLE_UNUSED_NN_FUNCTIONS
 /*!
 ******************************************************************************
 Adds two numbers
@@ -364,6 +370,7 @@ uint64_t  tr;
         }
     }
 }
+#endif
 
 /*
 *   Division
@@ -390,6 +397,7 @@ The operands must be less than the modulus. The result must be as long as the
 modulus.
 */
 
+#ifdef ENABLE_UNUSED_NN_FUNCTIONS
 void NN_AddMod( NN_t* r, const NN_t* x, const NN_t* y, const NN_t* m )
 {
 const uint32_t  *xp, *yp;
@@ -482,7 +490,7 @@ sint64  tr;
         }
     }
 }
-
+#endif
 
 /*!
 ******************************************************************************
@@ -1144,6 +1152,7 @@ void NN_ExpModMont( NN_t* r, NN_t* x, NN_t* e, NN_t* m, NN_t* w )
 }
 
 
+#ifdef ENABLE_UNUSED_NN_FUNCTIONS
 /*!
 ******************************************************************************
 Classical exponentiation
@@ -1232,6 +1241,7 @@ void NN_ExpMod( NN_t* r, NN_t* x, NN_t* e, NN_t* m, NN_t* w )
         }
     }
 }
+#endif
 
 /****************************************************************************/
 /*                      Auxcilliary functions                               */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -96,6 +96,7 @@ extern "C" {
 #define CY_RSLT_NETWORK_ARP_REQUEST_FAILURE                (CY_RSLT_NETXDUO_WHD_PORT_ERR_BASE + 23) /**< Denotes error IP ARP request failure */
 #define CY_RSLT_NETWORK_WAIT_TIMEOUT                       (CY_RSLT_NETXDUO_WHD_PORT_ERR_BASE + 24) /**< Denotes error timeout */
 #define CY_RSLT_NETWORK_PING_FAILURE                       (CY_RSLT_NETXDUO_WHD_PORT_ERR_BASE + 25) /**< Denotes ping failure */
+#define CY_RSLT_NETWORK_ERROR_TRNG                         (CY_RSLT_NETXDUO_WHD_PORT_ERR_BASE + 26) /**< Denotes that the random number generation failed*/
 /**
  * \}
  */

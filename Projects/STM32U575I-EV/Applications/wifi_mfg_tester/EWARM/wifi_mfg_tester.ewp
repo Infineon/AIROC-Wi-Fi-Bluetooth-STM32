@@ -11,13 +11,9 @@
       <name>General</name>
       <archiveVersion>3</archiveVersion>
       <data>
-        <version>35</version>
+        <version>31</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
-        <option>
-          <name>BrowseInfoPath</name>
-          <state>wifi_mfg_tester\BrowseInfo</state>
-        </option>
         <option>
           <name>ExePath</name>
           <state>wifi_mfg_tester/Exe</state>
@@ -70,7 +66,15 @@
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
-          <state>9.30.1.50052</state>
+          <state>8.50.1.24770</state>
+        </option>
+        <option>
+          <name>GeneralEnableMisra</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GeneralMisraVerbose</name>
+          <state>0</state>
         </option>
         <option>
           <name>OGChipSelectEditMenu</name>
@@ -93,13 +97,27 @@
           <state>0</state>
         </option>
         <option>
+          <name>GeneralMisraRules98</name>
+          <version>0</version>
+          <state>1000111110110101101110011100111111101110011011000101110111101101100111111111111100110011111001110111001111111111111111111111111</state>
+        </option>
+        <option>
+          <name>GeneralMisraVer</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GeneralMisraRules04</name>
+          <version>0</version>
+          <state>111101110010111111111000110111111111111111111111111110010111101111010101111111111111111111111111101111111011111001111011111011111111111111111</state>
+        </option>
+        <option>
           <name>RTConfigPath2</name>
           <state>$TOOLKIT_DIR$\inc\c\DLib_Config_Full.h</state>
         </option>
         <option>
           <name>GBECoreSlave</name>
-          <version>32</version>
-          <state>0</state>
+          <version>28</version>
+          <state></state>
         </option>
         <option>
           <name>OGUseCmsis</name>
@@ -115,12 +133,12 @@
         </option>
         <option>
           <name>CoreVariant</name>
-          <version>32</version>
-          <state>61</state>
+          <version>28</version>
+          <state>39</state>
         </option>
         <option>
           <name>GFPUDeviceSlave</name>
-          <state>STM32U575AI	ST STM32U575AI</state>
+          <state></state>
         </option>
         <option>
           <name>FPU2</name>
@@ -138,8 +156,8 @@
         </option>
         <option>
           <name>GFPUCoreSlave2</name>
-          <version>32</version>
-          <state>61</state>
+          <version>28</version>
+          <state>39</state>
         </option>
         <option>
           <name>OGCMSISPackSelectDevice</name>
@@ -191,33 +209,13 @@
           <version>0</version>
           <state>1</state>
         </option>
-        <option>
-          <name>OGAarch64Abi</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>OG_32_64Device</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>BuildFilesPath</name>
-          <state>wifi_mfg_tester</state>
-        </option>
-        <option>
-          <name>PointerAuthentication</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>FPU64</name>
-          <state>1</state>
-        </option>
       </data>
     </settings>
     <settings>
       <name>ICCARM</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>37</version>
+        <version>36</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -228,10 +226,10 @@
           <name>CCDefines</name>
           <state>WLAN_MFG_FIRMWARE</state>
           <state>CYBSP_WIFI_CAPABLE</state>
+          <state>CY_USING_HAL</state>
           <state>USE_HAL_DRIVER</state>
           <state>STM32U575xx</state>
           <state>STM32_THREAD_SAFE_STRATEGY=2</state>
-          <state>CY_USING_HAL</state>
           <state></state>
         </option>
         <option>
@@ -352,70 +350,17 @@
           <state></state>
         </option>
         <option>
+          <name>CompilerMisraOverride</name>
+          <state>0</state>
+        </option>
+        <option>
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$/../Core/Inc</state>
           <state>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Inc</state>
           <state>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy</state>
           <state>$PROJ_DIR$/../Drivers/CMSIS/Device/ST/STM32U5xx/Include</state>
           <state>$PROJ_DIR$/../Drivers/CMSIS/Include</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/include/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/source/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-freertos-integration/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/include/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/include/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/JSON_parser/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/linked_list/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/include</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/arpa</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/net</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/sys</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/stdc</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/apps</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/priv</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/prot</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_FREERTOS/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/CMSIS_RTOS_V2/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/include/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/portable/IAR/ARM_CM33_NTZ/non_secure/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/include</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mfg-test/include/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mfg-test/source</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mfg-test/include</state>
           <state>$PROJ_DIR$/../Drivers/CMSIS/RTOS2/Include</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_43012/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/nvram/COMPONENT_43012/COMPONENT_MURATA-1LV/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_43012</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -441,6 +386,16 @@
         <option>
           <name>CCOptLevelSlave</name>
           <state>3</state>
+        </option>
+        <option>
+          <name>CompilerMisraRules98</name>
+          <version>0</version>
+          <state>1000111110110101101110011100111111101110011011000101110111101101100111111111111100110011111001110111001111111111111111111111111</state>
+        </option>
+        <option>
+          <name>CompilerMisraRules04</name>
+          <version>0</version>
+          <state>111101110010111111111000110111111111111111111111111110010111101111010101111111111111111111111111101111111011111001111011111011111111111111111</state>
         </option>
         <option>
           <name>CCPosIndRopi</name>
@@ -533,7 +488,7 @@
       <name>AARM</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>11</version>
+        <version>10</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -659,7 +614,7 @@
         </option>
         <option>
           <name>AOutputFile</name>
-          <state>$FILE_BNAME$.o</state>
+          <state></state>
         </option>
         <option>
           <name>ALimitErrorsCheck</name>
@@ -675,7 +630,7 @@
         </option>
         <option>
           <name>AUserIncludes</name>
-          <state>$PROJ_DIR$\..\Core\Inc</state>
+          <state>$PROJ_DIR$/../Core/Inc</state>
         </option>
         <option>
           <name>AExtraOptionsCheckV2</name>
@@ -688,10 +643,6 @@
         <option>
           <name>AsmNoLiteralPool</name>
           <state>0</state>
-        </option>
-        <option>
-          <name>PreInclude</name>
-          <state></state>
         </option>
       </data>
     </settings>
@@ -732,8 +683,12 @@
         <extensions></extensions>
         <cmdline></cmdline>
         <hasPrio>0</hasPrio>
-        <buildSequence>inputOutputBased</buildSequence>
       </data>
+    </settings>
+    <settings>
+      <name>BICOMP</name>
+      <archiveVersion>0</archiveVersion>
+      <data></data>
     </settings>
     <settings>
       <name>BUILDACTION</name>
@@ -747,7 +702,7 @@
       <name>ILINK</name>
       <archiveVersion>0</archiveVersion>
       <data>
-        <version>27</version>
+        <version>23</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -757,6 +712,10 @@
         <option>
           <name>IlinkLibIOConfig</name>
           <state>1</state>
+        </option>
+        <option>
+          <name>XLinkMisraHandler</name>
+          <state>0</state>
         </option>
         <option>
           <name>IlinkInputFileSlave</name>
@@ -1057,7 +1016,7 @@
         </option>
         <option>
           <name>IlinkTrustzoneImportLibraryOut</name>
-          <state>wifi_mfg_tester_import_lib.o</state>
+          <state></state>
         </option>
         <option>
           <name>OILinkExtraOption</name>
@@ -1078,42 +1037,6 @@
         <option>
           <name>IlinkRawBinaryAlign2</name>
           <state></state>
-        </option>
-        <option>
-          <name>IlinkLogCrtRoutineSelection</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>IlinkLogFragmentInfo</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>IlinkLogInlining</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>IlinkLogMerging</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>IlinkDemangle</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>IlinkWrapperFileEnable</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>IlinkWrapperFile</name>
-          <state></state>
-        </option>
-        <option>
-          <name>IlinkProcessor</name>
-          <state>1</state>
-        </option>
-        <option>
-          <name>IlinkFpuProcessor</name>
-          <state>1</state>
         </option>
       </data>
     </settings>
@@ -1139,6 +1062,11 @@
       </data>
     </settings>
     <settings>
+      <name>BILINK</name>
+      <archiveVersion>0</archiveVersion>
+      <data></data>
+    </settings>
+    <settings>
       <name>Coder</name>
       <archiveVersion>0</archiveVersion>
       <data></data>
@@ -1149,10 +1077,7 @@
     <group>
       <name>EWARM</name>
       <file>
-        <name>$PROJ_DIR$\dlib_lock_glue.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\startup_stm32u575xx.s</name>
+        <name>$PROJ_DIR$/startup_stm32u575xx.s</name>
       </file>
       <file>
         <name>$PROJ_DIR$/dlib_lock_glue.c</name>
@@ -1163,19 +1088,19 @@
       <group>
         <name>Core</name>
         <file>
-          <name>$PROJ_DIR$\..\Core\Src\mfg_test_client_task.c</name>
+          <name>$PROJ_DIR$/../Core/Src/mfg_test_client_task.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\Core\Src\main.c</name>
+          <name>$PROJ_DIR$/../Core/Src/main.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\Core\Src\stm32u5xx_it.c</name>
+          <name>$PROJ_DIR$/../Core/Src/stm32u5xx_it.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\Core\Src\stm32u5xx_hal_msp.c</name>
+          <name>$PROJ_DIR$/../Core/Src/stm32u5xx_hal_msp.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\Core\Src\stm32u5xx_hal_timebase_tim.c</name>
+          <name>$PROJ_DIR$/../Core/Src/stm32u5xx_hal_timebase_tim.c</name>
         </file>
       </group>
     </group>
@@ -1183,475 +1108,88 @@
   <group>
     <name>Drivers</name>
     <group>
-      <name>CMSIS</name>
-      <file>
-        <name>$PROJ_DIR$\..\Core\Src\system_stm32u5xx.c</name>
-      </file>
-    </group>
-    <group>
       <name>STM32U5xx_HAL_Driver</name>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_cortex.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_cortex.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_i2c.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_i2c.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_i2c_ex.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_i2c_ex.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_rcc.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_rcc.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_rcc_ex.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_rcc_ex.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_flash.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_flash.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_flash_ex.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_flash_ex.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_gpio.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_gpio.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_dma.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_dma_ex.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma_ex.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_exti.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_exti.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_pwr.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_pwr_ex.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr_ex.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_gtzc.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_gtzc.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_icache.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_icache.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_ospi.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_ospi.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_ll_dlyb.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_dlyb.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_ll_sdmmc.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_sdmmc.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_sd.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_sd.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_sd_ex.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_sd_ex.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_tim.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_tim.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_tim_ex.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_tim_ex.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_uart.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_uart.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Drivers\STM32U5xx_HAL_Driver\Src\stm32u5xx_hal_uart_ex.c</name>
+        <name>$PROJ_DIR$/../Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_uart_ex.c</name>
       </file>
     </group>
-  </group>
-  <group>
-    <name>Middlewares</name>
     <group>
-      <name>Connectivity</name>
-      <group>
-        <name>Wireless/Wifi/network-interface/LWIP</name>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/source/cy_ethernetif.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/source/cy_lwip_dhcp_server.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-network-interface-integration/source/cy_network_mw_core.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-freertos-integration/arch/sys_arch.c</name>
-        </file>
-      </group>
-      <group>
-        <name>Wireless/Wifi/wifi-host-driver</name>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols/whd_bus.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols/whd_bus_common.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols/whd_bus_sdio_protocol.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols/whd_bus_spi_protocol.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_ap.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_buffer_api.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_cdc_bdc.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_chip.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_chip_constants.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_clm.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_debug.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_events.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_logging.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_management.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_network_if.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_resource_if.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_sdpcm.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_thread.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_utils.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_wifi.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_wifi_api.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_wifi_p2p.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp/whd_resources.c</name>
-        </file>
-      </group>
-      <group>
-        <name>Wireless/Wifi/wcm/WCM</name>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/cy_wcm.c</name>
-        </file>
-      </group>
-      <group>
-        <name>Wireless/Wifi/connectivity-utilities</name>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log/cy_log.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/JSON_parser/cy_json_parser.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/linked_list/cy_linked_list.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string/cy_string_utils.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/cy_nw_helper_common.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/COMPONENT_LWIP/cy_nw_helper.c</name>
-        </file>
-      </group>
-      <group>
-        <name>Wireless/Wifi/whd-bsp-integration</name>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/cybsp_wifi.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/COMPONENT_LWIP/cy_network_buffer_lwip.c</name>
-        </file>
-      </group>
-      <group>
-        <name>Wireless/Wifi/LwIP</name>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/api/api_lib.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/api/api_msg.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/api/err.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/api/if_api.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/api/netbuf.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/api/netdb.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/api/netifapi.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/api/sockets.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/api/tcpip.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/altcp.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/altcp_alloc.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/altcp_tcp.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/def.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/dns.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/inet_chksum.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/init.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ip.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv4/autoip.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv4/dhcp.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv4/etharp.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv4/icmp.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv4/igmp.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv4/ip4.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv4/ip4_addr.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv4/ip4_frag.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv6/dhcp6.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv6/ethip6.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv6/icmp6.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv6/inet6.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv6/ip6.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv6/ip6_addr.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv6/ip6_frag.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv6/mld6.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/ipv6/nd6.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/mem.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/memp.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/netif.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/pbuf.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/raw.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/stats.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/sys.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/tcp.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/tcp_in.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/tcp_out.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/timeouts.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/core/udp.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/netif/ethernet.c</name>
-        </file>
-      </group>
-      <group>
-        <name>Documentation</name>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/generated_mac_address.txt</name>
-        </file>
-      </group>
-      <group>
-        <name>Wireless/Platform/module/MURATA-1LV</name>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0_bin.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0-mfgtest_bin.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV/43012C0-mfgtest_clm_blob.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV/43012C0_clm_blob.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43012/COMPONENT_MURATA-1LV/w_bt_firmware_controller.c</name>
-        </file>
-      </group>
-      <group>
-        <name>Wireless/Platform/pal</name>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Src/cyhal_system.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Src/wifi_bt_if.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_gpio.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_lptimer.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_sdio.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_spi.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_trng.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_uart.c</name>
-        </file>
-      </group>
-      <group>
-        <name>Wireless/Platform/abstraction-rtos/FreeRTOS</name>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/cyabs_freertos_helpers.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/cyabs_rtos_freertos.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/cy_worker_thread.c</name>
-        </file>
-      </group>
-      <group>
-        <name>Wireless/MfgTools/wifi-mfg-test</name>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mfg-test/source/mfg_test_common.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-mfg-test/target/COMPONENT_WCM/mfg_test_comp_ioctl.c</name>
-        </file>
-      </group>
-    </group>
-    <group>
-      <name>Middleware</name>
-      <group>
-        <name>RTOS/FreeRTOS/heap/Heap_4</name>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/portable/MemMang/heap_4.c</name>
-        </file>
-      </group>
-      <group>
-        <name>RTOS/FreeRTOS/core</name>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/list.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/queue.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/tasks.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/croutine.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/event_groups.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/stream_buffer.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/timers.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/portable/IAR/ARM_CM33_NTZ/non_secure/port.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/portable/IAR/ARM_CM33_NTZ/non_secure/portasm.s</name>
-        </file>
-      </group>
+      <name>CMSIS</name>
+      <file>
+        <name>$PROJ_DIR$/../Core/Src/system_stm32u5xx.c</name>
+      </file>
     </group>
   </group>
 </project>

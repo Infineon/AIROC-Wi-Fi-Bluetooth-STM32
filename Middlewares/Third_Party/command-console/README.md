@@ -2,13 +2,15 @@
 
 ## Introduction
 
-This library provides a framework to add command console support to your application. Support for Wi-Fi, iPerf, and Bluetooth Low Energy commands are bundled with this library.
+This library provides a framework to add command console support to your application. Support for Wi-Fi, Ethernet, iPerf, and Bluetooth Low Energy commands are bundled with this library.
 
-[ModusToolbox&trade; AnyCloud Tester - Wi-Fi Bluetooth&reg; Console](https://github.com/Infineon/mtb-anycloud-wifi-bluetooth-tester), [Mbed OS Tester - Wi-Fi Bluetooth&reg; Console](https://github.com/Infineon/mbed-os-wifi-bluetooth-tester), and [Amazon FreeRTOS Tester - Wi-Fi Bluetooth&reg; Console](https://github.com/Infineon/afr-wifi-bluetooth-tester) applications are built over this library.
+[ModusToolbox&trade; AnyCloud Tester - Wi-Fi Bluetooth&reg; Console](https://github.com/Infineon/mtb-anycloud-wifi-bluetooth-tester) application is built over this library for Wi-Fi kits.
 
 ## Features
 
 - Supports Wi-Fi commands to perform network operations such as scan and join
+
+- Supports Ethernet commands to perform network operations such as ethernet interface up and ethernet interface down.
 
 - Integrates iPerf 2.0 commands. iPerf is a tool for active measurements of the maximum achievable bandwidth on IP networks.
 
@@ -36,139 +38,105 @@ This library is supported on the following list of platforms/frameworks.
 
 - [CYW954907AEVAL1F evaluation kit (CYW954907AEVAL1F)](https://www.infineon.com/cms/en/product/evaluation-boards/cyw954907aeval1f)
 
-### Mbed OS
+- [XMC7200D-E272K8384 kit (KIT-XMC72-EVK)](https://www.infineon.com/cms/en/product/evaluation-boards/kit_xmc72_evk/)
 
-- [PSoC&trade; 6 Wi-Fi Bluetooth&reg; prototyping kit (CY8CPROTO-062-4343W)](https://www.infineon.com/cms/en/product/evaluation-boards/cy8cproto-062-4343w/)
+- [XMC7200D-E272K8384 kit (KIT_XMC72_EVK_MUR_43439M2)](https://www.infineon.com/cms/en/product/evaluation-boards/kit_xmc72_evk/)
 
-- [PSoC&trade; 62S2 Wi-Fi Bluetooth&reg; pioneer kit (CY8CKIT-062S2-43012)](https://www.infineon.com/cms/en/product/evaluation-boards/cy8ckit-062s2-43012/)
+- [PSoC&trade; 62S2 evaluation kit (CY8CEVAL-062S2-CYW43022CUB)](https://www.infineon.com/cms/en/product/evaluation-boards/cy8ceval-062s2/)
 
-### FreeRTOS
-
-- [PSoC&trade; 6 Wi-Fi Bluetooth&reg; prototyping kit (CY8CPROTO-062-4343W)](https://www.infineon.com/cms/en/product/evaluation-boards/cy8cproto-062-4343w/)
-
-- [PSoC&trade; 62S2 Wi-Fi Bluetooth&reg; pioneer kit (CY8CKIT-062S2-43012)](https://www.infineon.com/cms/en/product/evaluation-boards/cy8ckit-062s2-43012/)
+- [CYW955913EVK-01 Wi-Fi Bluetooth&reg; Prototyping Kit (CYW955913EVK-01)](https://www.infineon.com/CYW955913EVK-01)
 
 ## Supported frameworks
 
 This library supports the following frameworks:
 
-- **ModusToolbox&trade; environment:** In this environment the command console library uses the [abstraction-rtos](https://github.com/Infineon/abstraction-rtos) library that provides the RTOS abstraction API, and uses the [secure-sockets](https://github.com/Infineon/secure-sockets) library for implementing socket functions. For the Bluetooth&reg; LE functionality, this library uses [bluetooth-freertos](https://github.com/Infineon/bluetooth-freertos).
-
-- **Mbed framework:** The Mbed framework is an Mbed OS-based solution. The command console library uses the [abstraction-rtos](https://github.com/Infineon/abstraction-rtos) library that provides the RTOS abstraction API, and uses the Mbed socket API for implementing socket functions. For the Bluetooth&reg; functionality, it uses the Cordio Bluetooth&reg; LE stack in Mbed OS.
-
-- **FreeRTOS framework:** This is a FreeRTOS-based solution. The command console library uses the [abstraction-rtos](https://github.com/Infineon/abstraction-rtos) library that provides the RTOS abstraction API, and uses the FreeRTOS framework network abstraction and lwIP library for implementing socket functions. For the Bluetooth&reg; functionality, this library uses [bluetooth-freertos](https://github.com/Infineon/bluetooth-freertos).
+- **ModusToolbox&trade; environment:** In this environment the command console library uses the [abstraction-rtos](https://github.com/Infineon/abstraction-rtos) library that provides the RTOS abstraction API, and uses the [secure-sockets](https://github.com/Infineon/secure-sockets) library for implementing socket functions. For the Bluetooth&reg; LE functionality, this library uses [BT stack Integration](https://github.com/Infineon/btstack-integration).
 
 ## Dependencies
 
-This section provides the list of dependent libraries required for this middleware library to work on FreeRTOS and Arm® Mbed OS IoT frameworks.
+This section provides the list of dependent libraries required for this middleware library to work on FreeRTOS IoT framework.
 
 ### ModusToolbox&trade;
 
 - [Wi-Fi connection manager](https://github.com/Infineon/wifi-connection-manager)
 
-- [Bluetooth&reg; stack for FreeRTOS](https://github.com/Infineon/bluetooth-freertos)
+- [Ethernet connection manager](https://github.com/Infineon/ethernet-connection-manager)
 
-### Mbed OS
+- [BT stack Integration](https://github.com/Infineon/btstack-integration)
 
-- [Arm&reg; Mbed OS 6.2.0](https://os.mbed.com/mbed-os/releases)
-
-- [Connectivity utilities library](https://github.com/Infineon/connectivity-utilities/releases/tag/latest-v3.X)
-
-### FreeRTOS
-
-- [FreeRTOS](https://github.com/Infineon/amazon-freertos)
-
-- [Bluetooth&reg; stack for FreeRTOS](https://github.com/Infineon/bluetooth-freertos)
 
 ## Quick start
 
-This library is supported on ModusToolbox&trade;, Mbed OS, and FreeRTOS frameworks. See the following section to build the library in those frameworks.
+This library is supported on ModusToolbox&trade; frameworks. See the following section to build the library in those frameworks.
 
 ### ModusToolbox&trade;
 
-1. Review and make the required changes to the pre-defined configuration files.
+1. For Wi-Fi kits, 
+   - To include wifi-connection-manager library, the application should pull [wifi-core-freertos-lwip-mbedtls](https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls) library which will internally pull wifi-connection-manager and other dependent modules.
+     To pull wifi-core-freertos-lwip-mbedtls create the following *.mtb* file in deps folder.
+     - *wifi-core-freertos-lwip-mbedtls.mtb:*
+       `https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls#latest-v1.X#$$ASSET_REPO$$/wifi-core-freertos-lwip-mbedtls/latest-v1.X`
 
-- The configuration files are bundled with the wifi-mw-core library for FreeRTOS, lwIP, and Mbed TLS. See README.md for details.
+   **Note:** For CYW955913EVK-01, to include wifi-connection-manager library, the application should pull [wifi-core-freertos-lwip-mbedtls](https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls) library which will internally pull wifi-connection-manager and other dependent modules.
+     To pull wifi-core-threadx-cat5 create the following *.mtb* file in deps folder.
+     - *wifi-core-threadx-cat5.mtb:*
+       `https://github.com/Infineon/wifi-core-threadx-cat5#latest-v1.X#$$ASSET_REPO$$/wifi-core-threadx-cat5/latest-v1.X`
 
-   See the "Quick Start" section in [README.md](https://github.com/Infineon/wifi-mw-core/blob/master/README.md)(https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls/blob/master/README.md).
+2. For Ethernet kits, 
+   - To include ethernet-connection-manager library, the application should pull [ethernet-core-freertos-lwip-mbedtls](https://github.com/Infineon/ethernet-core-freertos-lwip-mbedtls) library which will internally pull ethernet-connection-manager and other dependent modules.
+     To pull ethernet-core-freertos-lwip-mbedtls create the following *.mtb* file in deps folder.
+     - *ethernet-core-freertos-lwip-mbedtls.mtb:*
+       `https://github.com/Infineon/ethernet-core-freertos-lwip-mbedtls#latest-v1.X#$$ASSET_REPO$$/ethernet-core-freertos-lwip-mbedtls/latest-v1.X`
 
-- If the application is using bundle library then the configuration files are in the bundle library. For example if the application is using Wi-Fi core freertos lwip mbedtls bundle library, the configuration files are in wifi-core-freertos-lwip-mbedtls/configs folder. Similarly if the application is using Ethernet Core FreeRTOS lwIP mbedtls library, the configuration files are in ethernet-core-freertos-lwip-mbedtls/configs folder.
+3. To pull BT stack Integration create the following *.mtb* file in deps folder.
+     - *btstack-integration.mtb:*
+       `https://github.com/Infineon/btstack-integration#latest-v4.X#$$ASSET_REPO$$/btstack-integration/latest-v4.X`
 
-2. A set of COMPONENTS must be defined in the code example project's Makefile for this library. 
+   **Note:** BT stack Integration should not be included for CYW955913EVK-01.
+
+4. Review and make the required changes to the pre-defined configuration files and Makefile COMPONENTS in the application.
+
+    - The configuration files for FreeRTOS, lwIP, and Mbed TLS combination are bundled in Wi-Fi core freertos lwip mbedtls library for Wi-Fi kits and in Ethernet core freertos lwip mbedtls library for Ethernet kits.
+
+      - See the "Quick Start" section in [README.md](https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls/blob/master/README.md) of Wi-Fi core freertos lwip mbedtls library for Wi-Fi kits
+      - See the "Quick Start" section in [README.md](https://github.com/Infineon/ethernet-core-freertos-lwip-mbedtls/blob/master/README.md) of Ethernet core freertos lwip mbedtls library for Ethernet kits
+
+    - If the application is using bundle library then the configuration files are in the bundle library. For example if the application is using Wi-Fi core freertos lwip mbedtls bundle library, the configuration files are in wifi-core-freertos-lwip-mbedtls/configs folder. Similarly if the application is using Ethernet Core FreeRTOS lwIP mbedtls library, the configuration files are in ethernet-core-freertos-lwip-mbedtls/configs folder.
+	
+5. A set of COMPONENTS must be defined in the code example project's Makefile for this library
 
    ```
-   COMPONENTS=FREERTOS MBEDTLS LWIP SECURE_SOCKETS
+   COMPONENTS=FREERTOS MBEDTLS LWIP
+   ```
+   **Note:** For CYW955913EVK-01 the above defines are not applicable.
+
+6. For Wi-Fi kits, to enable the Wi-Fi functionality, add `WCM` to the `COMPONENTS` section in the application's Makefile:
+
+   ```
+   COMPONENTS=WCM
    ```
 
-3. To enable the Bluetooth&reg; LE functionality, add `WICED_BLE` to the `COMPONENTS` section in the application's Makefile:
+7. For Ethernet kits, to enable the Ethernet functionality, add `ECM` to the `COMPONENTS` section in the application's Makefile:
+
+   ```
+   COMPONENTS=ECM
+   ```
+
+8. To enable the Bluetooth&reg; LE functionality, add `WICED_BLE` to the `COMPONENTS` section in the application's Makefile:
 
    ```
    COMPONENTS=WICED_BLE
    ```
 
-4. Add the following compiler directives to the `DEFINES` section in the application's Makefile:
+9. Add the following compiler directives to the `DEFINES` section in the application's Makefile:
 
    ```
    DEFINES=HAVE_SNPRINTF
    ```
 
-5. Tune the lwIP configuration parameters listed in application's *lwipopts.h* file, depending on the required Wi-Fi throughput and use case.
+10. Tune the lwIP configuration parameters listed in application's *lwipopts.h* file, depending on the required Wi-Fi throughput and use case.
 
-### Mbed OS
-
-1. Add the .lib file(s) for dependent libraries:
-
-   1. Create a folder named "deps".
-
-   2. Create a file with the name "mbed-os.lib" and add the following line to this file. The SHA given below points to the **mbed-os-6.2.0** release:
-      ```
-      https://github.com/ARMmbed/mbed-os/#a2ada74770f043aff3e61e29d164a8e78274fcd4
-      ```
-   3. Create a file with the name "connectivity-utilities.lib" and add the following line to this file:
-      ```
-      https://github.com/Infineon/connectivity-utilities/#<commit-SHA-for-latest-release-v3.X>
-      ```
-   4. Replace `<commit-SHA-for-latest-release-v3.X>` in the above line with the commit SHA of the latest-v3.X tag available in the [connectivity utilities library - release](https://github.com/Infineon/connectivity-utilities/releases).
-
-      Example: For tag `release-v3.0.2`
-
-      ```
-      https://github.com/Infineon/connectivity-utilities/#bbed663a71670b02d362c6f1bd69fe970ff814ec
-      ```
-
-2. Add `MBED` to the *components_add* section in the code example's JSON file. The JSON file entry would look like as follows:
-
-   ```
-   "target.components_add": ["MBED"]
-   ```
-
-3. The Bluetooth&reg; LE command utility is supported on Mbed Cordio Bluetooth&reg; LE stack and the WICED&trade; Bluetooth&reg; Stack.
-
-   - To use the Mbed Cordio stack, add `CORDIO` to the list of components as follows:
-
-      ```
-      "target.components_add" : ["MBED", "CORDIO"]
-      ```
-
-   - To use the WICED&trade; Bluetooth&reg; stack, do the following:
-
-     1. Add the following to the *target_overrides* section of the *mbed_app.json* file:
-
-        ```
-        "target.extra_labels_remove": ["CORDIO"],
-        "target.features_remove": ["BLE"]
-        ```
-     2.  Add `WICED_BLE` in the list of components as follows:
-
-         ```
-         "target.components_add" : ["MBED", "WICED_BLE"]
-         ```
-
-4. Tune the lwIP configuration parameters listed in the application's *lwipopts.h* file, depending on the required Wi-Fi throughput and use case.
-
-### FreeRTOS
-
-All the configurations required for the command console library on FreeRTOS are set by the values defined in the *afr-wifi-bluetooth-tester/config_files/* files of the [Amazon FreeRTOS Tester - Wi-Fi Bluetooth&reg; Console](https://github.com/Infineon/afr-wifi-bluetooth-tester) application.
+    **Note:** For CYW955913EVK-01 the above configuration is not applicable.
 
 ## Commands supported
 
@@ -204,8 +172,7 @@ Use the following Wi-Fi commands to perform network operations. Enter the follow
     ```
     > wifi_ping <ip address>
     ```
-   **Note:** This command is not supported on Mbed.
-   
+
 **Note:** Wi-Fi commands(scan/join/leave/get_rssi/ping) are retained for backward compatibility. These commands are deprecated and it will be removed in the future release.
 
 ### iPerf commands
@@ -234,27 +201,14 @@ The following options are supported by the iPerf software integrated into this l
    Note:
    -w, --window              TCP window size is not supported through run time option; however, you can configure the TCP window size \n
                              at the build time using the following instructions. The values given for the macros/configurations in the following  section\n
-                             are just an example for reference, the actual values of the macros/configuration may vary with your mbed_app.json (or) *lwipopts.h* file.
+                             are just an example for reference, the actual values of the macros/configuration may vary with your *lwipopts.h* file.
    ```
 
-   #### Mbed OS:
+#### ModusToolbox&trade;:
 
-   Update the following configurations in *mbed_app.json*:
-
-   1. For the server, modify/add the following configurations with a suitable value to change the TCP window size and pbuf pool size:
-
-      \"lwip.tcp-wnd\": (TCP_MSS * 20)
-      \"lwip.pbuf-pool-size\": 20
-
-   2. For the client, modify the following configurations with a suitable value to change the TCP send buffer size:
-
-      \"lwip.tcp-snd-buf\": (TCP_MSS * 20)
-      \"lwip.memp-num-tcp-seg\": 127
-
-
-   #### ModusToolbox&trade;:
-
-   Update the following configurations in the application's config file (For example, *mtb-anycloud-wifi-bluetooth-tester/lwipopts.h*)
+Update the following configurations in the application's config file 
+   
+ - FreeRTOS application can make the following configurations in config files (For example, *lwipopts.h*)
 
    1. For the server, modify/add the following macros with a suitable value to change the TCP window size and pbuf pool size:
       ```
@@ -268,21 +222,28 @@ The following options are supported by the iPerf software integrated into this l
       #define TCP_SND_BUF (TCP_MSS * 20)
       #define MEMP_NUM_TCP_SEG 127
       ```
-
-   #### FreeRTOS:
-
-   Update the following configurations in the application's config file (For example, *afr-wifi-bluetooth-tester/config_files/lwipopts.h*).
-
-   1. For the server, modify the following macros with a suitable value to change the TCP window size and pbuf pool size:
-
+ - Threadx application can modify/add the following *DEFINES* in *Makefile*.
+	
+   1. For the server, modify/add *DEFAULT_TCP_WINDOW_SIZE* with a suitable value to change the TCP window size:
       ```
-      #define TCP_WND (TCP_MSS * 20)
-      #define PBUF_POOL_SIZE 20
+      DEFINES+=DEFAULT_TCP_WINDOW_SIZE=16*1024
       ```
 
-   2. For the client, modify the following macro with a suitable value to change the TCP send buffer size:
+   2. For the client, modify the *NX_TCP_MAXIMUM_TX_QUEUE* with a suitable value to change the TCP send buffer queue size:
       ```
-      #define TCP_SND_BUF (TCP_MSS * 20)
+      DEFINES+=NX_TCP_MAXIMUM_TX_QUEUE=20
+	  ```
+	  **Note:** *NX_TCP_MAXIMUM_TX_QUEUE* is not configurable in CAT5(H1-CP) devices.
+
+ - For an iperf server, DEFAULT_IPERF_SERVER_TIMEOUT_SEC can be used to configure following timeouts
+   
+    - Amount of time an iperf server waits for a client to connect
+   
+    - Socket receive timeout of the iperf server
+
+   DEFAULT_IPERF_SERVER_TIMEOUT_SEC can be configured by adding the following *DEFINES* in *Makefile*.
+      ```
+      DEFINES+=DEFAULT_IPERF_SERVER_TIMEOUT_SEC=10
       ```
 
    *Server-specific:*
@@ -308,8 +269,6 @@ The following options are supported by the iPerf software integrated into this l
    -h, --help               print this message and quit
    -v, --version            print version information and quit
    ```
-
-**Note:** On Mbed OS, the iPerf command line option `-l` has a max limit of 60 KB (per packet) for data transfer.
 
 ### iPerf setup
 
@@ -369,6 +328,41 @@ The TCP window size is configured with a default optimal value in the Wi-Fi Blue
 The iPerf command given in the [iPerf commands for Wi-Fi throughput measurement](#iperf-commands-for-wi-fi-throughput-measurement) section of this document is an ideal command for UDP throughput measurement on PSoC&trade; 6 2M devices. If you are using a different PSoC&trade; device, try different bandwidth values for the _iperf_ `-b` option to measure the UDP throughput.
 
 For example, when you run the command `iperf -c 192.168.0.100 -t 60 -u -b 50M` to measure the UDP Tx throughput on the device, if you see the resulting throughput closer to 50 Mbps, you should run the same command again with the `-b 60M` option and measure the throughput again. If the resulting throughput is different (56 Mbps, which is lesser than 60M, for example), the max UDP Tx throughput supported by the device is 56 Mbps. On the contrary, if the resulting throughput is 27 Mbps with the `-b 50M` option, you should run the same command again with the `-b 30M` option and measure the throughput again. If the resulting throughput in this case is 28 Mbps, this is the max UDP Tx throughput supported by the PSoC&trade; device. Use this as a guideline to identify the real max UDP throughput supported by your device.
+
+### Ethernet commands
+
+#### *Basic Ethernet commands*
+
+Use the following Ethernet commands to perform network operations. Enter the following commands after the device boots up and the Ethernet module is initialized and ready.
+
+1. Bring up the network:
+   ```
+   > eth_up <Speed type(MII/GMII/RGMII/RMII)> <Link speed(10M/100M/1000M/AUTO)> <Duplex mode(HALF/FULL/AUTO)> <ethernet interface ID(0/1)>
+   ```
+2. Bring down the network:
+   ```
+   > eth_down
+   ```
+3. Set the filters to the hardware:
+   ```
+   > eth_set_filter
+   ```
+4. Enable MAC address filtering:
+   ```
+   > eth_set_filter_address <1-4 supported Filter numbers> <src/dest(Source/Destination)> <X:X:X:X:X:X(MAC address)> <X(Bytes)>
+   ```
+5. Enable broadcast:
+   ```
+   > eth_broadcast <1/0(Enable=1,Disable=0)>
+   ```
+6. Enable promiscuous mode:
+   ```
+   > eth_set_promiscuous_mode <1/0(Enable=1,Disable=0)>
+   ```
+7. Ping another device on the network:
+   ```
+   > eth_ping <ip address>
+   ```
 
 ## Bluetooth&reg; LE commands
 
@@ -446,8 +440,6 @@ The following Bluetooth&reg; LE commands are supported in this library:
 	```
 	> bt_get_device_address
 	```
-	**Note:** This command is supported only on the WICED&trade; Bluetooth&reg; LE stack and not on the Mbed Cordio stack.
-
 ### Tuning for optimal Bluetooth&reg; LE performance
 
 Bluetooth&reg; LE performance can be tuned using the Bluetooth&reg; LE connection-interval and LE-COC-MTU-size configurations. Ensure that the Bluetooth&reg; LE  connection-interval and LE-COC-MTU-size configurations are set to the same value in both the Bluetooth&reg; LE devices that are used for throughput measurement.
@@ -476,25 +468,7 @@ For a given MTU size, if the configured connection interval is low, the resultin
     ```
     DEFINES += BLE_COC_MTU_SIZE=200
     ```
-   
-**Mbed OS:** (Cordio Bluetooth&reg; LE stack)
 
-1. The connection interval value is configured in multiples of 1.25 milliseconds based on the connection parameter class of the Cordio stack.
-
-   By default, the library sets the Bluetooth&reg; LE connection interval value to 40, which computes to a connection interval time of 50 ms (40 * 1.25 ms).
-
-   To modify the connection interval, add the `BLE_CONNECTION_INTERVAL` macro to the *macros* section of the application's *mbed_app.json*. If the connection interval needs to be set to 24, the JSON entry would look like as follows:
-
-    ```
-    macros : "BLE_CONNECTION_INTERVAL=24"
-    ```
-   For the range of connection interval that can be configured, see [Bluetooth&reg; LE connection interval](https://os.mbed.com/docs/mbed-os/v6.7/mbed-os-api-doxy/structble_1_1_gap_1_1_preferred_connection_params__t.html#a5a859522981a2d8fd68fdf33cd6bcc2d).
-
-2. By default, `BLE_COC_MTU_SIZE` is set to 100 bytes; the max value that can be configured is 512 bytes. To modify the this value to 200, add the `BLE_COC_MTU_SIZE` macro to the *macros* section of the application's *mbed_app.json*. The JSON entry would look like as follows:
-    ```
-    macros :  "BLE_COC_MTU_SIZE=200"
-    ```
-    
 ### Modifying Bluetooth&reg; LE configurations on a peer device
 
 Do the following to modify the connection interval and MTU on the peer LE COC application running on the CYW20719B2Q40EVB-01 device:
@@ -584,11 +558,15 @@ The theoretical Bluetooth&reg; LE throughput achievable for  these default value
 
 **ModusToolbox&trade;:**
 
-   By default, `Wifi`, `bluetooth` and `iperf` utilities are enabled. To disable any of these utilities add the following to the Makefile of the application.
-   
+   By default, `Wifi`, `Ethernet`, `bluetooth` and `iperf` utilities are enabled. To disable any of these utilities add the following to the Makefile of the application.
+
    To disable Wi-Fi commands:
    ```
    DEFINES+=DISABLE_COMMAND_CONSOLE_WIFI
+   ```
+   To disable Ethernet commands:
+   ```
+   DEFINES+=DISABLE_COMMAND_CONSOLE_ETH
    ```
    To disable iperf command:
    ```
@@ -597,23 +575,6 @@ The theoretical Bluetooth&reg; LE throughput achievable for  these default value
    To disable bluetooth commands:
    ```
    DEFINES+=DISABLE_COMMAND_CONSOLE_BT
-   ```
-   
-**Mbed OS:**
-
-   By default, `Wifi`, `bluetooth` and `iperf` utilities are enabled. To disable any of these utilities add the following macros to the *macros* section of the application's *mbed_app.json*. The JSON entry would look like as follows:
-
-   To disable Wi-Fi commands:
-   ```
-   macros : "DISABLE_COMMAND_CONSOLE_WIFI"
-   ```
-   To disable iperf command:
-   ```
-   macros : "DISABLE_COMMAND_CONSOLE_IPERF"
-   ```
-   To disable bluetooth commands:
-   ```
-   macros : "DISABLE_COMMAND_CONSOLE_BT"
    ```
 
 ## Additional information

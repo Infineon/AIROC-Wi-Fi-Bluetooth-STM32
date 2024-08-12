@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -126,6 +126,11 @@ typedef struct
  ******************************************************/
 
 /******************************************************
+ *               External Function Declarations
+ ******************************************************/
+extern char *strtok_r( char *, const char *, char ** );
+
+/******************************************************
  *               Function Declarations
  ******************************************************/
 
@@ -158,6 +163,9 @@ static int loop_command( const char * line );
 static int help_command( int argc, char* argv[], tlv_buffer_t** tlv_buf );
 static int retval_command( int argc, char* argv[], tlv_buffer_t** tlv_buf );
 static cy_command_console_err_t console_parse_cmd( const char* line );
+#ifndef ENABLE_UART_POLLING
+static void uart_callback(void *callback_arg, cyhal_uart_event_t event);
+#endif
 
 /******************************************************
  *               Variables Definitions
@@ -479,11 +487,18 @@ void console_thread_func( cy_thread_arg_t arg )
     res = cy_rtos_delay_milliseconds(CY_CMD_CONSOLE_THREAD_DELAY_IN_MSEC);
     if(res != CY_RSLT_SUCCESS)
     {
-        printf(" cy_rtos_delay_milliseconds failed, result =  %lu \n", (unsigned long)res);
+        printf(" cy_rtos_delay_milliseconds failed, result =  0x%X \n", (unsigned int)res);
         return;
     }
 
     cons.console_thread_is_running = true;
+
+#ifndef ENABLE_UART_POLLING
+    cyhal_uart_register_callback(cons.uart, uart_callback, NULL);
+    cyhal_uart_enable_event(cons.uart,
+                            (cyhal_uart_event_t)(CYHAL_UART_IRQ_RX_NOT_EMPTY),
+                            CYHAL_ISR_PRIORITY_DEFAULT, true);
+#endif
 
     while ( 1 )
     {
@@ -493,9 +508,15 @@ void console_thread_func( cy_thread_arg_t arg )
         if(wait_bits & FLAGS_MSK_RECV)
         {
             console_process_char( received_character );
+            cyhal_uart_enable_event(cons.uart,
+                                    (cyhal_uart_event_t)(CYHAL_UART_IRQ_RX_NOT_EMPTY),
+                                    CYHAL_ISR_PRIORITY_DEFAULT, true);
         }
         if(wait_bits & FLAGS_MSK_DEINIT)
         {
+            cyhal_uart_enable_event(cons.uart,
+                                    (cyhal_uart_event_t)(CYHAL_UART_IRQ_RX_NOT_EMPTY),
+                                    CYHAL_ISR_PRIORITY_DEFAULT, false);
             cy_rtos_exit_thread();
         }
 #else
@@ -513,15 +534,27 @@ void console_thread_func( cy_thread_arg_t arg )
                 cy_rtos_exit_thread();
             }
        }
+#ifdef COMPONENT_CAT5
+       tx_thread_relinquish();
+#endif
 #endif
     }
 }
 
-void uart_callback() {
-    // Note: you need to actually read from the serial to clear the RX interrupt
-    received_character = cy_read( cons.uart );
-    cy_rtos_setbits_event(&ef_id, FLAGS_MSK_RECV, 0);
+#ifndef ENABLE_UART_POLLING
+static void uart_callback(void *callback_arg, cyhal_uart_event_t event)
+{
+    if((event & CYHAL_UART_IRQ_RX_NOT_EMPTY) == CYHAL_UART_IRQ_RX_NOT_EMPTY)
+    {
+        cyhal_uart_enable_event(cons.uart,
+                                (cyhal_uart_event_t)(CYHAL_UART_IRQ_RX_NOT_EMPTY),
+                                CYHAL_ISR_PRIORITY_DEFAULT, false);
+        // Note: you need to actually read from the serial to clear the RX interrupt
+        received_character = cy_read( cons.uart );
+        cy_rtos_setbits_event(&ef_id, FLAGS_MSK_RECV, 0);
+    }
 }
+#endif
 
 cy_rslt_t cy_command_console_status( void )
 {
@@ -535,13 +568,6 @@ cy_rslt_t cy_command_console_init( cy_command_console_cfg_t *cfg )
 
     if( NULL==cfg )
     {
-        return CY_RSLT_COMMAND_CONSOLE_FAILURE;
-    }
-
-    /* Validate thread priority */
-    if ( cfg->thread_priority > CY_RTOS_PRIORITY_MAX )
-    {
-        printf("Input thread priority [%d] is larger than RTOS max thread priority.\n", (int)cfg->thread_priority);
         return CY_RSLT_COMMAND_CONSOLE_FAILURE;
     }
 
@@ -597,10 +623,10 @@ cy_rslt_t cy_command_console_init( cy_command_console_cfg_t *cfg )
     }
 
     result = cy_rtos_create_thread(&cons.console_thread, console_thread_func, "Console Thread", command_console_thread_stack,
-                                    CONSOLE_THREAD_STACK_SIZE, cfg->thread_priority, NULL);
+                                    CONSOLE_THREAD_STACK_SIZE, cfg->thread_priority, 0);
     if( result != CY_RSLT_SUCCESS)
     {
-        printf(" cy_rtos_create_thread failed %lu \n", (unsigned long)result);
+        printf(" cy_rtos_create_thread failed 0x%X \n", (unsigned int)result);
         cy_rtos_deinit_event(&ef_id);
         result = CY_RSLT_COMMAND_CONSOLE_FAILURE;
     }
@@ -620,6 +646,11 @@ cy_rslt_t cy_command_console_deinit(void)
         return CY_RSLT_COMMAND_CONSOLE_FAILURE;
     }
 #endif
+    result = cy_rtos_thread_terminate(&cons.console_thread);
+    if ( result != CY_RSLT_SUCCESS )
+    {
+        return CY_RSLT_COMMAND_CONSOLE_FAILURE;
+    }
     result = cy_rtos_join_thread(&cons.console_thread);
     if ( result != CY_RSLT_SUCCESS )
     {

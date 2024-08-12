@@ -1,4 +1,4 @@
-# Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack 1.6.0 Release Notes
+# Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack 1.6.1 Release Notes
 The Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack is an extension of the CMSIS-Pack standard established by Arm.
 The pack is compliant with the full CMSIS-Pack standard, with additional requirements/restrictions
 on the final pack to meet the STM standard.
@@ -10,14 +10,10 @@ This pack uses libraries from the ModusToolbox environment.
 
 ## What Changed?
 
- v1.6.0
-* Added new modules
-  - Quectel FC909A (base on CYW43439)
-  - Murata 2EA (base on CYW55573)
-* Updated applications to use STM32CubeMx 6.10.0.
-* Added MQTT libraries (mqtt, aws-iot-device-sdk-port, aws-iot-device-sdk-embedded-C)
-* Added Wi-Fi MQTT Client application (available for STM32U575I-EV board)
-* Added wifi_bt_tester application for Nucleo-H745ZI-Q and NUCLEO-U575ZI-Q boards
+ v1.6.1
+* Update Wi-Fi assets
+* Added Wi-Fi MQTT Client application for Nucleo-H745ZI-Q, NUCLEO-H563ZI and NUCLEO-U575ZI-Q boards
+* Added BLE Hello Sensor, Wi-Fi Onboarding with Bluetooth LE, Wi-Fi Scan applications for NUCLEO-H745ZI-Q board
 
 ## Supported STM32 Boards and MCU
 *  STM32L562E-DK kit and STM32L5xx
@@ -85,6 +81,7 @@ work with Infineon connectivity platforms.
 
 | Version | Changes                                                             | Reason for Change                     |
 | :----:  | :---                                                                | :----                                 |
+| 1.6.1   | Update Wi-Fi assets                                                 | Maintenance                           |
 | 1.6.0   | Added New Connectivity Module support                               | New CYWxx modules, assets update, mqtt|
 | 1.5.1   | Update Bluetooth FW for CYW4373 modules                             | Update Bluetooth Firmware             |
 | 1.5.0   | Added New Connectivity Module support                               | Update Pack Name and new CYWxx modules      |

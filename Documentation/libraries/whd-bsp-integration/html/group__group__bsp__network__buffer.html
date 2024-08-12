@@ -84,15 +84,31 @@ $(document).ready(function(){initNavTree('group__group__bsp__network__buffer.htm
 
 <div class="header">
   <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">Buffer management</div></div>
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">General Description</h2>
-<p >Basic set of APIs for dealing with network packet buffers. </p>
+<p >NetX Duo specific APIs for dealing with network packet buffers. </p>
+<p >Basic set of APIs for dealing with network packet buffers.</p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga8aa3a6c010a110639b3cd53f86a7e349"><td class="memItemLeft" align="right" valign="top"><a id="ga8aa3a6c010a110639b3cd53f86a7e349" name="ga8aa3a6c010a110639b3cd53f86a7e349"></a>
+typedef NX_PACKET *(*&#160;</td><td class="memItemRight" valign="bottom"><b>cy_dynamic_buffer_allocate_t</b>) (uint16_t payload_size)</td></tr>
+<tr class="memdesc:ga8aa3a6c010a110639b3cd53f86a7e349"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function for allocating a dynamic packet. <br /></td></tr>
+<tr class="separator:ga8aa3a6c010a110639b3cd53f86a7e349"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae058fc994c2d0d8c9960e68bbae86258"><td class="memItemLeft" align="right" valign="top"><a id="gae058fc994c2d0d8c9960e68bbae86258" name="gae058fc994c2d0d8c9960e68bbae86258"></a>
+typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><b>cy_dynamic_buffer_free_t</b>) (NX_PACKET *packet)</td></tr>
+<tr class="memdesc:gae058fc994c2d0d8c9960e68bbae86258"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function for releasing a dynamic packet. <br /></td></tr>
+<tr class="separator:gae058fc994c2d0d8c9960e68bbae86258"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga71ccfd14f0c40804d555ccfb901b9d4f"><td class="memItemLeft" align="right" valign="top">whd_result_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__bsp__network__buffer.html#ga71ccfd14f0c40804d555ccfb901b9d4f">cy_buffer_enable_dynamic_buffers</a> (<a class="el" href="group__group__bsp__network__buffer.html#ga8aa3a6c010a110639b3cd53f86a7e349">cy_dynamic_buffer_allocate_t</a> buffer_allocate, <a class="el" href="group__group__bsp__network__buffer.html#gae058fc994c2d0d8c9960e68bbae86258">cy_dynamic_buffer_free_t</a> buffer_free)</td></tr>
+<tr class="memdesc:ga71ccfd14f0c40804d555ccfb901b9d4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable dynamic buffers for IOCTLs requiring large buffers.  <a href="group__group__bsp__network__buffer.html#ga71ccfd14f0c40804d555ccfb901b9d4f">More...</a><br /></td></tr>
+<tr class="separator:ga71ccfd14f0c40804d555ccfb901b9d4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6f5114fb8aa816f28ccb6370507c36c4"><td class="memItemLeft" align="right" valign="top">whd_result_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__bsp__network__buffer.html#ga6f5114fb8aa816f28ccb6370507c36c4">cy_buffer_pool_init</a> (void *tx_packet_pool, void *rx_packet_pool)</td></tr>
 <tr class="memdesc:ga6f5114fb8aa816f28ccb6370507c36c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the buffer pools.  <a href="group__group__bsp__network__buffer.html#ga6f5114fb8aa816f28ccb6370507c36c4">More...</a><br /></td></tr>
 <tr class="separator:ga6f5114fb8aa816f28ccb6370507c36c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -119,6 +135,47 @@ Functions</h2></td></tr>
 <tr class="separator:ga3299898b9eba8861438225b85f36f528"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga71ccfd14f0c40804d555ccfb901b9d4f" name="ga71ccfd14f0c40804d555ccfb901b9d4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga71ccfd14f0c40804d555ccfb901b9d4f">&#9670;&nbsp;</a></span>cy_buffer_enable_dynamic_buffers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">whd_result_t cy_buffer_enable_dynamic_buffers </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__group__bsp__network__buffer.html#ga8aa3a6c010a110639b3cd53f86a7e349">cy_dynamic_buffer_allocate_t</a>&#160;</td>
+          <td class="paramname"><em>buffer_allocate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__group__bsp__network__buffer.html#gae058fc994c2d0d8c9960e68bbae86258">cy_dynamic_buffer_free_t</a>&#160;</td>
+          <td class="paramname"><em>buffer_free</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable dynamic buffers for IOCTLs requiring large buffers. </p>
+<p >Set the functions used to enable the allocation of dynamic buffers.</p>
+<p >NetX Duo uses fixed sized buffers in the packet pool implementation. Some WHD IOCTL calls require buffers with payloads larger than the MAX_MTU size used for the packet pools. This API allows functions to be set which will allocate and free dynamic buffers as needed to support the large buffer IOCTLs.</p>
+<p >NOTE: This API is specific to the NetX Duo implementation.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer_allocate</td><td>: Pointer to the function for allocating dynamic packets </td></tr>
+    <tr><td class="paramname">buffer_free</td><td>: Pointer to the function for releasing dynamic packets</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>: CY_RSLT_SUCCESS or WHD_BADARG </dd></dl>
+
+</div>
+</div>
 <a id="ga6f5114fb8aa816f28ccb6370507c36c4" name="ga6f5114fb8aa816f28ccb6370507c36c4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga6f5114fb8aa816f28ccb6370507c36c4">&#9670;&nbsp;</a></span>cy_buffer_pool_init()</h2>
 

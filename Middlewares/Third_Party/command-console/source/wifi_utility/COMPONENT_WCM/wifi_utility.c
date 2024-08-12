@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -52,7 +52,7 @@ extern "C" {
 /******************************************************
  *                      Macros
  ******************************************************/
-
+#define INITIALISER_IPV4_ADDRESS1(addr_var, addr_val) addr_var = {CY_WCM_IP_VER_V4, {.v4 = (uint32_t)(addr_val)}}
 #define MAKE_IPV4_ADDRESS1(a, b, c, d)      ((((uint32_t) d) << 24) | (((uint32_t) c) << 16) | (((uint32_t) b) << 8) |((uint32_t) a))
 
 #define CMD_CONSOLE_SSID_MAX_LENGTH         33 /* 32 is what 802.11 defines as longest possible name; +1 for the \0 */
@@ -74,27 +74,40 @@ extern "C" {
 #endif
 
 /******************************************************
+ *               External Function Declarations
+ ******************************************************/
+extern char *strtok_r( char *, const char *, char ** );
+
+/******************************************************
  *               Function Declarations
  ******************************************************/
 
 /* Wi-Fi commands */
-int join         (int argc, char* argv[], tlv_buffer_t** data);
-int leave        (int argc, char* argv[], tlv_buffer_t** data);
-int scan         (int argc, char* argv[], tlv_buffer_t** data);
-int ping         (int argc, char* argv[], tlv_buffer_t** data);
-int get_rssi     (int argc, char* argv[], tlv_buffer_t** data);
+int join               (int argc, char* argv[], tlv_buffer_t** data);
+int leave              (int argc, char* argv[], tlv_buffer_t** data);
+int scan               (int argc, char* argv[], tlv_buffer_t** data);
+int ping               (int argc, char* argv[], tlv_buffer_t** data);
+int get_rssi           (int argc, char* argv[], tlv_buffer_t** data);
+int start_ap           (int argc, char* argv[], tlv_buffer_t** data);
+int stop_ap            (int argc, char* argv[], tlv_buffer_t** data);
+int get_sta_ifconfig   (int argc, char* argv[], tlv_buffer_t** data);
 
 #define WIFI_COMMANDS_LIMITED_SET \
-    { (char*) "join",           join,       2, NULL, NULL, (char*) "<ssid> <open|wpa_aes|wpa_tkip|wpa2|wpa2_aes|wpa2_tkip|wpa2_fbt|wpa3|wpa3_wpa2> [password] [channel]"ESCAPE_SPACE_PROMPT, (char*) "Join an AP.(This command is deprecated and it will be removed in the future. Please use wifi_join command)"}, \
-    { (char*) "leave",          leave,      0, NULL, NULL, (char*) "", (char*) "Leave the connected AP.(This command is deprecated and it will be removed in the future. Please use wifi_leave command)"}, \
-    { (char*) "scan",           scan,       0, NULL, NULL, (char*) "", (char*) "Scan all the Wi-Fi AP in the vicinity.(This command is deprecated and it will be removed in the future. Please use wifi_scan command)"}, \
-    { (char*) "ping",           ping,       0, NULL, NULL, (char*) "<IP address> [timeout(ms)]", (char*) "ping to an IP address.(This command is deprecated and it will be removed in the future. Please use wifi_ping command)"}, \
-    { (char*) "get_rssi",       get_rssi,   0, NULL, NULL, (char*) "", (char*) "Get the received signal strength of the AP (client mode only).(This command is deprecated and it will be removed in the future. Please use wifi_get_rssi command)"}, \
-    { (char*) "wifi_join",      join,       2, NULL, NULL, (char*) "<ssid> <open|wpa_aes|wpa_tkip|wpa2|wpa2_aes|wpa2_tkip|wpa2_fbt|wpa3|wpa3_wpa2> [password] [channel]"ESCAPE_SPACE_PROMPT, (char*) "Join an AP."}, \
-    { (char*) "wifi_leave",     leave,      0, NULL, NULL, (char*) "", (char*) "Leave the connected AP."}, \
-    { (char*) "wifi_scan",      scan,       0, NULL, NULL, (char*) "", (char*) "Scan all the Wi-FI AP in the vicinity."}, \
-    { (char*) "wifi_ping",      ping,       0, NULL, NULL, (char*) "<IP address> [timeout(ms)]", (char*) "ping to an IP address"}, \
-    { (char*) "wifi_get_rssi",  get_rssi,   0, NULL, NULL, (char*) "", (char*) "Get the received signal strength of the AP (client mode only)."}, \
+    { (char*) "join",               join,             2, NULL, NULL, (char*) "<ssid> <open|wpa_aes|wpa_tkip|wpa2|wpa2_aes|wpa2_aes_sha256|wpa2_tkip|wpa2_fbt|wpa3|wpa3_wpa2> [password] [channel] [band<0=auto,1=5G,2=2.4G,3=6G>]"ESCAPE_SPACE_PROMPT, (char*) "Join an AP.(This command is deprecated and it will be removed in the future. Please use wifi_join command)"}, \
+    { (char*) "leave",              leave,            0, NULL, NULL, (char*) "", (char*) "Leave the connected AP.(This command is deprecated and it will be removed in the future. Please use wifi_leave command)"}, \
+    { (char*) "scan",               scan,             0, NULL, NULL, (char*) "", (char*) "Scan all the Wi-Fi AP in the vicinity.(This command is deprecated and it will be removed in the future. Please use wifi_scan command)"}, \
+    { (char*) "ping",               ping,             0, NULL, NULL, (char*) "<IP address> [timeout(ms)]", (char*) "ping to an IP address.(This command is deprecated and it will be removed in the future. Please use wifi_ping command)"}, \
+    { (char*) "get_rssi",           get_rssi,         0, NULL, NULL, (char*) "", (char*) "Get the received signal strength of the AP (client mode only).(This command is deprecated and it will be removed in the future. Please use wifi_get_rssi command)"}, \
+    { (char*) "wifi_join",          join,             2, NULL, NULL, (char*) "<ssid> <open|wpa_aes|wpa_tkip|wpa2|wpa2_aes|wpa2_aes_sha256|wpa2_tkip|wpa2_fbt|wpa3|wpa3_wpa2> [password] [channel] [band<0=auto,1=5G,2=2.4G,3=6G>]"ESCAPE_SPACE_PROMPT, (char*) "Join an AP."}, \
+    { (char*) "wifi_leave",         leave,            0, NULL, NULL, (char*) "", (char*) "Leave the connected AP."}, \
+    { (char*) "wifi_scan",          scan,             0, NULL, NULL, (char*) "", (char*) "Scan all the Wi-FI AP in the vicinity."}, \
+    { (char*) "wifi_ping",          ping,             0, NULL, NULL, (char*) "<IP address> [timeout(ms)]", (char*) "ping to an IP address"}, \
+    { (char*) "wifi_get_rssi",      get_rssi,         0, NULL, NULL, (char*) "", (char*) "Get the received signal strength of the AP (client mode only)."}, \
+    { (char*) "start_ap",           start_ap,         4, NULL, NULL, \
+      (char*) "<ssid> <open|wpa2|wpa2_aes|wpa3|wpa3_wpa2|wep|wep_shared> <key> <channel> [band<0=auto,1=5G,2=2.4G,3=6G>] <bandwidth> [ip] [netmask]\n-->When any parameter has spaces, use quotes.\n\tE.g. start_ap \"my ssid\" wpa2 \"my wpa2 key \" 11 20 192.168.2.1 255.255.255.0.  Default settings for ip and subnet mask are 192.168.0.1 and 255.255.255.0, or the last ip and subnet specified through this command if applicable.", \
+      (char*) "Start AP mode."}, \
+    { (char*) "stop_ap",            stop_ap,          0, NULL, NULL, (char*) "", (char*) "Stop AP mode."}, \
+    { (char*) "get_sta_ifconfig",   get_sta_ifconfig, 0, NULL, NULL, (char*) "", (char*) "Get IP & MAC address of STA."}, \
 
 /******************************************************
  *                    Constants
@@ -125,15 +138,22 @@ static void scan_result_cb(cy_wcm_scan_result_t *result_ptr, void *user_data, cy
 
 static int convert_to_wcm_connect_params(int argc, char* argv[], cy_wcm_connect_params_t* connect_params);
 static int wifi_utils_str_to_ip(char* ip_str, cy_wcm_ip_address_t* ip_addr);
-static int wifi_utils_str_to_band(char* channel_str, cy_wcm_wifi_band_t* band);
+static int wifi_utils_str_to_band(char* channel_str, char* band_str, cy_wcm_wifi_band_t* band);
 static cy_wcm_security_t wifi_utils_str_to_authtype(char* auth_str);
 static const char* wifi_utils_authtype_to_str(cy_wcm_security_t sec);
 
 static void print_ip4(uint32_t ip);
+static cy_rslt_t start_ap_common(const char *ssid, const char *key, uint8_t channel, cy_wcm_security_t security_type, cy_wcm_custom_ie_info_t *custom_ie, cy_wcm_wifi_band_t band);
 
 /******************************************************
  *               Variables Definitions
  ******************************************************/
+static const cy_wcm_ip_setting_t ap_ip_settings =
+{
+    INITIALISER_IPV4_ADDRESS1(.ip_address, MAKE_IPV4_ADDRESS1(192, 168, 0, 2)),
+    INITIALISER_IPV4_ADDRESS1(.netmask, MAKE_IPV4_ADDRESS1(255, 255, 255, 0)),
+    INITIALISER_IPV4_ADDRESS1(.gateway, MAKE_IPV4_ADDRESS1(192, 168, 0, 2)),
+};
 
 /******************************************************
  *               Function Definitions
@@ -146,11 +166,11 @@ WIFI_WEAK_FUNC cy_rslt_t wifi_utility_init(void)
 
     cy_command_console_add_table(wifi_command_table);
 
-    wcm_config.interface = CY_WCM_INTERFACE_TYPE_STA;
+    wcm_config.interface = CY_WCM_INTERFACE_TYPE_AP_STA;
     res = cy_wcm_init(&wcm_config);
     if(res != CY_RSLT_SUCCESS)
     {
-        WIFI_ERROR(("Failed to initialize Wi-Fi module. Res:%u\n", (unsigned int)res));
+        WIFI_ERROR(("Failed to initialize Wi-Fi module. Res:0x%X\n", (unsigned int)res));
         return res;
     }
     WIFI_INFO(("Wi-Fi module initialized...\n"));
@@ -182,11 +202,12 @@ int join(int argc, char* argv[], tlv_buffer_t** data)
     WIFI_INFO(("Connecting to AP please wait...\n"));
     for(retry_count = 0; retry_count < CMD_CONSOLE_MAX_WIFI_RETRY_COUNT; retry_count++)
     {
+        memset(&ip_addr, 0x00, sizeof(cy_wcm_ip_address_t));
         res = cy_wcm_connect_ap(&connect_params, &ip_addr);
         if(res != CY_RSLT_SUCCESS)
         {
-            WIFI_INFO(("Failed to join AP [%u]. Retrying...\n", (unsigned int)res));
-            continue;            
+            WIFI_INFO(("Failed to join AP [0x%X]. Retrying...\n", (unsigned int)res));
+            continue;
         }
         wifi_connected = true;
         WIFI_INFO(("Successfully connected to %s\n", argv[1]));
@@ -216,7 +237,7 @@ int leave(int argc, char* argv[], tlv_buffer_t** data)
     res = cy_wcm_disconnect_ap();
     if(res != CY_RSLT_SUCCESS)
     {
-        WIFI_ERROR(("Failed to disconnect from AP. Res:%u", (unsigned int)res));
+        WIFI_ERROR(("Failed to disconnect from AP. Res:0x%X", (unsigned int)res));
         return -1;
     }
 
@@ -235,7 +256,7 @@ int scan(int argc, char* argv[], tlv_buffer_t** data)
     res = cy_wcm_start_scan(scan_result_cb, NULL, NULL);
     if(res != CY_RSLT_SUCCESS && res != CY_RSLT_WCM_SCAN_IN_PROGRESS)
     {
-        WIFI_ERROR(("Error while scanning. Res: %u", (unsigned int)res));
+        WIFI_ERROR(("Error while scanning. Res: 0x%X", (unsigned int)res));
         return -1;
     }
 
@@ -274,7 +295,7 @@ int ping(int argc, char* argv[], tlv_buffer_t** data)
     res = cy_wcm_ping(CY_WCM_INTERFACE_TYPE_STA, &ip_addr, timeout_ms, &elapsed_ms);
     if(res != CY_RSLT_SUCCESS)
     {
-        WIFI_ERROR(("Ping failed. Error: %u\n", (unsigned int)res));
+        WIFI_ERROR(("Ping failed. Error: 0x%X\n", (unsigned int)res));
         return -1;
     }
 
@@ -291,12 +312,116 @@ int get_rssi(int argc, char* argv[], tlv_buffer_t** data)
     res = cy_wcm_get_associated_ap_info(&ap_info);
     if(res != CY_RSLT_SUCCESS)
     {
-        WIFI_ERROR(("Failed to get RSSI. Res:%u\n", (unsigned int)res));
+        WIFI_ERROR(("Failed to get RSSI. Res:0x%X\n", (unsigned int)res));
         return -1;
     }
     WIFI_INFO(("RSSI: %d dBm\n", ap_info.signal_strength));
 
     return 0;
+}
+
+int start_ap(int argc, char* argv[], tlv_buffer_t** data)
+{
+    char *ssid = argv[1];
+    cy_wcm_security_t auth_type = wifi_utils_str_to_authtype(argv[2]);
+    char *security_key = argv[3];
+    uint8_t channel = atoi(argv[4]);
+    cy_wcm_wifi_band_t band = (cy_wcm_wifi_band_t)(atoi(argv[5]));
+    cy_rslt_t res;
+
+    res = start_ap_common(ssid, security_key, channel, auth_type, NULL, band);
+    if(res != CY_RSLT_SUCCESS)
+    {
+        WIFI_ERROR(("Failed to start_ap_common. Res:0x%x\n", (unsigned int)res));
+        return -1;
+    }
+    WIFI_INFO(("start_ap successful!\n"));
+    return 0;
+}
+
+int stop_ap(int argc, char* argv[], tlv_buffer_t** data)
+{
+    cy_rslt_t res;
+    WIFI_INFO(("stop_ap start\n"));
+    res = cy_wcm_stop_ap();
+    if(res != CY_RSLT_SUCCESS)
+    {
+        WIFI_ERROR(("Failed to stop_ap. Res:0x%x", (unsigned int)res));
+        return -1;
+    }
+
+    WIFI_INFO(("stop_ap successful!\n"));
+    return 0;
+}
+
+int get_sta_ifconfig(int argc, char* argv[], tlv_buffer_t** data)
+{
+    cy_rslt_t res, result;
+    cy_wcm_ip_address_t ip_addr;
+    uint8_t mac[6] = {0};
+
+    res = cy_wcm_get_ip_addr(CY_WCM_INTERFACE_TYPE_STA, &ip_addr);
+    if (res != CY_RSLT_SUCCESS)
+    {
+         WIFI_INFO(("cy_wcm_get_ip_addr failed...! with error: [0x%X]\n", (unsigned int)res));
+    }
+    else
+    {
+         print_ip4(ip_addr.ip.v4);
+    }
+    result = cy_wcm_get_mac_addr(CY_WCM_INTERFACE_TYPE_STA, &mac);
+    if (result != CY_RSLT_SUCCESS)
+    {
+         WIFI_INFO(("STA MAC Address failed result:0x%X\n", (unsigned int)result));
+    }
+    else
+    {
+         WIFI_INFO(("MAC Address: %02X:%02X:%02X:%02X:%02X:%02X\n", mac[0],mac[1],mac[2],mac[3],mac[4],mac[5]));
+    }
+    return 0;
+}
+
+static cy_rslt_t start_ap_common(const char *ssid, const char *key, uint8_t channel, cy_wcm_security_t security_type, cy_wcm_custom_ie_info_t *custom_ie, cy_wcm_wifi_band_t band)
+{
+    cy_rslt_t result;
+    cy_wcm_ap_config_t ap_params;
+    cy_wcm_ip_address_t ipv4_addr;
+
+    memset(&ap_params, 0, sizeof(cy_wcm_ap_config_t));
+    memcpy(ap_params.ap_credentials.SSID, ssid, strlen(ssid) + 1);
+    memcpy(ap_params.ap_credentials.password, key, strlen(key) + 1);
+    ap_params.ap_credentials.security = security_type;
+    ap_params.channel = channel;
+#ifdef WIFI_6G_CAPABLE 
+    ap_params.band = band;
+#endif
+    ap_params.ip_settings.ip_address = ap_ip_settings.ip_address;
+    ap_params.ip_settings.gateway = ap_ip_settings.gateway;
+    ap_params.ip_settings.netmask = ap_ip_settings.netmask;
+    if (custom_ie)
+    {
+        WIFI_INFO(("Setting custom IE\n"));
+        ap_params.ie_info = custom_ie;
+        WIFI_INFO(("custom_ie.subtype = %d \n", ap_params.ie_info->subtype));
+        WIFI_INFO(("custom_ie.length = %d \n", ap_params.ie_info->length));
+        WIFI_INFO(("custom_ie.ie_packet_mask  = %d \n", ap_params.ie_info->ie_packet_mask));
+        WIFI_INFO(("custom_ie->data  = %s \n", (char *)ap_params.ie_info->data));
+    }
+    result = cy_wcm_start_ap(&ap_params);
+    if (result != CY_RSLT_SUCCESS)
+    {
+        WIFI_INFO(("WCM AP start failed with error: [0x%X]\n", (unsigned int)result));
+        return result;
+    }
+    WIFI_INFO(("WCM AP started\n"));
+    result = cy_wcm_get_ip_addr(CY_WCM_INTERFACE_TYPE_AP, &ipv4_addr);
+    if (result != CY_RSLT_SUCCESS)
+    {
+        WIFI_INFO(("cy_wcm_get_ip_addr failed...! with error: [0x%X]\n", (unsigned int)result));
+        return result;
+    }
+    print_ip4(ap_params.ip_settings.ip_address.ip.v4);
+    return CY_RSLT_SUCCESS;
 }
 
 void scan_result_cb(cy_wcm_scan_result_t *result_ptr, void *user_data, cy_wcm_scan_status_t status)
@@ -319,7 +444,7 @@ void scan_result_cb(cy_wcm_scan_result_t *result_ptr, void *user_data, cy_wcm_sc
         {
             WIFI_DEBUG((" message = %s ", (char*)user_data));
         }
-        
+
 #if IE_DATA_PRINTS
         int i = 0;
         WIFI_DEBUG((" ie len = %lu data: ", (unsigned long)result_ptr->ie_len));
@@ -381,11 +506,16 @@ int convert_to_wcm_connect_params(int argc, char* argv[], cy_wcm_connect_params_
     }
 
     // channel
-    if(argc == 5 && wifi_utils_str_to_band(argv[4], &connect_params->band) == -1)
+    if(argc == 5 && wifi_utils_str_to_band(argv[4], NULL, &connect_params->band) == -1)
     {
         return -1;
     }
-    
+
+    // channel/band
+    if(argc == 6 && wifi_utils_str_to_band(argv[4], argv[5], &connect_params->band) == -1)
+    {
+        return -1;
+    }
     return 0;
 }
 
@@ -440,21 +570,37 @@ int wifi_utils_str_to_ip(char* ip_str, cy_wcm_ip_address_t* ip_addr)
     return 0;
 }
 
-int wifi_utils_str_to_band(char* channel_str, cy_wcm_wifi_band_t* band)
+int wifi_utils_str_to_band(char* channel_str, char* band_str, cy_wcm_wifi_band_t* band)
 {
     int channel = atoi(channel_str);
+    int band_arg = CY_WCM_WIFI_BAND_ANY;
 
-    if(channel >= 1 && channel <= 14)
+    if (band_str != NULL)
+    {
+        band_arg = atoi(band_str);
+    }
+
+    if((band_arg == CY_WCM_WIFI_BAND_ANY || band_arg == CY_WCM_WIFI_BAND_2_4GHZ) &&
+        (channel >= 1 && channel <= 14))
     {
         *band = CY_WCM_WIFI_BAND_2_4GHZ;
     }
-    else if(channel >= 32 && channel <= 165)
+    else if((band_arg == CY_WCM_WIFI_BAND_ANY || band_arg == CY_WCM_WIFI_BAND_5GHZ) &&
+        (channel >= 32 && channel <= 165))
     {
         *band = CY_WCM_WIFI_BAND_5GHZ;
     }
+#if defined(WIFI_6G_CAPABLE)
+    else if((band_arg == CY_WCM_WIFI_BAND_ANY || band_arg == CY_WCM_WIFI_BAND_6GHZ) &&
+        (channel >= 1 && channel <= 233))
+    {
+        *band = CY_WCM_WIFI_BAND_6GHZ;
+    }
+#endif // defined(WIFI_6G_CAPABLE)
     else
     {
-        WIFI_ERROR(("Invalid channel. Valid values: 1 to 14 - 2.4GHz, 32 to 165 - 5GHz\n"));
+        WIFI_ERROR(("Invalid channel(%d) band(%d). Valid values: 1 to 14 - 2.4GHz, 32 to 165 - 5GHz, 1 to 233 - 6GHz(Please define WIFI_6G_CAPABLE in Makefile)\n",
+            channel, band_arg));
         return -1;
     }
 
@@ -474,6 +620,10 @@ cy_wcm_security_t wifi_utils_str_to_authtype(char* auth_str)
     else if(strcmp(auth_str, "wpa2_aes") == 0)
     {
         return CY_WCM_SECURITY_WPA2_AES_PSK;
+    }
+    else if(strcmp(auth_str, "wpa2_aes_sha256") == 0)
+    {
+        return CY_WCM_SECURITY_WPA2_AES_PSK_SHA256;
     }
     else if(strcmp(auth_str, "wpa2") == 0)
     {
@@ -515,6 +665,8 @@ const char* wifi_utils_authtype_to_str(cy_wcm_security_t sec)
             return "wpa2";
         case CY_WCM_SECURITY_WPA_AES_PSK:
             return "wpa_aes";
+        case CY_WCM_SECURITY_WPA2_AES_PSK_SHA256:
+            return "wpa2_aes_sha256";
         case CY_WCM_SECURITY_WPA2_AES_PSK:
             return "wpa2_aes";
         case CY_WCM_SECURITY_WPA_TKIP_PSK:
@@ -525,6 +677,26 @@ const char* wifi_utils_authtype_to_str(cy_wcm_security_t sec)
             return "wpa3";
         case CY_WCM_SECURITY_WPA3_WPA2_PSK:
             return "wpa3_wpa2";
+        case CY_WCM_SECURITY_WPA_AES_ENT:
+            return "wpa_aes_ent";
+        case CY_WCM_SECURITY_WPA_MIXED_ENT:
+            return "wpa_mixed_ent";
+        case CY_WCM_SECURITY_WPA2_TKIP_ENT:
+            return "wpa2_tkip_ent";
+        case CY_WCM_SECURITY_WPA2_AES_ENT:
+            return "wpa2_aes_ent";
+        case CY_WCM_SECURITY_WPA2_MIXED_ENT:
+            return "wpa2_mixed_ent";
+        case CY_WCM_SECURITY_WPA2_FBT_ENT:
+            return "wpa2_fbt_ent";
+#ifdef COMPONENT_CAT5
+        case CY_WCM_SECURITY_WPA3_192BIT_ENT:
+            return "wpa3_192bit_ent";
+        case CY_WCM_SECURITY_WPA3_ENT:
+            return "wpa3_aes_gcm_256_ent";
+        case CY_WCM_SECURITY_WPA3_ENT_AES_CCMP:
+            return "wpa3_aes_ccm_128_ent";
+#endif
         case CY_WCM_SECURITY_UNKNOWN:
             return "Unknown";
         default:

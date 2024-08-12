@@ -10,9 +10,34 @@ See the [README.md](./README.md) for a complete description of the Wi-Fi Connect
 | ------- | ---------- |
 | The `cy_wcm_deinit` API does not bring down the network stack because the default underlying lwIP stack does not have an implementation for deinit. Therefore, the expectation is that `cy_wcm_init` and `cy_wcm_deinit` APIs should be invoked only once. | No workaround. Support will be added in a future release. |
 | The `cy_wcm_connect_ap` API does not connect to AP if the MAC address is specified as a connection parameter.| No workaround. This issue will be fixed in future release. |
-| IAR 9.30 toolchain throws build errors on Debug mode if the application explicitly includes the *iar_dlmalloc.h* file | Add `'--advance-heap'` to `LDFLAGS` in the application Makefile. |
+| IAR 9.40.2 toolchain throws build errors on Debug mode if the application explicitly includes the *iar_dlmalloc.h* file | Add `'--advanced_heap'` to `LDFLAGS` in the application Makefile. |
 
 ## Changelog
+
+### v3.5.0
+
+- Added support for CY8CEVAL-062S2-CYW955513SDM2WLIPA kit
+
+### v3.4.0
+
+- Added support for CYW955913EVK-01 kit
+
+### v3.3.1
+
+- Minor bug fixes
+
+### v3.3.0
+
+- WPS changes to support MBEDTLS version 3.4.0
+- Added support for CY8CEVAL-062S2-CYW43022CUB kit
+
+### v3.2.0
+
+- Added support for KIT_XMC72_EVK_MUR_43439M2 kit
+
+### v3.1.2
+
+- Minor bug fixes
 
 ### v3.1.1
 
@@ -112,8 +137,8 @@ This version of the library was validated for compatibility with the following s
 
 | Software and tools                                              | Version |
 | :---                                                            | :----:  |
-| ModusToolbox&trade; software environment                        | 3.1     |
-| ModusToolbox&trade; Device Configurator                         | 4.10    |
+| ModusToolbox&trade; software environment                        | 3.2     |
+| ModusToolbox&trade; Device Configurator                         | 4.20    |
 | GCC Compiler                                                    | 11.3.1  |
-| IAR Compiler                                                    | 9.30    |
+| IAR Compiler                                                    | 9.40.2  |
 | Arm&reg; Compiler 6                                             | 6.16    |

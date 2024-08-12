@@ -1,5 +1,5 @@
 /*
- * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -86,6 +86,10 @@
 
 #endif
 
+#if (COMPONENT_CAT1)
+#include "cy_crypto_core.h"
+#include "cy_crypto_core_trng_config.h"
+#endif
 /* While using lwIP/sockets errno is required. Since IAR and ARMC6 doesn't define errno variable, the following definition is required for building it successfully. */
 #if !( (defined(__GNUC__) && !defined(__ARMCC_VERSION)) )
 int errno;
@@ -152,6 +156,10 @@ int errno;
 #define CM_TX_WORKER_THREAD_STACK_SIZE                (4 * 1024)
 #define CM_TX_WORKER_THREAD_QUEUE_SIZE                (32)
 #endif
+#endif
+
+#if defined(COMPONENT_CAT1)
+#define MAX_TRNG_BIT_SIZE        (32UL)
 #endif
 
 /******************************************************
@@ -227,6 +235,11 @@ uint8_t *pRx_Q_buff_pool[CY_ETH_DEFINE_TOTAL_BD_PER_RXQUEUE];
 #endif
 #endif
 
+#if defined(COMPONENT_CAT1)
+/** mutex to protect trng count */
+static cy_mutex_t trng_mutex;
+#endif
+
 /******************************************************
  *               Static Function Declarations
  ******************************************************/
@@ -253,6 +266,11 @@ static uint32_t prng_well512_get_random ( void );
 static void     prng_well512_add_entropy( const void* buffer, uint16_t buffer_length );
 cy_rslt_t cy_prng_get_random( void* buffer, uint32_t buffer_length );
 cy_rslt_t cy_prng_add_entropy( const void* buffer, uint32_t buffer_length );
+#endif
+
+#if defined(COMPONENT_CAT1)
+static int cy_trng_release( void );
+static int cy_trng_reserve( void );
 #endif
 
 /******************************************************
@@ -633,7 +651,7 @@ static cy_rslt_t cy_buffer_pool_create(uint32_t no_of_buffers, uint32_t sizeof_b
     pool_handle->sizeof_buffer = sizeof_buffer;
     pool_handle->data_buffer = data_buffer;
     pool_handle->head = NULL;
-    
+
     /* Update the allocated data_buffer pointer to be 32 byte aligned */
     data_buffer_aligned = (uint8_t*)((size_t)data_buffer + ((size_t)MEM_BYTE_ALIGNMENT - ((size_t)data_buffer & 0x1F)));
     /* Iterate over and build up the chain of buffers */
@@ -713,7 +731,6 @@ cy_rslt_t cy_network_init( void )
     cy_rslt_t result;
 #endif
 #endif
-
     cm_cy_log_msg( CYLF_MIDDLEWARE, CY_LOG_DEBUG, "%s(): START \n", __FUNCTION__ );
 
     if( connectivity_lib_init )
@@ -852,6 +869,18 @@ cy_rslt_t cy_network_init( void )
 #endif
 #endif
 
+#if defined(COMPONENT_CAT1)
+    if( cy_rtos_init_mutex(&trng_mutex) != CY_RSLT_SUCCESS )
+    {
+        cm_cy_log_msg( CYLF_MIDDLEWARE, CY_LOG_ERR, "\n cy_rtos_init_mutex failed\n" );
+#if defined(CYBSP_ETHERNET_CAPABLE)
+        result = CY_RSLT_NETWORK_ERROR_NOMEM;
+        goto exit;
+#else
+        return CY_RSLT_NETWORK_ERROR_NOMEM;
+#endif
+    }
+#endif
     connectivity_lib_init++;
 
     cm_cy_log_msg( CYLF_MIDDLEWARE, CY_LOG_DEBUG, "%s(): END \n", __FUNCTION__ );
@@ -910,6 +939,10 @@ cy_rslt_t cy_network_deinit( void )
             cy_rtos_deinit_mutex(&tx_mutex);
 
 #endif
+#endif
+
+#ifdef COMPONENT_CAT1
+            cy_rtos_deinit_mutex(&trng_mutex);
 #endif
         }
     }
@@ -1381,6 +1414,18 @@ cy_rslt_t cy_network_ip_up(cy_network_interface_context *iface)
                     activity_callback(true);
                 }
                 netifapi_dhcp_release_and_stop(LWIP_IP_HANDLE(interface_index));
+                cy_rtos_delay_milliseconds(DHCP_STOP_DELAY_IN_MS);
+
+                /*
+                * If LPA is enabled, invoke the activity callback to resume the network stack
+                * before invoking the lwIP APIs that require the TCP core lock.
+                */
+                if (activity_callback)
+                {
+                    activity_callback(true);
+                }
+
+                dhcp_cleanup(LWIP_IP_HANDLE(interface_index));
 #if LWIP_AUTOIP
                 int   tries = 0;
                 cm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_INFO, "Unable to obtain IP address via DHCP. Perform Auto IP\n");
@@ -1924,6 +1969,15 @@ cy_rslt_t cy_network_ping(void *iface_context, cy_nw_ip_address_t *address, uint
     cy_network_interface_context *if_ctx;
     if_ctx = (cy_network_interface_context *)iface_context;
 
+    /*
+     * If LPA is enabled, invoke the activity callback to resume the network stack,
+     * before invoking the LwIP APIs
+    */
+    if (activity_callback)
+    {
+        activity_callback(true);
+    }
+
     /* Open a local socket for pinging */
     socket_for_ping = lwip_socket(AF_INET, SOCK_RAW, IP_PROTO_ICMP);
     if (socket_for_ping < 0)
@@ -1936,6 +1990,16 @@ cy_rslt_t cy_network_ping(void *iface_context, cy_nw_ip_address_t *address, uint
     /* Convert the timeout into struct timeval */
     timeout_val.tv_sec  = (long)(timeout_ms / 1000);
     timeout_val.tv_usec = (long)((timeout_ms % 1000) * 1000);
+
+    /*
+     * If LPA is enabled, invoke the activity callback to resume the network stack,
+     * before invoking the LwIP APIs
+    */
+    if (activity_callback)
+    {
+        activity_callback(true);
+    }
+
     /* Set the receive timeout on the local socket, so ping will time out */
     if(lwip_setsockopt(socket_for_ping, SOL_SOCKET, SO_RCVTIMEO, &timeout_val, sizeof(struct timeval)) != ERR_OK)
     {
@@ -1950,6 +2014,15 @@ cy_rslt_t cy_network_ping(void *iface_context, cy_nw_ip_address_t *address, uint
     memcpy(if_name, net_interface->name, sizeof(net_interface->name));
     snprintf(&if_name[2], (PING_IF_NAME_LEN - 2), "%u", (uint8_t)(net_interface->num));
     memcpy(iface.ifr_name, if_name, PING_IF_NAME_LEN);
+
+    /*
+     * If LPA is enabled, invoke the activity callback to resume the network stack,
+     * before invoking the LwIP APIs
+    */
+    if (activity_callback)
+    {
+        activity_callback(true);
+    }
     if(lwip_setsockopt(socket_for_ping, SOL_SOCKET, SO_BINDTODEVICE, &iface, sizeof(iface)) != ERR_OK)
     {
         result = CY_RSLT_NETWORK_ERROR_PING;
@@ -1985,6 +2058,14 @@ exit:
     /* Close the socket */
     if(socket_for_ping >= 0)
     {
+        /*
+         * If LPA is enabled, invoke the activity callback to resume the network stack,
+         * before invoking the LwIP APIs
+        */
+        if (activity_callback)
+        {
+            activity_callback(true);
+        }
         lwip_close(socket_for_ping);
     }
     return result;
@@ -2037,6 +2118,14 @@ static err_t ping_send(int socket_hnd, const cy_nw_ip_address_t* address, struct
     to.sin_family      = AF_INET;
     to.sin_addr.s_addr = address->ip.v4;
 
+    /*
+     * If LPA is enabled, invoke the activity callback to resume the network stack,
+     * before invoking the LwIP APIs
+    */
+    if (activity_callback)
+    {
+        activity_callback(true);
+    }
     err = lwip_sendto(socket_hnd, iecho, sizeof(struct icmp_packet), 0, (struct sockaddr*) &to, sizeof(to));
 
     return (err ? ERR_OK : ERR_VAL);
@@ -2263,5 +2352,77 @@ cy_rslt_t cy_prng_add_entropy( const void* buffer, uint32_t buffer_length )
 {
     prng_well512_add_entropy( buffer, buffer_length );
     return CY_RSLT_SUCCESS;
+}
+#endif
+
+#if defined(COMPONENT_CAT1)
+static int cy_trng_release()
+{
+    if (Cy_Crypto_Core_IsEnabled(CRYPTO))
+    {
+        Cy_Crypto_Core_Disable(CRYPTO);
+    }
+    return 0;
+}
+static int cy_trng_reserve()
+{
+    cy_en_crypto_status_t crypto_status;
+
+    crypto_status = Cy_Crypto_Core_Enable(CRYPTO);
+    if(crypto_status != CY_CRYPTO_SUCCESS)
+    {
+        cy_rtos_set_mutex(&trng_mutex);
+        cy_rtos_deinit_mutex(&trng_mutex);
+        return CY_RSLT_NETWORK_ERROR_TRNG;
+    }
+    return 0;
+}
+
+cy_rslt_t cy_network_random_number_generate( unsigned char *output, size_t len, size_t *olen )
+{
+    cy_rslt_t result = CY_RSLT_SUCCESS;
+
+    *olen = 0;
+    /* temporary random data buffer */
+    uint32_t random = 0u;
+
+    result = cy_rtos_get_mutex(&trng_mutex, CY_RTOS_NEVER_TIMEOUT);
+    if(CY_RSLT_SUCCESS != result)
+    {
+        cy_rtos_deinit_mutex(&trng_mutex);
+        return CY_RSLT_NETWORK_ERROR_TRNG;
+    }
+
+    if(cy_trng_reserve() != 0)
+    {
+        return CY_RSLT_NETWORK_ERROR_TRNG;
+    }
+
+    /* Get Random byte */
+    while (*olen < len)
+    {
+        if ( Cy_Crypto_Core_Trng(CRYPTO, CY_CRYPTO_DEF_TR_GARO, CY_CRYPTO_DEF_TR_FIRO,
+                                             MAX_TRNG_BIT_SIZE, &random) != CY_CRYPTO_SUCCESS)
+        {
+            return CY_RSLT_NETWORK_ERROR_TRNG;
+        }
+        else
+        {
+            for (uint8_t i = 0; (i < 4) && (*olen < len) ; i++)
+            {
+                *output++ = ((uint8_t *)&random)[i];
+                *olen += 1;
+            }
+        }
+    }
+    random = 0uL;
+
+    Cy_Crypto_Core_Trng_DeInit(CRYPTO);
+    if(cy_trng_release() != 0)
+    {
+        return CY_RSLT_NETWORK_ERROR_TRNG;
+    }
+    cy_rtos_set_mutex(&trng_mutex);
+    return result;
 }
 #endif

@@ -1,5 +1,8 @@
 var group__group__bsp__network__buffer =
 [
+    [ "cy_dynamic_buffer_allocate_t", "group__group__bsp__network__buffer.html#ga8aa3a6c010a110639b3cd53f86a7e349", null ],
+    [ "cy_dynamic_buffer_free_t", "group__group__bsp__network__buffer.html#gae058fc994c2d0d8c9960e68bbae86258", null ],
+    [ "cy_buffer_enable_dynamic_buffers", "group__group__bsp__network__buffer.html#ga71ccfd14f0c40804d555ccfb901b9d4f", null ],
     [ "cy_buffer_pool_init", "group__group__bsp__network__buffer.html#ga6f5114fb8aa816f28ccb6370507c36c4", null ],
     [ "cy_host_buffer_get", "group__group__bsp__network__buffer.html#ga216b4943aa8bcffd6eb685ce7c2b6a95", null ],
     [ "cy_buffer_release", "group__group__bsp__network__buffer.html#gaac05ad889f09b6e8ef43503ba475a21f", null ],

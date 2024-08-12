@@ -1,0 +1,6 @@
+[CortexM7:ProjectFiles]
+HeaderPath=
+[CortexM7:Others]
+Define=CYBSP_WIFI_CAPABLE;CY_USING_HAL;CY_STORAGE_WIFI_DATA:".whd_fw";
+[CortexM7:Groups]
+Application/User/Core/Src=../CM7/Core/Src/wifi_task.c;

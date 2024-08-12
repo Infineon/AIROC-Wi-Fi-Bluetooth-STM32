@@ -1,362 +1,197 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-<name>bt_mfg_tester</name>
-<comment/>
-<projects>
-</projects>
-<buildSpec>
-<buildCommand>
-<name>org.eclipse.cdt.managedbuilder.core.genmakebuilder</name>
-<triggers>clean,full,incremental,</triggers>
-<arguments>
-</arguments>
-</buildCommand>
-<buildCommand>
-<name>org.eclipse.cdt.managedbuilder.core.ScannerConfigBuilder</name>
-<triggers>full,incremental,</triggers>
-<arguments>
-</arguments>
-</buildCommand>
-</buildSpec>
-<natures>
-<nature>com.st.stm32cube.ide.mcu.MCUProjectNature</nature>
-<nature>org.eclipse.cdt.core.cnature</nature>
-<nature>com.st.stm32cube.ide.mcu.MCUCubeIdeServicesRevAev2ProjectNature</nature>
-<nature>com.st.stm32cube.ide.mcu.MCUNonUnderRootProjectNature</nature>
-<nature>com.st.stm32cube.ide.mcu.MCUCubeProjectNature</nature>
-<nature>com.st.stm32cube.ide.mcu.MCUAdvancedStructureProjectNature</nature>
-<nature>com.st.stm32cube.ide.mcu.MCUEndUserDisabledTrustZoneProjectNature</nature>
-<nature>com.st.stm32cube.ide.mcu.MCUNonSecureProjectNature</nature>
-<nature>com.st.stm32cube.ide.mcu.MCUSingleCpuProjectNature</nature>
-<nature>com.st.stm32cube.ide.mcu.MCURootProjectNature</nature>
-<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
-<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
-</natures>
-<linkedResources>
-<link>
-<name>bt_mfg_tester.ioc</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/bt_mfg_tester.ioc</locationURI>
-</link>
-<link>
-<name>Drivers/CMSIS/system_stm32u5xx.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Core/Src/system_stm32u5xx.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_cortex.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_cortex.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_dma.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_dma_ex.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma_ex.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_exti.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_exti.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_flash.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_flash.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_flash_ex.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_flash_ex.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_gpio.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_gpio.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_gtzc.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_gtzc.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_i2c.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_i2c.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_i2c_ex.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_i2c_ex.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_icache.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_icache.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_pwr.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_pwr_ex.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr_ex.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_rcc.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_rcc.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_rcc_ex.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_rcc_ex.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_sram.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_sram.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_tim.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_tim.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_tim_ex.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_tim_ex.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_uart.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_uart.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_uart_ex.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_uart_ex.c</locationURI>
-</link>
-<link>
-<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_ll_fmc.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_fmc.c</locationURI>
-</link>
-<link>
-<name>Application/User/Core/bt_bus.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Core/Src/bt_bus.c</locationURI>
-</link>
-<link>
-<name>Application/User/Core/bt_firmware.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Core/Src/bt_firmware.c</locationURI>
-</link>
-<link>
-<name>Application/User/Core/bt_mfg_test.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Core/Src/bt_mfg_test.c</locationURI>
-</link>
-<link>
-<name>Application/User/Core/bt_transport.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Core/Src/bt_transport.c</locationURI>
-</link>
-<link>
-<name>Application/User/Core/main.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Core/Src/main.c</locationURI>
-</link>
-<link>
-<name>Application/User/Core/stm32u5xx_hal_msp.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Core/Src/stm32u5xx_hal_msp.c</locationURI>
-</link>
-<link>
-<name>Application/User/Core/stm32u5xx_hal_timebase_tim.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Core/Src/stm32u5xx_hal_timebase_tim.c</locationURI>
-</link>
-<link>
-<name>Application/User/Core/stm32u5xx_it.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Core/Src/stm32u5xx_it.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_debug_uart.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/debug/cybt_debug_uart.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_hci_rx_task.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_hci_rx_task.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_hci_tx_task.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_hci_tx_task.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_host_stack_platform_interface.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_host_stack_platform_interface.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_patchram_download.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_patchram_download.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_platform_freertos.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/freertos/cybt_platform_freertos.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_platform_main.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_platform_main.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_platform_task.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_platform_task.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_platform_trace.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_platform_trace.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_prm.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_prm.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Platform/pal/cyhal_system.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Src/cyhal_system.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Platform/pal/stm32_cyhal_gpio.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_gpio.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Platform/pal/stm32_cyhal_lptimer.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_lptimer.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Platform/pal/stm32_cyhal_sdio.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_sdio.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Platform/pal/stm32_cyhal_spi.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_spi.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Platform/pal/stm32_cyhal_trng.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_trng.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Platform/pal/stm32_cyhal_uart.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_uart.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Platform/pal/wifi_bt_if.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Src/wifi_bt_if.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Middleware/RTOS/FreeRTOS/core/cmsis_os2.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Middleware/RTOS/FreeRTOS/core/croutine.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/croutine.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Middleware/RTOS/FreeRTOS/core/event_groups.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/event_groups.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Middleware/RTOS/FreeRTOS/core/list.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/list.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Middleware/RTOS/FreeRTOS/core/port.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/port.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Middleware/RTOS/FreeRTOS/core/portasm.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/portable/GCC/ARM_CM33_NTZ/non_secure/portasm.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Middleware/RTOS/FreeRTOS/core/queue.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/queue.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Middleware/RTOS/FreeRTOS/core/stream_buffer.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/stream_buffer.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Middleware/RTOS/FreeRTOS/core/tasks.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/tasks.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Middleware/RTOS/FreeRTOS/core/timers.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/timers.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Platform/abstraction-rtos/FreeRTOS/cy_worker_thread.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/cy_worker_thread.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Platform/abstraction-rtos/FreeRTOS/cyabs_freertos_helpers.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/cyabs_freertos_helpers.c</locationURI>
-</link>
-<link>
-<name>Middlewares/Connectivity/Wireless/Platform/abstraction-rtos/FreeRTOS/cyabs_rtos_freertos.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/cyabs_rtos_freertos.c</locationURI>
-</link>
-
-
-
-
-
-<link>
-<name>Middlewares/Middleware/RTOS/FreeRTOS/heap/Heap_4/heap_4.c</name>
-<type>1</type>
-<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_RTOS_Middleware/FreeRTOS/Source/portable/MemMang/heap_4.c</locationURI>
-</link>
-</linkedResources>
+	<name>bt_mfg_tester</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.cdt.managedbuilder.core.genmakebuilder</name>
+			<triggers>clean,full,incremental,</triggers>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.cdt.managedbuilder.core.ScannerConfigBuilder</name>
+			<triggers>full,incremental,</triggers>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.st.stm32cube.ide.mcu.MCUProjectNature</nature>
+		<nature>org.eclipse.cdt.core.cnature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUCubeIdeServicesRevAev2ProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUNonUnderRootProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUCubeProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUAdvancedStructureProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUEndUserDisabledTrustZoneProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUNonSecureProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUSingleCpuProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCURootProjectNature</nature>
+		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
+		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>bt_mfg_tester.ioc</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/bt_mfg_tester.ioc</locationURI>
+		</link>
+		<link>
+			<name>Drivers/CMSIS/system_stm32u5xx.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/system_stm32u5xx.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_cortex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_cortex.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_dma.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_dma_ex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_dma_ex.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_exti.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_exti.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_flash.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_flash.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_flash_ex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_flash_ex.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_gpio.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_gpio.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_gtzc.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_gtzc.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_i2c.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_i2c.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_i2c_ex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_i2c_ex.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_icache.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_icache.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_pwr.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_pwr_ex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_pwr_ex.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_rcc.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_rcc.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_rcc_ex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_rcc_ex.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_sram.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_sram.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_tim.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_tim.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_tim_ex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_tim_ex.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_uart.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_uart.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_hal_uart_ex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_hal_uart_ex.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32U5xx_HAL_Driver/stm32u5xx_ll_fmc.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32U5xx_HAL_Driver/Src/stm32u5xx_ll_fmc.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/Core/bt_bus.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/bt_bus.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/Core/bt_firmware.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/bt_firmware.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/Core/bt_mfg_test.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/bt_mfg_test.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/Core/bt_transport.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/bt_transport.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/Core/main.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/main.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/Core/stm32u5xx_hal_msp.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/stm32u5xx_hal_msp.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/Core/stm32u5xx_hal_timebase_tim.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/stm32u5xx_hal_timebase_tim.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/Core/stm32u5xx_it.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Core/Src/stm32u5xx_it.c</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

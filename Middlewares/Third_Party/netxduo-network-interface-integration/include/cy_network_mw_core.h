@@ -1,5 +1,5 @@
 /*
- * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -46,6 +46,7 @@
 #include "cy_result.h"
 #include "cy_nw_helper.h"
 #include "cy_nw_mw_core_error.h"
+#include "nx_api.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -136,6 +137,18 @@ typedef struct cy_network_static_ip_addr
     cy_nw_ip_address_t netmask; /**< The netmask for the network interface */
     cy_nw_ip_address_t gateway; /**< The default gateway for network traffic */
 } cy_network_static_ip_addr_t;
+
+/**
+ * This structure contains information about the packet pool
+ */
+typedef struct cy_network_packet_pool_info
+{
+    ULONG total_packets;              /**< Number of total packets in this pool               */
+    ULONG free_packets;               /**< Number of free packets in this pool                */
+    ULONG empty_pool_requests;        /**< Number of empty pool requests made in this pool    */
+    ULONG empty_pool_suspensions;     /**< Number of empty pool suspensions made in this pool */
+    ULONG invalid_packet_releases;    /**< Number of invalid packet releases made in this pool*/
+} cy_network_packet_pool_info_t;
 
 /** \} group_netxduo_network_interface_integration_structures */
 
@@ -235,6 +248,18 @@ cy_rslt_t cy_network_ip_up(cy_network_interface_context *iface_context);
  * @return CY_RSLT_SUCCESS on successful tear down of the network, failure code otherwise.
  */
 cy_rslt_t cy_network_ip_down(cy_network_interface_context *iface_context);
+
+/** \cond INTERNAL*/
+/**
+ * This function returns the DHCP handle.
+ *
+ * @param[in] iface_type      Network interface type.
+ * @param[in] iface_idx       Network interface index.
+ *
+ * @return Returns a valid DHCP handle or NULL if it is not initialized.
+ */
+void *cy_network_get_dhcp_handle(cy_network_hw_interface_type_t iface_type, uint8_t iface_idx);
+/** \endcond */
 
 /**
  * This function invalidates all the ARP entries and renews the DHCP.
@@ -381,7 +406,30 @@ cy_rslt_t cy_network_get_packet_pool(cy_network_packet_dir_t direction, void **p
 
 /** \cond INTERNAL */
 cy_rslt_t cy_network_get_hostbyname(cy_network_hw_interface_type_t iface_type, unsigned char *hostname, uint32_t lookup_type, uint32_t timeout, void *ipaddr);
+
+/**
+ * This function returns available packet pool size for the given packet direction.
+ *
+ * @param[in]     direction    Indicates transmit/receive direction of the packet pool.
+ * @param[in/out] pool_info    Pointer to packet pool info structure of type \ref cy_network_packet_pool_info
+ *
+ */
+void cy_network_get_packet_pool_info(cy_network_packet_dir_t direction, cy_network_packet_pool_info_t *pool_info);
+
 /** \endcond */
+
+#if defined(COMPONENT_CAT1)
+/**
+ * Random number generate using PDL trng APIs
+ *
+ * @param[out] output    : Data to fill
+ * @param[in]  len       : Maximum size to provide
+ * @param[out] olen      : The actual amount of bytes put into the buffer (Can be 0)
+ *
+ * @return  CY_RSLT_SUCCESS if successful; CY_RSLT_NETWORK_ERROR_TRNG if failure.
+ */
+cy_rslt_t cy_network_random_number_generate( unsigned char *output, size_t len, size_t *olen );
+#endif
 /** \} group_netxduo_network_interface_integration_functions */
 #ifdef __cplusplus
 }

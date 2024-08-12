@@ -1,5 +1,5 @@
 /*
-* Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
 *
 * This software, including source code, documentation and related
@@ -86,10 +86,12 @@
 #define Iperf_LIST_H
 
 #include "headers.h"
+/* IPERF_MODIFIED Start */
 /* As build system looks for all the header files with the name and adding include paths. It includes mutex.h present in some other component
  * Hence files are renamed by appending iperf.
  */
 #include "iperf_mutex.h"
+/* IPERF_MODIFIED End */
 #include "Settings.hpp"
 #include "Reporter.h"
 

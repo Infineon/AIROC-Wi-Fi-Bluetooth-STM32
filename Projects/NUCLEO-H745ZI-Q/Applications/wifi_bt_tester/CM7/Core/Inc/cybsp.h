@@ -24,12 +24,20 @@
 #endif
 
 /* Includes ------------------------------------------------------------------*/
+
+/* Defines ------------------------------------------------------------------*/
 #define false 0
 #define true 1
 
+/* WIFI interface types */
+#define CYBSP_SDIO_INTERFACE    (0)
+#define CYBSP_SPI_INTERFACE     (1)
+#define CYBSP_M2M_INTERFACE     (2)
+#define CYBSP_USB_INTERFACE     (3)
+
 /**
-	MiddleWare name : Infineon.AIROC-Wi-Fi-Bluetooth-STM32.1.5.1
-	MiddleWare fileName : cybsp.h
+	MiddleWare name : Infineon.AIROC-Wi-Fi-Bluetooth-STM32.1.6.0
+	MiddleWare fileName : ./cybsp.h
 	MiddleWare version :
 */
 /*----------   -----------*/
@@ -97,6 +105,10 @@
 #undef CY_WIFI_COUNTRY
 #define CY_WIFI_COUNTRY CY_WIFI_COUNTRY_CUSTOM
 #endif
+#endif
+
+#if !defined(CYBSP_WIFI_INTERFACE_TYPE)
+#define CYBSP_WIFI_INTERFACE_TYPE 	(CYBSP_SDIO_INTERFACE)
 #endif
 
 #ifdef __cplusplus

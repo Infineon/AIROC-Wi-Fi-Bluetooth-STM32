@@ -32,14 +32,21 @@
 #include "whd_network_types.h"
 #include "cyabs_rtos.h"
 #include "cy_network_buffer.h"
+#include "cy_network_buffer_netxduo.h"
 #include "cy_utils.h"
 
 /******************************************************
 *             Constants
 ******************************************************/
 
+#ifdef COMPONENT_CAT5
+/* WHD removes the entire added header before releasing the packet */
+#define HOST_BUFFER_RELEASE_REMOVE_AT_FRONT_BUS_HEADER_SIZE    \
+    (0)
+#else
 #define HOST_BUFFER_RELEASE_REMOVE_AT_FRONT_BUS_HEADER_SIZE    \
     (sizeof(whd_buffer_header_t) + BDC_HEADER_WITH_PAD + SDPCM_HEADER)
+#endif
 #define HOST_BUFFER_RELEASE_REMOVE_AT_FRONT_FULL_SIZE          \
     (HOST_BUFFER_RELEASE_REMOVE_AT_FRONT_BUS_HEADER_SIZE + WHD_ETHERNET_SIZE)
 
@@ -51,33 +58,19 @@
 static NX_PACKET_POOL* rx_pool;
 static NX_PACKET_POOL* tx_pool;
 
+static cy_dynamic_buffer_allocate_t cy_buffer_allocate;
+static cy_dynamic_buffer_free_t cy_buffer_free;
+
+#ifndef COMPONENT_CAT5
 //--------------------------------------------------------------------------------------------------
-// cy_buffer_pool_init
+// cy_buffer_free_dynamic_packet
 //--------------------------------------------------------------------------------------------------
-whd_result_t cy_buffer_pool_init(void* tx_packet_pool, void* rx_packet_pool)
+void cy_buffer_free_dynamic_packet(NX_PACKET* packet)
 {
-    if ((tx_packet_pool == NULL) || (rx_packet_pool == NULL))
+    if (packet != NULL)
     {
-        return WHD_BADARG;
+        free(packet);
     }
-
-    tx_pool = (NX_PACKET_POOL*)tx_packet_pool;
-    rx_pool = (NX_PACKET_POOL*)rx_packet_pool;
-
-    /*
-     * Make sure the pools are valid.
-     */
-
-    if ((tx_pool->nx_packet_pool_id != NX_PACKET_POOL_ID) ||
-        (rx_pool->nx_packet_pool_id != NX_PACKET_POOL_ID))
-    {
-        rx_pool = NULL;
-        tx_pool = NULL;
-
-        return WHD_BADARG;
-    }
-
-    return WHD_SUCCESS;
 }
 
 
@@ -128,6 +121,50 @@ static NX_PACKET* cy_buffer_allocate_dynamic_packet(uint16_t payload_size)
 }
 
 
+#endif // ifndef COMPONENT_CAT5
+
+//--------------------------------------------------------------------------------------------------
+// cy_buffer_pool_init
+//--------------------------------------------------------------------------------------------------
+whd_result_t cy_buffer_pool_init(void* tx_packet_pool, void* rx_packet_pool)
+{
+    if ((tx_packet_pool == NULL) || (rx_packet_pool == NULL))
+    {
+        return WHD_BADARG;
+    }
+
+    tx_pool = (NX_PACKET_POOL*)tx_packet_pool;
+    rx_pool = (NX_PACKET_POOL*)rx_packet_pool;
+
+    /*
+     * Make sure the pools are valid.
+     */
+
+    if ((tx_pool->nx_packet_pool_id != NX_PACKET_POOL_ID) ||
+        (rx_pool->nx_packet_pool_id != NX_PACKET_POOL_ID))
+    {
+        rx_pool = NULL;
+        tx_pool = NULL;
+
+        return WHD_BADARG;
+    }
+
+    #ifndef COMPONENT_CAT5
+    /*
+     * Set default dynamic buffer allocate/free routines for the non-CAT5 environment.
+     * Void cast of functions are to avoid compiler warnings of unused functions.
+     */
+
+    (void)cy_buffer_allocate_dynamic_packet;
+    (void)cy_buffer_free_dynamic_packet;
+    cy_buffer_allocate = cy_buffer_allocate_dynamic_packet;
+    cy_buffer_free     = cy_buffer_free_dynamic_packet;
+    #endif
+
+    return WHD_SUCCESS;
+}
+
+
 //--------------------------------------------------------------------------------------------------
 // cy_host_buffer_get
 //--------------------------------------------------------------------------------------------------
@@ -143,28 +180,36 @@ whd_result_t cy_host_buffer_get(whd_buffer_t* buffer, whd_buffer_dir_t direction
         return WHD_BADARG;
     }
 
-    if (size > WHD_LINK_MTU)
+    pool = (direction == WHD_NETWORK_TX) ? tx_pool : rx_pool;
+    if (pool == NULL)
+    {
+        return WHD_BADARG;
+    }
+
+    if (size > pool->nx_packet_pool_payload_size)
     {
         /*
          * Request for a packet with a payload larger than MTU.
          * Try to create a dynamically allocated packet to satisfy the request.
          */
+        if (cy_buffer_allocate != NULL)
+        {
+            *nx_buffer = cy_buffer_allocate(size);
+        }
+        else
+        {
+            *nx_buffer = NULL;
+        }
 
-        *nx_buffer = cy_buffer_allocate_dynamic_packet(size);
         return (*nx_buffer != NULL) ? WHD_SUCCESS : WHD_BUFFER_UNAVAILABLE_PERMANENT;
     }
 
-    pool = (direction == WHD_NETWORK_TX) ? tx_pool : rx_pool;
+    /*
+     * Packets allocated via this API are only for WHD communications so we don't
+     * need to reserve header space when allocating the packet.
+     */
 
-    if (pool != NULL)
-    {
-        /*
-         * Packets allocated via this API are only for WHD communications so we don't
-         * need to reserve header space when allocating the packet.
-         */
-
-        status = nx_packet_allocate(pool, nx_buffer, 0, NX_TIMEOUT(timeout_ms));
-    }
+    status = nx_packet_allocate(pool, nx_buffer, 0, NX_TIMEOUT(timeout_ms));
 
     if (status != NX_SUCCESS)
     {
@@ -192,10 +237,16 @@ void cy_buffer_release(whd_buffer_t buffer, whd_buffer_dir_t direction)
     {
         /*
          * This was a dynamically allocated packet since it is not part of a packet pool.
-         * Free it directly.
          */
-
-        free(nx_buffer);
+        if (cy_buffer_free != NULL)
+        {
+            cy_buffer_free(nx_buffer);
+        }
+        else
+        {
+            /* Dynamically allocated packet with no way to release it */
+            CY_ASSERT(0);
+        }
         return;
     }
 
@@ -287,7 +338,10 @@ whd_result_t cy_buffer_add_remove_at_front(whd_buffer_t* buffer, int32_t add_rem
     NX_PACKET** nx_buffer = (NX_PACKET**)buffer;
     UCHAR* new_start;
 
-    CY_ASSERT(buffer != NULL);
+    if ((buffer == NULL) || (*buffer == NULL))
+    {
+        return WHD_BADARG;
+    }
 
     new_start = (*nx_buffer)->nx_packet_prepend_ptr + add_remove_amount;
 
@@ -311,5 +365,18 @@ whd_result_t cy_buffer_add_remove_at_front(whd_buffer_t* buffer, int32_t add_rem
         (*nx_buffer)->nx_packet_length =
             (ULONG)((*nx_buffer)->nx_packet_length - (ULONG)add_remove_amount);
     }
+    return WHD_SUCCESS;
+}
+
+
+//--------------------------------------------------------------------------------------------------
+// cy_buffer_enable_dynamic_buffers
+//--------------------------------------------------------------------------------------------------
+whd_result_t cy_buffer_enable_dynamic_buffers(cy_dynamic_buffer_allocate_t buffer_allocate,
+                                              cy_dynamic_buffer_free_t buffer_free)
+{
+    cy_buffer_allocate = buffer_allocate;
+    cy_buffer_free     = buffer_free;
+
     return WHD_SUCCESS;
 }

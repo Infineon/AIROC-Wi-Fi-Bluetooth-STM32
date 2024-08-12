@@ -7,6 +7,8 @@ This library helps streamline the process of getting the WiFi Host Driver (WHD) 
 * Framework for connecting WHD to LwIP/NetXDuo network interface (whd_netif_funcs_t)
 
 ### What Changed?
+#### v2.2.1
+* Allow BSP to override default configuration of WL_REG_ON and WL_HOST_WAKE pins.
 #### v2.2.0
 * Fixed issue where some 3.0-style BSPs were inappropriately using SDIO interface.
 #### v2.1.0
@@ -38,13 +40,13 @@ This library helps streamline the process of getting the WiFi Host Driver (WHD) 
 * Initial release
 
 ### Supported Software and Tools
-This version of the RTOS Abstraction API was validated for compatibility with the following Software and Tools:
+This version of the WiFi Host Driver Board Support Package Integration was validated for compatibility with the following Software and Tools:
 
 | Software and Tools                        | Version |
 | :---                                      | :----:  |
-| ModusToolbox™ Software Environment        | 2.4.0   |
-| GCC Compiler                              | 10.3.1  |
-| IAR Compiler                              | 9.30.1  |
+| ModusToolbox™ Software Environment        | 3.0.0   |
+| GCC Compiler                              | 11.3.1  |
+| IAR Compiler                              | 9.40.2  |
 | ARM Compiler                              | 6.16    |
 
 Minimum required ModusToolbox™ Software Environment: v2.0

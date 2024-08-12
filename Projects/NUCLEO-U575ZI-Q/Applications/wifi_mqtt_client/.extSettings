@@ -1,0 +1,7 @@
+[ProjectFiles]
+HeaderPath=../Core/Inc;../MBEDTLS/App;../Drivers/CMSIS/RTOS2/Include/;
+[Others]
+Define=CYBSP_WIFI_CAPABLE;HAVE_SNPRINTF;CY_USING_HAL;MBEDTLS_USER_CONFIG_FILE:"mbedtls_user_config.h";
+[Groups]
+Application/User/Core/Src=../Core/Src/mqtt_task.c;../Core/Src/mqtt_client_config.c;../Core/Src/publisher_task.c;../Core/Src/subscriber_task.c;../Core/Src/heap_usage.c;
+Application/User/MBEDTLS=../MBEDTLS/App/mbedtls.c;../MBEDTLS/Target/custom_rng.c

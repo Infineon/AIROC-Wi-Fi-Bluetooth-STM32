@@ -1,0 +1,7 @@
+[CortexM7:ProjectFiles]
+HeaderPath=../CM7/Core/Inc;../CM7/MBEDTLS/App;../Drivers/CMSIS/RTOS2/Include/;
+[CortexM7:Others]
+Define=CYBSP_WIFI_CAPABLE;HAVE_SNPRINTF;CY_USING_HAL;MBEDTLS_USER_CONFIG_FILE:"mbedtls_user_config.h";CY_STORAGE_WIFI_DATA:".whd_fw";
+[CortexM7:Groups]
+Application/User/Core/Src=../CM7/Core/Src/mqtt_task.c;../CM7/Core/Src/mqtt_client_config.c;../CM7/Core/Src/publisher_task.c;../CM7/Core/Src/subscriber_task.c;../CM7/Core/Src/heap_usage.c;
+Application/User/MBEDTLS=../CM7/MBEDTLS/App/mbedtls.c;../CM7/MBEDTLS/Target/custom_rng.c

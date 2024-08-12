@@ -1,5 +1,5 @@
 /*
-* Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
 *
 * This software, including source code, documentation and related
@@ -87,6 +87,9 @@
 #include "headers.h"
 /* IPERF_MODIFIED Start */
 #include "iperf_util.h"
+#ifdef COMPONENT_CAT5
+#include "cyabs_rtos.h"
+#endif
 /* IPERF_MODIFIED End */
 #include "delay.h"
 #include <math.h>
@@ -133,7 +136,11 @@ void delay_loop(unsigned long usec)
 #ifdef HAVE_NANOSLEEP
     delay_nanosleep(usec);
 #else
+#ifndef COMPONENT_CAT5
     delay_busyloop(usec);
+#else
+    cy_rtos_delay_milliseconds(usec/1000);
+#endif /* COMPONENT_CAT5 */
 #endif
 #endif
 }

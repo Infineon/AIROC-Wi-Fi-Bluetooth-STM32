@@ -11,6 +11,15 @@ See the [README.md](./README.md) for a complete description of the [NetXDuo netw
 
 ## Changelog
 
+### v1.3.0
+
+- Added support for CYW955913EVK-01 kit.
+
+### v1.2.0
+
+- Added support for IOCTL buffers greater than MTU size.
+- Updated random number generate logic to eliminate use of HAL trng APIs
+
 ### v1.1.1
 
 - Moved netxduo and netxsecure configuration files to wifi-core-threadx-netxduo-netxsecure repo.
@@ -31,13 +40,13 @@ See the [README.md](./README.md) for a complete description of the [NetXDuo netw
 
 This version of the library was validated for compatibility with the following software and tools:
 
-| Software and tools  | Version |
-| :---                | :----:  |
-| ModusToolbox&trade; software environment  | 3.1     |
-| ModusToolbox&trade; Device Configurator | 4.10    |
-| GCC compiler           | 11.3.1  |
-| IAR compiler      | 9.30    |
-| Arm&reg; compiler 6         | 6.16    |
+| Software and tools                        | Version |
+| :---                                      | :----:  |
+| ModusToolbox&trade; software environment  | 3.2     |
+| ModusToolbox&trade; Device Configurator   | 4.20    |
+| GCC compiler                              | 11.3.1  |
+| IAR compiler                              | 9.40.2  |
+| Arm&reg; compiler 6                       | 6.16    |
 
 
 ## Additional information

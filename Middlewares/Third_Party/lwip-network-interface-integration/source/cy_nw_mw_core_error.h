@@ -1,5 +1,5 @@
 /*
- * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -101,7 +101,7 @@ extern "C" {
 #define CY_RSLT_NETWORK_ERROR_RTOS                            (CY_RSLT_NETWORK_PORT_ERR_BASE + 21) /**< Denotes the failure from RTOS calls*/
 #define CY_RSLT_NETWORK_NOT_SUPPORTED                         (CY_RSLT_NETWORK_PORT_ERR_BASE + 22) /**< Denotes that the feature is not supported*/
 #define CY_RSLT_NETWORK_LINK_NOT_UP                           (CY_RSLT_NETWORK_PORT_ERR_BASE + 23) /**< Denotes that the Link is not up*/
-
+#define CY_RSLT_NETWORK_ERROR_TRNG                            (CY_RSLT_NETWORK_PORT_ERR_BASE + 24) /**< Denotes that the random number generation failed*/
 /**
  * \}
  */

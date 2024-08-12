@@ -112,6 +112,15 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CY_USE_OOB_INTR</b>&#160;&#160;&#160;(1u)</td></tr>
 <tr class="memdesc:ga0cc4b05c4d7f61925a0bf38761e456b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines whether to use the out-of-band pin to allow the WIFI chip to wake up the MCU. <br /></td></tr>
 <tr class="separator:ga0cc4b05c4d7f61925a0bf38761e456b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6544e70afcc3d9eacca654701ff6b529"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__bsp__wifi.html#ga6544e70afcc3d9eacca654701ff6b529">CYBSP_WIFI_WL_REG_ON_GPIO_DRIVE_MODE</a>&#160;&#160;&#160;(CYHAL_GPIO_DRIVE_PULLUP)</td></tr>
+<tr class="memdesc:ga6544e70afcc3d9eacca654701ff6b529"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default GPIO drive mode for CYBSP_WIFI_WL_REG_ON.  <a href="group__group__bsp__wifi.html#ga6544e70afcc3d9eacca654701ff6b529">More...</a><br /></td></tr>
+<tr class="separator:ga6544e70afcc3d9eacca654701ff6b529"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga66442267682c4df7e7fb76929635675e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__bsp__wifi.html#ga66442267682c4df7e7fb76929635675e">CYBSP_WIFI_WL_HOSTWAKE_DRIVE_MODE</a>&#160;&#160;&#160;(CYHAL_GPIO_DRIVE_NONE)</td></tr>
+<tr class="memdesc:ga66442267682c4df7e7fb76929635675e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default GPIO drive mode for CYBSP_WIFI_WL_HOSTWAKE.  <a href="group__group__bsp__wifi.html#ga66442267682c4df7e7fb76929635675e">More...</a><br /></td></tr>
+<tr class="separator:ga66442267682c4df7e7fb76929635675e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabb1e6964c97c92841d6fb5b17600c60c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__group__bsp__wifi.html#gabb1e6964c97c92841d6fb5b17600c60c">CYBSP_WIFI_WL_HOSTWAKE_INIT_STATE</a>&#160;&#160;&#160;(WHD_FALSE)</td></tr>
+<tr class="memdesc:gabb1e6964c97c92841d6fb5b17600c60c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default GPIO drive mode for CYBSP_WIFI_WL_HOSTWAKE.  <a href="group__group__bsp__wifi.html#gabb1e6964c97c92841d6fb5b17600c60c">More...</a><br /></td></tr>
+<tr class="separator:gabb1e6964c97c92841d6fb5b17600c60c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1ddf3533adfa2e8f298f7edab7a8fa0c"><td class="memItemLeft" align="right" valign="top"><a id="ga1ddf3533adfa2e8f298f7edab7a8fa0c" name="ga1ddf3533adfa2e8f298f7edab7a8fa0c"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CYBSP_RSLT_WIFI_INIT_FAILED</b>&#160;&#160;&#160;    (CY_RSLT_CREATE(CY_RSLT_TYPE_ERROR, CY_RSLT_MODULE_BOARD_LIB_WHD_INTEGRATION, 0))</td></tr>
 <tr class="memdesc:ga1ddf3533adfa2e8f298f7edab7a8fa0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialization of the WiFi driver failed. <br /></td></tr>
@@ -200,6 +209,60 @@ Functions</h2></td></tr>
 
 <p>Defines the priority of the interrupt that handles out-of-band notifications from the wifi chip. </p>
 <p >Legal values are defined by the MCU running this code. </p>
+
+</div>
+</div>
+<a id="ga6544e70afcc3d9eacca654701ff6b529" name="ga6544e70afcc3d9eacca654701ff6b529"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6544e70afcc3d9eacca654701ff6b529">&#9670;&nbsp;</a></span>CYBSP_WIFI_WL_REG_ON_GPIO_DRIVE_MODE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CYBSP_WIFI_WL_REG_ON_GPIO_DRIVE_MODE&#160;&#160;&#160;(CYHAL_GPIO_DRIVE_PULLUP)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Default GPIO drive mode for CYBSP_WIFI_WL_REG_ON. </p>
+<p >Override with Makefile define <br  />
+ </p>
+
+</div>
+</div>
+<a id="ga66442267682c4df7e7fb76929635675e" name="ga66442267682c4df7e7fb76929635675e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga66442267682c4df7e7fb76929635675e">&#9670;&nbsp;</a></span>CYBSP_WIFI_WL_HOSTWAKE_DRIVE_MODE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CYBSP_WIFI_WL_HOSTWAKE_DRIVE_MODE&#160;&#160;&#160;(CYHAL_GPIO_DRIVE_NONE)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Default GPIO drive mode for CYBSP_WIFI_WL_HOSTWAKE. </p>
+<p >Override with Makefile define <br  />
+ </p>
+
+</div>
+</div>
+<a id="gabb1e6964c97c92841d6fb5b17600c60c" name="gabb1e6964c97c92841d6fb5b17600c60c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabb1e6964c97c92841d6fb5b17600c60c">&#9670;&nbsp;</a></span>CYBSP_WIFI_WL_HOSTWAKE_INIT_STATE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CYBSP_WIFI_WL_HOSTWAKE_INIT_STATE&#160;&#160;&#160;(WHD_FALSE)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Default GPIO drive mode for CYBSP_WIFI_WL_HOSTWAKE. </p>
+<p >Override with Makefile define <br  />
+ </p>
 
 </div>
 </div>

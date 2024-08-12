@@ -1,5 +1,5 @@
 /*
- * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -56,6 +56,12 @@
 #define AES_CCM_AUTH_AAD_FLAG             0x40
 #define AES_CCM_CRYPT_FLAGS(iv_len)      (AES_CCM_NONCE_LEN - 1 - iv_len)
 
+/* NOTE:
+ * AES encrypt/decrypt functions are used for WPS functionality. Remaining non-used functions by WPS are kept under
+ * AES_SELF_TEST macro to increase the code-coverage of WCM library.
+ */
+
+#ifdef AES_SELF_TEST
 /* AES-CTR mode encryption/decryption algorithm
  *    - max data_len is (AES_BLOCK_SZ * 2^16)
  *    - nonce must be AES_BLOCK_SZ bytes
@@ -110,7 +116,6 @@ int aes_crypt_ctr( mbedtls_aes_context *ctx, uint32_t length, const unsigned cha
 
     return ( 0 );
 }
-
 
 /* AES-CCM mode MAC calculation
  *    - computes AES_CCM_AUTH_LEN MAC
@@ -287,6 +292,7 @@ int aes_decrypt_ccm( mbedtls_aes_context *ctx, uint32_t length, uint32_t aad_len
 
     return ( 0 );
 }
+#endif
 
 /* AES-CBC mode encryption/decryption algorithm with padding
  *    - handle partial plaintext blocks with padding

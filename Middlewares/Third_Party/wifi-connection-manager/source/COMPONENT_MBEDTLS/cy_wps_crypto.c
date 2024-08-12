@@ -1,5 +1,5 @@
 /*
- * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -41,7 +41,7 @@
 #include "cy_wps_crypto.h"
 #include "cyabs_rtos_impl.h"
 #include "cyhal.h"
-
+#include "cy_wps_mbedtls_version.h"
 /******************************************************
  *                      Macros
  ******************************************************/
@@ -78,7 +78,14 @@ extern int aes_cbc_crypt_pad_length_padding( mbedtls_aes_context *ctx, int mode,
 cy_rslt_t cy_sha256( const unsigned char *input, size_t ilen, unsigned char output[32], int is224 )
 {
 
+#if MBEDTLS_VERSION_MAJOR == MBEDTLS_MAJOR_VERSION_3
+    mbedtls_sha256( (uint8_t*) input, ilen, output, is224 );
+#elif MBEDTLS_VERSION_MAJOR == MBEDTLS_MAJOR_VERSION_2
     mbedtls_sha256_ret( (uint8_t*) input, ilen, output, is224 );
+#else
+error "Unsupported MBEDTLS version"
+#endif
+
     return CY_RSLT_SUCCESS;
 }
 
@@ -115,7 +122,14 @@ void cy_sha2_hmac_starts(cy_sha2_hmac_context *ctx, const unsigned char *key, ui
     unsigned char sum[32];
 
     if (keylen > 64) {
-        mbedtls_sha256_ret(key, keylen, sum, is224);
+#if MBEDTLS_VERSION_MAJOR == MBEDTLS_MAJOR_VERSION_3
+    mbedtls_sha256(key, keylen, sum, is224);
+#elif MBEDTLS_VERSION_MAJOR == MBEDTLS_MAJOR_VERSION_2
+    mbedtls_sha256_ret(key, keylen, sum, is224);
+#else
+error "Unsupported MBEDTLS version"
+#endif
+
         keylen = (is224) ? 28 : 32;
         key = sum;
     }
@@ -129,8 +143,15 @@ void cy_sha2_hmac_starts(cy_sha2_hmac_context *ctx, const unsigned char *key, ui
     }
 
     mbedtls_sha256_init(&ctx->ctx);
+#if MBEDTLS_VERSION_MAJOR == MBEDTLS_MAJOR_VERSION_3
+    mbedtls_sha256_starts(&ctx->ctx, is224);
+    mbedtls_sha256_update(&ctx->ctx, ctx->ipad, 64);
+#elif MBEDTLS_VERSION_MAJOR == MBEDTLS_MAJOR_VERSION_2
     mbedtls_sha256_starts_ret(&ctx->ctx, is224);
     mbedtls_sha256_update_ret(&ctx->ctx, ctx->ipad, 64);
+#else
+error "Unsupported MBEDTLS version"
+#endif
 
     memset(sum, 0, sizeof(sum));
 }
@@ -140,7 +161,13 @@ void cy_sha2_hmac_starts(cy_sha2_hmac_context *ctx, const unsigned char *key, ui
  */
 void cy_sha2_hmac_update(cy_sha2_hmac_context *ctx, const unsigned char *input, uint32_t ilen)
 {
+#if MBEDTLS_VERSION_MAJOR == MBEDTLS_MAJOR_VERSION_3
+    mbedtls_sha256_update(&ctx->ctx, input, ilen);
+#elif MBEDTLS_VERSION_MAJOR == MBEDTLS_MAJOR_VERSION_2
     mbedtls_sha256_update_ret(&ctx->ctx, input, ilen);
+#else
+    error "Unsupported MBEDTLS version"
+#endif
 }
 
 /*
@@ -165,12 +192,23 @@ void cy_sha2_hmac_finish(cy_sha2_hmac_context * ctx, unsigned char output[32])
     */
     hlen = 32;
 
+#if MBEDTLS_VERSION_MAJOR == MBEDTLS_MAJOR_VERSION_3
+    mbedtls_sha256_finish(&ctx->ctx, tmpbuf);
+    mbedtls_sha256_starts(&ctx->ctx, is224);
+    mbedtls_sha256_update(&ctx->ctx, ctx->opad, 64);
+    mbedtls_sha256_update(&ctx->ctx, tmpbuf, hlen);
+    mbedtls_sha256_finish(&ctx->ctx, output);
+    mbedtls_sha256_free(&ctx->ctx);
+#elif MBEDTLS_VERSION_MAJOR == MBEDTLS_MAJOR_VERSION_2
     mbedtls_sha256_finish_ret(&ctx->ctx, tmpbuf);
     mbedtls_sha256_starts_ret(&ctx->ctx, is224);
     mbedtls_sha256_update_ret(&ctx->ctx, ctx->opad, 64);
     mbedtls_sha256_update_ret(&ctx->ctx, tmpbuf, hlen);
     mbedtls_sha256_finish_ret(&ctx->ctx, output);
     mbedtls_sha256_free(&ctx->ctx);
+#else
+    error "Unsupported MBEDTLS version"
+#endif
 
     memset(tmpbuf, 0, sizeof(tmpbuf));
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -121,7 +121,7 @@ static int eth_utils_str_to_mac(char* mac_str, uint8_t* mac_addr);
  ******************************************************/
 cy_ecm_phy_config_t ecm_phy_config;
 cy_ecm_t ecm_handle;
-cy_ecm_filter_address_t filter_address[CY_ECM_MAX_FILTER_ADDRESS] = {0};
+cy_ecm_filter_address_t filter_address[CY_ECM_MAX_FILTER_ADDRESS];
 static uint8_t filter_count=0;
 
 /******************************************************
@@ -142,7 +142,7 @@ ETH_WEAK_FUNC cy_rslt_t eth_utility_init(void)
 {
     cy_rslt_t res = CY_RSLT_SUCCESS;
     cy_command_console_add_table(eth_command_table);
-
+    memset(filter_address, 0, CY_ECM_MAX_FILTER_ADDRESS * sizeof(cy_ecm_filter_address_t));
     return res;
 }
 
@@ -417,7 +417,7 @@ int eth_ping(int argc, char* argv[], tlv_buffer_t** data)
     res = cy_ecm_ping(ecm_handle, &ip_addr, timeout_ms, &elapsed_ms);
     if(res != CY_RSLT_SUCCESS)
     {
-        ETH_ERROR(("Ping failed. Error: %u\n", (unsigned int)res));
+        ETH_ERROR(("Ping failed. Error: 0x%X\n", (unsigned int)res));
         return 1;
     }
 

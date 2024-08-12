@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mac_5faddress_0',['mac_address',['../structcy__network__interface__context.html#a14ed6f094a4be9e750e9111abd020b18',1,'cy_network_interface_context']]]
+  ['hw_5finterface_0',['hw_interface',['../structcy__network__interface__context.html#a2a7062e83721295586bf707c2f003a1c',1,'cy_network_interface_context']]]
 ];

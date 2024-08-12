@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -37,7 +37,11 @@
 extern "C" {
 #endif
 
+#ifdef COMPONENT_CAT5
+#define MAX_SIMULTANEOUS_COMMANDS 1
+#else
 #define MAX_SIMULTANEOUS_COMMANDS 5
+#endif
 
 void iperf_utility_init(void *network);
 

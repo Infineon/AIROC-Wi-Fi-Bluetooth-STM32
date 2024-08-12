@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['hw_5finterface_0',['hw_interface',['../structcy__network__interface__context.html#a2a7062e83721295586bf707c2f003a1c',1,'cy_network_interface_context']]]
+  ['gateway_0',['gateway',['../structcy__network__static__ip__addr__t.html#ab6f95131502bb21b6cd8c7261880e786',1,'cy_network_static_ip_addr_t']]],
+  ['group_5fnetxduo_5fnetwork_5finterface_5fintegration_5fmacros_1',['Group_netxduo_network_interface_integration_macros',['../group__group__netxduo__network__interface__integration__macros.html',1,'']]]
 ];

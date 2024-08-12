@@ -1,5 +1,5 @@
 /*
-* Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
 *
 * This software, including source code, documentation and related
@@ -130,70 +130,70 @@ void SetSocketOptions( thread_Settings *inSettings ) {
 
     if ( isCongestionControl( inSettings ) ) {
 #ifdef TCP_CONGESTION
-	Socklen_t len = strlen( inSettings->mCongestion ) + 1;
+    Socklen_t len = strlen( inSettings->mCongestion ) + 1;
     /* IPERF_MODIFIED Start */
     int rc = iperf_setsockopt( inSettings->mSock, IPPROTO_TCP, TCP_CONGESTION,
                                inSettings->mCongestion, len);
     /* IPERF_MODIFIED End */
-	if (rc == SOCKET_ERROR ) {
-		fprintf(stderr, "Attempt to set '%s' congestion control failed: %s\n",
-			inSettings->mCongestion, strerror(errno));
-		exit(1);
-	}
+    if (rc == SOCKET_ERROR ) {
+        fprintf(stderr, "Attempt to set '%s' congestion control failed: %s\n",
+            inSettings->mCongestion, strerror(errno));
+        exit(1);
+    }
 #else
-	fprintf( stderr, "The -Z option is not available on this operating system\n");
+    fprintf( stderr, "The -Z option is not available on this operating system\n");
 #endif
     }
 
     // check if we're sending multicast
     if (isMulticast(inSettings)) {
 #ifdef HAVE_MULTICAST
-	if (!isUDP(inSettings)) {
-	    FAIL(1, "Multicast requires -u option ", inSettings);
-	    exit(1);
-	}
-	// check for default TTL, multicast is 1 and unicast is the system default
-	if (inSettings->mTTL == -1) {
-	    inSettings->mTTL = 1;
-	}
-	if (inSettings->mTTL > 0) {
-	    // set TTL
-	    int val = inSettings->mTTL;
-	    if ( !isIPV6(inSettings) ) {
+    if (!isUDP(inSettings)) {
+        FAIL(1, "Multicast requires -u option ", inSettings);
+        exit(1);
+    }
+    // check for default TTL, multicast is 1 and unicast is the system default
+    if (inSettings->mTTL == -1) {
+        inSettings->mTTL = 1;
+    }
+    if (inSettings->mTTL > 0) {
+        // set TTL
+        int val = inSettings->mTTL;
+        if ( !isIPV6(inSettings) ) {
         /* IPERF_MODIFIED Start */
         int rc = iperf_setsockopt( inSettings->mSock, IPPROTO_IP, IP_MULTICAST_TTL,
                                    (char*) &val, (Socklen_t) sizeof(val));
         /* IPERF_MODIFIED End */
 
-		WARN_errno( rc == SOCKET_ERROR, "multicast v4 ttl" );
-	    } else
+        WARN_errno( rc == SOCKET_ERROR, "multicast v4 ttl" );
+        } else
 #  ifdef HAVE_IPV6_MULTICAST
-	    {
+        {
         /* IPERF_MODIFIED Start */
         int rc = iperf_setsockopt( inSettings->mSock, IPPROTO_IPV6, IPV6_MULTICAST_HOPS,
                                    (char*) &val, (Socklen_t) sizeof(val));
         /* IPERF_MODIFIED End */
-		WARN_errno( rc == SOCKET_ERROR, "multicast v6 ttl" );
-	    }
+        WARN_errno( rc == SOCKET_ERROR, "multicast v6 ttl" );
+        }
 #  else
-	    FAIL_errno(1, "v6 multicast not supported", inSettings);
+        FAIL_errno(1, "v6 multicast not supported", inSettings);
 #  endif
-	}
+    }
 #endif
     } else if (inSettings->mTTL > 0) {
-	int val = inSettings->mTTL;
+    int val = inSettings->mTTL;
     /* IPERF_MODIFIED Start */
     int rc = iperf_setsockopt( inSettings->mSock, IPPROTO_IP, IP_TTL,
                                (char*) &val, (Socklen_t) sizeof(val));
     /* IPERF_MODIFIED End */
-	WARN_errno( rc == SOCKET_ERROR, "v4 ttl" );
+    WARN_errno( rc == SOCKET_ERROR, "v4 ttl" );
     }
 
 #ifdef IP_TOS
 #if HAVE_DECL_IPV6_TCLASS && ! defined HAVE_WINSOCK2_H
     // IPV6_TCLASS is defined on Windows but not implemented.
     if (isIPV6(inSettings)) {
-	const int dscp = inSettings->mTOS;
+    const int dscp = inSettings->mTOS;
         /* IPERF_MODIFIED Start */
         int rc = iperf_setsockopt(inSettings->mSock, IPPROTO_IPV6, IPV6_TCLASS, (char*) &dscp, sizeof(dscp));
         /* IPERF_MODIFIED End */
@@ -242,7 +242,7 @@ void SetSocketOptions( thread_Settings *inSettings ) {
     /* If socket pacing is specified try to enable it. */
     if (isFQPacing(inSettings) && inSettings->mFQPacingRate > 0) {
         /* IPERF_MODIFIED Start */
-	    int rc = iperf_setsockopt(inSettings->mSock, SOL_SOCKET, SO_MAX_PACING_RATE, &inSettings->mFQPacingRate, sizeof(inSettings->mFQPacingRate));
+        int rc = iperf_setsockopt(inSettings->mSock, SOL_SOCKET, SO_MAX_PACING_RATE, &inSettings->mFQPacingRate, sizeof(inSettings->mFQPacingRate));
         /* IPERF_MODIFIED End */
         WARN_errno( rc == SOCKET_ERROR, "setsockopt SO_MAX_PACING_RATE" );
     }
@@ -252,14 +252,23 @@ void SetSocketOptions( thread_Settings *inSettings ) {
 void SetSocketOptionsSendTimeout( thread_Settings *mSettings, int timer) {
     if (timer > 0) {
 #ifdef WIN32
-	// Windows SO_SNDTIMEO uses ms
-	DWORD timeout = (double) timer / 1e3;
+    // Windows SO_SNDTIMEO uses ms
+    DWORD timeout = (double) timer / 1e3;
 #else
-	struct timeval timeout;
-	timeout.tv_sec = timer / 1000000;
-	timeout.tv_usec = timer % 1000000;
+    struct timeval timeout;
+    timeout.tv_sec = timer / 1000000;
+    timeout.tv_usec = timer % 1000000;
 #endif
-	/* IPERF_MODIFIED Start */
+    /* IPERF_MODIFIED Start */
+#ifdef COMPONENT_CAT5
+    /* On CAT5(H1-CP) devices the TX queue length is not configurable.
+     * Hence on slower networks, there is a chance of TX queue overflow.
+     * So set higher send timeout */
+    if(timeout.tv_sec < 1)
+    {
+        timeout.tv_sec = 3;
+    }
+#endif
     if (iperf_setsockopt( mSettings->mSock, SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout, sizeof(timeout)) < 0 ) {
         WARN_errno( mSettings->mSock == SO_SNDTIMEO, "socket" );
     }

@@ -1,5 +1,5 @@
 /*
-* Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
 *
 * This software, including source code, documentation and related
@@ -239,10 +239,16 @@ typedef struct Transfer_Info {
     void *reserved_delay;
     int transferID;
     int groupID;
-    intmax_t cntError;
-    intmax_t cntOutofOrder;
-    intmax_t cntDatagrams;
-    intmax_t IPGcnt;
+    /* IPERF_MODIFIED Start */
+    long cntError;
+    long cntOutofOrder;
+    long cntDatagrams;
+    long IPGcnt;
+//    intmax_t cntError;
+//    intmax_t cntOutofOrder;
+//    intmax_t cntDatagrams;
+//    intmax_t IPGcnt;
+    /* IPERF_MODIFIED End */
     int socket;
     TransitStats transit;
     SendReadStats sock_callstats;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -117,6 +117,11 @@ typedef struct
     cy_thread_t  *thread;
 } iperf_thread_t;
 
+#ifdef COMPONENT_CAT5
+/* MAX_SIMULTANEOUS_COMMANDS is 1 for CAT5 devices. Hence a single thread is sufficient */
+cy_thread_t iperf_thread;
+#endif
+
 static cy_event_t event;
 iperf_thread_t iperf_util_threads[MAX_SIMULTANEOUS_COMMANDS];
 
@@ -138,23 +143,25 @@ IPERF_WEAK_FUNC void iperf_utility_init( void *networkInterface)
 }
 int iperf_util_find_free_thread()
 {
-    int i = -1;
+    int j = -1;
 
-    for(i = 0; i < MAX_SIMULTANEOUS_COMMANDS; i++)
+    for(int i = 0; i < MAX_SIMULTANEOUS_COMMANDS; i++)
     {
         if(iperf_util_threads[i].available == true)
         {
             if(iperf_util_threads[i].thread != NULL)
             {
                 cy_rtos_join_thread(iperf_util_threads[i].thread);
+#ifndef COMPONENT_CAT5
                 delete iperf_util_threads[i].thread;
+#endif
                 iperf_util_threads[i].thread = NULL;
             }
             iperf_util_threads[i].available = false;
-            break;
+            return i;
         }
     }
-    return i;
+    return j;
 }
 
 void iperf_util_thread(cy_thread_arg_t arg)
@@ -165,6 +172,7 @@ void iperf_util_thread(cy_thread_arg_t arg)
     cy_rtos_setbits_event(&event, wait_bits, false);
     iperf ( iperf_util_threads[index].args.argc, iperf_util_threads[index].args.argv, NULL);
     iperf_util_threads[index].available = true;
+    printf("IPERF[%d] EXITED\n", index);
     cy_rtos_exit_thread();
 }
 
@@ -186,7 +194,11 @@ int iperf_test(int argc, char *argv[], tlv_buffer_t** data)
 
     iperf_util_threads[index].args.argc = argc;
     iperf_util_threads[index].args.argv = argv;
+#ifdef COMPONENT_CAT5
+    iperf_util_threads[index].thread = &iperf_thread;
+#else
     iperf_util_threads[index].thread = new cy_thread_t;
+#endif
 
     args = (cy_thread_arg_t)(&index);
     while (i <= (argc - 1))

@@ -86,18 +86,20 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
   <div class="headertitle"><div class="title">Overview </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p >This library provides a framework to add command console support to your application. Support for Wi-Fi, iPerf and Bluetooth Low Energy (BLE) commands is bundled with this library.</p>
-<p >MTB AnyCloud Wi-Fi Bluetooth Tester, Mbed OS Wi-Fi Bluetooth Tester and AFR Wi-Fi Bluetooth Tester applications are built over this library.</p>
+<div class="textblock"><p >This library provides a framework to add command console support to your application. Support for Wi-Fi, Ethernet, iPerf and Bluetooth Low Energy (BLE) commands is bundled with this library.</p>
+<p >MTB AnyCloud Wi-Fi Bluetooth Tester application is built over this library for Wi-Fi kits.</p>
 <p >Please refer <a href="https://github.com/Infineon/command-console/blob/master/README.md">Readme</a> for more information.</p>
 <h1><a class="anchor" id="section_features"></a>
 Features and Functionality</h1>
 <ul>
 <li>Supports Wi-Fi commands to perform network operations such as scan, join, etc.</li>
+<li>Supports Ethernet commands to perform network operations such as ethernet interface up and ethernet interface down.</li>
 <li>Integrates iPerf 2.0 commands. iPerf is a tool for active measurements of the maximum achievable bandwidth on IP networks.</li>
 <li>Supports TCP client/server and UDP client/server on IPv4. IPv6 support will be added in the future.</li>
-<li>Supports Bluetooth LE commands including Tx/Rx for measuring BLE throughput</li>
+<li><p class="startli">Supports Bluetooth LE commands including Tx/Rx for measuring BLE throughput</p>
+<dl class="section note"><dt>Note</dt><dd>While iPerf provides several other commands, only a subset of commands that are relevant to embedded connectivity use cases is enabled in this library.</dd></dl>
+</li>
 </ul>
-<p >Note: While iPerf provides several other commands, only a subset of commands that are relevant to embedded connectivity use cases is enabled in this library.</p>
 <h1><a class="anchor" id="section_supported_platforms"></a>
 Supported Platforms</h1>
 <h2><a class="anchor" id="section_plat_anycloud"></a>
@@ -109,101 +111,67 @@ ModusToolbox™</h2>
 <li><a href="https://www.infineon.com/cms/en/product/evaluation-boards/cy8ceval-062s2/">PSoC&trade; 62S2 evaluation kit (CY8CEVAL-062S2-MUR-43439M2)</a></li>
 <li><a href="https://www.infineon.com/cms/en/product/evaluation-boards/cyw943907aeval1f">CYW943907AEVAL1F evaluation kit (CYW943907AEVAL1F)</a></li>
 <li><a href="https://www.infineon.com/cms/en/product/evaluation-boards/cyw954907aeval1f">CYW954907AEVAL1F evaluation kit (CYW954907AEVAL1F)</a></li>
-</ul>
-<h2><a class="anchor" id="section_plat_mbed"></a>
-Mbed OS</h2>
-<ul>
-<li><a href="https://www.infineon.com/cms/en/product/evaluation-boards/cy8cproto-062-4343w/">PSoC&trade; 6 WiFi-BT Prototyping Kit (CY8CPROTO-062-4343W)</a></li>
-<li><a href="https://www.infineon.com/cms/en/product/evaluation-boards/cy8ckit-062s2-43012">PSoC 62S2 Wi-Fi BT Pioneer Kit (CY8CKIT-062S2-43012)</a></li>
-</ul>
-<h2><a class="anchor" id="section_plat_afr"></a>
-Amazon FreeRTOS (AFR)</h2>
-<ul>
-<li><a href="https://www.infineon.com/cms/en/product/evaluation-boards/cy8cproto-062-4343w/">PSoC&trade; 6 WiFi-BT Prototyping Kit (CY8CPROTO-062-4343W)</a></li>
-<li><a href="https://www.infineon.com/cms/en/product/evaluation-boards/cy8ckit-062s2-43012">PSoC&trade; 62S2 Wi-Fi BT Pioneer Kit (CY8CKIT-062S2-43012)</a></li>
+<li><a href="https://www.infineon.com/cms/en/product/evaluation-boards/kit_xmc72_evk/">XMC7200D-E272K8384 kit (KIT-XMC72-EVK)</a></li>
+<li><a href="https://www.infineon.com/cms/en/product/evaluation-boards/kit_xmc72_evk/">XMC7200D-E272K8384 kit (KIT_XMC72_EVK_MUR_43439M2)</a></li>
+<li><a href="https://www.infineon.com/cms/en/product/evaluation-boards/cy8ceval-062s2/">PSoC&trade; 62S2 evaluation kit (CY8CEVAL-062S2-CYW43022CUB)</a></li>
+<li><a href="https://www.infineon.com/CYW955913EVK-01">CYW955913EVK-01 Wi-Fi Bluetooth&reg; Prototyping Kit (CYW955913EVK-01)</a></li>
 </ul>
 <h1><a class="anchor" id="section_supported_frameworks"></a>
 Supported Frameworks</h1>
 <ul>
-<li>ModusToolbox&trade; environment: In this environment the command-console Library uses the <a href="https://github.com/Infineon/abstraction-rtos">abstraction-rtos</a> library that provides the RTOS abstraction API and uses the <a href="https://github.com/Infineon/secure-sockets">secure-sockets</a> library for implementing socket functions. For the BLE functionality, this library uses [bluetooth-freertos]((<a href="https://github.com/Infineon/bluetooth-freertos">https://github.com/Infineon/bluetooth-freertos</a>).</li>
-<li>Mbed Framework: Mbed framework is an Mbed OS-based solution. Command Console Library uses the <a href="https://github.com/Infineon/abstraction-rtos">abstraction-rtos</a> library that provides RTOS abstraction API, and uses the Mbed socket API for implementing socket functions. For the BLE functionality, it uses the Cordio BLE stack in Mbed OS.</li>
-<li>Amazon FreeRTOS (AFR) Framework: AFR is a FreeRTOS-based solution. Command Console Library uses the <a href="https://github.com/Infineon/abstraction-rtos">abstraction-rtos</a> library that provides the RTOS abstraction API, and uses the AFR network abstraction and LwIP library for implementing socket functions. For the BLE functionality, this library uses <a href="https://github.com/Infineon/bluetooth-freertos">bluetooth-freertos</a>.</li>
+<li>ModusToolbox&trade; environment: In this environment the command-console Library uses the <a href="https://github.com/Infineon/abstraction-rtos">abstraction-rtos</a> library that provides the RTOS abstraction API and uses the <a href="https://github.com/Infineon/secure-sockets">secure-sockets</a> library for implementing socket functions. For the BLE functionality, this library uses <a href="https://github.com/Infineon/btstack-integration">BT stack Integration</a>.</li>
 </ul>
 <h1><a class="anchor" id="section_dependencies"></a>
 Dependent Libraries</h1>
 <h2><a class="anchor" id="section_dep__anycloud"></a>
 ModusToolbox™</h2>
 <ul>
-<li><a href="https://github.com/Infineon/wifi-connection-manager">Wi-Fi Connection Manager</a></li>
-<li><a href="https://github.com/Infineon/bluetooth-freertos">bluetooth-freertos</a></li>
-</ul>
-<h2><a class="anchor" id="section_dep_mbed"></a>
-Mbed OS</h2>
-<ul>
-<li><a href="https://os.mbed.com/mbed-os/releases">Arm Mbed OS 6.2.0</a></li>
-<li><a href="https://github.com/Infineon/connectivity-utilities/releases/tag/latest-v3.X">Connectivity Utilities Library</a></li>
-</ul>
-<h2><a class="anchor" id="section_dep_afr"></a>
-Amazon FreeRTOS</h2>
-<ul>
-<li><a href="https://github.com/Infineon/amazon-freertos">Amazon FreeRTOS</a></li>
-<li><a href="https://github.com/Infineon/bluetooth-freertos">bluetooth-freertos</a></li>
+<li><a href="https://github.com/Infineon/wifi-connection-manager">Wi-Fi connection manager</a></li>
+<li><a href="https://github.com/Infineon/ethernet-connection-manager">Ethernet connection manager</a></li>
+<li><a href="https://github.com/Infineon/btstack-integration">BT stack Integration</a></li>
 </ul>
 <h1><a class="anchor" id="section_quick_start"></a>
 Quick Start</h1>
-<p >This library is supported on ModusToolbox&trade;, Mbed OS, and Amazon FreeRTOS frameworks. See the following section to build the library in those frameworks.</p>
+<p >This library is supported on ModusToolbox&trade; frameworks. See the following section to build the library in those frameworks.</p>
 <h2><a class="anchor" id="framework_1"></a>
 ModusToolbox™</h2>
 <ul>
-<li>Review and make the required changes to the pre-defined configuration files.<ul>
-<li>The configuration files are bundled with the wifi-mw-core library for FreeRTOS, lwIP, and Mbed TLS. See <a href="https://github.com/Infineon/wifi-mw-core/blob/master/README.md">README.md</a> for more details.</li>
+<li><p class="startli">For Wi-Fi kits,</p><ul>
+<li>To include wifi-connection-manager library, the application should pull <a href="https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls">wifi-core-freertos-lwip-mbedtls</a> library which will internally pull wifi-connection-manager and other dependent modules. To pull wifi-core-freertos-lwip-mbedtls create the following *.mtb* file in deps folder. <em>wifi-core-freertos-lwip-mbedtls.mtb:</em> <a href="https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls#latest-v1.X#$$ASSET_REPO$$/wifi-core-freertos-lwip-mbedtls/latest-v1.X">https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls#latest-v1.X#$$ASSET_REPO$$/wifi-core-freertos-lwip-mbedtls/latest-v1.X</a></li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>For CYW955913EVK-01, to include wifi-connection-manager library, the application should pull <a href="https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls">wifi-core-freertos-lwip-mbedtls</a> library which will internally pull wifi-connection-manager and other dependent modules.<ul>
+<li>To pull wifi-core-threadx-cat5 create the following *.mtb* file in deps folder. <em>wifi-core-threadx-cat5.mtb:</em> <a href="https://github.com/Infineon/wifi-core-threadx-cat5#latest-v1.X#$$ASSET_REPO$$/wifi-core-threadx-cat5/latest-v1.X">https://github.com/Infineon/wifi-core-threadx-cat5#latest-v1.X#$$ASSET_REPO$$/wifi-core-threadx-cat5/latest-v1.X</a></li>
+</ul>
+</dd></dl>
+</li>
+<li>For Ethernet kits,<ul>
+<li>To include ethernet-connection-manager library, the application should pull <a href="https://github.com/Infineon/ethernet-core-freertos-lwip-mbedtls">ethernet-core-freertos-lwip-mbedtls</a> library which will internally pull ethernet-connection-manager and other dependent modules. To pull ethernet-core-freertos-lwip-mbedtls create the following *.mtb* file in deps folder. <em>ethernet-core-freertos-lwip-mbedtls.mtb:</em> <a href="https://github.com/Infineon/ethernet-core-freertos-lwip-mbedtls#latest-v1.X#$$ASSET_REPO$$/ethernet-core-freertos-lwip-mbedtls/latest-v1.X">https://github.com/Infineon/ethernet-core-freertos-lwip-mbedtls#latest-v1.X#$$ASSET_REPO$$/ethernet-core-freertos-lwip-mbedtls/latest-v1.X</a></li>
+</ul>
+</li>
+<li>To pull BT stack Integration create the following *.mtb* file in deps folder. <em>btstack-integration.mtb:</em> <a href="https://github.com/Infineon/btstack-integration#latest-v4.X#$$ASSET_REPO$$/btstack-integration/latest-v4.X">https://github.com/Infineon/btstack-integration#latest-v4.X#$$ASSET_REPO$$/btstack-integration/latest-v4.X</a> <dl class="section note"><dt>Note</dt><dd>BT stack Integration should not be included for CYW955913EVK-01.</dd></dl>
+</li>
+<li>Review and make the required changes to the pre-defined configuration files and Makefile COMPONENTS in the application.<ul>
+<li>The configuration files are bundled with the Wi-Fi core freertos lwip mbedtls library/Ethernet core freertos lwip mbedtls library for FreeRTOS, lwIP, and Mbed TLS.<ul>
+<li>See <a href="https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls/blob/master/README.md">README.md</a> of Wi-Fi core freertos lwip mbedtls library for Wi-Fi kits.</li>
+<li>See <a href="https://github.com/Infineon/ethernet-core-freertos-lwip-mbedtls/blob/master/README.md">README.md</a> of Ethernet core freertos lwip mbedtls library for Ethernet kits.</li>
+</ul>
+</li>
 <li>If the application is using bundle library then the configuration files are in the bundle library. For example if the application is using <em>Wi-Fi core freertos lwip mbedtls bundle library</em>, the configuration files are in <code>wifi-core-freertos-lwip-mbedtls/configs</code> folder. Similarly if the application is using <em>Ethernet Core FreeRTOS lwIP mbedtls library</em>, the configuration files are in <code>ethernet-core-freertos-lwip-mbedtls/configs</code> folder.</li>
 </ul>
 </li>
-<li>A set of COMPONENTS must be defined in the code example project's Makefile for this library. See the Quick Start section in <a href="https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls/blob/master/README.md">README.md</a>. <div class="fragment"><div class="line">COMPONENTS=FREERTOS MBEDTLS LWIP SECURE_SOCKETS</div>
+<li>A set of COMPONENTS must be defined in the code example project's Makefile for this library. See the Quick Start section in <a href="https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls/blob/master/README.md">README.md</a>. <div class="fragment"><div class="line">COMPONENTS=FREERTOS MBEDTLS LWIP</div>
+</div><!-- fragment --> <dl class="section note"><dt>Note</dt><dd>For CYW955913EVK-01 the above defines are not applicable.</dd></dl>
+</li>
+<li>For Wi-Fi kits, to enable the Wi-Fi functionality, add <code>WCM</code> to the <code>COMPONENTS</code> section in the application's Makefile: <div class="fragment"><div class="line">COMPONENTS=WCM</div>
+</div><!-- fragment --></li>
+<li>For Ethernet kits, to enable the ethernet functionality, add <code>ECM</code> to the <code>COMPONENTS</code> section in the application's Makefile: <div class="fragment"><div class="line">COMPONENTS=ECM</div>
 </div><!-- fragment --></li>
 <li>To enable BLE functionality, add <code>WICED_BLE</code> to the <code>COMPONENTS</code> section in the application's Makefile: <div class="fragment"><div class="line">COMPONENTS=WICED_BLE</div>
 </div><!-- fragment --></li>
 <li>Add the following compiler directives to the <code>DEFINES</code> section in the application's Makefile: <div class="fragment"><div class="line">DEFINES=HAVE_SNPRINTF</div>
 </div><!-- fragment --></li>
-</ul>
-<h2><a class="anchor" id="framework_2"></a>
-Mbed OS</h2>
-<ul>
-<li>Add the .lib file(s) for dependent libraries.<ul>
-<li>Create a folder named <code>deps</code>.</li>
-<li>Create a file with name mbed-os.lib and add the following line to this file: <div class="fragment"><div class="line">https:<span class="comment">//github.com/ARMmbed/mbed-os/#a2ada74770f043aff3e61e29d164a8e78274fcd4</span></div>
-</div><!-- fragment --></li>
-<li>Create a file with name connectivity-utilities.lib and add the following line to this file: <div class="fragment"><div class="line">https:<span class="comment">//github.com/Infineon/connectivity-utilities/#&lt;commit-SHA-for-latest-release-v3.X&gt;</span></div>
-</div><!-- fragment --><ul>
-<li>Replace <code>&lt;commit-SHA-for-latest-release-v3.X&gt;</code> in the above line with commit SHA of the latest-v3.X tag available in the <a href="https://github.com/Infineon/connectivity-utilities/releases/tag/latest-v3.X">GitHub repository</a>. Example: For tag <code>release-v3.0.1</code> <div class="fragment"><div class="line">https:<span class="comment">//github.com/Infineon/connectivity-utilities/#68bd1bc9883a0ab424eb6daf1e726f0aba2c54a6</span></div>
-</div><!-- fragment --></li>
-</ul>
+<li>Tune the lwIP configuration parameters listed in application's <em>lwipopts.h</em> file, depending on the required Wi-Fi throughput and use case. <dl class="section note"><dt>Note</dt><dd>For CYW955913EVK-01 the above configuration is not applicable.</dd></dl>
 </li>
-</ul>
-</li>
-<li>Add <code>MBED</code> to the <em>components_add</em> section in the code example's JSON file. The JSON file entry would look like as follows: <div class="fragment"><div class="line"><span class="stringliteral">&quot;target.components_add&quot;</span>: [<span class="stringliteral">&quot;MBED&quot;</span>]</div>
-</div><!-- fragment --></li>
-<li>The BLE Command Utility is supported on Mbed Cordio BLE stack and the WICED® BT Stack.<ul>
-<li>To use the Mbed Cordio stack, add <code>CORDIO</code> to the list of components as follows: <div class="fragment"><div class="line"><span class="stringliteral">&quot;target.components_add&quot;</span> : [<span class="stringliteral">&quot;MBED&quot;</span>, <span class="stringliteral">&quot;CORDIO&quot;</span>]</div>
-</div><!-- fragment --></li>
-<li>To use the WICED BT stack, do the following:<ul>
-<li>Add the following to the <em>target_overrides</em> section of the <em>mbed_app.json</em> file: <div class="fragment"><div class="line"><span class="stringliteral">&quot;target.extra_labels_remove&quot;</span>: [<span class="stringliteral">&quot;CORDIO&quot;</span>],</div>
-<div class="line"><span class="stringliteral">&quot;target.features_remove&quot;</span>: [<span class="stringliteral">&quot;BLE&quot;</span>]</div>
-</div><!-- fragment --></li>
-<li>Add <code>WICED_BLE</code> in the list of components as follows: <div class="fragment"><div class="line"><span class="stringliteral">&quot;target.components_add&quot;</span> : [<span class="stringliteral">&quot;MBED&quot;</span>, <span class="stringliteral">&quot;WICED_BLE&quot;</span>]</div>
-</div><!-- fragment --></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Tune the lwIP configuration parameters depending on the required Wi-Fi throughput and use case.</li>
-</ul>
-<h2><a class="anchor" id="framework_3"></a>
-Amazon FreeRTOS</h2>
-<ul>
-<li>All configurations for the Command Console library on AFR are set by the values defined in the config files of the application. <div class="fragment"><div class="line">Config files <span class="keywordflow">for</span> the afr-wifi-bluetooth-tester application, are in the `afr-wifi-bluetooth-tester/config_files/`.</div>
-</div><!-- fragment --></li>
 </ul>
 <h1><a class="anchor" id="section_code_snippet_AnyCloud"></a>
 ModusToolbox™</h1>
@@ -251,7 +219,6 @@ Code Snippet 1: Addition and deletion of commands</h2>
 <div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a48e516eb829b329ac8e11e68305a974a">delimiter_string</a>   = console_delimiter_string_doxygen;</div>
 <div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#aa5d4b8a5ac2a44bc70224fb919003bf8">params_num</a>         = CONSOLE_COMMAND_MAX_PARAMS;</div>
 <div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#ad42ec3e890f32c15e5b8bd0afb03e77e">thread_priority</a>    = CY_RTOS_PRIORITY_NORMAL;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a48e516eb829b329ac8e11e68305a974a">delimiter_string</a>   = <span class="stringliteral">&quot; &quot;</span>;</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">/* Initialize the Command Console library. */</span></div>
 <div class="line">    result = <a class="code hl_function" href="group__group__cmd__console__functions.html#ga909d4161978c1057335ba8d85b0c0ac5">cy_command_console_init</a>(&amp;console_cfg);</div>
@@ -306,17 +273,17 @@ Code Snippet 1: Addition and deletion of commands</h2>
 <div class="ttc" id="agroup__group__cmd__console__functions_html_ga19f8db6a06d9266b95b844a6d68a9ba1"><div class="ttname"><a href="group__group__cmd__console__functions.html#ga19f8db6a06d9266b95b844a6d68a9ba1">cy_command_console_deinit</a></div><div class="ttdeci">cy_rslt_t cy_command_console_deinit(void)</div><div class="ttdoc">De-initializes the command console framework and terminates the thread.</div></div>
 <div class="ttc" id="agroup__group__cmd__console__functions_html_ga30c6e3560b462c15f07c7703ff91fa42"><div class="ttname"><a href="group__group__cmd__console__functions.html#ga30c6e3560b462c15f07c7703ff91fa42">cy_command_console_add_table</a></div><div class="ttdeci">cy_rslt_t cy_command_console_add_table(const cy_command_console_cmd_t *commands)</div><div class="ttdoc">Invoked to register a table of cy_command_console_cmd_t entries.</div></div>
 <div class="ttc" id="agroup__group__cmd__console__functions_html_ga909d4161978c1057335ba8d85b0c0ac5"><div class="ttname"><a href="group__group__cmd__console__functions.html#ga909d4161978c1057335ba8d85b0c0ac5">cy_command_console_init</a></div><div class="ttdeci">cy_rslt_t cy_command_console_init(cy_command_console_cfg_t *cfg)</div><div class="ttdoc">Initializes the Command console framework and spawns a thread that listens on the console for command...</div></div>
-<div class="ttc" id="astructcy__command__console__cfg__t_html"><div class="ttname"><a href="structcy__command__console__cfg__t.html">cy_command_console_cfg_t</a></div><div class="ttdoc">Structure to configure the command console framework.</div><div class="ttdef"><b>Definition:</b> command_console.h:170</div></div>
-<div class="ttc" id="astructcy__command__console__cfg__t_html_a0679da9fc3c21e363cd5da1f31c8707e"><div class="ttname"><a href="structcy__command__console__cfg__t.html#a0679da9fc3c21e363cd5da1f31c8707e">cy_command_console_cfg_t::history_len</a></div><div class="ttdeci">uint32_t history_len</div><div class="ttdoc">Size of the buffer to store the command history.</div><div class="ttdef"><b>Definition:</b> command_console.h:175</div></div>
-<div class="ttc" id="astructcy__command__console__cfg__t_html_a48e516eb829b329ac8e11e68305a974a"><div class="ttname"><a href="structcy__command__console__cfg__t.html#a48e516eb829b329ac8e11e68305a974a">cy_command_console_cfg_t::delimiter_string</a></div><div class="ttdeci">const char * delimiter_string</div><div class="ttdoc">Delimiter string which separates out the command line arguments.</div><div class="ttdef"><b>Definition:</b> command_console.h:177</div></div>
-<div class="ttc" id="astructcy__command__console__cfg__t_html_a4bee70285a35cc4f0be40eea92dc79ff"><div class="ttname"><a href="structcy__command__console__cfg__t.html#a4bee70285a35cc4f0be40eea92dc79ff">cy_command_console_cfg_t::serial</a></div><div class="ttdeci">void * serial</div><div class="ttdoc">Pointer to the serial object.</div><div class="ttdef"><b>Definition:</b> command_console.h:172</div></div>
-<div class="ttc" id="astructcy__command__console__cfg__t_html_a5563a5677f929c527fe5d71c8487e987"><div class="ttname"><a href="structcy__command__console__cfg__t.html#a5563a5677f929c527fe5d71c8487e987">cy_command_console_cfg_t::line_len</a></div><div class="ttdeci">uint32_t line_len</div><div class="ttdoc">Size of buffer to store command.</div><div class="ttdef"><b>Definition:</b> command_console.h:173</div></div>
-<div class="ttc" id="astructcy__command__console__cfg__t_html_a783411e7f8f46a70ff1e1c5199ec3d81"><div class="ttname"><a href="structcy__command__console__cfg__t.html#a783411e7f8f46a70ff1e1c5199ec3d81">cy_command_console_cfg_t::history_buffer_ptr</a></div><div class="ttdeci">char * history_buffer_ptr</div><div class="ttdoc">Pointer pointing to the buffer provided by the application to store the command history.</div><div class="ttdef"><b>Definition:</b> command_console.h:176</div></div>
-<div class="ttc" id="astructcy__command__console__cfg__t_html_a8285d5d8cf8c49e8b61f1962f213fd6b"><div class="ttname"><a href="structcy__command__console__cfg__t.html#a8285d5d8cf8c49e8b61f1962f213fd6b">cy_command_console_cfg_t::buffer</a></div><div class="ttdeci">char * buffer</div><div class="ttdoc">Pointer pointing to the buffer provided by the application to store the command given from the consol...</div><div class="ttdef"><b>Definition:</b> command_console.h:174</div></div>
-<div class="ttc" id="astructcy__command__console__cfg__t_html_aa5d4b8a5ac2a44bc70224fb919003bf8"><div class="ttname"><a href="structcy__command__console__cfg__t.html#aa5d4b8a5ac2a44bc70224fb919003bf8">cy_command_console_cfg_t::params_num</a></div><div class="ttdeci">uint8_t params_num</div><div class="ttdoc">Maximum parameters allowed.</div><div class="ttdef"><b>Definition:</b> command_console.h:179</div></div>
-<div class="ttc" id="astructcy__command__console__cfg__t_html_ad42ec3e890f32c15e5b8bd0afb03e77e"><div class="ttname"><a href="structcy__command__console__cfg__t.html#ad42ec3e890f32c15e5b8bd0afb03e77e">cy_command_console_cfg_t::thread_priority</a></div><div class="ttdeci">cy_thread_priority_t thread_priority</div><div class="ttdoc">Command console UART thread priority.</div><div class="ttdef"><b>Definition:</b> command_console.h:178</div></div>
-<div class="ttc" id="astructcy__command__console__cmd__t_html"><div class="ttname"><a href="structcy__command__console__cmd__t.html">cy_command_console_cmd_t</a></div><div class="ttdoc">Structure to hold the information for each console command.</div><div class="ttdef"><b>Definition:</b> command_console.h:150</div></div>
-<div class="ttc" id="astructtlv__buffer__t_html"><div class="ttname"><a href="structtlv__buffer__t.html">tlv_buffer_t</a></div><div class="ttdoc">Command console Type-Length-Value buffer.</div><div class="ttdef"><b>Definition:</b> command_console.h:117</div></div>
+<div class="ttc" id="astructcy__command__console__cfg__t_html"><div class="ttname"><a href="structcy__command__console__cfg__t.html">cy_command_console_cfg_t</a></div><div class="ttdoc">Structure to configure the command console framework.</div><div class="ttdef"><b>Definition:</b> command_console.h:174</div></div>
+<div class="ttc" id="astructcy__command__console__cfg__t_html_a0679da9fc3c21e363cd5da1f31c8707e"><div class="ttname"><a href="structcy__command__console__cfg__t.html#a0679da9fc3c21e363cd5da1f31c8707e">cy_command_console_cfg_t::history_len</a></div><div class="ttdeci">uint32_t history_len</div><div class="ttdoc">Size of the buffer to store the command history.</div><div class="ttdef"><b>Definition:</b> command_console.h:179</div></div>
+<div class="ttc" id="astructcy__command__console__cfg__t_html_a48e516eb829b329ac8e11e68305a974a"><div class="ttname"><a href="structcy__command__console__cfg__t.html#a48e516eb829b329ac8e11e68305a974a">cy_command_console_cfg_t::delimiter_string</a></div><div class="ttdeci">const char * delimiter_string</div><div class="ttdoc">Delimiter string which separates out the command line arguments.</div><div class="ttdef"><b>Definition:</b> command_console.h:181</div></div>
+<div class="ttc" id="astructcy__command__console__cfg__t_html_a4bee70285a35cc4f0be40eea92dc79ff"><div class="ttname"><a href="structcy__command__console__cfg__t.html#a4bee70285a35cc4f0be40eea92dc79ff">cy_command_console_cfg_t::serial</a></div><div class="ttdeci">void * serial</div><div class="ttdoc">Pointer to the serial object.</div><div class="ttdef"><b>Definition:</b> command_console.h:176</div></div>
+<div class="ttc" id="astructcy__command__console__cfg__t_html_a5563a5677f929c527fe5d71c8487e987"><div class="ttname"><a href="structcy__command__console__cfg__t.html#a5563a5677f929c527fe5d71c8487e987">cy_command_console_cfg_t::line_len</a></div><div class="ttdeci">uint32_t line_len</div><div class="ttdoc">Size of buffer to store command.</div><div class="ttdef"><b>Definition:</b> command_console.h:177</div></div>
+<div class="ttc" id="astructcy__command__console__cfg__t_html_a783411e7f8f46a70ff1e1c5199ec3d81"><div class="ttname"><a href="structcy__command__console__cfg__t.html#a783411e7f8f46a70ff1e1c5199ec3d81">cy_command_console_cfg_t::history_buffer_ptr</a></div><div class="ttdeci">char * history_buffer_ptr</div><div class="ttdoc">Pointer pointing to the buffer provided by the application to store the command history.</div><div class="ttdef"><b>Definition:</b> command_console.h:180</div></div>
+<div class="ttc" id="astructcy__command__console__cfg__t_html_a8285d5d8cf8c49e8b61f1962f213fd6b"><div class="ttname"><a href="structcy__command__console__cfg__t.html#a8285d5d8cf8c49e8b61f1962f213fd6b">cy_command_console_cfg_t::buffer</a></div><div class="ttdeci">char * buffer</div><div class="ttdoc">Pointer pointing to the buffer provided by the application to store the command given from the consol...</div><div class="ttdef"><b>Definition:</b> command_console.h:178</div></div>
+<div class="ttc" id="astructcy__command__console__cfg__t_html_aa5d4b8a5ac2a44bc70224fb919003bf8"><div class="ttname"><a href="structcy__command__console__cfg__t.html#aa5d4b8a5ac2a44bc70224fb919003bf8">cy_command_console_cfg_t::params_num</a></div><div class="ttdeci">uint8_t params_num</div><div class="ttdoc">Maximum parameters allowed.</div><div class="ttdef"><b>Definition:</b> command_console.h:183</div></div>
+<div class="ttc" id="astructcy__command__console__cfg__t_html_ad42ec3e890f32c15e5b8bd0afb03e77e"><div class="ttname"><a href="structcy__command__console__cfg__t.html#ad42ec3e890f32c15e5b8bd0afb03e77e">cy_command_console_cfg_t::thread_priority</a></div><div class="ttdeci">cy_thread_priority_t thread_priority</div><div class="ttdoc">Command console UART thread priority.</div><div class="ttdef"><b>Definition:</b> command_console.h:182</div></div>
+<div class="ttc" id="astructcy__command__console__cmd__t_html"><div class="ttname"><a href="structcy__command__console__cmd__t.html">cy_command_console_cmd_t</a></div><div class="ttdoc">Structure to hold the information for each console command.</div><div class="ttdef"><b>Definition:</b> command_console.h:154</div></div>
+<div class="ttc" id="astructtlv__buffer__t_html"><div class="ttname"><a href="structtlv__buffer__t.html">tlv_buffer_t</a></div><div class="ttdoc">Command console Type-Length-Value buffer.</div><div class="ttdef"><b>Definition:</b> command_console.h:121</div></div>
 </div><!-- fragment --><h2><a class="anchor" id="snip2"></a>
 Code Snippet 2: Initialization and addition of Utility commands</h2>
 <p >Initializes Command Console library and adds the Wi-Fi and BT utility commands provided by the library. </p><div class="fragment"><div class="line"> </div>
@@ -353,7 +320,6 @@ Code Snippet 2: Initialization and addition of Utility commands</h2>
 <div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a48e516eb829b329ac8e11e68305a974a">delimiter_string</a>   = console_delimiter_string_doxygen;</div>
 <div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#aa5d4b8a5ac2a44bc70224fb919003bf8">params_num</a>         = CONSOLE_COMMAND_MAX_PARAMS;</div>
 <div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#ad42ec3e890f32c15e5b8bd0afb03e77e">thread_priority</a>    = CY_RTOS_PRIORITY_NORMAL;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a48e516eb829b329ac8e11e68305a974a">delimiter_string</a>   = <span class="stringliteral">&quot; &quot;</span>;</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">/* Initialize the Command Console library. */</span></div>
 <div class="line">    result = <a class="code hl_function" href="group__group__cmd__console__functions.html#ga909d4161978c1057335ba8d85b0c0ac5">cy_command_console_init</a>(&amp;console_cfg);</div>
@@ -381,313 +347,6 @@ Code Snippet 2: Initialization and addition of Utility commands</h2>
 <div class="line"> </div>
 <div class="line">error:</div>
 <div class="line">    <span class="keywordflow">return</span> -1;</div>
-<div class="line">}</div>
-<div class="line"> </div>
-</div><!-- fragment --><h1><a class="anchor" id="section_code_snippet_Mbed"></a>
-Mbed OS</h1>
-<p >These code snippets demonstrate the initialization and usage of Command Console library APIs. </p><dl class="section note"><dt>Note</dt><dd>Remove the *<code>deps</code>* folder and it's contents before running *<code>mbed deploy</code>* command. </dd></dl>
-<h2><a class="anchor" id="snip3"></a>
-Code Snippet 1: Addition and deletion of commands</h2>
-<p >Initializes Command Console library and adds/removes commands. </p><div class="fragment"><div class="line"> </div>
-<div class="line"><span class="preprocessor">#define CONSOLE_COMMAND_MAX_PARAMS     (32)</span></div>
-<div class="line"><span class="preprocessor">#define CONSOLE_COMMAND_MAX_LENGTH     (85)</span></div>
-<div class="line"><span class="preprocessor">#define CONSOLE_COMMAND_HISTORY_LENGTH (10)</span></div>
-<div class="line"> </div>
-<div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span>* console_delimiter_string = <span class="stringliteral">&quot; &quot;</span>;</div>
-<div class="line"> </div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">char</span> command_buffer[CONSOLE_COMMAND_MAX_LENGTH];</div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">char</span> command_history_buffer[CONSOLE_COMMAND_MAX_LENGTH * CONSOLE_COMMAND_HISTORY_LENGTH];</div>
-<div class="line"> </div>
-<div class="line">UnbufferedSerial pc(USBTX, USBRX, 115200);</div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> test_console_command(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[], <a class="code hl_struct" href="structtlv__buffer__t.html">tlv_buffer_t</a>** data)</div>
-<div class="line">{</div>
-<div class="line">    printf (<span class="stringliteral">&quot;test_console_command is called , argc = %d , argv = %s \n&quot;</span>, argc, argv[1]);</div>
-<div class="line">    <span class="keywordflow">return</span> 0;</div>
-<div class="line">}</div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#define TEST_CONSOLE_COMMANDS \</span></div>
-<div class="line"><span class="preprocessor">    { (char*) &quot;test_console_command&quot;</span>,           test_console_command, 1, NULL, NULL, (char *)&quot;&quot;, (char *)&quot;sample command with 1 argument&quot; }, \</div>
-<div class="line"> </div>
-<div class="line"><span class="keyword">const</span> <a class="code hl_struct" href="structcy__command__console__cmd__t.html">cy_command_console_cmd_t</a> test_command_table[] =</div>
-<div class="line">{</div>
-<div class="line">    TEST_CONSOLE_COMMANDS</div>
-<div class="line">    CMD_TABLE_END</div>
-<div class="line">};</div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> snippet_add_remove_command_table(<span class="keywordtype">void</span>)</div>
-<div class="line">{</div>
-<div class="line"> </div>
-<div class="line">    <a class="code hl_struct" href="structcy__command__console__cfg__t.html">cy_command_console_cfg_t</a> console_cfg;</div>
-<div class="line">    uint16_t wait_time = 0;</div>
-<div class="line">    cy_rslt_t result = CY_RSLT_SUCCESS;</div>
-<div class="line"> </div>
-<div class="line">    printf(<span class="stringliteral">&quot;Executing add-remove command snippet \n&quot;</span>);</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a4bee70285a35cc4f0be40eea92dc79ff">serial</a>             = &amp;pc;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a5563a5677f929c527fe5d71c8487e987">line_len</a>           = <span class="keyword">sizeof</span>(command_buffer);</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a8285d5d8cf8c49e8b61f1962f213fd6b">buffer</a>             = command_buffer;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a0679da9fc3c21e363cd5da1f31c8707e">history_len</a>        = CONSOLE_COMMAND_HISTORY_LENGTH;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a783411e7f8f46a70ff1e1c5199ec3d81">history_buffer_ptr</a> = command_history_buffer;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a48e516eb829b329ac8e11e68305a974a">delimiter_string</a>   = console_delimiter_string;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#aa5d4b8a5ac2a44bc70224fb919003bf8">params_num</a>         = CONSOLE_COMMAND_MAX_PARAMS;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#ad42ec3e890f32c15e5b8bd0afb03e77e">thread_priority</a>    = CY_RTOS_PRIORITY_NORMAL;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a48e516eb829b329ac8e11e68305a974a">delimiter_string</a>   = <span class="stringliteral">&quot; &quot;</span>;</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Initialize the Command Console library. */</span></div>
-<div class="line">    result = <a class="code hl_function" href="group__group__cmd__console__functions.html#ga909d4161978c1057335ba8d85b0c0ac5">cy_command_console_init</a>(&amp;console_cfg);</div>
-<div class="line">    <span class="keywordflow">if</span> ( result != CY_RSLT_SUCCESS )</div>
-<div class="line">    {</div>
-<div class="line">        printf (<span class="stringliteral">&quot;Error in initializing command console library : %lu \n&quot;</span>, (<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)result);</div>
-<div class="line">        <span class="keywordflow">goto</span> error;</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Add the command table. */</span></div>
-<div class="line">    result = <a class="code hl_function" href="group__group__cmd__console__functions.html#ga30c6e3560b462c15f07c7703ff91fa42">cy_command_console_add_table</a> ( test_command_table );</div>
-<div class="line">    <span class="keywordflow">if</span> ( result != CY_RSLT_SUCCESS )</div>
-<div class="line">    {</div>
-<div class="line">        printf (<span class="stringliteral">&quot;Error in adding command console table : %lu \n&quot;</span>, (<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)result);</div>
-<div class="line">        <span class="keywordflow">goto</span> error;</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Wait for a while to use the commands. */</span></div>
-<div class="line">    <span class="keywordflow">while</span>(1)</div>
-<div class="line">    {</div>
-<div class="line">        cy_rtos_delay_milliseconds(500);</div>
-<div class="line">        wait_time += 500;</div>
-<div class="line">        <span class="keywordflow">if</span>(wait_time == 5000)</div>
-<div class="line">        {</div>
-<div class="line">            <span class="keywordflow">break</span>;</div>
-<div class="line">        }</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Delete the command table. */</span></div>
-<div class="line">    result = <a class="code hl_function" href="group__group__cmd__console__functions.html#ga006b1ed9970984e8ecc1b7b54e6018e9">cy_command_console_delete_table</a> ( test_command_table );</div>
-<div class="line">    <span class="keywordflow">if</span> ( result != CY_RSLT_SUCCESS )</div>
-<div class="line">    {</div>
-<div class="line">        printf (<span class="stringliteral">&quot;Error in removing command console table : %lu \n&quot;</span>, (<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)result);</div>
-<div class="line">        <span class="keywordflow">goto</span> error;</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* De-initialize the Command Console  library. */</span></div>
-<div class="line">    result = <a class="code hl_function" href="group__group__cmd__console__functions.html#ga19f8db6a06d9266b95b844a6d68a9ba1">cy_command_console_deinit</a>();</div>
-<div class="line">    <span class="keywordflow">if</span> ( result != CY_RSLT_SUCCESS )</div>
-<div class="line">    {</div>
-<div class="line">        printf (<span class="stringliteral">&quot;command console deinit failed : %lu \n&quot;</span>, (<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)result);</div>
-<div class="line">        <span class="keywordflow">goto</span> error;</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    <span class="keywordflow">return</span> 0;</div>
-<div class="line"> </div>
-<div class="line">error:</div>
-<div class="line">    <span class="keywordflow">return</span> -1;</div>
-<div class="line">}</div>
-<div class="line"> </div>
-</div><!-- fragment --><h2><a class="anchor" id="snip4"></a>
-Code Snippet 2: Initialization and addition of Utility commands</h2>
-<p >Command Console library and adds the Wi-Fi and BT utility commands provided by the library. </p><div class="fragment"><div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &quot;command_console.h&quot;</span></div>
-<div class="line"><span class="preprocessor">#include &quot;iperf_utility.h&quot;</span></div>
-<div class="line"><span class="preprocessor">#include &quot;bt_utility.h&quot;</span></div>
-<div class="line"><span class="preprocessor">#include &quot;wifi_utility.h&quot;</span></div>
-<div class="line"> </div>
-<div class="line">NetworkInterface *networkInterface;</div>
-<div class="line">UnbufferedSerial _pc(USBTX, USBRX, 115200);</div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> snippet_command_console_utility(<span class="keywordtype">void</span>) {</div>
-<div class="line"> </div>
-<div class="line">    <a class="code hl_struct" href="structcy__command__console__cfg__t.html">cy_command_console_cfg_t</a> console_cfg;</div>
-<div class="line">    cy_rslt_t result = CY_RSLT_SUCCESS;</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Get the network interface. */</span></div>
-<div class="line">    networkInterface  = NetworkInterface::get_default_instance();</div>
-<div class="line">    <span class="keywordflow">if</span> (!networkInterface)</div>
-<div class="line">    {</div>
-<div class="line">        printf(<span class="stringliteral">&quot;ERROR: No NetworkInterface found.\n&quot;</span>);</div>
-<div class="line">        <span class="keywordflow">return</span> -1;</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    printf(<span class="stringliteral">&quot;Executing command_console_add_remove_command \n&quot;</span>);</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a4bee70285a35cc4f0be40eea92dc79ff">serial</a>             = &amp;_pc;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a5563a5677f929c527fe5d71c8487e987">line_len</a>           = <span class="keyword">sizeof</span>(command_buffer);</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a8285d5d8cf8c49e8b61f1962f213fd6b">buffer</a>             = command_buffer;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a0679da9fc3c21e363cd5da1f31c8707e">history_len</a>        = CONSOLE_COMMAND_HISTORY_LENGTH;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a783411e7f8f46a70ff1e1c5199ec3d81">history_buffer_ptr</a> = command_history_buffer;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a48e516eb829b329ac8e11e68305a974a">delimiter_string</a>   = console_delimiter_string;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#aa5d4b8a5ac2a44bc70224fb919003bf8">params_num</a>         = CONSOLE_COMMAND_MAX_PARAMS;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#ad42ec3e890f32c15e5b8bd0afb03e77e">thread_priority</a>    = CY_RTOS_PRIORITY_NORMAL;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a48e516eb829b329ac8e11e68305a974a">delimiter_string</a>   = <span class="stringliteral">&quot; &quot;</span>;</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Initialize the Command Console library. */</span></div>
-<div class="line">    result = <a class="code hl_function" href="group__group__cmd__console__functions.html#ga909d4161978c1057335ba8d85b0c0ac5">cy_command_console_init</a>(&amp;console_cfg);</div>
-<div class="line">    <span class="keywordflow">if</span> ( result != CY_RSLT_SUCCESS )</div>
-<div class="line">    {</div>
-<div class="line">        printf (<span class="stringliteral">&quot;Error in initializing command console library : %lu \n&quot;</span>, (<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)result);</div>
-<div class="line">        <span class="keywordflow">goto</span> error;</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Initialize the Wi-Fi utility and add Wi-Fi commands. */</span></div>
-<div class="line">    result = wifi_utility_init();</div>
-<div class="line">    <span class="keywordflow">if</span> ( result != CY_RSLT_SUCCESS )</div>
-<div class="line">    {</div>
-<div class="line">        printf (<span class="stringliteral">&quot;Error in initializing command console library : %lu \n&quot;</span>, (<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)result);</div>
-<div class="line">        <span class="keywordflow">goto</span> error;</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Initialize the iPerf utility and add iPerf commands. */</span></div>
-<div class="line">    iperf_utility_init(networkInterface);</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Initialize the Bluetooth utility and add BT commands. */</span></div>
-<div class="line">    bt_utility_init();</div>
-<div class="line"> </div>
-<div class="line">    <span class="keywordflow">return</span> 0;</div>
-<div class="line"> </div>
-<div class="line">error:</div>
-<div class="line">    <span class="keywordflow">return</span> -1;</div>
-<div class="line">}</div>
-<div class="line"> </div>
-</div><!-- fragment --><h1><a class="anchor" id="section_code_snippet_AFR"></a>
-Amazon FreeRTOS</h1>
-<p >These code snippets demonstrate the initialization and usage of Command Console library APIs. </p>
-<h2><a class="anchor" id="snip5"></a>
-Code Snippet 1: Addition and deletion of commands</h2>
-<p >Initializes Command Console library and adds/removes commands. </p><div class="fragment"><div class="line"> </div>
-<div class="line"><span class="preprocessor">#define CONSOLE_COMMAND_MAX_PARAMS     (32)</span></div>
-<div class="line"><span class="preprocessor">#define CONSOLE_COMMAND_MAX_LENGTH     (85)</span></div>
-<div class="line"><span class="preprocessor">#define CONSOLE_COMMAND_HISTORY_LENGTH (10)</span></div>
-<div class="line"> </div>
-<div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span>* console_delimiter_string = <span class="stringliteral">&quot; &quot;</span>;</div>
-<div class="line"> </div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">char</span> command_buffer[CONSOLE_COMMAND_MAX_LENGTH];</div>
-<div class="line"><span class="keyword">static</span> <span class="keywordtype">char</span> command_history_buffer[CONSOLE_COMMAND_MAX_LENGTH * CONSOLE_COMMAND_HISTORY_LENGTH];</div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#define TEST_CONSOLE_COMMANDS \</span></div>
-<div class="line"><span class="preprocessor">    { (char*) &quot;test_console_command&quot;</span>,           test_console_command, 1, NULL, NULL, (char *)&quot;&quot;, (char *)&quot;sample command with 1 argument&quot; }, \</div>
-<div class="line"> </div>
-<div class="line"><span class="keyword">const</span> <a class="code hl_struct" href="structcy__command__console__cmd__t.html">cy_command_console_cmd_t</a> test_command_table[] =</div>
-<div class="line">{</div>
-<div class="line">    TEST_CONSOLE_COMMANDS</div>
-<div class="line">    CMD_TABLE_END</div>
-<div class="line">};</div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> snippet_add_remove_command_table(<span class="keywordtype">void</span>)</div>
-<div class="line">{</div>
-<div class="line"> </div>
-<div class="line">    <a class="code hl_struct" href="structcy__command__console__cfg__t.html">cy_command_console_cfg_t</a> console_cfg;</div>
-<div class="line">    uint16_t wait_time = 0;</div>
-<div class="line">    cy_rslt_t result = CY_RSLT_SUCCESS;</div>
-<div class="line"> </div>
-<div class="line">    printf(<span class="stringliteral">&quot;Executing add-remove command snippet\n&quot;</span>);</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a4bee70285a35cc4f0be40eea92dc79ff">serial</a>             = (<span class="keywordtype">void</span> *)&amp;cy_retarget_io_uart_obj;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a5563a5677f929c527fe5d71c8487e987">line_len</a>           = <span class="keyword">sizeof</span>(command_buffer);</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a8285d5d8cf8c49e8b61f1962f213fd6b">buffer</a>             = command_buffer;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a0679da9fc3c21e363cd5da1f31c8707e">history_len</a>        = CONSOLE_COMMAND_HISTORY_LENGTH;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a783411e7f8f46a70ff1e1c5199ec3d81">history_buffer_ptr</a> = command_history_buffer;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a48e516eb829b329ac8e11e68305a974a">delimiter_string</a>   = console_delimiter_string;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#aa5d4b8a5ac2a44bc70224fb919003bf8">params_num</a>         = CONSOLE_COMMAND_MAX_PARAMS;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#ad42ec3e890f32c15e5b8bd0afb03e77e">thread_priority</a>    = CY_RTOS_PRIORITY_NORMAL;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a48e516eb829b329ac8e11e68305a974a">delimiter_string</a>   = <span class="stringliteral">&quot; &quot;</span>;</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Initialize the Command Console library. */</span></div>
-<div class="line">    result = <a class="code hl_function" href="group__group__cmd__console__functions.html#ga909d4161978c1057335ba8d85b0c0ac5">cy_command_console_init</a>(&amp;console_cfg);</div>
-<div class="line">    <span class="keywordflow">if</span> ( result != CY_RSLT_SUCCESS )</div>
-<div class="line">    {</div>
-<div class="line">        printf (<span class="stringliteral">&quot;Error in initializing command console library : %lu \n&quot;</span>, result);</div>
-<div class="line">        <span class="keywordflow">goto</span> error;</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Add the command table. */</span></div>
-<div class="line">    result = <a class="code hl_function" href="group__group__cmd__console__functions.html#ga30c6e3560b462c15f07c7703ff91fa42">cy_command_console_add_table</a> ( test_command_table );</div>
-<div class="line">    <span class="keywordflow">if</span> ( result != CY_RSLT_SUCCESS )</div>
-<div class="line">    {</div>
-<div class="line">        printf (<span class="stringliteral">&quot;Error in adding command console table : %lu \n&quot;</span>, result);</div>
-<div class="line">        <span class="keywordflow">goto</span> error;</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Wait for a while to use the commands. */</span></div>
-<div class="line">    <span class="keywordflow">while</span>(1)</div>
-<div class="line">    {</div>
-<div class="line">        cy_rtos_delay_milliseconds(500);</div>
-<div class="line">        wait_time += 500;</div>
-<div class="line">        <span class="keywordflow">if</span>(wait_time == 5000)</div>
-<div class="line">        {</div>
-<div class="line">            <span class="keywordflow">break</span>;</div>
-<div class="line">        }</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Delete the command table. */</span></div>
-<div class="line">    result = <a class="code hl_function" href="group__group__cmd__console__functions.html#ga006b1ed9970984e8ecc1b7b54e6018e9">cy_command_console_delete_table</a> ( test_command_table );</div>
-<div class="line">    <span class="keywordflow">if</span> ( result != CY_RSLT_SUCCESS )</div>
-<div class="line">    {</div>
-<div class="line">        printf (<span class="stringliteral">&quot;Error in removing command console table : %lu \n&quot;</span>, result);</div>
-<div class="line">        <span class="keywordflow">goto</span> error;</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* De-initialize the Command Console  library. */</span></div>
-<div class="line">    result = <a class="code hl_function" href="group__group__cmd__console__functions.html#ga19f8db6a06d9266b95b844a6d68a9ba1">cy_command_console_deinit</a>();</div>
-<div class="line">    <span class="keywordflow">if</span> ( result != CY_RSLT_SUCCESS )</div>
-<div class="line">    {</div>
-<div class="line">        printf (<span class="stringliteral">&quot;command console deinit failed : %lu \n&quot;</span>, result);</div>
-<div class="line">        <span class="keywordflow">goto</span> error;</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    <span class="keywordflow">return</span> 0;</div>
-<div class="line"> </div>
-<div class="line">error:</div>
-<div class="line">    <span class="keywordflow">return</span> -1;</div>
-<div class="line">}</div>
-<div class="line"> </div>
-</div><!-- fragment --><h2><a class="anchor" id="snip6"></a>
-Code Snippet 2: Initialization and addition of Utility commands</h2>
-<p >Command Console library and adds the Wi-Fi and BT utility commands provided by the library. </p><div class="fragment"><div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &quot;command_console.h&quot;</span></div>
-<div class="line"><span class="preprocessor">#include &quot;iperf_utility.h&quot;</span></div>
-<div class="line"><span class="preprocessor">#include &quot;bt_utility.h&quot;</span></div>
-<div class="line"><span class="preprocessor">#include &quot;wifi_utility.h&quot;</span></div>
-<div class="line"> </div>
-<div class="line"><span class="comment">/* WCM parameters. */</span></div>
-<div class="line"><span class="keyword">static</span> cy_wcm_config_t wcm_config;</div>
-<div class="line"><span class="keyword">static</span> cy_wcm_connect_params_t conn_params;</div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> snippet_command_console_utility(<span class="keywordtype">void</span>) {</div>
-<div class="line"> </div>
-<div class="line">    <a class="code hl_struct" href="structcy__command__console__cfg__t.html">cy_command_console_cfg_t</a> console_cfg;</div>
-<div class="line">    cy_rslt_t result = CY_RSLT_SUCCESS;</div>
-<div class="line"> </div>
-<div class="line">    printf(<span class="stringliteral">&quot;Executing command console utility snippet \n&quot;</span>);</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a4bee70285a35cc4f0be40eea92dc79ff">serial</a>             = (<span class="keywordtype">void</span> *)&amp;cy_retarget_io_uart_obj;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a5563a5677f929c527fe5d71c8487e987">line_len</a>           = <span class="keyword">sizeof</span>(command_buffer);</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a8285d5d8cf8c49e8b61f1962f213fd6b">buffer</a>             = command_buffer;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a0679da9fc3c21e363cd5da1f31c8707e">history_len</a>        = CONSOLE_COMMAND_HISTORY_LENGTH;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a783411e7f8f46a70ff1e1c5199ec3d81">history_buffer_ptr</a> = command_history_buffer;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a48e516eb829b329ac8e11e68305a974a">delimiter_string</a>   = console_delimiter_string;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#aa5d4b8a5ac2a44bc70224fb919003bf8">params_num</a>         = CONSOLE_COMMAND_MAX_PARAMS;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#ad42ec3e890f32c15e5b8bd0afb03e77e">thread_priority</a>    = CY_RTOS_PRIORITY_NORMAL;</div>
-<div class="line">    console_cfg.<a class="code hl_variable" href="structcy__command__console__cfg__t.html#a48e516eb829b329ac8e11e68305a974a">delimiter_string</a>   = <span class="stringliteral">&quot; &quot;</span>;</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Initialize the Command Console library. */</span></div>
-<div class="line">    result = <a class="code hl_function" href="group__group__cmd__console__functions.html#ga909d4161978c1057335ba8d85b0c0ac5">cy_command_console_init</a>(&amp;console_cfg);</div>
-<div class="line">    <span class="keywordflow">if</span> ( result != CY_RSLT_SUCCESS )</div>
-<div class="line">    {</div>
-<div class="line">        printf (<span class="stringliteral">&quot;Error in initializing command console library : %ld \n&quot;</span>, result);</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Initialize the Wi-Fi utility and add Wi-Fi commands. */</span></div>
-<div class="line">    result = wifi_utility_init();</div>
-<div class="line">    <span class="keywordflow">if</span> ( result != CY_RSLT_SUCCESS )</div>
-<div class="line">    {</div>
-<div class="line">        printf (<span class="stringliteral">&quot;Error in initializing command console library : %ld \n&quot;</span>, result);</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Initialize the iPerf utility and add iPerf commands. */</span></div>
-<div class="line">    iperf_utility_init(NULL);</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">/* Initialize the Bluetooth utility and add BT commands. */</span></div>
-<div class="line">    bt_utility_init();</div>
-<div class="line"> </div>
-<div class="line">    <span class="keywordflow">while</span>(1)</div>
-<div class="line">    {</div>
-<div class="line">        vTaskDelay(500);</div>
-<div class="line">    }</div>
 <div class="line">}</div>
 <div class="line"> </div>
 </div><!-- fragment --> </div></div><!-- PageDoc -->

@@ -22,8 +22,8 @@ The current implementation has the following features and functionality:
 - Support for WPS - Enrollee role
 - Exposes Wi-Fi APIs to scan, join, and leave the Wi-Fi network
 - Connection monitoring: Monitors active connections and link events. Automatically reconnects to the AP if the connection with the AP is lost intermittently. Notifies the connection state change through the event notification registration mechanism.
-- Part of the AnyCloud framework that supports connectivity applications based on FreeRTOS, lwIP, and mbed TLS
-- Built on top of the abstraction-rtos library that provides the RTOS abstraction API for FreeRTOS
+- Supports connectivity applications based on either FreeRTOS, lwIP, mbed TLS combination or ThreadX, NetX Duo, NetX Secure combination(Currently only supported on CYW955913EVK-01)
+- Built on top of the abstraction-rtos library that provides the RTOS abstraction API for FreeRTOS and ThreadX
 - Supports multi-core architecture by providing the following APIs as virtual APIs:
   - `cy_wcm_is_connected_to_ap`
   - `cy_wcm_register_event_callback`
@@ -48,6 +48,14 @@ This library and its features are supported on the following Infineon platforms:
 
 - [PSoC&trade; 62S2 evaluation kit (CY8CEVAL-062S2-MUR-43439M2)]( https://www.infineon.com/cms/en/product/evaluation-boards/cy8ceval-062s2/ )
 
+- [XMC7200D-E272K8384 kit (KIT_XMC72_EVK_MUR_43439M2)](https://www.infineon.com/cms/en/product/evaluation-boards/kit_xmc72_evk/)
+
+- [PSoC&trade; 62S2 evaluation kit (CY8CEVAL-062S2-CYW43022CUB)](https://www.infineon.com/cms/en/product/evaluation-boards/cy8ceval-062s2/)
+
+- [CYW955913EVK-01 Wi-Fi Bluetooth&reg; Prototyping Kit (CYW955913EVK-01)](https://www.infineon.com/CYW955913EVK-01)
+
+- [PSoC&trade; 62S2 evaluation kit (CY8CEVAL-062S2-CYW955513SDM2WLIPA)]( https://www.infineon.com/cms/en/product/evaluation-boards/cy8ceval-062s2/ )
+
 **Note**: Virtual APIs are supported on all PSoC 62 devices, but they have only been tested on the CY8CEVAL-062S2-MUR-43439M2 kit.
 
 ## Dependent libraries
@@ -56,21 +64,29 @@ This library depends on the following:
 
 - [wifi-core-freertos-lwip-mbedtls]( https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls )
 
+- [wifi-core-threadx-cat5]( https://github.com/Infineon/wifi-core-threadx-cat5 ) - For CYW955913EVK-01
+
 - [Wi-Fi Host Driver]( https://github.com/Infineon/wifi-host-driver )
 
 If virtual APIs are to be used, it additionally depends on the [Virtual Connectivity Manager]( https://github.com/Infineon/virtual-connectivity-manager ).
 
 ## Quick start
 
-1. To use wifi-connection-manager library for FreeRTOS, lwIP, and mbed TLS, the application should pull the [wifi-core-freertos-lwip-mbedtls]( https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls ) library which will internally pull wifi-connection-manager, FreeRTOS, lwIP, mbed TLS, and other dependent modules.
+1. To use wifi-connection-manager library for FreeRTOS, lwIP, mbed TLS combination, the application should pull the [wifi-core-freertos-lwip-mbedtls]( https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls ) library which will internally pull wifi-connection-manager, FreeRTOS, lwIP, mbed TLS, and other dependent modules.
+   
+   To pull [wifi-core-freertos-lwip-mbedtls]( https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls#latest-v1.X#$$ASSET_REPO$$/wifi-core-freertos-lwip-mbedtls/latest-v1.X ), create the *wifi-core-freertos-lwip-mbedtls.mtb* file.
 
-2. To pull [wifi-core-freertos-lwip-mbedtls]( https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls#latest-v1.X#$$ASSET_REPO$$/wifi-core-freertos-lwip-mbedtls/latest-v1.X ), create the *wifi-core-freertos-lwip-mbedtls.mtb* file.
+2. To use wifi-connection-manager library for ThreadX, NetX Duo, NetX Secure combination, the application should pull the [wifi-core-threadx-cat5]( https://github.com/Infineon/wifi-core-threadx-cat5 ) library which will internally pull wifi-connection-manager and other dependent modules.
+
+   To pull [wifi-core-threadx-cat5]( https://github.com/Infineon/wifi-core-threadx-cat5#latest-v1.X#$$ASSET_REPO$$/wifi-core-threadx-cat5/latest-v1.X ), create the *wifi-core-threadx-cat5.mtb* file.
 
 3. For existing Wi-Fi Connection Manager version 2.x users, a [porting guide]( https://github.com/Infineon/wifi-connection-manager/blob/master/porting_guide.md ) is available to migrate to Wi-Fi Connection Manager version 3.0.
 
 4. Review the pre-defined configuration files bundled with the wifi-core-freertos-lwip-mbedtls library for FreeRTOS, lwIP, and mbed TLS and make adjustments. See the "Quick start" section in [README.md]( https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls/blob/master/README.md ).
 
-5. Define a set of COMPONENTS in the code example project's Makefile for this library. See the "Quick start" section in [README.md]( https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls/blob/master/README.md ).
+5. Define a set of COMPONENTS in the code example project's Makefile for this library.
+   - For FreeRTOS, lwIP, Mbed TLS combination see the "Quick start" section in [README.md]( https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls/blob/master/README.md )
+   - For ThreadX, NetX Duo, NetX Secure combination see the "Quick start" section in [README.md]( https://github.com/Infineon/wifi-core-threadx-cat5/blob/master/README.md )
 
 6. WPS is disabled by default. WPS uses Mbed TLS security stack. Enable the following components for WPS:
    ```
@@ -125,4 +141,4 @@ If virtual APIs are to be used, it additionally depends on the [Virtual Connecti
 
 - [Wi-Fi Connection Manager version]( ./version.xml )
 
-- [ModusToolbox&trade; any cloud code examples]( https://github.com/Infineon?q=mtb-example-anycloud%20NOT%20Deprecated )
+- [ModusToolbox&trade; code examples]( https://github.com/Infineon/Code-Examples-for-ModusToolbox-Software )

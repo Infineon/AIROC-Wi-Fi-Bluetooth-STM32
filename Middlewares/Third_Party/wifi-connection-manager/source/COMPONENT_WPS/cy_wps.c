@@ -1,5 +1,5 @@
 /*
- * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -147,7 +147,9 @@ static       cy_wps_pbc_probreq_notify_callback_t pbc_probreq_notify_callback;
 static void           cy_wps_thread                    ( cy_thread_arg_t arg );
 static void           cy_wps_whd_scan_result_handler   ( whd_scan_result_t** result_ptr, void* user_data, whd_scan_status_t status );
 static void*          cy_wps_softap_event_handler      ( whd_interface_t interface, const whd_event_header_t* event_header, const uint8_t* event_data, /*@returned@*/ void* handler_user_data );
+#ifdef WCM_ENABLE_WPS_REGISTRAR
 static cy_rslt_t      cy_wps_internal_pbc_overlap_check( const whd_mac_t* mac );
+#endif
 static void           cy_network_process_wps_eapol_data( /*@only@*/ whd_interface_t interface, whd_buffer_t buffer );
 static tlv8_header_t* cy_wps_parse_dot11_tlvs          ( const tlv8_header_t* tlv_buf, uint32_t buflen, dot11_ie_id_t key );
 
@@ -298,11 +300,13 @@ cy_rslt_t cy_wps_start( cy_wps_agent_t* workspace, cy_wps_mode_t mode, const cha
             break;
     }
 
+#ifdef WCM_ENABLE_WPS_REGISTRAR
     if ( ( workspace->agent_type == CY_WPS_REGISTRAR_AGENT ) &&
          ( cy_wps_internal_pbc_overlap_check( NULL ) == CY_RSLT_WPS_PBC_OVERLAP ) && ( mode == CY_WPS_PBC_MODE ) )
     {
         return CY_RSLT_WPS_PBC_OVERLAP;
     }
+#endif
 
     result = cy_wps_internal_init( workspace, (uint32_t) workspace->interface, mode, password, credentials, credential_length );
     if ( result == CY_RSLT_SUCCESS )
@@ -317,6 +321,7 @@ cy_rslt_t cy_wps_start( cy_wps_agent_t* workspace, cy_wps_mode_t mode, const cha
     return result;
 }
 
+#ifdef WCM_ENABLE_P2P
 cy_rslt_t cy_p2p_wps_start( cy_wps_agent_t* workspace )
 {
     cy_rslt_t result;
@@ -333,6 +338,7 @@ cy_rslt_t cy_p2p_wps_start( cy_wps_agent_t* workspace )
 
     return result;
 }
+#endif
 
 cy_rslt_t cy_wps_restart( cy_wps_agent_t* workspace )
 {
@@ -550,6 +556,7 @@ exit:
     return;
 }
 
+#ifdef WCM_ENABLE_WPS_REGISTRAR
 cy_rslt_t cy_wps_set_directed_wps_target( cy_wps_agent_t* workspace, cy_wps_ap_t* ap, uint32_t maximum_join_attempts )
 {
     workspace->directed_wps_max_attempts = maximum_join_attempts;
@@ -566,6 +573,7 @@ static cy_rslt_t cy_wps_internal_pbc_overlap_check( const whd_mac_t* mac )
     }
     return CY_RSLT_SUCCESS;
 }
+#endif
 
 static void cy_wps_thread( cy_thread_arg_t arg )
 {
@@ -734,6 +742,7 @@ static void cy_network_process_wps_eapol_data( /*@only@*/ whd_interface_t interf
     }
 }
 
+#ifdef WCM_ENABLE_WPS_REGISTRAR
 int cy_wps_validate_pin_checksum( const char* str )
 {
     unsigned long int PIN;
@@ -752,6 +761,7 @@ int cy_wps_validate_pin_checksum( const char* str )
 
     return (0 == (accum % 10));
 }
+#endif
 
 
 /******************************************************
@@ -968,6 +978,7 @@ void cy_wps_host_store_credential( void* workspace, cy_wps_internal_credential_t
     }
 }
 
+#ifdef WCM_ENABLE_WPS_REGISTRAR
 void cy_wps_host_retrieve_credential( void* workspace, cy_wps_internal_credential_t* credential )
 {
     cy_wps_workspace_t*  host       = (cy_wps_workspace_t*) workspace;
@@ -1010,6 +1021,7 @@ void cy_wps_host_retrieve_credential( void* workspace, cy_wps_internal_credentia
             break;
     }
 }
+#endif
 
 static void cy_wps_whd_scan_result_handler( whd_scan_result_t** result_ptr, void* user_data, whd_scan_status_t status )
 {
@@ -1242,10 +1254,12 @@ return_without_notify:
     return;
 }
 
+#ifdef WCM_ENABLE_WPS_REGISTRAR
 void wps_register_pbc_probreq_callback( cy_wps_pbc_probreq_notify_callback_t pbc_probreq_callback )
 {
     pbc_probreq_notify_callback = pbc_probreq_callback;
 }
+#endif
 
 void cy_wps_pbc_overlap_array_notify( const whd_mac_t* mac )
 {

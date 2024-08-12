@@ -1,5 +1,5 @@
 /*
-* Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
 *
 * This software, including source code, documentation and related
@@ -116,15 +116,6 @@ Client/Server:\n\
 "      --udp-counters-64bit use 64 bit sequence numbers with UDP\n"
 #endif
 "  -w, --window TCP window size is not supported through run time option, however user can configure the TCP Window size at the build time using the below instructions \n\
-   MBED OS:\n\
-   Update the following configurations in 'mbed_app.json' \n\
-   1. For server, modify/add the below lines to change the TCP window size with pbuf pool size: \n\
-      \"lwip.tcp-wnd\": (TCP_MSS * 20) \n\
-      \"lwip.pbuf-pool-size\": 20 \n\
-   2. For client, modify the below line to change the TCP send buffer size: \n\
-      \"lwip.tcp-snd-buf\": (TCP_MSS * 20) \n\
-      \"lwip.memp-num-tcp-seg\": 127 \n\
-   AnyCloud:\n\
    Update the following configurations in the application's config file (For example, 'mtb-anycloud-wifi-bluetooth-tester/lwipopts.h') \n\
    1. For server, modify/add the below lines to change the TCP window size and pbuf pool size: \n\
       #define TCP_WND (TCP_MSS * 20) \n\
@@ -132,13 +123,6 @@ Client/Server:\n\
    2. For client, modify the below line to change the TCP send buffer size: \n\
       #define TCP_SND_BUF (TCP_MSS * 20) \n\
       #define MEMP_NUM_TCP_SEG 127 \n\
-   Amazon FreeRTOS:\n\
-   Update the following configurations in the application's config file (For example, 'afr-wifi-bluetooth-tester/config_files/lwipopts.h') \n\
-   1. For server, modify the below lines to change the TCP window size and pbuf pool size: \n\
-      #define TCP_WND (TCP_MSS * 20) \n\
-      #define PBUF_POOL_SIZE 20 \n\
-   2. For client, modify the below line to change the TCP send buffer size: \n\
-      #define TCP_SND_BUF (TCP_MSS * 20) \n\
 \n"
 "Server specific:\n\
   -s, --server             run in server mode\n\
@@ -365,7 +349,7 @@ const char report_bw_jitter_loss_header[] =
 
 /* IPERF_MODIFIED Start */
 const char report_bw_jitter_loss_format[] =
-"[%3d] %4.1f-%4.1f sec  %ss  %ss/sec  %6.3f ms %4d/%5d (%.2g%%)\n";
+"[%3d] %4.1f-%4.1f sec  %ss  %ss/sec  %6.3f ms %4ld/%5ld (%.2g%%)\n";
 
 const char report_sum_bw_jitter_loss_format[] =
 "[SUM] %4.1f-%4.1f sec  %ss  %ss/sec  %6.3f ms %4d/%5d (%.2g%%)\n";

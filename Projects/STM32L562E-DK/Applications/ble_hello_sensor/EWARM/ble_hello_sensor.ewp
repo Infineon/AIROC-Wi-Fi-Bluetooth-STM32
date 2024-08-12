@@ -363,33 +363,6 @@
           <state>$PROJ_DIR$/../Middlewares/Third_Party/FreeRTOS/Source/portable/IAR/ARM_CM33_NTZ/non_secure</state>
           <state>$PROJ_DIR$/../Drivers/CMSIS/Device/ST/STM32L5xx/Include</state>
           <state>$PROJ_DIR$/../Drivers/CMSIS/Include</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_43012/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/nvram/COMPONENT_43012/COMPONENT_MURATA-1LV/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_FREERTOS/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_43012</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/include/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/debug/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack/wiced_include/</state>
-          <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack/wiced_include</state>
           <state>$PROJ_DIR$/../Drivers/BSP/Components/mx25lm51245g</state>
           <state>$PROJ_DIR$/../Drivers/BSP/STM32L562E-DK</state>
         </option>
@@ -1281,105 +1254,6 @@
       <file>
         <name>$PROJ_DIR$/../Middlewares/Third_Party/FreeRTOS/Source/portable/IAR/ARM_CM33_NTZ/non_secure/portasm.s</name>
       </file>
-    </group>
-    <group>
-      <name>Connectivity</name>
-      <group>
-        <name>Wireless/Platform/module/MURATA-1LV</name>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0_bin.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0-mfgtest_bin.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV/43012C0-mfgtest_clm_blob.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV/43012C0_clm_blob.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43012/COMPONENT_MURATA-1LV/w_bt_firmware_controller.c</name>
-        </file>
-      </group>
-      <group>
-        <name>Wireless/Platform/pal</name>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Src/cyhal_system.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Src/wifi_bt_if.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_gpio.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_lptimer.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_sdio.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_spi.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_trng.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Src/stm32_cyhal_uart.c</name>
-        </file>
-      </group>
-      <group>
-        <name>Wireless/Platform/abstraction-rtos/FreeRTOS</name>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/cyabs_freertos_helpers.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/cyabs_rtos_freertos.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/cy_worker_thread.c</name>
-        </file>
-      </group>
-      <group>
-        <name>Wireless/Bluetooth/btstack-integration</name>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/freertos/cybt_platform_freertos.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_hci_rx_task.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_hci_tx_task.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_host_stack_platform_interface.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_patchram_download.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_platform_main.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_platform_task.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_platform_trace.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_prm.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/debug/cybt_debug_uart.c</name>
-        </file>
-      </group>
-      <group>
-        <name>Wireless/Bluetooth/btstack/BLE_HARDFP</name>
-        <file>
-          <name>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM33/COMPONENT_HARDFP/TOOLCHAIN_IAR/libbtstack.a</name>
-        </file>
-      </group>
     </group>
   </group>
 </project>

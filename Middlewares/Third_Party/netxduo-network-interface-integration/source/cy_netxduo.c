@@ -1,5 +1,5 @@
 /*
- * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -41,6 +41,7 @@
 #include "cy_log.h"
 #include "cybsp_wifi.h"
 #include "cy_network_buffer.h"
+#include "cy_network_buffer_netxduo.h"
 #include "nx_api.h"
 #include "nx_arp.h"
 #include "nxd_dhcp_client.h"
@@ -58,6 +59,15 @@
 #include "whd_buffer_api.h"
 
 #include "cyhal.h"
+
+#ifdef COMPONENT_CAT5
+#include "whd_hw.h"
+#endif
+
+#if defined (COMPONENT_CAT1)
+#include "cy_crypto_core.h"
+#include "cy_crypto_core_trng_config.h"
+#endif
 
 /******************************************************
  *                    Constants
@@ -90,6 +100,16 @@
 #define ARP_CACHE_CHECK_INTERVAL_IN_MSEC    (5)
 #define ARP_WAIT_TIME_IN_MSEC               (30000)
 
+#ifdef COMPONENT_CAT5
+#define IP_THREAD_PRIORITY                  (11)
+#define DHCP_THREAD_PRIORITY                (12)
+#else
+#define IP_THREAD_PRIORITY                  (2)
+#endif
+
+#if defined(COMPONENT_CAT1)
+#define MAX_TRNG_BIT_SIZE        (32UL)
+#endif
 /******************************************************
  *                      Macros
  ******************************************************/
@@ -131,6 +151,7 @@ static void cy_netxduo_driver_entry(NX_IP_DRIVER *driver, whd_interface_t ifp);
 static bool is_interface_added(cy_network_hw_interface_type_t iface_type);
 static cy_rslt_t is_interface_valid(cy_network_interface_context *iface);
 static bool is_network_up(cy_network_hw_interface_type_t iface_type);
+static bool are_ip_services_enabled(cy_network_hw_interface_type_t iface_type);
 
 static cy_rslt_t dhcp_client_init(cy_network_interface_context *iface, NX_PACKET_POOL *packet_pool);
 static cy_rslt_t dhcp_client_deinit(void);
@@ -144,6 +165,15 @@ static cy_rslt_t dns_client_init(cy_network_interface_context *iface, NX_PACKET_
 static cy_rslt_t dns_client_deinit(void);
 
 static cy_rslt_t cy_netxduo_add_dns_server(cy_network_hw_interface_type_t iface_type, NXD_ADDRESS *dns_server_addr);
+
+static NX_PACKET *cy_buffer_allocate_dynamic_packet(uint16_t payload_size);
+static void       cy_buffer_free_dynamic_packet(NX_PACKET *packet);
+
+#if defined(COMPONENT_CAT1)
+static int cy_trng_release( void );
+static int cy_trng_reserve( void );
+#endif
+
 /******************************************************
  *               Variable Definitions
  ******************************************************/
@@ -184,6 +214,9 @@ whd_interface_t ip_networking_whd_iface[MAX_NW_INTERFACE];
 bool ip_up[MAX_NW_INTERFACE];
 #define SET_IP_UP(interface, status)               (ip_up[(interface)&3] = status)
 
+bool ip_services_enabled[MAX_NW_INTERFACE];
+#define SET_IP_SERVICES_ENABLED(interface, status)  (ip_services_enabled[(interface)&3] = status)
+
 static cy_network_activity_event_callback_t activity_callback;
 static cy_wifimwcore_eapol_packet_handler_t internal_eapol_packet_handler;
 static cy_network_ip_change_callback_t ip_change_callback;
@@ -208,49 +241,161 @@ static char *cy_nxd_arp_cache[MAX_NW_INTERFACE] =
 };
 
 
-#define NUM_PACKET_POOLS 2
-
-#ifndef TX_PACKET_POOL_SIZE
-#define TX_PACKET_POOL_SIZE         (24)
-#endif
-
-#ifndef RX_PACKET_POOL_SIZE
-#define RX_PACKET_POOL_SIZE         (24)
-#endif
-
-#define APP_TX_BUFFER_POOL_SIZE     ((WHD_LINK_MTU + sizeof(NX_PACKET) + 1) * (TX_PACKET_POOL_SIZE))
-#define APP_RX_BUFFER_POOL_SIZE     ((WHD_LINK_MTU + BLOCK_SIZE_ALIGNMENT + sizeof(NX_PACKET) + 1) * (RX_PACKET_POOL_SIZE))
-
 #define TX_PACKET_POOL              (0)
 #define RX_PACKET_POOL              (1)
 
-static NX_PACKET_POOL whd_packet_pools[NUM_PACKET_POOLS];  /* 0=TX/COM, 1=RX/Default */
+#define NUM_PACKET_POOLS            (2)
+
+#ifndef TX_PACKET_POOL_SIZE
+#ifdef COMPONENT_CAT5
+#define TX_PACKET_POOL_SIZE         (16)
+#else
+#define TX_PACKET_POOL_SIZE         (24)
+#endif
+#endif
+
+#ifndef RX_PACKET_POOL_SIZE
+#ifdef COMPONENT_CAT5
+#define RX_PACKET_POOL_SIZE         (16)
+#else
+#define RX_PACKET_POOL_SIZE         (24)
+#endif
+#endif
+
+#ifdef COMPONENT_CAT5
+
+#define TX_BUFFER_PAYLOAD_SIZE      (WHD_LINK_MTU + 20)
+/* Note: Additional 20 bytes buffer is to ensure that all size payloads which gives rise to a network packet of size less than MTU(network stack MTU: payload + headers) can be accommodated into a single buffer to avoid packet chaining.
+ * Packet sizes greater than MTU will be fragmented before sending out.
+ * Ref: SWWLAN-147146
+ */
+#define RX_BUFFER_PAYLOAD_SIZE      (WHD_MSGBUF_DATA_MAX_RX_SIZE + sizeof(whd_buffer_header_t))
+
+/*
+ * Make sure the total size of each packet and payload is rounded up to a four byte boundary.
+ */
+#define APP_TX_BUFFER_POOL_SIZE     (((TX_BUFFER_PAYLOAD_SIZE + sizeof(NX_PACKET) + 0x03) & ~(0x03)) * (TX_PACKET_POOL_SIZE))
+#define APP_RX_BUFFER_POOL_SIZE     (((RX_BUFFER_PAYLOAD_SIZE + sizeof(NX_PACKET) + 0x03) & ~(0x03)) * (RX_PACKET_POOL_SIZE))
+
+#ifndef NUM_IOCTL_PACKETS
+#define NUM_IOCTL_PACKETS           (3)
+#endif
+
+#define IOCTL_BUFFER_SIZE           ((WLC_IOCTL_MAXLEN + sizeof(NX_PACKET) + 0x03) & ~(0x03))
+#define APP_IOCTL_BUFFER_POOL_SIZE  (IOCTL_BUFFER_SIZE * NUM_IOCTL_PACKETS)
+
+#define PACKET_POOL_REGION_INDEX    (1)
+
+static void *tx_buffer_pool_memory;
+static void *rx_buffer_pool_memory;
+static void *ioctl_buffer_memory;
+static NX_PACKET *ioctl_packets[NUM_IOCTL_PACKETS];
+static bool ioctl_packet_in_use[NUM_IOCTL_PACKETS];
+
+static void *allocated_buffer_pool_memory;
+
+#else /* COMPONENT_CAT5 */
+
+#define TX_BUFFER_PAYLOAD_SIZE      (WHD_LINK_MTU)
+#define RX_BUFFER_PAYLOAD_SIZE      (WHD_LINK_MTU + BLOCK_SIZE_ALIGNMENT)
+
+/*
+ * Make sure the total size of each packet and payload is rounded up to a four byte boundary.
+ */
+#define APP_TX_BUFFER_POOL_SIZE     (((TX_BUFFER_PAYLOAD_SIZE + sizeof(NX_PACKET) + 0x03) & ~(0x03)) * (TX_PACKET_POOL_SIZE))
+#define APP_RX_BUFFER_POOL_SIZE     (((RX_BUFFER_PAYLOAD_SIZE + sizeof(NX_PACKET) + 0x03) & ~(0x03)) * (RX_PACKET_POOL_SIZE))
+
 static ULONG tx_buffer_pool_memory[ULONG_BUFFER_ROUNDUP(APP_TX_BUFFER_POOL_SIZE)];
 static ULONG rx_buffer_pool_memory[ULONG_BUFFER_ROUNDUP(APP_RX_BUFFER_POOL_SIZE)];
+#endif /* COMPONENT_CAT5 */
 
+static NX_PACKET_POOL whd_packet_pools[NUM_PACKET_POOLS];  /* 0=TX/COM, 1=RX/Default */
+
+#if defined(COMPONENT_CAT1)
+/** mutex to protect trng count */
+static cy_mutex_t trng_mutex;
+#endif
 /******************************************************
  *               Function Definitions
  ******************************************************/
 cy_rslt_t cy_network_init(void)
 {
+#ifdef COMPONENT_CAT5
+    uint32_t memory_size;
+    BOOL32 result;
+    int i;
+#endif
+
     wm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "cy_network_init\n");
 
     // Initialize NetXDuo.
     nx_system_initialize();
 
+#if defined(COMPONENT_CAT1)
+    if( cy_rtos_init_mutex(&trng_mutex) != CY_RSLT_SUCCESS )
+    {
+        return CY_RSLT_NETWORK_ERROR_TRNG;
+    }
+#endif
+
+#ifdef COMPONENT_CAT5
+    if (allocated_buffer_pool_memory == NULL)
+    {
+        /*
+         * Allocate the memory for the packet pools.
+         */
+
+        memory_size = APP_TX_BUFFER_POOL_SIZE + APP_RX_BUFFER_POOL_SIZE + APP_IOCTL_BUFFER_POOL_SIZE + (sizeof(uint32_t) * 3);
+        allocated_buffer_pool_memory = whd_hw_allocatePermanentApi(memory_size);
+        if (allocated_buffer_pool_memory == NULL)
+        {
+            wm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "whd_hw_allocatePermanentApi fail\n");
+            return CY_RSLT_TCPIP_ERROR;
+        }
+
+        /*
+         * Map the memory region for WLAN to use.
+         */
+
+        result = whd_hw_openDeviceAccessApi(WHD_HW_DEVICE_WLAN, allocated_buffer_pool_memory, memory_size, PACKET_POOL_REGION_INDEX);
+        if (!result)
+        {
+            return CY_RSLT_TCPIP_ERROR;
+        }
+
+        /*
+         * Set up the regions for the packet pools. Make sure the address is aligned on a 4 byte boundary.
+         */
+
+        tx_buffer_pool_memory   = (void*)(((uint32_t)allocated_buffer_pool_memory + 0x03) & ~(0x03));
+        rx_buffer_pool_memory   = (void*)(((uint32_t)tx_buffer_pool_memory + APP_TX_BUFFER_POOL_SIZE + 0x03) & ~(0x03));
+        ioctl_buffer_memory     = (void*)(((uint32_t)rx_buffer_pool_memory + APP_RX_BUFFER_POOL_SIZE + 0x03) & ~(0x03));
+
+        /*
+         * Set up the pointers for the IOCTL packets.
+         */
+
+        for (i = 0; i < NUM_IOCTL_PACKETS; i++)
+        {
+            ioctl_packets[i] = (NX_PACKET*)(((uint32_t)ioctl_buffer_memory + (i * IOCTL_BUFFER_SIZE) + 0x03) & ~(0x03));
+        }
+    }
+#endif
+
     /*
      * Create the TX and RX packet pools.
-     * Do we need to worry about aligning the memory for better performance?
      */
 
-    if ((nx_packet_pool_create(&whd_packet_pools[TX_PACKET_POOL], "", WHD_LINK_MTU, tx_buffer_pool_memory, sizeof(tx_buffer_pool_memory))  != NX_SUCCESS) ||
-        (nx_packet_pool_create(&whd_packet_pools[RX_PACKET_POOL], "", WHD_LINK_MTU+BLOCK_SIZE_ALIGNMENT, rx_buffer_pool_memory, sizeof(rx_buffer_pool_memory))  != NX_SUCCESS))
+    if ((nx_packet_pool_create(&whd_packet_pools[TX_PACKET_POOL], "", TX_BUFFER_PAYLOAD_SIZE, tx_buffer_pool_memory, APP_TX_BUFFER_POOL_SIZE) != NX_SUCCESS) ||
+        (nx_packet_pool_create(&whd_packet_pools[RX_PACKET_POOL], "", RX_BUFFER_PAYLOAD_SIZE, rx_buffer_pool_memory, APP_RX_BUFFER_POOL_SIZE) != NX_SUCCESS))
     {
         wm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "TX/RX pkt pool fail\n");
         return CY_RSLT_TCPIP_ERROR;
     }
 
     cy_buffer_pool_init(&whd_packet_pools[TX_PACKET_POOL], &whd_packet_pools[RX_PACKET_POOL]);
+    cy_buffer_enable_dynamic_buffers(cy_buffer_allocate_dynamic_packet, cy_buffer_free_dynamic_packet);
+
     return CY_RSLT_SUCCESS;
 }
 
@@ -303,12 +448,6 @@ void cy_network_process_ethernet_data(whd_interface_t interface, whd_buffer_t bu
         }
     }
 
-    if (net_interface == NULL || net_interface->nx_ip_id != NX_IP_ID)
-    {
-        cy_buffer_release(buffer, WHD_NETWORK_RX);
-        return;
-    }
-
     ethertype = (uint16_t)(data[12] << 8 | data[13]);
     if (ethertype == EAPOL_PACKET_TYPE)
     {
@@ -323,6 +462,12 @@ void cy_network_process_ethernet_data(whd_interface_t interface, whd_buffer_t bu
     }
     else
     {
+        if (net_interface == NULL || net_interface->nx_ip_id != NX_IP_ID)
+        {
+            cy_buffer_release(buffer, WHD_NETWORK_RX);
+            return;
+        }
+
         /* Call activity handler which is registered with argument as false
          * indicating there is RX packet
          */
@@ -334,6 +479,22 @@ void cy_network_process_ethernet_data(whd_interface_t interface, whd_buffer_t bu
         /* Remove the ethernet header, so packet is ready for reading by NetXDuo */
         packet_ptr->nx_packet_prepend_ptr = packet_ptr->nx_packet_prepend_ptr + WHD_ETHERNET_SIZE;
         packet_ptr->nx_packet_length      = packet_ptr->nx_packet_length - WHD_ETHERNET_SIZE;
+
+#ifdef COMPONENT_CAT5
+        if ((uint32_t)packet_ptr->nx_packet_prepend_ptr & 0x03)
+        {
+            /*
+             * Packets from WLAN FW can be received where the IP header
+             * does not start on a 4 byte boundary. This is a temporary
+             * workaround until SWWLAN-146769 is addressed.
+             */
+            UCHAR *ptr = &packet_ptr->nx_packet_data_start[20];
+
+            memmove(ptr, packet_ptr->nx_packet_prepend_ptr, packet_ptr->nx_packet_length);
+            packet_ptr->nx_packet_prepend_ptr = ptr;
+            packet_ptr->nx_packet_append_ptr  = (UCHAR*)((uint32_t)packet_ptr->nx_packet_prepend_ptr + packet_ptr->nx_packet_length);
+        }
+#endif
 
         if ((ethertype == IPv4_PACKET_TYPE) || ethertype == IPv6_PACKET_TYPE)
         {
@@ -451,7 +612,10 @@ static void cy_netxduo_driver_entry(NX_IP_DRIVER *driver, whd_interface_t ifp)
             {
                 driver->nx_ip_driver_status = (UINT) NX_NOT_SUCCESSFUL;
             }
-            driver->nx_ip_driver_status = (UINT) NX_SUCCESS;
+            else
+            {
+                driver->nx_ip_driver_status = (UINT) NX_SUCCESS;
+            }
             break;
 
         case NX_LINK_MULTICAST_LEAVE:
@@ -461,7 +625,10 @@ static void cy_netxduo_driver_entry(NX_IP_DRIVER *driver, whd_interface_t ifp)
             {
                 driver->nx_ip_driver_status = (UINT) NX_NOT_SUCCESSFUL;
             }
-            driver->nx_ip_driver_status = (UINT) NX_SUCCESS;
+            else
+            {
+                driver->nx_ip_driver_status = (UINT) NX_SUCCESS;
+            }
             break;
 
         case NX_LINK_GET_STATUS:
@@ -634,7 +801,7 @@ cy_rslt_t cy_network_add_nw_interface(cy_network_hw_interface_type_t iface_type,
     }
     status = nx_ip_create(IP_HANDLE(iface_type), (char*)"NetXDuo IP", ip_addr, netmask,
                           &whd_packet_pools[TX_PACKET_POOL], DRIVER_FOR_IF(iface_type),
-                          STACK_FOR_IF(iface_type), IP_STACK_SIZE, 2);
+                          STACK_FOR_IF(iface_type), IP_STACK_SIZE, IP_THREAD_PRIORITY);
 
     if (status != NX_SUCCESS)
     {
@@ -703,6 +870,7 @@ cy_rslt_t cy_network_remove_nw_interface(cy_network_interface_context *iface_con
             return CY_RSLT_NETWORK_ERROR_REMOVING_INTERFACE;
         }
         memset(ip_ptr, 0, sizeof(NX_IP));
+        SET_IP_SERVICES_ENABLED(iface_context->iface_type, false);
     }
 
     if (iface_context->iface_type == CY_NETWORK_WIFI_STA_INTERFACE)
@@ -827,58 +995,45 @@ cy_rslt_t cy_network_ip_up(cy_network_interface_context *iface_context)
         return CY_RSLT_SUCCESS;
     }
 
-    if ((res = nx_arp_enable(IP_HANDLE(iface_context->iface_type), ARP_FOR_IF(iface_context->iface_type), ARP_CACHE_SIZE)) != NX_SUCCESS)
+    if (!are_ip_services_enabled(iface_context->iface_type))
     {
-        if (NX_ALREADY_ENABLED != res)
+        if ((res = nx_arp_enable(IP_HANDLE(iface_context->iface_type), ARP_FOR_IF(iface_context->iface_type), ARP_CACHE_SIZE)) != NX_SUCCESS)
         {
             wm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "error enable arp: %d\n", res);
             return CY_RSLT_TCPIP_ERROR;
         }
-    }
 
-    if ((res = nx_tcp_enable(IP_HANDLE(iface_context->iface_type))) != NX_SUCCESS)
-    {
-        if (NX_ALREADY_ENABLED != res)
+        if ((res = nx_tcp_enable(IP_HANDLE(iface_context->iface_type))) != NX_SUCCESS)
         {
             wm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "error enable tcp: %d\n", res);
             return CY_RSLT_TCPIP_ERROR;
         }
-    }
 
-    if ((res = nx_udp_enable(IP_HANDLE(iface_context->iface_type))) != NX_SUCCESS)
-    {
-        if (NX_ALREADY_ENABLED != res)
+        if ((res = nx_udp_enable(IP_HANDLE(iface_context->iface_type))) != NX_SUCCESS)
         {
             wm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "error enable udp: %d\n", res);
             return CY_RSLT_TCPIP_ERROR;
         }
-    }
 
-    if ((res = nxd_icmp_enable(IP_HANDLE(iface_context->iface_type))) != NX_SUCCESS)
-    {
-        if (NX_ALREADY_ENABLED != res)
+        if ((res = nxd_icmp_enable(IP_HANDLE(iface_context->iface_type))) != NX_SUCCESS)
         {
             wm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "error enable icmp: %d\n", res);
             return CY_RSLT_TCPIP_ERROR;
         }
-    }
 
-    if ((res = nx_igmp_enable(IP_HANDLE(iface_context->iface_type))) != NX_SUCCESS)
-    {
-        if (NX_ALREADY_ENABLED != res)
+        if ((res = nx_igmp_enable(IP_HANDLE(iface_context->iface_type))) != NX_SUCCESS)
         {
             wm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "error enable igmp: %d\n", res);
             return CY_RSLT_TCPIP_ERROR;
         }
-    }
 
-    if ((res = nx_ip_fragment_enable(IP_HANDLE(iface_context->iface_type))) != NX_SUCCESS)
-    {
-        if (NX_ALREADY_ENABLED != res)
+        if ((res = nx_ip_fragment_enable(IP_HANDLE(iface_context->iface_type))) != NX_SUCCESS)
         {
             wm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "error enable ip frag: %d\n", res);
             return CY_RSLT_TCPIP_ERROR;
         }
+
+        SET_IP_SERVICES_ENABLED(iface_context->iface_type, true);
     }
 
 #ifndef NX_DISABLE_IPV6
@@ -958,14 +1113,14 @@ cy_rslt_t cy_network_ip_up(cy_network_interface_context *iface_context)
     }
 #endif
 
-    if (iface_context->iface_type == CY_NETWORK_WIFI_STA_INTERFACE)
+    if (iface_context->iface_type == CY_NETWORK_WIFI_STA_INTERFACE && wifi_sta_dhcp_needed)
     {
         /*
          * Start the DNS client.
          */
 
         res = dns_client_init(iface_context, whd_packet_pools);
-        if (res == NX_SUCCESS && wifi_sta_dhcp_needed)
+        if (res == NX_SUCCESS)
         {
             NXD_ADDRESS addr;
             ULONG dns_ip[3];
@@ -1074,6 +1229,24 @@ cy_rslt_t cy_network_activity_notify(cy_network_activity_type_t activity_type)
 }
 
 #ifndef NX_DISABLE_IPV4
+
+void *cy_network_get_dhcp_handle(cy_network_hw_interface_type_t iface_type, uint8_t iface_idx)
+{
+    if ((iface_type != CY_NETWORK_WIFI_STA_INTERFACE) && (iface_type != CY_NETWORK_WIFI_AP_INTERFACE))
+    {
+        return NULL;
+    }
+    if (!is_interface_added(iface_type))
+    {
+        return NULL;
+    }
+    if(wifi_sta_dhcp_needed == false)
+    {
+        return NULL;
+    }
+    return (&wifi_sta_dhcp_handle);
+}
+
 cy_rslt_t cy_network_dhcp_renew(cy_network_interface_context *iface_context)
 {
     NX_DHCP *dhcp_handle = &wifi_sta_dhcp_handle;
@@ -1132,6 +1305,11 @@ static bool is_network_up(cy_network_hw_interface_type_t iface_type)
     return (ip_up[iface_type & 3]);
 }
 
+static bool are_ip_services_enabled(cy_network_hw_interface_type_t iface_type)
+{
+    return (ip_services_enabled[iface_type & 3]);
+}
+
 static cy_rslt_t is_interface_valid(cy_network_interface_context *iface)
 {
     if ((iface == NULL) || iface->is_initialized == false)
@@ -1161,7 +1339,11 @@ static cy_rslt_t dhcp_client_init(cy_network_interface_context *iface, NX_PACKET
     }
 
     /* Create the DHCP instance. */
+#ifdef COMPONENT_CAT5
+    res = nx_dhcp_create(dhcp_handle, ip_handle, "CY WHD", DHCP_THREAD_PRIORITY);
+#else
     res = nx_dhcp_create(dhcp_handle, ip_handle, "CY WHD");
+#endif
     if (res != NX_SUCCESS)
     {
         wm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "dhcp_create: 0x%02x\n", res);
@@ -1301,7 +1483,11 @@ static cy_rslt_t dhcp_server_init(cy_network_interface_context *iface, NX_PACKET
         activity_callback(true);
     }
     /* Create the DHCP Server.  */
+#ifdef COMPONENT_CAT5
+    res = nx_dhcp_server_create(dhcp_handle, ip_handle, wifi_ap_dhcp_stack, NX_DHCP_SERVER_THREAD_STACK_SIZE, "CY DHCP Server", packet_pool, DHCP_THREAD_PRIORITY);
+#else
     res = nx_dhcp_server_create(dhcp_handle, ip_handle, wifi_ap_dhcp_stack, NX_DHCP_SERVER_THREAD_STACK_SIZE, "CY DHCP Server", packet_pool);
+#endif
 
     /* Check for errors creating the DHCP Server. */
     if (res != NX_SUCCESS)
@@ -2021,6 +2207,7 @@ cy_rslt_t cy_network_ping(cy_network_interface_context *iface_context, cy_nw_ip_
     UINT err;
     NX_IP *net_interface;
     NX_PACKET *response_ptr;
+    ULONG timeout_ticks;
 
     if((address == NULL) || (elapsed_time_ms == NULL))
     {
@@ -2050,8 +2237,11 @@ cy_rslt_t cy_network_ping(cy_network_interface_context *iface_context, cy_nw_ip_
         activity_callback(true);
     }
 
+    /* Convert milliseconds to timer ticks */
+    timeout_ticks = NX_TIMEOUT(timeout_ms);
+
     /* Send the ping */
-    err = nx_icmp_ping(net_interface, ntohl(address->ip.v4), "abcd", 4, &response_ptr, timeout_ms);
+    err = nx_icmp_ping(net_interface, ntohl(address->ip.v4), "abcd", 4, &response_ptr, timeout_ticks);
     if (err != NX_SUCCESS)
     {
         return CY_RSLT_NETWORK_PING_FAILURE;
@@ -2084,37 +2274,81 @@ cy_rslt_t cy_network_ping(cy_network_interface_context *iface_context, cy_nw_ip_
 }
 cy_rslt_t cy_network_deinit(void)
 {
+#ifdef COMPONENT_CAT1
+    cy_rtos_deinit_mutex(&trng_mutex);
+#endif
     return CY_RSLT_SUCCESS;
 }
 
-#ifdef COMPONENT_CAT1
-static int trng_get_bytes(cyhal_trng_t *obj, uint8_t *output, size_t length, size_t *output_length)
+#if defined(COMPONENT_CAT1)
+static int cy_trng_release()
 {
-    uint32_t offset = 0;
-    /* If output is not word-aligned, write partial word */
-    uint32_t prealign = (uint32_t)((uintptr_t)output % sizeof(uint32_t));
-    if(prealign != 0)
+    if (Cy_Crypto_Core_IsEnabled(CRYPTO))
     {
-        uint32_t value = cyhal_trng_generate(obj);
-        uint32_t count = sizeof(uint32_t) - prealign;
-        memmove(&output[0], &value, count);
-        offset += count;
+        Cy_Crypto_Core_Disable(CRYPTO);
     }
-    /* Write aligned full words */
-    for(; offset < length - (sizeof(uint32_t) - 1u); offset += sizeof(uint32_t))
-    {
-        *(uint32_t *)(&output[offset]) = cyhal_trng_generate(obj);
-    }
-    /* Write partial trailing word if requested */
-    if(offset < length)
-    {
-        uint32_t value = cyhal_trng_generate(obj);
-        uint32_t count = length - offset;
-        memmove(&output[offset], &value, count);
-        offset += count;
-    }
-    *output_length = offset;
     return 0;
+}
+static int cy_trng_reserve()
+{
+    cy_en_crypto_status_t crypto_status;
+
+    crypto_status = Cy_Crypto_Core_Enable(CRYPTO);
+    if(crypto_status != CY_CRYPTO_SUCCESS)
+    {
+        cy_rtos_set_mutex(&trng_mutex);
+        cy_rtos_deinit_mutex(&trng_mutex);
+        return CY_RSLT_NETWORK_ERROR_TRNG;
+    }
+    return 0;
+}
+
+cy_rslt_t cy_network_random_number_generate( unsigned char *output, size_t len, size_t *olen )
+{
+    cy_rslt_t result = CY_RSLT_SUCCESS;
+
+    *olen = 0;
+    /* temporary random data buffer */
+    uint32_t random = 0u;
+
+    result = cy_rtos_get_mutex(&trng_mutex, CY_RTOS_NEVER_TIMEOUT);
+    if(CY_RSLT_SUCCESS != result)
+    {
+        cy_rtos_deinit_mutex(&trng_mutex);
+        return CY_RSLT_NETWORK_ERROR_TRNG;
+    }
+
+    if(cy_trng_reserve() != 0)
+    {
+        return CY_RSLT_NETWORK_ERROR_TRNG;
+    }
+
+    /* Get Random byte */
+    while (*olen < len)
+    {
+        if ( Cy_Crypto_Core_Trng(CRYPTO, CY_CRYPTO_DEF_TR_GARO, CY_CRYPTO_DEF_TR_FIRO,
+                                             MAX_TRNG_BIT_SIZE, &random) != CY_CRYPTO_SUCCESS)
+        {
+            return CY_RSLT_NETWORK_ERROR_TRNG;
+        }
+        else
+        {
+            for (uint8_t i = 0; (i < 4) && (*olen < len) ; i++)
+            {
+                *output++ = ((uint8_t *)&random)[i];
+                *olen += 1;
+            }
+        }
+    }
+    random = 0uL;
+
+    Cy_Crypto_Core_Trng_DeInit(CRYPTO);
+    if(cy_trng_release() != 0)
+    {
+        return CY_RSLT_NETWORK_ERROR_TRNG;
+    }
+    cy_rtos_set_mutex(&trng_mutex);
+    return result;
 }
 
 /* True random number function for NetXDuo.
@@ -2122,16 +2356,148 @@ static int trng_get_bytes(cyhal_trng_t *obj, uint8_t *output, size_t length, siz
  */
 UINT cy_rand( void )
 {
-    cyhal_trng_t obj;
     UINT output;
     size_t olen;
 
-    cyhal_trng_init(&obj);
-
-    trng_get_bytes(&obj, (uint8_t *)&output, sizeof(UINT), &olen);
-
-    cyhal_trng_free(&obj);
-
+    if (cy_network_random_number_generate( (unsigned char *)&output, sizeof(UINT), &olen ) != CY_RSLT_SUCCESS )
+    {
+        return 0;
+    }
     return output;
 }
 #endif
+
+//--------------------------------------------------------------------------------------------------
+// cy_buffer_allocate_dynamic_packet
+//--------------------------------------------------------------------------------------------------
+static NX_PACKET *cy_buffer_allocate_dynamic_packet(uint16_t payload_size)
+{
+    NX_PACKET *packet;
+    ULONG header_size;
+#ifdef COMPONENT_CAT5
+    int i;
+#endif
+
+    /*
+     * Allocate a dynamic packet to satisfy a request for a payload size that is larger than
+     * the size in the packet pool.
+     *
+     * NOTE: This API is only used for WHD communications to support IOVARS with payloads
+     * larger than WHD_LINK_MTU. The nx_packet_pool_owner pointer in the packet is left
+     * as NULL. When the packet is released in cy_buffer_release, the NULL nx_packet_pool_owner
+     * pointer will trigger a call to cy_buffer_free_dynamic_packet rather than trying to release
+     * the packet back to the packet pool.
+     *
+     * Packets allocated via this API should never be passed to the IP stack as they
+     * can not be released properly by the stack since they do not belong to a packet pool.
+     */
+
+#ifdef COMPONENT_CAT5
+    if (payload_size > WLC_IOCTL_MAXLEN)
+    {
+        return NULL;
+    }
+
+    /*
+     * Do we have a free buffer?
+     */
+
+    for (i = 0; i < NUM_IOCTL_PACKETS; i++)
+    {
+        if (!ioctl_packet_in_use[i])
+        {
+            break;
+        }
+    }
+
+    if (i == NUM_IOCTL_PACKETS)
+    {
+        return NULL;
+    }
+
+    memset(ioctl_packets[i], 0, IOCTL_BUFFER_SIZE);
+    packet = ioctl_packets[i];
+    ioctl_packet_in_use[i] = true;
+#else
+    packet = calloc(1, (payload_size + BLOCK_SIZE_ALIGNMENT + sizeof(NX_PACKET)));
+#endif
+
+    if (packet)
+    {
+        /*
+         * Initialize the packet structure elements that are needed for use.
+         */
+
+        header_size =
+            (ULONG)(((sizeof(NX_PACKET) + NX_PACKET_ALIGNMENT - 1) / NX_PACKET_ALIGNMENT) *
+                    NX_PACKET_ALIGNMENT);
+        packet->nx_packet_data_start  = (UCHAR*)((uint32_t)packet + header_size);
+        packet->nx_packet_data_end    = (UCHAR*)((uint32_t)packet + header_size + payload_size);
+        packet->nx_packet_prepend_ptr = packet->nx_packet_data_start;
+        packet->nx_packet_append_ptr  =
+            (UCHAR*)((uint32_t)packet->nx_packet_prepend_ptr + payload_size);
+        packet->nx_packet_length      = payload_size;
+    }
+
+    return packet;
+}
+
+
+//--------------------------------------------------------------------------------------------------
+// cy_buffer_free_dynamic_packet
+//--------------------------------------------------------------------------------------------------
+static void cy_buffer_free_dynamic_packet(NX_PACKET *packet)
+{
+    if (packet != NULL)
+    {
+#ifdef COMPONENT_CAT5
+        int i;
+
+        for (i = 0; i < NUM_IOCTL_PACKETS; i++)
+        {
+            if (ioctl_packets[i] == packet)
+            {
+                ioctl_packet_in_use[i] = false;
+                break;
+            }
+        }
+#else
+        free(packet);
+#endif
+    }
+}
+
+//--------------------------------------------------------------------------------------------------
+// cy_network_get_pool_info is used to get the pool information based on packet direction.
+//--------------------------------------------------------------------------------------------------
+void cy_network_get_packet_pool_info(cy_network_packet_dir_t direction, cy_network_packet_pool_info_t *pool_info)
+{
+    NX_PACKET_POOL *pool;
+    UINT status;
+
+    if(direction == CY_NETWORK_PACKET_TX)
+    {
+        pool = &whd_packet_pools[TX_PACKET_POOL];
+    }
+    else if(direction == CY_NETWORK_PACKET_RX)
+    {
+        pool = &whd_packet_pools[RX_PACKET_POOL];
+    }
+    else
+    {
+        wm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "BAD arguments \r\n");
+        return;
+    }
+
+    status = nx_packet_pool_info_get(pool, &(pool_info->total_packets),
+                                           &(pool_info->free_packets),
+                                           &(pool_info->empty_pool_requests),
+                                           &(pool_info->empty_pool_suspensions),
+                                           &(pool_info->invalid_packet_releases));
+    if (status != NX_SUCCESS)
+    {
+        wm_cy_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Unable to get packet pool information: 0x%02x\n", status);
+    }
+
+    return;
+}

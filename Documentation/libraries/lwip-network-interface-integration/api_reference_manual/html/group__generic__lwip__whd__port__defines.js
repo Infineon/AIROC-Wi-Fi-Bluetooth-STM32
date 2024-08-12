@@ -22,5 +22,6 @@ var group__generic__lwip__whd__port__defines =
     [ "CY_RSLT_NETWORK_ERROR_NOMEM", "group__generic__lwip__whd__port__defines.html#ga1f0322ffd345df3120842c6d78c0f229", null ],
     [ "CY_RSLT_NETWORK_ERROR_RTOS", "group__generic__lwip__whd__port__defines.html#ga0c5b724f4d242fd2f465ba00cee17fa4", null ],
     [ "CY_RSLT_NETWORK_NOT_SUPPORTED", "group__generic__lwip__whd__port__defines.html#ga1ae343f44b7540a45f3680ba6d1a7226", null ],
-    [ "CY_RSLT_NETWORK_LINK_NOT_UP", "group__generic__lwip__whd__port__defines.html#gadd0ef95e5fb952dd62156060eaf25d2e", null ]
+    [ "CY_RSLT_NETWORK_LINK_NOT_UP", "group__generic__lwip__whd__port__defines.html#gadd0ef95e5fb952dd62156060eaf25d2e", null ],
+    [ "CY_RSLT_NETWORK_ERROR_TRNG", "group__generic__lwip__whd__port__defines.html#gac6ccfbb53bcd02d7017e9de24c3e0856", null ]
 ];

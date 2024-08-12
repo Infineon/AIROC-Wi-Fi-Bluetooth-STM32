@@ -1,5 +1,5 @@
 /*
- * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -74,6 +74,10 @@ extern bool is_wcm_initalized;
 static cy_rslt_t convert_result_type( cy_rslt_t wps_result );
 static int       cy_wps_compute_pin_checksum      (unsigned long int PIN);
 static cy_wps_mode_t wcm_wps_to_wps( cy_wcm_wps_mode_t mode );
+/******************************************************
+ *               Extern Functions
+ ******************************************************/
+extern cy_wcm_security_t whd_to_wcm_security(whd_security_t sec);
 /******************************************************
  *               Function Definitions
  ******************************************************/
@@ -178,23 +182,32 @@ static cy_wps_mode_t wcm_wps_to_wps(cy_wcm_wps_mode_t mode)
 cy_rslt_t cy_wcm_wps_enrollee(cy_wcm_wps_config_t* wps_config, const cy_wcm_wps_device_detail_t *details, cy_wcm_wps_credential_t *credentials, uint16_t *credential_count)
 {
     cy_rslt_t result;
-    cy_wps_agent_t *workspace = (cy_wps_agent_t*) cy_wps_calloc("wps", 1, sizeof(cy_wps_agent_t));
+    cy_wps_agent_t *workspace;
+    cy_wps_credential_t* wps_credentials;
 
     if( !is_wcm_initalized )
     {
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "WCM is not initialized, to initialize call cy_wcm_init() \n");
-        free(workspace);
         return CY_RSLT_WCM_NOT_INITIALIZED;
     }
 
+    workspace = (cy_wps_agent_t*) cy_wps_calloc("wps", 1, sizeof(cy_wps_agent_t));
     if ( workspace == NULL )
     {
         return CY_RSLT_WCM_OUT_OF_MEMORY;
     }
 
+    wps_credentials = (cy_wps_credential_t*)cy_wps_calloc("wps_creds", (*credential_count), sizeof(cy_wps_credential_t));
+    if(wps_credentials == NULL)
+    {
+    	free(workspace);
+    	return CY_RSLT_WCM_OUT_OF_MEMORY;
+    }
+
     if( cy_wcm_is_connected_to_ap() )
     {
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_INFO, "Currently connected to an AP, disconnect from the current AP before trying to connect using WPS \n");
+        free(wps_credentials);
         free(workspace);
         return CY_RSLT_WCM_WPS_FAILED;
     }
@@ -205,7 +218,7 @@ cy_rslt_t cy_wcm_wps_enrollee(cy_wcm_wps_config_t* wps_config, const cy_wcm_wps_
         goto convert_result_type;
     }
 
-    result = cy_wps_start( workspace, wcm_wps_to_wps(wps_config->mode), wps_config->password, (cy_wps_credential_t*) credentials, credential_count );
+    result = cy_wps_start( workspace, wcm_wps_to_wps(wps_config->mode), wps_config->password, wps_credentials, credential_count );
     if( result != CY_RSLT_SUCCESS )
     {
         goto convert_result_type;
@@ -216,6 +229,11 @@ cy_rslt_t cy_wcm_wps_enrollee(cy_wcm_wps_config_t* wps_config, const cy_wcm_wps_
         goto convert_result_type;
     }
 
+    memset(credentials->ssid, 0, sizeof(credentials->ssid));
+    memset(credentials->passphrase, 0, sizeof(credentials->passphrase));
+    memcpy(credentials->ssid, wps_credentials->ssid, sizeof(wps_credentials->ssid));
+    memcpy(credentials->passphrase, wps_credentials->passphrase, sizeof(wps_credentials->passphrase));
+    credentials->security = whd_to_wcm_security(wps_credentials->security);
     result = cy_wps_get_result( workspace );
 
 convert_result_type:
@@ -233,7 +251,9 @@ convert_result_type:
         }
     }
     cy_wps_deinit( workspace );
+    free(wps_credentials);
     free( workspace );
+    wps_credentials = NULL;
     workspace = NULL;
 
     return convert_result_type( result );

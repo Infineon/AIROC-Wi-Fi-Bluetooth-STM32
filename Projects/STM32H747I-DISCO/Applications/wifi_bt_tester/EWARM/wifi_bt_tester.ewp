@@ -70,11 +70,11 @@
                 </option>
                 <option>
                     <name>OGLastSavedByProductVersion</name>
-                    <state>9.30.1.50052</state>
+                    <state>8.50.1.24770</state>
                 </option>
                 <option>
                     <name>OGChipSelectEditMenu</name>
-                    <state>STM32H747XI_M4	ST STM32H747XI_M4</state>
+                    <state>STM32H747XI_CM4	ST STM32H747XI_CM4</state>
                 </option>
                 <option>
                     <name>GenLowLevelInterface</name>
@@ -120,12 +120,12 @@
                 </option>
                 <option>
                     <name>GFPUDeviceSlave</name>
-                    <state>STM32H747XI_M4	ST STM32H747XI_M4</state>
+                    <state></state>
                 </option>
                 <option>
                     <name>FPU2</name>
                     <version>0</version>
-                    <state>4</state>
+                    <state>6</state>
                 </option>
                 <option>
                     <name>NrRegs</name>
@@ -180,7 +180,7 @@
                 </option>
                 <option>
                     <name>DSPExtension</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>TrustZone</name>
@@ -597,7 +597,7 @@
                 </option>
                 <option>
                     <name>AOutputFile</name>
-                    <state>$FILE_BNAME$.o</state>
+                    <state></state>
                 </option>
                 <option>
                     <name>ALimitErrorsCheck</name>
@@ -1143,7 +1143,7 @@
                 </option>
                 <option>
                     <name>RTDescription</name>
-                    <state>Use the full configuration of the C/C++ runtime library. Full locale interface, C locale, file descriptor support, multibytes in printf and scanf, and hex floats in strtod.</state>
+                    <state>A complete configuration of the C/C++14 runtime library. Full locale interface, C locale, file descriptor support, multibytes in printf and scanf, and hex floats in strtod.</state>
                 </option>
                 <option>
                     <name>OGProductVersion</name>
@@ -1310,11 +1310,12 @@
                     <state>CORE_CM7</state>
                     <state>USE_HAL_DRIVER</state>
                     <state>STM32H747xx</state>
-                    <state>MBEDTLS_CONFIG_FILE="mbedtls_config.h"</state>
+                    <state>MBEDTLS_CONFIG_FILE=&lt;mbedtls_config.h&gt;</state>
                     <state>HAVE_SNPRINTF</state>
                     <state>CY_USING_HAL</state>
                     <state>CYBSP_WIFI_CAPABLE</state>
                     <state>CY_STORAGE_WIFI_DATA=".whd_fw"</state>
+                    <state>COMPONENT_LWIP</state>
                     <state>STM32_THREAD_SAFE_STRATEGY=5</state>
                 </option>
                 <option>
@@ -1443,10 +1444,6 @@
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/lwip-freertos-integration/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/include/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc/</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/include/</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/include/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/</state>
@@ -1457,8 +1454,6 @@
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/include</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/arpa</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/compat/posix/net</state>
@@ -1470,9 +1465,10 @@
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/priv</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/LwIP/src/include/lwip/prot</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_43012/</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/nvram/COMPONENT_43012/COMPONENT_MURATA-1LV/</state>
+                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/inc/</state>
+                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43012/</state>
+                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV/</state>
+                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/resources/nvram/COMPONENT_43012/COMPONENT_MURATA-1LV/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/</state>
@@ -1481,10 +1477,10 @@
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_FREERTOS/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_43012</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/inc</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012</state>
+                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/inc</state>
+                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/resources/resource_imp</state>
+                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43012</state>
+                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc</state>
@@ -1494,19 +1490,15 @@
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/debug/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack/wiced_include/</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack/wiced_include</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE/</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console/COMPONENT_PSOC6HAL/</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include/COMPONENT_SECURE_SOCKETS/</state>
+                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include/</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/COMPONENT_SECURE_SOCKETS/</state>
+                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console/COMPONENT_PSOC6HAL</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/COMPONENT_SECURE_SOCKETS</state>
+                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf_utility</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/wifi_utility</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include/COMPONENT_SECURE_SOCKETS</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include</state>
                     <state>$PROJ_DIR$/../Drivers/STM32H7xx_HAL_Driver/Inc</state>
@@ -1518,8 +1510,6 @@
                     <state>$PROJ_DIR$/../Drivers/CMSIS/Device/ST/STM32H7xx/Include</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/mbedTLS/include</state>
                     <state>$PROJ_DIR$/../Drivers/CMSIS/Include</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV/</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1763,7 +1753,7 @@
                 </option>
                 <option>
                     <name>AOutputFile</name>
-                    <state>$FILE_BNAME$.o</state>
+                    <state></state>
                 </option>
                 <option>
                     <name>ALimitErrorsCheck</name>
@@ -2327,18 +2317,12 @@
                         <excluded>
                             <configuration>wifi_bt_tester_CM4</configuration>
                         </excluded>
-                        <file>
-                            <name>$PROJ_DIR$\..\CM7\MBEDTLS\App\mbedtls.c</name>
-                        </file>
                     </group>
                     <group>
                         <name>Target</name>
                         <excluded>
                             <configuration>wifi_bt_tester_CM4</configuration>
                         </excluded>
-                        <file>
-                            <name>$PROJ_DIR$\..\CM7\MBEDTLS\Target\custom_rng.c</name>
-                        </file>
                     </group>
                 </group>
             </group>
@@ -2346,6 +2330,21 @@
                 <name>Core</name>
                 <file>
                     <name>$PROJ_DIR$\..\CM7\Core\Src\console_task.c</name>
+                    <excluded>
+                        <configuration>wifi_bt_tester_CM4</configuration>
+                    </excluded>
+                </file>
+            </group>
+            <group>
+                <name>MBEDTLS</name>
+                <file>
+                    <name>$PROJ_DIR$\..\CM7\MBEDTLS\Target\custom_rng.c</name>
+                    <excluded>
+                        <configuration>wifi_bt_tester_CM4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\CM7\MBEDTLS\App\mbedtls.c</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
                     </excluded>
@@ -2631,13 +2630,13 @@
                     </excluded>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\command_console\COMPONENT_PSOC6HAL\command_utility.cpp</name>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\command_console\command_utility.cpp</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
                     </excluded>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\rtos\COMPONENT_SECURE_SOCKETS\condition.c</name>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\rtos\condition.c</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
                     </excluded>
@@ -2656,18 +2655,6 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\compat\gettimeofday.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\src\gnu_getopt.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\src\gnu_getopt_long.c</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
                     </excluded>
@@ -2697,7 +2684,7 @@
                     </excluded>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\rtos\COMPONENT_SECURE_SOCKETS\iperf_debug.c</name>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\rtos\iperf_debug.c</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
                     </excluded>
@@ -2709,7 +2696,13 @@
                     </excluded>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\rtos\COMPONENT_SECURE_SOCKETS\iperf_getopt_long.c</name>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\rtos\iperf_getopt_long.c</name>
+                    <excluded>
+                        <configuration>wifi_bt_tester_CM4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\rtos\iperf_gettimeofday.c</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
                     </excluded>
@@ -2721,13 +2714,19 @@
                     </excluded>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\rtos\COMPONENT_SECURE_SOCKETS\iperf_sockets.c</name>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\rtos\iperf_sockets.c</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
                     </excluded>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf_utility\iperf_utility.cpp</name>
+                    <excluded>
+                        <configuration>wifi_bt_tester_CM4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\rtos\iperf_utils.c</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
                     </excluded>
@@ -2811,12 +2810,6 @@
                     </excluded>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\rtos\COMPONENT_SECURE_SOCKETS\rtos_gettimeofday.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
                     <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\src\Server.cpp</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
@@ -2824,12 +2817,6 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\include\Server.hpp</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\src\service.c</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
                     </excluded>
@@ -2889,7 +2876,7 @@
                     </excluded>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\rtos\COMPONENT_SECURE_SOCKETS\thread.c</name>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\rtos\thread.c</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
                     </excluded>
@@ -2901,7 +2888,7 @@
                     </excluded>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\rtos\COMPONENT_SECURE_SOCKETS\usleep.c</name>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\command-console\source\iperf\rtos\usleep.c</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
                     </excluded>
@@ -2925,6 +2912,12 @@
                     </excluded>
                 </file>
                 <file>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\pal\abstraction-rtos\source\COMPONENT_FREERTOS\cyabs_freertos_common.c</name>
+                    <excluded>
+                        <configuration>wifi_bt_tester_CM4</configuration>
+                    </excluded>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\pal\abstraction-rtos\source\COMPONENT_FREERTOS\cyabs_freertos_helpers.c</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
@@ -2943,25 +2936,25 @@
                     <configuration>wifi_bt_tester_CM4</configuration>
                 </excluded>
                 <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\resources\firmware\COMPONENT_43012\43012C0-mfgtest_bin.c</name>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\COMPONENT_WIFI5\resources\firmware\COMPONENT_43012\43012C0-mfgtest_bin.c</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
                     </excluded>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\resources\clm\COMPONENT_43012\COMPONENT_MURATA-1LV\43012C0-mfgtest_clm_blob.c</name>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\COMPONENT_WIFI5\resources\clm\COMPONENT_43012\COMPONENT_MURATA-1LV\43012C0-mfgtest_clm_blob.c</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
                     </excluded>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\resources\firmware\COMPONENT_43012\43012C0_bin.c</name>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\COMPONENT_WIFI5\resources\firmware\COMPONENT_43012\43012C0_bin.c</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
                     </excluded>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\resources\clm\COMPONENT_43012\COMPONENT_MURATA-1LV\43012C0_clm_blob.c</name>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\COMPONENT_WIFI5\resources\clm\COMPONENT_43012\COMPONENT_MURATA-1LV\43012C0_clm_blob.c</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
                     </excluded>
@@ -3454,150 +3447,6 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\whd-bsp-integration\cybsp_wifi.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-            </group>
-            <group>
-                <name>Wireless/Wifi/wifi-host-driver</name>
-                <excluded>
-                    <configuration>wifi_bt_tester_CM4</configuration>
-                </excluded>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\whd_ap.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\whd_buffer_api.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\bus_protocols\whd_bus.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\bus_protocols\whd_bus_common.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\bus_protocols\whd_bus_sdio_protocol.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\bus_protocols\whd_bus_spi_protocol.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\whd_cdc_bdc.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\whd_chip.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\whd_chip_constants.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\whd_clm.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\whd_debug.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\whd_events.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\whd_logging.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\whd_management.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\whd_network_if.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\whd_resource_if.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\resources\resource_imp\whd_resources.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\whd_sdpcm.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\whd_thread.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\whd_utils.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\whd_wifi.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\whd_wifi_api.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\src\whd_wifi_p2p.c</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
                     </excluded>

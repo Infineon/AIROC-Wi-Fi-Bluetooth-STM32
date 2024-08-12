@@ -12,5 +12,12 @@ var group__group__netxduo__network__interface__integration__structures =
       [ "addr", "structcy__network__static__ip__addr__t.html#abd9e45cfa9fe496d59e7b47fb50317c5", null ],
       [ "netmask", "structcy__network__static__ip__addr__t.html#abef41f7d0c38df5cd3485aa1b8695937", null ],
       [ "gateway", "structcy__network__static__ip__addr__t.html#ab6f95131502bb21b6cd8c7261880e786", null ]
+    ] ],
+    [ "cy_network_packet_pool_info_t", "structcy__network__packet__pool__info__t.html", [
+      [ "total_packets", "structcy__network__packet__pool__info__t.html#a240a59368a545b718d7880bf305cc90c", null ],
+      [ "free_packets", "structcy__network__packet__pool__info__t.html#a06c26cac3eab4eef9809c2b722d22da1", null ],
+      [ "empty_pool_requests", "structcy__network__packet__pool__info__t.html#ad930f09e8123933a4009a269aa9ae644", null ],
+      [ "empty_pool_suspensions", "structcy__network__packet__pool__info__t.html#ac6fb837d569fde275fa1b50d10e60419", null ],
+      [ "invalid_packet_releases", "structcy__network__packet__pool__info__t.html#a0058ce3964a3095dfca682d57d142087", null ]
     ] ]
 ];

@@ -6,6 +6,19 @@ See the [README.md](./README.md) for a complete description of the [lwIP network
 
 ## Changelog
 
+### v1.3.1
+
+- Added function to generate random number using trng 
+
+### v1.3.0
+
+- Minor changes in .cyignore
+- Added support for CY8CEVAL-062S2-CYW43022CUB kit
+
+### v1.2.0
+
+- Added support for KIT_XMC72_EVK_MUR_43439M2 kit
+
 ### v1.1.3
 
 - Minor bug fixes
@@ -36,10 +49,10 @@ This version of the library was validated for compatibility with the following s
 
 | Software and tools                                           | Version |
 | :---                                                         | :----:  |
-| ModusToolbox&trade; software environment                     | 3.1     |
-| ModusToolbox&trade; Device Configurator                      | 4.10    |
+| ModusToolbox&trade; software environment                     | 3.2     |
+| ModusToolbox&trade; Device Configurator                      | 4.20    |
 | GCC compiler                                                 | 11.3.1  |
-| IAR compiler                                                 | 9.30    |
+| IAR compiler                                                 | 9.40.2  |
 | Arm&reg; compiler 6                                          | 6.16    |
 
 

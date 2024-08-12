@@ -1,5 +1,5 @@
 /*
- * Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -31,6 +31,7 @@
  * so agrees to indemnify Cypress against all liability.
  */
 #ifndef DISABLE_COMMAND_CONSOLE_BT
+
 #include "bt_cfg.h"
 #include "wiced_bt_dev.h"
 #include "wiced_bt_ble.h"
@@ -139,7 +140,7 @@ const wiced_bt_cfg_settings_t wiced_bt_command_console_cfg_settings =
     .p_gatt_cfg = &command_console_cfg_gatt,
     .p_l2cap_app_cfg = &command_console_cfg_l2cap,
 };
-
+#ifndef COMPONENT_CAT5
 const cybt_platform_config_t bt_platform_cfg_settings =
 {
     .hci_config =
@@ -181,4 +182,5 @@ const cybt_platform_config_t bt_platform_cfg_settings =
 
     .task_mem_pool_size    = 2048
 };
+#endif
 #endif

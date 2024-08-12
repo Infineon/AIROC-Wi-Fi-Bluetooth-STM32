@@ -559,7 +559,7 @@
 		<link>
 			<name>Application/User/Core/console_task.c</name>
 			<type>1</type>
-			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/CM7/Core/Src/console_task.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/CM7/Core/Src/console_task.c</locationURI>
 		</link>
 		<link>
 			<name>Application/User/Core/freertos.c</name>
@@ -789,12 +789,12 @@
 		<link>
 			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/command_utility.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console/COMPONENT_PSOC6HAL/command_utility.cpp</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console/command_utility.cpp</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/condition.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/COMPONENT_SECURE_SOCKETS/condition.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/condition.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/delay.c</name>
@@ -805,16 +805,6 @@
 			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/gettimeofday.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/compat/gettimeofday.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/gnu_getopt.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/src/gnu_getopt.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/gnu_getopt_long.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/src/gnu_getopt_long.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/histogram.c</name>
@@ -839,7 +829,7 @@
 		<link>
 			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/iperf_debug.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/COMPONENT_SECURE_SOCKETS/iperf_debug.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/iperf_debug.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/iperf_error.c</name>
@@ -849,7 +839,12 @@
 		<link>
 			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/iperf_getopt_long.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/COMPONENT_SECURE_SOCKETS/iperf_getopt_long.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/iperf_getopt_long.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/iperf_gettimeofday.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/iperf_gettimeofday.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/iperf_main.cpp</name>
@@ -859,12 +854,17 @@
 		<link>
 			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/iperf_sockets.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/COMPONENT_SECURE_SOCKETS/iperf_sockets.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/iperf_sockets.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/iperf_utility.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf_utility/iperf_utility.cpp</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/iperf_utils.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/iperf_utils.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/isochronous.cpp</name>
@@ -880,16 +880,6 @@
 			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/pdfs.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/src/pdfs.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/rtos_gettimeofday.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/COMPONENT_SECURE_SOCKETS/rtos_gettimeofday.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/service.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/src/service.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/signal.c</name>
@@ -924,12 +914,12 @@
 		<link>
 			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/thread.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/COMPONENT_SECURE_SOCKETS/thread.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/thread.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/usleep.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/COMPONENT_SECURE_SOCKETS/usleep.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/usleep.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/MfgTools/command-console/wifi_utility.c</name>
@@ -1284,137 +1274,147 @@
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_ap.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_ap.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_ap.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_buffer_api.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_buffer_api.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_buffer_api.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_bus.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols/whd_bus.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/bus_protocols/whd_bus.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_bus_common.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols/whd_bus_common.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/bus_protocols/whd_bus_common.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_bus_emusbh_impl.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/bus_protocols/whd_bus_emusbh_impl.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_bus_sdio_protocol.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols/whd_bus_sdio_protocol.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/bus_protocols/whd_bus_sdio_protocol.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_bus_spi_protocol.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/bus_protocols/whd_bus_spi_protocol.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/bus_protocols/whd_bus_spi_protocol.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_bus_usb_protocol.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/bus_protocols/whd_bus_usb_protocol.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_cdc_bdc.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_cdc_bdc.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_cdc_bdc.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_chip.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_chip.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_chip.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_chip_constants.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_chip_constants.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_chip_constants.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_clm.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_clm.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_clm.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_commonring.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_commonring.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_commonring.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_debug.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_debug.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_debug.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_events.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_events.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_events.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_flowring.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_flowring.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_flowring.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_logging.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_logging.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_logging.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_management.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_management.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_management.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_network_if.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_network_if.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_network_if.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_proto.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_proto.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_proto.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_resource_if.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_resource_if.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_resource_if.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_resources.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/resource_imp/whd_resources.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/resources/resource_imp/whd_resources.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_ring.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_ring.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_ring.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_sdpcm.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_sdpcm.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_sdpcm.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_thread.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_thread.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_thread.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_utils.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_utils.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_utils.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_wifi.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_wifi.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_wifi.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_wifi_api.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_wifi_api.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_wifi_api.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/wifi-host-driver/whd_wifi_p2p.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/src/whd_wifi_p2p.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/src/whd_wifi_p2p.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Platform/abstraction-rtos/FreeRTOS/cy_worker_thread.c</name>
@@ -1422,14 +1422,14 @@
 			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/cy_worker_thread.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/abstraction-rtos/FreeRTOS/cyabs_freertos_helpers.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/cyabs_freertos_helpers.c</locationURI>
-		</link>
-		<link>
 			<name>Middlewares/Connectivity/Wireless/Platform/abstraction-rtos/FreeRTOS/cyabs_freertos_common.c</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/cyabs_freertos_common.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/Connectivity/Wireless/Platform/abstraction-rtos/FreeRTOS/cyabs_freertos_helpers.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_FREERTOS/cyabs_freertos_helpers.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Platform/abstraction-rtos/FreeRTOS/cyabs_rtos_freertos.c</name>
@@ -1439,22 +1439,22 @@
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1LV/43012C0-mfgtest_bin.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0-mfgtest_bin.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43012/43012C0-mfgtest_bin.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1LV/43012C0-mfgtest_clm_blob.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV/43012C0-mfgtest_clm_blob.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV/43012C0-mfgtest_clm_blob.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1LV/43012C0_bin.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/firmware/COMPONENT_43012/43012C0_bin.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43012/43012C0_bin.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1LV/43012C0_clm_blob.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV/43012C0_clm_blob.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV/43012C0_clm_blob.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1LV/w_bt_firmware_controller.c</name>

@@ -1,5 +1,5 @@
 /*
-* Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
 *
 * This software, including source code, documentation and related
@@ -296,8 +296,9 @@ double Client::Connect( ) {
                   : AF_INET);
     /* IPERF_MODIFIED Start */
     mSettings->mSock = iperf_socket( domain, type, 0 );
+    FAIL_errno( mSettings->mSock == INVALID_SOCKET, "Invalid socket", mSettings );
+//  WARN_errno( mSettings->mSock == INVALID_SOCKET, "socket" );
     /* IPERF_MODIFIED End */
-    WARN_errno( mSettings->mSock == INVALID_SOCKET, "socket" );
 
     /* IPERF_MODIFIED Start */
     IPERF_DEBUGF( SOCKET_DEBUG | IPERF_DBG_TRACE, ("Client is setting socket options for socket %d: {\n"
@@ -1135,8 +1136,14 @@ void Client::write_UDP_FIN (void) {
     fd_set readSet;
     struct timeval timeout;
 
+    /* IPERF_MODIFIED Start */
+    timeout.tv_sec  = 0;
+    timeout.tv_usec = 500000; //500ms
+    iperf_setsockopt(mSettings->mSock, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
+    /* IPERF_MODIFIED End */
+
     int count = 0;
-    while ( count < 10 ) {
+    while ( count < 3 ) {
         count++;
 
         // write data

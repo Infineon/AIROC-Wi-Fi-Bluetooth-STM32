@@ -1,5 +1,5 @@
 /*
- * Copyright 2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -43,6 +43,7 @@
 
 #pragma once
 
+#include <stddef.h>
 #include "cy_result.h"
 #include "cy_nw_helper.h"
 #include "cy_nw_mw_core_error.h"
@@ -337,6 +338,18 @@ cy_rslt_t cy_network_get_netmask_address(cy_network_interface_context *iface_con
  * */
 cy_rslt_t cy_network_ping(void *if_ctx, cy_nw_ip_address_t *address, uint32_t timeout_ms, uint32_t* elapsed_time_ms);
 
+#if defined(COMPONENT_CAT1)
+/**
+ * Random number generate using PDL trng APIs
+ *
+ * @param[out] output    : Data to fill
+ * @param[in]  len       : Maximum size to provide
+ * @param[out] olen      : The actual amount of bytes put into the buffer (Can be 0)
+ *
+ * @return  CY_RSLT_SUCCESS if successful; CY_RSLT_NETWORK_ERROR_TRNG if failure.
+ */
+cy_rslt_t cy_network_random_number_generate( unsigned char *output, size_t len, size_t *olen );
+#endif
 /** \} group_lwip_network_interface_integration_functions */
 
 #ifdef __cplusplus

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['unused_5fvariable_0',['UNUSED_VARIABLE',['../group__group__netxduo__network__interface__integration__macros.html#ga4048bf3892868ded8a28f8cbdd339c09',1,'cy_network_mw_core.h']]]
+  ['port_20functions_0',['Port Functions',['../group__group__netxduo__network__interface__integration__functions.html',1,'']]],
+  ['port_20structures_1',['Port Structures',['../group__group__netxduo__network__interface__integration__structures.html',1,'']]]
 ];

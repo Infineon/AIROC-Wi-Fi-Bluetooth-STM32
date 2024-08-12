@@ -1,5 +1,5 @@
 /*
-* Copyright 2022, Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
 *
 * This software, including source code, documentation and related
@@ -687,7 +687,9 @@ void Settings_Interpret( char option, const char *optarg, thread_Settings *mExtS
 
         case 'i': // specify interval between periodic bw reports
 	    char *end;
-	    mExtSettings->mInterval = strtof( optarg, &end );
+	    /* IPERF_MODIFIED Start */
+	    mExtSettings->mInterval = (double)strtof( optarg, &end );
+	    /* IPERF_MODIFIED End */
 	    if (*end != '\0') {
 /* IPERF_MODIFIED Start */
         fprintf (stdout, "Invalid value of '%s' for -i interval\n", optarg);
@@ -1182,7 +1184,9 @@ void Settings_Interpret( char option, const char *optarg, thread_Settings *mExtS
 		burstipg = 0;
 		burstipg_set = 1;
 		char *end;
-		mExtSettings->mBurstIPG = strtof(optarg,&end);
+		/* IPERF_MODIFIED Start */
+		mExtSettings->mBurstIPG = (double)strtof(optarg,&end);
+		/* IPERF_MODIFIED End */
 		if (*end != '\0') {
 /* IPERF_MODIFIED Start */
 		    fprintf (stdout, "Invalid value of '%s' for --ipg\n", optarg);
