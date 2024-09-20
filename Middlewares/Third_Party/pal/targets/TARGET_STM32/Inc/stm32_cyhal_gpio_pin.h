@@ -252,6 +252,78 @@ extern "C" {
     #define PK14        (CYHAL_GET_GPIO(GPIOK, GPIO_PIN_14)) //!< Port K Pin 14
     #define PK15        (CYHAL_GET_GPIO(GPIOK, GPIO_PIN_15)) //!< Port K Pin 15
 #endif // if defined(GPIOK)
+#if defined(GPIOM)
+    #define PM0         (CYHAL_GET_GPIO(GPIOM, GPIO_PIN_0))  //!< Port M Pin 0
+    #define PM1         (CYHAL_GET_GPIO(GPIOM, GPIO_PIN_1))  //!< Port M Pin 1
+    #define PM2         (CYHAL_GET_GPIO(GPIOM, GPIO_PIN_2))  //!< Port M Pin 2
+    #define PM3         (CYHAL_GET_GPIO(GPIOM, GPIO_PIN_3))  //!< Port M Pin 3
+    #define PM4         (CYHAL_GET_GPIO(GPIOM, GPIO_PIN_4))  //!< Port M Pin 4
+    #define PM5         (CYHAL_GET_GPIO(GPIOM, GPIO_PIN_5))  //!< Port M Pin 5
+    #define PM6         (CYHAL_GET_GPIO(GPIOM, GPIO_PIN_6))  //!< Port M Pin 6
+    #define PM7         (CYHAL_GET_GPIO(GPIOM, GPIO_PIN_7))  //!< Port M Pin 7
+    #define PM8         (CYHAL_GET_GPIO(GPIOM, GPIO_PIN_8))  //!< Port M Pin 8
+    #define PM9         (CYHAL_GET_GPIO(GPIOM, GPIO_PIN_9))  //!< Port M Pin 9
+    #define PM10        (CYHAL_GET_GPIO(GPIOM, GPIO_PIN_10)) //!< Port M Pin 10
+    #define PM11        (CYHAL_GET_GPIO(GPIOM, GPIO_PIN_11)) //!< Port M Pin 11
+    #define PM12        (CYHAL_GET_GPIO(GPIOM, GPIO_PIN_12)) //!< Port M Pin 12
+    #define PM13        (CYHAL_GET_GPIO(GPIOM, GPIO_PIN_13)) //!< Port M Pin 13
+    #define PM14        (CYHAL_GET_GPIO(GPIOM, GPIO_PIN_14)) //!< Port M Pin 14
+    #define PM15        (CYHAL_GET_GPIO(GPIOM, GPIO_PIN_15)) //!< Port M Pin 15
+#endif // if defined(GPIOM)
+#if defined(GPION)
+    #define PN0         (CYHAL_GET_GPIO(GPION, GPIO_PIN_0))  //!< Port N Pin 0
+    #define PN1         (CYHAL_GET_GPIO(GPION, GPIO_PIN_1))  //!< Port N Pin 1
+    #define PN2         (CYHAL_GET_GPIO(GPION, GPIO_PIN_2))  //!< Port N Pin 2
+    #define PN3         (CYHAL_GET_GPIO(GPION, GPIO_PIN_3))  //!< Port N Pin 3
+    #define PN4         (CYHAL_GET_GPIO(GPION, GPIO_PIN_4))  //!< Port N Pin 4
+    #define PN5         (CYHAL_GET_GPIO(GPION, GPIO_PIN_5))  //!< Port N Pin 5
+    #define PN6         (CYHAL_GET_GPIO(GPION, GPIO_PIN_6))  //!< Port N Pin 6
+    #define PN7         (CYHAL_GET_GPIO(GPION, GPIO_PIN_7))  //!< Port N Pin 7
+    #define PN8         (CYHAL_GET_GPIO(GPION, GPIO_PIN_8))  //!< Port N Pin 8
+    #define PN9         (CYHAL_GET_GPIO(GPION, GPIO_PIN_9))  //!< Port N Pin 9
+    #define PN10        (CYHAL_GET_GPIO(GPION, GPIO_PIN_10)) //!< Port N Pin 10
+    #define PN11        (CYHAL_GET_GPIO(GPION, GPIO_PIN_11)) //!< Port N Pin 11
+    #define PN12        (CYHAL_GET_GPIO(GPION, GPIO_PIN_12)) //!< Port N Pin 12
+    #define PN13        (CYHAL_GET_GPIO(GPION, GPIO_PIN_13)) //!< Port N Pin 13
+    #define PN14        (CYHAL_GET_GPIO(GPION, GPIO_PIN_14)) //!< Port N Pin 14
+    #define PN15        (CYHAL_GET_GPIO(GPION, GPIO_PIN_15)) //!< Port N Pin 15
+#endif // if defined(GPION)
+#if defined(GPIOO)
+    #define PO0         (CYHAL_GET_GPIO(GPIOO, GPIO_PIN_0))  //!< Port O Pin 0
+    #define PO1         (CYHAL_GET_GPIO(GPIOO, GPIO_PIN_1))  //!< Port O Pin 1
+    #define PO2         (CYHAL_GET_GPIO(GPIOO, GPIO_PIN_2))  //!< Port O Pin 2
+    #define PO3         (CYHAL_GET_GPIO(GPIOO, GPIO_PIN_3))  //!< Port O Pin 3
+    #define PO4         (CYHAL_GET_GPIO(GPIOO, GPIO_PIN_4))  //!< Port O Pin 4
+    #define PO5         (CYHAL_GET_GPIO(GPIOO, GPIO_PIN_5))  //!< Port O Pin 5
+    #define PO6         (CYHAL_GET_GPIO(GPIOO, GPIO_PIN_6))  //!< Port O Pin 6
+    #define PO7         (CYHAL_GET_GPIO(GPIOO, GPIO_PIN_7))  //!< Port O Pin 7
+    #define PO8         (CYHAL_GET_GPIO(GPIOO, GPIO_PIN_8))  //!< Port O Pin 8
+    #define PO9         (CYHAL_GET_GPIO(GPIOO, GPIO_PIN_9))  //!< Port O Pin 9
+    #define PO10        (CYHAL_GET_GPIO(GPIOO, GPIO_PIN_10)) //!< Port O Pin 10
+    #define PO11        (CYHAL_GET_GPIO(GPIOO, GPIO_PIN_11)) //!< Port O Pin 11
+    #define PO12        (CYHAL_GET_GPIO(GPIOO, GPIO_PIN_12)) //!< Port O Pin 12
+    #define PO13        (CYHAL_GET_GPIO(GPIOO, GPIO_PIN_13)) //!< Port O Pin 13
+    #define PO14        (CYHAL_GET_GPIO(GPIOO, GPIO_PIN_14)) //!< Port O Pin 14
+    #define PO15        (CYHAL_GET_GPIO(GPIOO, GPIO_PIN_15)) //!< Port O Pin 15
+#endif // if defined(GPIOO)
+#if defined(GPIOP)
+    #define PP0         (CYHAL_GET_GPIO(GPIOP, GPIO_PIN_0))  //!< Port P Pin 0
+    #define PP1         (CYHAL_GET_GPIO(GPIOP, GPIO_PIN_1))  //!< Port P Pin 1
+    #define PP2         (CYHAL_GET_GPIO(GPIOP, GPIO_PIN_2))  //!< Port P Pin 2
+    #define PP3         (CYHAL_GET_GPIO(GPIOP, GPIO_PIN_3))  //!< Port P Pin 3
+    #define PP4         (CYHAL_GET_GPIO(GPIOP, GPIO_PIN_4))  //!< Port P Pin 4
+    #define PP5         (CYHAL_GET_GPIO(GPIOP, GPIO_PIN_5))  //!< Port P Pin 5
+    #define PP6         (CYHAL_GET_GPIO(GPIOP, GPIO_PIN_6))  //!< Port P Pin 6
+    #define PP7         (CYHAL_GET_GPIO(GPIOP, GPIO_PIN_7))  //!< Port P Pin 7
+    #define PP8         (CYHAL_GET_GPIO(GPIOP, GPIO_PIN_8))  //!< Port P Pin 8
+    #define PP9         (CYHAL_GET_GPIO(GPIOP, GPIO_PIN_9))  //!< Port P Pin 9
+    #define PP10        (CYHAL_GET_GPIO(GPIOP, GPIO_PIN_10)) //!< Port P Pin 10
+    #define PP11        (CYHAL_GET_GPIO(GPIOP, GPIO_PIN_11)) //!< Port P Pin 11
+    #define PP12        (CYHAL_GET_GPIO(GPIOP, GPIO_PIN_12)) //!< Port P Pin 12
+    #define PP13        (CYHAL_GET_GPIO(GPIOP, GPIO_PIN_13)) //!< Port P Pin 13
+    #define PP14        (CYHAL_GET_GPIO(GPIOP, GPIO_PIN_14)) //!< Port P Pin 14
+    #define PP15        (CYHAL_GET_GPIO(GPIOP, GPIO_PIN_15)) //!< Port P Pin 15
+#endif // if defined(GPIOP)
 
 typedef uint32_t cyhal_gpio_def_t;
 
