@@ -1,0 +1,4 @@
+[ProjectFiles]
+HeaderPath=
+[Others]
+Define=CYBSP_WIFI_CAPABLE;CY_USING_HAL;CY_NETWORK_DISABLE_DHCP_SERVER

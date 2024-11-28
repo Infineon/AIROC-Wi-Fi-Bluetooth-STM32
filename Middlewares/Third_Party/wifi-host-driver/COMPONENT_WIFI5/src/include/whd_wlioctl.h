@@ -800,6 +800,7 @@ typedef enum
 #define WPA3_AUTH_SAE_FBT       0x80000 /* FT authentication over SAE */
 #define WPA3_AUTH_1X_SUITE_B_SHA384 0x400000 /* Suite B-192 SHA384 */
 #define WPA3_AUTH_OWE           0x100000  /* OWE */
+#define WPA3_AUTH_1X_SHA256     0x1000000 /* WPA3 1x with SHA256 key derivation */
 #define WPA_AUTH_PFN_ANY        0xffffffff  /* for PFN, match only ssid */
 
 #define    MAXPMKID                 16

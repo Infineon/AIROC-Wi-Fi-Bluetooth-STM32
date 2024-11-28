@@ -1,4 +1,4 @@
-# Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack 1.6.1
+# Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack 1.7.0
 
 ## Overview
 The Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack is an extension of the CMSIS-Pack standard established by Arm

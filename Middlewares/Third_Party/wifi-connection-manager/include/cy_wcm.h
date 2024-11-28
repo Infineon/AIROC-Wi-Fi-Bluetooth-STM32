@@ -67,6 +67,10 @@
 extern "C" {
 #endif
 
+#ifdef COMPONENT_CAT5
+#define ENABLE_ENTPS_FEATURE 
+#endif /* COMPONENT_CAT5 */
+
 #include "cy_result.h"
 #include "cy_wcm_error.h"
 #include "whd_types.h"
@@ -125,12 +129,12 @@ extern "C" {
 #define SHARED_ENABLED                     0x00008000  /**< Flag to enable shared key security.         */
 #define WPA_SECURITY                       0x00200000  /**< Flag to enable WPA security.                */
 #define WPA2_SECURITY                      0x00400000  /**< Flag to enable WPA2 security.               */
-#ifndef COMPONENT_CAT5
+#ifndef ENABLE_ENTPS_FEATURE
 #define WPA2_SHA256_SECURITY               0x00800000  /**< Flag to enable WPA2 SHA256 Security         */
 #endif
 #define WPA3_SECURITY                      0x01000000  /**< Flag to enable WPA3 PSK security.           */
 #define ENTERPRISE_ENABLED                 0x02000000  /**< Flag to enable enterprise security.         */
-#ifdef COMPONENT_CAT5
+#ifdef ENABLE_ENTPS_FEATURE
 #define SHA256_1X                          0x04000000  /**< Flag 1X with SHA256 key derivation          */
 #define SUITE_B_SHA384                     0x08000000  /**< Flag to enable Suite B-192 SHA384 Security  */
 #endif
@@ -185,7 +189,7 @@ typedef enum
     CY_WCM_SECURITY_WPA_AES_PSK         = ( WPA_SECURITY  | AES_ENABLED ),                                     /**< WPA PSK security with AES.                             */
     CY_WCM_SECURITY_WPA_MIXED_PSK       = ( WPA_SECURITY  | AES_ENABLED | TKIP_ENABLED ),                      /**< WPA PSK security with AES and TKIP.                    */
     CY_WCM_SECURITY_WPA2_AES_PSK        = ( WPA2_SECURITY | AES_ENABLED ),                                     /**< WPA2 PSK security with AES.                            */
-#ifndef COMPONENT_CAT5
+#ifndef ENABLE_ENTPS_FEATURE
     CY_WCM_SECURITY_WPA2_AES_PSK_SHA256 = ( WPA2_SECURITY | WPA2_SHA256_SECURITY | AES_ENABLED ),              /**< WPA2 PSK SHA256 Security with AES                      */
 #else
     CY_WCM_SECURITY_WPA2_AES_PSK_SHA256 = ( WPA2_SECURITY | SHA256_1X | AES_ENABLED ),                         /**< WPA2 PSK SHA256 Security with AES                      */
@@ -204,7 +208,7 @@ typedef enum
     CY_WCM_SECURITY_WPA2_AES_ENT        = (ENTERPRISE_ENABLED | WPA2_SECURITY | AES_ENABLED),                  /**< WPA2 Enterprise Security with AES.                     */
     CY_WCM_SECURITY_WPA2_MIXED_ENT      = (ENTERPRISE_ENABLED | WPA2_SECURITY | AES_ENABLED | TKIP_ENABLED),   /**< WPA2 Enterprise Security with AES and TKIP.            */
     CY_WCM_SECURITY_WPA2_FBT_ENT        = (ENTERPRISE_ENABLED | WPA2_SECURITY | AES_ENABLED | FBT_ENABLED),    /**< WPA2 Enterprise Security with AES and FBT.             */
-#ifdef COMPONENT_CAT5
+#ifdef ENABLE_ENTPS_FEATURE
     CY_WCM_SECURITY_WPA3_192BIT_ENT     = (ENTERPRISE_ENABLED | WPA3_SECURITY | SUITE_B_SHA384 | AES_ENABLED), /**< WPA3 192-BIT Enterprise Security with AES              */
     CY_WCM_SECURITY_WPA3_ENT            = (ENTERPRISE_ENABLED | WPA3_SECURITY | SHA256_1X | AES_ENABLED),      /**< WPA3 Enterprise Security with AES GCM-256              */
     CY_WCM_SECURITY_WPA3_ENT_AES_CCMP   = (ENTERPRISE_ENABLED | WPA3_SECURITY | WPA2_SECURITY | SHA256_1X | AES_ENABLED), /**< WPA3 Enterprise Security with AES CCM-128   */

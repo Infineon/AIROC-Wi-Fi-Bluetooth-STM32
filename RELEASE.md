@@ -1,4 +1,4 @@
-# Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack 1.6.1 Release Notes
+# Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack 1.7.0 Release Notes
 The Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack is an extension of the CMSIS-Pack standard established by Arm.
 The pack is compliant with the full CMSIS-Pack standard, with additional requirements/restrictions
 on the final pack to meet the STM standard.
@@ -10,10 +10,30 @@ This pack uses libraries from the ModusToolbox environment.
 
 ## What Changed?
 
- v1.6.1
-* Update Wi-Fi assets
-* Added Wi-Fi MQTT Client application for Nucleo-H745ZI-Q, NUCLEO-H563ZI and NUCLEO-U575ZI-Q boards
-* Added BLE Hello Sensor, Wi-Fi Onboarding with Bluetooth LE, Wi-Fi Scan applications for NUCLEO-H745ZI-Q board
+ v1.7.0
+
+* Added enterprise-security support
+  - wifi_ent_sec application for Nucleo-H7
+* Added Murata type.2GF (CYW43022) module
+* Added Murata type.2FY (CYW55513) module
+* Added Ezurio IF573 (CYW55573)
+* Added Ezurio IF513 (CYW55513)
+* Added Inventek ISM4343-WBU-L151 (CYW4343W)
+* Added More apps to Nucleo-H7/U5
+  NUCLEO-H745ZI-Q:
+  - bt_mfg_tester
+  - wifi_mfg_tester
+  - wifi_netxduo
+  - wifi_tko
+  NUCLEO-H745ZI-Q:
+  - ble_wifi_onboarding
+  - bt_mfg_tester
+  - wifi_mfg_tester
+  - wifi_netxduo
+  - wifi_tko
+* Updated tools 
+  - STM32Cubemx 6.12.1
+  - STM32CubeIDE 1.16.1
 
 ## Supported STM32 Boards and MCU
 *  STM32L562E-DK kit and STM32L5xx
@@ -65,8 +85,8 @@ work with Infineon connectivity platforms.
 
 |  Software                    | Version   |
 | ---------------------------- | --------- |
-| STM32 CubeMX                 |  6.10.0   |
-| STM32 CubeIDE                |  1.14.0   |
+| STM32 CubeMX                 |  6.12.1   |
+| STM32 CubeIDE                |  1.16.1   |
 | IAR Embedded Workbench IDE   |  9.30.1   |
 
 ### Supported Compiler Version
@@ -81,10 +101,11 @@ work with Infineon connectivity platforms.
 
 | Version | Changes                                                             | Reason for Change                     |
 | :----:  | :---                                                                | :----                                 |
+| 1.7.0   | Added enterprise-security support                                   | New modules, applications             |
 | 1.6.1   | Update Wi-Fi assets                                                 | Maintenance                           |
 | 1.6.0   | Added New Connectivity Module support                               | New CYWxx modules, assets update, mqtt|
 | 1.5.1   | Update Bluetooth FW for CYW4373 modules                             | Update Bluetooth Firmware             |
-| 1.5.0   | Added New Connectivity Module support                               | Update Pack Name and new CYWxx modules      |
+| 1.5.0   | Added New Connectivity Module support                               | Update Pack Name and new CYWxx modules|
 | 1.4.0   | Added STM32H5 support.                                              | Add support of new STM32 series       |
 | 1.3.0   | Added STM32U5 support.                                              | Add support of new STM32 series       |
 | 1.2.0   | Added STM32L5 support.                                              | Add support of new STM32 series       |
