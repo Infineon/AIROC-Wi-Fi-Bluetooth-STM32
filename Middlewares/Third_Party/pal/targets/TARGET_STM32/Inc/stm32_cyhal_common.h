@@ -53,7 +53,8 @@
     defined (STM32U595xx)   || \
     defined (STM32U599xx)   || \
     defined (STM32U5A5xx)   || \
-    defined (STM32U5A9xx)
+    defined (STM32U5A9xx)   || \
+    defined (STM32U5G9xx)
     #define TARGET_STM32U5xx
 #elif defined (STM32H563xx)
     #define TARGET_STM32H5xx
