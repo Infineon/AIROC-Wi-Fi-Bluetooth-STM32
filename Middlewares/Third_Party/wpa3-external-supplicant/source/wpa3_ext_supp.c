@@ -1382,7 +1382,7 @@ cy_rslt_t wpa3_supplicant_deinit_workspace(wpa3_supplicant_workspace_t *wksp)
     if ( wksp->wpa3_rtos_info != NULL )
     {
         /* join thread */
-        if ( &(wksp->wpa3_rtos_info->thread_handle) != NULL )
+        if ( wksp->wpa3_rtos_info->thread_handle != NULL )
         {
              (void)cy_rtos_join_thread( &(wksp->wpa3_rtos_info->thread_handle) );
         }

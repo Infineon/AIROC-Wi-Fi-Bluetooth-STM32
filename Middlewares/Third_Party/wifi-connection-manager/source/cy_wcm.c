@@ -3026,7 +3026,7 @@ static bool check_wcm_security(cy_wcm_security_t sec)
         case CY_WCM_SECURITY_WPA2_FBT_ENT:
         case CY_WCM_SECURITY_IBSS_OPEN:
         case CY_WCM_SECURITY_WPS_SECURE:
-#ifdef COMPONENT_CAT5
+#ifdef ENABLE_ENTPS_FEATURE
         case CY_WCM_SECURITY_WPA3_192BIT_ENT:
         case CY_WCM_SECURITY_WPA3_ENT:
         case CY_WCM_SECURITY_WPA3_ENT_AES_CCMP:
@@ -3362,7 +3362,7 @@ static void* link_events_handler(whd_interface_t ifp, const whd_event_header_t *
                     case WHD_SECURITY_WPA2_FBT_ENT:
                     case WHD_SECURITY_WPA3_SAE:
                     case WHD_SECURITY_WPA3_WPA2_PSK:
-#ifdef COMPONENT_CAT5
+#ifdef ENABLE_ENTPS_FEATURE
                     case WHD_SECURITY_WPA3_192BIT_ENT:
                     case WHD_SECURITY_WPA3_ENT_AES_CCMP:
                     case WHD_SECURITY_WPA3_ENT:
@@ -4152,7 +4152,7 @@ static whd_security_t wcm_to_whd_security(cy_wcm_security_t sec)
         case CY_WCM_SECURITY_WPA2_AES_ENT:
             return WHD_SECURITY_WPA2_AES_ENT;
 
-#ifdef COMPONENT_CAT5
+#ifdef ENABLE_ENTPS_FEATURE
         case CY_WCM_SECURITY_WPA3_ENT:
             return WHD_SECURITY_WPA3_ENT;
 
@@ -4244,7 +4244,7 @@ cy_wcm_security_t whd_to_wcm_security(whd_security_t sec)
         case WHD_SECURITY_WPA2_AES_ENT:
             return CY_WCM_SECURITY_WPA2_AES_ENT;
 
-#ifdef COMPONENT_CAT5
+#ifdef ENABLE_ENTPS_FEATURE
         case WHD_SECURITY_WPA3_192BIT_ENT:
             return CY_WCM_SECURITY_WPA3_192BIT_ENT;
 
@@ -4502,7 +4502,7 @@ static bool check_if_ent_auth_types(cy_wcm_security_t auth_type)
        (auth_type == CY_WCM_SECURITY_WPA_MIXED_ENT) || (auth_type == CY_WCM_SECURITY_WPA2_TKIP_ENT) ||
        (auth_type == CY_WCM_SECURITY_WPA2_AES_ENT) || (auth_type == CY_WCM_SECURITY_WPA2_MIXED_ENT) ||
        (auth_type == CY_WCM_SECURITY_WPA2_FBT_ENT) 
-#ifdef COMPONENT_CAT5
+#ifdef ENABLE_ENTPS_FEATURE
        || (auth_type == CY_WCM_SECURITY_WPA3_ENT) 
        || (auth_type == CY_WCM_SECURITY_WPA3_192BIT_ENT) 
        || (auth_type == CY_WCM_SECURITY_WPA3_ENT_AES_CCMP)

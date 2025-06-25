@@ -1,0 +1,7 @@
+[CortexM7:ProjectFiles]
+HeaderPath=../CM7/Core/Inc;../CM7/MBEDTLS/App;../Drivers/CMSIS/RTOS2/Include/;
+[CortexM7:Others]
+Define=CYBSP_WIFI_CAPABLE;CY_USING_HAL;CY_STORAGE_WIFI_DATA:".whd_fw";HAVE_SNPRINTF;COMPONENT_LWIP;COMPONENT_MBEDTLS;MBEDTLS_USER_CONFIG_FILE:"mbedtls_user_config.h";DISABLE_COMMAND_CONSOLE_BT;ENABLE_ENTPS_FEATURE
+[CortexM7:Groups]
+Application/User/Core/Src=../CM7/Core/Src/console_task.c;../CM7/Core/Src/ent_sec_utility.c;../CM7/Core/Src/ent_secure_tcp_client.c;../CM7/Core/Src/ent_tcp_server.c;
+Application/User/MBEDTLS=../CM7/MBEDTLS/App/mbedtls.c;../CM7/MBEDTLS/Target/custom_rng.c;

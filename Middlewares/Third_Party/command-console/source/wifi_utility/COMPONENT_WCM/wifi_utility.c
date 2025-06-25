@@ -49,6 +49,10 @@
 extern "C" {
 #endif
 
+#ifdef COMPONENT_CAT5
+#define ENABLE_ENTPS_FEATURE
+#endif /* COMPONENT_CAT5 */
+
 /******************************************************
  *                      Macros
  ******************************************************/
@@ -689,7 +693,7 @@ const char* wifi_utils_authtype_to_str(cy_wcm_security_t sec)
             return "wpa2_mixed_ent";
         case CY_WCM_SECURITY_WPA2_FBT_ENT:
             return "wpa2_fbt_ent";
-#ifdef COMPONENT_CAT5
+#ifdef ENABLE_ENTPS_FEATURE
         case CY_WCM_SECURITY_WPA3_192BIT_ENT:
             return "wpa3_192bit_ent";
         case CY_WCM_SECURITY_WPA3_ENT:

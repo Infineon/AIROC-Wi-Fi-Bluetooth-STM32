@@ -1,0 +1,6 @@
+[ProjectFiles]
+HeaderPath=../Drivers/CMSIS/RTOS2/Include
+[Others]
+Define=CYBSP_WIFI_CAPABLE;CY_USING_HAL;MBEDTLS_USER_CONFIG_FILE:"mbedtls_user_config.h";
+[Groups]
+Application/User/Core/Src=../Core/Src/tcp_keepalive_offload.c;../Core/Src/cycfg_connectivity_wifi.c

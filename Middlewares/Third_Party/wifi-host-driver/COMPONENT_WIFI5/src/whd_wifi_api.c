@@ -1556,6 +1556,7 @@ static whd_result_t whd_wifi_prepare_join(whd_interface_t ifp, whd_security_t au
     uint16_t event_entry = 0xFF;
     (void)bss_index;
     uint16_t chip_id = whd_chip_get_chip_id(whd_driver);
+    uint32_t algos = 0, mask = 0;
 
     if ( chip_id == 43022 )
     {
@@ -1601,6 +1602,24 @@ static whd_result_t whd_wifi_prepare_join(whd_interface_t ifp, whd_security_t au
 
     /* Set Wireless Security Type */
     CHECK_RETURN(whd_wifi_set_ioctl_value(ifp, WLC_SET_WSEC, (uint32_t)(auth_type & 0xFF) ) );
+
+    if (whd_driver->chip_info.fwcap_flags & (1 << WHD_FWCAP_GCMP) )
+    {
+       if( auth_type == WHD_SECURITY_WPA3_ENT || auth_type == WHD_SECURITY_WPA3_192BIT_ENT)
+       {
+        algos = KEY_ALGO_MASK(CRYPTO_ALGO_AES_GCM256);
+        mask = algos | KEY_ALGO_MASK(CRYPTO_ALGO_AES_CCM);
+        WPRINT_WHD_DEBUG( ("set_wsec_info algos (0x%lx) mask (0x%lx)\n",algos, mask ) );
+        CHECK_RETURN(whd_set_wsec_info_algos(ifp, algos, mask));
+       }
+       else if ( auth_type == WHD_SECURITY_WPA3_ENT_AES_CCMP )
+       {
+        algos = KEY_ALGO_MASK(CRYPTO_ALGO_AES_CCM);
+        mask = algos | KEY_ALGO_MASK(CRYPTO_ALGO_AES_GCM256);
+        WPRINT_WHD_DEBUG( ("set_wsec_info algos (0x%lx) mask (0x%lx)\n",algos, mask ) );
+        CHECK_RETURN(whd_set_wsec_info_algos(ifp, algos, mask));
+       }
+    }
 
     /* Enable Roaming in FW by default */
     CHECK_RETURN(whd_wifi_set_iovar_value(ifp, IOVAR_STR_ROAM_OFF, 0) );
@@ -1655,7 +1674,8 @@ static whd_result_t whd_wifi_prepare_join(whd_interface_t ifp, whd_security_t au
     {
         case WHD_SECURITY_OPEN:
         case WHD_SECURITY_WPS_SECURE:
-            break;
+        case WHD_SECURITY_WPA3_OWE:
+           break;
 
         case WHD_SECURITY_WPA_TKIP_PSK:
         case WHD_SECURITY_WPA_AES_PSK:
@@ -1699,6 +1719,9 @@ static whd_result_t whd_wifi_prepare_join(whd_interface_t ifp, whd_security_t au
         case WHD_SECURITY_WPA2_TKIP_ENT:
         case WHD_SECURITY_WPA2_AES_ENT:
         case WHD_SECURITY_WPA2_MIXED_ENT:
+        case WHD_SECURITY_WPA3_ENT:
+        case WHD_SECURITY_WPA3_ENT_AES_CCMP:
+        case WHD_SECURITY_WPA3_192BIT_ENT:
             /* Disable eapol timer by setting to value 0 */
             CHECK_RETURN_UNSUPPORTED_CONTINUE(whd_wifi_set_supplicant_key_timeout(ifp, 0) );
             break;
@@ -1732,7 +1755,8 @@ static whd_result_t whd_wifi_prepare_join(whd_interface_t ifp, whd_security_t au
      * When WPA2 security is enabled on the DUT, then by defaults the DUT shall:
      * Enable Robust Management Frame Protection Capable (MFPC) functionality
      */
-    if (auth_type == WHD_SECURITY_WPA3_SAE)
+    if (auth_type == WHD_SECURITY_WPA3_SAE || auth_type == WHD_SECURITY_WPA3_ENT || auth_type == WHD_SECURITY_WPA3_192BIT_ENT
+                            || auth_type == WHD_SECURITY_WPA3_ENT_AES_CCMP || auth_type == WHD_SECURITY_WPA3_OWE)
     {
         auth_mfp = WL_MFP_REQUIRED;
     }
@@ -1745,6 +1769,17 @@ static whd_result_t whd_wifi_prepare_join(whd_interface_t ifp, whd_security_t au
     if (check_result != WHD_SUCCESS)
     {
         WPRINT_WHD_DEBUG( ("Older chipsets might not support MFP..Ignore result\n") );
+    }
+
+    if (auth_type == WHD_SECURITY_WPA3_ENT || auth_type == WHD_SECURITY_WPA3_192BIT_ENT)
+    {
+        char *bip_suite = "\x00\x0F\xAC\x0C";    /* Setting Group Management Cipher Suite - GMAC-256 for WPA3 ENT */
+        CHECK_RETURN(whd_wifi_set_iovar_buffer(ifp, IOVAR_STR_BIP, bip_suite, 4));
+    }
+    else if (auth_type == WHD_SECURITY_WPA3_ENT_AES_CCMP)
+    {
+        char *bip_suite = "\x00\x0F\xAC\x06";    /* Setting Group Management Cipher Suite - BIP-128 for WPA3 ENT */
+        CHECK_RETURN(whd_wifi_set_iovar_buffer(ifp, IOVAR_STR_BIP, bip_suite, 4));
     }
 
     /* Set WPA authentication mode */
@@ -1802,11 +1837,24 @@ static whd_result_t whd_wifi_prepare_join(whd_interface_t ifp, whd_security_t au
         case WHD_SECURITY_WPA2_MIXED_ENT:
             *wpa_auth = (uint32_t)WPA2_AUTH_UNSPECIFIED;
             break;
+        case WHD_SECURITY_WPA3_ENT_AES_CCMP:
+            *wpa_auth = (uint32_t)WPA2_AUTH_1X_SHA256;
+            break;
+        case WHD_SECURITY_WPA3_ENT:
+             *wpa_auth = (uint32_t)WPA3_AUTH_1X_SHA256;
+            break;
+        case WHD_SECURITY_WPA3_192BIT_ENT:
+            *wpa_auth = (uint32_t)WPA3_AUTH_1X_SUITE_B_SHA384;
+            break;
 #if 0
         case WHD_SECURITY_WPA2_FBT_ENT:
             *wpa_auth = ( uint32_t )(WPA2_AUTH_UNSPECIFIED | WPA2_AUTH_FT);
             break;
 #endif
+        case WHD_SECURITY_WPA3_OWE:
+            *wpa_auth = (uint32_t)WPA3_AUTH_OWE;
+            break;
+
         case WHD_SECURITY_UNKNOWN:
         case WHD_SECURITY_FORCE_32_BIT:
         default:
@@ -2464,7 +2512,7 @@ static void *whd_wifi_scan_events_handler(whd_interface_t ifp, const whd_event_h
             if (akm_suite_list_item == (uint32_t)WHD_AKM_PSK_SHA256)
             {
                 record->security |= WPA2_SECURITY;
-                record->security |= WPA2_SHA256_SECURITY;
+                record->security |= SHA256_1X;
             }
             if (akm_suite_list_item == (uint32_t)WHD_AKM_SAE_SHA256)
             {

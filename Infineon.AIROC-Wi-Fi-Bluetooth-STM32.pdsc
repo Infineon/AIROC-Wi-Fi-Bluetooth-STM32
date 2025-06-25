@@ -6,6 +6,78 @@
     <url>https://github.com/Infineon/AIROC-Wi-Fi-Bluetooth-STM32/releases/download/packs/</url>
     <license>Infineon-License.txt</license>
     <releases>
+        <release date="2024-11-15" version="1.7.0">
+Maintenance Release
+
+What's New?
+ * Added enterprise-security support
+  - wifi_ent_sec application for Nucleo-H7
+
+ * Added Murata type.2GF (CYW43022) module
+ * Added Murata type.2FY (CYW55513) module
+ * Added Ezurio IF573 (CYW55573)
+ * Added Ezurio IF513 (CYW55513)
+ * Added Inventek ISM4343-WBU-L151 (CYW4343W)
+
+ * Added More apps to Nucleo-H7/U5
+   NUCLEO-H745ZI-Q:
+   - bt_mfg_tester
+   - wifi_mfg_tester
+   - wifi_netxduo
+   - wifi_tko
+   NUCLEO-H745ZI-Q:
+   - ble_wifi_onboarding
+   - bt_mfg_tester
+   - wifi_mfg_tester
+   - wifi_netxduo
+   - wifi_tko
+
+ * Updated tools 
+   - STM32Cubemx 6.12.1
+   - STM32CubeIDE 1.16.1
+	
+What's Included?
+ * Supported Connectivity Modules
+   - CYW43012
+   - CYW4343W / CYW43438
+   - CYW4373
+   - CYW55500
+   - CYW55572
+   - CYW43022
+ 
+ * Expansion Pack Contents
+   - btstack v.3.7.1
+   - btstack-integration v.4.3.1
+   - wifi-host-driver v.4.1.0
+   - wcm v.3.5.0
+   - whd-bsp-integration v.2.3.0
+   - lwip-freertos-integration v.1.0.0
+   - lwip-network-interface-integration v.1.3.1
+   - netxduo-network-interface-integration v.1.3.0
+   - connectivity-utilities v.4.4.0
+   - core-lib v.1.3.1
+   - abstraction-rtos v.1.8.0
+   - LwIP v.2.1.2
+   - PAL v.1.4.0
+   - Device v.1.2.0
+   - command-console v.6.0.0
+   - wifi-mfg-test v.3.3.0
+   - secure-sockets v.3.0.0
+   - stm32_mw_freertos v.10.4.6
+   - wpa3_external_supplicant v.1.1.0
+   - aws-iot-device-sdk-port V2.3.0   
+   - aws-iot-device-sdk-embedded-C v202103 
+   - mqtt v4.3.0
+ * Examples
+   - Wi-Fi Scan Example
+   - Wi-Fi Onboarding with BLE
+   - Azure RTOS NetXDuo Wi-Fi UDP echo server
+   - Wi-Fi BT Tester
+   - Wi-Fi Manufacturing Tester
+   - Bluetooth Manufacturing Tester
+   - BLE Hello 
+   - Wi-Fi MQTT Client
+        </release>
         <release date="2024-08-12" version="1.6.1">
 Maintenance Release
 
@@ -409,6 +481,9 @@ What's Included?
             <require condition="network-interface lwip dependencies"/>
             <require Cbundle="Connectivity" Cclass="Wireless" Cgroup="Platform" Csub="device" Cvariant="CYW43012"/>
         </condition>
+        <condition id="enterprise-security dependencies">
+            <require condition="network-interface lwip dependencies"/>
+        </condition>
         <condition id="abstraction-rtos freertos">
             <require condition="Platform dependencies"/>
         </condition>
@@ -512,7 +587,7 @@ What's Included?
         </condition>
     </conditions>
     <components>
-        <bundle Cbundle="Connectivity" Cclass="Wireless" Cversion="1.6.1">
+        <bundle Cbundle="Connectivity" Cclass="Wireless" Cversion="1.7.0">
             <description>Wifi-Bluetooth (BT/BLE) libraries.</description>
             <doc>Documentation/InfineonAIROC-Wi-Fi-Bluetooth-STM32ExpansionPack_UserGuide.pdf</doc>
             <component Cgroup="Bluetooth" Csub="btstack" Cvariant="BLE_HARDFP" condition="btstack dependencies" maxInstances="1">
@@ -741,6 +816,32 @@ What's Included?
                     <file category="source" name="Middlewares/Third_Party/wpa3-external-supplicant/source/wpa3_ext_supp.c"/>
                     <file category="source" name="Middlewares/Third_Party/wpa3-external-supplicant/source/wpa3_ext_crypto.c"/>
                     <file category="source" name="Middlewares/Third_Party/wpa3-external-supplicant/source/wpa3_ext_utils.c"/>
+                </files>
+            </component>
+            <component Cgroup="Wifi" Csub="enterprise-security" condition="enterprise-security dependencies" maxInstances="1">
+                <description>Enterprise-Security is a library which helps application developers to manage WPAx-Enterprise. The library provides a set of APIs that can be used to establish WPAx-Enterprise connections on Cypress platforms that support Wi-Fi connectivity.</description>
+                <files>
+                    <file category="include" name="Middlewares/Third_Party/enterprise-security/include/"/>
+                    <file category="include" name="Middlewares/Third_Party/enterprise-security/source/"/>
+                    <file category="include" name="Middlewares/Third_Party/enterprise-security/source/abstraction/port/"/>
+                    <file category="include" name="Middlewares/Third_Party/enterprise-security/source/abstraction/tls/"/>
+                    <file category="include" name="Middlewares/Third_Party/enterprise-security/source/abstraction/tls/COMPONENT_MBEDTLS/"/>
+                    <file category="include" name="Middlewares/Third_Party/enterprise-security/source/supplicant_core/"/>
+                    <file category="include" name="Middlewares/Third_Party/enterprise-security/source/supplicant_core/supplicant_host/"/>
+                    <file category="include" name="Middlewares/Third_Party/enterprise-security/source/supplicant_core/supplicant_utils/"/>
+                    <file category="source" name="Middlewares/Third_Party/enterprise-security/source/abstraction/port/cy_eapol_abstraction.c"/>
+                    <file category="source" name="Middlewares/Third_Party/enterprise-security/source/abstraction/port/cy_enterprise_security_interface.c"/>
+                    <file category="source" name="Middlewares/Third_Party/enterprise-security/source/abstraction/port/cy_rtos_abstraction.c"/>
+                    <file category="source" name="Middlewares/Third_Party/enterprise-security/source/abstraction/port/cy_wifi_abstraction.c"/>
+                    <file category="source" name="Middlewares/Third_Party/enterprise-security/source/abstraction/tls/COMPONENT_MBEDTLS/cy_tls_abstraction.c"/>
+                    <file category="source" name="Middlewares/Third_Party/enterprise-security/source/supplicant_core/supplicant_host/cy_supplicant_host.c"/>
+                    <file category="source" name="Middlewares/Third_Party/enterprise-security/source/supplicant_core/supplicant_utils/cy_md4.c"/>
+                    <file category="source" name="Middlewares/Third_Party/enterprise-security/source/supplicant_core/cy_eap.c"/>
+                    <file category="source" name="Middlewares/Third_Party/enterprise-security/source/supplicant_core/cy_mschapv2.c"/>
+                    <file category="source" name="Middlewares/Third_Party/enterprise-security/source/supplicant_core/cy_peap.c"/>
+                    <file category="source" name="Middlewares/Third_Party/enterprise-security/source/supplicant_core/cy_supplicant_process_et.c"/>
+                    <file category="source" name="Middlewares/Third_Party/enterprise-security/source/supplicant_core/cy_ttls.c"/>
+                    <file category="source" name="Middlewares/Third_Party/enterprise-security/source/cy_enterprise_security_internal.c"/>
                 </files>
             </component>
             <component Cgroup="Wifi" Csub="whd-bsp-integration" condition="whd-bsp-integration dependencies" maxInstances="1">
@@ -1337,6 +1438,20 @@ What's Included?
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/nvram/COMPONENT_43022/COMPONENT_CYW943022WLREF/"/>
                 </files>
             </component>
+            <component Cgroup="Platform" Csub="module" Cvariant="MURATA-2GF" condition="CYW43022 dependencies" maxInstances="1">
+                <description>MURATA-2GF module (based on CYW43022/SM)</description>
+                <files>
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43022/COMPONENT_SM/"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43022/COMPONENT_SM/43022C1_bin.c"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43022/COMPONENT_SM/43022C1-mfgtest_bin.c"/>
+                    <file category="header" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43022/COMPONENT_SM/resources.h"/>
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_43022/COMPONENT_MURATA-2GF/"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_43022/COMPONENT_MURATA-2GF/43022C1_clm_blob.c"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_43022/COMPONENT_MURATA-2GF/43022C1_clm_blob-mfgtest.c"/>
+                    <file category="header" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_43022/COMPONENT_MURATA-2GF/clm_resources.h"/>
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/nvram/COMPONENT_43022/COMPONENT_MURATA-2GF/"/>
+                </files>
+            </component>
             <component Cgroup="Platform" Csub="module" Cvariant="MURATA-1YN" condition="CYW43439 dependencies" maxInstances="1">
                 <description>MURATA-1YN module (based on CYW43439)</description>
                 <files>
@@ -1427,6 +1542,21 @@ What's Included?
                     <file category="source" name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_4343W/COMPONENT_MURATA-1DX/w_bt_firmware_controller.c"/>
                 </files>
             </component>
+            <component Cgroup="Platform" Csub="module" Cvariant="INVENTEK-ISM4343-WBU-L151" condition="CYW4343W dependencies" maxInstances="1">
+                <description>INVENTEK module (based on CYW4343W)</description>
+                <files>
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4343W/COMPONENT_INVENTEK-ISM4343-WBU-L151/"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4343W/COMPONENT_INVENTEK-ISM4343-WBU-L151/4343WA1_bin.c"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4343W/4343WA1-mfgtest_bin.c"/>
+                    <file category="header" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4343W/COMPONENT_INVENTEK-ISM4343-WBU-L151/resources.h"/>
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_4343W/COMPONENT_INVENTEK-ISM4343-WBU-L151/"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_4343W/COMPONENT_INVENTEK-ISM4343-WBU-L151/4343WA1_clm_blob.c"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_4343W/4343WA1-mfgtest_clm_blob.c"/>
+                    <file category="header" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_4343W/COMPONENT_INVENTEK-ISM4343-WBU-L151/clm_resources.h"/>
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/nvram/COMPONENT_4343W/COMPONENT_INVENTEK-ISM4343-WBU-L151/"/>
+                    <file category="source" name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_4343W/COMPONENT_MURATA-1DX/w_bt_firmware_controller.c"/>
+                </files>
+            </component>
             <component Cgroup="Platform" Csub="module" Cvariant="STERLING-LWB5plus" condition="CYW4373 dependencies" maxInstances="1">
                 <description>STERLING-LWB5plus module (based CYW4373)</description>
                 <files>
@@ -1486,7 +1616,7 @@ What's Included?
                 </files>
             </component>
             <component Cgroup="Platform" Csub="module" Cvariant="MURATA-2EA" condition="CYW55572 dependencies" maxInstances="1">
-                <description>Module for CYW955573M2IPA1(SM)</description>
+                <description>MURATA-2EA module (based on CYW55573/SM)</description>
                 <files>
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55572/COMPONENT_SM/"/>
                     <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55572/COMPONENT_SM/55572A1_bin.c"/>
@@ -1499,6 +1629,20 @@ What's Included?
                     <file category="header" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55572/COMPONENT_MURATA-2EA/clm_resources.h"/>
                 </files>
             </component>
+            <component Cgroup="Platform" Csub="module" Cvariant="SONA-IF573" condition="CYW55572 dependencies" maxInstances="1">
+                <description>SONA-IF573 module (based on CYW55573/SM)</description>
+                <files>
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55572/COMPONENT_SM/"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55572/COMPONENT_SM/55572A1_bin.c"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55572/COMPONENT_SM/55572A1-mfgtest_bin.c"/>
+                    <file category="header" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55572/COMPONENT_SM/resources.h"/>
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/nvram/COMPONENT_55572/COMPONENT_SONA-IF573/"/>
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55572/COMPONENT_SONA-IF573/"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55572/COMPONENT_SONA-IF573/55572A1_clm_blob.c"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55572/55572A1-mfgtest_clm_blob.c"/>
+                    <file category="header" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55572/COMPONENT_SONA-IF573/clm_resources.h"/>
+                </files>
+            </component>
             <component Cgroup="Platform" Csub="module" Cvariant="CYW955513WLIPA-SM" condition="CYW55500 dependencies" maxInstances="1">
                 <description>Module for CYW955513WLIPA(SM)</description>
                 <files>
@@ -1507,6 +1651,34 @@ What's Included?
                     <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/55500A1-mfgtest_bin.c"/>
                     <file category="header" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/resources.h"/>
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/nvram/COMPONENT_55500/COMPONENT_CYW955513WLIPA/"/>
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/55500A1_clm_blob.c"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/55500A1-mfgtest_clm_blob.c"/>
+                    <file category="header" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/clm_resources.h"/>
+                </files>
+            </component>
+            <component Cgroup="Platform" Csub="module" Cvariant="MURATA-2FY" condition="CYW55500 dependencies" maxInstances="1">
+                <description>MURATA-2FY module (based on CYW55513/SM)</description>
+                <files>
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/55500A1_bin.c"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/55500A1-mfgtest_bin.c"/>
+                    <file category="header" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/resources.h"/>
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/nvram/COMPONENT_55500/COMPONENT_MURATA-2FY/"/>
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/COMPONENT_MURATA-2FY/"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/COMPONENT_MURATA-2FY/55500A1_clm_blob.c"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/55500A1-mfgtest_clm_blob.c"/>
+                    <file category="header" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/COMPONENT_MURATA-2FY/clm_resources.h"/>
+                </files>
+            </component>
+            <component Cgroup="Platform" Csub="module" Cvariant="SONA-IF513" condition="CYW55500 dependencies" maxInstances="1">
+                <description>SONA-IF513 module (based on CYW55513/SM)</description>
+                <files>
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/55500A1_bin.c"/>
+                    <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/55500A1-mfgtest_bin.c"/>
+                    <file category="header" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/resources.h"/>
+                    <file category="include" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/nvram/COMPONENT_55500/COMPONENT_SONA-IF513/"/>
                     <file category="include" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/"/>
                     <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/55500A1_clm_blob.c"/>
                     <file category="source" name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/55500A1-mfgtest_clm_blob.c"/>
