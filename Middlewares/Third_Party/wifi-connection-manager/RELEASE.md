@@ -14,6 +14,10 @@ See the [README.md](./README.md) for a complete description of the Wi-Fi Connect
 
 ## Changelog
 
+### v3.6.0
+
+- Enabled 6G support
+
 ### v3.5.0
 
 - Added support for CY8CEVAL-062S2-CYW955513SDM2WLIPA kit

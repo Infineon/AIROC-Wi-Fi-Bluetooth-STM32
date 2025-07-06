@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<IP xmlns="http://mcd.rou.st.com/modules.php?name=mcu" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" DBVersion="V4.0" Name="AIROC-Wi-Fi-Bluetooth-STM32" RootFolder="Packs/Infineon/AIROC-Wi-Fi-Bluetooth-STM32/1.7.0/" Version="1.7.0" ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/thirdPartyDb.xsd">
+<IP xmlns="http://mcd.rou.st.com/modules.php?name=mcu" xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" DBVersion="V4.0" Name="AIROC-Wi-Fi-Bluetooth-STM32" RootFolder="Packs/Infineon/AIROC-Wi-Fi-Bluetooth-STM32/1.7.1/" Version="1.7.1" ns0:schemaLocation="http://mcd.rou.st.com/modules.php?name=mcu ../../../../../../../doc/V4/Development/Specifications/db/thirdPartyDb.xsd">
     <RefConfig Name="WirelessJjConnectivity">
         <Component Name="ConnectivityCcWireless:Bluetooth:btstack:BLEIiHARDFP:$ConnectivityCcWirelessJjBluetoothJjbtstack"/>
         <Component Name="ConnectivityCcWireless:Bluetooth:btstack:BLEIiSOFTFP:$ConnectivityCcWirelessJjBluetoothJjbtstack"/>
@@ -86,8 +86,8 @@
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="CYBSP_BT_UART_RTS" OptimizationCondition="equal"/>
         <Argument Added="true" AddressOf="false" GenericType="simple" Name="_CYHAL_SDIO_DMA_BUFFER_SIZE" OptimizationCondition="equal"/>
     </RefConfigFile>
-    <RefComponent Cclass="ConnectivityCcWireless" Cgroup="Bluetooth" Cversion="1Gg7Gg0">
-        <SubComponent Csub="btstack" Cvariant="BLEIiHARDFP:BLEIiHARDFP" Cversion="1Gg7Gg0">
+    <RefComponent Cclass="ConnectivityCcWireless" Cgroup="Bluetooth" Cversion="1Gg7Gg1">
+        <SubComponent Csub="btstack" Cvariant="BLEIiHARDFP:BLEIiHARDFP" Cversion="1Gg7Gg1">
             <File Category="library" Condition="CM33 ARMCC;((SIiDcoreIiCortexAaM33)&amp;(SIiTcompilerIiARMCC))" Name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM33/COMPONENT_HARDFP/TOOLCHAIN_ARM/libbtstack.ar"/>
             <File Category="library" Condition="CM33 GCC;((SIiDcoreIiCortexAaM33)&amp;(SIiTcompilerIiGCC))" Name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM33/COMPONENT_HARDFP/TOOLCHAIN_GCC_ARM/libbtstack.a"/>
             <File Category="library" Condition="CM33 IAR;((SIiDcoreIiCortexAaM33)&amp;(SIiTcompilerIiIAR))" Name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM33/COMPONENT_HARDFP/TOOLCHAIN_IAR/libbtstack.a"/>
@@ -100,7 +100,7 @@
             <File Category="include" Condition="" Name="Middlewares/Third_Party/btstack/wiced_include/"/>
             <File Category="doc" Condition="" Name="Documentation/libraries/btstack/api_reference_manual.html"/>
         </SubComponent>
-        <SubComponent Csub="btstack" Cvariant="BLEIiSOFTFP:BLEIiSOFTFP" Cversion="1Gg7Gg0">
+        <SubComponent Csub="btstack" Cvariant="BLEIiSOFTFP:BLEIiSOFTFP" Cversion="1Gg7Gg1">
             <File Category="library" Condition="CM33 ARMCC;((SIiDcoreIiCortexAaM33)&amp;(SIiTcompilerIiARMCC))" Name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM33/COMPONENT_SOFTFP/TOOLCHAIN_ARM/libbtstack.ar"/>
             <File Category="library" Condition="CM33 GCC;((SIiDcoreIiCortexAaM33)&amp;(SIiTcompilerIiGCC))" Name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM33/COMPONENT_SOFTFP/TOOLCHAIN_GCC_ARM/libbtstack.a"/>
             <File Category="library" Condition="CM33 IAR;((SIiDcoreIiCortexAaM33)&amp;(SIiTcompilerIiIAR))" Name="Middlewares/Third_Party/btstack/stack/COMPONENT_WICED_BLE/COMPONENT_CM33/COMPONENT_SOFTFP/TOOLCHAIN_IAR/libbtstack.a"/>
@@ -146,7 +146,7 @@
             <File Category="include" Condition="" Name="Middlewares/Third_Party/btstack/wiced_include/"/>
             <File Category="doc" Condition="" Name="Documentation/libraries/btstack/api_reference_manual.html"/>
         </SubComponent>
-        <SubComponent Csub="btstackAaintegration" Cvariant="true" Cversion="1Gg7Gg0">
+        <SubComponent Csub="btstackAaintegration" Cvariant="true" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/include/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/common/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/debug/"/>
@@ -163,8 +163,8 @@
             <File Category="doc" Condition="" Name="Documentation/libraries/btstack-integration/api_reference_manual.html"/>
         </SubComponent>
     </RefComponent>
-    <RefComponent Cclass="ConnectivityCcWireless" Cgroup="Wifi" Cversion="1Gg7Gg0">
-        <SubComponent Csub="networkAainterface" Cvariant="LWIP:LWIP" Cversion="1Gg7Gg0">
+    <RefComponent Cclass="ConnectivityCcWireless" Cgroup="Wifi" Cversion="1Gg7Gg1">
+        <SubComponent Csub="networkAainterface" Cvariant="LWIP:LWIP" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/lwip-network-interface-integration/include/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/lwip-network-interface-integration/source/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/lwip-network-interface-integration/source/cy_ethernetif.c"/>
@@ -174,17 +174,17 @@
             <File Category="source" Condition="" Name="Middlewares/Third_Party/lwip-freertos-integration/arch/sys_arch.c"/>
             <File Category="doc" Condition="" Name="Documentation/libraries/lwip-network-interface-integration/api_reference_manual.html"/>
         </SubComponent>
-        <SubComponent Csub="networkAainterface" Cvariant="NetXDuo:NetXDuo" Cversion="1Gg7Gg0">
+        <SubComponent Csub="networkAainterface" Cvariant="NetXDuo:NetXDuo" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/netxduo-network-interface-integration/include/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/netxduo-network-interface-integration/source/cy_netxduo.c"/>
             <File Category="doc" Condition="" Name="Documentation/libraries/netxduo-network-interface-integration/api_reference_manual.html"/>
         </SubComponent>
-        <SubComponent Csub="wcm" Cvariant="WCM:WCM" Cversion="1Gg7Gg0">
+        <SubComponent Csub="wcm" Cvariant="WCM:WCM" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/include/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/cy_wcm.c"/>
             <File Category="doc" Condition="" Name="Documentation/libraries/wifi-connection-manager/api_reference_manual.html"/>
         </SubComponent>
-        <SubComponent Csub="wcm" Cvariant="WCMAaWPSAaMBEDTLS:WCMAaWPSAaMBEDTLS" Cversion="1Gg7Gg0">
+        <SubComponent Csub="wcm" Cvariant="WCMAaWPSAaMBEDTLS:WCMAaWPSAaMBEDTLS" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/include/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_WPS/include/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_MBEDTLS/"/>
@@ -211,7 +211,7 @@
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_WPS/Utilities/TLV/tlv.h"/>
             <File Category="doc" Condition="" Name="Documentation/libraries/wifi-connection-manager/api_reference_manual.html"/>
         </SubComponent>
-        <SubComponent Csub="wifiAahostAadriver" Cvariant="true" Cversion="1Gg7Gg0">
+        <SubComponent Csub="wifiAahostAadriver" Cvariant="true" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/"/>
             <File Category="include" Condition="CYW43XX device;(SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW43012|SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW43022|SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW4343W|SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW43439|SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW43438|SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW4373)" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/inc/"/>
             <File Category="include" Condition="CYW43XX device;(SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW43012|SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW43022|SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW4343W|SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW43439|SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW43438|SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW4373)" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/src/"/>
@@ -284,13 +284,13 @@
             <File Category="doc" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/generated_mac_address.txt"/>
             <File Category="doc" Condition="" Name="Documentation/libraries/wifi-host-driver/html/index.html"/>
         </SubComponent>
-        <SubComponent Csub="wpa3AaexternalAasupplicant" Cvariant="true" Cversion="1Gg7Gg0">
+        <SubComponent Csub="wpa3AaexternalAasupplicant" Cvariant="true" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wpa3-external-supplicant/include/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wpa3-external-supplicant/source/wpa3_ext_supp.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wpa3-external-supplicant/source/wpa3_ext_crypto.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wpa3-external-supplicant/source/wpa3_ext_utils.c"/>
         </SubComponent>
-        <SubComponent Csub="enterpriseAasecurity" Cvariant="true" Cversion="1Gg7Gg0">
+        <SubComponent Csub="enterpriseAasecurity" Cvariant="true" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/enterprise-security/include/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/enterprise-security/source/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/enterprise-security/source/abstraction/port/"/>
@@ -313,7 +313,7 @@
             <File Category="source" Condition="" Name="Middlewares/Third_Party/enterprise-security/source/supplicant_core/cy_ttls.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/enterprise-security/source/cy_enterprise_security_internal.c"/>
         </SubComponent>
-        <SubComponent Csub="whdAabspAaintegration" Cvariant="true" Cversion="1Gg7Gg0">
+        <SubComponent Csub="whdAabspAaintegration" Cvariant="true" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/whd-bsp-integration/"/>
             <File Category="include" Condition="netxduo_interface;(SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiWifi&amp;SIiCsubIinetworkAainterface&amp;SIiCvariantIiNetXDuo&amp;SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIiabstractionAartos&amp;SIiCvariantIiThreadX)" Name="Middlewares/Third_Party/whd-bsp-integration/COMPONENT_NETXDUO/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/whd-bsp-integration/cybsp_wifi.c"/>
@@ -324,7 +324,7 @@
             <File Category="source" Condition="netxduo_interface;(SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiWifi&amp;SIiCsubIinetworkAainterface&amp;SIiCvariantIiNetXDuo&amp;SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIiabstractionAartos&amp;SIiCvariantIiThreadX)" Name="Middlewares/Third_Party/whd-bsp-integration/COMPONENT_NETXDUO/cy_network_buffer_netxduo.c"/>
             <File Category="doc" Condition="" Name="Documentation/libraries/whd-bsp-integration/api_reference_manual.html"/>
         </SubComponent>
-        <SubComponent Csub="connectivityAautilities" Cvariant="true" Cversion="1Gg7Gg0">
+        <SubComponent Csub="connectivityAautilities" Cvariant="true" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/connectivity-utilities/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/connectivity-utilities/cy_log/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/connectivity-utilities/cy_log/cy_log.c"/>
@@ -340,7 +340,7 @@
             <File Category="source" Condition="lwip_interface;(SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiWifi&amp;SIiCsubIinetworkAainterface&amp;SIiCvariantIiLWIP&amp;SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIiabstractionAartos&amp;SIiCvariantIiFreeRTOS)" Name="Middlewares/Third_Party/connectivity-utilities/network/COMPONENT_LWIP/cy_nw_helper.c"/>
             <File Category="doc" Condition="" Name="Documentation/libraries/connectivity-utilities/api_reference_manual.html"/>
         </SubComponent>
-        <SubComponent Csub="secureAasockets" Cvariant="true" Cversion="1Gg7Gg0">
+        <SubComponent Csub="secureAasockets" Cvariant="true" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/secure-sockets/include/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/secure-sockets/source/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/secure-sockets/source/cy_tls_weak.c"/>
@@ -352,7 +352,7 @@
             <File Category="source" Condition="netxduo_interface;(SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiWifi&amp;SIiCsubIinetworkAainterface&amp;SIiCvariantIiNetXDuo&amp;SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIiabstractionAartos&amp;SIiCvariantIiThreadX)" Name="Middlewares/Third_Party/secure-sockets/source/COMPONENT_NETXSECURE/cy_tls.c"/>
             <File Category="source" Condition="netxduo_interface;(SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiWifi&amp;SIiCsubIinetworkAainterface&amp;SIiCvariantIiNetXDuo&amp;SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIiabstractionAartos&amp;SIiCvariantIiThreadX)" Name="Middlewares/Third_Party/secure-sockets/source/COMPONENT_NETXSECURE/iot_crypto.c"/>
         </SubComponent>
-        <SubComponent Csub="LwIP" Cvariant="true" Cversion="1Gg7Gg0">
+        <SubComponent Csub="LwIP" Cvariant="true" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/LwIP/src/include/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/LwIP/src/api/api_lib.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/LwIP/src/api/api_msg.c"/>
@@ -520,7 +520,7 @@
             <File Category="header" Condition="" Name="Middlewares/Third_Party/LwIP/src/include/lwip/udp.h"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/LwIP/src/netif/ethernet.c"/>
         </SubComponent>
-        <SubComponent Csub="mbedtls" Cvariant="true" Cversion="1Gg7Gg0">
+        <SubComponent Csub="mbedtls" Cvariant="true" Cversion="1Gg7Gg1">
             <File Category="source" Condition="" Name="Middlewares/Third_Party/ARM/mbedtls/library/aes.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/ARM/mbedtls/library/aesni.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/ARM/mbedtls/library/arc4.c"/>
@@ -623,7 +623,7 @@
             <File Category="include" Condition="" Name="Middlewares/Third_Party/ARM/mbedtls/include/mbedtls/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/ARM/mbedtls/library/"/>
         </SubComponent>
-        <SubComponent Csub="lpa" Cvariant="true" Cversion="1Gg7Gg0">
+        <SubComponent Csub="lpa" Cvariant="true" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/lpa/helpers/net_activity/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/lpa/include/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/lpa/source/"/>
@@ -641,7 +641,7 @@
             <File Category="source" Condition="" Name="Middlewares/Third_Party/lpa/target/COMPONENT_WCM/cy_nw_lpa_helper.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/lpa/target/COMPONENT_WCM/cy_OlmInterface.c"/>
         </SubComponent>
-        <SubComponent Csub="awsAaiotAadeviceAasdkAaembeddedAaC" Cvariant="true" Cversion="1Gg7Gg0">
+        <SubComponent Csub="awsAaiotAadeviceAasdkAaembeddedAaC" Cvariant="true" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/aws-iot-device-sdk-embedded-C/platform/include/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/aws-iot-device-sdk-embedded-C/libraries/standard/coreMQTT/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/aws-iot-device-sdk-embedded-C/libraries/standard/coreMQTT/source/include/"/>
@@ -658,7 +658,7 @@
             <File Category="source" Condition="" Name="Middlewares/Third_Party/aws-iot-device-sdk-embedded-C/libraries/standard/coreMQTT/source/core_mqtt_state.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/aws-iot-device-sdk-embedded-C/libraries/standard/coreMQTT/source/core_mqtt_serializer.c"/>
         </SubComponent>
-        <SubComponent Csub="awsAaiotAadeviceAasdkAaport" Cvariant="true" Cversion="1Gg7Gg0">
+        <SubComponent Csub="awsAaiotAadeviceAasdkAaport" Cvariant="true" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/aws-iot-device-sdk-port/include/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/aws-iot-device-sdk-port/source/include/"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/aws-iot-device-sdk-port/include/cy_aws_iot_port_error.h"/>
@@ -672,7 +672,7 @@
             <File Category="source" Condition="" Name="Middlewares/Third_Party/aws-iot-device-sdk-port/source/cy_aws_retry_utils.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/aws-iot-device-sdk-port/source/COMPONENT_SECURE_SOCKETS/cy_aws_tcpip_port_secure_sockets.c"/>
         </SubComponent>
-        <SubComponent Csub="mqtt" Cvariant="true" Cversion="1Gg7Gg0">
+        <SubComponent Csub="mqtt" Cvariant="true" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/mqtt/include/"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/mqtt/include/core_mqtt_config.h"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/mqtt/include/cy_mqtt_api.h"/>
@@ -680,8 +680,8 @@
             <File Category="source" Condition="" Name="Middlewares/Third_Party/mqtt/source/cy_mqtt_api.c"/>
         </SubComponent>
     </RefComponent>
-    <RefComponent Cclass="ConnectivityCcWireless" Cgroup="Platform" Cversion="1Gg7Gg0">
-        <SubComponent Csub="pal" Cvariant="true" Cversion="1Gg7Gg0">
+    <RefComponent Cclass="ConnectivityCcWireless" Cgroup="Platform" Cversion="1Gg7Gg1">
+        <SubComponent Csub="pal" Cvariant="true" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/pal/core-lib/include/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/pal/hal/include/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/pal/common/Inc/"/>
@@ -741,7 +741,7 @@
             <File Category="header" Condition="" Name="Middlewares/Third_Party/pal/core-lib/include/cy_utils.h"/>
             <File Category="doc" Condition="" Name="Documentation/libraries/core-lib/api_reference_manual.html"/>
         </SubComponent>
-        <SubComponent Csub="abstractionAartos" Cvariant="FreeRTOS:FreeRTOS" Cversion="1Gg7Gg0">
+        <SubComponent Csub="abstractionAartos" Cvariant="FreeRTOS:FreeRTOS" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/pal/abstraction-rtos/include/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/pal/abstraction-rtos/source/COMPONENT_FREERTOS/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/pal/abstraction-rtos/include/COMPONENT_FREERTOS/"/>
@@ -753,7 +753,7 @@
             <File Category="source" Condition="" Name="Middlewares/Third_Party/pal/abstraction-rtos/source/cy_worker_thread.c"/>
             <File Category="doc" Condition="" Name="Documentation/libraries/abstraction-rtos/api_reference_manual.html"/>
         </SubComponent>
-        <SubComponent Csub="abstractionAartos" Cvariant="ThreadX:ThreadX" Cversion="1Gg7Gg0">
+        <SubComponent Csub="abstractionAartos" Cvariant="ThreadX:ThreadX" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/pal/abstraction-rtos/include/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/pal/abstraction-rtos/source/COMPONENT_THREADX/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/pal/abstraction-rtos/include/COMPONENT_THREADX/"/>
@@ -763,21 +763,21 @@
             <File Category="source" Condition="" Name="Middlewares/Third_Party/pal/abstraction-rtos/source/cy_worker_thread.c"/>
             <File Category="doc" Condition="" Name="Documentation/libraries/abstraction-rtos/api_reference_manual.html"/>
         </SubComponent>
-        <SubComponent Csub="device" Cvariant="CYW43012:CYW43012" Cversion="1Gg7Gg0">
+        <SubComponent Csub="device" Cvariant="CYW43012:CYW43012" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_43012/"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_43012/cy_chip_constants.h"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/inc/"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/inc/whd_resource_api.h"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/resource_imp/wiced_resource.h"/>
         </SubComponent>
-        <SubComponent Csub="device" Cvariant="CYW43022:CYW43022" Cversion="1Gg7Gg0">
+        <SubComponent Csub="device" Cvariant="CYW43022:CYW43022" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_43022/"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_43022/cy_chip_constants.h"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/inc/"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/inc/whd_resource_api.h"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/resource_imp/wiced_resource.h"/>
         </SubComponent>
-        <SubComponent Csub="device" Cvariant="CYW43438:CYW43438" Cversion="1Gg7Gg0">
+        <SubComponent Csub="device" Cvariant="CYW43438:CYW43438" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_43438/"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_43438/cy_chip_constants.h"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/inc/"/>
@@ -785,42 +785,42 @@
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/resource_imp/wiced_resource.h"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43438/COMPONENT_AW-CU427-P/w_bt_firmware_controller.c"/>
         </SubComponent>
-        <SubComponent Csub="device" Cvariant="CYW43439:CYW43439" Cversion="1Gg7Gg0">
+        <SubComponent Csub="device" Cvariant="CYW43439:CYW43439" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_43439/"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_43439/cy_chip_constants.h"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/inc/"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/inc/whd_resource_api.h"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/resource_imp/wiced_resource.h"/>
         </SubComponent>
-        <SubComponent Csub="device" Cvariant="CYW4343W:CYW4343W" Cversion="1Gg7Gg0">
+        <SubComponent Csub="device" Cvariant="CYW4343W:CYW4343W" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_4343W/"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_4343W/cy_chip_constants.h"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/inc/"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/inc/whd_resource_api.h"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/resource_imp/wiced_resource.h"/>
         </SubComponent>
-        <SubComponent Csub="device" Cvariant="CYW4373:CYW4373" Cversion="1Gg7Gg0">
+        <SubComponent Csub="device" Cvariant="CYW4373:CYW4373" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_4373/"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_4373/cy_chip_constants.h"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/inc/"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/inc/whd_resource_api.h"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/resource_imp/wiced_resource.h"/>
         </SubComponent>
-        <SubComponent Csub="device" Cvariant="CYW55500:CYW55500" Cversion="1Gg7Gg0">
+        <SubComponent Csub="device" Cvariant="CYW55500:CYW55500" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_55500/"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_55500/cy_chip_constants.h"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/inc/"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/inc/whd_resource_api.h"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp/wiced_resource.h"/>
         </SubComponent>
-        <SubComponent Csub="device" Cvariant="CYW55572:CYW55572" Cversion="1Gg7Gg0">
+        <SubComponent Csub="device" Cvariant="CYW55572:CYW55572" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_55572/"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-connection-manager/source/COMPONENT_55572/cy_chip_constants.h"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/inc/"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/inc/whd_resource_api.h"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp/wiced_resource.h"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="MURATAAa1LV:MURATAAa1LV" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="MURATAAa1LV:MURATAAa1LV" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43012/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43012/43012C0_bin.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43012/43012C0-mfgtest_bin.c"/>
@@ -832,7 +832,7 @@
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/nvram/COMPONENT_43012/COMPONENT_MURATA-1LV/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43012/COMPONENT_MURATA-1LV/w_bt_firmware_controller.c"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="CYW943022WLREFAaSM:CYW943022WLREFAaSM" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="CYW943022WLREFAaSM:CYW943022WLREFAaSM" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43022/COMPONENT_SM/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43022/COMPONENT_SM/43022C1_bin.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43022/COMPONENT_SM/43022C1-mfgtest_bin.c"/>
@@ -843,7 +843,7 @@
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_43022/clm_resources.h"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/nvram/COMPONENT_43022/COMPONENT_CYW943022WLREF/"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="MURATAAa2GF:MURATAAa2GF" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="MURATAAa2GF:MURATAAa2GF" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43022/COMPONENT_SM/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43022/COMPONENT_SM/43022C1_bin.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43022/COMPONENT_SM/43022C1-mfgtest_bin.c"/>
@@ -854,7 +854,7 @@
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_43022/COMPONENT_MURATA-2GF/clm_resources.h"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/nvram/COMPONENT_43022/COMPONENT_MURATA-2GF/"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="MURATAAa1YN:MURATAAa1YN" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="MURATAAa1YN:MURATAAa1YN" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43439/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43439/43439a0_bin.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43439/43439a0-mfgtest_bin.c"/>
@@ -866,7 +866,7 @@
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/nvram/COMPONENT_43439/COMPONENT_MURATA-1YN/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43439/COMPONENT_MURATA-1YN/w_bt_firmware_controller.c"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="STERLINGAaLWBplus:STERLINGAaLWBplus" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="STERLINGAaLWBplus:STERLINGAaLWBplus" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43439/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43439/43439a0_bin.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43439/43439a0-mfgtest_bin.c"/>
@@ -878,7 +878,7 @@
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/nvram/COMPONENT_43439/COMPONENT_STERLING-LWBplus/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43439/COMPONENT_STERLING-LWBplus/w_bt_firmware_controller.c"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="QUECTELAaFC909A:QUECTELAaFC909A" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="QUECTELAaFC909A:QUECTELAaFC909A" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43439/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43439/43439a0_bin.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43439/43439a0-mfgtest_bin.c"/>
@@ -890,7 +890,7 @@
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/nvram/COMPONENT_43439/COMPONENT_QUECTEL-FC909A/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43439/COMPONENT_QUECTEL-FC909A/w_bt_firmware_controller.c"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="CYW943439M2IPA1:CYW943439M2IPA1" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="CYW943439M2IPA1:CYW943439M2IPA1" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43439/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43439/43439a0_bin.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43439/43439a0-mfgtest_bin.c"/>
@@ -902,7 +902,7 @@
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/nvram/COMPONENT_43439/COMPONENT_CYW943439M2IPA1/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43439/COMPONENT_MURATA-1YN/w_bt_firmware_controller.c"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="CYW943439WLPTHIi1:CYW943439WLPTHIi1" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="CYW943439WLPTHIi1:CYW943439WLPTHIi1" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43439/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43439/43439a0_bin.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_43439/43439a0-mfgtest_bin.c"/>
@@ -914,7 +914,7 @@
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/nvram/COMPONENT_43439/COMPONENT_CYW943439WLPTH_1/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43439/COMPONENT_MURATA-1YN/w_bt_firmware_controller.c"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="MURATAAa1DX:MURATAAa1DX" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="MURATAAa1DX:MURATAAa1DX" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4343W/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4343W/4343WA1_bin.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4343W/4343WA1-mfgtest_bin.c"/>
@@ -926,7 +926,7 @@
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/nvram/COMPONENT_4343W/COMPONENT_MURATA-1DX/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_4343W/COMPONENT_MURATA-1DX/w_bt_firmware_controller.c"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="INVENTEKAaISM4343AaWBUAaL151:INVENTEKAaISM4343AaWBUAaL151" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="INVENTEKAaISM4343AaWBUAaL151:INVENTEKAaISM4343AaWBUAaL151" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4343W/COMPONENT_INVENTEK-ISM4343-WBU-L151/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4343W/COMPONENT_INVENTEK-ISM4343-WBU-L151/4343WA1_bin.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4343W/4343WA1-mfgtest_bin.c"/>
@@ -938,7 +938,7 @@
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/nvram/COMPONENT_4343W/COMPONENT_INVENTEK-ISM4343-WBU-L151/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_4343W/COMPONENT_MURATA-1DX/w_bt_firmware_controller.c"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="STERLINGAaLWB5plus:STERLINGAaLWB5plus" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="STERLINGAaLWB5plus:STERLINGAaLWB5plus" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4373/COMPONENT_STERLING-LWB5plus/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4373/COMPONENT_STERLING-LWB5plus/4373A0_bin.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4373/COMPONENT_STERLING-LWB5plus/4373A0-mfgtest_bin.c"/>
@@ -950,7 +950,7 @@
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_4373/COMPONENT_STERLING-LWB5plus/clm_resources.h"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_4373/COMPONENT_STERLING-LWB5plus/w_bt_firmware_controller.c"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="STERLINGAaLWB5plusAaUSB:STERLINGAaLWB5plusAaUSB" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="STERLINGAaLWB5plusAaUSB:STERLINGAaLWB5plusAaUSB" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4373/COMPONENT_STERLING-LWB5plus/usb/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4373/COMPONENT_STERLING-LWB5plus/usb/4373A0_bin.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4373/COMPONENT_STERLING-LWB5plus/usb/4373A0-mfgtest_bin.c"/>
@@ -960,7 +960,7 @@
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_4373/COMPONENT_STERLING-LWB5plus/usb/4373A0_clm_blob.c"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_4373/COMPONENT_STERLING-LWB5plus/usb/clm_resources.h"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="MURATAAa2AE:MURATAAa2AE" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="MURATAAa2AE:MURATAAa2AE" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4373/COMPONENT_MURATA-2AE/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4373/COMPONENT_MURATA-2AE/4373A0_bin.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4373/COMPONENT_MURATA-2AE/4373A0-mfgtest_bin.c"/>
@@ -972,7 +972,7 @@
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_4373/COMPONENT_MURATA-2AE/clm_resources.h"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_4373/COMPONENT_MURATA-2AE/w_bt_firmware_controller.c"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="MURATAAa2BC:MURATAAa2BC" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="MURATAAa2BC:MURATAAa2BC" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4373/COMPONENT_MURATA-2BC/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4373/COMPONENT_MURATA-2BC/4373A0_bin.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/firmware/COMPONENT_4373/COMPONENT_MURATA-2BC/4373A0-mfgtest_bin.c"/>
@@ -984,7 +984,7 @@
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_4373/COMPONENT_MURATA-2BC/clm_resources.h"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_4373/COMPONENT_MURATA-2BC/w_bt_firmware_controller.c"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="MURATAAa2EA:MURATAAa2EA" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="MURATAAa2EA:MURATAAa2EA" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55572/COMPONENT_SM/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55572/COMPONENT_SM/55572A1_bin.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55572/COMPONENT_SM/55572A1-mfgtest_bin.c"/>
@@ -995,7 +995,7 @@
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55572/COMPONENT_MURATA-2EA/55572A1-mfgtest_clm_blob.c"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55572/COMPONENT_MURATA-2EA/clm_resources.h"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="SONAAaIF573:SONAAaIF573" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="SONAAaIF573:SONAAaIF573" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55572/COMPONENT_SM/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55572/COMPONENT_SM/55572A1_bin.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55572/COMPONENT_SM/55572A1-mfgtest_bin.c"/>
@@ -1006,7 +1006,7 @@
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55572/55572A1-mfgtest_clm_blob.c"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55572/COMPONENT_SONA-IF573/clm_resources.h"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="CYW955513WLIPAAaSM:CYW955513WLIPAAaSM" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="CYW955513WLIPAAaSM:CYW955513WLIPAAaSM" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/55500A1_bin.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/55500A1-mfgtest_bin.c"/>
@@ -1017,7 +1017,7 @@
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/55500A1-mfgtest_clm_blob.c"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/clm_resources.h"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="MURATAAa2FY:MURATAAa2FY" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="MURATAAa2FY:MURATAAa2FY" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/55500A1_bin.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/55500A1-mfgtest_bin.c"/>
@@ -1028,7 +1028,7 @@
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/55500A1-mfgtest_clm_blob.c"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/COMPONENT_MURATA-2FY/clm_resources.h"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="SONAAaIF513:SONAAaIF513" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="SONAAaIF513:SONAAaIF513" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/55500A1_bin.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/55500A1-mfgtest_bin.c"/>
@@ -1039,13 +1039,13 @@
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/55500A1-mfgtest_clm_blob.c"/>
             <File Category="header" Condition="" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/clm_resources.h"/>
         </SubComponent>
-        <SubComponent Csub="module" Cvariant="USERAaMODULE:USERAaMODULE" Cversion="1Gg7Gg0">
+        <SubComponent Csub="module" Cvariant="USERAaMODULE:USERAaMODULE" Cversion="1Gg7Gg1">
             <File Category="include" Condition="CYW43XX device;(SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW43012|SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW43022|SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW4343W|SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW43439|SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW43438|SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW4373)" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI5/inc/"/>
             <File Category="include" Condition="CYW55XX device;(SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW55500|SIiCbundleIiConnectivity&amp;SIiCclassIiWireless&amp;SIiCgroupIiPlatform&amp;SIiCsubIidevice&amp;SIiCvariantIiCYW55572)" Name="Middlewares/Third_Party/wifi-host-driver/COMPONENT_WIFI6/inc/"/>
         </SubComponent>
     </RefComponent>
-    <RefComponent Cclass="ConnectivityCcWireless" Cgroup="MfgTools" Cversion="1Gg7Gg0">
-        <SubComponent Csub="commandAaconsole" Cvariant="true" Cversion="1Gg7Gg0">
+    <RefComponent Cclass="ConnectivityCcWireless" Cgroup="MfgTools" Cversion="1Gg7Gg1">
+        <SubComponent Csub="commandAaconsole" Cvariant="true" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/command-console/include/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE/"/>
             <File Category="include" Condition="" Name="Middlewares/Third_Party/command-console/source/command_console/"/>
@@ -1135,7 +1135,7 @@
             <File Category="header" Condition="" Name="Middlewares/Third_Party/command-console/include/command_console.h"/>
             <File Category="doc" Condition="" Name="Documentation/libraries/command-console/api_reference_manual.html"/>
         </SubComponent>
-        <SubComponent Csub="wifiAamfgAatest" Cvariant="true" Cversion="1Gg7Gg0">
+        <SubComponent Csub="wifiAamfgAatest" Cvariant="true" Cversion="1Gg7Gg1">
             <File Category="include" Condition="" Name="Middlewares/Third_Party/wifi-mfg-test/include/"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-mfg-test/source/mfg_test_common.c"/>
             <File Category="source" Condition="" Name="Middlewares/Third_Party/wifi-mfg-test/target/COMPONENT_WCM/mfg_test_comp_ioctl.c"/>

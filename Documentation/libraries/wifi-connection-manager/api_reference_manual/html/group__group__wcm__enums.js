@@ -39,7 +39,13 @@ var group__group__wcm__enums =
     [ "cy_wcm_wifi_band_t", "group__group__wcm__enums.html#ga31f9cb5bc75abf02e5eb2623a64b3b7b", [
       [ "CY_WCM_WIFI_BAND_ANY", "group__group__wcm__enums.html#gga31f9cb5bc75abf02e5eb2623a64b3b7ba227ae88196c397f2b9a1e1417b875000", null ],
       [ "CY_WCM_WIFI_BAND_5GHZ", "group__group__wcm__enums.html#gga31f9cb5bc75abf02e5eb2623a64b3b7ba88b974b076bb9ac9b603559a6475ed08", null ],
-      [ "CY_WCM_WIFI_BAND_2_4GHZ", "group__group__wcm__enums.html#gga31f9cb5bc75abf02e5eb2623a64b3b7ba55fad89632303e01a336f8f6115352b0", null ]
+      [ "CY_WCM_WIFI_BAND_2_4GHZ", "group__group__wcm__enums.html#gga31f9cb5bc75abf02e5eb2623a64b3b7ba55fad89632303e01a336f8f6115352b0", null ],
+      [ "CY_WCM_WIFI_BAND_6GHZ", "group__group__wcm__enums.html#gga31f9cb5bc75abf02e5eb2623a64b3b7baee4d8150f990e4c87cd7d133dc93f58b", null ]
+    ] ],
+    [ "cy_wcm_itwt_profile_t", "group__group__wcm__enums.html#gae17cdb80004e8f40f45dcffdcddb8ac6", [
+      [ "CY_WCM_ITWT_PROFILE_NONE", "group__group__wcm__enums.html#ggae17cdb80004e8f40f45dcffdcddb8ac6ab135c74f11fe35721867fd34383d9109", null ],
+      [ "CY_WCM_ITWT_PROFILE_IDLE", "group__group__wcm__enums.html#ggae17cdb80004e8f40f45dcffdcddb8ac6a756105cff850c0e48dee434c450e69db", null ],
+      [ "CY_WCM_ITWT_PROFILE_ACTIVE", "group__group__wcm__enums.html#ggae17cdb80004e8f40f45dcffdcddb8ac6aeddcf42a69f59181dc552779856f95f4", null ]
     ] ],
     [ "cy_wcm_scan_rssi_range_t", "group__group__wcm__enums.html#gab7d89e9afaed2e4e8064cf9ac4e86148", [
       [ "CY_WCM_SCAN_RSSI_FAIR", "group__group__wcm__enums.html#ggab7d89e9afaed2e4e8064cf9ac4e86148a6aa785dcb716397e519200696021ae76", null ],

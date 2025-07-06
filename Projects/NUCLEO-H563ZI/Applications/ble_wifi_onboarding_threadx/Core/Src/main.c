@@ -122,6 +122,31 @@ static void MX_LPTIM1_Init(void);
     }
 #endif /* __GNUC__ */
 
+/* For Nucleo-H745ZI, Nucelo-H563ZI, and Nucleo-U575ZI */
+#define SDMMC_D0	PC8
+#define SDMMC_D1	PC9
+#define SDMMC_D2	PC10
+#define SDMMC_D3	PC11
+#define SDMMC_DATA_DELAY 10
+
+void toggle_sdmmc_data(void)
+{
+    cyhal_gpio_init(SDMMC_D0, CYHAL_GPIO_DIR_OUTPUT,CYHAL_GPIO_DRIVE_PULLUP, false);
+    cyhal_gpio_init(SDMMC_D1, CYHAL_GPIO_DIR_OUTPUT,CYHAL_GPIO_DRIVE_PULLUP, false);
+    cyhal_gpio_init(SDMMC_D2, CYHAL_GPIO_DIR_OUTPUT,CYHAL_GPIO_DRIVE_PULLUP, false);
+    cyhal_gpio_init(SDMMC_D3, CYHAL_GPIO_DIR_OUTPUT,CYHAL_GPIO_DRIVE_PULLUP, false);
+    cyhal_system_delay_ms(SDMMC_DATA_DELAY);
+    cyhal_gpio_write(SDMMC_D0, true);
+    cyhal_gpio_write(SDMMC_D1, true);
+    cyhal_gpio_write(SDMMC_D2, true);
+    cyhal_gpio_write(SDMMC_D3, true);
+    cyhal_system_delay_ms(SDMMC_DATA_DELAY);
+    cyhal_gpio_free(SDMMC_D0);
+    cyhal_gpio_free(SDMMC_D1);
+    cyhal_gpio_free(SDMMC_D2);
+    cyhal_gpio_free(SDMMC_D3);
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -161,6 +186,9 @@ int main(void)
 
   /* PAL init */
   stm32_cypal_bt_init(&huart2, &hlptim1);
+
+  /* Workaround for Nucleo144-M.2 Adapter */
+  toggle_sdmmc_data();
 
   /* Initialize sdio in stm32 cypal */
   hsd1.Instance = SDMMC1;

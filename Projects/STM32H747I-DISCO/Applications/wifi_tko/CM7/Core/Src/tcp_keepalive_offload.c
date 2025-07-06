@@ -458,4 +458,29 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 }
 
 
+/***************************************************************************************************
+ * _gettimeofday
+ **************************************************************************************************/
+struct __timeval
+{
+    long    tv_sec;       /* seconds */
+    long    tv_usec;      /* and microseconds */
+};
+
+/***************************************************************************************************
+ * _gettimeofday
+ **************************************************************************************************/
+int _gettimeofday(struct __timeval* tv, void* timezone)
+{
+    cy_time_t time_ms;
+
+    (void)timezone; /* Unused parameter */
+    (void)cy_rtos_get_time(&time_ms);
+    tv->tv_sec =  (time_ms / 1000);
+    tv->tv_usec = (time_ms - (tv->tv_sec * 1000)) * 1000;
+
+    return 0;
+}
+
+
 /* [] END OF FILE */

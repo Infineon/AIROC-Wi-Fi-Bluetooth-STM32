@@ -227,9 +227,40 @@ cy_rslt_t command_console_add_command(void)
     iperf_utility_init(&wcm_config.interface);
 
     /* Initialize Bluetooth utility and add BT commands */
+    #if !defined(DISABLE_COMMAND_CONSOLE_BT)
     bt_utility_init();
+    #endif /* !defined(DISABLE_COMMAND_CONSOLE_BT) */
 
     return CY_RSLT_SUCCESS;
+}
+
+
+/* For Nucleo-H745ZI, Nucelo-H563ZI, and Nucleo-U575ZI */
+#define SDMMC_D0    PC8
+#define SDMMC_D1    PC9
+#define SDMMC_D2    PC10
+#define SDMMC_D3    PC11
+#define SDMMC_DATA_DELAY 10
+
+/***************************************************************************************************
+ * toggle_sdmmc_data
+ **************************************************************************************************/
+void toggle_sdmmc_data(void)
+{
+    cyhal_gpio_init(SDMMC_D0, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_PULLUP, false);
+    cyhal_gpio_init(SDMMC_D1, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_PULLUP, false);
+    cyhal_gpio_init(SDMMC_D2, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_PULLUP, false);
+    cyhal_gpio_init(SDMMC_D3, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_PULLUP, false);
+    cyhal_system_delay_ms(SDMMC_DATA_DELAY);
+    cyhal_gpio_write(SDMMC_D0, true);
+    cyhal_gpio_write(SDMMC_D1, true);
+    cyhal_gpio_write(SDMMC_D2, true);
+    cyhal_gpio_write(SDMMC_D3, true);
+    cyhal_system_delay_ms(SDMMC_DATA_DELAY);
+    cyhal_gpio_free(SDMMC_D0);
+    cyhal_gpio_free(SDMMC_D1);
+    cyhal_gpio_free(SDMMC_D2);
+    cyhal_gpio_free(SDMMC_D3);
 }
 
 
@@ -259,11 +290,16 @@ void console_task(void* argument)
     printf("Command console application\r\n\n");
 
     /* STM32 CYPAL init */
+    #if !defined(DISABLE_COMMAND_CONSOLE_BT)
     if (stm32_cypal_bt_init(&huart2, &hlptim1) != CY_RSLT_SUCCESS)
     {
         printf("\r\n    ERROR: stm32_cypal_bt_init failed\r\n\r\n");
         Error_Handler();
     }
+    #endif /* DISABLE_COMMAND_CONSOLE_BT */
+
+    /* Workaround for Nucleo144-M.2 Adapter */
+    toggle_sdmmc_data();
 
     if (stm32_cypal_wifi_sdio_init(&SDHandle) != CY_RSLT_SUCCESS)
     {

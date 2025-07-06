@@ -503,6 +503,19 @@ printf("%s: IOVAR buffer short!\n", __FUNCTION__); \
 #define OFFSETOF(type, member)  ( (uintptr_t)&( (type *)0 )->member )
 #define _LTOH16_UA(cp) ((cp)[0] | ((cp)[1] << 8))
 
+/* TWT definitions */
+#define CY_WCM_TWT_SETUP_CMD                        TWT_SETUP_CMD_SUGGEST_TWT
+#define CY_WCM_TWT_WAKE_DURATION_DEAFULT            (8)
+#define CY_WCM_TWT_WAKE_DURATION_IDLE_PROF_5G_6G    (2)
+#define CY_WCM_TWT_WAKE_DURATION_ACTIVE_PROF        (31)
+
+#define CY_WCM_TWT_MANTISSA                         (600)
+#define CY_WCM_TWT_EXPONENT                         (10)
+
+#define CY_WCM_TWT_MANTISSA_ACTIVE_PROF             (50000)
+#define CY_WCM_TWT_EXPONENT_ACTIVE_PROF             (0)
+
+
 /******************************************************
  *             Structures
  ******************************************************/
@@ -555,6 +568,7 @@ typedef enum
 {
     WCM_WIFI_CHANSPEC_5GHZ   = 0xC0,    /**< 5-GHz radio band.   */
     WCM_WIFI_CHANSPEC_2_4GHZ = 0x00,    /**< 2.4-GHz radio band. */
+    WCM_WIFI_CHANSPEC_6GHZ   = 0x80     /**< 6-GHz radio band.   */
 } wcm_wifi_band_chanspec_t;
 
 /******************************************************
@@ -630,7 +644,6 @@ static cy_rslt_t network_up(whd_interface_t interface, cy_network_hw_interface_t
 static void network_down(whd_interface_t interface, cy_network_hw_interface_type_t iface_type);
 static void hanshake_retry_timer(cy_timer_callback_arg_t arg);
 static void invoke_app_callbacks(cy_wcm_event_t event_type, cy_wcm_event_data_t* arg);
-cy_wcm_security_t whd_to_wcm_security(whd_security_t sec);
 static cy_wcm_bss_type_t  whd_to_wcm_bss_type(whd_bss_type_t bss_type);
 static cy_wcm_wifi_band_t whd_to_wcm_band(whd_802_11_band_t band);
 static whd_security_t wcm_to_whd_security(cy_wcm_security_t sec);
@@ -652,6 +665,8 @@ static int xtlv_size_for_data(int dlen, xtlv_opts_t opts, const uint8_t **data);
 static int ltoh16_ua(const uint8_t * bytes);
 static void process_scan_data(void *arg);
 static void notify_scan_completed(void *arg);
+
+cy_wcm_security_t whd_to_wcm_security(whd_security_t sec);
 
 /******************************************************
  *               Function Definitions
@@ -768,10 +783,11 @@ cy_rslt_t cy_wcm_init(cy_wcm_config_t *config)
         return CY_RSLT_WCM_SEMAPHORE_ERROR;
     }
 
-
     if((res = init_whd_wifi_interface(config->interface)) != CY_RSLT_SUCCESS)
     {
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Error : Initializing Wi-Fi interface \n");
+        cy_rtos_deinit_semaphore(&security_type_start_scan_semaphore);
+        cy_rtos_deinit_semaphore(&stop_scan_semaphore);
         cy_rtos_deinit_mutex(&wcm_mutex);
         return res;
     }
@@ -785,6 +801,8 @@ cy_rslt_t cy_wcm_init(cy_wcm_config_t *config)
     /* create a worker thread */
     if(cy_worker_thread_create(&cy_wcm_worker_thread, &params) != CY_RSLT_SUCCESS)
     {
+        cy_rtos_deinit_semaphore(&security_type_start_scan_semaphore);
+        cy_rtos_deinit_semaphore(&stop_scan_semaphore);
         cy_rtos_deinit_mutex(&wcm_mutex);
         return CY_RSLT_WCM_MUTEX_ERROR;
     }
@@ -988,6 +1006,10 @@ cy_rslt_t cy_wcm_start_scan(cy_wcm_scan_result_callback_t callback, void *user_d
                 else if(scan_filter->param.band == CY_WCM_WIFI_BAND_2_4GHZ)
                 {
                     band = WLC_BAND_2G;
+                }
+                else if(scan_filter->param.band == CY_WCM_WIFI_BAND_6GHZ)
+                {
+                    band = WLC_BAND_6G;
                 }
                 else
                 {
@@ -1460,12 +1482,16 @@ cy_rslt_t cy_wcm_connect_ap(cy_wcm_connect_params_t *connect_params, cy_wcm_ip_a
         }
         else
         {
-            if(connect_params->band == CY_WCM_WIFI_BAND_5GHZ)
+            if(connect_params->band == CY_WCM_WIFI_BAND_2_4GHZ)
+            {
+                whd_wifi_set_ioctl_value(whd_ifs[CY_WCM_INTERFACE_TYPE_STA], WLC_SET_BAND, WLC_BAND_2G);
+            }
+            else if((connect_params->band == CY_WCM_WIFI_BAND_5GHZ) || (connect_params->band == CY_WCM_WIFI_BAND_6GHZ))
             {
                 /* check if this band is supported locally */
-                if(check_if_platform_supports_band(whd_ifs[CY_WCM_INTERFACE_TYPE_STA], CY_WCM_WIFI_BAND_5GHZ))
+                if(check_if_platform_supports_band(whd_ifs[CY_WCM_INTERFACE_TYPE_STA], connect_params->band))
                 {
-                    whd_wifi_set_ioctl_value(whd_ifs[CY_WCM_INTERFACE_TYPE_STA], WLC_SET_BAND, WLC_BAND_5G);
+                    whd_wifi_set_ioctl_value(whd_ifs[CY_WCM_INTERFACE_TYPE_STA], WLC_SET_BAND, connect_params->band);
                 }
                 else
                 {
@@ -1478,10 +1504,6 @@ cy_rslt_t cy_wcm_connect_ap(cy_wcm_connect_params_t *connect_params, cy_wcm_ip_a
                     }
                     goto exit;
                 }
-            }
-            else if(connect_params->band == CY_WCM_WIFI_BAND_2_4GHZ)
-            {
-                whd_wifi_set_ioctl_value(whd_ifs[CY_WCM_INTERFACE_TYPE_STA], WLC_SET_BAND, WLC_BAND_2G);
             }
             else
             {
@@ -1600,6 +1622,56 @@ cy_rslt_t cy_wcm_connect_ap(cy_wcm_connect_params_t *connect_params, cy_wcm_ip_a
                     cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "L%d : %s() : ERROR : Failed to send connection status. Err = [%lu]\r\n", __LINE__, __FUNCTION__, res);
                 }
                 goto exit;
+            }
+
+            if(connect_params->itwt_profile != CY_WCM_ITWT_PROFILE_NONE)
+            {
+                wl_bss_info_t  bss_info;
+
+                /* iTWT parameter values are based on the band, so first get the band */
+                res = whd_wifi_get_bss_info(whd_ifs[CY_WCM_INTERFACE_TYPE_STA], &bss_info);
+                if(res == CY_RSLT_SUCCESS)
+                {
+                    uint8_t band = 0;
+                    whd_itwt_setup_params_t twt_params;
+
+                    twt_params.setup_cmd     = CY_WCM_TWT_SETUP_CMD;
+                    twt_params.trigger       = true;
+                    twt_params.flow_type     = true;
+                    twt_params.flow_id       = 0;
+                    twt_params.wake_duration = CY_WCM_TWT_WAKE_DURATION_DEAFULT;
+                    twt_params.exponent      = CY_WCM_TWT_EXPONENT;
+                    twt_params.mantissa      = CY_WCM_TWT_MANTISSA;
+                    twt_params.wake_time_h   = 0;
+                    twt_params.wake_time_l   = 0;
+
+                    band = (bss_info.chanspec & 0xC000) >> 8;
+                    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_DEBUG, "band : [0x%X]\n",band);
+
+                    if(connect_params->itwt_profile == CY_WCM_ITWT_PROFILE_IDLE)
+                    {
+                        if( (band == WCM_WIFI_CHANSPEC_5GHZ) || (band == WCM_WIFI_CHANSPEC_6GHZ) )
+                        {
+                            twt_params.wake_duration = CY_WCM_TWT_WAKE_DURATION_IDLE_PROF_5G_6G;
+                        }
+                    }
+                    else if(connect_params->itwt_profile == CY_WCM_ITWT_PROFILE_ACTIVE)
+                    {
+                        twt_params.wake_duration = CY_WCM_TWT_WAKE_DURATION_ACTIVE_PROF;
+                        twt_params.exponent      = CY_WCM_TWT_EXPONENT_ACTIVE_PROF;
+                        twt_params.mantissa      = CY_WCM_TWT_MANTISSA_ACTIVE_PROF;
+                    }
+                    res = whd_wifi_itwt_setup(whd_ifs[CY_WCM_INTERFACE_TYPE_STA], &twt_params);
+                    if( res != CY_RSLT_SUCCESS)
+                    {
+                        if( res == WHD_WLAN_UNSUPPORTED )
+                        {
+                            cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "iTWT Not supported for this capabilities\n");
+                        }
+
+                        cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "whd_wifi_itwt_setup failed %x\r\n", res);
+                    }
+                }
             }
 
             /* save current AP credentials to reuse during retry in case handshake fails occurs */
@@ -2673,21 +2745,19 @@ cy_rslt_t cy_wcm_start_ap(const cy_wcm_ap_config_t *ap_config)
     /* Store the SoftAP security type */
     ap_security = whd_to_wcm_security(security);
 
-    /* Construct chanspec from channel number */
-    if((ap_config->channel > 35) && (ap_config->channel < 166))
+    /* Construct chanspec from band and channel number */
+    if(ap_config->band == CY_WCM_WIFI_BAND_5GHZ)
     {
         chanspec = WCM_WIFI_CHANSPEC_5GHZ;
     }
-    else if((ap_config->channel > 0) && (ap_config->channel < 12))
+    else if(ap_config->band == CY_WCM_WIFI_BAND_6GHZ)
     {
-        /* 2.4 GHz band */
-        chanspec = WCM_WIFI_CHANSPEC_2_4GHZ;
+        chanspec = WCM_WIFI_CHANSPEC_6GHZ;
     }
     else
     {
-        cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Unsupported channel or band!!\n");
-        res = CY_RSLT_WCM_BAND_NOT_SUPPORTED;
-        goto exit;
+        /* 2.4 GHz band */
+        chanspec = WCM_WIFI_CHANSPEC_2_4GHZ;
     }
 
     /* Add channel info */
@@ -2696,7 +2766,6 @@ cy_rslt_t cy_wcm_start_ap(const cy_wcm_ap_config_t *ap_config)
     /* set up the AP info */
     res = whd_wifi_init_ap(whd_ifs[CY_WCM_INTERFACE_TYPE_AP], &ssid, security, (const uint8_t *)key,
                            keylen, chanspec);
-
     if (res != CY_RSLT_SUCCESS)
     {
         if(res == WHD_UNSUPPORTED || res == WHD_WEP_NOT_ALLOWED)
@@ -2934,8 +3003,12 @@ static cy_rslt_t check_ap_credentials(const cy_wcm_connect_params_t *connect_par
     }
 
     sec_type = connect_params->ap_credentials.security ;
-    /* For open and enterprise security auth types pwd len can be ignored */
-    if(((sec_type != CY_WCM_SECURITY_OPEN) && (!check_if_ent_auth_types(sec_type))) &&
+    /* For open, owe and enterprise security auth types pwd len can be ignored */
+    if(((sec_type != CY_WCM_SECURITY_OPEN) &&
+#ifdef COMPONENT_WIFI6
+        (sec_type != CY_WCM_SECURITY_OWE) &&
+#endif
+        (!check_if_ent_auth_types(sec_type))) &&
        (pwd_len < CY_WCM_MIN_PASSPHRASE_LEN || pwd_len > CY_WCM_MAX_PASSPHRASE_LEN))
     {
         cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "AP credentials passphrase length error. Length must be between 8 and 63\n");
@@ -3026,6 +3099,9 @@ static bool check_wcm_security(cy_wcm_security_t sec)
         case CY_WCM_SECURITY_WPA2_FBT_ENT:
         case CY_WCM_SECURITY_IBSS_OPEN:
         case CY_WCM_SECURITY_WPS_SECURE:
+#ifdef COMPONENT_WIFI6
+        case CY_WCM_SECURITY_OWE:
+#endif
 #ifdef ENABLE_ENTPS_FEATURE
         case CY_WCM_SECURITY_WPA3_192BIT_ENT:
         case CY_WCM_SECURITY_WPA3_ENT:
@@ -3268,6 +3344,9 @@ static void* ap_link_events_handler(whd_interface_t ifp, const whd_event_header_
 
     if (event_header->event_type == WLC_E_DISASSOC_IND || event_header->event_type == WLC_E_DEAUTH_IND)
     {
+#ifdef PROTO_MSGBUF
+        whd_wifi_delete_peer(ifp, (uint8_t *)event_header->addr.octet);
+#endif /* PROTO_MSGBUF */
         ap_event_data->event = CY_WCM_EVENT_STA_LEFT_SOFTAP;
     }
     else if (event_header->event_type == WLC_E_ASSOC_IND || event_header->event_type == WLC_E_REASSOC_IND)
@@ -3362,6 +3441,9 @@ static void* link_events_handler(whd_interface_t ifp, const whd_event_header_t *
                     case WHD_SECURITY_WPA2_FBT_ENT:
                     case WHD_SECURITY_WPA3_SAE:
                     case WHD_SECURITY_WPA3_WPA2_PSK:
+#ifdef COMPONENT_WIFI6
+                    case WHD_SECURITY_WPA3_OWE:
+#endif
 #ifdef ENABLE_ENTPS_FEATURE
                     case WHD_SECURITY_WPA3_192BIT_ENT:
                     case WHD_SECURITY_WPA3_ENT_AES_CCMP:
@@ -3858,6 +3940,10 @@ static void handshake_error_callback(void *arg)
                  */
                 whd_wifi_set_ioctl_value(whd_ifs[CY_WCM_INTERFACE_TYPE_STA], WLC_SET_BAND, WLC_BAND_2G);
             }
+            else if(connected_ap_details.band == CY_WCM_WIFI_BAND_6GHZ)
+            {
+                whd_wifi_set_ioctl_value(whd_ifs[CY_WCM_INTERFACE_TYPE_STA], WLC_SET_BAND, WLC_BAND_6G);
+            }
             else
             {
                 whd_wifi_set_ioctl_value(whd_ifs[CY_WCM_INTERFACE_TYPE_STA], WLC_SET_BAND, WLC_BAND_AUTO);
@@ -4175,6 +4261,11 @@ static whd_security_t wcm_to_whd_security(cy_wcm_security_t sec)
         case CY_WCM_SECURITY_WPS_SECURE:
             return WHD_SECURITY_WPS_SECURE;
 
+#ifdef COMPONENT_WIFI6
+        case CY_WCM_SECURITY_OWE:
+            return WHD_SECURITY_WPA3_OWE;
+#endif
+
         default:
             return WHD_SECURITY_UNKNOWN;
     }
@@ -4267,6 +4358,11 @@ cy_wcm_security_t whd_to_wcm_security(whd_security_t sec)
         case WHD_SECURITY_WPS_SECURE:
             return CY_WCM_SECURITY_WPS_SECURE;
 
+#ifdef COMPONENT_WIFI6
+        case WHD_SECURITY_WPA3_OWE:
+            return CY_WCM_SECURITY_OWE;
+#endif
+
         default:
             return CY_WCM_SECURITY_UNKNOWN;
     }
@@ -4274,7 +4370,18 @@ cy_wcm_security_t whd_to_wcm_security(whd_security_t sec)
 
 static cy_wcm_wifi_band_t whd_to_wcm_band(whd_802_11_band_t band)
 {
-    return ((band == WHD_802_11_BAND_5GHZ) ? CY_WCM_WIFI_BAND_5GHZ : CY_WCM_WIFI_BAND_2_4GHZ);
+    if(band == WHD_802_11_BAND_5GHZ)
+    {
+        return CY_WCM_WIFI_BAND_5GHZ;
+    }
+    else if(band == WHD_802_11_BAND_2_4GHZ)
+    {
+        return CY_WCM_WIFI_BAND_2_4GHZ;
+    }
+    else
+    {
+        return CY_WCM_WIFI_BAND_6GHZ;
+    }
 }
 
 static cy_wcm_bss_type_t whd_to_wcm_bss_type(whd_bss_type_t bss_type)
@@ -4359,6 +4466,14 @@ static cy_rslt_t check_soft_ap_config(const cy_wcm_ap_config_t *ap_config_params
         return CY_RSLT_WCM_SECURITY_NOT_SUPPORTED;
     }
 
+#ifdef COMPONENT_WIFI6
+    if(ap_config_params->ap_credentials.security == CY_WCM_SECURITY_OWE)
+    {
+        cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "OWE security not supported\n");
+        return CY_RSLT_WCM_SECURITY_NOT_SUPPORTED;
+    }
+#endif
+
     if((ap_config_params->ap_credentials.security != CY_WCM_SECURITY_OPEN) &&
        (pwd_len < CY_WCM_MIN_PASSPHRASE_LEN || pwd_len > CY_WCM_MAX_PASSPHRASE_LEN))
     {
@@ -4379,28 +4494,45 @@ static cy_rslt_t check_soft_ap_config(const cy_wcm_ap_config_t *ap_config_params
      * Validate the band and update the appropriate error code
      * channel number 1 to 11 is 2G
      * channel number 36 to 165 is 5G
+     * channel number 1 to 233 is 6G
      */
     do
     {
-        if((ap_config_params->channel > 0) && (ap_config_params->channel < 12))
+        if(ap_config_params->band != CY_WCM_WIFI_BAND_6GHZ)
         {
-            /* All platforms by default supports 2.4Ghz so return success*/
-            break;
-        }
-        else if((ap_config_params->channel > 35) && (ap_config_params->channel < 166))
-        {
-            if(!check_if_platform_supports_band(prim_ifp, CY_WCM_WIFI_BAND_5GHZ))
+            if((ap_config_params->channel > 0) && (ap_config_params->channel < 12))
             {
-                cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "5GHz band not supported \n");
-                result = CY_RSLT_WCM_BAND_NOT_SUPPORTED;
+                /* All platforms by default supports 2.4Ghz so return success*/
+                break;
+            }
+            else if((ap_config_params->channel > 35) && (ap_config_params->channel < 166))
+            {
+                if(!check_if_platform_supports_band(prim_ifp, CY_WCM_WIFI_BAND_5GHZ))
+                {
+                    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "5GHz band not supported \n");
+                    result = CY_RSLT_WCM_BAND_NOT_SUPPORTED;
+                    break;
+                }
+            }
+            else
+            {
+                cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Invalid channel. Channel not in expected range \n");
+                result = CY_RSLT_WCM_AP_BAD_CHANNEL;
                 break;
             }
         }
         else
         {
-            cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "Invalid channel. Channel not in expected range \n");
-            result = CY_RSLT_WCM_AP_BAD_CHANNEL;
-            break;
+            /* For 6GHz band */
+            if((ap_config_params->channel > 0) && (ap_config_params->channel < 234))
+            {
+                if(!check_if_platform_supports_band(prim_ifp, CY_WCM_WIFI_BAND_6GHZ))
+                {
+                    cy_wcm_log_msg(CYLF_MIDDLEWARE, CY_LOG_ERR, "6GHz band not supported \n");
+                    result = CY_RSLT_WCM_BAND_NOT_SUPPORTED;
+                    break;
+                }
+            }
         }
     }while(0);
 
@@ -4410,12 +4542,13 @@ static cy_rslt_t check_soft_ap_config(const cy_wcm_ap_config_t *ap_config_params
     if(result == CY_RSLT_SUCCESS)
     {
         whd_list_t *whd_channel_list;
-        uint32_t channel_buf[ WL_NUMCHANNELS+1 ];
+        uint32_t channel_buf[ MAXCHANNEL+1 ];
         whd_channel_list = (whd_list_t *)(void *)channel_buf;
         uint8_t index;
         cy_rslt_t res;
 
-        whd_channel_list->count = WL_NUMCHANNELS;  /* Initialize to maximum channels that can be supported as defined in WHD */
+        whd_channel_list->count = MAXCHANNEL;  /* Initialize to maximum channels that can be supported as defined in WHD */
+
         res = whd_wifi_get_channels(prim_ifp, whd_channel_list);
         if(res != CY_RSLT_SUCCESS)
         {
@@ -4501,10 +4634,10 @@ static bool check_if_ent_auth_types(cy_wcm_security_t auth_type)
     if((auth_type == CY_WCM_SECURITY_WPA_TKIP_ENT) || (auth_type == CY_WCM_SECURITY_WPA_AES_ENT) ||
        (auth_type == CY_WCM_SECURITY_WPA_MIXED_ENT) || (auth_type == CY_WCM_SECURITY_WPA2_TKIP_ENT) ||
        (auth_type == CY_WCM_SECURITY_WPA2_AES_ENT) || (auth_type == CY_WCM_SECURITY_WPA2_MIXED_ENT) ||
-       (auth_type == CY_WCM_SECURITY_WPA2_FBT_ENT) 
+       (auth_type == CY_WCM_SECURITY_WPA2_FBT_ENT)
 #ifdef ENABLE_ENTPS_FEATURE
-       || (auth_type == CY_WCM_SECURITY_WPA3_ENT) 
-       || (auth_type == CY_WCM_SECURITY_WPA3_192BIT_ENT) 
+       || (auth_type == CY_WCM_SECURITY_WPA3_ENT)
+       || (auth_type == CY_WCM_SECURITY_WPA3_192BIT_ENT)
        || (auth_type == CY_WCM_SECURITY_WPA3_ENT_AES_CCMP)
 #endif
        )

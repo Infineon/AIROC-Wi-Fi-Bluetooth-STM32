@@ -32,7 +32,8 @@ var group__group__wcm__structures =
       [ "ap_credentials", "structcy__wcm__connect__params__t.html#add927d1d5bbaf348296daad9a6312023", null ],
       [ "BSSID", "structcy__wcm__connect__params__t.html#adad67449ed4ae911735ed75cde6599c1", null ],
       [ "static_ip_settings", "structcy__wcm__connect__params__t.html#ad6f7b23985a4e0e6dc35113498a3fc87", null ],
-      [ "band", "structcy__wcm__connect__params__t.html#a04a926b9d8c7c53108b172d5b1e3321a", null ]
+      [ "band", "structcy__wcm__connect__params__t.html#a04a926b9d8c7c53108b172d5b1e3321a", null ],
+      [ "itwt_profile", "structcy__wcm__connect__params__t.html#a4d1af16569a118b72286105234b63246", null ]
     ] ],
     [ "cy_wcm_scan_filter_t", "structcy__wcm__scan__filter__t.html", [
       [ "mode", "structcy__wcm__scan__filter__t.html#a019063e2d7ac38f8123fa6181afc45b8", null ],
@@ -101,6 +102,7 @@ var group__group__wcm__structures =
     ] ],
     [ "cy_wcm_ap_config_t", "structcy__wcm__ap__config__t.html", [
       [ "ap_credentials", "structcy__wcm__ap__config__t.html#a41b9a70a96b5567416a37661a84b3e7c", null ],
+      [ "band", "structcy__wcm__ap__config__t.html#a26c5b52eb5bc623843cc8326ecaf3674", null ],
       [ "channel", "structcy__wcm__ap__config__t.html#a43adeebc56159fdac2d1e0a19334fb6f", null ],
       [ "ip_settings", "structcy__wcm__ap__config__t.html#a4d26be457ca32e36d8162c3eb347491b", null ],
       [ "ie_info", "structcy__wcm__ap__config__t.html#a882c472c4e6c64d0b55fe61350d8043a", null ]

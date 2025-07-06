@@ -14,6 +14,7 @@ var group__group__wcm__macros =
     [ "WPA2_SECURITY", "group__group__wcm__macros.html#ga8875737a0403d2136a69bbc96401cccf", null ],
     [ "WPA2_SHA256_SECURITY", "group__group__wcm__macros.html#gaebc69eacd8308e6a6549c40d069a92ef", null ],
     [ "WPA3_SECURITY", "group__group__wcm__macros.html#gad175824d1581f69f5a725e4c9171aa79", null ],
+    [ "WPA3_OWE", "group__group__wcm__macros.html#ga1ea7e1a335661608291b5d2743fee210", null ],
     [ "ENTERPRISE_ENABLED", "group__group__wcm__macros.html#gada6d6331053c0f88c63d77ba8d2019c8", null ],
     [ "WPS_ENABLED", "group__group__wcm__macros.html#gaaae7e8a0eb357cae8f130f9099d8e7b8", null ],
     [ "IBSS_ENABLED", "group__group__wcm__macros.html#ga9640c064932a3a633a3312b737658f83", null ],

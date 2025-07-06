@@ -9,5 +9,6 @@ var searchData=
   ['ip_6',['ip',['../structcy__wcm__ip__address__t.html#a86c6e6f9182502683675c0656a3ad088',1,'cy_wcm_ip_address_t']]],
   ['ip_5faddr_7',['ip_addr',['../unioncy__wcm__event__data__t.html#a9c8f9a98e351394d704d1796328ae466',1,'cy_wcm_event_data_t']]],
   ['ip_5faddress_8',['ip_address',['../structcy__wcm__ip__setting__t.html#aab6aea9cfd72daa55d92f86046e594dd',1,'cy_wcm_ip_setting_t']]],
-  ['ip_5fsettings_9',['ip_settings',['../structcy__wcm__ap__config__t.html#a4d26be457ca32e36d8162c3eb347491b',1,'cy_wcm_ap_config_t']]]
+  ['ip_5fsettings_9',['ip_settings',['../structcy__wcm__ap__config__t.html#a4d26be457ca32e36d8162c3eb347491b',1,'cy_wcm_ap_config_t']]],
+  ['itwt_5fprofile_10',['itwt_profile',['../structcy__wcm__connect__params__t.html#a4d1af16569a118b72286105234b63246',1,'cy_wcm_connect_params_t']]]
 ];

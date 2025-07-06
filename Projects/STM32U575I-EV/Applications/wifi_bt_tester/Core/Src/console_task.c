@@ -227,7 +227,9 @@ cy_rslt_t command_console_add_command(void)
     iperf_utility_init(&wcm_config.interface);
 
     /* Initialize Bluetooth utility and add BT commands */
+    #if !defined(DISABLE_COMMAND_CONSOLE_BT)
     bt_utility_init();
+    #endif /* !defined(DISABLE_COMMAND_CONSOLE_BT) */
 
     return CY_RSLT_SUCCESS;
 }
@@ -259,11 +261,13 @@ void console_task(void* argument)
     printf("Command console application\r\n\n");
 
     /* STM32 CYPAL init */
+    #if !defined(DISABLE_COMMAND_CONSOLE_BT)
     if (stm32_cypal_bt_init(&hlpuart1, &hlptim1) != CY_RSLT_SUCCESS)
     {
         printf("\r\n    ERROR: stm32_cypal_bt_init failed\r\n\r\n");
         Error_Handler();
     }
+    #endif /* DISABLE_COMMAND_CONSOLE_BT */
 
     if (stm32_cypal_wifi_sdio_init(&SDHandle) != CY_RSLT_SUCCESS)
     {

@@ -26,6 +26,8 @@
 #include <stdio.h>
 #include "stm32_cyhal_sdio_ex.h"
 #include "stm32_cyhal_gpio_ex.h"
+#include "cyhal_system.h"
+#include "cyhal_gpio.h"
 #include "wifi_bt_if.h"
 
 /* USER CODE END Includes */
@@ -168,6 +170,30 @@ if ( timeout < 0 )
 Error_Handler();
 }
 
+/* For Nucleo-H745ZI, Nucelo-H563ZI, and Nucleo-U575ZI */
+#define SDMMC_D0	PC8
+#define SDMMC_D1	PC9
+#define SDMMC_D2	PC10
+#define SDMMC_D3	PC11
+#define SDMMC_DATA_DELAY 10
+
+void toggle_sdmmc_data(void)
+{
+    cyhal_gpio_init(SDMMC_D0, CYHAL_GPIO_DIR_OUTPUT,CYHAL_GPIO_DRIVE_PULLUP, false);
+    cyhal_gpio_init(SDMMC_D1, CYHAL_GPIO_DIR_OUTPUT,CYHAL_GPIO_DRIVE_PULLUP, false);
+    cyhal_gpio_init(SDMMC_D2, CYHAL_GPIO_DIR_OUTPUT,CYHAL_GPIO_DRIVE_PULLUP, false);
+    cyhal_gpio_init(SDMMC_D3, CYHAL_GPIO_DIR_OUTPUT,CYHAL_GPIO_DRIVE_PULLUP, false);
+    cyhal_system_delay_ms(SDMMC_DATA_DELAY);
+    cyhal_gpio_write(SDMMC_D0, true);
+    cyhal_gpio_write(SDMMC_D1, true);
+    cyhal_gpio_write(SDMMC_D2, true);
+    cyhal_gpio_write(SDMMC_D3, true);
+    cyhal_system_delay_ms(SDMMC_DATA_DELAY);
+    cyhal_gpio_free(SDMMC_D0);
+    cyhal_gpio_free(SDMMC_D1);
+    cyhal_gpio_free(SDMMC_D2);
+    cyhal_gpio_free(SDMMC_D3);
+}
 
 /* USER CODE END Boot_Mode_Sequence_2 */
 
@@ -179,6 +205,9 @@ Error_Handler();
   MX_GPIO_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
+
+  /* Workaround for Nucleo144-M.2 Adapter */
+  toggle_sdmmc_data();
 
   /* Initialize sdio in stm32 cypal */
   hsd1.Instance = SDMMC1;

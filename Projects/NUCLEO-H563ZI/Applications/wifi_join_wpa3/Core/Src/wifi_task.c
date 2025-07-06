@@ -107,6 +107,35 @@ extern UART_HandleTypeDef huart1;
 /* Private user code ---------------------------------------------------------*/
 SD_HandleTypeDef SDHandle = { .Instance = SDMMC1 };
 
+/* For Nucleo-H745ZI, Nucelo-H563ZI, and Nucleo-U575ZI */
+#define SDMMC_D0    PC8
+#define SDMMC_D1    PC9
+#define SDMMC_D2    PC10
+#define SDMMC_D3    PC11
+#define SDMMC_DATA_DELAY 10
+
+/***************************************************************************************************
+ * toggle_sdmmc_data
+ **************************************************************************************************/
+void toggle_sdmmc_data(void)
+{
+    cyhal_gpio_init(SDMMC_D0, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_PULLUP, false);
+    cyhal_gpio_init(SDMMC_D1, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_PULLUP, false);
+    cyhal_gpio_init(SDMMC_D2, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_PULLUP, false);
+    cyhal_gpio_init(SDMMC_D3, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_PULLUP, false);
+    cyhal_system_delay_ms(SDMMC_DATA_DELAY);
+    cyhal_gpio_write(SDMMC_D0, true);
+    cyhal_gpio_write(SDMMC_D1, true);
+    cyhal_gpio_write(SDMMC_D2, true);
+    cyhal_gpio_write(SDMMC_D3, true);
+    cyhal_system_delay_ms(SDMMC_DATA_DELAY);
+    cyhal_gpio_free(SDMMC_D0);
+    cyhal_gpio_free(SDMMC_D1);
+    cyhal_gpio_free(SDMMC_D2);
+    cyhal_gpio_free(SDMMC_D3);
+}
+
+
 /***************************************************************************************************
  * Function Name: WiFiTask
  ***************************************************************************************************
@@ -131,6 +160,9 @@ void WiFiTask(void* argument)
     wcm_config.interface = CY_WCM_INTERFACE_TYPE_STA;
 
     printf(" ******************* WiFi-Join-WPA3 app ******************* \r\n\r\n");
+
+    /* Workaround for Nucleo144-M.2 Adapter */
+    toggle_sdmmc_data();
 
     if (stm32_cypal_wifi_sdio_init(&SDHandle) != CY_RSLT_SUCCESS)
     {
@@ -510,4 +542,20 @@ void SDMMC1_IRQHandler(void)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
     stm32_cyhal_gpio_irq_handler(GPIO_Pin);
+}
+
+
+/***************************************************************************************************
+ * _gettimeofday
+ **************************************************************************************************/
+int _gettimeofday(struct timeval* tv, void* timezone)
+{
+    cy_time_t time_ms;
+
+    (void)timezone;  /* Unused parameter */
+    (void)cy_rtos_get_time(&time_ms);
+    tv->tv_sec =  (time_ms / 1000);
+    tv->tv_usec = (time_ms - (tv->tv_sec * 1000)) * 1000;
+
+    return 0;
 }

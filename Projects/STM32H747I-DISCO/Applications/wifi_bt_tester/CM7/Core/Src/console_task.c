@@ -261,11 +261,13 @@ void console_task(void* argument)
     printf("Command console application\r\n\n");
 
     /* STM32 CYPAL init */
+    #if !defined(DISABLE_COMMAND_CONSOLE_BT)
     if (stm32_cypal_bt_init(&huart4, &hlptim1) != CY_RSLT_SUCCESS)
     {
         printf("\r\n    ERROR: stm32_cypal_bt_init failed\r\n\r\n");
         Error_Handler();
     }
+    #endif /* DISABLE_COMMAND_CONSOLE_BT */
 
     if (stm32_cypal_wifi_sdio_init(&SDHandle) != CY_RSLT_SUCCESS)
     {

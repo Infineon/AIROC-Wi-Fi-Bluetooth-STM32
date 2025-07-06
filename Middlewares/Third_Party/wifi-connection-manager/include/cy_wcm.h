@@ -133,6 +133,7 @@ extern "C" {
 #define WPA2_SHA256_SECURITY               0x00800000  /**< Flag to enable WPA2 SHA256 Security         */
 #endif
 #define WPA3_SECURITY                      0x01000000  /**< Flag to enable WPA3 PSK security.           */
+#define WPA3_OWE                           0x80000000  /**< Flag to enable WPA3 OWE Security            */
 #define ENTERPRISE_ENABLED                 0x02000000  /**< Flag to enable enterprise security.         */
 #ifdef ENABLE_ENTPS_FEATURE
 #define SHA256_1X                          0x04000000  /**< Flag 1X with SHA256 key derivation          */
@@ -210,11 +211,14 @@ typedef enum
     CY_WCM_SECURITY_WPA2_FBT_ENT        = (ENTERPRISE_ENABLED | WPA2_SECURITY | AES_ENABLED | FBT_ENABLED),    /**< WPA2 Enterprise Security with AES and FBT.             */
 #ifdef ENABLE_ENTPS_FEATURE
     CY_WCM_SECURITY_WPA3_192BIT_ENT     = (ENTERPRISE_ENABLED | WPA3_SECURITY | SUITE_B_SHA384 | AES_ENABLED), /**< WPA3 192-BIT Enterprise Security with AES              */
-    CY_WCM_SECURITY_WPA3_ENT            = (ENTERPRISE_ENABLED | WPA3_SECURITY | SHA256_1X | AES_ENABLED),      /**< WPA3 Enterprise Security with AES GCM-256              */
-    CY_WCM_SECURITY_WPA3_ENT_AES_CCMP   = (ENTERPRISE_ENABLED | WPA3_SECURITY | WPA2_SECURITY | SHA256_1X | AES_ENABLED), /**< WPA3 Enterprise Security with AES CCM-128   */
+    CY_WCM_SECURITY_WPA3_ENT            = (ENTERPRISE_ENABLED | WPA3_SECURITY | SHA256_1X | AES_ENABLED),      /**< WPA3 Enterprise only with AES GCM-256                  */
+    CY_WCM_SECURITY_WPA3_ENT_AES_CCMP   = (ENTERPRISE_ENABLED | WPA3_SECURITY | WPA2_SECURITY | SHA256_1X | AES_ENABLED), /**< WPA3 Enterprise Transition with AES CCM-128 */
 #endif
     CY_WCM_SECURITY_IBSS_OPEN           = ( IBSS_ENABLED ),                                                    /**< Open security on IBSS ad hoc network.                  */
     CY_WCM_SECURITY_WPS_SECURE          = ( WPS_ENABLED | AES_ENABLED),                                        /**< WPS with AES security.                                 */
+#ifdef COMPONENT_WIFI6
+    CY_WCM_SECURITY_OWE                 = ( WPA3_OWE | AES_ENABLED ),                                          /**< Enhanced open with AES security                        */
+#endif
 
     CY_WCM_SECURITY_UNKNOWN             = -1,                                                                  /**< Returned by \ref cy_wcm_scan_result_callback_t if security is unknown. Do not pass this to the join function! */
 
@@ -229,8 +233,18 @@ typedef enum
     CY_WCM_WIFI_BAND_ANY = 0,     /**< Platform will choose an available band.  */
     CY_WCM_WIFI_BAND_5GHZ,        /**< 5-GHz radio band.                            */
     CY_WCM_WIFI_BAND_2_4GHZ,      /**< 2.4-GHz radio band.                          */
+    CY_WCM_WIFI_BAND_6GHZ,        /**< 6-GHz radio band.                            */
 } cy_wcm_wifi_band_t;
 
+/**
+ * Enumeration of TWT profile type
+ */
+typedef enum
+{
+    CY_WCM_ITWT_PROFILE_NONE = 0,  /**< TWT is disabled.  */
+    CY_WCM_ITWT_PROFILE_IDLE,      /**< Idle profile.     */
+    CY_WCM_ITWT_PROFILE_ACTIVE,    /**< Active profile.   */
+} cy_wcm_itwt_profile_t;
 
 /**
  * Enumeration of RSSI range
@@ -503,6 +517,7 @@ typedef struct
     cy_wcm_mac_t             BSSID;                /**< MAC address of the AP (optional). */
     cy_wcm_ip_setting_t      *static_ip_settings;  /**< Static IP settings of the device (optional). */
     cy_wcm_wifi_band_t       band;                 /**< Radio band to be connected (optional). */
+    cy_wcm_itwt_profile_t    itwt_profile;         /**< Individual TWT profile */
 } cy_wcm_connect_params_t;
 
 /**
@@ -615,6 +630,7 @@ typedef struct
 typedef struct
 {
     cy_wcm_ap_credentials_t  ap_credentials;      /**< AP credentials. */
+    cy_wcm_wifi_band_t       band;                /**< Band for the AP. */
     uint8_t                  channel;             /**< Radio channel of the AP. */
     cy_wcm_ip_setting_t      ip_settings;         /**< IP settings of the AP interface. */
     cy_wcm_custom_ie_info_t  *ie_info;            /**< Optional custom IE information to be added to the SoftAP. */
@@ -988,7 +1004,6 @@ cy_rslt_t cy_wcm_set_ap_ip_setting(cy_wcm_ip_setting_t *ap_ip, const char *ip_ad
 cy_rslt_t cy_wcm_allow_low_power_mode(cy_wcm_powersave_mode_t mode);
 
 /** \} group_wcm_functions */
-
 
 #ifdef __cplusplus
 } /* extern C */

@@ -1,4 +1,4 @@
-# Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack 1.7.0
+# Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack 1.7.1
 
 ## Overview
 The Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack is an extension of the CMSIS-Pack standard established by Arm
@@ -40,7 +40,7 @@ The Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack uses below assets:
 | [command-console](https://github.com/Infineon/command-console)                                             |  6.0.0  |
 | [connectivity-utilities](https://github.com/Infineon/connectivity-utilities)                               |  4.4.0  |
 | [core-lib](https://github.com/Infineon/core-lib)                                                           |  1.3.1  |
-| [wcm](https://github.com/Infineon/wifi-connection-manager)                                                 |  3.5.0  |
+| [wcm](https://github.com/Infineon/wifi-connection-manager)                                                 |  3.6.0  |
 | [whd-bsp-integration](https://github.com/Infineon/whd-bsp-integration)                                     |  2.3.0  |
 | [lwip-freertos-integration](https://github.com/Infineon/lwip-freertos-integration)                         |  1.0.0  |
 | [lwip-network-interface-integration](https://github.com/Infineon/lwip-network-interface-integration)       |  1.3.1  |
@@ -80,4 +80,4 @@ owners.
 
 -------------------------------------------------------------------------------
 
-© Cypress Semiconductor Corporation, 2021-2024.
+© Cypress Semiconductor Corporation, 2021-2025.
