@@ -57,6 +57,8 @@
     #define TARGET_STM32U5xx
 #elif defined (STM32H563xx)
     #define TARGET_STM32H5xx
+#elif defined (STM32H7S7xx)
+    #define TARGET_STM32H7RSxx
 #else
     #error "Selected STM32 device is not supported by this package."
 #endif
@@ -76,6 +78,9 @@
     #include "stm32h5xx.h"
     #include "stm32h5xx_hal.h"
     #include "stm32h5xx_hal_def.h"
+#elif defined (TARGET_STM32H7RSxx)
+    #include "stm32h7rsxx.h"
+    #include "stm32h7rsxx_hal.h"
 #else
     #error "Selected STM32 device is not supported by this package."
 #endif
@@ -89,9 +94,7 @@
 #endif /* defined (__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U) */
 
 /* Macro to ALIGN */
-#if defined (__ARMCC_VERSION) /* ARM Compiler */
-    #define ALIGN_HAL_COMMON(buf, x) __align(x) buf
-#elif defined   (__GNUC__)    /* GNU Compiler */
+#if defined (__ARMCC_VERSION) /* ARM Compiler */ || defined   (__GNUC__)    /* GNU Compiler */
     #define ALIGN_HAL_COMMON(buf, x)  buf __attribute__ ((aligned (x)))
 #elif defined (__ICCARM__)    /* IAR Compiler */
     #define ALIGN_HAL_COMMON(buf, x) __ALIGNED(x) buf

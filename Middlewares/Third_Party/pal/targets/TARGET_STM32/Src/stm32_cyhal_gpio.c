@@ -122,6 +122,30 @@ extern "C" {
     #define PORT_GPIOK NULL
 #endif /* defined(GPIOK) */
 
+#if defined(GPIOM)
+    #define PORT_GPIOM GPIOM
+#else
+    #define PORT_GPIOM NULL
+#endif /* defined(GPIOM) */
+
+#if defined(GPION)
+    #define PORT_GPION GPION
+#else
+    #define PORT_GPION NULL
+#endif /* defined(GPION) */
+
+#if defined(GPIOO)
+    #define PORT_GPIOO GPIOO
+#else
+    #define PORT_GPIOO NULL
+#endif /* defined(GPIOO) */
+
+#if defined(GPIOP)
+    #define PORT_GPIOP GPIOP
+#else
+    #define PORT_GPIOP NULL
+#endif /* defined(GPIOP) */
+
 #define CYHAL_MAX_EXTI_NUMBER       (16U)
 
 /* Return pin number by counts the number of leading zeros of a data value.
@@ -657,7 +681,7 @@ static void _stm32_cyhal_gpio_enable_irq(uint32_t pin_number, uint32_t priority,
         EXTI15_10_IRQn, /* IRQ for EXTI line 14 */
         EXTI15_10_IRQn, /* IRQ for EXTI line 15 */
     };
-    #elif defined (TARGET_STM32L5xx) || defined (TARGET_STM32U5xx)
+    #elif defined (TARGET_STM32L5xx) || defined (TARGET_STM32U5xx) || defined (TARGET_STM32H5xx) || defined (TARGET_STM32H7RSxx)
     const IRQn_Type exti_table[] =
     {
         EXTI0_IRQn,  /* IRQ for EXTI line 0 */
@@ -670,26 +694,6 @@ static void _stm32_cyhal_gpio_enable_irq(uint32_t pin_number, uint32_t priority,
         EXTI7_IRQn,  /* IRQ for EXTI line 7 */
         EXTI8_IRQn,  /* IRQ for EXTI line 8 */
         EXTI9_IRQn,  /* IRQ for EXTI line 9 */
-        EXTI10_IRQn, /* IRQ for EXTI line 10 */
-        EXTI11_IRQn, /* IRQ for EXTI line 11 */
-        EXTI12_IRQn, /* IRQ for EXTI line 12 */
-        EXTI13_IRQn, /* IRQ for EXTI line 13 */
-        EXTI14_IRQn, /* IRQ for EXTI line 14 */
-        EXTI15_IRQn, /* IRQ for EXTI line 15 */
-    };
-    #elif defined (TARGET_STM32H5xx)
-    const IRQn_Type exti_table[] =
-    {
-        EXTI0_IRQn, /* IRQ for EXTI line 0 */
-        EXTI1_IRQn, /* IRQ for EXTI line 1 */
-        EXTI2_IRQn, /* IRQ for EXTI line 2 */
-        EXTI3_IRQn, /* IRQ for EXTI line 3 */
-        EXTI4_IRQn, /* IRQ for EXTI line 4 */
-        EXTI5_IRQn, /* IRQ for EXTI line 5 */
-        EXTI6_IRQn, /* IRQ for EXTI line 6 */
-        EXTI7_IRQn, /* IRQ for EXTI line 7 */
-        EXTI8_IRQn, /* IRQ for EXTI line 8 */
-        EXTI9_IRQn, /* IRQ for EXTI line 9 */
         EXTI10_IRQn, /* IRQ for EXTI line 10 */
         EXTI11_IRQn, /* IRQ for EXTI line 11 */
         EXTI12_IRQn, /* IRQ for EXTI line 12 */
