@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.15">
+  <compounddef id="dir_36f4dfcac3c4171921d0db2582485cf0" kind="dir">
+    <compoundname>COMPONENT_HCI-UART</compoundname>
+    <innerdir refid="dir_fd22c03d51060b768dd566eed291e511">include</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/"/>
+  </compounddef>
+</doxygen>

@@ -1,6 +1,6 @@
 [CortexM7:ProjectFiles]
 HeaderPath=
 [CortexM7:Others]
-Define=CY_RETARGET_IO_CONVERT_LF_TO_CRLF;CYBSP_WIFI_CAPABLE
+Define=CY_RETARGET_IO_CONVERT_LF_TO_CRLF;CYBSP_WIFI_CAPABLE;CY_USING_HAL
 [CortexM7:Groups]
 Application/User/Core/Src=../CM7/Core/Src/bt_bus.c;../CM7/Core/Src/bt_firmware.c;../CM7/Core/Src/bt_mfg_test.c;../CM7/Core/Src/bt_transport.c;

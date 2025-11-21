@@ -54,14 +54,6 @@ var group__wiced__bt__cfg =
       [ "max_links", "structwiced__bt__cfg__rfcomm__t.html#a6b05d658ec05c434a0702cfca2ba90ce", null ],
       [ "max_ports", "structwiced__bt__cfg__rfcomm__t.html#a70f414afd5e8ee9c53673eedf8876914", null ]
     ] ],
-    [ "wiced_bt_cfg_isoc_t", "structwiced__bt__cfg__isoc__t.html", [
-      [ "max_sdu_size", "structwiced__bt__cfg__isoc__t.html#a61dd17b5ad5735589ea54933f3a08491", null ],
-      [ "channel_count", "structwiced__bt__cfg__isoc__t.html#a648c5a40f30d0682dda482a1222b0835", null ],
-      [ "max_cis_conn", "structwiced__bt__cfg__isoc__t.html#acc30abbd7e74e50fe8bde4a01a825177", null ],
-      [ "max_cig_count", "structwiced__bt__cfg__isoc__t.html#aa8c67e25a3fdb6a63bbf79989f03d527", null ],
-      [ "max_buffers_per_cis", "structwiced__bt__cfg__isoc__t.html#ab0328f82bcf4260c0e6b49b941abb5f1", null ],
-      [ "max_big_count", "structwiced__bt__cfg__isoc__t.html#a789cd77d45b834261598bd8cf9befad2", null ]
-    ] ],
     [ "wiced_bt_cfg_br_t", "structwiced__bt__cfg__br__t.html", [
       [ "br_max_simultaneous_links", "structwiced__bt__cfg__br__t.html#ad849811234d489e04cef752966db6a41", null ],
       [ "br_max_rx_pdu_size", "structwiced__bt__cfg__br__t.html#a88a90b0eb26296fb9726344a1da02dde", null ],
@@ -86,6 +78,14 @@ var group__wiced__bt__cfg =
       [ "max_app_l2cap_le_fixed_channels", "structwiced__bt__cfg__l2cap__application__t.html#a7a9f0564ec1278e70b660ae794ac5314", null ],
       [ "max_app_l2cap_br_edr_ertm_chnls", "structwiced__bt__cfg__l2cap__application__t.html#ad9dfed1360209830366ed341e79a51e7", null ],
       [ "max_app_l2cap_br_edr_ertm_tx_win", "structwiced__bt__cfg__l2cap__application__t.html#a0aee0bf617bd2d757e8166c7e69a52ac", null ]
+    ] ],
+    [ "wiced_bt_cfg_isoc_t", "structwiced__bt__cfg__isoc__t.html", [
+      [ "max_sdu_size", "structwiced__bt__cfg__isoc__t.html#a61dd17b5ad5735589ea54933f3a08491", null ],
+      [ "channel_count", "structwiced__bt__cfg__isoc__t.html#a648c5a40f30d0682dda482a1222b0835", null ],
+      [ "max_cis_conn", "structwiced__bt__cfg__isoc__t.html#acc30abbd7e74e50fe8bde4a01a825177", null ],
+      [ "max_cig_count", "structwiced__bt__cfg__isoc__t.html#aa8c67e25a3fdb6a63bbf79989f03d527", null ],
+      [ "max_buffers_per_cis", "structwiced__bt__cfg__isoc__t.html#ab0328f82bcf4260c0e6b49b941abb5f1", null ],
+      [ "max_big_count", "structwiced__bt__cfg__isoc__t.html#a789cd77d45b834261598bd8cf9befad2", null ]
     ] ],
     [ "wiced_bt_cfg_settings_t", "structwiced__bt__cfg__settings__t.html", [
       [ "device_name", "structwiced__bt__cfg__settings__t.html#acaf92b2fa126e8223877f3e1b49fe1df", null ],
@@ -150,7 +150,7 @@ var group__wiced__bt__cfg =
     [ "wiced_bt_stack_get_dynamic_memory_size_for_config", "group__wiced__bt__cfg.html#gabdaddf0ee44203cafd1d65953768eef1", null ],
     [ "wiced_bt_stack_init", "group__wiced__bt__cfg.html#gabac5a1c3126b145f079c6797790844af", null ],
     [ "wiced_bt_stack_deinit", "group__wiced__bt__cfg.html#gaa7ee2ece60f1e4d174e85167c85377c7", null ],
-    [ "wiced_bt_l2c_module_init", "group__wiced__bt__cfg.html#gaf247a5b27b1b3c9fafc747c887952d4c", null ],
-    [ "wiced_bt_smp_module_init", "group__wiced__bt__cfg.html#ga12ca3e0453fe327c489bd39c520fd452", null ],
+    [ "wiced_bt_smp_server_module_init", "group__wiced__bt__cfg.html#gadd645bbe1f895f2d0869411c76e7194c", null ],
+    [ "wiced_bt_smp_client_module_init", "group__wiced__bt__cfg.html#ga86bbaefca7ee3cc3d188cb5cd021ddf8", null ],
     [ "wiced_bt_init_resolution", "group__wiced__bt__cfg.html#ga26ebacfb0c02e43d4d1b97bbfc22738f", null ]
 ];

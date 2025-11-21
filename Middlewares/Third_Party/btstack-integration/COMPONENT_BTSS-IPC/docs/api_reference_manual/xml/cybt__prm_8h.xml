@@ -13,7 +13,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_prm.h" line="45" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_prm.h" bodystart="45" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_prm.h" line="45" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_prm.h" bodystart="45" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="cybt__prm_8h_1af37e003f3792a046c9b5effb9d4ba914" prot="public" static="no">
         <name>CYBT_PRM_FORMAT_HCD</name>
@@ -24,7 +24,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_prm.h" line="46" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_prm.h" bodystart="46" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_prm.h" line="46" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_prm.h" bodystart="46" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="enum">
@@ -60,7 +60,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_prm.h" line="35" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_prm.h" bodystart="34" bodyend="39"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_prm.h" line="35" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_prm.h" bodystart="34" bodyend="39"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="typedef">
@@ -75,7 +75,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_prm.h" line="40" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_prm.h" bodystart="40" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_prm.h" line="40" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_prm.h" bodystart="40" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="cybt__prm_8h_1a91c999482e790c7557f1eb2f2d1f51f8" prot="public" static="no">
         <type>uint8_t</type>
@@ -88,7 +88,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_prm.h" line="47" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_prm.h" bodystart="47" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_prm.h" line="47" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_prm.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="cybt__prm_8h_1a0c0badc00d92703eedcf3f771e1b1fe2" prot="public" static="no">
         <type>void()</type>
@@ -114,7 +114,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_prm.h" line="56" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_prm.h" bodystart="56" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_prm.h" line="56" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_prm.h" bodystart="56" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -206,7 +206,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_prm.h" line="81" column="1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_prm.h" line="81" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -282,6 +282,6 @@
 <codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="94"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_prm.h"/>
+    <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_prm.h"/>
   </compounddef>
 </doxygen>

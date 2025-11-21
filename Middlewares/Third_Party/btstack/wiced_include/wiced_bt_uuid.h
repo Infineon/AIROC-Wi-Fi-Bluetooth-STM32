@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023, Cypress Semiconductor Corporation or
+ * Copyright 2016-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -33,7 +33,7 @@
 
 /** @file
  *
- * This file has the BT UUIDs (https://developer.bluetooth.org/gatt/)
+ * This file has the Bluetooth UUIDs (https://developer.bluetooth.org/gatt/)
  *
  */
 
@@ -106,6 +106,8 @@ enum ble_uuid_service
     WICED_BT_UUID_HEARING_ACCESS = 0X1854,                // 54 18
     WICED_BT_UUID_TMAS = 0X1855,                          // 55 18
     WICED_BT_UUID_PUBLIC_BROADCAST_ANNOUNCEMENT = 0X1856, // 56 18
+    WICED_BT_UUID_TELEPHPONE_AND_MEDIA_AUDIO = 0X1857,    // 57 18
+    WICED_BT_UUID_RANGING_SERVICE = 0x185B,               // 5B 18
 };
 
 /** UUID per Bluetooth Assigned numbers */
@@ -116,7 +118,8 @@ enum ble_uuid_attribute
     UUID_ATTRIBUTE_INCLUDE                              = 0x2802,
     UUID_ATTRIBUTE_CHARACTERISTIC                       = 0x2803,
 
-     WICED_BT_UUID_INPUT_STATE = 0x2B77,
+    WICED_BT_UUID_TMAP_ROLE = 0X2B51,
+    WICED_BT_UUID_INPUT_STATE = 0x2B77,
     WICED_BT_UUID_GAIN_SETTING_ATTRIBUTE = 0x2B78,
     WICED_BT_UUID_INPUT_TYPE = 0x2B79,
     WICED_BT_UUID_INPUT_STATUS = 0x2B7A,
@@ -193,10 +196,21 @@ enum ble_uuid_attribute
     WICED_BT_UUID_PACS_AUDIO_CONTEXT_AVAILABILITY = 0X2BCD,
     WICED_BT_UUID_PACS_SUPPORTED_AUDIO_CONTEXT = 0X2BCE,
 
+    WICED_BT_UUID_HAS_HEARING_AID_FEATURES = 0x2BDA,
+    WICED_BT_UUID_HAS_HEARING_AID_PRESET_CONTROL_POINT = 0x2BDB,
+    WICED_BT_UUID_HAS_HEARING_AID_ACTIVE_PRESET_INDEX = 0x2BDC,
+
     WICED_BT_UUID_RAAS_SELECTABLE_AREP                       = 0X8FC0,
     WICED_BT_UUID_RAAS_CFG_AUDIO_ROUTE_LIST                  = 0X8FC1,
     WICED_BT_UUID_RAAS_CFG_AUDIO_ROUTE_CONTENT_TYPE          = 0X8FC2,
     WICED_BT_UUID_RAAS_MODIFY_AUDIO_ROUTE_CONTROL_POINT      = 0X8FC3,
+
+    WICED_BT_UUID_RAS_FEATURES = 0x2C14,
+    WICED_BT_UUID_RAS_REAL_TIME_RANGING_DATA = 0x2C15,
+    WICED_BT_UUID_RAS_ON_DEMAND_RANGING_DATA = 0x2C16,
+    WICED_BT_UUID_RAS_CONTROL_POINT = 0x2C17,
+    WICED_BT_UUID_RAS_RANGING_DATA_READY = 0x2C18,
+    WICED_BT_UUID_RAS_RANGING_DATA_OVERWRITTEN = 0x2C19,
 };
 
 
@@ -423,6 +437,8 @@ enum ble_uuid_characteristic
     UUID_CHARACTERISTIC_OBJECT_LIST_FILTER                                  = 0x2AC7,
     UUID_CHARACTERISTIC_OBJECT_CHANGED                                      = 0x2AC8,
     UUID_CHARACTERISTIC_RPA_ONLY                                            = 0x2AC9,
+    UUID_CHARACTERISTIC_ENCRYPTED_DATA_KEY_MATERIAL                         = 0x2B88,
+    UUID_CHARACTERISTIC_LE_GATT_SECURITY_LEVELS                             = 0x2BF5,
 };
 
 #endif

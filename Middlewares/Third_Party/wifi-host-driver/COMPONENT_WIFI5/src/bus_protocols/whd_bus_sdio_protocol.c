@@ -82,6 +82,18 @@
 
 #define HOSTINTMASK                 (I_HMB_SW_MASK)
 
+/*
+ * NOTE: By default, this patch is disabled by defining CY_DISABLE_XMC7000_DATA_CACHE,
+ * since it is rarely needed.
+ *
+ * On the STM32N6 platform, we found that the wifi_netxduo/threadx project requires this patch
+ * to be enabled when the CPU D-cache is turned on for the 43022 chip. Other chips do not have this issue.
+ *
+ * For FreeRTOS, neither the h1 nor the 43022 require this patch.
+ */
+#if !defined (CY_DISABLE_XMC7000_DATA_CACHE) && defined (__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
+#define DCACHE_BYTE_ALIGNEMNT       (__SCB_DCACHE_LINE_SIZE)
+#endif
 
 /******************************************************
 *             Structures
@@ -1045,7 +1057,12 @@ static whd_result_t whd_bus_sdio_cmd53(whd_driver_t whd_driver, whd_bus_transfer
                                        sdio_response_needed_t response_expected, uint32_t *response)
 {
     sdio_cmd_argument_t arg;
-    whd_result_t result;
+    whd_result_t result = WHD_SUCCESS;
+    uint8_t *aligned_local_buffer = data;
+#if !defined (CY_DISABLE_XMC7000_DATA_CACHE) && defined (__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
+    bool iscacheable = false;
+    uint8_t *local_buffer = NULL;
+#endif
 
     if (direction == BUS_WRITE)
     {
@@ -1058,6 +1075,27 @@ static whd_result_t whd_bus_sdio_cmd53(whd_driver_t whd_driver, whd_bus_transfer
     arg.cmd53.op_code = (uint32_t)1;
     arg.cmd53.rw_flag = (uint32_t)( (direction == BUS_WRITE) ? 1 : 0 );
 
+#if !defined (CY_DISABLE_XMC7000_DATA_CACHE) && defined (__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
+    if(((size_t)data % DCACHE_BYTE_ALIGNEMNT != 0 || (size_t)data_size % DCACHE_BYTE_ALIGNEMNT != 0) )
+    {
+        local_buffer = (uint8_t *)whd_mem_malloc(data_size + (2*DCACHE_BYTE_ALIGNEMNT));
+        if (NULL == local_buffer)
+        {
+            WPRINT_WHD_ERROR( ("%s:%d whd_mem_malloc failed\n", __func__, __LINE__) );
+            goto done;
+        }
+        aligned_local_buffer = (uint8_t*)((size_t)local_buffer + ((size_t)32 - ((size_t)local_buffer & 0x1F)));
+
+        if (direction == BUS_WRITE)
+        {
+            /* Copy the data to aligned buffer */
+            memcpy((void *)aligned_local_buffer, (void *)data, data_size);
+        }
+
+        iscacheable = true;
+    }
+#endif
+
     if (mode == SDIO_BYTE_MODE)
     {
         whd_assert("whd_bus_sdio_cmd53: data_size > 512 for byte mode", (data_size <= (uint16_t )512) );
@@ -1065,7 +1103,7 @@ static whd_result_t whd_bus_sdio_cmd53(whd_driver_t whd_driver, whd_bus_transfer
 
         result =
             cyhal_sdio_bulk_transfer(whd_driver->bus_priv->sdio_obj, (cyhal_sdio_transfer_t)direction, arg.value,
-                                     (uint32_t *)data, data_size, response);
+                                     (uint32_t *)aligned_local_buffer, data_size, response);
 
         if (result != CY_RSLT_SUCCESS)
         {
@@ -1084,7 +1122,7 @@ static whd_result_t whd_bus_sdio_cmd53(whd_driver_t whd_driver, whd_bus_transfer
 
         result =
             cyhal_sdio_bulk_transfer(whd_driver->bus_priv->sdio_obj, (cyhal_sdio_transfer_t)direction, arg.value,
-                                     (uint32_t *)data, data_size, response);
+                                     (uint32_t *)aligned_local_buffer, data_size, response);
 
         if (result != CY_RSLT_SUCCESS)
         {
@@ -1098,7 +1136,21 @@ static whd_result_t whd_bus_sdio_cmd53(whd_driver_t whd_driver, whd_bus_transfer
         WHD_BUS_STATS_INCREMENT_VARIABLE(whd_driver->bus_priv, cmd53_read);
     }
 
+    /* Copy back the data when response is needed(Rx) */
+#if !defined (CY_DISABLE_XMC7000_DATA_CACHE) && defined (__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
+    if(iscacheable == true && response_expected == RESPONSE_NEEDED)
+    {
+        memcpy((void *)data, (void *)aligned_local_buffer, data_size);
+    }
+#endif
+
 done:
+#if !defined (CY_DISABLE_XMC7000_DATA_CACHE) && defined (__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
+    if(iscacheable == true)
+    {
+        whd_mem_free(local_buffer);
+    }
+#endif
     WHD_BUS_STATS_CONDITIONAL_INCREMENT_VARIABLE(whd_driver->bus_priv,
                                                  ( (result != WHD_SUCCESS) && (direction == BUS_READ) ),
                                                  cmd53_read_fail);
@@ -1858,6 +1910,7 @@ static whd_result_t whd_bus_sdio_blhs(whd_driver_t whd_driver, whd_bus_blhs_stag
              * is accessible while backplane is disabled
              */
              for (loop = 0; loop < 80000; loop++) {
+                (void)cy_rtos_delay_milliseconds( (uint32_t)1 );
                 CHECK_RETURN(whd_bus_read_register_value (whd_driver, BUS_FUNCTION, SDIOD_CCCR_INTPEND, (uint8_t)4, (uint8_t*)&value) );
                 if (value & SDIOD_CCCR_INTPEND_INT1) {
                     WPRINT_WHD_DEBUG(("%s: Backplane enabled.\n",  __func__));

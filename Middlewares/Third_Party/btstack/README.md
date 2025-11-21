@@ -19,6 +19,7 @@ Protocols supported include (but not limited to)
 Please note that some of these features depend on the BT controller as well.
 
 ## Additional Information
+[BTSTACK Architecture](https://infineon.github.io/btstack/4004713-002-37699.pdf)
 
 [BTSTACK release notes](./RELEASE.md)
 

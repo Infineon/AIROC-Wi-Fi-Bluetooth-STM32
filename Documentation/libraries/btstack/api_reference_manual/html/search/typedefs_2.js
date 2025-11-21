@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['timer_5fparam_5ftype',['TIMER_PARAM_TYPE',['../group__timer.html#ga2cd25e917632799891ef3d99a326b331',1,'wiced_timer.h']]]
+  ['pf_5fwiced_5fexception',['pf_wiced_exception',['../group__gentypes.html#ga3485f1bcadb8362abc051922bd195a8d',1,'wiced_data_types.h']]]
 ];

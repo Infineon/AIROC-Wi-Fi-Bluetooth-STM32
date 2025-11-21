@@ -171,7 +171,9 @@ standard names. */
 #define configCHECK_FOR_STACK_OVERFLOW           1
 
 /* Enable using CY_HAL for rtos-abstraction */
+#ifndef CY_USING_HAL
 #define CY_USING_HAL
+#endif
 #define configUSE_DAEMON_TASK_STARTUP_HOOK      1
 
 /* USER CODE END Defines */

@@ -30,6 +30,9 @@
  * of such system or application assumes all risk of such use and in doing
  * so agrees to indemnify Cypress against all liability.
  */
+
+// Patch to disable sleep as Pins are not set
+
 #ifndef DISABLE_COMMAND_CONSOLE_BT
 
 #include "bt_cfg.h"
@@ -172,7 +175,7 @@ const cybt_platform_config_t bt_platform_cfg_settings =
         .bt_power_pin      = CYBSP_BT_POWER,
         .sleep_mode =
         {
-            .sleep_mode_enabled   = true,
+            .sleep_mode_enabled   = false,
             .device_wakeup_pin    = CYBSP_BT_DEVICE_WAKE,
             .host_wakeup_pin      = CYBSP_BT_HOST_WAKE,
             .device_wake_polarity = CYBT_WAKE_ACTIVE_LOW,

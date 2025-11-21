@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023, Cypress Semiconductor Corporation or
+ * Copyright 2016-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -37,7 +37,9 @@
  * Programming Interface
  *
  */
-#pragma once
+#ifndef __WICED_BT_AVDT_H__
+#define __WICED_BT_AVDT_H__
+
 
 #include "wiced_result.h"
 #include "wiced_bt_types.h"
@@ -386,7 +388,7 @@ typedef struct {
     uint8_t         ret_tout;                       /**< AVDTP signaling retransmission timeout */
     uint8_t         sig_tout;                       /**< AVDTP signaling message timeout */
     uint8_t         idle_tout;                      /**< AVDTP idle signaling channel timeout */
-    uint8_t         sec_mask;                       /**< Security mask (not used on WICED platforms: security is configured using wiced_bt_cfg) */
+    uint8_t         sec_mask;                       /**< Security mask (not used on AIROC platforms: security is configured using wiced_bt_cfg) */
 } wiced_bt_avdt_reg_t;
 
 /** Stream endpoint information */
@@ -1101,3 +1103,5 @@ uint16_t wiced_bt_avdt_send_report(uint8_t handle, AVDT_REPORT_TYPE type,
  * @} wicedbt_avdt
  */
  /* @endcond*/
+
+#endif //__WICED_BT_AVDT_H__

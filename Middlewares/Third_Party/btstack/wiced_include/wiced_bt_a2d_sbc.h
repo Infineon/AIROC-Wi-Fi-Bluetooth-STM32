@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023, Cypress Semiconductor Corporation or
+ * Copyright 2016-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -35,7 +35,9 @@
  * Low complexity subband codec (SBC) A2DP Application Programming Interface
  *
  */
-#pragma once
+#ifndef __WICED_BT_A2D_SBC_H__
+#define __WICED_BT_A2D_SBC_H__
+
 
 /**
  * @cond DUAL_MODE
@@ -229,3 +231,5 @@ void wiced_bt_a2d_pars_sbc_mpl_hdr(uint8_t *p_src, wiced_bool_t *p_frag,
 
 /** @} wicedbt_a2dp_sbc */
 /* @endcond*/
+
+#endif //__WICED_BT_A2D_SBC_H__

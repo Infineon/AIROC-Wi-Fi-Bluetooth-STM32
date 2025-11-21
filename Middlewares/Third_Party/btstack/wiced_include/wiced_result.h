@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023, Cypress Semiconductor Corporation or
+ * Copyright 2016-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -38,7 +38,9 @@
  *
  */
 
-#pragma once
+#ifndef __WICED_RESULT_H__
+#define __WICED_RESULT_H__
+
 #include "wiced_bt_constants.h"
 #ifdef __cplusplus
 extern "C" {
@@ -53,16 +55,16 @@ extern "C" {
 #endif /* ifndef RESULT_ENUM */
 
 /**
- *  @addtogroup  WICED Result list       WICED result list
+ *  @addtogroup  AIROC Result list       AIROC result list
  *  @ingroup     gentypes
  *
- *  <b> WICED Result list </b> for Bluetooth BR/EDR and LE @b .
+ *  <b> AIROC Result list </b> for Bluetooth BR/EDR and LE @b .
  *
  *  @{
  */
 /*************************************************************************/
 
-/** WICED result list */
+/** AIROC result list */
 #define WICED_RESULT_LIST( prefix ) \
     RESULT_ENUM( prefix, SUCCESS,                       0x00 ),   /**< Success */                       \
     RESULT_ENUM( prefix, DELETED                       ,0x01 ),   /**< Deleted */                       \
@@ -134,7 +136,7 @@ extern "C" {
     RESULT_ENUM( prefix, ALREADY_INITIALIZED,           0x42),   /**< Already initialized*/             \
     RESULT_ENUM( prefix, FEATURE_NOT_ENABLED           ,0xFF ),  /**< Feature not enabled */
 
-/**@}  WICED result list */
+/**@}  AIROC result list */
 
 /** File result list */
 #define FILESYSTEM_RESULT_LIST( prefix ) \
@@ -164,7 +166,7 @@ extern "C" {
 /**
  *  Common Bluetooth definitions
  *  @defgroup gentypes   Common Bluetooth definitions
- *  @addtogroup  Result       WICED result
+ *  @addtogroup  Result       AIROC result
  *  @ingroup     gentypes
  *
  *  <b> Result types </b> See wiced_result.h
@@ -172,15 +174,15 @@ extern "C" {
  *  @{
  */
 
-/** WICED result */
+/** AIROC result */
 typedef enum
 {
     WICED_RESULT_LIST ( WICED_ )                 /**< Generic Error */
-    BT_RESULT_LIST      (  WICED_BT_       )     /**< BT specific Error. Range: 8000 - 8999 */
+    BT_RESULT_LIST      (  WICED_BT_       )     /**< Bluetooth specific Error. Range: 8000 - 8999 */
     FILESYSTEM_RESULT_LIST( WICED_FILESYSTEM_ )  /**< 10000 - 10999 */
 } wiced_result_t;
 
-/**@}  WICED Result */
+/**@}  AIROC Result */
 
 /******************************************************
  *            Structures
@@ -193,3 +195,5 @@ typedef enum
 #ifdef __cplusplus
 } /*extern "C" */
 #endif
+
+#endif //__WICED_RESULT_H__

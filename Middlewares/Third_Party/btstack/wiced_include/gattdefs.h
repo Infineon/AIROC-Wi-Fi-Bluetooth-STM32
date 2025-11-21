@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2023, Cypress Semiconductor Corporation or
+ * Copyright 2019-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -33,7 +33,7 @@
 
 /** @file
  *
- *  WICED Generic Attribute (GATT) Application Programming Interface definitions
+ *  AIROC Generic Attribute (GATT) Application Programming Interface definitions
  */
 
 #ifndef  _GATTDEFS_H

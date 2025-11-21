@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023, Cypress Semiconductor Corporation or
+ * Copyright 2016-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -36,7 +36,9 @@
  * Bluetooth SDP Application Programming Interface
  *
  */
-#pragma once
+#ifndef __WICED_BT_SDP_H__
+#define __WICED_BT_SDP_H__
+
 
 #include "wiced_bt_dev.h"
 #include "wiced_bt_sdp_defs.h"
@@ -325,7 +327,7 @@ typedef struct
 #define SDP_ATTR_SERVICE_AVAILABILITY(availability)                     \
         SDP_ATTR_UINT1(ATTR_ID_SERVICE_AVAILABILITY, availability)
 
-/** BT Profile Descriptor List 0x0009 */
+/** Bluetooth Profile Descriptor List 0x0009 */
 #define SDP_ATTR_PROFILE_DESC_LIST(uuid, version)                       \
     SDP_ATTR_ID(ATTR_ID_BT_PROFILE_DESC_LIST), SDP_ATTR_SEQUENCE_1(8),  \
         SDP_ATTR_SEQUENCE_1(6),                                         \
@@ -390,7 +392,7 @@ extern "C"
 /**
  *
  * Initialize local SDP server database (database generated using
- * WICED BT Designer)
+ * AIROC Bluetooth Designer)
  *
  * @param[in]       p_sdp_db:    First element in database array
  * @param[in]       size:        size (in bytes) of SDP database
@@ -600,3 +602,5 @@ wiced_bool_t wiced_bt_sdp_find_service_uuid_in_rec(wiced_bt_sdp_discovery_record
 
 /**@} sdp */
 /* @endcond*/
+
+#endif //__WICED_BT_SDP_H__

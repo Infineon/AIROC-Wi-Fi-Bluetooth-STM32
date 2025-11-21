@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="91" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="91" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" line="90" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" bodystart="90" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcybt__hci__uart__config__t_1ac76ec7bcdc6221e98b1bc6fa09b46644" prot="public" static="no" mutable="no">
         <type>cyhal_gpio_t</type>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="92" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="92" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" line="91" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" bodystart="91" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcybt__hci__uart__config__t_1a782d923640613d1e4cf5122e02a0c579" prot="public" static="no" mutable="no">
         <type>cyhal_gpio_t</type>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="93" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="93" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" line="92" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" bodystart="92" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcybt__hci__uart__config__t_1a4ab1e920e897867f8e6bcf55c300b677" prot="public" static="no" mutable="no">
         <type>cyhal_gpio_t</type>
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="94" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="94" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" line="93" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" bodystart="93" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcybt__hci__uart__config__t_1ab39743cee6567b888d268b63bc46b257" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -72,7 +72,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="96" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="96" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" line="95" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" bodystart="95" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcybt__hci__uart__config__t_1ae8006ab108f355520ca3a97e849bd404" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -86,7 +86,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="97" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="97" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" line="96" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" bodystart="96" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcybt__hci__uart__config__t_1a7523d7315b657beda91ab9749b2e3539" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -100,7 +100,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="99" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="99" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" line="98" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" bodystart="98" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcybt__hci__uart__config__t_1abeabe54dd2ff31c28bf8c53f910e0d39" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -114,7 +114,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="100" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="100" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" line="99" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" bodystart="99" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcybt__hci__uart__config__t_1ad4167be34fe428606a8a84feca8c1cc4" prot="public" static="no" mutable="no">
         <type>cyhal_uart_parity_t</type>
@@ -128,7 +128,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="101" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="101" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" line="100" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" bodystart="100" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structcybt__hci__uart__config__t_1ac3f12365296f74616019face05d4aac8" prot="public" static="no" mutable="no">
         <type>bool</type>
@@ -142,7 +142,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="102" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="102" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" line="101" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" bodystart="101" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -157,7 +157,7 @@
 </listitem></itemizedlist>
 </para>
     </detaileddescription>
-    <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="90" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="89" bodyend="103"/>
+    <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" line="89" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_config.h" bodystart="88" bodyend="102"/>
     <listofallmembers>
       <member refid="structcybt__hci__uart__config__t_1ae8006ab108f355520ca3a97e849bd404" prot="public" virt="non-virtual"><scope>cybt_hci_uart_config_t</scope><name>baud_rate_for_feature</name></member>
       <member refid="structcybt__hci__uart__config__t_1ab39743cee6567b888d268b63bc46b257" prot="public" virt="non-virtual"><scope>cybt_hci_uart_config_t</scope><name>baud_rate_for_fw_download</name></member>

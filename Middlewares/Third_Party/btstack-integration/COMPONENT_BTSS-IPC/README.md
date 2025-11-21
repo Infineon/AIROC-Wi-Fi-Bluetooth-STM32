@@ -1,4 +1,4 @@
-﻿#AIROC™ BT STack porting layer for CYW20829
+﻿# AIROC™ BT STack porting layer for CYW20829
 
 ## Overview
 The btstack-integration/COMPONENT_BTSS-IPC is the adaptation layer (porting layer) between AIROC™ BT STack and 

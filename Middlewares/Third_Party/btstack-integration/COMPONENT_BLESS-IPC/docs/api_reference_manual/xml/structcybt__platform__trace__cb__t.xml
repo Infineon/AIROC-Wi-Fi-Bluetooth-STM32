@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="101" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="101" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_trace.h" line="98" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_trace.h" bodystart="98" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -24,7 +24,7 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="100" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="99" bodyend="102"/>
+    <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_trace.h" line="97" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/platform/include/cybt_platform_trace.h" bodystart="96" bodyend="99"/>
     <listofallmembers>
       <member refid="structcybt__platform__trace__cb__t_1aff6cbe7223f753c87f870ff5cab4333d" prot="public" virt="non-virtual"><scope>cybt_platform_trace_cb_t</scope><name>trace_level</name></member>
     </listofallmembers>

@@ -104,7 +104,7 @@ static void cybt_prm_launch_ram_internal(void);
 **
 ** Function         cybt_prm_download
 **
-** Description      Register patch ram callback, and start the patch ram 
+** Description      Register patch ram callback, and start the patch ram
 **                  download process.
 ** Input Param      p_cb - callback for download status
 **                  p_patch_buf - address of patch ram buffer
@@ -297,6 +297,14 @@ static void cybt_prm_send_next_patch(void)
 
         STREAM_TO_UINT16 (vsc_command, p);
         STREAM_TO_UINT8  (len, p);
+
+#if (defined(COMPONENT_CYW20829B0) || defined(COMPONENT_CYW89829B0))
+        if ( vsc_command == HCI_VSC_LAUNCH_RAM )
+        {
+            /* set hf0 to 48MHz */
+            Cy_SysClk_ClkHfSetSource(0U, CY_SYSCLK_CLKHF_IN_CLKPATH1);
+        }
+#endif // (defined(COMPONENT_CYW20829B0) || defined(COMPONENT_CYW89829B0))
 
         wiced_bt_dev_vendor_specific_command(vsc_command,
                                              (uint8_t)len,

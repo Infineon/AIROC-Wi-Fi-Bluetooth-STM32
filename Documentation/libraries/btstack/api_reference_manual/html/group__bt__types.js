@@ -5,7 +5,7 @@ var group__bt__types =
       [ "uuid16", "structwiced__bt__uuid__t.html#aeecb37fde2935fb7e2900da67a380be7", null ],
       [ "uuid32", "structwiced__bt__uuid__t.html#a4ab339dc4a43df2dc88f2acd787e7493", null ],
       [ "uuid128", "structwiced__bt__uuid__t.html#a0043e23b06269285293d4cab5555ca0f", null ],
-      [ "uu", "structwiced__bt__uuid__t.html#ad085f86ef8ac3141f2cb65a2689ea169", null ]
+      [ "uu", "structwiced__bt__uuid__t.html#a59bd0f2faad4065ba61dc1813f2f58d1", null ]
     ] ],
     [ "wiced_bt_flow_spec_t", "structwiced__bt__flow__spec__t.html", [
       [ "qos_flags", "structwiced__bt__flow__spec__t.html#afe795b08b556ade0405dc3ed8f9a53ab", null ],
@@ -89,6 +89,7 @@ var group__bt__types =
     [ "BLE_ADDR_PUBLIC_ID", "group__bt__types.html#ga5ac125aff51458f57329826c93ca922a", null ],
     [ "BLE_ADDR_RANDOM_ID", "group__bt__types.html#ga9c8a7e2651e9ff47b802b09c21b3da3d", null ],
     [ "LINK_KEY_LEN", "group__bt__types.html#ga348deb818473ff185ce675bcdbe605b9", null ],
+    [ "IV_LEN", "group__bt__types.html#ga35dc4d7d23c1b86227ceb68e6ebc4fc2", null ],
     [ "DRB_OVERHEAD_SIZE", "group__bt__types.html#ga76cc4e51e261caae3879751a959b97d6", null ],
     [ "L2CAP_ECRB_MAX_CHANNELS_PER_CMD", "group__bt__types.html#ga5397015950b4d07f743943d5a4566e1b", null ],
     [ "EATT_CHANNELS_PER_TRANSACTION", "group__bt__types.html#ga2c8591481949a685b796c1ca6f0b4daa", null ],
@@ -153,6 +154,7 @@ var group__bt__types =
     [ "WICED_DECLARE_ALIGNED4", "group__bt__types.html#ga69123432b2048680cf0996b9ff94e407", null ],
     [ "ALIGN_SIZE", "group__bt__types.html#ga3abfc7eabf712a2627b5a5d6e9a7e24b", null ],
     [ "wiced_bt_device_address_t", "group__bt__types.html#gacf9a377aceca799be625c0dfe554902e", null ],
+    [ "wiced_bt_hci_err_code_t", "group__bt__types.html#gaadbd678f6da4e4664861233129424bb7", null ],
     [ "wiced_bt_dev_status_t", "group__bt__types.html#gaebfc7a7f17241ffdaf1a70efc43ffb57", null ],
     [ "BD_ADDR_PTR", "group__bt__types.html#ga6ec901f500ca7516eb976ef46155627d", null ],
     [ "wiced_bt_remote_name_t", "group__bt__types.html#ga2f6808a023ce2f63ce06745c5ca8ed0f", null ],
@@ -169,6 +171,7 @@ var group__bt__types =
     [ "wiced_bt_device_type_t", "group__bt__types.html#ga14be6f307faa21731f83e14b33d7ee7f", null ],
     [ "wiced_bt_ble_address_type_t", "group__bt__types.html#ga97897f7408c23723933e9d21815c7294", null ],
     [ "wiced_bt_link_key_t", "group__bt__types.html#ga893b7181fa78c4b8523e2efee30fe223", null ],
+    [ "wiced_bt_iv_t", "group__bt__types.html#ga355e143f786df95e7532269df0ff1aac", null ],
     [ "wiced_bt_ecrb_cid_list_t", "group__bt__types.html#gaff3eb04924fbda24d4efd4285c7da1bc", null ],
     [ "wiced_bt_gatt_eatt_conn_id_list", "group__bt__types.html#gabd4bfdaba72729ec61cde921be081daf", null ],
     [ "wiced_bt_trace_type_t", "group__bt__types.html#ga07d710014e873107ed8772dc40f03bef", null ],

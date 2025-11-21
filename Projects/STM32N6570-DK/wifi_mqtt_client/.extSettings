@@ -1,0 +1,7 @@
+[Appli:ProjectFiles]
+HeaderPath=../Appli/MBEDTLS/App;
+[Appli:Others]
+Define=CYBSP_WIFI_CAPABLE;HAVE_SNPRINTF;CY_USING_HAL;MBEDTLS_USER_CONFIG_FILE:"mbedtls_user_config.h";BLHS_SUPPORT;CY_DISABLE_XMC7000_DATA_CACHE
+[Appli:Groups]
+Application/User/Core/Src=../Appli/Core/Src/mqtt_task.c;../Appli/Core/Src/mqtt_client_config.c;../Appli/Core/Src/publisher_task.c;../Appli/Core/Src/subscriber_task.c;../Appli/Core/Src/heap_usage.c;
+Application/User/MBEDTLS=../Appli/MBEDTLS/App/mbedtls.c;../Appli/MBEDTLS/Target/custom_rng.c;

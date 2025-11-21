@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.15">
+  <compounddef id="dir_34e803d99873a86059d1e7b87624b119" kind="dir">
+    <compoundname>platform</compoundname>
+    <innerdir refid="dir_64de864d8034b31c09bd2046a1cba133">include</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/"/>
+  </compounddef>
+</doxygen>

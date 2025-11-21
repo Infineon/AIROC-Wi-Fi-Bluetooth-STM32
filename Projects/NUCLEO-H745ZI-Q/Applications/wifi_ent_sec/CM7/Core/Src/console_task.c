@@ -157,27 +157,34 @@ cy_rslt_t command_console_add_command(void)
 #define SDMMC_D1    PC9
 #define SDMMC_D2    PC10
 #define SDMMC_D3    PC11
-#define SDMMC_DATA_DELAY 10
+#define SDMMC_DATA_DELAY 2
 
 /***************************************************************************************************
  * toggle_sdmmc_data
  **************************************************************************************************/
 void toggle_sdmmc_data(void)
 {
-    cyhal_gpio_init(SDMMC_D0, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_PULLUP, false);
-    cyhal_gpio_init(SDMMC_D1, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_PULLUP, false);
-    cyhal_gpio_init(SDMMC_D2, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_PULLUP, false);
-    cyhal_gpio_init(SDMMC_D3, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_PULLUP, false);
+    cyhal_gpio_init(SDMMC_D0, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_PULL_NONE, false);
+    cyhal_gpio_init(SDMMC_D1, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_PULL_NONE, false);
+    cyhal_gpio_init(SDMMC_D2, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_PULL_NONE, false);
+    cyhal_gpio_init(SDMMC_D3, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_PULL_NONE, false);
+    cyhal_gpio_init(CYBSP_WIFI_WL_REG_ON, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_PULLUP, true);
+
     cyhal_system_delay_ms(SDMMC_DATA_DELAY);
     cyhal_gpio_write(SDMMC_D0, true);
     cyhal_gpio_write(SDMMC_D1, true);
     cyhal_gpio_write(SDMMC_D2, true);
     cyhal_gpio_write(SDMMC_D3, true);
     cyhal_system_delay_ms(SDMMC_DATA_DELAY);
+    cyhal_gpio_write(CYBSP_WIFI_WL_REG_ON, false);
+    cyhal_system_delay_ms(SDMMC_DATA_DELAY);
+    cyhal_gpio_write(CYBSP_WIFI_WL_REG_ON, true);
+
     cyhal_gpio_free(SDMMC_D0);
     cyhal_gpio_free(SDMMC_D1);
     cyhal_gpio_free(SDMMC_D2);
     cyhal_gpio_free(SDMMC_D3);
+    cyhal_gpio_free(CYBSP_WIFI_WL_REG_ON);
 }
 
 

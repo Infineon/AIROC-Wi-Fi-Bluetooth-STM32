@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023, Cypress Semiconductor Corporation or
+ * Copyright 2016-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -36,6 +36,9 @@
  * Bluetooth RFCOMM Application Programming Interface
  *
  */
+#ifndef __WICED_BT_RFCOMM_H__
+#define __WICED_BT_RFCOMM_H__
+
  /**
   * @cond DUAL_MODE
   * @addtogroup  rfcomm_api_functions       RFCOMM
@@ -48,7 +51,6 @@
   *
   *  @{
   */
-#pragma once
 
 #include "wiced_bt_dev.h"
 
@@ -343,3 +345,5 @@ wiced_bt_rfcomm_result_t wiced_bt_rfcomm_check_connection (uint16_t handle, wice
 
 /**@}rfcomm_api_functions */
 /**  @endcond */
+
+#endif //__WICED_BT_RFCOMM_H__

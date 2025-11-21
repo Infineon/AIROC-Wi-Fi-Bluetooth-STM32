@@ -346,6 +346,7 @@ static bool ip_addr_ismulticast(NXD_ADDRESS *addr)
             return true;
         }
     }
+#ifndef NX_DISABLE_IPV6
     else if (addr->nxd_ip_version == NX_IP_VERSION_V6)
     {
         /*
@@ -357,7 +358,7 @@ static bool ip_addr_ismulticast(NXD_ADDRESS *addr)
             return true;
         }
     }
-
+#endif
     return false;
 }
 
@@ -377,14 +378,14 @@ static bool ip_addrs_same(NXD_ADDRESS *addr1, NXD_ADDRESS *addr2)
     {
         return false;
     }
-
+#ifndef NX_DISABLE_IPV6
     if (addr1->nxd_ip_version == NX_IP_VERSION_V6 &&
         (addr1->nxd_ip_address.v6[0] != addr2->nxd_ip_address.v6[0] || addr1->nxd_ip_address.v6[1] != addr2->nxd_ip_address.v6[1] ||
          addr1->nxd_ip_address.v6[2] != addr2->nxd_ip_address.v6[2] || addr1->nxd_ip_address.v6[3] != addr2->nxd_ip_address.v6[3]))
     {
         return false;
     }
-
+#endif
     return true;
 }
 
@@ -447,7 +448,7 @@ static bool str_to_ip(const char *str, uint32_t *addr)
 
     return true;
 }
-
+#ifndef NX_DISABLE_IPV6
 static bool str_to_ipv6(const char *str, uint32_t *ipv6_addr)
 {
     uint32_t addr_idx, zero_segment_cnt, curr_segment_idx, curr_segment_val;
@@ -553,7 +554,7 @@ static bool str_to_ipv6(const char *str, uint32_t *ipv6_addr)
 
     return true;
 }
-
+#endif
 
 static cy_rslt_t nxd_packet_get_data(NX_PACKET *packet, uint16_t offset, uint8_t **data, uint16_t *fragment_available_data_length, uint16_t *total_available_data_length)
 {
@@ -1348,7 +1349,7 @@ static cy_rslt_t network_send(void *context, const unsigned char *data_buffer, u
     /* Call wifi-mw-core network activity function to resume the network stack. */
     cy_network_activity_notify(CY_NETWORK_ACTIVITY_TX);
 
-    while (data_buffer_length - *bytes_sent > 0)
+    while (data_buffer_length - (int32_t) *bytes_sent > 0)
     {
         result = cy_network_get_packet(CY_NETWORK_TCP_PACKET, DEFAULT_PACKET_ALLOCATE_TIMEOUT, (void *)&packet);
         if (result != CY_RSLT_SUCCESS)
@@ -3671,6 +3672,7 @@ cy_rslt_t cy_socket_gethostbyname(const char *hostname, cy_socket_ip_version_t i
             ip_address.nxd_ip_address.v4 = ntohl(ip_addr);
         }
     }
+#ifndef NX_DISABLE_IPV6
     if (lookup_type == NX_IP_VERSION_V6)
     {
         uint32_t ipv6_addr[4]={0,0,0,0};
@@ -3686,7 +3688,7 @@ cy_rslt_t cy_socket_gethostbyname(const char *hostname, cy_socket_ip_version_t i
             ip_address.nxd_ip_address.v6[3] = ipv6_addr[3];
         }
     }
-
+#endif
     if (!ip_found)
     {
         /* Call wifi-mw-core network activity function to resume the network stack. */
@@ -3717,7 +3719,7 @@ cy_rslt_t cy_socket_gethostbyname(const char *hostname, cy_socket_ip_version_t i
 cy_rslt_t cy_socket_poll(cy_socket_t handle, uint32_t *rwflags, uint32_t timeout)
 {
     cy_socket_ctx_t *ctx;
-    uint32 flags;
+    uint32_t flags;
     cy_rslt_t result = CY_RSLT_SUCCESS;
     ULONG recv_avail = 0;
     bool send_avail = false;

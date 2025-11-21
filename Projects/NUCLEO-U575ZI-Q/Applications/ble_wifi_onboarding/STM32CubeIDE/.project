@@ -229,14 +229,19 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/generated_mac_address.txt</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_debug_uart.c</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/debug/cybt_debug_uart.c</locationURI>
-		</link>
-		<link>
 			<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_hci_rx_task.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_hci_rx_task.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_serialize.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/cybt_serialize.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/platform_hal_wrapper.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/platform_hal_wrappers/platform_hal_wrapper.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Bluetooth/btstack-integration/cybt_hci_tx_task.c</name>
@@ -834,9 +839,9 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV/43012C0_clm_blob.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1LV/w_bt_firmware_controller.c</name>
+			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1LV/btfw.c</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43012/COMPONENT_MURATA-1LV/w_bt_firmware_controller.c</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/bt-fw/bt-fw-mur-cyw43012/COMPONENT_MURATA-1LV/btfw.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/network-interface/LWIP/cy_ethernetif.c</name>

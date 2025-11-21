@@ -337,14 +337,22 @@ int wl_remote_tx_response( void* buf_ptr, int cmd)
 {
     int error = 0;
     int outlen = 0;
+    int len;
+
+    /* The data_len sometimes could be larger.
+     * Although there is projection in the wl_ioctl call below,
+     * However, the wl_remote_CDC_tx() cannot handle the data_len > 1500
+     * For example: the 'counrty list' would get the data_len = 4096
+     */
+    len = rem_cdc.data_len > 1500 ? 1500: rem_cdc.data_len;
 
     if ( rem_cdc.msg.flags & REMOTE_GET_IOCTL )
     {
-       error =  wl_ioctl( rem_cdc.msg.cmd, buf_ptr, rem_cdc.data_len, 0, &outlen);
+       error =  wl_ioctl( rem_cdc.msg.cmd, buf_ptr, len, 0, &outlen);
     }
     else
     {
-       error = wl_ioctl( rem_cdc.msg.cmd, buf_ptr, rem_cdc.data_len, true, &outlen);
+       error = wl_ioctl( rem_cdc.msg.cmd, buf_ptr, len, true, &outlen);
     }
 
     if ( error != 0 )

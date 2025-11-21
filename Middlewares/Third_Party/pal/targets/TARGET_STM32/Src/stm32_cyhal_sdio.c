@@ -365,16 +365,11 @@ cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t* obj, cyhal_sdio_transfer_type_t
     cy_rslt_t result = CYHAL_SDIO_RSLT_CANCELED;
     CYHAL_ALIGN_DMA_BUFFER(static uint32_t  _temp_dma_buffer[_CYHAL_SDIO_DMA_BUFFER_SIZE]);
 
-    /* Check data buffer if aligned on 32-bytes (needed for cache maintenance purpose),
-     * and Length is multiple by block size. If NOT, use internal buffer for DMA */
-    bool use_temp_dma_buffer = ((((uint32_t)data % _CYHAL_DMA_BUFFER_ALIGN_BYTES) != 0u) ||
-                                ((length % obj->block_size) != 0u) ||
-                                (direction == CYHAL_SDIO_XFER_TYPE_READ));
+
 
     /* Check the parameters */
     assert_param(NULL != obj);
     assert_param(0u != length);
-    assert_param(!use_temp_dma_buffer || (length <= sizeof(_temp_dma_buffer)));
 
     SDMMC_DataInitTypeDef config;
     sdio_cmd_argument_t   arg = { .value = argument };
@@ -410,6 +405,12 @@ cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t* obj, cyhal_sdio_transfer_type_t
             block_size = _stm32_sdio_find_optimal_block_size(length);
             number_of_blocks = 1UL;
         }
+        /* Check data buffer if aligned on 32-bytes (needed for cache maintenance purpose),
+         * and Length is multiple by block size. If NOT, use internal buffer for DMA */
+        bool use_temp_dma_buffer = ((((uint32_t)data % _CYHAL_DMA_BUFFER_ALIGN_BYTES) != 0u) ||
+                                    ((length % obj->block_size) != 0u) ||
+                                    (direction == CYHAL_SDIO_XFER_TYPE_READ));
+        assert_param(!use_temp_dma_buffer || (length <= sizeof(_temp_dma_buffer)));
 
         obj->hsd->ErrorCode = HAL_SD_ERROR_NONE;
         obj->hsd->State     = HAL_SD_STATE_BUSY;
@@ -467,7 +468,8 @@ cy_rslt_t cyhal_sdio_bulk_transfer(cyhal_sdio_t* obj, cyhal_sdio_transfer_type_t
             /* DMA configuration (use single buffer) */
             obj->hsd->Instance->IDMACTRL  = SDMMC_ENABLE_IDMA_SINGLE_BUFF;
 
-            #if defined (TARGET_STM32U5xx) || defined (TARGET_STM32H5xx)
+            #if defined (TARGET_STM32U5xx) || defined (TARGET_STM32H5xx) || \
+            defined (TARGET_STM32N6xx)
             obj->hsd->Instance->IDMABASER = (uint32_t)p_dma_buffer;
             #else
             obj->hsd->Instance->IDMABASE0 = (uint32_t)p_dma_buffer;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023, Cypress Semiconductor Corporation or
+ * Copyright 2016-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -36,19 +36,29 @@
  * Bluetooth A2DP Application Programming Interface
  *
  */
-#pragma once
+#ifndef __WICED_BT_A2D_H__
+#define __WICED_BT_A2D_H__
+
 #include "wiced_bt_sdp.h"
 
 /**
  * @cond DUAL_MODE
  * @addtogroup  wicedbt_av_a2d_helper      Helper Functions
- * @ingroup     wicedbt_avdt
+ * @ingroup     wicedbt_a2dp
  *
  * @{
  */
 /*****************************************************************************
 **  constants
 *****************************************************************************/
+
+/**
+ * @anchor A2DP_VERSION
+ * @name A2DP profile spec version.
+ * @{
+ */
+#define A2DP_VERSION_1_4 0x0104     /**< Version 1.4 */
+/** @} A2DP_VERSION */
 
 /**
  * @anchor A2D_SUPF_SOURCE
@@ -90,6 +100,7 @@
 #define A2D_MEDIA_CT_SBC        0x00    /**< SBC media codec type */
 #define A2D_MEDIA_CT_M12        0x01    /**< MPEG-1, 2 Audio media codec type */
 #define A2D_MEDIA_CT_M24        0x02    /**< MPEG-2, 4 AAC media codec type */
+#define A2D_MEDIA_CT_MDU        0x03    /**< MPEG-D, USAC media codec type */
 #define A2D_MEDIA_CT_ATRAC      0x04    /**< ATRAC family media codec type */
 #define A2D_MEDIA_CT_VEND       0xFF    /**< Vendor specific */
 #define A2D_MEDIA_CT_APTX       A2D_MEDIA_CT_VEND    /**< APTX media codec type */
@@ -101,39 +112,43 @@
  * @{
  */
 
-#define A2D_SUCCESS           0     /**< Success */
-#define A2D_FAIL              0x0A  /**< Failed */
-#define A2D_BUSY              0x0B  /**< wiced_bt_a2d_find_service is already in progress */
-#define A2D_INVALID_PARAMS    0x0C  /**< bad parameters */
-#define A2D_WRONG_CODEC       0x0D  /**< wrong codec info */
-#define A2D_BAD_CODEC_TYPE    0xC1  /**< Media Codec Type is not valid  */
-#define A2D_NS_CODEC_TYPE     0xC2  /**< Media Codec Type is not supported */
-#define A2D_BAD_SAMP_FREQ     0xC3  /**< Sampling Frequency is not valid or multiple values have been selected  */
-#define A2D_NS_SAMP_FREQ      0xC4  /**< Sampling Frequency is not supported  */
-#define A2D_BAD_CH_MODE       0xC5  /**< Channel Mode is not valid or multiple values have been selected  */
-#define A2D_NS_CH_MODE        0xC6  /**< Channel Mode is not supported */
-#define A2D_BAD_SUBBANDS      0xC7  /**< None or multiple values have been selected for Number of Subbands */
-#define A2D_NS_SUBBANDS       0xC8  /**< Number of Subbands is not supported */
-#define A2D_BAD_ALLOC_MTHD    0xC9  /**< None or multiple values have been selected for Allocation Method */
-#define A2D_NS_ALLOC_MTHD     0xCA  /**< Allocation Method is not supported */
-#define A2D_BAD_MIN_BITPOOL   0xCB  /**< Minimum Bitpool Value is not valid */
-#define A2D_NS_MIN_BITPOOL    0xCC  /**< Minimum Bitpool Value is not supported */
-#define A2D_BAD_MAX_BITPOOL   0xCD  /**< Maximum Bitpool Value is not valid */
-#define A2D_NS_MAX_BITPOOL    0xCE  /**< Maximum Bitpool Value is not supported */
-#define A2D_BAD_LAYER         0xCF  /**< None or multiple values have been selected for Layer */
-#define A2D_NS_LAYER          0xD0  /**< Layer is not supported */
-#define A2D_NS_CRC            0xD1  /**< CRC is not supported */
-#define A2D_NS_MPF            0xD2  /**< MPF-2 is not supported */
-#define A2D_NS_VBR            0xD3  /**< VBR is not supported */
-#define A2D_BAD_BIT_RATE      0xD4  /**< None or multiple values have been selected for Bit Rate */
-#define A2D_NS_BIT_RATE       0xD5  /**< Bit Rate is not supported */
-#define A2D_BAD_OBJ_TYPE      0xD6  /**< Either 1) Object type is not valid (b3-b0) or 2) None or multiple values have been selected for Object Type */
-#define A2D_NS_OBJ_TYPE       0xD7  /**< Object type is not supported */
-#define A2D_BAD_CHANNEL       0xD8  /**< None or multiple values have been selected for Channels */
-#define A2D_NS_CHANNEL        0xD9  /**< Channels is not supported */
-#define A2D_BAD_BLOCK_LEN     0xDD  /**< None or multiple values have been selected for Block Length */
-#define A2D_BAD_CP_TYPE       0xE0  /**< The requested CP Type is not supported. */
-#define A2D_BAD_CP_FORMAT     0xE1  /**< The format of Content Protection Service Capability/Content Protection Scheme Dependent Data is not correct. */
+#define A2D_SUCCESS                 0     /**< Success */
+#define A2D_FAIL                    0x0A  /**< Failed */
+#define A2D_BUSY                    0x0B  /**< wiced_bt_a2d_find_service is already in progress */
+#define A2D_INVALID_PARAMS          0x0C  /**< bad parameters */
+#define A2D_WRONG_CODEC             0x0D  /**< wrong codec info */
+#define A2D_BAD_CODEC_TYPE          0xC1  /**< Media Codec Type is not valid  */
+#define A2D_NS_CODEC_TYPE           0xC2  /**< Media Codec Type is not supported */
+#define A2D_BAD_SAMP_FREQ           0xC3  /**< Sampling Frequency is not valid or multiple values have been selected  */
+#define A2D_NS_SAMP_FREQ            0xC4  /**< Sampling Frequency is not supported  */
+#define A2D_BAD_CH_MODE             0xC5  /**< Channel Mode is not valid or multiple values have been selected  */
+#define A2D_NS_CH_MODE              0xC6  /**< Channel Mode is not supported SBC/MPEG1/2 */
+#define A2D_BAD_SUBBANDS            0xC7  /**< None or multiple values have been selected for Number of Subbands */
+#define A2D_NS_SUBBANDS             0xC8  /**< Number of Subbands is not supported */
+#define A2D_BAD_ALLOC_MTHD          0xC9  /**< None or multiple values have been selected for Allocation Method */
+#define A2D_NS_ALLOC_MTHD           0xCA  /**< Allocation Method is not supported */
+#define A2D_BAD_MIN_BITPOOL         0xCB  /**< Minimum Bitpool Value is not valid */
+#define A2D_NS_MIN_BITPOOL          0xCC  /**< Minimum Bitpool Value is not supported */
+#define A2D_BAD_MAX_BITPOOL         0xCD  /**< Maximum Bitpool Value is not valid */
+#define A2D_NS_MAX_BITPOOL          0xCE  /**< Maximum Bitpool Value is not supported */
+#define A2D_BAD_LAYER               0xCF  /**< None or multiple values have been selected for Layer */
+#define A2D_NS_LAYER                0xD0  /**< Layer is not supported */
+#define A2D_NS_CRC                  0xD1  /**< CRC is not supported */
+#define A2D_NS_MPF                  0xD2  /**< MPF-2 is not supported */
+#define A2D_NS_VBR                  0xD3  /**< VBR is not supported */
+#define A2D_BAD_BIT_RATE            0xD4  /**< None or multiple values have been selected for Bit Rate */
+#define A2D_NS_BIT_RATE             0xD5  /**< Bit Rate is not supported */
+#define A2D_BAD_OBJ_TYPE            0xD6  /**< Either 1) Object type is not valid (b3-b0) or 2) None or multiple values have been selected for Object Type */
+#define A2D_NS_OBJ_TYPE             0xD7  /**< Object type is not supported */
+#define A2D_BAD_CHANNEL             0xD8  /**< None or multiple values have been selected for Channels */
+#define A2D_NS_CHANNEL              0xD9  /**< Channels is not supported (MPEG2/4)*/
+#define A2D_BAD_BLOCK_LEN           0xDD  /**< None or multiple values have been selected for Block Length */
+#define A2D_BAD_CP_TYPE             0xE0  /**< The requested CP Type is not supported. */
+#define A2D_BAD_CP_FORMAT           0xE1  /**< The format of Content Protection Service Capability/Content Protection Scheme Dependent Data is not correct. */
+#define A2D_INVALID_CODEC_PARAM     0xE2  /**< The codec parameter is invalid. Used if a more specific error code does not exist for the codec in use.*/
+#define A2D_NS_CODEC_PARAM          0xE3  /**< The codec parameter is not supported. Used if a more specific error code does not exist for the codec in use.*/
+#define A2D_INVALID_DRC             0xE4  /**< Combination of Object Type and DRC is invalid (Used in MPEG 2/4AAC) */
+#define A2D_NS_DRC                  0xE5  /**< DRC not supported (Used in MPEG 2/4AAC) */
 
 typedef uint8_t wiced_bt_a2d_status_t; /**< A2DP status codes */
 
@@ -242,3 +257,5 @@ wiced_bt_a2d_status_t wiced_bt_set_a2dp_connection_priority( uint8_t handle, uin
 
 /** @} wicedbt_av_a2d_helper */
 /** @endcond */
+
+#endif //__WICED_BT_A2D_H__

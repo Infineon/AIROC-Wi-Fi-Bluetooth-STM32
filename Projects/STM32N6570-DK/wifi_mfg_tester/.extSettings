@@ -1,0 +1,4 @@
+[Appli:Groups]
+Application/User/Core/Src=../Appli/Core/Src/mfg_test_client_task.c
+[Appli:Others]
+Define=WLAN_MFG_FIRMWARE;CYBSP_WIFI_CAPABLE;CY_USING_HAL;BLHS_SUPPORT;CY_DISABLE_XMC7000_DATA_CACHE

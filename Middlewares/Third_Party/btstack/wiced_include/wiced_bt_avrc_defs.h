@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023, Cypress Semiconductor Corporation or
+ * Copyright 2016-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -36,7 +36,9 @@
  * Bluetooth AVRCP Definition and Data Types
  *
  */
-#pragma once
+#ifndef __WICED_BT_AVRC_DEFS_H__
+#define __WICED_BT_AVRC_DEFS_H__
+
 
 #ifdef __cplusplus
 extern "C"
@@ -124,7 +126,7 @@ extern "C"
  * @{ */
 #define AVRC_CO_BLUETOOTH_SIG   0x00FFFFFF  /**< Bluetooth SIG */
 #define AVRC_CO_WIDCOMM         0x00000361  /**< Widcomm Inc. */
-#define AVRC_CO_BROADCOM        0x00001018  /**< Broadcom */
+#define AVRC_CO_BROADCOM        0x00001018  /**< Cypress Semiconductor */
 #define AVRC_CO_METADATA        0x00001958  /**< AVRC metadata messages */
 /** @} AVRC_COMPANY_ID */
 
@@ -1472,3 +1474,5 @@ typedef struct {
 #ifdef __cplusplus
 }
 #endif
+
+#endif //__WICED_BT_AVRC_DEFS_H__

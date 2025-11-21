@@ -186,6 +186,12 @@ whd_result_t whd_cdc_send_ioctl(whd_interface_t ifp, cdc_command_type_t type, ui
                                                      send_buffer_hnd) - sizeof(bus_common_header_t) -
                    sizeof(cdc_header_t) );
 
+    /* Sending big buffer would cause the firmware errors so we would set response_buffer_hnd later,
+     * But the data_length would be still used by the send_packet, we return error here for safe
+     */
+    if (data_length > WHD_IOCTL_MAX_TX_PKT_LEN)
+        return WHD_IOCTL_FAIL;
+
     send_packet = (control_header_t *)whd_buffer_get_current_piece_data_pointer(whd_driver, send_buffer_hnd);
     CHECK_PACKET_NULL(send_packet, WHD_NO_REGISTER_FUNCTION_POINTER);
     WHD_IOCTL_LOG_ADD(ifp->whd_driver, command, send_buffer_hnd);

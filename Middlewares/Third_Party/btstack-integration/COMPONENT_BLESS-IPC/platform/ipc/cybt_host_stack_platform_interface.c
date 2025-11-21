@@ -26,15 +26,19 @@
 
 #include "cyabs_rtos.h"
 #include "wiced_bt_stack_platform.h"
+#include "wiced_memory.h"
 #include "cybt_platform_hci.h"
 #include "cybt_platform_task.h"
 #include "cybt_platform_interface.h"
 #include "cybt_platform_config.h"
 #include "cybt_platform_trace.h"
 #include "cybt_platform_util.h"
-#include "cyhal_lptimer.h"
 #include "cycfg_system.h"
 #include "cybt_platform_internal.h"
+
+#ifndef USE_AIROC_STACK_SMP
+#define USE_AIROC_STACK_SMP 1
+#endif
 
 /******************************************************************************
  *                           Variables Definitions
@@ -47,13 +51,40 @@ char bt_trace_buf[CYBT_TRACE_BUFFER_SIZE];
  *                          Function Declarations
  ******************************************************************************/
 extern uint8_t *cybt_platform_hci_get_buffer(hci_packet_type_t pti, uint32_t size);
+extern pf_wiced_exception pf_platform_exception;
+extern cyhal_wdt_t platform_wdt_obj;
+wiced_result_t host_stack_platform_smp_adapter_init(void);
 
 /******************************************************************************
  *                           Function Definitions
  ******************************************************************************/
-void host_stack_exception_handler(uint16_t code, char* msg, void* ptr)
+
+void host_stack_exception_handler(uint16_t code, void* ptr, uint32_t length)
 {
-    SPIF_TRACE_ERROR("[Exception] code = 0x%x, msg = %s", code, msg);
+    if(pf_platform_exception!=NULL)
+    {
+        pf_platform_exception(code, (uint8_t *)ptr, length);
+    }
+    else
+    {
+		char buf[50]={0};
+		uint8_t* ptr_temp=(uint8_t *)ptr;
+		uint8_t offset=0, len=length;
+#ifdef STACK_EXCEPTION_VERBOSE
+		const char* msg = wiced_get_exception_message(code);
+#else
+		const char* msg = "";
+#endif
+
+		while(ptr_temp && len--)
+		{
+			offset+=snprintf(buf+offset, sizeof(buf)-offset, "%02x ", *ptr_temp++);
+		}
+		SPIF_TRACE_ERROR("[%s]: 0x%x %s len:%lu reason:\"%s\"\n", __FUNCTION__, code, msg, length, buf);
+
+		/*Initiate WDT. Reset the system*/
+		cyhal_wdt_init(&platform_wdt_obj, PLATFORM_WDT_TIME_OUT_MS);
+    }
 }
 
 BTSTACK_PORTING_SECTION_BEGIN
@@ -122,6 +153,7 @@ wiced_result_t host_stack_send_acl_to_lower(wiced_bt_transport_t transport,
 }
 BTSTACK_PORTING_SECTION_END
 
+BTSTACK_PORTING_SECTION_BEGIN
 wiced_result_t host_stack_send_iso_to_lower(uint8_t *p_data,
                                             uint16_t len
                                             )
@@ -166,6 +198,7 @@ wiced_result_t host_stack_send_iso_to_lower(uint8_t *p_data,
 
     return (ret_val);
 }
+BTSTACK_PORTING_SECTION_END
 
 wiced_result_t host_stack_send_cmd_to_lower(uint8_t *p_cmd, uint16_t cmd_len)
 {
@@ -226,6 +259,7 @@ void host_stack_print_trace_log(char *p_trace_buf,
     switch(trace_type)
     {
         case WICED_BT_TRACE_ERROR:
+        case WICED_BT_TRACE_CRIT_ERROR:
             STACK_TRACE_ERROR("%s", p_trace_buf);
             break;
         case WICED_BT_TRACE_WARN:
@@ -273,6 +307,12 @@ void host_stack_platform_interface_init(void)
     platform_interface.trace_buffer_len           = CYBT_TRACE_BUFFER_SIZE;
     platform_interface.pf_patch_download          = PATCH_DOWNLOAD_FN;
     platform_interface.is_legacy_bless_controller = BLESS_CONTROLLER;
+#ifdef COMPONENT_BLESS_IPC
+    platform_interface.pf_get_trng                = cybt_platform_bless_get_trng;
+#elif COMPONENT_BTSS_IPC
+    platform_interface.pf_get_trng                = cybt_platform_btss_get_trng;
+#endif
+
     memset(bt_trace_buf, 0, CYBT_TRACE_BUFFER_SIZE);
 
     cy_result = cy_rtos_init_mutex(&bt_stack_mutex);
@@ -288,6 +328,18 @@ void host_stack_platform_interface_init(void)
         SPIF_TRACE_ERROR("platform_interface_init(): failed, result = 0x%x", result);
     }
 }
+
+wiced_result_t host_stack_platform_smp_adapter_init()
+{
+	wiced_result_t result = WICED_ERROR;
+
+#if (defined(USE_AIROC_STACK_SMP) && (USE_AIROC_STACK_SMP == 1))
+	result=wiced_bt_set_default_smp_adapter();
+#endif
+
+	return result;
+}
+
 
 void host_stack_platform_interface_deinit(void)
 {

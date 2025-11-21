@@ -210,6 +210,7 @@ int join(int argc, char* argv[], tlv_buffer_t** data)
         res = cy_wcm_connect_ap(&connect_params, &ip_addr);
         if(res != CY_RSLT_SUCCESS)
         {
+            cy_rtos_delay_milliseconds(500); //sean_update
             WIFI_INFO(("Failed to join AP [0x%X]. Retrying...\n", (unsigned int)res));
             continue;
         }

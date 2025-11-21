@@ -33,8 +33,6 @@ var group__platform__cfg =
       [ "controller_config", "structcybt__platform__config__t.html#a0ed2b4e529564a9210e5d80c4e59b4bd", null ],
       [ "task_mem_pool_size", "structcybt__platform__config__t.html#a31c8f2a35e4006fef44c65bb7dea5d4e", null ]
     ] ],
-    [ "cybt_exception_callback_t", "group__platform__cfg.html#ga6a50ab63c021eaee65d2a2ce9ec26833", null ],
     [ "cybt_hci_transport_t", "group__platform__cfg.html#ga5f6850727c86459c4c6c11c84870d308", null ],
-    [ "cybt_exception_t", "group__platform__cfg.html#gab887149c4cb3cd34b2984638c6c1aebb", null ],
     [ "cybt_platform_config_init", "group__platform__cfg.html#ga1ff2a9935b27efb9639974d6ddc1894a", null ]
 ];

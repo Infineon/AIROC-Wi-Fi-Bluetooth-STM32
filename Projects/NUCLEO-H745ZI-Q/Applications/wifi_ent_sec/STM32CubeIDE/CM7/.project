@@ -1577,9 +1577,9 @@
 			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_4373/COMPONENT_MURATA-2AE/4373A0_clm_blob.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-2AE/w_bt_firmware_controller.c</name>
+			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-2AE/btfw.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_4373/COMPONENT_MURATA-2AE/w_bt_firmware_controller.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/bt-fw/bt-fw-mur-cyw4373/COMPONENT_MURATA-2AE/btfw.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/network-interface/LWIP/cy_ethernetif.c</name>

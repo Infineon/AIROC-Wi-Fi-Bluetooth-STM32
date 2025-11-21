@@ -30,22 +30,16 @@
 #include "cybt_platform_task.h"
 #include "cybt_platform_interface.h"
 #include "cybt_platform_util.h"
-
 #include "cybt_platform_trace.h"
+
+#include "platform_hal_wrapper.h"
 
 #include "wiced_memory.h"
 
 /*****************************************************************************
  *                                Constants
  *****************************************************************************/
-#define CYBT_RX_MEM_MIN_SIZE         (1040)
-#define CYBT_TX_CMD_MEM_MIN_SIZE     (264)
-#define CYBT_TX_HEAP_MIN_SIZE        (1040)
 
-#define CYBT_TASK_MINIMUM_POOL_SIZE  (CYBT_RX_MEM_MIN_SIZE \
-                                      + CYBT_TX_CMD_MEM_MIN_SIZE \
-                                      + CYBT_TX_HEAP_MIN_SIZE \
-                                     )
 
 /*****************************************************************************
  *                           Type Definitions
@@ -80,11 +74,11 @@ cybt_result_t cybt_platform_task_init(void *p_arg)
     cy_rslt_t cy_result;
     cybt_result_t task_result;
     UNUSED_VARIABLE(p_arg);
-    const cybt_platform_config_t *p_bt_platform_cfg = cybt_platform_get_config();
+
+    uint32_t mem_pool_size = platform_hal_get_task_mem_pool_size_wrapper();
 
     uint32_t total_mem_pool_size =
-        (p_bt_platform_cfg->task_mem_pool_size > CYBT_TASK_MINIMUM_POOL_SIZE)?
-        p_bt_platform_cfg->task_mem_pool_size: CYBT_TASK_MINIMUM_POOL_SIZE;
+        (mem_pool_size > CYBT_TASK_MINIMUM_POOL_SIZE)? mem_pool_size: CYBT_TASK_MINIMUM_POOL_SIZE;
 
     task_result = cybt_platform_task_mempool_init(total_mem_pool_size);
     if(CYBT_SUCCESS != task_result)
@@ -164,12 +158,14 @@ cybt_result_t cybt_platform_task_deinit(void)
     if(CYBT_SUCCESS != result)
     {
         MAIN_TRACE_ERROR("task_deinit(): Failed to shutdown HCI_RX task");
+        return result;
     }
 
     result = cybt_send_msg_to_hci_tx_task((BT_MSG_HDR *)BT_IND_TASK_SHUTDOWN, false);
     if(CYBT_SUCCESS != result)
     {
         MAIN_TRACE_ERROR("task_deinit(): Failed to shutdown HCI_TX task");
+        return result;
     }
 
     cybt_platform_task_mempool_deinit();
@@ -209,6 +205,9 @@ cybt_result_t cybt_platform_task_mempool_init(uint32_t total_size)
                                                       WICED_FALSE
                                                      );
 
+    if(NULL == task_mem_cb.p_tx_data_heap)
+        return CYBT_ERR_OUT_OF_MEMORY;
+
     return CYBT_SUCCESS;
 }
 
@@ -227,6 +226,9 @@ void *cybt_platform_task_tx_mempool_alloc(uint32_t req_size)
     p_mem_block = (void *) wiced_bt_get_buffer_from_heap(task_mem_cb.p_tx_data_heap,
                                                          req_size
                                                         );
+
+    if(NULL == p_mem_block)
+        return NULL;
 
     cybt_platform_enable_irq();
 

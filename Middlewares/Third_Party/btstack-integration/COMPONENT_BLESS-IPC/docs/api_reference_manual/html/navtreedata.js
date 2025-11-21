@@ -30,7 +30,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"group__debug__uart__cfg.html"
+"group__platform__cfg.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

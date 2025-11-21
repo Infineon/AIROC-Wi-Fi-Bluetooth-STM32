@@ -48,25 +48,25 @@
  */
 #include "cybt_platform_hci.h"
 
-
-/**
- *  Timer interface which supports timeout notification to BT stack.
- */
-#include "cyhal_lptimer.h"
-
+#include "cybt_platform_config.h"
+#include "wiced_bt_types.h"
 
 /******************************************************************************
  *                                Constants
  ******************************************************************************/
-#ifdef ENABLE_DEBUG_UART
-#define  CYBT_TRACE_BUFFER_SIZE    (256)
-#else
 #define  CYBT_TRACE_BUFFER_SIZE    (128)
-#endif //ENABLE_DEBUG_UART
 
+//WDT timeout for system rest on exceptions
+#define PLATFORM_WDT_TIME_OUT_MS		200
+
+/**
+ * @note wiced_bt_app_serialize_function is going to be deprecated.
+ * Use #wiced_bt_serialize_function_from_isr instead.
+ */
+#define wiced_bt_app_serialize_function    wiced_bt_serialize_function_from_isr
 
 /** Define start of the function placed to the SRAM area by the linker */
-#if defined(__ARMCC_VERSION)
+#if (defined(__ARMCC_VERSION) || defined(__llvm__))
    /** To create cross compiler compatible code, use the CY_NOINIT, CY_SECTION, CY_UNUSED, CY_ALIGN
      * attributes at the first place of declaration/definition.
      * For example: CY_NOINIT uint32_t noinitVar;
@@ -189,10 +189,28 @@ uint64_t cybt_platform_get_tick_count_us(void);
  */
 void cybt_platform_set_next_timeout(uint64_t abs_tick_us_to_expire);
 
+/**
+* Call back to the application in the BT stack context
+*
+* @param[in] void
+*
+* @returns  void
+*/
+void cybt_call_app_in_stack_context(void);
+
+/**
+* Called by application to serialize the execution of an application function in the BT_Task context.
+* This function is safe to be called from ISR.
+*
+* @param[in] p_func   Function to be called in the BT stack context
+* @param[in] param:   Parameter to be passed
+*
+* @returns  WICED_BT_SUCCESS if success else error reason.
+*/
+wiced_result_t wiced_bt_serialize_function_from_isr (wiced_bt_serialized_app_func_t p_func, void *param);
 
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
-
 #endif
 

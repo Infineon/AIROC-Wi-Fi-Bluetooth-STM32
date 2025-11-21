@@ -69,12 +69,15 @@
 #define JOIN_EAPOL_KEY_M3_TIMEOUT   (uint32_t)(1 << 7)
 #define JOIN_EAPOL_KEY_G1_TIMEOUT   (uint32_t)(1 << 8)
 #define JOIN_EAPOL_KEY_FAILURE      (uint32_t)(1 << 9)
+#define JOIN_PROBE_RESPONSE         (uint32_t)(1 << 10)
 
 #define JOIN_SECURITY_FLAGS_MASK    (JOIN_SECURITY_COMPLETE | JOIN_EAPOL_KEY_M1_TIMEOUT | JOIN_EAPOL_KEY_M3_TIMEOUT | \
                                      JOIN_EAPOL_KEY_G1_TIMEOUT | JOIN_EAPOL_KEY_FAILURE)
 
-#define DEFAULT_JOIN_ATTEMPT_TIMEOUT     (9000)   /* Overall join attempt timeout in milliseconds.(FW will do "full scan"[~2.8 seconds] + "psk-to-pmk"[2.x seconds] + "join"[5 seconds timer in FW]) */
-#define DEFAULT_EAPOL_KEY_PACKET_TIMEOUT (2500)   /* Timeout when waiting for EAPOL key packet M1 or M3 in milliseconds.*/
+#define DEFAULT_JOIN_SEMAPHORE_TIMEOUT   (1000)
+#define DEFAULT_JOIN_ATTEMPT_TIMEOUT     (13000)  /* Overall join attempt timeout in milliseconds.(FW will do "full scan"[~2.8 seconds] + "psk-to-pmk"[2.x seconds] + "join"[5 seconds timer in FW]) */
+#define DEFAULT_JOIN_RESPONSE_TIMEOUT    (3000)   /* Probe response timeout in milliseconds */
+#define DEFAULT_EAPOL_KEY_PACKET_TIMEOUT (3000)   /* Timeout when waiting for EAPOL key packet M1 or M3 in milliseconds.*/
                                                   /* Some APs may be slow to provide M1 and 1000 ms is not long enough for edge of cell. */
 #ifndef DEFAULT_PM2_SLEEP_RET_TIME
 #define DEFAULT_PM2_SLEEP_RET_TIME   (200)
@@ -167,7 +170,7 @@ typedef struct
 const whd_event_num_t join_events[]  =
 {
     WLC_E_SET_SSID, WLC_E_LINK, WLC_E_AUTH, WLC_E_DEAUTH_IND, WLC_E_DISASSOC_IND, WLC_E_PSK_SUP, WLC_E_CSA_COMPLETE_IND,
-    WLC_E_NONE
+    WLC_E_PROBRESP_MSG, WLC_E_NONE
 };
 static const whd_event_num_t scan_events[] = { WLC_E_ESCAN_RESULT, WLC_E_NONE };
 static const whd_event_num_t auth_events[] =
@@ -1329,6 +1332,9 @@ static void *whd_wifi_join_events_handler(whd_interface_t ifp, const whd_event_h
             }
             break;
 
+        case WLC_E_PROBRESP_MSG:
+            whd_driver->internal_info.whd_join_status[event_header->bsscfgidx] |= JOIN_PROBE_RESPONSE;
+            break;
         /* Note - These are listed to keep gcc pedantic checking happy */
         case WLC_E_RRM:
         case WLC_E_NONE:
@@ -1396,7 +1402,6 @@ static void *whd_wifi_join_events_handler(whd_interface_t ifp, const whd_event_h
         case WLC_E_WAI_MSG:
         case WLC_E_ESCAN_RESULT:
         case WLC_E_ACTION_FRAME_OFF_CHAN_COMPLETE:
-        case WLC_E_PROBRESP_MSG:
         case WLC_E_P2P_PROBREQ_MSG:
         case WLC_E_DCS_REQUEST:
         case WLC_E_FIFO_CREDIT_MAP:
@@ -1949,18 +1954,31 @@ static uint32_t whd_wifi_join_wait_for_complete(whd_interface_t ifp, cy_semaphor
 
     while (!done)
     {
-        result = cy_rtos_get_semaphore(semaphore, DEFAULT_JOIN_ATTEMPT_TIMEOUT / 10, WHD_FALSE);
+        result = cy_rtos_get_semaphore(semaphore, DEFAULT_JOIN_SEMAPHORE_TIMEOUT, WHD_FALSE);
         whd_assert("Get semaphore failed", (result == CY_RSLT_SUCCESS) || (result == CY_RTOS_TIMEOUT) );
         REFERENCE_DEBUG_ONLY_VARIABLE(result);
 
         result = whd_wifi_is_ready_to_transceive(ifp);
-        if (result == WHD_SUCCESS)
-        {
-            break;
-        }
 
         cy_rtos_get_time(&current_time);
-        done = (whd_bool_t)( (current_time - start_time) >= DEFAULT_JOIN_ATTEMPT_TIMEOUT );
+        switch (result)
+        {
+            case WHD_SUCCESS:
+                done = WHD_TRUE;
+                break;
+            case WHD_NETWORK_NOT_FOUND:
+                done = WHD_TRUE;
+                WPRINT_WHD_INFO( ("%s: WHD_NETWORK_NOT_FOUND!\n", __func__) );
+                break;
+            case WHD_INVALID_JOIN_STATUS:
+            done = (whd_bool_t)((current_time - start_time) >= DEFAULT_JOIN_RESPONSE_TIMEOUT);
+                if (done) WPRINT_WHD_INFO( ("%s: JOIN_RESPONSE_TIMEOUT!\n", __func__) );
+                break;
+            default:
+                done = (whd_bool_t)((current_time - start_time) >= DEFAULT_JOIN_ATTEMPT_TIMEOUT);
+                if (done) WPRINT_WHD_INFO( ("%s: JOIN_ATTEMPT_TIMEOUT!\n", __func__) );
+                break;
+        }
     }
 
 #if defined(COMPONENT_CAT5) && !defined(WHD_DISABLE_PDS)
@@ -1990,37 +2008,46 @@ static uint32_t whd_wifi_check_join_status(whd_interface_t ifp)
         case JOIN_NO_NETWORKS:
             return WHD_NETWORK_NOT_FOUND;
 
-        case JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_EAPOL_KEY_M1_TIMEOUT:
+        case JOIN_PROBE_RESPONSE | JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_EAPOL_KEY_M1_TIMEOUT:
             return WHD_EAPOL_KEY_PACKET_M1_TIMEOUT;
 
-        case JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_EAPOL_KEY_M3_TIMEOUT:
-        case JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_SSID_SET | JOIN_EAPOL_KEY_M3_TIMEOUT:
+        case JOIN_PROBE_RESPONSE | JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_EAPOL_KEY_M3_TIMEOUT:
+        case JOIN_PROBE_RESPONSE | JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_SSID_SET | JOIN_EAPOL_KEY_M3_TIMEOUT:
             return WHD_EAPOL_KEY_PACKET_M3_TIMEOUT;
 
-        case JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_EAPOL_KEY_G1_TIMEOUT:
-        case JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_SSID_SET | JOIN_EAPOL_KEY_G1_TIMEOUT:
+        case JOIN_PROBE_RESPONSE | JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_EAPOL_KEY_G1_TIMEOUT:
+        case JOIN_PROBE_RESPONSE | JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_SSID_SET | JOIN_EAPOL_KEY_G1_TIMEOUT:
             return WHD_EAPOL_KEY_PACKET_G1_TIMEOUT;
 
-        case JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_EAPOL_KEY_FAILURE:
-        case JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_SSID_SET | JOIN_EAPOL_KEY_FAILURE:
+        case JOIN_PROBE_RESPONSE | JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_EAPOL_KEY_FAILURE:
+        case JOIN_PROBE_RESPONSE | JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_SSID_SET | JOIN_EAPOL_KEY_FAILURE:
             return WHD_EAPOL_KEY_FAILURE;
 
-        case JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_SSID_SET | JOIN_SECURITY_COMPLETE:
+        case JOIN_PROBE_RESPONSE | JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_SSID_SET | JOIN_SECURITY_COMPLETE:
             return WHD_SUCCESS;
 
         case 0:
         case JOIN_SECURITY_COMPLETE: /* For open/WEP */
             return WHD_NOT_AUTHENTICATED;
 
-        case JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_SECURITY_COMPLETE:
+        case JOIN_PROBE_RESPONSE:
+        case JOIN_PROBE_RESPONSE | JOIN_SECURITY_COMPLETE:
+	case JOIN_PROBE_RESPONSE | JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_SECURITY_COMPLETE:
             return WHD_JOIN_IN_PROGRESS;
 
-        case JOIN_AUTHENTICATED | JOIN_LINK_READY:
-        case JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_SSID_SET:
+        case JOIN_PROBE_RESPONSE | JOIN_AUTHENTICATED | JOIN_LINK_READY:
+        case JOIN_PROBE_RESPONSE | JOIN_AUTHENTICATED | JOIN_LINK_READY | JOIN_SSID_SET:
             return WHD_NOT_KEYED;
 
         default:
+            if (whd_driver->internal_info.whd_join_status[ifp->bsscfgidx] & JOIN_PROBE_RESPONSE)
+            {
+                return WHD_JOIN_IN_PROGRESS;
+            }
+            else
+            {
             return WHD_INVALID_JOIN_STATUS;
+            }
     }
 }
 
@@ -4475,11 +4502,18 @@ whd_result_t whd_wifi_get_ioctl_buffer(whd_interface_t ifp, uint32_t ioctl, uint
     whd_buffer_t response;
     whd_result_t result;
     whd_driver_t whd_driver;
+    int16_t      cmd_len;
 
     CHECK_IFP_NULL(ifp);
 
     whd_driver = ifp->whd_driver;
-    data = (uint32_t *)whd_proto_get_ioctl_buffer(whd_driver, &buffer, out_length);
+
+    /* Normally the get command is a short string.
+     * The 1500 is the value of WHD_IOCTL_MAX_TX_PKT_LEN defined in whd_cdc_bdc.c
+     */
+    cmd_len = out_length > 1500 ? 1500: out_length;
+
+    data = (uint32_t *)whd_proto_get_ioctl_buffer(whd_driver, &buffer, cmd_len);
     CHECK_IOCTL_BUFFER(data);
     whd_mem_memcpy(data, out_buffer, out_length);
 
@@ -4555,8 +4589,15 @@ whd_result_t whd_wifi_get_iovar_buffer(whd_interface_t ifp, const char *iovar_na
     whd_buffer_t response;
     whd_result_t result;
     whd_driver_t whd_driver = ifp->whd_driver;
+    uint16_t     cmd_len;
 
-    data = whd_proto_get_iovar_buffer(whd_driver, &buffer, (uint16_t)out_length, iovar_name);
+    /* Normally the get command is a short string, and we do not need to use the length of out_length.
+     * Simply search the NULL terminator should be safe to get the string length
+     * The 1500 is the value of WHD_IOCTL_MAX_TX_PKT_LEN defined in whd_cdc_bdc.c
+     */
+    cmd_len = out_length > 1500 ? 1500: out_length;
+
+    data = whd_proto_get_iovar_buffer(whd_driver, &buffer, (uint16_t)cmd_len, iovar_name);
     CHECK_IOCTL_BUFFER(data);
 
     result = whd_proto_get_iovar(ifp, buffer, &response);

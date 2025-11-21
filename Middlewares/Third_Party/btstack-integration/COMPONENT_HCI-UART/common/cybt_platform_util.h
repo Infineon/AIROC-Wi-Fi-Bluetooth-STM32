@@ -37,7 +37,7 @@ extern "C"
 /*****************************************************************************
  *                           Function Declarations
  ****************************************************************************/
-
+#if defined (CY_USING_HAL)
 /**
  * Get platform configuration structure.
  *
@@ -45,7 +45,7 @@ extern "C"
  *
  */
 const cybt_platform_config_t* cybt_platform_get_config(void);
-
+#endif
 
 /**
  * Get current status of sleep mode.

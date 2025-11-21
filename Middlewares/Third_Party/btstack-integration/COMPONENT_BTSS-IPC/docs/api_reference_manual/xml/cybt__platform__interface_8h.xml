@@ -6,31 +6,32 @@
     <includes local="yes">cyabs_rtos.h</includes>
     <includes local="yes">cyhal_gpio.h</includes>
     <includes local="yes">cybt_platform_hci.h</includes>
-    <includes local="yes">cyhal_lptimer.h</includes>
+    <includes refid="cybt__platform__config_8h" local="yes">cybt_platform_config.h</includes>
+    <includes local="yes">wiced_bt_types.h</includes>
     <incdepgraph>
-      <node id="12">
-        <label>cybt_platform_hci.h</label>
-      </node>
-      <node id="13">
-        <label>cyhal_lptimer.h</label>
-      </node>
-      <node id="11">
-        <label>cyhal_gpio.h</label>
-      </node>
       <node id="10">
-        <label>cyabs_rtos.h</label>
+        <label>wiced_bt_types.h</label>
       </node>
       <node id="9">
+        <label>cybt_platform_hci.h</label>
+      </node>
+      <node id="6">
         <label>cybt_platform_interface.h</label>
         <link refid="cybt__platform__interface_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
         <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
+      </node>
+      <node id="8">
+        <label>cyhal_gpio.h</label>
+      </node>
+      <node id="7">
+        <label>cyabs_rtos.h</label>
       </node>
     </incdepgraph>
       <sectiondef kind="define">
@@ -41,11 +42,36 @@
 <para>RTOS interface, including task, mutex, semaphore, queue and timer. </para>
         </briefdescription>
         <detaileddescription>
-<para>GPIO interface which is related to pin control of BT chip.BT HCI transport interface, which is used to communicate with BT controller.Timer interface which supports timeout notification to BT stack. </para>
+<para>GPIO interface which is related to pin control of BT chip.BT HCI transport interface, which is used to communicate with BT controller. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_interface.h" line="64" column="11" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_interface.h" bodystart="64" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" line="57" column="10" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="cybt__platform__interface_8h_1a63da37443dbcebd376b22575f70958d0" prot="public" static="no">
+        <name>PLATFORM_WDT_TIME_OUT_MS</name>
+        <initializer>200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" line="60" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="cybt__platform__interface_8h_1a034801b5e1a84b9b156403a2749fa51d" prot="public" static="no">
+        <name>wiced_bt_app_serialize_function</name>
+        <initializer>wiced_bt_serialize_function_from_isr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>wiced_bt_app_serialize_function is going to be deprecated. Use #wiced_bt_serialize_function_from_isr instead. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" line="66" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" bodystart="66" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="cybt__platform__interface_8h_1ab6311c3fcc2976e287a70a13da2d6c67" prot="public" static="no">
         <name>BTSTACK_PORTING_SECTION_BEGIN</name>
@@ -56,7 +82,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_interface.h" line="89" column="13" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_interface.h" bodystart="89" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" line="89" column="13" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" bodystart="89" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="cybt__platform__interface_8h_1ad4d237830a4ce62f60a879518158631a" prot="public" static="no">
         <name>BTSTACK_PORTING_SECTION_END</name>
@@ -66,7 +92,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_interface.h" line="90" column="13" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_interface.h" bodystart="90" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" line="90" column="13" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" bodystart="90" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -89,7 +115,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_interface.h" line="110" column="1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" line="110" column="1"/>
       </memberdef>
       <memberdef kind="function" id="cybt__platform__interface_8h_1a73131701e0d1653e6fdb63bc36d4c7f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -110,7 +136,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_interface.h" line="121" column="1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" line="121" column="1"/>
       </memberdef>
       <memberdef kind="function" id="cybt__platform__interface_8h_1aaef264551ca15981fba97c1ca977234b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -140,7 +166,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_interface.h" line="131" column="1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" line="131" column="1"/>
       </memberdef>
       <memberdef kind="function" id="cybt__platform__interface_8h_1ab782a749df60843b6d1d93b325d4c783" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -170,7 +196,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_interface.h" line="142" column="1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" line="142" column="1"/>
       </memberdef>
       <memberdef kind="function" id="cybt__platform__interface_8h_1a468663a5855cc06d3271660eced728be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -190,7 +216,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_interface.h" line="150" column="1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" line="150" column="1"/>
       </memberdef>
       <memberdef kind="function" id="cybt__platform__interface_8h_1aec7366686a7423709a938935ef435232" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -210,7 +236,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_interface.h" line="158" column="1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" line="158" column="1"/>
       </memberdef>
       <memberdef kind="function" id="cybt__platform__interface_8h_1a63266c3ba4e8863a8cedf129798dc6cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -244,7 +270,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_interface.h" line="170" column="1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" line="170" column="1"/>
       </memberdef>
       <memberdef kind="function" id="cybt__platform__interface_8h_1a8dcac5f34f5a4068d759ebf6bf30e95e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
@@ -265,7 +291,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_interface.h" line="179" column="1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" line="179" column="1"/>
       </memberdef>
       <memberdef kind="function" id="cybt__platform__interface_8h_1a7878e8cc760de1837b637733901ca979" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -295,7 +321,79 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_interface.h" line="190" column="1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" line="190" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="cybt__platform__interface_8h_1a1a18cc742508d203c30ace105cc367cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cybt_call_app_in_stack_context</definition>
+        <argsstring>(void)</argsstring>
+        <name>cybt_call_app_in_stack_context</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Call back to the application in the BT stack context. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">void</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>void </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" line="199" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="cybt__platform__interface_8h_1a126f95f975f58481001a650c6f49a1ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>wiced_result_t</type>
+        <definition>wiced_result_t wiced_bt_serialize_function_from_isr</definition>
+        <argsstring>(wiced_bt_serialized_app_func_t p_func, void *param)</argsstring>
+        <name>wiced_bt_serialize_function_from_isr</name>
+        <param>
+          <type>wiced_bt_serialized_app_func_t</type>
+          <declname>p_func</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>param</declname>
+        </param>
+        <briefdescription>
+<para>Called by application to serialize the execution of an application function in the BT_Task context. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function is safe to be called from ISR.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">p_func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function to be called in the BT stack context </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">param</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parameter to be passed</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>WICED_BT_SUCCESS if success else error reason. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h" line="210" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -343,21 +441,20 @@
 <codeline lineno="44"><highlight class="normal"></highlight></codeline>
 <codeline lineno="49"><highlight class="preprocessor">#include<sp/>&quot;cybt_platform_hci.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="preprocessor">#include<sp/>&quot;cyhal_lptimer.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"></highlight></codeline>
-<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
-<codeline lineno="59"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Constants</highlight></codeline>
-<codeline lineno="60"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>ENABLE_DEBUG_UART</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/>CYBT_TRACE_BUFFER_SIZE<sp/><sp/><sp/><sp/>(256)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/>CYBT_TRACE_BUFFER_SIZE<sp/><sp/><sp/><sp/>(128)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//ENABLE_DEBUG_UART</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cybt_platform_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;wiced_bt_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="55"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Constants</highlight></codeline>
+<codeline lineno="56"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/>CYBT_TRACE_BUFFER_SIZE<sp/><sp/><sp/><sp/>(128)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">//WDT<sp/>timeout<sp/>for<sp/>system<sp/>rest<sp/>on<sp/>exceptions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PLATFORM_WDT_TIME_OUT_MS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>200</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor">#define<sp/>wiced_bt_app_serialize_function<sp/><sp/><sp/><sp/>wiced_bt_serialize_function_from_isr</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="67"><highlight class="normal"></highlight></codeline>
-<codeline lineno="69"><highlight class="preprocessor">#if<sp/>defined(__ARMCC_VERSION)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor">#if<sp/>(defined(__ARMCC_VERSION)<sp/>||<sp/>defined(__llvm__))</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="70"><highlight class="normal"></highlight></codeline>
 <codeline lineno="74"><highlight class="preprocessor"><sp/><sp/><sp/>#define<sp/>BTSTACK_PORTING_SECTION_BEGIN<sp/>__attribute__((section(&quot;.text.cy_btstack_porting&quot;)))</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/>#define<sp/>BTSTACK_PORTING_SECTION_END</highlight><highlight class="normal"></highlight></codeline>
@@ -414,14 +511,16 @@
 <codeline lineno="181"><highlight class="normal"></highlight></codeline>
 <codeline lineno="190"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>cybt_platform_set_next_timeout(uint64_t<sp/>abs_tick_us_to_expire);</highlight></codeline>
 <codeline lineno="191"><highlight class="normal"></highlight></codeline>
-<codeline lineno="192"><highlight class="normal"></highlight></codeline>
-<codeline lineno="193"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="194"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>extern<sp/>&quot;C&quot;<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="195"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="196"><highlight class="normal"></highlight></codeline>
-<codeline lineno="197"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>cybt_call_app_in_stack_context(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal">wiced_result_t<sp/>wiced_bt_serialize_function_from_isr<sp/>(wiced_bt_serialized_app_func_t<sp/>p_func,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*param);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal">}<sp/></highlight><highlight class="comment">/*<sp/>extern<sp/>&quot;C&quot;<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_interface.h"/>
+    <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_interface.h"/>
   </compounddef>
 </doxygen>

@@ -1,4 +1,4 @@
-/***************************************************************************//**
+/*******************************************************************************
 * \file cybt_platform_freertos.c
 *
 * \brief
@@ -24,31 +24,28 @@
 * limitations under the License.
 *******************************************************************************/
 
+// Updated cybt_platform_log_print function to use ENABLE_DEBUG_UART macro
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
 
 #include "wiced_data_types.h"
+#include "platform_hal_wrapper.h"
 
-#include "cycfg.h"
-#include "cyhal_uart.h"
-#include "cyhal_gpio.h"
-#include "cyhal_lptimer.h"
-#include "cyhal_syspm.h"
-
-#include "cybt_platform_task.h"
 #include "cybt_platform_interface.h"
+#include "cybt_platform_task.h"
 #include "cybt_platform_trace.h"
-#include "cybt_platform_config.h"
 #include "cybt_platform_util.h"
-#ifdef ENABLE_DEBUG_UART
-#include "cybt_debug_uart.h"
-#endif // ENABLE_DEBUG_UART
 
+#if (!defined (CY_USING_HAL) && (CY_CFG_PWR_SYS_IDLE_MODE == CY_CFG_PWR_MODE_DEEPSLEEP))
+#include "mtb_syspm_callbacks.h"
+#endif
 /******************************************************************************
  *                                Constants
  ******************************************************************************/
+
 #define HCI_SEMAPHORE_MAX_COUNT  (1)
 #define HCI_SEMAPHORE_INIT_COUNT (0)
 
@@ -65,6 +62,13 @@
 #define SLEEP_ACT_STOP_IDLE_TIMER     (0x40)
 #define SLEEP_ACT_EXIT_SLEEP_TASK     (0xFF)
 #endif
+
+#if (!defined (CY_USING_HAL) && (CY_CFG_PWR_SYS_IDLE_MODE == CY_CFG_PWR_MODE_DEEPSLEEP))
+/* Default syspm callback configuration elements */
+#define SYSPM_SKIP_MODE         (0U)
+#define SYSPM_CALLBACK_ORDER    (1U)
+#endif
+
 /*****************************************************************************
  *                           Type Definitions
  *****************************************************************************/
@@ -72,21 +76,15 @@
 typedef uint8_t sleep_action_t;
 #endif
 
-typedef struct
-{
-    bool            inited;
-    cyhal_uart_t    hal_obj;
-    cy_semaphore_t  tx_complete;
-    cy_semaphore_t  rx_complete;
-    cy_mutex_t      tx_atomic;
-    cy_mutex_t      rx_atomic;
-} hci_uart_cb_t;
-
-
 /******************************************************************************
  *                           Variables Definitions
  ******************************************************************************/
-hci_uart_cb_t   hci_uart_cb;
+extern hci_uart_cb_t   hci_uart_cb;
+
+#if (!defined (CY_USING_HAL) && (CY_CFG_PWR_SYS_IDLE_MODE == CY_CFG_PWR_MODE_DEEPSLEEP))
+extern cy_stc_scb_uart_context_t  CYBSP_BT_UART_context;  /* BT UART context */
+extern mtb_async_transfer_context_t CYBSP_BT_UART_async_tx_context; /* BT UART async context */
+#endif
 
 #if( configUSE_TICKLESS_IDLE != 0 )
 // This timer is only used in active mode,
@@ -98,10 +96,7 @@ cy_thread_t     sleep_timer_task;
 cy_queue_t      sleep_timer_task_queue;
 #endif
 
-cyhal_lptimer_t bt_stack_lptimer;
-uint8_t         lptimer_freq_shift;
-
-
+static cy_timer_t stack_timer;
 /******************************************************************************
  *                          Function Declarations
  ******************************************************************************/
@@ -112,25 +107,13 @@ cybt_result_t cybt_send_action_to_sleep_task(sleep_action_t action);
 void cybt_sleep_timer_task(cy_thread_arg_t arg);
 #endif
 
+#ifdef COMPONENT_55500
+static cybt_result_t cybt_enter_autobaud_mode(void);
+#endif //COMPONENT_55500
 /******************************************************************************
  *                           Function Definitions
  ******************************************************************************/
-uint8_t calculate_lptimer_freq_shift(uint32_t clock_freq)
-{
-    uint8_t idx;
-
-    for (idx = 31; idx > 0; idx--)
-    {
-        if ((1U << idx) == clock_freq)
-        {
-            return idx;
-        }
-    }
-
-    return 0;
-}
-
-void platform_stack_lptimer_cback(void *callback_arg, cyhal_lptimer_event_t event)
+static void platform_stack_timer_callback(cy_timer_callback_arg_t arg)
 {
     cybt_platform_sleep_lock();
 
@@ -160,6 +143,47 @@ void cybt_platform_enable_irq(void)
     __enable_irq();
 }
 
+/* BT UART deepsleep callback parameters  */
+#if (!defined (CY_USING_HAL) && (CY_CFG_PWR_SYS_IDLE_MODE == CY_CFG_PWR_MODE_DEEPSLEEP))
+/* Context reference structure for Debug UART */
+static mtb_syspm_uart_deepsleep_context_t platform_syspm_ds_context =
+{
+    .uart_context       = &CYBSP_BT_UART_context,
+    .async_context      = &CYBSP_BT_UART_async_tx_context,
+    .tx_pin =
+    {
+        .port           = CYBSP_BT_UART_TX_PORT,
+        .pinNum         = CYBSP_BT_UART_TX_PIN,
+        .hsiom          = CYBSP_BT_UART_TX_HSIOM
+    },
+    .rts_pin =
+    {
+        .port           = CYBSP_BT_UART_RTS_PORT,
+        .pinNum         = CYBSP_BT_UART_RTS_PIN,
+        .hsiom          = CYBSP_BT_UART_RTS_HSIOM
+    }
+};
+
+/* SysPm callback parameter structure for Debug UART */
+static cy_stc_syspm_callback_params_t platform_syspm_cb_params =
+{
+    .context            = &platform_syspm_ds_context,
+    .base               = CYBSP_BT_UART_HW
+};
+
+/* SysPm callback structure for BT UART */
+static cy_stc_syspm_callback_t platform_syspm_cb =
+{
+    .callback           = &mtb_syspm_scb_uart_deepsleep_callback,
+    .skipMode           = SYSPM_SKIP_MODE,
+    .type               = CY_SYSPM_DEEPSLEEP,
+    .callbackParams     = &platform_syspm_cb_params,
+    .prevItm            = NULL,
+    .nextItm            = NULL,
+    .order              = SYSPM_CALLBACK_ORDER
+};
+#endif
+
 void cybt_platform_init(void)
 {
 #if( configUSE_TICKLESS_IDLE != 0 )
@@ -173,20 +197,7 @@ void cybt_platform_init(void)
 
     memset(&hci_uart_cb, 0, sizeof(hci_uart_cb_t));
 
-    cyhal_lptimer_init(&bt_stack_lptimer);
-    cyhal_lptimer_enable_event(&bt_stack_lptimer,
-                               CYHAL_LPTIMER_COMPARE_MATCH,
-                               CYHAL_ISR_PRIORITY_DEFAULT,
-                               false
-                              );
-    cyhal_lptimer_register_callback(&bt_stack_lptimer, &platform_stack_lptimer_cback, NULL);
-    cyhal_lptimer_enable_event(&bt_stack_lptimer,
-                               CYHAL_LPTIMER_COMPARE_MATCH,
-                               CYHAL_ISR_PRIORITY_DEFAULT,
-                               true
-                              );
-
-    lptimer_freq_shift = calculate_lptimer_freq_shift(CY_CFG_SYSCLK_CLKLF_FREQ_HZ);
+    cy_rtos_init_timer(&stack_timer, CY_TIMER_TYPE_ONCE, platform_stack_timer_callback, (cy_timer_callback_arg_t)NULL);
 
 #if( configUSE_TICKLESS_IDLE != 0 )
     cy_rtos_init_queue(&sleep_timer_task_queue,
@@ -213,7 +224,7 @@ void cybt_platform_deinit(void)
     cybt_send_action_to_sleep_task(SLEEP_ACT_EXIT_SLEEP_TASK);
 #endif
 
-    cyhal_lptimer_free(&bt_stack_lptimer);
+    cy_rtos_deinit_timer(&stack_timer);
 
 #if( configUSE_TICKLESS_IDLE != 0 )
     cy_rtos_deinit_timer(&platform_sleep_idle_timer);
@@ -227,8 +238,7 @@ void cybt_platform_sleep_lock(void)
 
     if(false == platform_sleep_lock)
     {
-        cyhal_syspm_lock_deepsleep();
-
+        platform_hal_syspm_lock_deepsleep_wrapper();
         platform_sleep_lock = true;
     }
 
@@ -256,44 +266,30 @@ void cybt_platform_sleep_unlock(void)
 
 uint64_t cybt_platform_get_tick_count_us(void)
 {
-    static uint64_t   abs_tick_cnt_hi = 0;
-    static uint32_t   last_tick_cnt = 0;
-    static uint64_t   lptick_remainder = 0;
+    static cy_time_t last_time_in_ms = 0;
+    static uint64_t abs_time_cnt_in_us_hi = 0;
+    cy_time_t cur_time_in_ms;
+    uint64_t cur_time_in_ms64 = 0;
+    uint64_t cur_time_in_us64 = 0;
 
-    uint32_t          cur_time_in_lpticks = 0;
-    uint64_t          cur_time_in_lpticks64 = 0;
-    uint64_t          cur_time_in_us = 0;
-    uint64_t          temp_cnt64 = 0;
+    cy_rtos_get_time(&cur_time_in_ms);
 
-    cur_time_in_lpticks = cyhal_lptimer_read(&bt_stack_lptimer);
-
-    if (cur_time_in_lpticks < last_tick_cnt)
+    if(cur_time_in_ms < last_time_in_ms)
     {
-        abs_tick_cnt_hi += 0x100000000;
+        abs_time_cnt_in_us_hi += 0x100000000;
     }
 
-    last_tick_cnt = cur_time_in_lpticks;
-    cur_time_in_lpticks64 = cur_time_in_lpticks + abs_tick_cnt_hi;
+    last_time_in_ms = cur_time_in_ms;
 
-    // convert tick to us
-    temp_cnt64 = cur_time_in_lpticks64 * 1000000;
-    cur_time_in_us = temp_cnt64 >> lptimer_freq_shift;
-
-    lptick_remainder += temp_cnt64 - (cur_time_in_us << lptimer_freq_shift);
-    if(lptick_remainder > CY_CFG_SYSCLK_CLKLF_FREQ_HZ)
-    {
-        cur_time_in_us += 1;
-        lptick_remainder -= CY_CFG_SYSCLK_CLKLF_FREQ_HZ;
-    }
-
-    return cur_time_in_us;
+    cur_time_in_ms64 = cur_time_in_ms + abs_time_cnt_in_us_hi;
+    cur_time_in_us64 = (cur_time_in_ms64 * 1000);
+    return (cur_time_in_us64);
 }
 
 void cybt_platform_set_next_timeout(uint64_t abs_tick_us_to_expire)
 {
     uint64_t curr_time_in_us = cybt_platform_get_tick_count_us();
     uint64_t time_to_expire_in_us = abs_tick_us_to_expire - curr_time_in_us;
-    uint32_t time_to_expire_in_lpticks;
 
     if(abs_tick_us_to_expire <= curr_time_in_us)
     {
@@ -303,10 +299,23 @@ void cybt_platform_set_next_timeout(uint64_t abs_tick_us_to_expire)
         return;
     }
 
-    // convert us to tick
-    time_to_expire_in_lpticks = ((time_to_expire_in_us << lptimer_freq_shift) + 1000000 - 1) / 1000000;
+    {
+        cy_rslt_t result;
+        cy_time_t next_timeout = (cy_time_t)(time_to_expire_in_us/1000);
 
-    cyhal_lptimer_set_delay(&bt_stack_lptimer, time_to_expire_in_lpticks);
+        /* No need to stop this timer, internally FREE-RTOS restarting the timer
+         * Leaving reminder (~1ms), Its ok verified */
+        result = cy_rtos_start_timer(&stack_timer, next_timeout);
+        if(CY_RSLT_SUCCESS != result)
+        {
+            MAIN_TRACE_DEBUG("timer failed to start %u\n", next_timeout);
+        }
+    }
+}
+
+__attribute__((weak)) cybt_result_t cybt_debug_uart_send_trace(uint16_t length, uint8_t* p_data)
+{
+    return CYBT_SUCCESS;
 }
 
 void cybt_platform_log_print(const char *fmt_str, ...)
@@ -320,154 +329,42 @@ void cybt_platform_log_print(const char *fmt_str, ...)
     va_start(ap, fmt_str);
     len = vsnprintf(buffer, CYBT_TRACE_BUFFER_SIZE, fmt_str, ap);
     va_end(ap);
-
 #ifdef ENABLE_DEBUG_UART
     cybt_debug_uart_send_trace(len, (uint8_t*)buffer);
-#else // ENABLE_DEBUG_UART
+#else
     printf("[%u] %s\r\n", (unsigned int)time, buffer);
     UNUSED_VARIABLE(len);
-#endif // ENABLE_DEBUG_UART
-}
-
-static void cybt_uart_rx_not_empty(void)
-{
-    cyhal_uart_enable_event(&hci_uart_cb.hal_obj,
-                            CYHAL_UART_IRQ_RX_NOT_EMPTY,
-                            CYHAL_ISR_PRIORITY_DEFAULT,
-                            false
-                           );
-
-    cybt_send_msg_to_hci_rx_task(BT_IND_TO_HCI_DATA_READY_UNKNOWN, true);
-}
-
-uint32_t uart_tx_done_cnt = 0;
-static void cybt_uart_tx_done_irq(void)
-{
-    cy_rtos_set_semaphore(&hci_uart_cb.tx_complete, true);
-}
-
-static void cybt_uart_rx_done_irq(void)
-{
-    cy_rtos_set_semaphore(&hci_uart_cb.rx_complete, true);
-}
-
-static void cybt_uart_irq_handler(void *handler_arg, cyhal_uart_event_t event)
-{
-    switch(event)
-    {
-        case CYHAL_UART_IRQ_RX_NOT_EMPTY:
-            cybt_uart_rx_not_empty();
-            break;
-        case CYHAL_UART_IRQ_TX_DONE:
-            cybt_uart_tx_done_irq();
-            break;
-        case CYHAL_UART_IRQ_RX_DONE:
-            cybt_uart_rx_done_irq();
-            break;
-        default:
-            break;
-    }
+#endif
 }
 
 void cybt_platform_assert_bt_wake(void)
 {
+    bool wake_polarity=platform_hal_gpio_dev_wake_polarity_wrapper();
+
     if(true == cybt_platform_get_sleep_mode_status())
     {
-        bool wake_polarity;
-        const cybt_platform_config_t *p_bt_platform_cfg = cybt_platform_get_config();
-
-        switch(p_bt_platform_cfg->controller_config.sleep_mode.device_wake_polarity)
-        {
-            case CYBT_WAKE_ACTIVE_LOW:
-                wake_polarity = false;
-                break;
-            case CYBT_WAKE_ACTIVE_HIGH:
-                wake_polarity = true;
-                break;
-            default:
-                HCIDRV_TRACE_ERROR("ASSERT_BT_WAKE: unknown polarity (%d)",
-                                   p_bt_platform_cfg->controller_config.sleep_mode.device_wake_polarity
-                                  );
-                return;
-        }
-
-        cyhal_gpio_write(p_bt_platform_cfg->controller_config.sleep_mode.device_wakeup_pin,
-                         wake_polarity
-                        );
+        platform_hal_gpio_write_wrapper(DEVICE_WAKE_PIN, wake_polarity);
     }
 }
 
 void cybt_platform_deassert_bt_wake(void)
 {
+    bool wake_polarity=platform_hal_gpio_dev_wake_polarity_wrapper();
+
     if(true == cybt_platform_get_sleep_mode_status())
     {
-        bool sleep_polarity;
-        const cybt_platform_config_t *p_bt_platform_cfg = cybt_platform_get_config();
-
-        switch(p_bt_platform_cfg->controller_config.sleep_mode.device_wake_polarity)
-        {
-            case CYBT_WAKE_ACTIVE_LOW:
-                sleep_polarity = true;
-                break;
-            case CYBT_WAKE_ACTIVE_HIGH:
-                sleep_polarity = false;
-                break;
-            default:
-                HCIDRV_TRACE_ERROR("DEASSERT_BT_WAKE: unknown polarity (%d)",
-                                   p_bt_platform_cfg->controller_config.sleep_mode.device_wake_polarity
-                                  );
-                return;
-        }
-
-        cyhal_gpio_write(p_bt_platform_cfg->controller_config.sleep_mode.device_wakeup_pin,
-                         sleep_polarity
-                        );
-    }
-}
-
-
-void cybt_host_wake_irq_handler(void *callback_arg, cyhal_gpio_event_t event)
-{
-    const cybt_platform_config_t *p_bt_platform_cfg = cybt_platform_get_config();
-
-    switch(event)
-    {
-        case CYHAL_GPIO_IRQ_RISE:
-            if(CYBT_WAKE_ACTIVE_HIGH == p_bt_platform_cfg->controller_config.sleep_mode.host_wake_polarity)
-            {
-                cybt_platform_sleep_lock();
-            }
-            else
-            {
-                cybt_platform_sleep_unlock();
-            }
-            break;
-        case CYHAL_GPIO_IRQ_FALL:
-            if(CYBT_WAKE_ACTIVE_LOW == p_bt_platform_cfg->controller_config.sleep_mode.host_wake_polarity)
-            {
-                cybt_platform_sleep_lock();
-            }
-            else
-            {
-                cybt_platform_sleep_unlock();
-            }
-            break;
-        default:
-            break;
+        platform_hal_gpio_write_wrapper(DEVICE_WAKE_PIN, !wake_polarity);
     }
 }
 
 cybt_result_t cybt_platform_hci_open(void *p_arg)
 {
-    cyhal_uart_event_t enable_irq_event = (cyhal_uart_event_t)(CYHAL_UART_IRQ_RX_DONE
-                                           | CYHAL_UART_IRQ_TX_DONE
-                                           | CYHAL_UART_IRQ_RX_NOT_EMPTY
-                                          );
-    uint32_t actual_baud_rate;
-    cy_rslt_t result;
-    cyhal_uart_cfg_t bt_uart_cfg = {0};
+    cybt_result_t result;
     UNUSED_VARIABLE(p_arg);
-    const cybt_platform_config_t *p_bt_platform_cfg = cybt_platform_get_config();
+
+#ifdef COMPONENT_55500
+    uint32_t platform_baud_download=platform_hal_get_fw_download_baud_wrapper();
+#endif
 
     if(true == hci_uart_cb.inited)
     {
@@ -488,174 +385,68 @@ cybt_result_t cybt_platform_hci_open(void *p_arg)
     cy_rtos_init_mutex(&hci_uart_cb.rx_atomic);
 
 #if( configUSE_TICKLESS_IDLE != 0 )
-    if((CYBT_SLEEP_MODE_ENABLED == p_bt_platform_cfg->controller_config.sleep_mode.sleep_mode_enabled)
-      && (NC != p_bt_platform_cfg->controller_config.sleep_mode.host_wakeup_pin))
+    if((CYBT_SLEEP_MODE_ENABLED == platform_hal_get_sleep_mode_enabled_wrapper()))
     {
-        result = cyhal_gpio_init(p_bt_platform_cfg->controller_config.sleep_mode.host_wakeup_pin,
-                                 CYHAL_GPIO_DIR_INPUT,
-                                 CYHAL_GPIO_DRIVE_NONE,
-                                 0
-                                );
-        if(CY_RSLT_SUCCESS != result)
-        {
-            HCIDRV_TRACE_ERROR("hci_open(): Init HostWakeup pin failed (0x%x)",
-                               result
-                              );
-            return CYBT_ERR_GPIO_HOST_WAKE_INIT_FAILED;
-        }
-    }
+        result = platform_hal_gpio_init_wrapper(HOST_WAKE_PIN);
+        CYBT_RSLT_CHECK(result);
 
-    if((CYBT_SLEEP_MODE_ENABLED == p_bt_platform_cfg->controller_config.sleep_mode.sleep_mode_enabled)
-       && (NC != p_bt_platform_cfg->controller_config.sleep_mode.device_wakeup_pin)
-       && (NC != p_bt_platform_cfg->controller_config.sleep_mode.host_wakeup_pin)
-      )
-    {
-        if(CYBT_WAKE_ACTIVE_HIGH != p_bt_platform_cfg->controller_config.sleep_mode.host_wake_polarity
-           && CYBT_WAKE_ACTIVE_LOW != p_bt_platform_cfg->controller_config.sleep_mode.host_wake_polarity
-          )
-        {
-            HCIDRV_TRACE_ERROR("hci_open(): Unknown host wake polarity(%d)",
-                               p_bt_platform_cfg->controller_config.sleep_mode.host_wake_polarity
-                              );
-            return  CYBT_ERR_GENERIC;
-        }
+        result = platform_hal_gpio_register_callback_wrapper(HOST_WAKE_PIN);
+        CYBT_RSLT_CHECK(result);
 
-#if (CYHAL_API_VERSION >= 2)
-        static cyhal_gpio_callback_data_t cb_data = { .callback = cybt_host_wake_irq_handler, .callback_arg = NULL };
-        cyhal_gpio_register_callback(p_bt_platform_cfg->controller_config.sleep_mode.host_wakeup_pin,
-                                     &cb_data
-                                    );
-#else
-        cyhal_gpio_register_callback(p_bt_platform_cfg->controller_config.sleep_mode.host_wakeup_pin,
-                                     cybt_host_wake_irq_handler,
-                                     NULL
-                                    );
-#endif
-        cyhal_gpio_enable_event(p_bt_platform_cfg->controller_config.sleep_mode.host_wakeup_pin,
-                                CYHAL_GPIO_IRQ_BOTH,
-                                CYHAL_ISR_PRIORITY_DEFAULT,
-                                true
-                               );
+        result = platform_hal_gpio_enable_event_wrapper(HOST_WAKE_PIN);
+        CYBT_RSLT_CHECK(result);
     }
 #endif
 
-    if((CYBT_SLEEP_MODE_ENABLED == p_bt_platform_cfg->controller_config.sleep_mode.sleep_mode_enabled)
-        && (NC != p_bt_platform_cfg->controller_config.sleep_mode.device_wakeup_pin))
+    if(CYBT_SLEEP_MODE_ENABLED == platform_hal_get_sleep_mode_enabled_wrapper())
     {
-        result = cyhal_gpio_init(p_bt_platform_cfg->controller_config.sleep_mode.device_wakeup_pin,
-                                 CYHAL_GPIO_DIR_OUTPUT,
-                                 CYHAL_GPIO_DRIVE_STRONG,
-                                 0
-                                );
-        if(CY_RSLT_SUCCESS != result)
-        {
-            HCIDRV_TRACE_ERROR("hci_open(): Init DevWakeup pin failed (0x%x)",
-                               result
-                              );
-            return CYBT_ERR_GPIO_DEV_WAKE_INIT_FAILED;
-        }
+        result = platform_hal_gpio_init_wrapper(DEVICE_WAKE_PIN);
+        CYBT_RSLT_CHECK(result);
 
-        cyhal_gpio_write(p_bt_platform_cfg->controller_config.sleep_mode.device_wakeup_pin,
-                         false
-                        );
+        result = platform_hal_gpio_write_wrapper(DEVICE_WAKE_PIN,false);
+        CYBT_RSLT_CHECK(result);
         cy_rtos_delay_milliseconds(100);
     }
 
-    result = cyhal_gpio_init(p_bt_platform_cfg->controller_config.bt_power_pin,
-                             CYHAL_GPIO_DIR_OUTPUT,
-                             CYHAL_GPIO_DRIVE_PULLUP,
-                             1
-                            );
-    if(CY_RSLT_SUCCESS != result)
-    {
-        HCIDRV_TRACE_ERROR("hci_open(): Init power pin failed (0x%x)",
-                           result
-                          );
-        return CYBT_ERR_GPIO_POWER_INIT_FAILED;
-    }
+    result = platform_hal_gpio_init_wrapper(BT_POWER_PIN);
+    CYBT_RSLT_CHECK(result);
 
-    cyhal_gpio_write(p_bt_platform_cfg->controller_config.bt_power_pin,
-                     true
-                    );
-    cy_rtos_delay_milliseconds(500);
-
-    bt_uart_cfg.data_bits = p_bt_platform_cfg->hci_config.hci.hci_uart.data_bits;
-    bt_uart_cfg.stop_bits = p_bt_platform_cfg->hci_config.hci.hci_uart.stop_bits;
-    bt_uart_cfg.parity = p_bt_platform_cfg->hci_config.hci.hci_uart.parity;
-    bt_uart_cfg.rx_buffer = NULL;
-    bt_uart_cfg.rx_buffer_size = 0;
-
-#if (CYHAL_API_VERSION >= 2)
-    result = cyhal_uart_init(&hci_uart_cb.hal_obj,
-                             p_bt_platform_cfg->hci_config.hci.hci_uart.uart_tx_pin,
-                             p_bt_platform_cfg->hci_config.hci.hci_uart.uart_rx_pin,
-                             p_bt_platform_cfg->hci_config.hci.hci_uart.uart_cts_pin,
-                             p_bt_platform_cfg->hci_config.hci.hci_uart.uart_rts_pin,
-                             NULL,
-                             &bt_uart_cfg
-                            );
+#ifdef COMPONENT_55500
+    result = cybt_enter_autobaud_mode();
+    CYBT_RSLT_CHECK(result);
 #else
-    result = cyhal_uart_init(&hci_uart_cb.hal_obj,
-                             p_bt_platform_cfg->hci_config.hci.hci_uart.uart_tx_pin,
-                             p_bt_platform_cfg->hci_config.hci.hci_uart.uart_rx_pin,
-                             NULL,
-                             &bt_uart_cfg
-                            );
+    result = platform_hal_gpio_write_wrapper(BT_POWER_PIN,true);
+    CYBT_RSLT_CHECK(result);
+    cy_rtos_delay_milliseconds(500);
+#endif //COMPONENT_55500
+
+    result = platform_hal_uart_init_wrapper();
+    CYBT_RSLT_CHECK(result);
+
+#ifdef COMPONENT_55500
+    result = platform_hal_uart_set_baud_wrapper(platform_baud_download);
+#else
+    result = platform_hal_uart_set_baud_wrapper(HCI_UART_DEFAULT_BAUDRATE);
 #endif
-    if(CY_RSLT_SUCCESS != result)
-    {
-        HCIDRV_TRACE_ERROR("hci_open(): init error (0x%x)", result);
-        return  CYBT_ERR_HCI_INIT_FAILED;
-    }
+    CYBT_RSLT_CHECK(result);
 
-    result = cyhal_uart_set_baud(&hci_uart_cb.hal_obj,
-                                 HCI_UART_DEFAULT_BAUDRATE,
-                                 &actual_baud_rate
-                                );
-    if(CY_RSLT_SUCCESS != result)
-    {
-        HCIDRV_TRACE_ERROR("hci_open(): Set baud rate failed (0x%x)",
-                           result
-                          );
-        return  CYBT_ERR_HCI_SET_BAUDRATE_FAILED;
-    }
-    HCIDRV_TRACE_DEBUG("hci_open(): act baud rate  = %d", actual_baud_rate);
+    result = platform_hal_uart_enable_flow_control_wrapper();
+    CYBT_RSLT_CHECK(result);
 
-    if(true == p_bt_platform_cfg->hci_config.hci.hci_uart.flow_control)
-    {
-    #if (CYHAL_API_VERSION >= 2)
-        result = cyhal_uart_enable_flow_control(&hci_uart_cb.hal_obj, true, true);
-    #else
-        result = cyhal_uart_set_flow_control(&hci_uart_cb.hal_obj,
-                                            p_bt_platform_cfg->hci_config.hci.hci_uart.uart_cts_pin,
-                                            p_bt_platform_cfg->hci_config.hci.hci_uart.uart_rts_pin
-                                           );
-    #endif
-        if(CY_RSLT_SUCCESS != result)
-        {
-            HCIDRV_TRACE_ERROR("hci_open(): Set flow control failed (0x%x)",
-                               result
-                              );
-            return  CYBT_ERR_HCI_SET_FLOW_CTRL_FAILED;
-        }
-    }
-
-    cyhal_uart_register_callback(&hci_uart_cb.hal_obj,
-                                 cybt_uart_irq_handler,
-                                 NULL
-                                );
-
-    cyhal_uart_enable_event(&hci_uart_cb.hal_obj,
-                            enable_irq_event,
-                            CYHAL_ISR_PRIORITY_DEFAULT,
-                            true
-                           );
+    platform_hal_uart_register_callback_wrapper(true);
+    platform_hal_uart_enable_event_wrapper(true);
 
     HCIDRV_TRACE_DEBUG("hci_open(): Wait CTS low");
-    while(true == cyhal_gpio_read(p_bt_platform_cfg->hci_config.hci.hci_uart.uart_cts_pin))
+
+    while(true == platform_hal_gpio_read_wrapper(BT_UART_CTS))
     {
         cy_rtos_delay_milliseconds(10);
     }
+
+#if (!defined (CY_USING_HAL) && (CY_CFG_PWR_SYS_IDLE_MODE == CY_CFG_PWR_MODE_DEEPSLEEP))
+    /* UART SysPm callback registration for BT UART */
+    Cy_SysPm_RegisterCallback(&platform_syspm_cb);
+#endif /* (CY_CFG_PWR_SYS_IDLE_MODE == CY_CFG_PWR_MODE_DEEPSLEEP) */
 
     hci_uart_cb.inited = true;
 
@@ -664,30 +455,46 @@ cybt_result_t cybt_platform_hci_open(void *p_arg)
     return  CYBT_SUCCESS;
 }
 
+#ifdef COMPONENT_55500
+static cybt_result_t cybt_enter_autobaud_mode(void)
+{
+    cybt_result_t result;
+
+    /* Initialize UART RTS Pin to be controlled manually */
+    result = platform_hal_gpio_init_wrapper(BT_UART_RTS);
+    CYBT_RSLT_CHECK(result);
+
+    /* Pull RTS line low */
+    result = platform_hal_gpio_write_wrapper(BT_UART_RTS, false);
+    CYBT_RSLT_CHECK(result);
+
+    /* Toggle BT REG ON pin */
+    result = platform_hal_gpio_write_wrapper(BT_POWER_PIN, false);
+    CYBT_RSLT_CHECK(result);
+    cy_rtos_delay_milliseconds(100);
+
+    result = platform_hal_gpio_write_wrapper(BT_POWER_PIN, true);
+    CYBT_RSLT_CHECK(result);
+    cy_rtos_delay_milliseconds(100);
+
+    /* Release RTS pin to be used by UART block */
+    result = platform_hal_gpio_free_wrapper(BT_UART_RTS);
+    CYBT_RSLT_CHECK(result);
+
+    return CYBT_SUCCESS;
+}
+#endif //COMPONENT_55500
+
 cybt_result_t cybt_platform_hci_set_baudrate(uint32_t baudrate)
 {
-    uint32_t actual_baud;
-    cy_rslt_t result = cyhal_uart_set_baud(&hci_uart_cb.hal_obj, baudrate, &actual_baud);
-
+    cybt_result_t result = platform_hal_uart_set_baud_wrapper(baudrate);
     if(false == hci_uart_cb.inited)
     {
         HCIDRV_TRACE_ERROR("set_baudrate(): UART is NOT initialized");
         return  CYBT_ERR_HCI_NOT_INITIALIZE;
     }
 
-    if(CY_RSLT_SUCCESS == result)
-    {
-        HCIDRV_TRACE_DEBUG("set_baudrate(): SUCCESS, req = %d, actual = %d",
-                           baudrate,
-                           actual_baud
-                          );
-        return  CYBT_SUCCESS;
-    }
-    else
-    {
-        HCIDRV_TRACE_ERROR("set_baudrate(): FAILED(0x%x)", result);
-        return  CYBT_ERR_HCI_SET_BAUDRATE_FAILED;
-    }
+    return  result;
 }
 
 cybt_result_t cybt_platform_hci_write(hci_packet_type_t type,
@@ -696,7 +503,7 @@ cybt_result_t cybt_platform_hci_write(hci_packet_type_t type,
                                                  )
 {
     cy_rslt_t result;
-    cybt_result_t return_status =  CYBT_SUCCESS;
+    cybt_result_t cybt_result =  CYBT_SUCCESS;
 
     if(false == hci_uart_cb.inited)
     {
@@ -714,18 +521,11 @@ cybt_result_t cybt_platform_hci_write(hci_packet_type_t type,
     cybt_platform_sleep_lock();
     cybt_platform_assert_bt_wake();
 
-    result = cyhal_uart_write_async(&hci_uart_cb.hal_obj,
-                                    (void *) p_data,
-                                    (size_t) length
-                                   );
-    if(CY_RSLT_SUCCESS == result)
+    cybt_result = platform_hal_uart_write_async_wrapper((void *) p_data,(size_t) length);
+    CYBT_RSLT_CHECK(cybt_result);
+    if(CYBT_SUCCESS == cybt_result)
     {
         cy_rtos_get_semaphore(&hci_uart_cb.tx_complete, CY_RTOS_NEVER_TIMEOUT, false);
-    }
-    else
-    {
-        HCIDRV_TRACE_ERROR("hci_write(): failure (0x%x)\n", result);
-        return_status =  CYBT_ERR_HCI_WRITE_FAILED;
     }
 
     cybt_platform_deassert_bt_wake();
@@ -733,7 +533,7 @@ cybt_result_t cybt_platform_hci_write(hci_packet_type_t type,
 
     cy_rtos_set_mutex(&hci_uart_cb.tx_atomic);
 
-    return return_status;
+    return cybt_result;
 }
 
 cybt_result_t cybt_platform_hci_read(hci_packet_type_t type,
@@ -744,12 +544,18 @@ cybt_result_t cybt_platform_hci_read(hci_packet_type_t type,
 {
     uint32_t  req_len = *p_length;
     cy_rslt_t result;
-    cybt_result_t return_status;
+    cybt_result_t cybt_result;
 
     if(false == hci_uart_cb.inited)
     {
         HCIDRV_TRACE_ERROR("hci_read(): UART is NOT initialized");
         return  CYBT_ERR_HCI_NOT_INITIALIZE;
+    }
+
+    if (0 == req_len)
+    {
+        HCIDRV_TRACE_ERROR("hci_read(): Required length = 0\n");
+        return  CYBT_ERR_BADARG;
     }
 
     result = cy_rtos_get_mutex(&hci_uart_cb.rx_atomic, timeout_ms);
@@ -763,152 +569,110 @@ cybt_result_t cybt_platform_hci_read(hci_packet_type_t type,
 
     if(0 < timeout_ms)
     {
-        result = cyhal_uart_read_async(&hci_uart_cb.hal_obj,
-                                       (void *) p_data,
-                                       (size_t) req_len
-                                      );
-        if(CY_RSLT_SUCCESS == result)
+        cybt_result = platform_hal_uart_read_async_wrapper((void *) p_data,(size_t) req_len);
+        if(CYBT_SUCCESS == cybt_result)
         {
             result = cy_rtos_get_semaphore(&hci_uart_cb.rx_complete,
                                            timeout_ms,
                                            false
                                           );
-        }
-        else
-        {
-            HCIDRV_TRACE_ERROR("hci_read(): failure code = 0x%x\n", result);
-
-            cybt_platform_sleep_unlock();
-            cy_rtos_set_mutex(&hci_uart_cb.rx_atomic);
-            return  CYBT_ERR_HCI_READ_FAILED;
-        }
-
-        if(CY_RSLT_SUCCESS == result)
-        {
-            return_status = CYBT_SUCCESS;
-        }
-        else
-        {
-            HCIDRV_TRACE_ERROR("hci_read(): failed (0x%x), read size = %d",
-                               result,
-                               hci_uart_cb.hal_obj.context.rxBufIdx
-                              );
-
-            if(CY_RTOS_TIMEOUT == result)
+            if(CY_RSLT_SUCCESS != result)
             {
-                return_status =  CYBT_ERR_TIMEOUT;
+                #if defined (CY_USING_HAL)
+                HCIDRV_TRACE_ERROR("hci_read(): failed (0x%x), read size = %d",
+                                   result,
+                                   hci_uart_cb.hal_obj.context.rxBufIdx
+                                  );
+                #else
+                HCIDRV_TRACE_ERROR("hci_read(): failed (0x%x), read size = %d",
+                                   result,
+                                   hci_uart_cb.CYBSP_BT_UART_hal_obj.context->rxBufIdx
+                                  );
+                #endif
+
+                if(CY_RTOS_TIMEOUT == result)
+                {
+                    cybt_result =  CYBT_ERR_TIMEOUT;
+                }
+                else
+                {
+                    cybt_result =  CYBT_ERR_GENERIC;
+                }
+                #if defined (CY_USING_HAL)
+                *p_length = hci_uart_cb.hal_obj.context.rxBufIdx;
+                #else
+                *p_length = hci_uart_cb.CYBSP_BT_UART_hal_obj.context->rxBufIdx;
+                #endif
+
+                cybt_result = platform_hal_uart_read_abort_wrapper();
             }
             else
             {
-                return_status =  CYBT_ERR_GENERIC;
+        cybt_result = CYBT_SUCCESS;
             }
-            *p_length = hci_uart_cb.hal_obj.context.rxBufIdx;
-
-            cyhal_uart_read_abort(&hci_uart_cb.hal_obj);
+        }
+        else
+        {
+            cybt_platform_sleep_unlock();
+            cy_rtos_set_mutex(&hci_uart_cb.rx_atomic);
+            return cybt_result;
         }
     }
     else
     {
-        result = cyhal_uart_read(&hci_uart_cb.hal_obj,
-                                 (void *) p_data,
-                                 (size_t *)p_length
-                                );
-        if(CY_RSLT_SUCCESS == result)
-        {
-            return_status = CYBT_SUCCESS;
-        }
-        else
-        {
-            return_status =  CYBT_ERR_HCI_READ_FAILED;
-        }
+        cybt_result = platform_hal_uart_read_wrapper((void *) p_data,(size_t *)p_length);
+        CYBT_RSLT_CHECK(cybt_result);
     }
 
     cybt_platform_sleep_unlock();
     cy_rtos_set_mutex(&hci_uart_cb.rx_atomic);
 
-    return return_status;
+    return cybt_result;
 
 }
 
 cybt_result_t cybt_platform_hci_close(void)
 {
-    cyhal_uart_event_t enable_irq_event = (cyhal_uart_event_t)(CYHAL_UART_IRQ_RX_DONE
-                                           | CYHAL_UART_IRQ_TX_DONE
-                                           | CYHAL_UART_IRQ_RX_NOT_EMPTY
-                                          );
-    const cybt_platform_config_t *p_bt_platform_cfg = cybt_platform_get_config();
+    cybt_result_t result;
+
     if(false == hci_uart_cb.inited)
     {
         HCIDRV_TRACE_ERROR("hci_close(): Not inited\n");
         return  CYBT_ERR_HCI_NOT_INITIALIZE;
     }
 
-    cyhal_uart_enable_event(&hci_uart_cb.hal_obj,
-                            enable_irq_event,
-                            CYHAL_ISR_PRIORITY_DEFAULT,
-                            false
-                           );
-    cyhal_uart_register_callback(&hci_uart_cb.hal_obj,
-                                 NULL,
-                                 NULL
-                                );
-    cyhal_uart_free(&hci_uart_cb.hal_obj);
+    platform_hal_uart_register_callback_wrapper(false);
+    platform_hal_uart_enable_event_wrapper(false);
 
-    if((CYBT_SLEEP_MODE_ENABLED == p_bt_platform_cfg->controller_config.sleep_mode.sleep_mode_enabled)
-       && (NC != p_bt_platform_cfg->controller_config.sleep_mode.device_wakeup_pin)
-       && (NC != p_bt_platform_cfg->controller_config.sleep_mode.host_wakeup_pin)
-      )
+    if(CYBT_SLEEP_MODE_ENABLED == platform_hal_get_sleep_mode_enabled_wrapper())
     {
-        cyhal_gpio_enable_event(p_bt_platform_cfg->controller_config.sleep_mode.host_wakeup_pin,
-                                CYHAL_GPIO_IRQ_NONE,
-                                CYHAL_ISR_PRIORITY_DEFAULT,
-                                true
-                               );
- #if (CYHAL_API_VERSION >= 2)
-        cyhal_gpio_callback_data_t cb_data = { .callback = NULL, .callback_arg = NULL };
-        cyhal_gpio_register_callback(p_bt_platform_cfg->controller_config.sleep_mode.host_wakeup_pin,
-                                     &cb_data
-                                    );
-#else
-        cyhal_gpio_register_callback(p_bt_platform_cfg->controller_config.sleep_mode.host_wakeup_pin,
-                                     NULL,
-                                     NULL
-                                    );
-#endif
+        result = platform_hal_gpio_enable_event_wrapper(HOST_WAKE_PIN);
+        CYBT_RSLT_CHECK(result);
+
+        result = platform_hal_gpio_register_callback_wrapper(HOST_WAKE_PIN);
+        CYBT_RSLT_CHECK(result);
     }
 
-    if(NC != p_bt_platform_cfg->controller_config.sleep_mode.device_wakeup_pin)
-    {
-        cyhal_gpio_free(p_bt_platform_cfg->controller_config.sleep_mode.device_wakeup_pin);
-    }
+    result = platform_hal_gpio_free_wrapper(DEVICE_WAKE_PIN);
+    CYBT_RSLT_CHECK(result);
 
-    if(NC != p_bt_platform_cfg->controller_config.sleep_mode.host_wakeup_pin)
-    {
-        cyhal_gpio_free(p_bt_platform_cfg->controller_config.sleep_mode.host_wakeup_pin);
-    }
+    result = platform_hal_gpio_free_wrapper(HOST_WAKE_PIN);
+    CYBT_RSLT_CHECK(result);
 
     cy_rtos_deinit_mutex(&hci_uart_cb.tx_atomic);
     cy_rtos_deinit_mutex(&hci_uart_cb.rx_atomic);
     cy_rtos_deinit_semaphore(&hci_uart_cb.tx_complete);
     cy_rtos_deinit_semaphore(&hci_uart_cb.rx_complete);
 
-    cyhal_gpio_write(p_bt_platform_cfg->controller_config.bt_power_pin,
-                     false
-                    );
-    cyhal_gpio_free(p_bt_platform_cfg->controller_config.bt_power_pin);
+    result = platform_hal_gpio_write_wrapper(BT_POWER_PIN,false);
+    CYBT_RSLT_CHECK(result);
+
+    result = platform_hal_gpio_free_wrapper(BT_POWER_PIN);
+    CYBT_RSLT_CHECK(result);
 
     memset(&hci_uart_cb, 0, sizeof(hci_uart_cb_t));
 
     return  CYBT_SUCCESS;
-}
-
-void cybt_platform_hci_irq_rx_data_ind(bool enable)
-{
-    cyhal_uart_enable_event(&hci_uart_cb.hal_obj,
-                            CYHAL_UART_IRQ_RX_NOT_EMPTY,
-                            CYHAL_ISR_PRIORITY_DEFAULT,
-                            enable
-                           );
 }
 
 #if( configUSE_TICKLESS_IDLE != 0 )
@@ -918,7 +682,7 @@ void cybt_idle_timer_cback(cy_timer_callback_arg_t arg)
 
     if (platform_sleep_lock == true)
     {
-        cyhal_syspm_unlock_deepsleep();
+        platform_hal_syspm_unlock_deepsleep_wrapper();
         platform_sleep_lock = false;
     }
 

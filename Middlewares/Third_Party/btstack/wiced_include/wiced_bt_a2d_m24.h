@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023, Cypress Semiconductor Corporation or
+ * Copyright 2016-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -36,7 +36,9 @@
  * MPEG-2, 4 AAC A2DP Application Programming Interface
  *
  */
-#pragma once
+#ifndef __WICED_BT_A2D_M24_H__
+#define __WICED_BT_A2D_M24_H__
+
 
 /**
  * @cond DUAL_MODE
@@ -60,12 +62,17 @@
  * @name MPEG-2,4 AAC Object
  * @{
  */
-#define A2D_M24_IE_OBJ_MSK          0xF0    /**< b7-b4 object type. b3-b0 is RFA,not used */
+#define A2D_M24_IE_OBJ_MSK          0xFE    /**< b7-b1 object type */
 #define A2D_M24_IE_OBJ_2LC          0x80    /**< b7: MPEG-2 AAC LC */
 #define A2D_M24_IE_OBJ_4LC          0x40    /**< b6: MPEG-4 AAC LC */
 #define A2D_M24_IE_OBJ_4LTP         0x20    /**< b5: MPEG-4 AAC LTP */
 #define A2D_M24_IE_OBJ_4S           0x10    /**< b4: MPEG-4 AAC scalable */
+#define A2D_M24_IE_OBJ_4HE          0x08    /**< b3: MPEG-4 HE-AAC */
+#define A2D_M24_IE_OBJ_4HE2         0x04    /**< b2: MPEG-4 HE-AACv2 */
+#define A2D_M24_IE_OBJ_4ELD2        0x02    /**< b1: MPEG-4 AAC ELDv2 */
 /** @} A2D_M24_OBJ */
+
+#define A2D_M24_IE_DRC_MSK          0x01    /* b0: DRC */
 
 /**
  * @anchor A2D_M24_SF
@@ -92,9 +99,11 @@
  * @name MPEG-2,4 AAC Channel
  * @{
  */
-#define A2D_M24_IE_CHNL_MSK         0x0C    /**< b3-b2 channels */
+#define A2D_M24_IE_CHNL_MSK         0x0F    /**< b3-b2 channels */
 #define A2D_M24_IE_CHNL_1           0x08    /**< b3: 1 channel */
 #define A2D_M24_IE_CHNL_2           0x04    /**< b2: 2 channels */
+#define A2D_M24_IE_CHNL_6           0x02    /**< b1: 6 channels */
+#define A2D_M24_IE_CHNL_8           0x01    /**< b0: 8 channels */
 /** @} A2D_M24_CH_MD */
 
 #define A2D_M24_IE_VBR_MSK          0x80    /**< b7: VBR */
@@ -104,9 +113,9 @@
  * @name MPEG-2,4 AAC Bitrate
  * @{
  */
-#define A2D_M24_IE_BITRATE3_MSK     0x7F0000    /**< octect3*/
-#define A2D_M24_IE_BITRATE45_MSK    0x00FFFF    /**< octect4, 5*/
-#define A2D_M24_IE_BITRATE_MSK      0x7FFFFF    /**< b7-b0 of octect 3, all of octect4, 5*/
+#define A2D_M24_IE_BITRATE3_MSK     0x7F0000    /**< octet 3 */
+#define A2D_M24_IE_BITRATE45_MSK    0x00FFFF    /**< octet 4, 5 */
+#define A2D_M24_IE_BITRATE_MSK      0x7FFFFF    /**< b7-b0 of octet 3, all of octet 4, 5 */
 /** @} A2D_M24_BITRATE */
 
 
@@ -122,6 +131,7 @@ typedef struct
     uint8_t       chnl;       /**< Channel mode \ref A2D_M24_CH_MD */
     uint8_t       vbr;        /**< Variable Bit Rate */
     uint32_t      bitrate;    /**< Bit rate index \ref A2D_M24_BITRATE */
+    uint8_t       drc;        /**< NOTE: Support for drc is not yet available. MPEG-D DRC (Dynamic Range Control) */
 } wiced_bt_a2d_m24_cie_t;
 
 /*****************************************************************************
@@ -169,3 +179,5 @@ wiced_bt_a2d_status_t wiced_bt_a2d_pars_m24info(wiced_bt_a2d_m24_cie_t *p_ie, ui
 #ifdef __cplusplus
 }
 #endif
+
+#endif //__WICED_BT_A2D_M24_H__

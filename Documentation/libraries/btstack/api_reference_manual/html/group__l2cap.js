@@ -156,7 +156,7 @@ var group__l2cap =
     [ "wiced_bt_l2cap_set_idle_timeout_by_bd_addr", "group__l2cap.html#ga9834af87f6f31578b7095bdb4e55e459", null ],
     [ "wiced_bt_l2cap_get_bdaddrby_handle", "group__l2cap.html#gaebb8e6a7ac8add5164c86871af99747e", null ],
     [ "wiced_bt_l2cap_cancel_ble_connect_req", "group__l2cap.html#ga28268b114d35484254e29696a165f72a", null ],
-    [ "wiced_bt_l2cap_update_ble_conn_params", "group__l2cap.html#gacfa5536d207a4b9bb796e31ad37b09b6", null ],
+    [ "wiced_bt_l2cap_update_ble_conn_params", "group__l2cap.html#ga649c28635db51a1a7fcc7a054e79b2d3", null ],
     [ "wiced_bt_l2cap_enable_update_ble_conn_params", "group__l2cap.html#ga84c66f4df107063ddb0adc482b5491ae", null ],
     [ "wiced_bt_l2cap_get_ble_conn_role", "group__l2cap.html#ga9b246f3663cee7a53e788c47172413d9", null ],
     [ "wiced_bt_l2cap_le_register", "group__l2cap.html#ga44312ab4c397243d0b40b55851d34a62", null ],

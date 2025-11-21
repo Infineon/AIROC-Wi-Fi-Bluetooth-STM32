@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023, Cypress Semiconductor Corporation or
+ * Copyright 2016-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -33,9 +33,11 @@
 
 /** @file
  *
- *  WICED Generic Attribute (GATT) Application Programming Interface
+ *  AIROC Generic Attribute (GATT) Application Programming Interface
  */
-#pragma once
+#ifndef __WICED_BT_GATT_H__
+#define __WICED_BT_GATT_H__
+
 
 #include "wiced_result.h"
 #include "gattdefs.h"
@@ -96,7 +98,7 @@ enum wiced_bt_gatt_status_e
     WICED_BT_GATT_CCCD_IMPROPER_CONFIGURED   = 0xFD,         /**< Client Characteristic Configuration Descriptor Improperly Configured */
     WICED_BT_GATT_BUSY                       = 0xFE,         /**< Busy or Procedure already in progress */
     WICED_BT_GATT_OUT_OF_RANGE               = 0xFF,         /**< Value Out of Range */
-                                                              /* WICED defined status  */
+                                                              /* AIROC defined status  */
     WICED_BT_GATT_ILLEGAL_PARAMETER          = 0x8780,         /**< Illegal Parameter */
     WICED_BT_GATT_NO_RESOURCES               = 0x8781,         /**< No Resources */
     WICED_BT_GATT_INTERNAL_ERROR             = 0x8783,         /**< Internal Error */
@@ -977,7 +979,7 @@ typedef struct
 {
     wiced_bt_device_address_t  bdaddr;                 /**< Bluetooth address of remote device */
     wiced_bt_transport_t       transport;              /**< Transport type of the connection */
-    wiced_bt_ecrb_cid_list_t    lcids;                  /**< List of the l2cap cids (channel ids) */
+    wiced_bt_ecrb_cid_list_t   lcids;                  /**< List of the l2cap cids (channel ids) */
     uint16_t                   mtu;                    /**< Peer MTU */
     uint8_t                    trans_id;               /**< Transaction id for the connection */
 } wiced_bt_gatt_eatt_connection_indication_event_t;
@@ -1051,10 +1053,10 @@ extern "C"
  */
 
 /**
- * BLE (Bluetooth Low Energy) Specific functions.
+ * LE (Bluetooth Low Energy) Specific functions.
  *
  * @if DUAL_MODE
- * @addtogroup gatt_le BLE (Bluetooth Low Energy)
+ * @addtogroup gatt_le LE (Bluetooth Low Energy)
  * @ingroup gatt_common_api
  * @endif
  */
@@ -1511,7 +1513,7 @@ void wiced_bt_gatt_set_peer_caching_status(uint16_t conn_id, wiced_bt_gatt_cachi
  *  @ingroup gatt_client_api_functions
 
  *  @note Allowed mtu range is 23 upto \ref wiced_bt_cfg_ble_t.ble_max_rx_pdu_size for
- *  BLE links as configured in #wiced_bt_cfg_settings_t
+ *  LE links as configured in #wiced_bt_cfg_settings_t
  *
 */
 wiced_bt_gatt_status_t wiced_bt_gatt_client_configure_mtu (uint16_t conn_id, uint16_t mtu);
@@ -1667,6 +1669,7 @@ wiced_bt_gatt_status_t wiced_bt_gatt_client_send_indication_confirm (uint16_t co
  *
  */
 
+#if (WICED_BLE_ENABLE_LEGACY_ADV_API == 1)
 /**
  * Open GATT over LE connection to a remote device
  * Result is notified using <b> GATT_CONNECTION_STATUS_EVT </b> of #wiced_bt_gatt_cback_t.
@@ -1694,6 +1697,8 @@ wiced_bool_t wiced_bt_gatt_le_connect (wiced_bt_device_address_t bd_addr,
                                     wiced_bt_ble_address_type_t bd_addr_type,
                                     wiced_bt_ble_conn_mode_t conn_mode,
                                     wiced_bool_t is_direct);
+#endif
+
 /**
  * Open GATT over BR/EDR connection to a remote device
  * Result is notified using <b> GATT_CONNECTION_STATUS_EVT </b> of #wiced_bt_gatt_cback_t.
@@ -1742,26 +1747,6 @@ wiced_bool_t wiced_bt_gatt_cancel_connect (wiced_bt_device_address_t bd_addr, wi
  * @ingroup gatt_common_api
  */
 wiced_bt_gatt_status_t wiced_bt_gatt_disconnect (uint16_t conn_id);
-
-
-/**
- * Start or stop LE advertisement and listen for connection.
- *
- *  @param[in]   start      : TRUE to add device to Filter Accept List / FALSE to remove
- *  @param[in]   bd_addr    : Device to add/remove from Filter Accept List
- *  @param[in]   type       : Address type of \p bd_addr
- *
- *  @return <b> TRUE </b>            : Success
- *          <b> FALSE </b>           : Failure
- *
- * @if DUAL_MODE
- * @ingroup gatt_le
- * @else
- * @ingroup gatt_common_api
- * @endif
- */
-wiced_bool_t wiced_bt_gatt_listen (wiced_bool_t start, wiced_bt_device_address_t bd_addr,
-    wiced_bt_ble_address_type_t type);
 
 /**
  * EATT API
@@ -1855,6 +1840,19 @@ wiced_bt_gatt_status_t wiced_bt_gatt_get_device_address(uint16_t conn_id,
     wiced_bt_transport_t* p_transport, wiced_bt_ble_address_type_t* p_addr_type);
 
 /**
+ * API to get the ACL handle of the connected gatt conn_id
+ * @note : The API cannot be used to get the ACL handle in case
+ *  the device is disconnected
+ *
+ *  @param[in]  conn_id    : Connection handle of the gatt bearer
+ *
+ *  @returns #0xffff in case of error
+ *
+ *  @ingroup gatt_common_api
+ */
+uint16_t wiced_bt_gatt_get_acl_conn_handle(uint16_t conn_id);
+
+/**
  * API to validate connected gatt conn_id
  *
  *  @param[in]  conn_id    : Connection handle of the gatt bearer
@@ -1864,7 +1862,6 @@ wiced_bt_gatt_status_t wiced_bt_gatt_get_device_address(uint16_t conn_id,
  *  @ingroup gatt_common_api
  */
 wiced_bt_gatt_status_t wiced_bt_gatt_validate_conn_id(uint16_t conn_id);
-
 
 /**
  * @brief Utility function to compare UUIDs
@@ -2025,7 +2022,38 @@ uint16_t wiced_bt_gattdb_getAttrUUID16(const wiced_gattdb_entry_t *p_db_entry);
 */
 uint8_t *wiced_bt_gattdb_getAttrValue(const wiced_gattdb_entry_t *p_db_entry);
 
+/**
+ * API to set the maximum queue size for GATT packets
+ *
+ *  @param[in]  count    :  set the number of packets to queue for tx
+ *
+ *  @returns #wiced_result_t
+ *
+ *  @ingroup gatt_common_api
+ */
+wiced_result_t wiced_bt_gatt_set_tx_packets_queue_size(uint8_t count);
+
+/**
+* Structure to hold the outstanding message counts
+*/
+typedef struct
+{
+    uint16_t msg_no_rsp; /**< total number of queued notifications/write cmd packets in queue */
+} wiced_bt_gatt_msg_count_t;
+
+/**
+ * API to get the current outstanding queued number of packets which are held by the GATT layer
+ *
+ *  @param[in] conn_id :  GATT Connection ID
+ *  @param[out] p_count : Pointer to return the oustanding/queued messages
+ *  @returns total number of queued packets for \p conn_id
+ *
+ *  @ingroup gatt_common_api
+ */
+uint16_t wiced_bt_gatt_get_outstanding_msg_count(uint16_t conn_id, wiced_bt_gatt_msg_count_t *p_count);
+
 #ifdef __cplusplus
 }
-
 #endif
+
+#endif //__WICED_BT_GATT_H__

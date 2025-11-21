@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2023, Cypress Semiconductor Corporation or
+ * Copyright 2019-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -43,7 +43,9 @@
  * @{
  */
 
-#pragma once
+#ifndef __WICED_BT_STACK_PLATFORM_H__
+#define __WICED_BT_STACK_PLATFORM_H__
+
 
 #include <stdarg.h>
 #include "wiced_bt_types.h"
@@ -51,11 +53,36 @@
 #include "wiced_bt_cfg.h"
 #include "wiced_bt_dev.h"
 
-/** Wiced BT Stack Platform */
+
+/**< Stack Exception definitions  */
+#define CYBT_STACK_BASE_EXCEPTION        0xF000                         /**< Stack BASE exception */
+#define CYBT_STACK_BUF_CORRUPTED         CYBT_STACK_BASE_EXCEPTION + 1  /**< Indicates a buffer/memory corruption issue */
+#define CYBT_STACK_NOT_BUF_OWNER         CYBT_STACK_BASE_EXCEPTION + 2  /**< Signifies a lack of buffer ownership by the current process */
+#define CYBT_STACK_FREEBUF_BAD_QID       CYBT_STACK_BASE_EXCEPTION + 3  /**< Occurs when attempting to free a buffer with an invalid queue ID */
+#define CYBT_STACK_FREEBUF_BUF_LINKED    CYBT_STACK_BASE_EXCEPTION + 4  /**< Denotes an error with a linked buffer during the free operation */
+#define CYBT_STACK_SEND_MSG_BAD_DEST     CYBT_STACK_BASE_EXCEPTION + 5  /**< Indicates a bad destination for a message send operation */
+#define CYBT_STACK_SEND_MSG_BUF_LINKED   CYBT_STACK_BASE_EXCEPTION + 6  /**< Represents an issue with a linked buffer during the message send operation */
+#define CYBT_STACK_ENQUEUE_BUF_LINKED    CYBT_STACK_BASE_EXCEPTION + 7  /**< Indicates a linked buffer error during the enqueue operation */
+#define CYBT_STACK_DELETE_POOL_BAD_QID   CYBT_STACK_BASE_EXCEPTION + 8  /**< Occurs when attempting to delete a pool with an invalid queue ID */
+#define CYBT_STACK_BUF_SIZE_TOOBIG       CYBT_STACK_BASE_EXCEPTION + 9  /**< Signifies that the buffer size exceeds the maximum allowed size */
+#define CYBT_STACK_BUF_SIZE_ZERO         CYBT_STACK_BASE_EXCEPTION + 10 /**< Indicates an attempt to create a buffer with zero size */
+#define CYBT_STACK_ADDR_NOT_IN_BUF       CYBT_STACK_BASE_EXCEPTION + 11 /**< Denotes an address that is not within the buffer range */
+#define CYBT_STACK_OUT_OF_BUFFERS        CYBT_STACK_BASE_EXCEPTION + 12 /**< Occurs when there are no available buffers */
+#define CYBT_STACK_GETPOOLBUF_BAD_QID    CYBT_STACK_BASE_EXCEPTION + 13 /**< Signifies an invalid queue ID during the get pool buffer operation */
+#define CYBT_STACK_POOLBUF_BAD_SIZE      CYBT_STACK_BASE_EXCEPTION + 14 /**< Indicates an error with the size of the pool buffer */
+#define CYBT_STACK_NO_INTERFACE          CYBT_STACK_BASE_EXCEPTION + 15 /**< Signifies the absence of a required interface */
+#define CYBT_STACK_BAD_TRANSPORT         CYBT_STACK_BASE_EXCEPTION + 16 /**< Denotes a problem with the transport assignement (BLE / BREDR) */
+#define CYBT_STACK_NO_MEMORY             CYBT_STACK_BASE_EXCEPTION + 17 /**< Indicates a memory allocation failure */
+#define CYBT_STACK_NO_BUF                CYBT_STACK_BASE_EXCEPTION + 18 /**< Represents the absence of available buffers */
+#define CYBT_STACK_MAX_EXCEPTION         CYBT_STACK_NO_BUF + 1          /**< Stack MAX exception */
+
+typedef struct _aes_context_t aes_context; /**< Forward definition */
+
+/** AIROC Bluetooth Stack Platform */
 typedef struct
 {
     /**
-     * Exception callback
+     * Stack exception callback
      */
     pf_wiced_exception pf_exception;
 
@@ -113,7 +140,7 @@ typedef struct
     /**
      * Platform function to get ACL buffer to send to lower
      *
-     * Called by stack to get a buffer to fill in the data to be sent to 'transport' (BLE or BR/EDR)
+     * Called by stack to get a buffer to fill in the data to be sent to 'transport' (LE or BR/EDR)
      * of 'size'
      *
      * @param[in] transport : Transport on which the buffer is to be sent
@@ -231,11 +258,168 @@ typedef struct
     void (*pf_patch_download)(void);
 
     /**
+    * Set platform specific Random generator function
+    * @note If platform does not support TRNG function then set this parameter to NULL
+    * @return : wiced_result_t
+    * @param[in] p_rand  : buffer to store generated random number
+    * @param[in] p_len  : size of the buffer
+    */
+    void (*pf_get_trng)(uint8_t *p_rand, uint8_t *p_len);
+
+    /**
      *set is_legacy_bless_controller to 1 for only BLESS controllers.
      *This is used while sending BLESS vendor specific commands.
      */
-    uint32_t is_legacy_bless_controller : 1;
+    uint32_t is_legacy_bless_controller:1 ;
+
 } wiced_bt_stack_platform_t;
+
+/** SMP encryption  */
+typedef struct
+{
+	/**
+	 * Callback function to generate local public key
+	 *
+	 * Called by stack to generate local public key by processing local private key
+	 *
+	 * @param[in] private_key   : Pointer to local private key
+	 * @param[out] public_key : Pointer to generated public key
+	 *
+	 * @return : wiced_result_t
+	 */
+	wiced_result_t (*pf_smp_process_private_key)(const BT_OCTET32 *private_key, wiced_bt_public_key_t *public_key);
+
+	/**
+	 * Callback function to generate dhkey
+	 *
+	 * Called by stack to generate diffie-hellman key using peer public key and local private key
+	 *
+	 * @param[in] private_key   : Pointer to local private key
+	 * @param[in] public_key : Pointer to peer public key
+	 * @param[in] dhkey : Pointer to generated dhkey
+	 *
+	 * @return : wiced_result_t
+	 */
+	wiced_result_t (*pf_smp_compute_dhkey)(const BT_OCTET32 * private_key, const wiced_bt_public_key_t* public_key, BT_OCTET32 * dhkey);
+
+	/**
+	 * Callback function to validate peer public key
+	 *
+	 * Called by stack to validate peer public key
+	 *
+	 * @param[in] public_key : Pointer to peer public key
+	 *
+	 * @return : wiced_result_t
+	 */
+	wiced_result_t (*pf_smp_ecdh_validate_pub_key)(const wiced_bt_public_key_t* public_key);
+
+	/**
+	 * Callback function to get a pointer to active aes_context
+	 *
+	 * Callback function to get a pointer to active aes_context for encryption operation
+	 *
+	 * @return : pointer to aes_context
+	 */
+	aes_context* (*pf_smp_aes_get_context)();
+
+	/**
+	 * Callback function to set key for encryption
+	 *
+	 * Called by stack to provide key details to be used for encryption
+	 *
+	 * @param[in] key : Pointer to key
+	 *
+	 * @param[in] keylen : length of the key
+	 *
+	 * @param[in] p_ctx  : Pointer to active aes_context
+	 *
+	 * @return : wiced_result_t
+	 */
+	wiced_result_t (*pf_smp_aes_set_key)(const unsigned char key[], uint8_t keylen, aes_context * p_ctx);
+
+	/**
+	 * Callback function to do the encryption
+	 *
+	 * Called by stack to encrypt given data
+	 *
+	 * @param[in] in : Pointer to input data to be encrypted. Input data is always 16 bytes in length.
+	 *
+	 * @param[out] out : Pointer to encrypted data. Encrypted data is always 16 bytes in length.
+	 *
+	 * @param[in] p_ctx  : Pointer to aes_context
+	 *
+	 * @return : wiced_result_t
+	 */
+	wiced_result_t (*pf_smp_aes_encrypt)(const unsigned char in[],
+										 unsigned char out[],
+										 aes_context * p_ctx);
+
+	/**
+	 * Callback function to finish encryption
+	 *
+	 * Called by stack to finish encrypting a message
+	 *
+	 * @param[in] p_ctx  : Pointer to aes_context
+	 *
+	 * @param[in] output_external : Buffer where the output is to be written
+	 *
+	 * @param[out] output_size : Size of the \p output_external buffer in bytes.
+	 *
+	 * @param[out] output_length : On success, the number of bytes that make up the returned output
+	 *
+	 * @return : wiced_result_t
+	 */
+	wiced_result_t (*pf_smp_aes_finish)(aes_context * p_ctx,
+										uint8_t *output_external,
+										size_t output_size,
+										size_t *output_length);
+} wiced_bt_smp_adapter_t;
+
+/** Version information for the local Controller. */
+typedef struct
+{
+    uint8_t     hci_version;    /**< Version of the HCI layer supported by the Controller  */
+    uint16_t    hci_revision;   /**< Revision of the HCI implementation in the Controller */
+    uint8_t     lmp_version;    /**< Version of the Current LMP supported by the Controller */
+    uint16_t    manufacturer;   /**< Company identifier for the manufacturer of the Controller */
+    uint16_t    lmp_subversion; /**< Subversion of the Current LMP in the Controller */
+} wiced_bt_hci_version_info_t;
+
+/** LE configuration parameters */
+
+typedef struct
+{
+    uint16_t max_adv_data_len;          /**< Max ADV data length supported in the controller.   */
+    uint16_t default_le_tx_data_length; /**< Suggested Max Tx Octets for BLE links */
+    uint16_t hcit_ble_acl_data_size;    /**< Max BLE ACL data size for BLE */
+    uint16_t hcit_ble_iso_data_size;    /**< Max ISO data size */
+    uint8_t hcit_ble_acl_buf_num;       /**< Number of BLE acl buffer size */
+    uint8_t hcit_ble_iso_buf_num;       /**< Num ISO buffers */
+    uint8_t periodic_adv_list_size;     /**< Periodic ADV list size supported by the controller */
+    uint8_t num_sets_supported;         /**< Number of ADV sets supported by the controller.    */
+    uint8_t rl_max_entries;             /**< Resolving list max size */
+    uint8_t wl_max_entries;             /**< Filter Accept List management */
+} wiced_bt_ble_init_data_t;
+
+/** device configuration parameters */
+
+typedef struct
+{
+    wiced_bt_hci_version_info_t local_version;                             /**< Local Version Information */
+    wiced_bt_features_t local_lmp_features[HCI_EXT_FEATURES_PAGE_MAX + 1]; /**< change this to pointer  */
+    wiced_bt_features_t local_le_features;               /**< Local LE Supported features mask for the device */
+    uint16_t hcit_br_acl_data_size;                         /**< Max ACL data size for BR/EDR  */
+    uint8_t hcit_br_acl_buf_num;                         /**< Number of BR/EDR acl buffer size */
+    uint8_t supported_cmds[HCI_NUM_SUPP_COMMANDS_BYTES]; /**< change this to pointer  */
+} wiced_bt_dev_init_data_t;
+
+/** BTSTACK initialization configuration parameters */
+typedef struct
+{
+    wiced_bt_ble_init_data_t le_info;  /**< LE Read stack setup data */
+    wiced_bt_dev_init_data_t dev_info; /**< Device related setup data */
+} wiced_bt_stack_init_cmd_data_t;
+
 
 /**
  * Initialize the platform interfaces, by providing porting functions specific to
@@ -327,6 +511,14 @@ extern void wiced_bt_continue_reset(void);
 extern uint32_t wiced_bt_set_stack_config(const wiced_bt_cfg_settings_t* p_bt_new_cfg_settings);
 
 /**
+* Get the stack config set by the application
+*
+* @return pointer to application config settings
+*
+*/
+extern const wiced_bt_cfg_settings_t *wiced_bt_get_stack_config(void);
+
+/**
 * Function prototype for the post Stack Init Callback.
 */
 typedef void (*wiced_bt_internal_post_stack_init_cb)(void);
@@ -342,7 +534,7 @@ typedef wiced_bool_t (*wiced_bt_internal_stack_evt_handler_cb)(uint8_t* p_event)
 /**
 * Internal stack init
 *
-* @param[in] mgmt_cback : Application BT Management callback
+* @param[in] mgmt_cback : Application Bluetooth Management callback
 * @param[in] post_stack_cb : Internal post stack init callback
 * @param[in] evt_handler_cb : Internal stack event handler
 *
@@ -361,4 +553,115 @@ void wiced_bt_stack_init_internal(wiced_bt_management_cback_t mgmt_cback,
  */
 void wiced_bt_stack_shutdown(void);
 
+/**
+* Set the initial setup data to configure the stack. Invoked by the porting layer
+*
+* @param[in] p_init_setup_data : intial setup data
+*
+*@note Call this API if want to reduce the stack size.
+* This API needs to be invoked prior to \ref wiced_bt_stack_init_internal API.
+* Do not call API \ref wiced_bt_enable_stack_default_flow if calling this API.
+*
+* @return   wiced_result_t
+*           WICED_SUCCESS if Success.
+*           WICED_BADARG if called with NULL arguement.
+*/
+
+wiced_result_t wiced_bt_set_stack_initial_setup_data(wiced_bt_stack_init_cmd_data_t *p_init_setup_data);
+
+/**
+ * Called by the porting layer to enable the stack to send the initial setup
+ * commands(refer Version 5.4 | Vol 6, Part D 2.1 INITIAL SETUP) to the controller.
+ *
+ *@note Call this API if required to get the intial setup information from the controller.
+* Do not call API \ref wiced_bt_set_stack_initial_setup_data if calling this API.\n
+* This API needs to be invoked prior to \ref wiced_bt_stack_init_internal API.
+ * @return    void
+ */
+
+void wiced_bt_enable_stack_default_flow(void);
+
+/**
+ * Called by the porting layer to set platform specific or custom SMP encryption
+ *
+ * @param[in] p_smp_adapter : SMP Adaptor configurations and callbacks
+ *
+ * @return   <b> WICED_SUCCESS </b> : on success; \n
+ *           <b> WICED_ERROR  </b>  : if an error occurred
+ *
+ */
+wiced_result_t wiced_bt_platform_set_smp_adapter(const wiced_bt_smp_adapter_t *p_smp_adapter);
+
+/**
+ * Called by the porting layer to set default SMP encryption
+ *
+ * @return   <b> WICED_SUCCESS </b> : on success; \n
+ *           <b> WICED_ERROR  </b>  : if an error occurred
+ */
+wiced_result_t wiced_bt_set_default_smp_adapter(void);
+
+/**
+* Called by porting layer to get the stored local keys from the app.
+* If application returns WICED_SUCCESS, the keys are written to the stack to start
+* Controller based address resolution with \ref wiced_ble_init_ctlr_private_addr_generation or
+* Host based address resolution with \ref wiced_ble_init_host_private_addr_generation
+* Else, \ref wiced_ble_create_local_identity_keys call needs to be invoked
+*/
+wiced_result_t wiced_ble_read_local_identity_keys_from_app(wiced_bt_local_identity_keys_t *p_local_keys);
+
+
+/**
+ * Create new local keys to be used for device privacy
+ * The new local keys generated are returned to the application in \ref BTM_LOCAL_IDENTITY_KEYS_UPDATE_EVT
+ * The porting layer can start,
+* Controller based address resolution with \ref wiced_ble_init_ctlr_private_addr_generation or
+* Host based address resolution with \ref wiced_ble_init_host_private_addr_generation
+*
+* @return  wiced_result_t
+ *
+ */
+wiced_result_t wiced_ble_create_local_identity_keys(void);
+
+/**
+ * API to write back saved local keys and init host based address generation.
+ * The local keys sent down in this call are used to generate the local RPA (Resolvable
+ * Private Address). The RPA generated is required to be refreshed periodically by the host based on the
+ * suggested \ref wiced_bt_cfg_ble_t.rpa_refresh_timeout member of wiced_bt_cfg_settings_t.p_ble_cfg
+ *
+ * @param[in] p_local_keys : device local keys generated from a previous call to
+ *  \ref wiced_ble_create_local_identity_keys
+ *
+ * @return  wiced_result_t
+ *
+ */
+wiced_result_t wiced_ble_init_host_private_addr_generation(wiced_bt_local_identity_keys_t *p_local_keys);
+
+/**
+ * API to write back saved local keys and controller based address generation.
+ * The local keys sent down in this call are used to generate the local RPA (Resolvable
+ * Private Address). The RPA generated is required to be refreshed periodically by the controller based on the
+ * suggested \ref wiced_bt_cfg_ble_t.rpa_refresh_timeout member of wiced_bt_cfg_settings_t.p_ble_cfg
+ *
+ * @param[in] p_local_keys : device local keys generated from a previous call to
+ * \ref wiced_ble_create_local_identity_keys
+ *
+ * @return  wiced_result_t
+ *
+ */
+wiced_result_t wiced_ble_init_ctlr_private_addr_generation(wiced_bt_local_identity_keys_t *p_local_keys);
+
+/**
+* Helper API to issue BTM_ENABLED_EVT
+* @param p_app_management_callback Management callback set by the application
+*/
+wiced_bool_t wiced_bt_issue_btm_enabled_evt(wiced_bt_management_cback_t p_app_management_callback);
+
+/**
+* Helper API to get the startup flags
+* @return uint32_t value
+*/
+uint32_t wiced_bt_get_btm_startup_flags(void);
+
 /**@} wiced_bt_platform_group */
+
+#endif //__WICED_BT_STACK_PLATFORM_H__

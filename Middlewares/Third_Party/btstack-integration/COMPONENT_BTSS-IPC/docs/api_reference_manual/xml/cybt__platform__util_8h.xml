@@ -4,13 +4,13 @@
     <compoundname>cybt_platform_util.h</compoundname>
     <includes local="no">stdbool.h</includes>
     <incdepgraph>
-      <node id="21">
+      <node id="18">
         <label>stdbool.h</label>
       </node>
-      <node id="20">
+      <node id="17">
         <label>cybt_platform_util.h</label>
         <link refid="cybt__platform__util_8h"/>
-        <childnode refid="21" relation="include">
+        <childnode refid="18" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -33,7 +33,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_util.h" line="45" column="1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_util.h" line="45" column="1"/>
       </memberdef>
       <memberdef kind="function" id="cybt__platform__util_8h_1a369338eaa157f977a48f8362f9187054" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -53,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_util.h" line="55" column="1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_util.h" line="55" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -112,6 +112,6 @@
 <codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="63"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_util.h"/>
+    <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_util.h"/>
   </compounddef>
 </doxygen>

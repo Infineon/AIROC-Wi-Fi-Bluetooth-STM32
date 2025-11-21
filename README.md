@@ -1,4 +1,4 @@
-# Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack 1.7.1
+# Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack 1.8.0
 
 ## Overview
 The Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack is an extension of the CMSIS-Pack standard established by Arm
@@ -35,8 +35,8 @@ The Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack uses below assets:
 | ---------------------------------------------------------------------------------------------------------- | ------- |
 | [LwIP](https://git.savannah.nongnu.org/cgit/lwip.git)                                                      |  2.1.2  |
 | [abstraction-rtos](https://github.com/Infineon/abstraction-rtos)                                           |  1.8.0  |
-| [bluetooth-freertos](https://github.com/Infineon/btstack-integration)                                      |  4.3.1  |
-| [btstack](https://github.com/Infineon/btstack)                                                             |  3.7.1  |
+| [bluetooth-freertos](https://github.com/Infineon/btstack-integration)                                      |  6.2.1  |
+| [btstack](https://github.com/Infineon/btstack)                                                             |  4.1.4  |
 | [command-console](https://github.com/Infineon/command-console)                                             |  6.0.0  |
 | [connectivity-utilities](https://github.com/Infineon/connectivity-utilities)                               |  4.4.0  |
 | [core-lib](https://github.com/Infineon/core-lib)                                                           |  1.3.1  |
@@ -50,11 +50,11 @@ The Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack uses below assets:
 | [secure-sockets](https://github.com/Infineon/secure-sockets)                                               |  3.0.0  |
 | [stm32_mw_freertos](https://github.com/STMicroelectronics/stm32_mw_freertos)                               | 10.4.6  |
 | [wpa3-external-supplicant](https://github.com/Infineon/wpa3-external-supplicant)                           |  1.1.0  |
-| [aws-iot-device-sdk-port](https://github.com/Infineon/aws-iot-device-sdk-port)                             |  2.3.0  |
+| [aws-iot-device-sdk-port](https://github.com/Infineon/aws-iot-device-sdk-port)                             |  2.4.0  |
 | [aws-iot-device-sdk-embedded-C](https://github.com/aws/aws-iot-device-sdk-embedded-C)                      | 202103  |
 | [mqtt](https://github.com/Infineon/mqtt)                                                                   |  4.3.0  |
-| PAL                                                                                                        |  1.6.1  |
-| Device                                                                                                     |  1.6.1  |
+| PAL                                                                                                        |  1.8.0  |
+| Device                                                                                                     |  1.8.0  |
 
 ## Additional details
 The pack is compliant with the full CMSIS-Pack standard, with additional requirements/restrictions
@@ -80,4 +80,4 @@ owners.
 
 -------------------------------------------------------------------------------
 
-© Cypress Semiconductor Corporation, 2021-2025.
+© Infineon Technologies Corporation, 2021-2025.

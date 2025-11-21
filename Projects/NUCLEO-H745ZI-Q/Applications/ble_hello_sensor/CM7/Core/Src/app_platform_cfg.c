@@ -93,7 +93,7 @@ const cybt_platform_config_t bt_platform_cfg_settings =
                 .sleep_mode_enabled   = WICED_FALSE
                 #endif
             #else // if (bt_0_power_0_ENABLED == 1)
-            .sleep_mode_enabled   = WICED_TRUE,
+            .sleep_mode_enabled   = WICED_FALSE,
             .device_wakeup_pin    = CYBSP_BT_DEVICE_WAKE,
             .host_wakeup_pin      = CYBSP_BT_HOST_WAKE,
             .device_wake_polarity = CYBT_WAKE_ACTIVE_LOW,

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023, Cypress Semiconductor Corporation or
+ * Copyright 2016-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -44,7 +44,9 @@
 **
 **
 *****************************************************************************/
-#pragma once
+#ifndef __WICED_BT_A2D_M12_H__
+#define __WICED_BT_A2D_M12_H__
+
 /**
  * @cond DUAL_MODE
  * @addtogroup  wicedbt_a2dp_mpeg_1_2    MPEG-1,2 Support
@@ -199,3 +201,5 @@ wiced_bt_a2d_status_t wiced_bt_a2d_pars_m12info(wiced_bt_a2d_m12_cie_t *p_ie, ui
 
 /** @} wicedbt_a2dp_mpeg_1_2 */
 /* @endcond*/
+
+#endif //__WICED_BT_A2D_M12_H__

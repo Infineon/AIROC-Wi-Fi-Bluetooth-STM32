@@ -165,6 +165,10 @@ standard names. */
 /* USER CODE BEGIN Defines */
 /* Section where parameter definitions can be added (for instance, to override default ones in FreeRTOS.h) */
 
+/* Enable using CY_HAL for rtos-abstraction */
+#ifndef CY_USING_HAL
+#define CY_USING_HAL
+#endif
 #if defined (__GNUC__) && !defined (__CC_ARM)
  #define configUSE_NEWLIB_REENTRANT              1
 #endif

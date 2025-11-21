@@ -1488,7 +1488,8 @@
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/include/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/common/</state>
-                    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/debug/</state>
+		    <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/debug/</state>
+		     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/platform_hal_wrappers/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack/wiced_include/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include/</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE/</state>
@@ -2499,13 +2500,19 @@
                     <configuration>wifi_bt_tester_CM4</configuration>
                 </excluded>
                 <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\btstack-integration\COMPONENT_HCI-UART\debug\cybt_debug_uart.c</name>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\btstack-integration\COMPONENT_HCI-UART\common\cybt_hci_rx_task.c</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
                     </excluded>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\btstack-integration\COMPONENT_HCI-UART\common\cybt_hci_rx_task.c</name>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\btstack-integration\COMPONENT_HCI-UART\common\cybt_serialize.c</name>
+                    <excluded>
+                        <configuration>wifi_bt_tester_CM4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\btstack-integration\COMPONENT_HCI-UART\platform_hal_wrappers\platform_hal_wrapper.c</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
                     </excluded>
@@ -2956,12 +2963,6 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\wifi-host-driver\COMPONENT_WIFI5\resources\clm\COMPONENT_43012\COMPONENT_MURATA-1LV\43012C0_clm_blob.c</name>
-                    <excluded>
-                        <configuration>wifi_bt_tester_CM4</configuration>
-                    </excluded>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Middlewares\Third_Party\Infineon_Wireless_Connectivity\btstack-integration\COMPONENT_HCI-UART\firmware\COMPONENT_43012\COMPONENT_MURATA-1LV\w_bt_firmware_controller.c</name>
                     <excluded>
                         <configuration>wifi_bt_tester_CM4</configuration>
                     </excluded>

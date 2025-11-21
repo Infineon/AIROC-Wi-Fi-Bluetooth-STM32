@@ -13,15 +13,12 @@
 
 #ifdef FPGA_TEST_PLATFORM
 #define PATCH_DOWNLOAD_FN    NULL
+#define GET_TRNG_FN          NULL
 #else
 #define PATCH_DOWNLOAD_FN    bt_post_reset_cback
 #endif /* FPGA_TEST_PLATFORM */
 
 #define BLESS_CONTROLLER     WICED_FALSE
-
-#if !defined (DISABLE_LPTIMER)
-#define DISABLE_LPTIMER
-#endif
 
 #define LOCK                             (true)
 #define UNLOCK                           (false)
@@ -35,7 +32,7 @@
 #define RELBUF_DELAY()
 #endif
 
-
+void cybt_platform_btss_get_trng(uint8_t *p_rand, uint8_t *p_len);
 
 #endif // CYBT_PLATFORM_INTERNAL_H
 

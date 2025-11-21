@@ -1,7 +1,7 @@
 var group__gentypes =
 [
-    [ "Wiced BT Types", "group__bt__types.html", "group__bt__types" ],
-    [ "WICED result", "group___result.html", "group___result" ],
+    [ "AIROC Bluetooth Types", "group__bt__types.html", "group__bt__types" ],
+    [ "AIROC result", "group___result.html", "group___result" ],
     [ "WICED_BT_TRACE", "group__gentypes.html#ga1f4cfe52f11524db00596ab45f4cf9b5", null ],
     [ "WICED_FALSE", "group__gentypes.html#ga98455f16ecc9e3b1e94af3d3437416f5", null ],
     [ "WICED_BT_TRACE_ARRAY", "group__gentypes.html#ga10ff3340ed1baba5a78b417fdada3113", null ],
@@ -17,6 +17,7 @@ var group__gentypes =
     [ "WICED_MEMSET", "group__gentypes.html#ga4f0e2d112639989c914af8f8503362cc", null ],
     [ "WICED_MEMMOVE", "group__gentypes.html#ga9182630eeae6bc96b5fcc983cb7da366", null ],
     [ "WICED_MEMCMP", "group__gentypes.html#gab7793d9d0219f4c7ec333562b5b91407", null ],
+    [ "ADDRESS_TO_BUFFER", "group__gentypes.html#ga5b39fce8d4bf2ee79d4249fe4acdae39", null ],
     [ "wiced_bool_t", "group__gentypes.html#ga2bc92bd117cfd3f6ec4ae452e6ced064", null ],
-    [ "pf_wiced_exception", "group__gentypes.html#gabc649ae1a0417bf22e71c4b72543a67f", null ]
+    [ "pf_wiced_exception", "group__gentypes.html#ga3485f1bcadb8362abc051922bd195a8d", null ]
 ];

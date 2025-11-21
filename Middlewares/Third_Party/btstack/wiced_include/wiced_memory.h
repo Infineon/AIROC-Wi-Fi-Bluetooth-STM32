@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2023, Cypress Semiconductor Corporation or
+ * Copyright 2019-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -40,26 +40,28 @@
  * When a heap or a pool is created, this utility allocates required chunk of memory from the system and manages it for the creator.
  */
 
-#pragma once
+#ifndef __WICED_MEMORY_H__
+#define __WICED_MEMORY_H__
+
 
 #include "wiced_data_types.h"
 #include "wiced_result.h"
 
 
-/* WICED does not care about the structure of the contents of a WICED buffer */
-/** WICED BT Buffer */
+/* AIROC does not care about the structure of the contents of a AIROC buffer */
+/** AIROC Bluetooth Buffer */
 typedef void wiced_bt_buffer_t;
 
 /* Application does not know or care about structure used to manage buffer pools or heaps */
-/** WICED BT Pool */
+/** AIROC Bluetooth Pool */
 typedef struct t_wiced_bt_pool wiced_bt_pool_t;
-/** WICED BT Heap */
+/** AIROC Bluetooth Heap */
 typedef struct t_wiced_bt_heap wiced_bt_heap_t;
 
 /** If an application wants to get a buffer from the default heap, he can use this. */
 #define WICED_DEFAULT_HEAP      ((wiced_bt_heap_t *)NULL)
 
-/** wiced bt buffer pool statistics */
+/** AIROC Bluetooth buffer pool statistics */
 typedef struct wiced_bt_pool_statistics_s
 {
     uint16_t    pool_size;                  /**< pool buffer size */
@@ -69,7 +71,7 @@ typedef struct wiced_bt_pool_statistics_s
 }wiced_bt_pool_statistics_t;
 
 
-/** wiced bt heap statistics */
+/** AIROC Bluetooth heap statistics */
 typedef struct wiced_bt_heap_statistics_s
 {
     uint16_t    heap_size;                   /**< heap size */
@@ -104,7 +106,9 @@ extern "C" {
 #endif
 
 /**
- * Returns the number of free bytes of RAM left
+ * Returns the number of free bytes of RAM available for allocation from the
+ * dynamic memory allocation of the Bluetooth Controller firmware
+ * @note This API is valid only for embedded platforms where the application,stack and controller memory is allocated from a common dynamic memory area.
  *
  * @return          the number of free bytes of RAM left
  */
@@ -118,7 +122,7 @@ uint32_t wiced_memory_get_free_bytes( void );
 * wiced_bt_get_buffer_from_pool.
 *
 * @param[in]       name : Friendly name of the heap
-* @param[in]       p_area : Pointer to area to use for the heap. If NULL, WICED will allocate the area.
+* @param[in]       p_area : Pointer to area to use for the heap. If NULL, AIROC will allocate the area.
 * @param[in]       size : Size the area passed in. If no area passed in, this is the size of the heap desired.
 * @param[in]       p_lock : Pointers to lock functions to use during heap manipulation. If NULL, then
 *                  it is assumed that the application handles disabling of preemption.
@@ -236,7 +240,7 @@ void wiced_bt_free_buffer (wiced_bt_buffer_t* p_buf);
 uint32_t wiced_bt_get_buffer_size (wiced_bt_buffer_t *p_buf);
 
 /**
- * Called by an application to initialize a WICED buffer queue.
+ * Called by an application to initialize a AIROC buffer queue.
  * Pointers to lock and unlock functions may be NULL if application
  * has handled preemption outside of the queue management code.
  *
@@ -384,15 +388,37 @@ wiced_bool_t wiced_bt_get_heap_statistics_with_index(int index, wiced_bt_heap_st
 wiced_result_t wiced_bt_get_pool_statistics(wiced_bt_pool_t *p_pool, wiced_bt_pool_statistics_t *p_stats);
 
 /**
- * Set the exception callback
+ * Set the exception callback for stack, controller, and porting layer exceptions:
+ *
+ * Note: wiced_set_exception_callback() needs to be defined in porting layer of each platform where
+ * pf_handler callback function is also defined.
  *
  * @param[in]       pf_handler : Exception callback function
  *
  * @return          void
+ *
  */
 void wiced_set_exception_callback(pf_wiced_exception pf_handler);
+
+#ifdef STACK_EXCEPTION_VERBOSE
+/**
+ * Get exception message corresponding to the exception error code.
+ *.
+ *
+ * @param[in]       code :  Exception code - Numerical value of an exception
+ *                          (See CYBT_STACK_BASE_EXCEPTION in wiced_bt_stack_platform.h for stack exceptions
+ *                          See CYBT_CONTROLLER_BASE_EXCEPTION & CYBT_PORTING_BASE_EXCEPTION in cybt_platform_config.h
+ *                          for controller and porting layer exceptions)
+ *
+ * @return          Message string corresponds to the code
+ *
+ */
+const char* wiced_get_exception_message(uint16_t code);
+#endif
 
 #ifdef __cplusplus
 }
 #endif
 /** @} */
+
+#endif //__WICED_MEMORY_H__

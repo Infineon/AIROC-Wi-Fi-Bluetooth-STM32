@@ -26,10 +26,7 @@
 #include <stdarg.h>
 #include "cybt_platform_interface.h"
 #include "cybt_platform_trace.h"
-
-#ifdef ENABLE_DEBUG_UART
-#include "cybt_debug_uart.h"
-#endif // ENABLE_DEBUG_UART
+#include "cybt_platform_config.h"
 
 /******************************************************************************
  *                                Constants
@@ -87,22 +84,20 @@ void cybt_platform_deinit(void)
     cybt_platform_stack_timer_deinit();
 }
 
+__attribute__((weak)) cybt_result_t cybt_debug_uart_send_trace(uint16_t length, uint8_t* p_data)
+{
+	return CYBT_SUCCESS;
+}
+
 void cybt_platform_log_print(const char *fmt_str, ...)
 {
     static char buffer[CYBT_TRACE_BUFFER_SIZE];
     va_list ap;
     int len;
-    cy_time_t time;
 
-    cy_rtos_get_time(&time);
     va_start(ap, fmt_str);
     len = vsnprintf(buffer, CYBT_TRACE_BUFFER_SIZE, fmt_str, ap);
     va_end(ap);
 
-#ifdef ENABLE_DEBUG_UART
     cybt_debug_uart_send_trace(len, (uint8_t*)buffer);
-#else // ENABLE_DEBUG_UART
-    UNUSED_VARIABLE(len);
-    printf("[%u] %s\r\n", (unsigned int)time, buffer);
-#endif // ENABLE_DEBUG_UART
 }

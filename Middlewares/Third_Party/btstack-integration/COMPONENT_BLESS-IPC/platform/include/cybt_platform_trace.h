@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "wiced_data_types.h"
+#include "cybt_platform_config.h"
 
 /**
  *  @addtogroup    platform_trace   Bluetooth Platform Trace
@@ -52,11 +53,7 @@
 #define INITIAL_TRACE_LEVEL_HCI_LOG       (CYBT_TRACE_LEVEL_ERROR)
 #define INITIAL_TRACE_LEVEL_MEMORY        (CYBT_TRACE_LEVEL_ERROR)
 #define INITIAL_TRACE_LEVEL_PRM           (CYBT_TRACE_LEVEL_ERROR)
-#ifdef ENABLE_DEBUG_UART
-#define INITIAL_TRACE_LEVEL_STACK         (CYBT_TRACE_LEVEL_MAX)
-#else
 #define INITIAL_TRACE_LEVEL_STACK         (CYBT_TRACE_LEVEL_ERROR)
-#endif
 #define INITIAL_TRACE_LEVEL_APP           (CYBT_TRACE_LEVEL_ERROR)
 #define INITIAL_TRACE_LEVEL_BT_TASK       (CYBT_TRACE_LEVEL_ERROR)
 

@@ -1,0 +1,7 @@
+[Appli:ProjectFiles]
+HeaderPath=../Appli/MBEDTLS/App;
+[Appli:Groups]
+Application/User/Core/Src=../Appli/Core/Src/wifi_task.c;
+Application/User/MBEDTLS=../Appli/MBEDTLS/App/mbedtls.c;../Appli/MBEDTLS/Target/custom_rng.c;
+[Appli:Others]
+Define=CYBSP_WIFI_CAPABLE;HAVE_SNPRINTF;CY_USING_HAL;COMPONENT_LWIP;MBEDTLS_USER_CONFIG_FILE:"mbedtls_user_config.h";CY_DISABLE_XMC7000_DATA_CACHE;BLHS_SUPPORT;DM_43022C1

@@ -32,6 +32,7 @@
 
 #include "wiced_bt_stack_platform.h"
 #include "cybt_platform_config.h"
+#include "cybt_platform_interface.h"
 
 /******************************************************************************
  *                                Constants
@@ -63,12 +64,12 @@ extern void host_stack_platform_interface_deinit(void);
 extern uint16_t cybt_platform_get_event_id(void *event);
 extern void cybt_platform_hci_post_stack_init(void);
 extern bool cybt_platform_hci_process_if_coredump(uint8_t *p_data, uint32_t length);
-extern void cybt_platform_exception_handler(cybt_exception_t error, uint8_t *info, uint32_t length);
+extern void cybt_platform_exception_handler(uint16_t error, uint8_t *ptr, uint32_t length);
 
 /******************************************************************************
  *                           Function Definitions
  ******************************************************************************/
-
+BTSTACK_PORTING_SECTION_BEGIN
 static uint8_t task_queue_utilization(void)
 {
     size_t item_cnt_in_queue = 0;
@@ -82,7 +83,9 @@ static uint8_t task_queue_utilization(void)
 
     return (item_cnt_in_queue * 100 / BTU_TASK_QUEUE_COUNT);
 }
+BTSTACK_PORTING_SECTION_END
 
+BTSTACK_PORTING_SECTION_BEGIN
 cybt_result_t cybt_send_msg_to_bt_task(void *p_bt_msg,
                                        bool is_from_isr
                                        )
@@ -113,7 +116,9 @@ cybt_result_t cybt_send_msg_to_bt_task(void *p_bt_msg,
 
     return CYBT_SUCCESS;
 }
+BTSTACK_PORTING_SECTION_END
 
+BTSTACK_PORTING_SECTION_BEGIN
 static void handle_hci_rx_packet(void *event)
 {
     hci_packet_type_t pti;
@@ -147,16 +152,17 @@ static void handle_hci_rx_packet(void *event)
             wiced_bt_process_isoc_data(&packet_buffer[0], length);
             break;
 
-#ifdef ENABLE_DEBUG_UART
         case HCI_PACKET_TYPE_DIAG:
             //sent packet to tracing uart
             break;
-#endif
+
         default:
             break;
     }
 }
+BTSTACK_PORTING_SECTION_END
 
+BTSTACK_PORTING_SECTION_BEGIN
 void bt_task_handler(cy_thread_arg_t arg)
 {
     cy_rslt_t  result;
@@ -244,6 +250,9 @@ void bt_task_handler(cy_thread_arg_t arg)
                             cybt_platform_exception_handler(CYBT_CONTROLLER_RESTARTED, NULL, 0);
                         }
                         break;
+                    case BT_EVT_APP_SERIALIZATION:
+                        cybt_call_app_in_stack_context();
+                        break;
                     default:
                         BTTASK_TRACE_ERROR("bt_task(): Unknown event (0x%x)", event_id);
                         break;
@@ -252,6 +261,7 @@ void bt_task_handler(cy_thread_arg_t arg)
         }// if(BT_TASK_EVENT == (BT_TASK_EVENT & wait_for))
     } // for(;;)
 }
+BTSTACK_PORTING_SECTION_END
 
 cybt_result_t cybt_bttask_init(void* p_arg)
 {

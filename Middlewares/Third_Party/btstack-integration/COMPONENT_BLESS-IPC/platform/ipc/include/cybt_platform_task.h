@@ -33,6 +33,8 @@
 
 #include "cybt_result.h"
 
+#include "wiced_bt_version.h"
+
 /*****************************************************************************
  *                                Macros
  *****************************************************************************/
@@ -40,7 +42,15 @@
 #define BT_TASK_NUM                        (1)
 #define BT_TASK_NAME_BTU                   "CYBT_BT_Task"
 #define BTU_TASK_PRIORITY                  (CY_RTOS_PRIORITY_HIGH)
+
+#ifndef BTU_TASK_STACK_SIZE
+#ifdef COMPONENT_BTSS_IPC
+#define BTU_TASK_STACK_SIZE                (0x1200)
+#else
 #define BTU_TASK_STACK_SIZE                (0x2400)
+#endif // ifdef COMPONENT_BTSS_IPC
+#endif // ifndef BTU_TASK_STACK_SIZE
+
 #define CYBT_TASK_DEFAULT_POOL_SIZE        (2048)
 #define CYBT_INVALID_QUEUE_UTILIZATION     (0xFF)
 
@@ -54,7 +64,7 @@
 #define BT_EVT_TASK_BOOT_COMPLETES         (BT_EVT_STATIC_GROUP | 0x0601)
 #define BT_EVT_TASK_SHUTDOWN               (BT_EVT_STATIC_GROUP | 0x0101)
 #define BT_EVT_TASK_RESET_COMPLETE         (BT_EVT_STATIC_GROUP | 0x0102)
-
+#define BT_EVT_APP_SERIALIZATION           (BT_EVT_STATIC_GROUP | 0x0801)
 
 #define IS_BT_EVT_STATIC(e)                ( ( (e) & (BT_EVT_STATIC_GROUP) ) ? true : false )
 

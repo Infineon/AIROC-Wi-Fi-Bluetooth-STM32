@@ -7,6 +7,135 @@ Following are the limitations when using host based address resolution (only app
     If the device is acting as a central it should not enable privacy since if a peripheral sends a directed connectable ADV, the controller would not be able to match the RPA and the connection will fail.
 
 ## Changelog
+## V4.1.4
+### BTSTACK4.1.4 contains following updates and fixes -
+ - Bug fix to restart ATT indication and request queues on GATT TX complete
+ - Synchronize updating controller generated RPA with changes in the advertisement data
+ - Documentation update of wiced_bt_ble_encrypt_adv_packet and wiced_bt_ble_decrypt_adv_packet APIs
+ - Added Support for SWB (LC3) in SCO
+    - In  wiced_bt_sco_params_t, use_wbs field changed from bool to uint8. This allows SCO to now support Narrow band, wide band as well as super wide band
+    - For newly added LC3, the coding format is set as transparent
+ - A2DP 1.4 support
+    - MPEG 2,4 parser updated
+        - DRC is optional feature in MPEG 2,4. Current we do not support DRC
+    - Added parser for MPEG-D USAC
+    - Added mdu to wiced_bt_a2dp_codec_info_t
+
+## V4.1.3
+### Fixes in BTSTACK4.1.3
+ - Fix to not update the random address if rpa_refresh_timeout is set to 0
+
+## V4.1.2
+### Fixes in BTSTACK4.1.2
+ - Fix for PSOC + BLESS controller not responding to scan request from a private device
+
+## V4.1.0
+### BTSTACK4.1 contains following enhancements and fixes -
+ - Creation of stack libraries using LLVM toolchain
+### Advertisement and scan API Updates
+  - wiced_ble_ext_scan_set_config is removed. Use **wiced_ble_ext_scan_register_cb** to register extended scan result callback.
+  - Optionally use **wiced_ble_ext_scan_configure_reassembly** to reassemble partial extended adv data reports
+  - Structure member data_len of **wiced_ble_padv_rsp_report_event_data_t** is renamed to data_length
+  - Structure member max_periodic_adv_len of **wiced_ble_padv_create_sync_params_t** is removed. Optionally use **wiced_ble_padv_alloc_segment_assembler** to reassemble partial periodic adv data segments
+  - Structure member data of **wiced_ble_padv_report_event_data_t** is renamed to p_data
+### Privacy APIs
+  - Deprecated API wiced_bt_dev_delete_bonded_device. **Stack does not store any bonding information**. For applications which use BLE mode, invoke **wiced_bt_dev_remove_device_from_address_resolution_db** to remove the device from the resolving list.
+### Background connection APIs
+  - Background connections can be initiated by central devices by adding peripheral device addresses to the filter list.
+  - To add to the filter list use **wiced_ble_add_to_filter_accept_list**
+  - To remove a device from the filter list use **wiced_ble_remove_from_filter_accept_list**
+  - Initiate a background connection with the filter list use **wiced_ble_legacy_create_connection** (legacy connection), **wiced_ble_ext_create_connection** (extended)
+  - The following APIs are no longer supported
+    - wiced_bt_ble_set_background_connection_type
+    - wiced_bt_ble_update_background_connection_device
+    - wiced_bt_ble_update_advertising_filter_accept_list
+    - wiced_bt_ble_update_scanner_filter_list
+    - wiced_bt_ble_clear_filter_accept_list
+    - wiced_bt_ble_get_filter_accept_list_size
+    - wiced_bt_gatt_listen
+### wiced_ble_key_distribution_t
+  - Corrected the enumerations for **wiced_ble_key_distribution_e**
+### Setting the local device address
+- Use **wiced_bt_set_local_bdaddr** to setup the **BLE_ADDR_PUBLIC** or **BLE_ADDR_RANDOM** address.
+- If BLE_ADDR_RANDOM is used, ensure that the MSB bits are set to b'11' for static addresses and b'00' for non-resolvable addresses
+- Addresses set using this API are used during scanning, advertising, create connection, periodic advertising
+### Random address management
+- BTSTACK4.1 adds APIs to allow application control while creating IRK (Identity Resolving Key).
+- Use **wiced_ble_create_local_identity_keys** to create new keys, which are returned to the app in **BTM_LOCAL_IDENTITY_KEYS_UPDATE_EVT**
+- In case the application already has previously created local keys, use
+  - **wiced_ble_init_host_private_addr_generation** for controllers which do not support controller based privacy
+  - **wiced_ble_init_ctlr_private_addr_generation** for controllers which support controller based privacy
+- These APIs are invoked in the porting layer, but can be called from the application by setting ```-DENABLE_CREATE_LOCAL_KEYS=0``` in the application makefile
+
+
+## V4.0.0
+BTSTACK4.0 is BT6.0 certified. DN: [Q359398](https://qualification.bluetooth.com/ListingDetails/291872)
+
+BTSTACK4.0 contains the following enhancements -
+ - Major update for Extended/Periodic/PAWR advertising and scanning APIs
+ - Major update for ISOC APIs
+ - API change \ref wiced_bt_l2cap_update_ble_conn_params
+ - Legacy advertising, scanning, connection APIs are unaffected by this release.
+ - Applications are expected to either use legacy or extended advertisement, scan APIs
+ - To create a legacy LE connection use \ref wiced_bt_gatt_le_connect
+ - To create a extended LE connection use \ref wiced_ble_ext_create_connection
+ - To detect errors related to mixing of legacy and extended APIs add the following to the application makefile and fix the reported warnings
+   - Using only legacy APIs
+     ```
+     DEFINES+=WICED_BLE_ENABLE_LEGACY_EXTENDED_API_ERROR_CHECK
+     DEFINES+=WICED_BLE_ENABLE_EXTENDED_ADV_API=0
+     DEFINES+=WICED_BLE_ENABLE_LEGACY_ADV_API=1
+     ```
+   - Using only extended APIs
+     ```
+     DEFINES+=WICED_BLE_ENABLE_LEGACY_EXTENDED_API_ERROR_CHECK
+     DEFINES+=WICED_BLE_ENABLE_EXTENDED_ADV_API=1
+     DEFINES+=WICED_BLE_ENABLE_LEGACY_ADV_API=0
+     ```
+
+## V3.9.2
+BTSTACK3.9.2 is a patch release with following enhancements -
+ - Modified wiced_bt_dev_read_tx_power() to send HCI_Read_Transmit_Power_Level HCI command
+
+## V3.9.1
+BTSTACK3.9.1 is a patch release with following enhancements -
+ - Improved Doxygen API content and formatting
+
+## V3.9.0
+BTSTACK3.9 contains following enhancements and fixes -
+ - Added a new wiced API, wiced_bt_set_transmit_power_range() (See API documentation for details)
+ - Added a fix to disallow signed write command on EATT channel as per BT Core Spec
+
+## V3.8.2
+BTSTACK3.8.2 is a patch release with following enhancement -
+ - Added a new wiced API, wiced_bt_ble_set_data_packet_length(), to set maximum transmission payload size and maximum packet transmission time to be used for LL DATA PDUs on a given connection
+
+## V3.8.1
+BTSTACK3.8.1 is a patch release with following enhancements and fixes -
+ - Added new wiced API, wiced_ble_isoc_read_tx_sync(), to send HCI_LE_Read_ISO_TX_Sync HCI command
+ - Fixed the issue in AIROC™ BT/BLE stack deinitialization
+ - Properly set maximum transmission payload size to be used for LL data PDUs
+ - Changes to stop PAwR extended connection when Enhanced connection complete error is received
+ - Corrected enum value of WICED_BLE_ISOC_DPD_INPUT_OUTPUT_BIT
+ - Changes for optimization of acl link allocation in stack
+ - Updated wiced_memory_get_free_bytes() and wiced_bt_ble_cache_ext_conn_config() API documentation
+ - Added support to configure input and output coding format for SCO connection using newly added wiced_bt_read_esco_parameters() and wiced_bt_config_esco_parameters() APIs
+
+## V3.8.0
+BTSTACK3.8 is BT5.4 certified. QDID: 219623.
+This release contains bug fixes and and an enhancement listed below.
+ - Support for PAwR added, refer to wiced_bt_ble.h for details of interfaces
+ - Added utility functions for Advertisement encryption and decryption, see wiced_bt_ble_encrypt_adv_packet and wiced_bt_ble_decrypt_adv_packet
+ - Implementation of BT Core spec erratum 22240
+ - Added API wiced_bt_app_serialize_function that can be called by applications to serialize the execution of an application function in the BT stack context
+ - Updates to optimize the code size for Dual-mode stack
+ - Support for connection subrate request procedure, added the API wiced_bt_l2cap_subrate_request and related events
+ - Added API wiced_bt_ble_notify_on_device_address_change to notify the application on device address change via BTM_BLE_DEVICE_ADDRESS_UPDATE_EVENT event.
+ - Other bug fixes and documentation enhancements.
+
+## V3.7.2
+BTSTACK3.7.2 is a patch release with following fix -
+ - Fix an issue where GATT congestion release notification was not sent by Server side
 
 ## V3.7.1
 BTSTACK3.7.1 is a patch release with following enhancements -

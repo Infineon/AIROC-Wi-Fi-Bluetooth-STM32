@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023, Cypress Semiconductor Corporation or
+ * Copyright 2016-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -34,7 +34,7 @@
 **
 ** Name:         wiced_data_types.h
 **
-** Description:  wiced data types header file for VS2010 projects
+** Description:  AIROC data types header file for VS2010 projects
 **
 ** Copyright (c) Cypress Semiconductor
 **
@@ -53,10 +53,10 @@
  */
 
 #ifndef WICED_FALSE
-#define WICED_FALSE 0   /**< Wiced false */
+#define WICED_FALSE 0   /**< AIROC false */
 #endif // !WICED_FALSE
 #ifndef WICED_TRUE
-#define WICED_TRUE  1   /**< Wiced true */
+#define WICED_TRUE  1   /**< AIROC true */
 #endif // !WICED_TRUE
 
 #ifndef FALSE
@@ -87,13 +87,16 @@
 #define UNUSED_VARIABLE(x) /*@-noeffect@*/ ( (void)(x) ) /*@+noeffect@*/
 #endif
 
-/* To prevent complier to optimize with LDM and STM instructions */
-#define WICED_MEMCPY(a, b, c)       memcpy((void*)(a), (const void*)(b), c)     /**< Wiced Memory copy*/
-#define WICED_MEMSET(a, b, c)       memset((void*)(a), b, c)                    /**< Wiced Memory set */
-#define WICED_MEMMOVE(a, b, c)      memmove((void*)(a), (const void*)(b), c)    /**< Wiced Memory move*/
-#define WICED_MEMCMP(a, b, c)       memcmp((void*)(a), (const void*)(b), c)     /**< Wiced Memory compare*/
+/**  To prevent complier to optimize with LDM and STM instructions */
+#define WICED_MEMCPY(a, b, c)       memcpy((void*)(a), (const void*)(b), c)     /**< AIROC Memory copy*/
+#define WICED_MEMSET(a, b, c)       memset((void*)(a), b, c)                    /**< AIROC Memory set */
+#define WICED_MEMMOVE(a, b, c)      memmove((void*)(a), (const void*)(b), c)    /**< AIROC Memory move*/
+#define WICED_MEMCMP(a, b, c)       memcmp((void*)(a), (const void*)(b), c)     /**< AIROC Memory compare*/
 
-/** Wiced Boolean */
+/** MACRO to convert an address into a 4 byte buffer*/
+#define ADDRESS_TO_BUFFER(b,a)  uintptr_t addr=(uintptr_t)a; for(int i = 0; i < 4; i++) {b[3-i] = (addr >> (i * 8)) & 0xFF;}
+
+/** AIROC Boolean */
 typedef unsigned int   wiced_bool_t;
 
 /** Function prototypes to lock and unlock (typically using a mutex). The context
@@ -106,16 +109,33 @@ typedef struct {
 }wiced_bt_lock_t;
 
  /**
-  * Exception callback :
+  * Exception callback for stack, controller & porting layer exceptions:
   *
-  * Called by stack in case of unhandled exceptions and critical errors.
+  * Invoked by porting layer on stack/controller/porting layer exceptions and critical unrecoverable errors
   *
-  * @param[in] code    : Exception code
-  * @param[in] msg     : Exception string
-  * @param[in] p_tr    : Pointer to the data (based on the exception)
+  * @param[in] code    : Exception code - Numerical value of an exception
+  *                      (See CYBT_STACK_BASE_EXCEPTION in wiced_bt_stack_platform.h for stack exceptions
+  *                      See CYBT_CONTROLLER_BASE_EXCEPTION & CYBT_PORTING_BASE_EXCEPTION in cybt_platform_config.h
+  *                      for controller and porting layer exceptions)
+  * @param[in] ptr     : Pointer to the exception data
+  * @param[in] length  : Length of the exception data
   *
   * @return void
   */
-typedef void (*pf_wiced_exception)(uint16_t code, char* msg, void* ptr);
+typedef void (*pf_wiced_exception)(uint16_t code, void* ptr, uint32_t length);
 /**@} gentypes */
+
+/**
+ *  @ingroup     app_utils
+ *
+ *  @{
+ */
+
+/**
+* Serialized function prototype
+*
+*/
+typedef void (*wiced_bt_serialized_app_func_t)(void *param);
+/**@} app_utils */
+
 #endif

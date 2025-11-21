@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023, Cypress Semiconductor Corporation or
+ * Copyright 2016-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -35,7 +35,9 @@
  * Bluetooth L2CAP Application Programming Interface
  */
 
-#pragma once
+#ifndef __WICED_BT_L2C_H__
+#define __WICED_BT_L2C_H__
+
 #include "l2cdefs.h"
 #include "hcidefs.h"
 #include "wiced_bt_types.h"
@@ -122,7 +124,7 @@
  ****************************************************************************/
 
 /** Structure for Enhanced Retransmission Mode Options
- *  Refer to Volume 3, Part A, section 5.4 of BT Core specification for details */
+ *  Refer to Volume 3, Part A, section 5.4 of Bluetooth Core specification for details */
 typedef struct
 {
     uint8_t  mode;                 /**< Requested mode of link. @cond DUAL_MODE Refer \ref L2CAP_FCR_MODE "L2CAP FCR mode" @endcond */
@@ -136,7 +138,7 @@ typedef struct
 /** Define a structure to hold the configuration parameters. Since the
 *   parameters are optional, for each parameter there is a boolean to
 *   use to signify its presence or absence.
- *  Refer to Volume 3, Part A, section 5.4 of BT Core specification for details
+ *  Refer to Volume 3, Part A, section 5.4 of Bluetooth Core specification for details
 */
 typedef struct
 {
@@ -662,14 +664,14 @@ wiced_bool_t wiced_bt_l2cap_ecrb_deregister(uint16_t psm);
  *       gets started. The callback function will be invoked when connection establishes or fails.
  *
  * @param[in] psm: PSM Value
- * @param[in] transport: BT transport for the connection
+ * @param[in] transport: Bluetooth transport for the connection
  * @param[in] bd_addr : Bluetooth device address to connect
  * @param[in] bd_addr_type: BLE_ADDR_PUBLIC or BLE_ADDR_RANDOM
- * @param[in] conn_mode : BLE connection mode
+ * @param[in] conn_mode : LE connection mode
  * @param[in] our_rx_mtu: Our RX MTU to be used for the channels
  * @param[in] our_rx_mps: Our RX MPS to be used for the channels
  * @note \p our_rx_mps must be less then \ref wiced_bt_cfg_ble_t.ble_max_rx_pdu_size or
- *  \ref wiced_bt_cfg_br_t.br_max_rx_pdu_size for BLE and BR/EDR transports respectively
+ *  \ref wiced_bt_cfg_br_t.br_max_rx_pdu_size for LE and BR/EDR transports respectively
  * @param[in] num_channels : Number of channels to be created
  * @param[in] p_rx_drb_list: list of the allocated \ref tDRB 's, one for each \p num_channels
  * @note: the size of DRB allocated must be >= \p our_rx_mtu
@@ -693,7 +695,7 @@ int wiced_bt_l2cap_ecrb_connect_req(uint16_t psm, wiced_bt_transport_t transport
 * @param[in] our_rx_mtu: Our RX MTU to be used for the channels
 * @param[in] our_rx_mps: Our RX MPS to be used for the channels
 * @note \p our_rx_mps must be less then \ref wiced_bt_cfg_ble_t.ble_max_rx_pdu_size or
-*  \ref wiced_bt_cfg_br_t.br_max_rx_pdu_size for BLE and BR/EDR transports respectively
+*  \ref wiced_bt_cfg_br_t.br_max_rx_pdu_size for LE and BR/EDR transports respectively
 * @param[out] lcid_list: list of cids (channel ids) which will be started as received in
 *                        \ref wiced_bt_l2cap_ecrb_connect_ind
 * @note       The CID list in \p lcid_list must match the CID list returned in the callback.
@@ -719,7 +721,7 @@ void wiced_bt_l2cap_ecrb_ConnectRsp(uint16_t result, uint8_t trans_id, int16_t o
  *     @note If \p new_rx_mts is zero, no change to MPS is requested.
  *           Otherwise \p new_rx_mps must be larger than the old MPS for all channels.
  *     @note \p new_rx_mps must be less then \ref wiced_bt_cfg_ble_t.ble_max_rx_pdu_size or
-*            \ref wiced_bt_cfg_br_t.br_max_rx_pdu_size for BLE and BR/EDR transports respectively
+*            \ref wiced_bt_cfg_br_t.br_max_rx_pdu_size for LE and BR/EDR transports respectively
 *
  * @param[in] num_channels : Number of channels to be created
  * @param[in] lcid_list : list of channels to be reconfigured
@@ -1067,7 +1069,7 @@ uint8_t wiced_bt_l2cap_get_chnl_fcr_mode (uint16_t lcid);
 
 /**
  * @if DUAL_MODE
- *  @addtogroup  l2cap_le_api_functions       BLE
+ *  @addtogroup  l2cap_le_api_functions       LE
  *  @ingroup     l2cap
  *  API's used for LE \ref l2cap "L2CAP".
  * @else
@@ -1079,7 +1081,7 @@ uint8_t wiced_bt_l2cap_get_chnl_fcr_mode (uint16_t lcid);
 
 
 /**
- *  @brief          Cancel a pending connection attempt to a BLE device.
+ *  @brief          Cancel a pending connection attempt to a LE device.
  *
  *  @param[in]      rem_bda : BD Address of remote
  *
@@ -1089,17 +1091,14 @@ wiced_bool_t wiced_bt_l2cap_cancel_ble_connect_req (wiced_bt_device_address_t re
 
 
 /**
- *  @brief          Update BLE connection parameters.
+ *  @brief          Update LE connection parameters.
  *
  *  @param[in]      rem_bdRa    : Remote BD Address
- *  @param[in]      min_int     : Min interval, measured in units of 1.25 ms
- *  @param[in]      max_int     : Max interval, measured in units of 1.25 ms
- *  @param[in]      latency     : Latency value
- *  @param[in]      timeout     : Timeout value, measured in units of 10 ms
+ *  @param[in]      p_conn_params : Preferred connection parameters
  *
  *  @return:        TRUE if update started
  */
-wiced_bool_t wiced_bt_l2cap_update_ble_conn_params (wiced_bt_device_address_t rem_bdRa, uint16_t min_int, uint16_t max_int, uint16_t latency, uint16_t timeout);
+wiced_bool_t wiced_bt_l2cap_update_ble_conn_params (wiced_bt_device_address_t rem_bdRa, wiced_bt_ble_pref_conn_params_t *p_conn_params);
 
 
 /**
@@ -1302,6 +1301,18 @@ uint16_t wiced_bt_l2cap_le_determ_secur_rsp (wiced_bt_device_address_t bd_addr, 
  * \return number of packets queued to tx
  */
 int wiced_bt_l2cap_get_num_queued_tx_packets(wiced_bt_device_address_t bd_addr, uint16_t lcid, int *p_fragments_with_controller);
+
+/**
+ * @brief Function to request a change in the link subrate parameters
+ *
+ * @param[in] p_subrate: subrate parameters
+ *
+ * \return wiced_result_t
+ */
+wiced_result_t wiced_bt_l2cap_subrate_request(wiced_bt_ble_conn_subrate_t *p_subrate);
+
 #ifdef __cplusplus
 }
 #endif
+
+#endif //__WICED_BT_L2C_H__

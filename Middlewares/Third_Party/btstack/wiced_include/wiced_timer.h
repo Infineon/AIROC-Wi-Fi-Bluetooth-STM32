@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2023, Cypress Semiconductor Corporation or
+ * Copyright 2019-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -58,7 +58,7 @@ typedef void (wiced_timer_callback_t)(wiced_timer_callback_arg_t cb_params);
 
 /** Timer structure.
  *
- *  NOTE: this structure is used internally by the wiced stack. Applications MUST NOT
+ *  NOTE: this structure is used internally by the AIROC stack. Applications MUST NOT
  *        modify any of the elements of this structure.
  *
  *        Timer control block memory MUST be peristant from when the timer is initialized,
@@ -74,16 +74,16 @@ typedef struct _wiced_timer_t
 } wiced_timer_t;
 
 /**
- * Defines the wiced timer types. These timers are system tick driven and a
+ * Defines the AIROC timer types. These timers are system tick driven and a
  * systick is 1 millisecond.So the minimum timer resolution supported is
  * 1 millisecond
  */
 typedef enum
 {
-    WICED_MILLI_SECONDS_TIMER,
-    WICED_SECONDS_TIMER,
-    WICED_MILLI_SECONDS_PERIODIC_TIMER,
-    WICED_SECONDS_PERIODIC_TIMER,
+    WICED_MILLI_SECONDS_TIMER, /**< Single shot milliseconds timer */
+    WICED_SECONDS_TIMER,       /**< Single shot seconds timer */
+    WICED_MILLI_SECONDS_PERIODIC_TIMER, /**< Periodic milliseconds timer */
+    WICED_SECONDS_PERIODIC_TIMER, /**< Periodic seconds timer */
 } wiced_timer_type_e;
 
 #ifdef __cplusplus
@@ -96,7 +96,7 @@ extern "C"
  *@param[in]    p_timer         :Pointer to the timer structure
  *@param[in]    p_timer_cb      :Timer callback function to be invoked on timer expiry
  *@param[in]    cb_arg          :Parameter to be passed to the timer callback function which
- *                                              gets invoked on timer expiry,if any
+ *                               gets invoked on timer expiry,if any
  *@param[in]    timer_type      :Shows if the timer is milliseconds or seconds, and if periodic or not
  *
  * @return   wiced_result_t
@@ -107,12 +107,14 @@ wiced_result_t wiced_init_timer (wiced_timer_t* p_timer, wiced_timer_callback_t 
 /** Starts a timer
  * @note: Starting an already running timer restarts the timer timeout
  *
- * @param[in]    p_timer                :Pointer to the timer structure
- * @param[in]    timeout_ms             :timeout in milliseconds
+ * @param[in] p_timer :Pointer to the timer structure
+ * @param[in] timeout : The units of the timeout parameter is set as per the timer_type set in #wiced_init_timer\n
+ *            timeout is in milliseconds if timer_type is #WICED_MILLI_SECONDS_TIMER or #WICED_MILLI_SECONDS_PERIODIC_TIMER,\n
+ *            timeout is in seconds if timer_type is #WICED_SECONDS_TIMER or #WICED_SECONDS_PERIODIC_TIMER,
  *
  * @return       wiced_result_t
  */
-wiced_result_t wiced_start_timer (wiced_timer_t* p_timer,uint32_t timeout_ms);
+wiced_result_t wiced_start_timer (wiced_timer_t* p_timer,uint32_t timeout);
 
 /** Stops a timer
  *

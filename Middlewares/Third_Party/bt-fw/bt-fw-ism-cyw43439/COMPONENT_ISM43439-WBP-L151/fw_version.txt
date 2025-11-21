@@ -1,0 +1,1 @@
+CYW4343A2_001.003.016.0031.0000_Generic_UART_37_4MHz_wlbga_BU_dl_signed

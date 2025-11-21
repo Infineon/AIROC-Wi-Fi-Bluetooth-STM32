@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['adv_5frep_5fevt_5fcount_5fmax',['ADV_REP_EVT_COUNT_MAX',['../group__wicedbt___device_management.html#gga8739336a6d1ebba1faaf824bc5c1024da7e93b8fb79eb54fffb0ef7aae25a3bbc',1,'wiced_bt_ble.h']]],
-  ['adv_5frep_5fevt_5fcount_5fmin',['ADV_REP_EVT_COUNT_MIN',['../group__wicedbt___device_management.html#gga8739336a6d1ebba1faaf824bc5c1024da2e150f9aebb639d8b399e3063d3db808',1,'wiced_bt_ble.h']]],
+  ['adv_5frep_5fevt_5fcount_5fmax',['ADV_REP_EVT_COUNT_MAX',['../group__wicedbt___extended.html#ggabb770fe3c0774bf761f9b1b2951cb519a7e93b8fb79eb54fffb0ef7aae25a3bbc',1,'wiced_bt_adv_scan_extended.h']]],
+  ['adv_5frep_5fevt_5fcount_5fmin',['ADV_REP_EVT_COUNT_MIN',['../group__wicedbt___extended.html#ggabb770fe3c0774bf761f9b1b2951cb519a2e150f9aebb639d8b399e3063d3db808',1,'wiced_bt_adv_scan_extended.h']]],
   ['appearance_5faccess_5fpoint',['APPEARANCE_ACCESS_POINT',['../group__wicedbt__gatt.html#gga244b6c64a958765582c0d6a2c1fdfed4adf260c38869592cdd11e0ef1cd891494',1,'gattdefs.h']]],
   ['appearance_5fcontrol_5fdevice_5fbutton',['APPEARANCE_CONTROL_DEVICE_BUTTON',['../group__wicedbt__gatt.html#gga244b6c64a958765582c0d6a2c1fdfed4a530b2160cd0fe4775c905d2c2a59c8d1',1,'gattdefs.h']]],
   ['appearance_5fcontrol_5fdevice_5fmulti_5fswitch',['APPEARANCE_CONTROL_DEVICE_MULTI_SWITCH',['../group__wicedbt__gatt.html#gga244b6c64a958765582c0d6a2c1fdfed4a4733ab1a379b5f0979355730bc334a39',1,'gattdefs.h']]],

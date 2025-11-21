@@ -35,6 +35,9 @@
     *    baudrate
     */
 
+/* HCI PB flag used to detect L2CAP header presence in ACL Data Packet. Refer BT Spec Version 5.4 | Vol 4, Part E 5.4.2 HCI ACL Data packets*/
+#define START_OF_NON_AUTO_FLUSHABLE_PKT_PB_FLAG     0x00
+
 /*****************************************************************************
  *                           Type Definitions
  *****************************************************************************/
@@ -65,10 +68,11 @@ typedef struct
 /**
  * HCI ACL packet header
  */
-typedef struct
-{
-    uint16_t          hci_handle;
-    uint16_t          content_length;
+typedef struct __attribute__((__packed__)){
+	unsigned	handle: 12; /* Connection Handle */
+	unsigned	pb: 2;		/* Packet Boundary Flag */
+	unsigned	bc: 2;		/* Broadcast Flag */
+	unsigned	length: 16; /* Data Total Length */
 } hci_acl_packet_header_t;
 
 /**
@@ -87,7 +91,6 @@ typedef struct
 {
     uint8_t           content_length;
 } hci_loopback_packet_header_t;
-
 
 #ifdef __cplusplus
 extern "C"

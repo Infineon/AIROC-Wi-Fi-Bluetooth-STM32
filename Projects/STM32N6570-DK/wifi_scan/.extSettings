@@ -1,0 +1,4 @@
+[Appli:Groups]
+Application/User/Core/Src=../Appli/Core/Src/wifi_task.c;
+[Appli:Others]
+Define=CYBSP_WIFI_CAPABLE;HAVE_SNPRINTF;CY_USING_HAL;BLHS_SUPPORT

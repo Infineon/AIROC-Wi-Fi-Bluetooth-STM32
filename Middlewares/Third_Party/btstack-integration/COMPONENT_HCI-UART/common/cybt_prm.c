@@ -157,13 +157,18 @@ bool cybt_prm_download (cybt_prm_cback_t *p_cb,
     {
         cybt_prm_cb.dest_ram = CYBT_DEST_RAM_LOCATION;
     }
-
+#ifndef COMPONENT_55500
     wiced_bt_dev_vendor_specific_command(cybt_prm_cb.opcode,
                                          0,
                                          NULL,
                                          cybt_prm_command_complete_cback
                                         );
     cybt_prm_cb.state = CYBT_PRM_ST_INITIALIZING;
+#else
+    // H1 - No need to send MiniDriver, we can directly start FW load
+    cybt_prm_cb.state = CYBT_PRM_ST_LOADING_DATA;
+    cybt_prm_send_next_patch();
+#endif //COMPONENT_55500
 
     return true;
 }

@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.452424070">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.452424070" moduleId="org.eclipse.cdt.core.settings" name="Debug">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="elf" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf" description="" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.452424070" name="Debug" parent="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug" postbuildStep="cd &quot;${ProjDirPath}/Debug&quot; &amp;&amp; echo y | &quot;C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_SigningTool_CLI.exe&quot; -bin &quot;${ProjName}.bin&quot; -nk -of 0x80000000 -t fsbl -o &quot;${ProjName}-Trusted.bin&quot; -hv 2.3 -dump &quot;${ProjName}-Trusted.bin&quot; | &quot;C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe&quot; -c port=SWD mode=HOTPLUG AP=1 -el &quot;C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeProgrammer\bin\ExternalLoader\MX66UW1G45G_STM32N6570-DK.stldr&quot; -d &quot;${ProjName}-Trusted.bin&quot; 0x70100000">
+					<folderInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.452424070." name="/" resourcePath="">
+						<toolChain id="com.st.stm32cube.ide.mcu.gnu.managedbuild.toolchain.exe.debug.1605963893" name="MCU ARM GCC" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.toolchain.exe.debug">
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_mcu.1100638618" name="MCU" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_mcu" useByScannerDiscovery="true" value="STM32N657X0HxQ" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_cpuid.1005294723" name="CPU" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_cpuid" useByScannerDiscovery="false" value="0" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_coreid.111055214" name="Core" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_coreid" useByScannerDiscovery="false" value="0" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.fpu.982369305" name="Floating-point unit" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.fpu" useByScannerDiscovery="true" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.fpu.value.fpv5-d16" valueType="enumerated"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.floatabi.1922512378" name="Floating-point ABI" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.floatabi" useByScannerDiscovery="true" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.floatabi.value.hard" valueType="enumerated"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_board.2074883030" name="Board" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_board" useByScannerDiscovery="false" value="STM32N6570-DK" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.convertbinary.924855465" name="Convert to binary file (-O binary)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.convertbinary" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.defaults.1879308962" name="Defaults" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.defaults" useByScannerDiscovery="false" value="com.st.stm32cube.ide.common.services.build.inputs.revA.1.0.6 || Debug || true || Executable || com.st.stm32cube.ide.mcu.gnu.managedbuild.option.toolchain.value.workspace || STM32N6570-DK || 0 || 0 || arm-none-eabi- || ${gnu_tools_for_stm32_compiler_path} || ../../../Appli/Core/Inc | ../../../Appli/NetXDuo/App | ../../../Appli/AZURE_RTOS/App | ../../../Secure_nsclib | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/bus_protocols/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/netxduo-network-interface-integration/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/JSON_parser/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/linked_list/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/COMPONENT_NETXDUO/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/nvram/COMPONENT_55500/COMPONENT_CYW955513WLIPA/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_THREADX/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_THREADX/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500 | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500 | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf_utility | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/wifi_utility | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include | ../../../Drivers/STM32N6xx_HAL_Driver/Inc | ../../../Drivers/CMSIS/Device/ST/STM32N6xx/Include | ../../../Drivers/STM32N6xx_HAL_Driver/Inc/Legacy | ../../../Middlewares/ST/netxduo/addons/dhcp | ../../../Middlewares/ST/threadx/common/inc | ../../../Middlewares/ST/netxduo/common/inc | ../../../Middlewares/ST/netxduo/ports/cortex_m55/gnu/inc | ../../../Middlewares/ST/netxduo/addons/auto_ip | ../../../Middlewares/ST/netxduo/addons/dns | ../../../Middlewares/ST/netxduo/nx_secure/inc | ../../../Middlewares/ST/netxduo/nx_secure/ports | ../../../Middlewares/ST/netxduo/crypto_libraries/inc | ../../../Middlewares/ST/threadx/ports/cortex_m55/gnu/inc | ../../../Drivers/CMSIS/Include | ../Application/User/ThreadSafe | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/COMPONENT_NETXSECURE/ || ../../../Appli/Core/Inc | ../../../Appli/NetXDuo/App | ../../../Appli/AZURE_RTOS/App | ../../../Secure_nsclib | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/bus_protocols/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/netxduo-network-interface-integration/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/JSON_parser/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/linked_list/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/COMPONENT_NETXDUO/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/nvram/COMPONENT_55500/COMPONENT_CYW955513WLIPA/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_THREADX/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_THREADX/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500 | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500 | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf_utility | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/wifi_utility | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include | ../../../Drivers/STM32N6xx_HAL_Driver/Inc | ../../../Drivers/CMSIS/Device/ST/STM32N6xx/Include | ../../../Drivers/STM32N6xx_HAL_Driver/Inc/Legacy | ../../../Middlewares/ST/netxduo/addons/dhcp | ../../../Middlewares/ST/threadx/common/inc | ../../../Middlewares/ST/netxduo/common/inc | ../../../Middlewares/ST/netxduo/ports/cortex_m55/gnu/inc | ../../../Middlewares/ST/netxduo/addons/auto_ip | ../../../Middlewares/ST/netxduo/addons/dns | ../../../Middlewares/ST/netxduo/nx_secure/inc | ../../../Middlewares/ST/netxduo/nx_secure/ports | ../../../Middlewares/ST/netxduo/crypto_libraries/inc | ../../../Middlewares/ST/threadx/ports/cortex_m55/gnu/inc | ../../../Drivers/CMSIS/Include | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/COMPONENT_NETXSECURE/ ||  || USE_HAL_DRIVER | STM32N657xx | NX_INCLUDE_USER_DEFINE_FILE | NX_SECURE_INCLUDE_USER_DEFINE_FILE | TX_INCLUDE_USER_DEFINE_FILE | TX_SINGLE_MODE_SECURE=1 | CYBSP_WIFI_CAPABLE | HAVE_SNPRINTF | CY_USING_HAL | COMPONENT_NETXDUO | CY_NETWORK_DISABLE_DHCP_SERVER | BLHS_SUPPORT | DISABLE_COMMAND_CONSOLE_BT | STM32_THREAD_SAFE_STRATEGY=2 || TX_INCLUDE_USER_DEFINE_FILE | TX_SINGLE_MODE_SECURE=1 ||  ||  ||  || ${workspace_loc:/${ProjName}/STM32N657X0HXQ_LRUN.ld} || true || Secure ||  || secure_nsclib.o ||  || Generic_AllowLockFromIRQ ||  ||  || .bin" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.debug.option.cpuclock.344003760" name="Cpu clock frequence" superClass="com.st.stm32cube.ide.mcu.debug.option.cpuclock" useByScannerDiscovery="false" value="75" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.nanoprintffloat.1784672223" name="Use float with printf from newlib-nano (-u _printf_float)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.nanoprintffloat" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.nanoscanffloat.72245603" name="Use float with scanf from newlib-nano (-u _scanf_float)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.nanoscanffloat" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.targetplatform.934343318" isAbstract="false" osList="all" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.targetplatform"/>
+							<builder buildPath="${workspace_loc:/wifi_netxduo_Appli}/Debug" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.builder.2102651490" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.builder"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.14595139" name="MCU/MPU GCC Assembler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler">
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel.255915389" name="Debug level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel.value.g3" valueType="enumerated"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.definedsymbols.837114667" name="Define symbols (-D)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.definedsymbols" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="DEBUG"/>
+									<listOptionValue builtIn="false" value="TX_INCLUDE_USER_DEFINE_FILE"/>
+									<listOptionValue builtIn="false" value="TX_SINGLE_MODE_SECURE=1"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.includepaths.1260322434" name="Include paths (-I)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.includepaths" valueType="includePath">
+									<listOptionValue builtIn="false" value="../../../Appli/Core/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Appli/NetXDuo/App"/>
+									<listOptionValue builtIn="false" value="../../../Appli/AZURE_RTOS/App"/>
+									<listOptionValue builtIn="false" value="../../../Secure_nsclib"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/bus_protocols/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/netxduo-network-interface-integration/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/JSON_parser/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/linked_list/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/COMPONENT_NETXDUO/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/nvram/COMPONENT_55500/COMPONENT_CYW955513WLIPA/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_THREADX/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_THREADX/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf_utility"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/wifi_utility"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/STM32N6xx_HAL_Driver/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/CMSIS/Device/ST/STM32N6xx/Include"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/STM32N6xx_HAL_Driver/Inc/Legacy"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/addons/dhcp"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/threadx/common/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/common/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/ports/cortex_m55/gnu/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/addons/auto_ip"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/addons/dns"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/nx_secure/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/nx_secure/ports"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/crypto_libraries/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/threadx/ports/cortex_m55/gnu/inc"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/CMSIS/Include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/COMPONENT_NETXSECURE/"/>
+								</option>
+								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.input.2094407606" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.input"/>
+							</tool>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1432560813" name="MCU/MPU GCC Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler">
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.debuglevel.1872701963" name="Debug level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.debuglevel" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.debuglevel.value.g3" valueType="enumerated"/>
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.optimization.level.22379555" name="Optimization level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.optimization.level" useByScannerDiscovery="false"/>
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.mcmse.353698264" name="Secure mode (-mcmse)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.mcmse" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.definedsymbols.1704109142" name="Define symbols (-D)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.definedsymbols" useByScannerDiscovery="false" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="DEBUG"/>
+									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
+									<listOptionValue builtIn="false" value="STM32N657xx"/>
+									<listOptionValue builtIn="false" value="NX_INCLUDE_USER_DEFINE_FILE"/>
+									<listOptionValue builtIn="false" value="NX_SECURE_INCLUDE_USER_DEFINE_FILE"/>
+									<listOptionValue builtIn="false" value="TX_INCLUDE_USER_DEFINE_FILE"/>
+									<listOptionValue builtIn="false" value="TX_SINGLE_MODE_SECURE=1"/>
+									<listOptionValue builtIn="false" value="CYBSP_WIFI_CAPABLE"/>
+									<listOptionValue builtIn="false" value="HAVE_SNPRINTF"/>
+									<listOptionValue builtIn="false" value="CY_USING_HAL"/>
+									<listOptionValue builtIn="false" value="COMPONENT_NETXDUO"/>
+									<listOptionValue builtIn="false" value="CY_NETWORK_DISABLE_DHCP_SERVER"/>
+									<listOptionValue builtIn="false" value="BLHS_SUPPORT"/>
+									<listOptionValue builtIn="false" value="DISABLE_COMMAND_CONSOLE_BT"/>
+									<listOptionValue builtIn="false" value="STM32_THREAD_SAFE_STRATEGY=2"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths.1540587313" name="Include paths (-I)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="../../../Appli/Core/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Appli/NetXDuo/App"/>
+									<listOptionValue builtIn="false" value="../../../Appli/AZURE_RTOS/App"/>
+									<listOptionValue builtIn="false" value="../../../Secure_nsclib"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/bus_protocols/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/netxduo-network-interface-integration/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/JSON_parser/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/linked_list/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/COMPONENT_NETXDUO/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/nvram/COMPONENT_55500/COMPONENT_CYW955513WLIPA/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_THREADX/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_THREADX/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf_utility"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/wifi_utility"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/STM32N6xx_HAL_Driver/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/CMSIS/Device/ST/STM32N6xx/Include"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/STM32N6xx_HAL_Driver/Inc/Legacy"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/addons/dhcp"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/threadx/common/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/common/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/ports/cortex_m55/gnu/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/addons/auto_ip"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/addons/dns"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/nx_secure/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/nx_secure/ports"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/crypto_libraries/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/threadx/ports/cortex_m55/gnu/inc"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/CMSIS/Include"/>
+									<listOptionValue builtIn="false" value="../Application/User/ThreadSafe"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/COMPONENT_NETXSECURE"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/COMPONENT_NETXSECURE/"/>
+								</option>
+								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.1147113171" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
+							</tool>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.193413577" name="MCU/MPU G++ Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler">
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.debuglevel.361191434" name="Debug level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.debuglevel" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.debuglevel.value.g3" valueType="enumerated"/>
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.optimization.level.647911906" name="Optimization level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.optimization.level" useByScannerDiscovery="false"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.includepaths.1670306901" name="Include paths (-I)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.includepaths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="../../../Appli/Core/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Appli/NetXDuo/App"/>
+									<listOptionValue builtIn="false" value="../../../Appli/AZURE_RTOS/App"/>
+									<listOptionValue builtIn="false" value="../../../Secure_nsclib"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/bus_protocols/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/netxduo-network-interface-integration/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/JSON_parser/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/linked_list/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/COMPONENT_NETXDUO/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/nvram/COMPONENT_55500/COMPONENT_CYW955513WLIPA/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_THREADX/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_THREADX/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf_utility"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/wifi_utility"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/STM32N6xx_HAL_Driver/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/CMSIS/Device/ST/STM32N6xx/Include"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/STM32N6xx_HAL_Driver/Inc/Legacy"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/addons/dhcp"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/threadx/common/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/common/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/ports/cortex_m55/gnu/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/addons/auto_ip"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/addons/dns"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/nx_secure/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/nx_secure/ports"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/crypto_libraries/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/threadx/ports/cortex_m55/gnu/inc"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/CMSIS/Include"/>
+									<listOptionValue builtIn="false" value="../Application/User/ThreadSafe"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/NETXSECURE"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/COMPONENT_NETXSECURE/"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.definedsymbols.1592330939" name="Define symbols (-D)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.definedsymbols" useByScannerDiscovery="false" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="DEBUG"/>
+									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
+									<listOptionValue builtIn="false" value="STM32N657xx"/>
+									<listOptionValue builtIn="false" value="NX_INCLUDE_USER_DEFINE_FILE"/>
+									<listOptionValue builtIn="false" value="NX_SECURE_INCLUDE_USER_DEFINE_FILE"/>
+									<listOptionValue builtIn="false" value="TX_INCLUDE_USER_DEFINE_FILE"/>
+									<listOptionValue builtIn="false" value="TX_SINGLE_MODE_SECURE=1"/>
+									<listOptionValue builtIn="false" value="CYBSP_WIFI_CAPABLE"/>
+									<listOptionValue builtIn="false" value="HAVE_SNPRINTF"/>
+									<listOptionValue builtIn="false" value="CY_USING_HAL"/>
+									<listOptionValue builtIn="false" value="COMPONENT_NETXDUO"/>
+									<listOptionValue builtIn="false" value="CY_NETWORK_DISABLE_DHCP_SERVER"/>
+									<listOptionValue builtIn="false" value="BLHS_SUPPORT"/>
+									<listOptionValue builtIn="false" value="DISABLE_COMMAND_CONSOLE_BT"/>
+									<listOptionValue builtIn="false" value="STM32_THREAD_SAFE_STRATEGY=2"/>
+								</option>
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.mcmse.1829498734" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.mcmse" value="true" valueType="boolean"/>
+								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp.1645404411" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp"/>
+							</tool>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.922575177" name="MCU/MPU GCC Linker" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker">
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.script.1116572230" name="Linker Script (-T)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.script" value="${workspace_loc:/${ProjName}/STM32N657X0HXQ_LRUN.ld}" valueType="string"/>
+								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.input.1182044549" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.628240657" name="MCU/MPU G++ Linker" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker">
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.systemcalls.442225404" name="System calls" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.systemcalls" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.systemcalls.value.minimalimplementation" valueType="enumerated"/>
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.script.2139481721" name="Linker Script (-T)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.script" value="${workspace_loc:/${ProjName}/STM32N657X0HXQ_LRUN.ld}" valueType="string"/>
+								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.input.851410981" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.archiver.700736630" name="MCU/MPU GCC Archiver" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.archiver"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.size.1566084441" name="MCU Size" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.size"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objdump.listfile.1673010466" name="MCU Output Converter list file" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objdump.listfile"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.hex.1226403521" name="MCU Output Converter Hex" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.hex"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.binary.1745883309" name="MCU Output Converter Binary" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.binary"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.verilog.1235562279" name="MCU Output Converter Verilog" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.verilog"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.srec.910765413" name="MCU Output Converter Motorola S-rec" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.srec"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec.165214708" name="MCU Output Converter Motorola S-rec with symbols" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec"/>
+						</toolChain>
+					</folderInfo>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+		<cconfiguration id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.943383138">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.943383138" moduleId="org.eclipse.cdt.core.settings" name="Release">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="elf" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="rm -rf" description="" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.943383138" name="Release" parent="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release">
+					<folderInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.943383138." name="/" resourcePath="">
+						<toolChain id="com.st.stm32cube.ide.mcu.gnu.managedbuild.toolchain.exe.release.102541756" name="MCU ARM GCC" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.toolchain.exe.release">
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_mcu.1198579281" name="MCU" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_mcu" useByScannerDiscovery="true" value="STM32N657X0HxQ" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_cpuid.304844059" name="CPU" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_cpuid" useByScannerDiscovery="false" value="0" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_coreid.1754794478" name="Core" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_coreid" useByScannerDiscovery="false" value="0" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.fpu.1240552801" name="Floating-point unit" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.fpu" useByScannerDiscovery="true" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.fpu.value.fpv5-d16" valueType="enumerated"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.floatabi.1540285964" name="Floating-point ABI" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.floatabi" useByScannerDiscovery="true" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.floatabi.value.hard" valueType="enumerated"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_board.200757615" name="Board" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.target_board" useByScannerDiscovery="false" value="STM32N6570-DK" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.convertbinary.2055428251" name="Convert to binary file (-O binary)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.convertbinary" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+							<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.defaults.1280811679" name="Defaults" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.option.defaults" useByScannerDiscovery="false" value="com.st.stm32cube.ide.common.services.build.inputs.revA.1.0.6 || Release || false || Executable || com.st.stm32cube.ide.mcu.gnu.managedbuild.option.toolchain.value.workspace || STM32N6570-DK || 0 || 0 || arm-none-eabi- || ${gnu_tools_for_stm32_compiler_path} || ../../../Appli/Core/Inc | ../../../Appli/NetXDuo/App | ../../../Appli/AZURE_RTOS/App | ../../../Secure_nsclib | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/bus_protocols/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/netxduo-network-interface-integration/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/JSON_parser/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/linked_list/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/COMPONENT_NETXDUO/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/nvram/COMPONENT_55500/COMPONENT_CYW955513WLIPA/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_THREADX/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_THREADX/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500 | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500 | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf_utility | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/wifi_utility | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include | ../../../Drivers/STM32N6xx_HAL_Driver/Inc | ../../../Drivers/CMSIS/Device/ST/STM32N6xx/Include | ../../../Drivers/STM32N6xx_HAL_Driver/Inc/Legacy | ../../../Middlewares/ST/netxduo/addons/dhcp | ../../../Middlewares/ST/threadx/common/inc | ../../../Middlewares/ST/netxduo/common/inc | ../../../Middlewares/ST/netxduo/ports/cortex_m55/gnu/inc | ../../../Middlewares/ST/netxduo/addons/auto_ip | ../../../Middlewares/ST/netxduo/addons/dns | ../../../Middlewares/ST/netxduo/nx_secure/inc | ../../../Middlewares/ST/netxduo/nx_secure/ports | ../../../Middlewares/ST/netxduo/crypto_libraries/inc | ../../../Middlewares/ST/threadx/ports/cortex_m55/gnu/inc | ../../../Drivers/CMSIS/Include | ../Application/User/ThreadSafe | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/COMPONENT_NETXSECURE/ || ../../../Appli/Core/Inc | ../../../Appli/NetXDuo/App | ../../../Appli/AZURE_RTOS/App | ../../../Secure_nsclib | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/bus_protocols/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/netxduo-network-interface-integration/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/JSON_parser/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/linked_list/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/COMPONENT_NETXDUO/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/nvram/COMPONENT_55500/COMPONENT_CYW955513WLIPA/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_THREADX/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_THREADX/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500 | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500 | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/ | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf_utility | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/wifi_utility | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include | ../../../Drivers/STM32N6xx_HAL_Driver/Inc | ../../../Drivers/CMSIS/Device/ST/STM32N6xx/Include | ../../../Drivers/STM32N6xx_HAL_Driver/Inc/Legacy | ../../../Middlewares/ST/netxduo/addons/dhcp | ../../../Middlewares/ST/threadx/common/inc | ../../../Middlewares/ST/netxduo/common/inc | ../../../Middlewares/ST/netxduo/ports/cortex_m55/gnu/inc | ../../../Middlewares/ST/netxduo/addons/auto_ip | ../../../Middlewares/ST/netxduo/addons/dns | ../../../Middlewares/ST/netxduo/nx_secure/inc | ../../../Middlewares/ST/netxduo/nx_secure/ports | ../../../Middlewares/ST/netxduo/crypto_libraries/inc | ../../../Middlewares/ST/threadx/ports/cortex_m55/gnu/inc | ../../../Drivers/CMSIS/Include | ../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/COMPONENT_NETXSECURE/ ||  || USE_HAL_DRIVER | STM32N657xx | NX_INCLUDE_USER_DEFINE_FILE | NX_SECURE_INCLUDE_USER_DEFINE_FILE | TX_INCLUDE_USER_DEFINE_FILE | TX_SINGLE_MODE_SECURE=1 | CYBSP_WIFI_CAPABLE | HAVE_SNPRINTF | CY_USING_HAL | COMPONENT_NETXDUO | CY_NETWORK_DISABLE_DHCP_SERVER | BLHS_SUPPORT | DISABLE_COMMAND_CONSOLE_BT | STM32_THREAD_SAFE_STRATEGY=2 || TX_INCLUDE_USER_DEFINE_FILE | TX_SINGLE_MODE_SECURE=1 ||  ||  ||  || ${workspace_loc:/${ProjName}/STM32N657X0HXQ_LRUN.ld} || true || Secure ||  || secure_nsclib.o ||  || Generic_AllowLockFromIRQ ||  ||  || .bin" valueType="string"/>
+							<option id="com.st.stm32cube.ide.mcu.debug.option.cpuclock.47965091" name="Cpu clock frequence" superClass="com.st.stm32cube.ide.mcu.debug.option.cpuclock" useByScannerDiscovery="false" value="75" valueType="string"/>
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.targetplatform.190354288" isAbstract="false" osList="all" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.targetplatform"/>
+							<builder buildPath="${workspace_loc:/wifi_netxduo_Appli}/Release" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.builder.396589570" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.builder"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.17643811" name="MCU/MPU GCC Assembler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler">
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel.1552879784" name="Debug level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.debuglevel.value.g0" valueType="enumerated"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.definedsymbols.1665024294" name="Define symbols (-D)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.definedsymbols" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="TX_INCLUDE_USER_DEFINE_FILE"/>
+									<listOptionValue builtIn="false" value="TX_SINGLE_MODE_SECURE=1"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.includepaths.1435227491" name="Include paths (-I)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.option.includepaths" valueType="includePath">
+									<listOptionValue builtIn="false" value="../../../Appli/Core/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Appli/NetXDuo/App"/>
+									<listOptionValue builtIn="false" value="../../../Appli/AZURE_RTOS/App"/>
+									<listOptionValue builtIn="false" value="../../../Secure_nsclib"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/bus_protocols/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/netxduo-network-interface-integration/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/JSON_parser/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/linked_list/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/COMPONENT_NETXDUO/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/nvram/COMPONENT_55500/COMPONENT_CYW955513WLIPA/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_THREADX/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_THREADX/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf_utility"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/wifi_utility"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/STM32N6xx_HAL_Driver/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/CMSIS/Device/ST/STM32N6xx/Include"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/STM32N6xx_HAL_Driver/Inc/Legacy"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/addons/dhcp"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/threadx/common/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/common/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/ports/cortex_m55/gnu/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/addons/auto_ip"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/addons/dns"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/nx_secure/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/nx_secure/ports"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/crypto_libraries/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/threadx/ports/cortex_m55/gnu/inc"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/CMSIS/Include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/COMPONENT_NETXSECURE/"/>
+								</option>
+								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.input.1062867643" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.assembler.input"/>
+							</tool>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1733802978" name="MCU/MPU GCC Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler">
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.debuglevel.1104167653" name="Debug level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.debuglevel" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.debuglevel.value.g0" valueType="enumerated"/>
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.optimization.level.1497040905" name="Optimization level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.optimization.level" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.optimization.level.value.os" valueType="enumerated"/>
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.mcmse.188090680" name="Secure mode (-mcmse)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.mcmse" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.definedsymbols.1186428757" name="Define symbols (-D)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.definedsymbols" useByScannerDiscovery="false" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
+									<listOptionValue builtIn="false" value="STM32N657xx"/>
+									<listOptionValue builtIn="false" value="NX_INCLUDE_USER_DEFINE_FILE"/>
+									<listOptionValue builtIn="false" value="NX_SECURE_INCLUDE_USER_DEFINE_FILE"/>
+									<listOptionValue builtIn="false" value="TX_INCLUDE_USER_DEFINE_FILE"/>
+									<listOptionValue builtIn="false" value="TX_SINGLE_MODE_SECURE=1"/>
+									<listOptionValue builtIn="false" value="CYBSP_WIFI_CAPABLE"/>
+									<listOptionValue builtIn="false" value="HAVE_SNPRINTF"/>
+									<listOptionValue builtIn="false" value="CY_USING_HAL"/>
+									<listOptionValue builtIn="false" value="COMPONENT_NETXDUO"/>
+									<listOptionValue builtIn="false" value="CY_NETWORK_DISABLE_DHCP_SERVER"/>
+									<listOptionValue builtIn="false" value="BLHS_SUPPORT"/>
+									<listOptionValue builtIn="false" value="DISABLE_COMMAND_CONSOLE_BT"/>
+									<listOptionValue builtIn="false" value="STM32_THREAD_SAFE_STRATEGY=2"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths.170869863" name="Include paths (-I)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.option.includepaths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="../../../Appli/Core/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Appli/NetXDuo/App"/>
+									<listOptionValue builtIn="false" value="../../../Appli/AZURE_RTOS/App"/>
+									<listOptionValue builtIn="false" value="../../../Secure_nsclib"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/bus_protocols/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/netxduo-network-interface-integration/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/JSON_parser/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/linked_list/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/COMPONENT_NETXDUO/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/nvram/COMPONENT_55500/COMPONENT_CYW955513WLIPA/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_THREADX/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_THREADX/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf_utility"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/wifi_utility"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/STM32N6xx_HAL_Driver/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/CMSIS/Device/ST/STM32N6xx/Include"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/STM32N6xx_HAL_Driver/Inc/Legacy"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/addons/dhcp"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/threadx/common/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/common/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/ports/cortex_m55/gnu/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/addons/auto_ip"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/addons/dns"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/nx_secure/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/nx_secure/ports"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/crypto_libraries/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/threadx/ports/cortex_m55/gnu/inc"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/CMSIS/Include"/>
+									<listOptionValue builtIn="false" value="../Application/User/ThreadSafe"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/COMPONENT_NETXSECURE/"/>
+								</option>
+								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.604464565" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
+							</tool>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.1245288737" name="MCU/MPU G++ Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler">
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.debuglevel.313611078" name="Debug level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.debuglevel" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.debuglevel.value.g0" valueType="enumerated"/>
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.optimization.level.475938480" name="Optimization level" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.optimization.level" useByScannerDiscovery="false" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.optimization.level.value.os" valueType="enumerated"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.includepaths.365289956" name="Include paths (-I)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.includepaths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="../../../Appli/Core/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Appli/NetXDuo/App"/>
+									<listOptionValue builtIn="false" value="../../../Appli/AZURE_RTOS/App"/>
+									<listOptionValue builtIn="false" value="../../../Secure_nsclib"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/src/bus_protocols/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/netxduo-network-interface-integration/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_log/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/JSON_parser/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/linked_list/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/cy_string/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/connectivity-utilities/network/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration/COMPONENT_NETXDUO/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/whd-bsp-integration"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/nvram/COMPONENT_55500/COMPONENT_CYW955513WLIPA/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/source/COMPONENT_THREADX/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include/COMPONENT_THREADX/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-connection-manager/source/COMPONENT_55500"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/resource_imp"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/firmware/COMPONENT_55500/COMPONENT_SM"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI6/resources/clm/COMPONENT_55500"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/hal/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/common/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/targets/TARGET_STM32/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/core-lib/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/pal/abstraction-rtos/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/rtos/"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/bluetooth_utility/COMPONENT_WICED_BLE"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/command_console"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf_utility"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/wifi_utility"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/source/iperf/include"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/command-console/include"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/STM32N6xx_HAL_Driver/Inc"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/CMSIS/Device/ST/STM32N6xx/Include"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/STM32N6xx_HAL_Driver/Inc/Legacy"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/addons/dhcp"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/threadx/common/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/common/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/ports/cortex_m55/gnu/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/addons/auto_ip"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/addons/dns"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/nx_secure/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/nx_secure/ports"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/netxduo/crypto_libraries/inc"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/ST/threadx/ports/cortex_m55/gnu/inc"/>
+									<listOptionValue builtIn="false" value="../../../Drivers/CMSIS/Include"/>
+									<listOptionValue builtIn="false" value="../Application/User/ThreadSafe"/>
+									<listOptionValue builtIn="false" value="../../../Middlewares/Third_Party/Infineon_Wireless_Connectivity/secure-sockets/source/COMPONENT_NETXSECURE/"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.definedsymbols.1455251347" name="Define symbols (-D)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.definedsymbols" useByScannerDiscovery="false" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
+									<listOptionValue builtIn="false" value="STM32N657xx"/>
+									<listOptionValue builtIn="false" value="NX_INCLUDE_USER_DEFINE_FILE"/>
+									<listOptionValue builtIn="false" value="NX_SECURE_INCLUDE_USER_DEFINE_FILE"/>
+									<listOptionValue builtIn="false" value="TX_INCLUDE_USER_DEFINE_FILE"/>
+									<listOptionValue builtIn="false" value="TX_SINGLE_MODE_SECURE=1"/>
+									<listOptionValue builtIn="false" value="CYBSP_WIFI_CAPABLE"/>
+									<listOptionValue builtIn="false" value="HAVE_SNPRINTF"/>
+									<listOptionValue builtIn="false" value="CY_USING_HAL"/>
+									<listOptionValue builtIn="false" value="COMPONENT_NETXDUO"/>
+									<listOptionValue builtIn="false" value="CY_NETWORK_DISABLE_DHCP_SERVER"/>
+									<listOptionValue builtIn="false" value="BLHS_SUPPORT"/>
+									<listOptionValue builtIn="false" value="DISABLE_COMMAND_CONSOLE_BT"/>
+									<listOptionValue builtIn="false" value="STM32_THREAD_SAFE_STRATEGY=2"/>
+								</option>
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.mcmse.1256491499" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.option.mcmse" value="true" valueType="boolean"/>
+								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp.271613015" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp"/>
+							</tool>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.2068868317" name="MCU/MPU GCC Linker" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker">
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.script.805905584" name="Linker Script (-T)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.script" value="${workspace_loc:/${ProjName}/STM32N657X0HXQ_LRUN.ld}" valueType="string"/>
+								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.input.499892206" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.1738370862" name="MCU/MPU G++ Linker" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker">
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.systemcalls.1558284917" name="System calls" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.systemcalls" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.linker.option.systemcalls.value.minimalimplementation" valueType="enumerated"/>
+								<option id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.script.848377891" name="Linker Script (-T)" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.option.script" value="${workspace_loc:/${ProjName}/STM32N657X0HXQ_LRUN.ld}" valueType="string"/>
+								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.input.78346355" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.archiver.1581020752" name="MCU/MPU GCC Archiver" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.archiver"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.size.887187518" name="MCU Size" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.size"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objdump.listfile.1432856973" name="MCU Output Converter list file" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objdump.listfile"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.hex.584081307" name="MCU Output Converter Hex" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.hex"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.binary.1186851851" name="MCU Output Converter Binary" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.binary"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.verilog.1810955628" name="MCU Output Converter Verilog" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.verilog"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.srec.891658600" name="MCU Output Converter Motorola S-rec" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.srec"/>
+							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec.659245297" name="MCU Output Converter Motorola S-rec with symbols" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec"/>
+						</toolChain>
+					</folderInfo>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.pathentry"/>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="wifi_netxduo_Appli.null.1466688740" name="wifi_netxduo_Appli"/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.943383138;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.943383138.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1733802978;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.604464565">
+			<autodiscovery enabled="false" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.943383138;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.release.943383138.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.1245288737;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp.271613015">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.452424070;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.452424070.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.193413577;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp.1645404411">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.452424070;com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.452424070.;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1432560813;com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.1147113171">
+			<autodiscovery enabled="false" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+	</storageModule>
+</cproject>

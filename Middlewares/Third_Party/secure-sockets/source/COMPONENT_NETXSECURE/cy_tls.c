@@ -38,6 +38,7 @@
  *  TLS connections with a remote host.
  *
  */
+#ifndef USE_TLS_WEAK
 
 #include "cy_tls.h"
 #include "cy_rtc.h"
@@ -1656,3 +1657,5 @@ cy_rslt_t cy_tls_deinit(void)
     return result;
 }
 /*-----------------------------------------------------------*/
+#else
+#endif /* USE_TLS_WEAK */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023, Cypress Semiconductor Corporation or
+ * Copyright 2016-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -36,7 +36,9 @@
  * Human Interface Device Profile (HID) Device over BR/EDR
  *
  */
-#pragma once
+#ifndef __WICED_BT_HIDD_H__
+#define __WICED_BT_HIDD_H__
+
 
 #include "wiced_bt_dev.h"
 
@@ -351,3 +353,5 @@ wiced_bt_hidd_status_t wiced_bt_hidd_send_data(wiced_bool_t control_ch, uint8_t 
 
 /** @} wicedbt_hidd */
 /* @endcond*/
+
+#endif //__WICED_BT_HIDD_H__

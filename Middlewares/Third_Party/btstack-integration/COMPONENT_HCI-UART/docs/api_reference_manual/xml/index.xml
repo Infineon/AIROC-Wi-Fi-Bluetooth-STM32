@@ -1,38 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.13">
-  <compound refid="structcybt__controller__config__t" kind="struct"><name>cybt_controller_config_t</name>
-    <member refid="structcybt__controller__config__t_1a9e5cb5adc8c877db1dac24b1aa4cbe9b" kind="variable"><name>bt_power_pin</name></member>
-    <member refid="structcybt__controller__config__t_1a1e78be8859c64969d25bb35569b3d8be" kind="variable"><name>sleep_mode</name></member>
-  </compound>
-  <compound refid="structcybt__controller__sleep__config__t" kind="struct"><name>cybt_controller_sleep_config_t</name>
-    <member refid="structcybt__controller__sleep__config__t_1a5fa043774551489ef424852728ec39dc" kind="variable"><name>sleep_mode_enabled</name></member>
-    <member refid="structcybt__controller__sleep__config__t_1a27cadf5aa335e23250b095f0f213efec" kind="variable"><name>device_wakeup_pin</name></member>
-    <member refid="structcybt__controller__sleep__config__t_1ad9491b731323d2e17b6836d26b7b238d" kind="variable"><name>host_wakeup_pin</name></member>
-    <member refid="structcybt__controller__sleep__config__t_1af610fc41d1a3984908fafcf00c7ec76e" kind="variable"><name>device_wake_polarity</name></member>
-    <member refid="structcybt__controller__sleep__config__t_1a593fd22a6c9987faaef084853b9dd3c6" kind="variable"><name>host_wake_polarity</name></member>
-  </compound>
-  <compound refid="structcybt__hci__transport__config__t" kind="struct"><name>cybt_hci_transport_config_t</name>
-    <member refid="structcybt__hci__transport__config__t_1a49e2aa2bba549df93cb113ecb293801f" kind="variable"><name>hci_transport</name></member>
-    <member refid="structcybt__hci__transport__config__t_1a906d2c4cc61e0cfdff53e7f004ac1396" kind="variable"><name>hci_uart</name></member>
-    <member refid="structcybt__hci__transport__config__t_1a3bafc3651d588022944adae874d66e2a" kind="variable"><name>hci</name></member>
-  </compound>
-  <compound refid="structcybt__hci__uart__config__t" kind="struct"><name>cybt_hci_uart_config_t</name>
-    <member refid="structcybt__hci__uart__config__t_1aa9fc00eb1a4889f2a526a3175d57c93c" kind="variable"><name>uart_tx_pin</name></member>
-    <member refid="structcybt__hci__uart__config__t_1ac76ec7bcdc6221e98b1bc6fa09b46644" kind="variable"><name>uart_rx_pin</name></member>
-    <member refid="structcybt__hci__uart__config__t_1a782d923640613d1e4cf5122e02a0c579" kind="variable"><name>uart_rts_pin</name></member>
-    <member refid="structcybt__hci__uart__config__t_1a4ab1e920e897867f8e6bcf55c300b677" kind="variable"><name>uart_cts_pin</name></member>
-    <member refid="structcybt__hci__uart__config__t_1ab39743cee6567b888d268b63bc46b257" kind="variable"><name>baud_rate_for_fw_download</name></member>
-    <member refid="structcybt__hci__uart__config__t_1ae8006ab108f355520ca3a97e849bd404" kind="variable"><name>baud_rate_for_feature</name></member>
-    <member refid="structcybt__hci__uart__config__t_1a7523d7315b657beda91ab9749b2e3539" kind="variable"><name>data_bits</name></member>
-    <member refid="structcybt__hci__uart__config__t_1abeabe54dd2ff31c28bf8c53f910e0d39" kind="variable"><name>stop_bits</name></member>
-    <member refid="structcybt__hci__uart__config__t_1ad4167be34fe428606a8a84feca8c1cc4" kind="variable"><name>parity</name></member>
-    <member refid="structcybt__hci__uart__config__t_1ac3f12365296f74616019face05d4aac8" kind="variable"><name>flow_control</name></member>
-  </compound>
-  <compound refid="structcybt__platform__config__t" kind="struct"><name>cybt_platform_config_t</name>
-    <member refid="structcybt__platform__config__t_1a5ed1a8d945e1ed12a4181df867d41dc7" kind="variable"><name>hci_config</name></member>
-    <member refid="structcybt__platform__config__t_1a0ed2b4e529564a9210e5d80c4e59b4bd" kind="variable"><name>controller_config</name></member>
-    <member refid="structcybt__platform__config__t_1a31c8f2a35e4006fef44c65bb7dea5d4e" kind="variable"><name>task_mem_pool_size</name></member>
-  </compound>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.15">
   <compound refid="structcybt__platform__trace__cb__t" kind="struct"><name>cybt_platform_trace_cb_t</name>
     <member refid="structcybt__platform__trace__cb__t_1aff6cbe7223f753c87f870ff5cab4333d" kind="variable"><name>trace_level</name></member>
   </compound>
@@ -41,10 +8,6 @@
     <member refid="group__platform__cfg_1gad9d80ecaf5864c704c87bd0cf7490659" kind="define"><name>CYBT_SLEEP_MODE_ENABLED</name></member>
     <member refid="group__platform__cfg_1gaf7d41be05e1c430256f65d1219abd831" kind="define"><name>CYBT_WAKE_ACTIVE_LOW</name></member>
     <member refid="group__platform__cfg_1gad8d6dd4f2d7b07a29af54ebf34d9be6e" kind="define"><name>CYBT_WAKE_ACTIVE_HIGH</name></member>
-    <member refid="group__platform__cfg_1ga5f6850727c86459c4c6c11c84870d308" kind="enum"><name>cybt_hci_transport_t</name></member>
-    <member refid="group__platform__cfg_1gga5f6850727c86459c4c6c11c84870d308af5ee9474117419b2f07127b9ffd0dc99" kind="enumvalue"><name>CYBT_HCI_UNKNOWN</name></member>
-    <member refid="group__platform__cfg_1gga5f6850727c86459c4c6c11c84870d308a154733e718f98e13774fb625df3687f3" kind="enumvalue"><name>CYBT_HCI_UART</name></member>
-    <member refid="group__platform__cfg_1ga1ff2a9935b27efb9639974d6ddc1894a" kind="function"><name>cybt_platform_config_init</name></member>
   </compound>
   <compound refid="cybt__platform__trace_8h" kind="file"><name>cybt_platform_trace.h</name>
     <member refid="group__platform__trace_1ga6ee1dced2b4da94270e21bbb3d358600" kind="define"><name>CYBT_PLATFORM_TRACE_ENABLE</name></member>
@@ -133,13 +96,7 @@
     <member refid="group__platform__trace_1ga63266c3ba4e8863a8cedf129798dc6cf" kind="function"><name>cybt_platform_log_print</name></member>
     <member refid="group__platform__trace_1gacff449b9b47250c93eb680a49129d9ec" kind="function"><name>cybt_platform_set_trace_level</name></member>
   </compound>
-  <compound refid="_r_e_a_d_m_e_8md" kind="file"><name>README.md</name>
-  </compound>
   <compound refid="group__platform__cfg" kind="group"><name>platform_cfg</name>
-    <member refid="group__platform__cfg_1ga5f6850727c86459c4c6c11c84870d308" kind="enum"><name>cybt_hci_transport_t</name></member>
-    <member refid="group__platform__cfg_1gga5f6850727c86459c4c6c11c84870d308af5ee9474117419b2f07127b9ffd0dc99" kind="enumvalue"><name>CYBT_HCI_UNKNOWN</name></member>
-    <member refid="group__platform__cfg_1gga5f6850727c86459c4c6c11c84870d308a154733e718f98e13774fb625df3687f3" kind="enumvalue"><name>CYBT_HCI_UART</name></member>
-    <member refid="group__platform__cfg_1ga1ff2a9935b27efb9639974d6ddc1894a" kind="function"><name>cybt_platform_config_init</name></member>
     <member refid="group__platform__cfg_1ga71a14bd3046f030353a91683577817a6" kind="define"><name>CYBT_SLEEP_MODE_DISABLED</name></member>
     <member refid="group__platform__cfg_1gad9d80ecaf5864c704c87bd0cf7490659" kind="define"><name>CYBT_SLEEP_MODE_ENABLED</name></member>
     <member refid="group__platform__cfg_1gaf7d41be05e1c430256f65d1219abd831" kind="define"><name>CYBT_WAKE_ACTIVE_LOW</name></member>
@@ -232,10 +189,12 @@
     <member refid="group__platform__trace_1ga5b6639b85d6af32b38303c23db5d88a1" kind="define"><name>APP_TRACE_EVENT</name></member>
     <member refid="group__platform__trace_1gae9223e675dcf08d3633075b7500a9e87" kind="define"><name>APP_TRACE_DEBUG</name></member>
   </compound>
-  <compound refid="dir_36588e4213a630c1bb8e076a76be9366" kind="dir"><name>include</name>
+  <compound refid="dir_9d21f36cd566679d106dc1c45c01f3d3" kind="dir"><name>btstack-integration</name>
   </compound>
-  <compound refid="dir_c5a52a81292cf9a5167198f4f346d6d9" kind="dir"><name>platform</name>
+  <compound refid="dir_36f4dfcac3c4171921d0db2582485cf0" kind="dir"><name>COMPONENT_HCI-UART</name>
   </compound>
-  <compound refid="indexpage" kind="page"><name>index</name>
+  <compound refid="dir_764f9f1cee58e096f8d4dfd8f6b02c05" kind="dir"><name>deploy</name>
+  </compound>
+  <compound refid="dir_fd22c03d51060b768dd566eed291e511" kind="dir"><name>include</name>
   </compound>
 </doxygenindex>

@@ -64,6 +64,9 @@ extern "C" {
 #elif defined (TARGET_STM32H5xx)
 /* RCC clock for SDMMC */
   #define STM32_RCC_PERIPHCLK_SDMMC RCC_PERIPHCLK_SDMMC1
+#elif defined (TARGET_STM32N6xx)
+/* RCC clock for SDMMC */
+  #define STM32_RCC_PERIPHCLK_SDMMC RCC_PERIPHCLK_SDMMC2
 #endif // if defined (TARGET_STM32H7xx)
 
 

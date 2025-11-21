@@ -29,7 +29,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="IFXCYP_one-line.png"/></a></td>
+  <td id="projectlogo"><a href="http://www.cypress.com/"><img alt="Logo" src="logo.png"/></a></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Bluetooth Host Stack solution</div>
   </td>
@@ -89,7 +89,6 @@ $(document).ready(function(){initNavTree('group__platform__cfg.html','');});
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
@@ -131,12 +130,27 @@ Macros</h2></td></tr>
 <tr class="memitem:gad8d6dd4f2d7b07a29af54ebf34d9be6e"><td class="memItemLeft" align="right" valign="top"><a id="gad8d6dd4f2d7b07a29af54ebf34d9be6e"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>CYBT_WAKE_ACTIVE_HIGH</b>&#160;&#160;&#160;(1)</td></tr>
 <tr class="separator:gad8d6dd4f2d7b07a29af54ebf34d9be6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:ga6a50ab63c021eaee65d2a2ce9ec26833"><td class="memItemLeft" align="right" valign="top">typedef bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__platform__cfg.html#ga6a50ab63c021eaee65d2a2ce9ec26833">cybt_exception_callback_t</a>) (<a class="el" href="group__platform__cfg.html#gab887149c4cb3cd34b2984638c6c1aebb">cybt_exception_t</a> error, uint8_t *info, uint32_t length)</td></tr>
-<tr class="memdesc:ga6a50ab63c021eaee65d2a2ce9ec26833"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typedef for exception callback function pointer.  <a href="#ga6a50ab63c021eaee65d2a2ce9ec26833">More...</a><br /></td></tr>
-<tr class="separator:ga6a50ab63c021eaee65d2a2ce9ec26833"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab005f56b1afd9e75d86c84d3881efd86"><td class="memItemLeft" align="right" valign="top"><a id="gab005f56b1afd9e75d86c84d3881efd86"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CYBT_CONTROLLER_BASE_EXCEPTION</b>&#160;&#160;&#160;0xD000</td></tr>
+<tr class="separator:gab005f56b1afd9e75d86c84d3881efd86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga161d76534180b5756bfee8612767b511"><td class="memItemLeft" align="right" valign="top"><a id="ga161d76534180b5756bfee8612767b511"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CYBT_CONTROLLER_CORE_DUMP</b>&#160;&#160;&#160;CYBT_CONTROLLER_BASE_EXCEPTION + 1</td></tr>
+<tr class="separator:ga161d76534180b5756bfee8612767b511"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf2d61880559ae8c18e2e0730b57b00c3"><td class="memItemLeft" align="right" valign="top"><a id="gaf2d61880559ae8c18e2e0730b57b00c3"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CYBT_CONTROLLER_RESTARTED</b>&#160;&#160;&#160;CYBT_CONTROLLER_BASE_EXCEPTION + 2</td></tr>
+<tr class="separator:gaf2d61880559ae8c18e2e0730b57b00c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf2d99728e6acc480b916aed0d74840d4"><td class="memItemLeft" align="right" valign="top"><a id="gaf2d99728e6acc480b916aed0d74840d4"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CYBT_CONTROLLER_MAX_EXCEPTION</b>&#160;&#160;&#160;CYBT_CONTROLLER_RESTARTED + 1</td></tr>
+<tr class="separator:gaf2d99728e6acc480b916aed0d74840d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3ce3cc0554306aa2f678db1992149d1d"><td class="memItemLeft" align="right" valign="top"><a id="ga3ce3cc0554306aa2f678db1992149d1d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CYBT_PORTING_BASE_EXCEPTION</b>&#160;&#160;&#160;0xE000</td></tr>
+<tr class="separator:ga3ce3cc0554306aa2f678db1992149d1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab17f6dca26d46b014fa0a42d1ab3ce87"><td class="memItemLeft" align="right" valign="top"><a id="gab17f6dca26d46b014fa0a42d1ab3ce87"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CYBT_PORTING_HCI_IPC_REL_BUFFER</b>&#160;&#160;&#160;CYBT_PORTING_BASE_EXCEPTION + 1</td></tr>
+<tr class="separator:gab17f6dca26d46b014fa0a42d1ab3ce87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8c0ea3d77eb8e2bc7ff5e70bac444dfd"><td class="memItemLeft" align="right" valign="top"><a id="ga8c0ea3d77eb8e2bc7ff5e70bac444dfd"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CYBT_PORTING_MAX_EXCEPTION</b>&#160;&#160;&#160;CYBT_PORTING_HCI_IPC_REL_BUFFER + 1</td></tr>
+<tr class="separator:ga8c0ea3d77eb8e2bc7ff5e70bac444dfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -150,20 +164,6 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:ga5f6850727c86459c4c6c11c84870d308"><td class="mdescLeft">&#160;</td><td class="mdescRight">The BT HCI transport type. <br /></td></tr>
 <tr class="separator:ga5f6850727c86459c4c6c11c84870d308"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab887149c4cb3cd34b2984638c6c1aebb"><td class="memItemLeft" align="right" valign="top"><a id="gab887149c4cb3cd34b2984638c6c1aebb"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__platform__cfg.html#gab887149c4cb3cd34b2984638c6c1aebb">cybt_exception_t</a> { <br />
-&#160;&#160;<b>CYBT_NO_EXCEPTION</b> = 0x00, 
-<br />
-&#160;&#160;<b>CYBT_HCI_IPC_REL_BUFFER</b> = 0x01, 
-<br />
-&#160;&#160;<b>CYBT_CONTROLLER_CORE_DUMP</b> = 0x02, 
-<br />
-&#160;&#160;<b>CYBT_CONTROLLER_RESTARTED</b> = 0x03, 
-<br />
-&#160;&#160;<b>CYBT_MAX_EXCEPTION</b> = 0xFF
-<br />
- }</td></tr>
-<tr class="memdesc:gab887149c4cb3cd34b2984638c6c1aebb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Porting layer exception list which is causing by low level. <br /></td></tr>
-<tr class="separator:gab887149c4cb3cd34b2984638c6c1aebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -171,33 +171,6 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga1ff2a9935b27efb9639974d6ddc1894a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configurate the Bluetotoh platform specific settings.  <a href="#ga1ff2a9935b27efb9639974d6ddc1894a">More...</a><br /></td></tr>
 <tr class="separator:ga1ff2a9935b27efb9639974d6ddc1894a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a id="ga6a50ab63c021eaee65d2a2ce9ec26833"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6a50ab63c021eaee65d2a2ce9ec26833">&#9670;&nbsp;</a></span>cybt_exception_callback_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef bool(*  cybt_exception_callback_t) (<a class="el" href="group__platform__cfg.html#gab887149c4cb3cd34b2984638c6c1aebb">cybt_exception_t</a> error, uint8_t *info, uint32_t length)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Typedef for exception callback function pointer. </p>
-<p>which may occur due to low level API failures and if controller triggers coredump</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">cybt_exception_t</td><td>: Reason for the exception cause </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">info</td><td>: Exception data buffer </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">length</td><td>: Exception data buffer length</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bool : [true] If app handled this error and wants to continue from porting layer, [false] porting layer will issue assert. </dd></dl>
-
-</div>
-</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga1ff2a9935b27efb9639974d6ddc1894a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga1ff2a9935b27efb9639974d6ddc1894a">&#9670;&nbsp;</a></span>cybt_platform_config_init()</h2>

@@ -1,4 +1,4 @@
-﻿#AIROC™ BT STack porting layer for PSoC6 BLESS
+﻿# AIROC™ BT STack porting layer for PSoC6 BLESS
 
 ## Overview
 The btstack-integration/COMPONENT_BLESS-IPC is the adaptation layer (porting layer) between AIROC™ BT STack and 

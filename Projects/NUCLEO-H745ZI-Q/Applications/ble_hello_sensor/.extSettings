@@ -1,6 +1,6 @@
 [CortexM7:ProjectFiles]
 HeaderPath=
 [CortexM7:Others]
-Define=
+Define=CY_USING_HAL;
 [CortexM7:Groups]
 Application/User/Core/Src=../CM7/Core/Src/app_platform_cfg.c;../CM7/Core/Src/hello_sensor.c;../CM7/Core/Src/wiced_bt_cfg.c;

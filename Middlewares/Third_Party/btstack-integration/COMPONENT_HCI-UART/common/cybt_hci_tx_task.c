@@ -68,6 +68,8 @@ void cybt_lock_hci_tx(cybt_hci_tx_status_t reason)
         case CYBT_HCI_TX_BLOCKED_HEAP_RAN_OUT:
         case CYBT_HCI_TX_BLOCKED_QUEUE_FULL_CMD:
         case CYBT_HCI_TX_BLOCKED_QUEUE_FULL_ACL:
+        case CYBT_HCI_TX_BLOCKED_QUEUE_FULL_SCO:
+        case CYBT_HCI_TX_BLOCKED_QUEUE_FULL_ISO:
             hci_tx_status |= reason;
             break;
         default:
@@ -235,6 +237,37 @@ void handle_hci_tx_acl(BT_MSG_HDR *p_bt_msg)
     cybt_platform_task_mempool_free((void *) p_bt_msg);
 }
 
+void handle_hci_tx_iso(BT_MSG_HDR* p_bt_msg)
+{
+    uint8_t* p_hci_payload;
+    cybt_result_t result;
+
+    if (NULL == p_bt_msg)
+    {
+        HCITXTASK_TRACE_ERROR("handle_hci_tx_iso(): Invalid task msg");
+        return;
+    }
+
+    HCITXTASK_TRACE_DEBUG("handle_hci_tx_iso(): msg = 0x%x, len = %d",
+        p_bt_msg,
+        p_bt_msg->length
+    );
+
+    p_hci_payload = (uint8_t*)(p_bt_msg + 1);
+    result = cybt_platform_hci_write(HCI_PACKET_TYPE_ISO,
+        p_hci_payload,
+        p_bt_msg->length
+    );
+    if (CYBT_SUCCESS != result)
+    {
+        HCITXTASK_TRACE_ERROR("handle_hci_tx_iso(): hci write failed (0x%x)",
+            result
+        );
+    }
+
+    cybt_platform_task_mempool_free((void*)p_bt_msg);
+}
+
 void handle_hci_tx_sco(BT_MSG_HDR *p_bt_msg)
 {
     uint8_t *p_hci_payload;
@@ -320,6 +353,9 @@ void cybt_hci_tx_task(cy_thread_arg_t arg)
                 break;
             case BT_EVT_TO_HCI_SCO:
                 handle_hci_tx_sco(p_bt_msg);
+                break;
+            case BT_EVT_TO_HCI_ISO:
+                handle_hci_tx_iso(p_bt_msg);
                 break;
             default:
                 HCITXTASK_TRACE_ERROR("hci_tx_task(): Unknown event (0x%x)", p_bt_msg->event);

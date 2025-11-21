@@ -31,6 +31,7 @@
  * so agrees to indemnify Cypress against all liability.
  */
 
+#ifndef USE_TLS_WEAK 
 #ifdef CY_SECURE_SOCKETS_PKCS_SUPPORT
 #include "iot_crypto.h"
 
@@ -43,3 +44,5 @@ void CRYPTO_Init( void )
 
 }
 #endif
+#else
+#endif /* USE_TLS_WEAK */

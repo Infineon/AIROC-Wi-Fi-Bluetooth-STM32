@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023, Cypress Semiconductor Corporation or
+ * Copyright 2016-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -43,10 +43,12 @@
  *      5. Security - manages all security functionality
  *      6. Power Management - manages park, sniff, hold, etc.
  *
- * WICED Bluetooth Framework Functions
+ * AIROC Bluetooth Framework Functions
  */
 
-#pragma once
+#ifndef __WICED_BT_STACK_H__
+#define __WICED_BT_STACK_H__
+
 #include "wiced_bt_cfg.h"
 #include "wiced_bt_dev.h"
 
@@ -76,7 +78,7 @@ extern "C" {
  *
  * @return   <b> WICED_BT_SUCCESS </b> : on success; \n
  *           <b> WICED_BT_FAILED  </b> : if an error occurred
- * @note This API must be called before using any BT functionality. \n
+ * @note This API must be called before using any Bluetooth functionality. \n
  * If p_bt_cfg_settings is null, stack uses default parameters defined in wiced_bt_cfg.h \n
  *     However, it is strongly recommended that applications define the configuration to appropriate values based on the application use case.
  */
@@ -93,23 +95,27 @@ wiced_result_t wiced_bt_stack_init(wiced_bt_management_cback_t *p_bt_management_
 wiced_result_t wiced_bt_stack_deinit( void );
 
 /**
-* Initialize l2cap
-*
-* @return wiced_result_t
-*/
-wiced_result_t wiced_bt_l2c_module_init(void);
-
- /**
  * Initialize SMP.
  * Called by application to accept incoming pairing requests
  *
  * @result wiced_result_t
  */
-wiced_result_t wiced_bt_smp_module_init(void);
+wiced_result_t wiced_bt_smp_server_module_init(void);
+
+/**
+ * Called by the porting layer to enable SMP Client
+ *
+ * @return   <b> WICED_SUCCESS </b> : on success; \n
+ *           <b> WICED_ERROR  </b>  : if an error occurred
+ */
+wiced_result_t wiced_bt_smp_client_module_init(void);
+
 
 /**
 * Enable host based resolution
 * This should be invoked in the BTM_ENABLED_EVT event
+* The API initializes the host resolution database using the \ref wiced_bt_cfg_ble_t.host_addr_resolution_db_size
+* member of \ref wiced_bt_cfg_settings_t.p_ble_cfg
 */
 wiced_result_t wiced_bt_init_resolution(void);
 
@@ -120,3 +126,5 @@ wiced_result_t wiced_bt_init_resolution(void);
 #ifdef __cplusplus
 }
 #endif
+
+#endif //__WICED_BT_STACK_H__

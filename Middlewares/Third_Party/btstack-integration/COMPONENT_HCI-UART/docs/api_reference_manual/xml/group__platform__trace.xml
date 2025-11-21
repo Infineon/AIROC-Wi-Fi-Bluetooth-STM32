@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.15">
   <compounddef id="group__platform__trace" kind="group">
     <compoundname>platform_trace</compoundname>
     <title>Bluetooth Platform Trace</title>
@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="81" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="81" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="77" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="group__platform__trace_1ga4d3896459a291d5096506d4bc5987873" prot="public" static="no">
         <type>uint8_t</type>
@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="93" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="93" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="89" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="89" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="110" column="1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="106" column="1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -66,7 +66,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="112" column="1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="108" column="1"/>
       </memberdef>
       <memberdef kind="function" id="group__platform__trace_1gacff449b9b47250c93eb680a49129d9ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -82,28 +82,33 @@
           <declname>level</declname>
         </param>
         <briefdescription>
-<para>Set the trace level for trace categories id. </para>        </briefdescription>
+<para>Set the trace level for trace categories id. </para>
+        </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername direction="in">id</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>: trace id, CYBT_TRACE_ID_ALL for all categories </para></parameterdescription>
+<para>: trace id, CYBT_TRACE_ID_ALL for all categories </para>
+</parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
 <parametername direction="in">level</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>: trace level</para></parameterdescription>
+<para>: trace level</para>
+</parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>void </para></simplesect>
-</para>        </detaileddescription>
+<simplesect kind="return"><para>void </para>
+</simplesect>
+</para>
+        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="186" column="1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="182" column="1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -116,7 +121,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="42" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="42" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="42" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="42" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga2d65faaba8a0734aee6126a1ee99eb90" prot="public" static="no">
         <name>INITIAL_TRACE_LEVEL_MAIN</name>
@@ -127,7 +132,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="48" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="48" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="48" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gab141416369a97c8a0ff5ff5b35734694" prot="public" static="no">
         <name>INITIAL_TRACE_LEVEL_SPIF</name>
@@ -138,7 +143,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="49" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="49" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="49" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga649ea6b26acfafe56b53bbde1d2d1cda" prot="public" static="no">
         <name>INITIAL_TRACE_LEVEL_HCITX_TASK</name>
@@ -149,7 +154,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="50" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="50" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="50" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gade2c98e5e3aea412014a0ba170776673" prot="public" static="no">
         <name>INITIAL_TRACE_LEVEL_HCIRX_TASK</name>
@@ -160,7 +165,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="51" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="51" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="51" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="51" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gac56c57bed664812323a8ee66ab60524b" prot="public" static="no">
         <name>INITIAL_TRACE_LEVEL_HCI_DRV</name>
@@ -171,7 +176,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="52" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="52" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="52" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gac94383e16c4d36c35399c69328faf2fe" prot="public" static="no">
         <name>INITIAL_TRACE_LEVEL_HCI_LOG</name>
@@ -182,7 +187,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="53" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="53" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="53" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga1a3cd83b11015bbd1f8f2cabe2812c16" prot="public" static="no">
         <name>INITIAL_TRACE_LEVEL_MEMORY</name>
@@ -193,7 +198,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="54" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="54" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="54" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga0daa7136b46a98ace2073adbf4c36098" prot="public" static="no">
         <name>INITIAL_TRACE_LEVEL_PRM</name>
@@ -204,7 +209,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="55" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="55" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="55" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga18134ee925e7e7ea93dfdc543a52c1f7" prot="public" static="no">
         <name>INITIAL_TRACE_LEVEL_STACK</name>
@@ -215,7 +220,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="59" column="10" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="59" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="56" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="56" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gac898c85dfad08061acbbcc299627a347" prot="public" static="no">
         <name>INITIAL_TRACE_LEVEL_APP</name>
@@ -226,18 +231,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="61" column="10" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="61" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="57" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="57" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga7171cf6d4882d16a4f8095996de39ab2" prot="public" static="no">
         <name>CYBT_TRACE_ID_MAIN</name>
         <initializer>(0)</initializer>
         <briefdescription>
-<para>trace category id </para>        </briefdescription>
+<para>trace category id </para>
+        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="69" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="69" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="65" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="65" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gafe82dd910728cf074689a7c482d1a6f8" prot="public" static="no">
         <name>CYBT_TRACE_ID_SPIF</name>
@@ -248,7 +254,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="70" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="70" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="66" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="66" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga2d85554ba330567e69d94ce34a2357a7" prot="public" static="no">
         <name>CYBT_TRACE_ID_HCITX_TASK</name>
@@ -259,7 +265,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="71" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="71" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="67" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="67" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gad62abb5f816e57051df7b760026c84ea" prot="public" static="no">
         <name>CYBT_TRACE_ID_HCIRX_TASK</name>
@@ -270,7 +276,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="72" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="72" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="68" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="68" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga02ecd31ceb703561f6136fb524e77dba" prot="public" static="no">
         <name>CYBT_TRACE_ID_HCI_DRV</name>
@@ -281,7 +287,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="73" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="73" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="69" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="69" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gaaaa263122f94c508aa91f7da7f6e4a29" prot="public" static="no">
         <name>CYBT_TRACE_ID_HCI_LOG</name>
@@ -292,7 +298,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="74" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="74" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="70" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="70" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gadf6707c3f7e0d070b2d6227f4de046cd" prot="public" static="no">
         <name>CYBT_TRACE_ID_MEMORY</name>
@@ -303,7 +309,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="75" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="75" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="71" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga60b2374e185cdb17af72500b9e314d6d" prot="public" static="no">
         <name>CYBT_TRACE_ID_PRM</name>
@@ -314,7 +320,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="76" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="76" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="72" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="72" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gaf4b4a698d40be6644a8a2d086148598c" prot="public" static="no">
         <name>CYBT_TRACE_ID_STACK</name>
@@ -325,7 +331,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="77" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="77" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="73" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="73" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga8cdd07a97bc787958a409e94f3667fe1" prot="public" static="no">
         <name>CYBT_TRACE_ID_APP</name>
@@ -336,7 +342,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="78" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="78" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="74" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="74" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga7c6d79b7e720b49e584efe188b7fc640" prot="public" static="no">
         <name>CYBT_TRACE_ID_MAX</name>
@@ -347,7 +353,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="79" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="79" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="75" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="75" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga70388a95e5129fbbb4f61515539782fe" prot="public" static="no">
         <name>CYBT_TRACE_ID_ALL</name>
@@ -358,18 +364,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="80" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="80" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="76" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="76" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga9606ce68152dd02a9f27798d2d68c329" prot="public" static="no">
         <name>CYBT_TRACE_LEVEL_NONE</name>
         <initializer>(0)</initializer>
         <briefdescription>
-<para>trace level </para>        </briefdescription>
+<para>trace level </para>
+        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="86" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="86" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="82" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="82" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gaca2702d06b0a043e470d48bbac70082d" prot="public" static="no">
         <name>CYBT_TRACE_LEVEL_ERROR</name>
@@ -380,7 +387,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="87" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="87" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="83" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="83" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gad23df6df46f7e020626009d3f3d4ce30" prot="public" static="no">
         <name>CYBT_TRACE_LEVEL_WARNING</name>
@@ -391,7 +398,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="88" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="88" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="84" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="84" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga93c9cacf7db1bead18499f50a3350759" prot="public" static="no">
         <name>CYBT_TRACE_LEVEL_API</name>
@@ -402,7 +409,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="89" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="89" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="85" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="85" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gad9ce57bafa65a4bd1274e6bee974c06a" prot="public" static="no">
         <name>CYBT_TRACE_LEVEL_EVENT</name>
@@ -413,7 +420,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="90" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="90" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="86" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="86" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga8810797a61191205e77b8225678956e6" prot="public" static="no">
         <name>CYBT_TRACE_LEVEL_DEBUG</name>
@@ -424,7 +431,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="91" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="91" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="87" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gaac69685a19793a74b502dc2d9486899f" prot="public" static="no">
         <name>CYBT_TRACE_LEVEL_MAX</name>
@@ -435,7 +442,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="92" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="92" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="88" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="88" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga4693027f408219a54e9bdbbd518a1349" prot="public" static="no">
         <name>MAIN_TRACE_ERROR</name>
@@ -447,7 +454,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="114" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="114" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="110" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="110" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gaf34780f8606a33e32649aeeec9e0fd8b" prot="public" static="no">
         <name>MAIN_TRACE_WARNING</name>
@@ -459,7 +466,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="115" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="115" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="111" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="111" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gafb38a7414371a2c232b111095349a704" prot="public" static="no">
         <name>MAIN_TRACE_API</name>
@@ -471,7 +478,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="116" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="116" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="112" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="112" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gac76f1d32c2ff64a8d169feefeb43a361" prot="public" static="no">
         <name>MAIN_TRACE_EVENT</name>
@@ -483,7 +490,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="117" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="117" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="113" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="113" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gad79aa89cff23f261b95f94f76c981c51" prot="public" static="no">
         <name>MAIN_TRACE_DEBUG</name>
@@ -495,7 +502,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="118" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="118" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="114" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="114" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga2e36694c24e1c4f0fc215fc9cc1a264c" prot="public" static="no">
         <name>SPIF_TRACE_ERROR</name>
@@ -507,7 +514,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="120" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="120" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="116" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="116" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gafca224209a5a65a2b1a013f165f5d4b7" prot="public" static="no">
         <name>SPIF_TRACE_WARNING</name>
@@ -519,7 +526,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="121" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="121" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="117" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="117" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga5c62c7ead4402f5f148d6f472ad04197" prot="public" static="no">
         <name>SPIF_TRACE_API</name>
@@ -531,7 +538,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="122" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="122" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="118" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="118" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga1d821eabc160c1d6694a14aff9c6a02d" prot="public" static="no">
         <name>SPIF_TRACE_EVENT</name>
@@ -543,7 +550,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="123" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="123" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="119" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="119" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga3a87f9784571b45e69aca3f145f4c84b" prot="public" static="no">
         <name>SPIF_TRACE_DEBUG</name>
@@ -555,7 +562,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="124" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="124" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="120" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="120" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gaac3d6291f4aca9447f8023fd1ab557b0" prot="public" static="no">
         <name>HCITXTASK_TRACE_ERROR</name>
@@ -567,7 +574,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="126" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="126" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="122" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="122" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gad1d7c49b668c2b031e7c30328bc43a6e" prot="public" static="no">
         <name>HCITXTASK_TRACE_WARNING</name>
@@ -579,7 +586,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="127" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="127" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="123" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="123" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga2c624833e4f423527173a556e84e94f9" prot="public" static="no">
         <name>HCITXTASK_TRACE_API</name>
@@ -591,7 +598,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="128" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="128" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="124" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="124" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gafe533bfcbeefb268f07dcfef3fece589" prot="public" static="no">
         <name>HCITXTASK_TRACE_EVENT</name>
@@ -603,7 +610,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="129" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="129" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="125" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="125" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gac038ed8c76fc4cbf1464cdb356113051" prot="public" static="no">
         <name>HCITXTASK_TRACE_DEBUG</name>
@@ -615,7 +622,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="130" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="130" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="126" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="126" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gae7a7651a8c994137ce0145d52053b31c" prot="public" static="no">
         <name>HCIRXTASK_TRACE_ERROR</name>
@@ -627,7 +634,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="132" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="132" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="128" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="128" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga12997505d988d8f5e556c90f1e74b047" prot="public" static="no">
         <name>HCIRXTASK_TRACE_WARNING</name>
@@ -639,7 +646,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="133" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="133" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="129" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="129" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gaf80146c14e625b98674b68e434235015" prot="public" static="no">
         <name>HCIRXTASK_TRACE_API</name>
@@ -651,7 +658,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="134" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="134" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="130" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="130" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gab28ed773f9bba5ee2c71c38522c700b4" prot="public" static="no">
         <name>HCIRXTASK_TRACE_EVENT</name>
@@ -663,7 +670,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="135" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="135" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="131" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="131" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga7e334e969e06ffabf36eeeb20b77daca" prot="public" static="no">
         <name>HCIRXTASK_TRACE_DEBUG</name>
@@ -675,7 +682,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="136" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="136" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="132" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="132" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gac45d44428aeb1d6ae060af83912667cd" prot="public" static="no">
         <name>HCIDRV_TRACE_ERROR</name>
@@ -687,7 +694,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="138" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="138" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="134" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="134" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga3da9750ab3499ca11b56d18ee09e4e46" prot="public" static="no">
         <name>HCIDRV_TRACE_WARNING</name>
@@ -699,7 +706,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="139" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="139" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="135" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="135" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga98b1b63edf50ad70852eda2572583ed2" prot="public" static="no">
         <name>HCIDRV_TRACE_API</name>
@@ -711,7 +718,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="140" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="140" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="136" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="136" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga53345ce2ce91e90ab091161dec862a93" prot="public" static="no">
         <name>HCIDRV_TRACE_EVENT</name>
@@ -723,7 +730,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="141" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="141" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="137" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="137" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga748f70b56e7c1c38ec32e52cfa9e80bf" prot="public" static="no">
         <name>HCIDRV_TRACE_DEBUG</name>
@@ -735,7 +742,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="142" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="142" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="138" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="138" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga05f04ca32c76bc4eece0a3bfdbdea4d7" prot="public" static="no">
         <name>HCILOG_TRACE_ERROR</name>
@@ -747,7 +754,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="144" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="144" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="140" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="140" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gaf44f715cfa94d272309d981bf7f0f4b1" prot="public" static="no">
         <name>HCILOG_TRACE_WARNING</name>
@@ -759,7 +766,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="145" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="145" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="141" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="141" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gaa8a7c90a763318b26d162c641f4af0d2" prot="public" static="no">
         <name>HCILOG_TRACE_API</name>
@@ -771,7 +778,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="146" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="146" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="142" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="142" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga93eddb1f5c545f7640f2bcd94fd9eb37" prot="public" static="no">
         <name>HCILOG_TRACE_EVENT</name>
@@ -783,7 +790,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="147" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="147" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="143" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="143" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gaf2d110289245c75e2c45cfd40f875581" prot="public" static="no">
         <name>HCILOG_TRACE_DEBUG</name>
@@ -795,7 +802,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="148" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="148" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="144" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="144" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga402f9c32e6456d1e426fd6f66fd3e21f" prot="public" static="no">
         <name>MEM_TRACE_ERROR</name>
@@ -807,7 +814,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="150" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="150" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="146" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="146" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga011b091527066711172f0763e8819320" prot="public" static="no">
         <name>MEM_TRACE_WARNING</name>
@@ -819,7 +826,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="151" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="151" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="147" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="147" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga90a7449e271e9bfb38635d6b60a6f50f" prot="public" static="no">
         <name>MEM_TRACE_API</name>
@@ -831,7 +838,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="152" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="152" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="148" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="148" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gab2319376490833f38d50e154ede7af49" prot="public" static="no">
         <name>MEM_TRACE_EVENT</name>
@@ -843,7 +850,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="153" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="153" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="149" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="149" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga36d8db399eff6bd7c4e0244a372cb38e" prot="public" static="no">
         <name>MEM_TRACE_DEBUG</name>
@@ -855,7 +862,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="154" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="154" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="150" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="150" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga18fe677928f94742b714ca06fc48a61c" prot="public" static="no">
         <name>PRM_TRACE_ERROR</name>
@@ -867,7 +874,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="156" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="156" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="152" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="152" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gafcc2ff79f92103b10224cf7628cd1836" prot="public" static="no">
         <name>PRM_TRACE_WARNING</name>
@@ -879,7 +886,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="157" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="157" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="153" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="153" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga723f88937f88f9a368bfc1300a315df3" prot="public" static="no">
         <name>PRM_TRACE_API</name>
@@ -891,7 +898,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="158" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="158" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="154" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="154" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gaff4582faa5e61fdf38151012a35362c3" prot="public" static="no">
         <name>PRM_TRACE_EVENT</name>
@@ -903,7 +910,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="159" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="159" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="155" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="155" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gaa5782ba936941ddc7b7f06290e14683a" prot="public" static="no">
         <name>PRM_TRACE_DEBUG</name>
@@ -915,7 +922,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="160" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="160" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="156" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="156" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga6a811599561b1cbb18c074cbe3ff87a4" prot="public" static="no">
         <name>STACK_TRACE_ERROR</name>
@@ -927,7 +934,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="162" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="162" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="158" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="158" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga9c84833d9a35c5204a93b6687b7e8084" prot="public" static="no">
         <name>STACK_TRACE_WARNING</name>
@@ -939,7 +946,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="163" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="163" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="159" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="159" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gac87ab25c91b82cb0924687bbd63856d2" prot="public" static="no">
         <name>STACK_TRACE_API</name>
@@ -951,7 +958,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="164" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="164" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="160" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="160" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga41933d7f1c850138c587f96b6bf8436a" prot="public" static="no">
         <name>STACK_TRACE_EVENT</name>
@@ -963,7 +970,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="165" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="165" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="161" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="161" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gaf73ec0fb8b08e80e5ead42eb6d79a0e6" prot="public" static="no">
         <name>STACK_TRACE_DEBUG</name>
@@ -975,7 +982,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="166" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="166" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="162" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="162" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gad1de351a334200a432c213c7f4dd45b7" prot="public" static="no">
         <name>APP_TRACE_ERROR</name>
@@ -987,7 +994,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="168" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="168" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="164" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="164" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga1915c46defd5a96962de641442b33ac1" prot="public" static="no">
         <name>APP_TRACE_WARNING</name>
@@ -999,7 +1006,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="169" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="169" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="165" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="165" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gafd4dcaa48bef4105bd5ff2b97773d778" prot="public" static="no">
         <name>APP_TRACE_API</name>
@@ -1011,7 +1018,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="170" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="170" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="166" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="166" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1ga5b6639b85d6af32b38303c23db5d88a1" prot="public" static="no">
         <name>APP_TRACE_EVENT</name>
@@ -1023,7 +1030,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="171" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="171" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="167" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="167" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__trace_1gae9223e675dcf08d3633075b7500a9e87" prot="public" static="no">
         <name>APP_TRACE_DEBUG</name>
@@ -1035,11 +1042,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" line="172" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_trace.h" bodystart="172" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" line="168" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_HCI-UART/include/cybt_platform_trace.h" bodystart="168" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>ENABLE the below definition CYBT_PLATFORM_TRACE_ENABLE to have logging functionality by using trace marcos in this file. </para>    </briefdescription>
+<para>ENABLE the below definition CYBT_PLATFORM_TRACE_ENABLE to have logging functionality by using trace marcos in this file. </para>
+    </briefdescription>
     <detaileddescription>
     </detaileddescription>
   </compounddef>

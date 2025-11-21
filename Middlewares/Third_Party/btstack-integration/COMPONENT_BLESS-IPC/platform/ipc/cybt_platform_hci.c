@@ -34,8 +34,6 @@
 #define HCI_HEADER_LEN 0x04
 #define L2C_HEADER_LEN 0x04
 #define BT_TASK_EVENT_BUFFERS_CNT 10
-
-#define MAX_WRITE_RETRIES       (10)
 #define RECORD_IPC_STATS
 
 /*****************************************************************************
@@ -71,14 +69,6 @@ typedef struct
     uint16_t dataLen;
 } cy_stc_ble_ipc_msg_t;
 
-#ifdef RECORD_IPC_STATS
-typedef struct {
-    uint32_t write_fail_count; /* Number of write requests that failed. This does not count number of retries performed for same request.  */
-    uint32_t write_max_retry_count; /* Maximum number of failed retries permormed for write request. 0 <= MAX_WRITE_RETRIES */
-}cybt_ipc_stats_t;
-
-#endif
-
 /******************************************************************************
  *                           Variables Definitions
  ******************************************************************************/
@@ -107,10 +97,7 @@ static volatile cy_stc_ble_ipc_msg_t controllerMsg =
 
 static IPC_HOST_MSG msg_comp;
 
-#ifdef RECORD_IPC_STATS
-static cybt_ipc_stats_t ipc_stats;
-#endif
-
+cy_semaphore_t  ipc_release_int;
 /******************************************************************************
  *                          Function Declarations
  ******************************************************************************/
@@ -166,21 +153,30 @@ cybt_result_t cybt_platform_msg_to_bt_task(const uint16_t msg, bool is_from_isr)
     return (result);
 }
 
-void cybt_platform_ipc_pipe_release_cb(void)
-{
-    HCIDRV_TRACE_DEBUG("cybt_platform_ipc_pipe_release_cb");
-}
-
 void HciIpcFreePktBuffer(unsigned char type, uint32_t bufferPtr, uint16_t length)
 {
+    cy_en_ipc_pipe_status_t result = CY_IPC_PIPE_ERROR_NO_IPC;
+    cybt_result_t status = CYBT_SUCCESS;
     memset (&msg_comp, 0x00, sizeof(msg_comp));
     msg_comp.clientID = CY_BLE_CYPIPE_MSG_COMPLETE_ID;
     msg_comp.pktType = type;
     msg_comp.pktLen = length;
     msg_comp.pktDataPointer = bufferPtr;
 
-    Cy_IPC_Pipe_SendMessage(CY_BLE_IPC_CONTROLLER_ADDR,CY_BLE_IPC_HOST_ADDR, (void *)&msg_comp,
-                            NULL);
+	do
+	{
+		result = Cy_IPC_Pipe_SendMessage(CY_BLE_IPC_CONTROLLER_ADDR,CY_BLE_IPC_HOST_ADDR, (void *)&msg_comp, NULL);
+		if (result)
+		{
+			status = CYBT_ERR_HCI_WRITE_FAILED;
+			cy_rtos_get_semaphore(&ipc_release_int, CY_RTOS_NEVER_TIMEOUT, true);
+		}
+		else
+		{
+			status = CYBT_SUCCESS;
+			break;
+		}
+	}while(status!=CYBT_SUCCESS);
 }
 
 bt_task_event_t *get_rx_free_event_buffer()
@@ -261,6 +257,11 @@ static void Cy_BLE_IPC_HostMsgFlushRecvCallBack(uint32_t *msgPtr)
     /*Free HOST memory if any allocated and send to controller*/
 }
 
+static void Cy_BLE_IPC_HostMsgReleaseCallBack(void)
+{
+	cy_rtos_set_semaphore(&ipc_release_int, true);
+}
+
 cybt_result_t cybt_platform_hci_open(void *p_arg)
 {
     uint32_t ipcStatus;
@@ -270,7 +271,7 @@ cybt_result_t cybt_platform_hci_open(void *p_arg)
     {
 
     	stackParam.maxConnCount = p_bt_cfg_settings_Bless->p_ble_cfg->ble_max_simultaneous_links;
-    	stackParam.controllerTotalHeapSz = (stackParam.maxConnCount *1532) + 3476 ;
+	stackParam.controllerTotalHeapSz = (stackParam.maxConnCount *1532) + 3496 ;
     	stackParam.totalHeapSz = stackParam.controllerTotalHeapSz;
     	if(stackParam.controllerMemoryHeapPtr == NULL)
     	{
@@ -298,10 +299,15 @@ cybt_result_t cybt_platform_hci_open(void *p_arg)
     	HCIDRV_TRACE_DEBUG("Controller started %d result %s",
     			controllerMsg.controllerStarted, (controllerMsg.data==0)?"SUCCESS":"FAIL");
 
+	cy_rtos_init_semaphore(&ipc_release_int, 1, 0);
+
     	Cy_IPC_Pipe_RegisterCallback	(CY_IPC_EP_CYPIPE_CM4_ADDR,
     			&Cy_BLE_IPC_HostMsgRecvCallBack,CY_BLE_CYPIPE_MSG_SEND_ID);
     	Cy_IPC_Pipe_RegisterCallback	(CY_IPC_EP_CYPIPE_CM4_ADDR,
     			&Cy_BLE_IPC_HostMsgFlushRecvCallBack,CY_BLE_CYPIPE_MSG_COMPLETE_ID);
+
+	Cy_IPC_Pipe_RegisterCallbackRel(CY_IPC_EP_CYPIPE_CM4_ADDR,
+			&Cy_BLE_IPC_HostMsgReleaseCallBack);
 
     	hci_cb.inited = true;
     	cy_rtos_init_event(&hci_task_event);
@@ -328,9 +334,9 @@ cybt_result_t cybt_platform_hci_write(hci_packet_type_t pti,
     IPC_HOST_MSG *host_msg;
     uint8_t* ipc_tx_buffer;
     uint32_t wait_for = HCI_TASK_EVENT;
-    int retries = 0;
     host_msg = (IPC_HOST_MSG *)(p_data-sizeof(IPC_HOST_MSG));
     ipc_tx_buffer = p_data;
+    hci_acl_packet_header_t hciHeader;
 
     HCIDRV_TRACE_DEBUG("hci_write for len = %d", length);
 
@@ -341,8 +347,19 @@ cybt_result_t cybt_platform_hci_write(hci_packet_type_t pti,
     if (pti == HCI_PACKET_TYPE_ACL)
     {
         memcpy(&(host_msg->hciHeader), p_data, HCI_HEADER_LEN);
-        memcpy(&(host_msg->pktDataHeader), (p_data+HCI_HEADER_LEN), L2C_HEADER_LEN);
-        host_msg->pktDataPointer = (uint32_t)&ipc_tx_buffer[HCI_HEADER_LEN+L2C_HEADER_LEN];
+        memcpy(&hciHeader, p_data, HCI_HEADER_LEN);
+
+        /*Consider header and data if non-automatically-flushable packet.
+        Otherwise (ie. In case of Continuing fragment packet) consider only data.*/
+        if(hciHeader.pb == START_OF_NON_AUTO_FLUSHABLE_PKT_PB_FLAG)
+        {
+            memcpy(&(host_msg->pktDataHeader), (p_data+HCI_HEADER_LEN), L2C_HEADER_LEN);
+            host_msg->pktDataPointer = (uint32_t)&ipc_tx_buffer[HCI_HEADER_LEN+L2C_HEADER_LEN];
+        }
+        else
+        {
+            host_msg->pktDataPointer = (uint32_t)&ipc_tx_buffer[HCI_HEADER_LEN];
+        }
     }
     else
     {
@@ -351,37 +368,24 @@ cybt_result_t cybt_platform_hci_write(hci_packet_type_t pti,
 
     do
     {
-        result = Cy_IPC_Pipe_SendMessage(CY_BLE_IPC_CONTROLLER_ADDR,CY_BLE_IPC_HOST_ADDR, (uint32_t *)host_msg,
-        		&cybt_platform_ipc_pipe_release_cb);
-
-        if (result)
-        {
-            /* adding a delay before retrying */
-            {
-                volatile int delay = 1000;
-                while(delay--);
-            }
-
-            status = CYBT_ERR_HCI_WRITE_FAILED;
-
-#ifdef RECORD_IPC_STATS
-			if (!retries)
-				++ipc_stats.write_fail_count;
-
-			if (retries > ipc_stats.write_max_retry_count){
-				ipc_stats.write_max_retry_count = retries;
-            }
-#endif
-        }else{
-            status = CYBT_SUCCESS;
-            break;
-        }
-    }while(++retries < MAX_WRITE_RETRIES);
-
-    //TODO: Instead of blocking wait, manage this by buffer queue or a new thread
+		result = Cy_IPC_Pipe_SendMessage(CY_BLE_IPC_CONTROLLER_ADDR,CY_BLE_IPC_HOST_ADDR, (uint32_t *)host_msg,NULL);
+		if (result)
+		{
+			status = CYBT_ERR_HCI_WRITE_FAILED;
+			cy_rtos_get_semaphore(&ipc_release_int, CY_RTOS_NEVER_TIMEOUT, true);
+		}
+		else
+		{
+			status = CYBT_SUCCESS;
+			break;
+		}
+    }while(status!=CYBT_SUCCESS);
 
     if (status == CYBT_SUCCESS)
-        cy_rtos_waitbits_event(&hci_task_event, &wait_for, true, false, CY_RTOS_NEVER_TIMEOUT);
+	{
+	//TODO: Instead of blocking wait, manage this by buffer queue or a new thread
+		cy_rtos_waitbits_event(&hci_task_event, &wait_for, true, false, CY_RTOS_NEVER_TIMEOUT);
+	}
 
     return status;
 }
@@ -446,11 +450,28 @@ bool cybt_platform_hci_process_if_coredump(uint8_t *p_data, uint32_t length)
     return (false);
 }
 
-#ifdef RECORD_IPC_STATS
-cybt_result_t cybt_platform_hci_get_ipc_stats(cybt_ipc_stats_t *p_stats)
+void cybt_platform_bless_get_trng(uint8_t *p_rand, uint8_t *p_len)
 {
-	p_stats->write_fail_count = ipc_stats.write_fail_count;
-	p_stats->write_max_retry_count = ipc_stats.write_max_retry_count;
-	return  CYBT_SUCCESS;
+    cyhal_trng_t trng_obj;
+    uint32_t rand_num;
+    int loop_cnt, remainder ;
+
+    cyhal_trng_init(&trng_obj);
+
+    loop_cnt = ((*p_len) / sizeof(rand_num));
+    remainder = ((*p_len) % sizeof(rand_num));
+
+    for(int i = 0; i < loop_cnt; i++)
+    {
+        rand_num = cyhal_trng_generate(&trng_obj);
+        memcpy(p_rand, &rand_num, sizeof(rand_num));
+        p_rand+=sizeof(rand_num);
+    }
+
+    if(remainder)
+    {
+        rand_num = cyhal_trng_generate(&trng_obj);
+        memcpy(p_rand, &rand_num, remainder);
+    }
+    cyhal_trng_free(&trng_obj);
 }
-#endif

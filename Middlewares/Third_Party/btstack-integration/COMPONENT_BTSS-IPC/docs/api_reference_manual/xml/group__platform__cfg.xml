@@ -43,104 +43,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="64" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="63" bodyend="68"/>
-      </memberdef>
-      <memberdef kind="enum" id="group__platform__cfg_1gab887149c4cb3cd34b2984638c6c1aebb" prot="public" static="no" strong="no">
-        <type></type>
-        <name>cybt_exception_t</name>
-        <enumvalue id="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebbabaa7aa6502eac7036fcce924e0dedad7" prot="public">
-          <name>CYBT_NO_EXCEPTION</name>
-          <initializer>= 0x00</initializer>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebbae03d841bfda8775d8111602c1e49a948" prot="public">
-          <name>CYBT_HCI_IPC_REL_BUFFER</name>
-          <initializer>= 0x01</initializer>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebbad91487056c5b8bf58595982b8a43488e" prot="public">
-          <name>CYBT_CONTROLLER_CORE_DUMP</name>
-          <initializer>= 0x02</initializer>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebba8b6e17328b8bb844642c3426418162f3" prot="public">
-          <name>CYBT_CONTROLLER_RESTARTED</name>
-          <initializer>= 0x03</initializer>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebbabac28d431cb536959b4db3cbd7c7d7b6" prot="public">
-          <name>CYBT_MAX_EXCEPTION</name>
-          <initializer>= 0xFF</initializer>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <briefdescription>
-<para>The Porting layer exception list which is causing by low level. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="74" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="73" bodyend="80"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="typedef">
-      <memberdef kind="typedef" id="group__platform__cfg_1ga6a50ab63c021eaee65d2a2ce9ec26833" prot="public" static="no">
-        <type>bool(*</type>
-        <definition>typedef bool(*  cybt_exception_callback_t) (cybt_exception_t error, uint8_t *info, uint32_t length)</definition>
-        <argsstring>)(cybt_exception_t error, uint8_t *info, uint32_t length)</argsstring>
-        <name>cybt_exception_callback_t</name>
-        <briefdescription>
-<para>Typedef for exception callback function pointer. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>which may occur due to low level API failures and if controller triggers coredump</para>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername direction="in">cybt_exception_t</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>: Reason for the exception cause </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername direction="in">info</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>: Exception data buffer </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername direction="in">length</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>: Exception data buffer length</para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>bool : [true] If app handled this error and wants to continue from porting layer, [false] porting layer will issue assert. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="116" column="1" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="116" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" line="75" column="1" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" bodystart="74" bodyend="79"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -172,7 +75,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="228" column="1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" line="214" column="1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="define">
@@ -185,7 +88,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="51" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="51" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" line="47" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__cfg_1gad9d80ecaf5864c704c87bd0cf7490659" prot="public" static="no">
         <name>CYBT_SLEEP_MODE_ENABLED</name>
@@ -196,7 +99,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="52" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="52" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" line="48" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__cfg_1gaf7d41be05e1c430256f65d1219abd831" prot="public" static="no">
         <name>CYBT_WAKE_ACTIVE_LOW</name>
@@ -207,7 +110,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="54" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="54" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" line="50" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="group__platform__cfg_1gad8d6dd4f2d7b07a29af54ebf34d9be6e" prot="public" static="no">
         <name>CYBT_WAKE_ACTIVE_HIGH</name>
@@ -218,7 +121,84 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" line="55" column="9" bodyfile="/builds/repo/btstack-port-cyal/platform/include/cybt_platform_config.h" bodystart="55" bodyend="-1"/>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" line="51" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__platform__cfg_1gab005f56b1afd9e75d86c84d3881efd86" prot="public" static="no">
+        <name>CYBT_CONTROLLER_BASE_EXCEPTION</name>
+        <initializer>0xD000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" line="54" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__platform__cfg_1ga161d76534180b5756bfee8612767b511" prot="public" static="no">
+        <name>CYBT_CONTROLLER_CORE_DUMP</name>
+        <initializer>CYBT_CONTROLLER_BASE_EXCEPTION + 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" line="55" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__platform__cfg_1gaf2d61880559ae8c18e2e0730b57b00c3" prot="public" static="no">
+        <name>CYBT_CONTROLLER_RESTARTED</name>
+        <initializer>CYBT_CONTROLLER_BASE_EXCEPTION + 2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" line="58" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__platform__cfg_1gaf2d99728e6acc480b916aed0d74840d4" prot="public" static="no">
+        <name>CYBT_CONTROLLER_MAX_EXCEPTION</name>
+        <initializer>CYBT_CONTROLLER_RESTARTED + 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" line="61" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__platform__cfg_1ga3ce3cc0554306aa2f678db1992149d1d" prot="public" static="no">
+        <name>CYBT_PORTING_BASE_EXCEPTION</name>
+        <initializer>0xE000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" line="64" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__platform__cfg_1gab17f6dca26d46b014fa0a42d1ab3ce87" prot="public" static="no">
+        <name>CYBT_PORTING_HCI_IPC_REL_BUFFER</name>
+        <initializer>CYBT_PORTING_BASE_EXCEPTION + 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" line="65" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__platform__cfg_1ga8c0ea3d77eb8e2bc7ff5e70bac444dfd" prot="public" static="no">
+        <name>CYBT_PORTING_MAX_EXCEPTION</name>
+        <initializer>CYBT_PORTING_HCI_IPC_REL_BUFFER + 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" line="66" column="9" bodyfile="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BTSS-IPC/platform/include/cybt_platform_config.h" bodystart="66" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

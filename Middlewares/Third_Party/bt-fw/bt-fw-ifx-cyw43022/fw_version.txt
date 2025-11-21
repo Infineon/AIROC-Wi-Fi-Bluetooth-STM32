@@ -1,0 +1,1 @@
+CYW43012C1_003.002.024.0036.0000_Generic_UART_37_4MHz_wlbga_ref3_sLNA_dl_signed

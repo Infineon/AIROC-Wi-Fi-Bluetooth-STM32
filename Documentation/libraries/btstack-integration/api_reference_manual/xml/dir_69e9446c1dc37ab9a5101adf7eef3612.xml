@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.15">
+  <compounddef id="dir_69e9446c1dc37ab9a5101adf7eef3612" kind="dir">
+    <compoundname>COMPONENT_BLESS-IPC</compoundname>
+    <innerdir refid="dir_82906b02ad61294585af493a35848b8a">platform</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/builds/repo/btstack-port-cyal/deploy/btstack-integration/COMPONENT_BLESS-IPC/"/>
+  </compounddef>
+</doxygen>

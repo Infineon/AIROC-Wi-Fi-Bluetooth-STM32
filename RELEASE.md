@@ -1,4 +1,4 @@
-# Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack 1.7.1 Release Notes
+# Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack 1.8.0 Release Notes
 The Infineon AIROC-Wi-Fi-Bluetooth-STM32 Expansion Pack is an extension of the CMSIS-Pack standard established by Arm.
 The pack is compliant with the full CMSIS-Pack standard, with additional requirements/restrictions
 on the final pack to meet the STM standard.
@@ -9,6 +9,11 @@ This pack uses libraries from the ModusToolbox environment.
 * Maintenance Release
 
 ## What Changed?
+ v1.8.0
+*  Support the STM32N6570-DK
+*  Update the H1combo clm to v3
+*  Update the btstack-integration to v.6.2.0
+*  Update the btstack to 4.1.4
 
  v1.7.1
 
@@ -65,8 +70,8 @@ work with Infineon connectivity platforms.
 
 |  Software                    | Version   |
 | ---------------------------- | --------- |
-| STM32 CubeMX                 |  6.14.1   |
-| STM32 CubeIDE                |  1.18.1   |
+| STM32 CubeMX                 |  6.15.0   |
+| STM32 CubeIDE                |  1.19.0   |
 | IAR Embedded Workbench IDE   |  9.30.1   |
 
 ### Supported Compiler Version
@@ -81,6 +86,7 @@ work with Infineon connectivity platforms.
 
 | Version | Changes                                                             | Reason for Change                     |
 | :----:  | :---                                                                | :----                                 |
+| 1.8.0   | Updated pack version and configuration files to 1.8.0               | Version alignment and maintenance     |
 | 1.7.1   | Update 4373 firmware, wcm                                           | firmware, applications                |
 | 1.7.0   | Added enterprise-security support                                   | New modules, applications             |
 | 1.6.1   | Update Wi-Fi assets                                                 | Maintenance                           |
@@ -112,4 +118,4 @@ work with Infineon connectivity platforms.
 
 -------------------------------------------------------------------------------
 
-© Cypress Semiconductor Corporation, 2021-2024.
+© Cypress Semiconductor Corporation, 2021-2025.

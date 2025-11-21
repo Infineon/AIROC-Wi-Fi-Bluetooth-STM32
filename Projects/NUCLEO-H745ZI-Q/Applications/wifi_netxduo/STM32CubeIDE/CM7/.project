@@ -3801,9 +3801,9 @@
 			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/wifi-host-driver/COMPONENT_WIFI5/resources/clm/COMPONENT_43012/COMPONENT_MURATA-1LV/43012C0_clm_blob.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1LV/w_bt_firmware_controller.c</name>
+			<name>Middlewares/Connectivity/Wireless/Platform/module/MURATA-1LV/btfw.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/btstack-integration/COMPONENT_HCI-UART/firmware/COMPONENT_43012/COMPONENT_MURATA-1LV/w_bt_firmware_controller.c</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/Middlewares/Third_Party/Infineon_Wireless_Connectivity/bt-fw/bt-fw-mur-cyw43012/COMPONENT_MURATA-1LV/btfw.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/Connectivity/Wireless/Wifi/network-interface/NetXDuo/cy_netxduo.c</name>

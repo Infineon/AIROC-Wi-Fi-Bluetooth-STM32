@@ -11,14 +11,6 @@
     <member refid="structcybt__controller__sleep__config__t_1af610fc41d1a3984908fafcf00c7ec76e" kind="variable"><name>device_wake_polarity</name></member>
     <member refid="structcybt__controller__sleep__config__t_1a593fd22a6c9987faaef084853b9dd3c6" kind="variable"><name>host_wake_polarity</name></member>
   </compound>
-  <compound refid="structcybt__debug__uart__config__t" kind="struct"><name>cybt_debug_uart_config_t</name>
-    <member refid="structcybt__debug__uart__config__t_1a704afa40225e32731d606d2488a50496" kind="variable"><name>uart_tx_pin</name></member>
-    <member refid="structcybt__debug__uart__config__t_1a109bf7ff2f78d5c2b3d8447ecefbc3e5" kind="variable"><name>uart_rx_pin</name></member>
-    <member refid="structcybt__debug__uart__config__t_1a1442253ba42008c899c18fa135bfeb21" kind="variable"><name>uart_rts_pin</name></member>
-    <member refid="structcybt__debug__uart__config__t_1ad2a825e22ae429addfec61fe09f3451b" kind="variable"><name>uart_cts_pin</name></member>
-    <member refid="structcybt__debug__uart__config__t_1a60d99e8cf844de2b090ac19c3291ee03" kind="variable"><name>baud_rate</name></member>
-    <member refid="structcybt__debug__uart__config__t_1adf606b6502f0bb0fdd741edf575599ec" kind="variable"><name>flow_control</name></member>
-  </compound>
   <compound refid="structcybt__hci__transport__config__t" kind="struct"><name>cybt_hci_transport_config_t</name>
     <member refid="structcybt__hci__transport__config__t_1a49e2aa2bba549df93cb113ecb293801f" kind="variable"><name>hci_transport</name></member>
     <member refid="structcybt__hci__transport__config__t_1a906d2c4cc61e0cfdff53e7f004ac1396" kind="variable"><name>hci_uart</name></member>
@@ -44,34 +36,28 @@
   <compound refid="structcybt__platform__trace__cb__t" kind="struct"><name>cybt_platform_trace_cb_t</name>
     <member refid="structcybt__platform__trace__cb__t_1aff6cbe7223f753c87f870ff5cab4333d" kind="variable"><name>trace_level</name></member>
   </compound>
-  <compound refid="cybt__debug__uart_8h" kind="file"><name>cybt_debug_uart.h</name>
-    <member refid="group__debug__uart__cfg_1gad9ac57d78f046b0d5dbcf3f32e54e1fd" kind="typedef"><name>cybt_debug_uart_data_handler_t</name></member>
-    <member refid="group__debug__uart__cfg_1ga16bde8710d82bdc7086fa44f6103ccf3" kind="function"><name>cybt_debug_uart_init</name></member>
-    <member refid="group__debug__uart__cfg_1ga138649c1c5091bd65757aa23db3b55a4" kind="function"><name>cybt_debug_uart_send_trace</name></member>
-    <member refid="group__debug__uart__cfg_1ga7a64b5c537dd7068dcbaf5efa6ed57be" kind="function"><name>cybt_debug_uart_send_hci_trace</name></member>
-    <member refid="group__debug__uart__cfg_1gaa5b2fd8df23a303ef08508db24792e24" kind="function"><name>cybt_debug_uart_send_data</name></member>
-    <member refid="group__debug__uart__cfg_1gab95329f3931af04a9e15431f51f47498" kind="function"><name>cybt_send_coredump_hci_trace</name></member>
-  </compound>
   <compound refid="cybt__platform__config_8h" kind="file"><name>cybt_platform_config.h</name>
     <member refid="group__platform__cfg_1ga71a14bd3046f030353a91683577817a6" kind="define"><name>CYBT_SLEEP_MODE_DISABLED</name></member>
     <member refid="group__platform__cfg_1gad9d80ecaf5864c704c87bd0cf7490659" kind="define"><name>CYBT_SLEEP_MODE_ENABLED</name></member>
     <member refid="group__platform__cfg_1gaf7d41be05e1c430256f65d1219abd831" kind="define"><name>CYBT_WAKE_ACTIVE_LOW</name></member>
     <member refid="group__platform__cfg_1gad8d6dd4f2d7b07a29af54ebf34d9be6e" kind="define"><name>CYBT_WAKE_ACTIVE_HIGH</name></member>
+    <member refid="group__platform__cfg_1gab005f56b1afd9e75d86c84d3881efd86" kind="define"><name>CYBT_CONTROLLER_BASE_EXCEPTION</name></member>
+    <member refid="group__platform__cfg_1ga161d76534180b5756bfee8612767b511" kind="define"><name>CYBT_CONTROLLER_CORE_DUMP</name></member>
+    <member refid="group__platform__cfg_1gaf2d61880559ae8c18e2e0730b57b00c3" kind="define"><name>CYBT_CONTROLLER_RESTARTED</name></member>
+    <member refid="group__platform__cfg_1gaf2d99728e6acc480b916aed0d74840d4" kind="define"><name>CYBT_CONTROLLER_MAX_EXCEPTION</name></member>
+    <member refid="group__platform__cfg_1ga3ce3cc0554306aa2f678db1992149d1d" kind="define"><name>CYBT_PORTING_BASE_EXCEPTION</name></member>
+    <member refid="group__platform__cfg_1gab17f6dca26d46b014fa0a42d1ab3ce87" kind="define"><name>CYBT_PORTING_HCI_IPC_REL_BUFFER</name></member>
+    <member refid="group__platform__cfg_1ga8c0ea3d77eb8e2bc7ff5e70bac444dfd" kind="define"><name>CYBT_PORTING_MAX_EXCEPTION</name></member>
     <member refid="group__platform__cfg_1ga5f6850727c86459c4c6c11c84870d308" kind="enum"><name>cybt_hci_transport_t</name></member>
     <member refid="group__platform__cfg_1gga5f6850727c86459c4c6c11c84870d308af5ee9474117419b2f07127b9ffd0dc99" kind="enumvalue"><name>CYBT_HCI_UNKNOWN</name></member>
     <member refid="group__platform__cfg_1gga5f6850727c86459c4c6c11c84870d308a154733e718f98e13774fb625df3687f3" kind="enumvalue"><name>CYBT_HCI_UART</name></member>
     <member refid="group__platform__cfg_1gga5f6850727c86459c4c6c11c84870d308a48f801ad425fc5626b5c34098bec2501" kind="enumvalue"><name>CYBT_HCI_IPC</name></member>
-    <member refid="group__platform__cfg_1gab887149c4cb3cd34b2984638c6c1aebb" kind="enum"><name>cybt_exception_t</name></member>
-    <member refid="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebbabaa7aa6502eac7036fcce924e0dedad7" kind="enumvalue"><name>CYBT_NO_EXCEPTION</name></member>
-    <member refid="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebbae03d841bfda8775d8111602c1e49a948" kind="enumvalue"><name>CYBT_HCI_IPC_REL_BUFFER</name></member>
-    <member refid="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebbad91487056c5b8bf58595982b8a43488e" kind="enumvalue"><name>CYBT_CONTROLLER_CORE_DUMP</name></member>
-    <member refid="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebba8b6e17328b8bb844642c3426418162f3" kind="enumvalue"><name>CYBT_CONTROLLER_RESTARTED</name></member>
-    <member refid="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebbabac28d431cb536959b4db3cbd7c7d7b6" kind="enumvalue"><name>CYBT_MAX_EXCEPTION</name></member>
-    <member refid="group__platform__cfg_1ga6a50ab63c021eaee65d2a2ce9ec26833" kind="typedef"><name>cybt_exception_callback_t</name></member>
     <member refid="group__platform__cfg_1ga1ff2a9935b27efb9639974d6ddc1894a" kind="function"><name>cybt_platform_config_init</name></member>
   </compound>
   <compound refid="cybt__platform__interface_8h" kind="file"><name>cybt_platform_interface.h</name>
     <member refid="cybt__platform__interface_8h_1a9300e0eb9926090bb68420072608f7ae" kind="define"><name>CYBT_TRACE_BUFFER_SIZE</name></member>
+    <member refid="cybt__platform__interface_8h_1a63da37443dbcebd376b22575f70958d0" kind="define"><name>PLATFORM_WDT_TIME_OUT_MS</name></member>
+    <member refid="cybt__platform__interface_8h_1a034801b5e1a84b9b156403a2749fa51d" kind="define"><name>wiced_bt_app_serialize_function</name></member>
     <member refid="cybt__platform__interface_8h_1ab6311c3fcc2976e287a70a13da2d6c67" kind="define"><name>BTSTACK_PORTING_SECTION_BEGIN</name></member>
     <member refid="cybt__platform__interface_8h_1ad4d237830a4ce62f60a879518158631a" kind="define"><name>BTSTACK_PORTING_SECTION_END</name></member>
     <member refid="cybt__platform__interface_8h_1a86cec88ff13b9d4150196b87f199e768" kind="function"><name>cybt_platform_init</name></member>
@@ -83,6 +69,8 @@
     <member refid="cybt__platform__interface_8h_1a63266c3ba4e8863a8cedf129798dc6cf" kind="function"><name>cybt_platform_log_print</name></member>
     <member refid="cybt__platform__interface_8h_1a8dcac5f34f5a4068d759ebf6bf30e95e" kind="function"><name>cybt_platform_get_tick_count_us</name></member>
     <member refid="cybt__platform__interface_8h_1a7878e8cc760de1837b637733901ca979" kind="function"><name>cybt_platform_set_next_timeout</name></member>
+    <member refid="cybt__platform__interface_8h_1a1a18cc742508d203c30ace105cc367cb" kind="function"><name>cybt_call_app_in_stack_context</name></member>
+    <member refid="cybt__platform__interface_8h_1a126f95f975f58481001a650c6f49a1ce" kind="function"><name>wiced_bt_serialize_function_from_isr</name></member>
   </compound>
   <compound refid="cybt__platform__trace_8h" kind="file"><name>cybt_platform_trace.h</name>
     <member refid="group__platform__trace_1ga6ee1dced2b4da94270e21bbb3d358600" kind="define"><name>CYBT_PLATFORM_TRACE_ENABLE</name></member>
@@ -182,18 +170,6 @@
     <member refid="cybt__platform__util_8h_1a4bf80996c9c23df64ffae0939d88173f" kind="function"><name>cybt_platform_get_config</name></member>
     <member refid="cybt__platform__util_8h_1a369338eaa157f977a48f8362f9187054" kind="function"><name>cybt_platform_get_sleep_mode_status</name></member>
   </compound>
-  <compound refid="cybt__prm_8h" kind="file"><name>cybt_prm.h</name>
-    <member refid="cybt__prm_8h_1a1894b31e949b60c63d89f5aa1cb88cec" kind="define"><name>CYBT_PRM_FORMAT_BIN</name></member>
-    <member refid="cybt__prm_8h_1af37e003f3792a046c9b5effb9d4ba914" kind="define"><name>CYBT_PRM_FORMAT_HCD</name></member>
-    <member refid="cybt__prm_8h_1adf764cbdea00d65edcd07bb9953ad2b7" kind="enum"><name>@1</name></member>
-    <member refid="cybt__prm_8h_1adf764cbdea00d65edcd07bb9953ad2b7a6d1e94817d96e4a80e5f924e7c4d5ee6" kind="enumvalue"><name>CYBT_PRM_STS_CONTINUE</name></member>
-    <member refid="cybt__prm_8h_1adf764cbdea00d65edcd07bb9953ad2b7aed1d7fc734d4e5242f28160e710b2a16" kind="enumvalue"><name>CYBT_PRM_STS_COMPLETE</name></member>
-    <member refid="cybt__prm_8h_1adf764cbdea00d65edcd07bb9953ad2b7a8862f3e31c06d0f301e397d68970b937" kind="enumvalue"><name>CYBT_PRM_STS_ABORT</name></member>
-    <member refid="cybt__prm_8h_1a27d29fb02dfb2e43c44443980b77c4cf" kind="typedef"><name>cybt_prm_status_t</name></member>
-    <member refid="cybt__prm_8h_1a91c999482e790c7557f1eb2f2d1f51f8" kind="typedef"><name>cybt_prm_format_t</name></member>
-    <member refid="cybt__prm_8h_1a0c0badc00d92703eedcf3f771e1b1fe2" kind="typedef"><name>cybt_prm_cback_t</name></member>
-    <member refid="cybt__prm_8h_1ab0b21204353603287cf4e0a2cc798784" kind="function"><name>cybt_prm_download</name></member>
-  </compound>
   <compound refid="cybt__result_8h" kind="file"><name>cybt_result.h</name>
     <member refid="cybt__result_8h_1acbed65803741994c7aafa1ee3a93952d" kind="enum"><name>cybt_result_t</name></member>
     <member refid="cybt__result_8h_1acbed65803741994c7aafa1ee3a93952daadfc177a0f1068593f19b08bb681be14" kind="enumvalue"><name>CYBT_SUCCESS</name></member>
@@ -229,33 +205,23 @@
     <member refid="cybt__result_8h_1acbed65803741994c7aafa1ee3a93952dab0448872188f38473d8019d7d1a2b489" kind="enumvalue"><name>CYBT_ERR_HCI_IPC_GET_FIFO_FAILED</name></member>
     <member refid="cybt__result_8h_1acbed65803741994c7aafa1ee3a93952da9e995d19919ca570dc4fe76c57f34e3a" kind="enumvalue"><name>CYBT_ERR_INIT_EVENT_FAILED</name></member>
   </compound>
-  <compound refid="_r_e_a_d_m_e__bless_8md" kind="file"><name>README_bless.md</name>
-  </compound>
-  <compound refid="group__debug__uart__cfg" kind="group"><name>debug_uart_cfg</name>
-    <member refid="group__debug__uart__cfg_1gad9ac57d78f046b0d5dbcf3f32e54e1fd" kind="typedef"><name>cybt_debug_uart_data_handler_t</name></member>
-    <member refid="group__debug__uart__cfg_1ga16bde8710d82bdc7086fa44f6103ccf3" kind="function"><name>cybt_debug_uart_init</name></member>
-    <member refid="group__debug__uart__cfg_1ga138649c1c5091bd65757aa23db3b55a4" kind="function"><name>cybt_debug_uart_send_trace</name></member>
-    <member refid="group__debug__uart__cfg_1ga7a64b5c537dd7068dcbaf5efa6ed57be" kind="function"><name>cybt_debug_uart_send_hci_trace</name></member>
-    <member refid="group__debug__uart__cfg_1gaa5b2fd8df23a303ef08508db24792e24" kind="function"><name>cybt_debug_uart_send_data</name></member>
-    <member refid="group__debug__uart__cfg_1gab95329f3931af04a9e15431f51f47498" kind="function"><name>cybt_send_coredump_hci_trace</name></member>
-  </compound>
   <compound refid="group__platform__cfg" kind="group"><name>platform_cfg</name>
     <member refid="group__platform__cfg_1ga5f6850727c86459c4c6c11c84870d308" kind="enum"><name>cybt_hci_transport_t</name></member>
     <member refid="group__platform__cfg_1gga5f6850727c86459c4c6c11c84870d308af5ee9474117419b2f07127b9ffd0dc99" kind="enumvalue"><name>CYBT_HCI_UNKNOWN</name></member>
     <member refid="group__platform__cfg_1gga5f6850727c86459c4c6c11c84870d308a154733e718f98e13774fb625df3687f3" kind="enumvalue"><name>CYBT_HCI_UART</name></member>
     <member refid="group__platform__cfg_1gga5f6850727c86459c4c6c11c84870d308a48f801ad425fc5626b5c34098bec2501" kind="enumvalue"><name>CYBT_HCI_IPC</name></member>
-    <member refid="group__platform__cfg_1gab887149c4cb3cd34b2984638c6c1aebb" kind="enum"><name>cybt_exception_t</name></member>
-    <member refid="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebbabaa7aa6502eac7036fcce924e0dedad7" kind="enumvalue"><name>CYBT_NO_EXCEPTION</name></member>
-    <member refid="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebbae03d841bfda8775d8111602c1e49a948" kind="enumvalue"><name>CYBT_HCI_IPC_REL_BUFFER</name></member>
-    <member refid="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebbad91487056c5b8bf58595982b8a43488e" kind="enumvalue"><name>CYBT_CONTROLLER_CORE_DUMP</name></member>
-    <member refid="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebba8b6e17328b8bb844642c3426418162f3" kind="enumvalue"><name>CYBT_CONTROLLER_RESTARTED</name></member>
-    <member refid="group__platform__cfg_1ggab887149c4cb3cd34b2984638c6c1aebbabac28d431cb536959b4db3cbd7c7d7b6" kind="enumvalue"><name>CYBT_MAX_EXCEPTION</name></member>
-    <member refid="group__platform__cfg_1ga6a50ab63c021eaee65d2a2ce9ec26833" kind="typedef"><name>cybt_exception_callback_t</name></member>
     <member refid="group__platform__cfg_1ga1ff2a9935b27efb9639974d6ddc1894a" kind="function"><name>cybt_platform_config_init</name></member>
     <member refid="group__platform__cfg_1ga71a14bd3046f030353a91683577817a6" kind="define"><name>CYBT_SLEEP_MODE_DISABLED</name></member>
     <member refid="group__platform__cfg_1gad9d80ecaf5864c704c87bd0cf7490659" kind="define"><name>CYBT_SLEEP_MODE_ENABLED</name></member>
     <member refid="group__platform__cfg_1gaf7d41be05e1c430256f65d1219abd831" kind="define"><name>CYBT_WAKE_ACTIVE_LOW</name></member>
     <member refid="group__platform__cfg_1gad8d6dd4f2d7b07a29af54ebf34d9be6e" kind="define"><name>CYBT_WAKE_ACTIVE_HIGH</name></member>
+    <member refid="group__platform__cfg_1gab005f56b1afd9e75d86c84d3881efd86" kind="define"><name>CYBT_CONTROLLER_BASE_EXCEPTION</name></member>
+    <member refid="group__platform__cfg_1ga161d76534180b5756bfee8612767b511" kind="define"><name>CYBT_CONTROLLER_CORE_DUMP</name></member>
+    <member refid="group__platform__cfg_1gaf2d61880559ae8c18e2e0730b57b00c3" kind="define"><name>CYBT_CONTROLLER_RESTARTED</name></member>
+    <member refid="group__platform__cfg_1gaf2d99728e6acc480b916aed0d74840d4" kind="define"><name>CYBT_CONTROLLER_MAX_EXCEPTION</name></member>
+    <member refid="group__platform__cfg_1ga3ce3cc0554306aa2f678db1992149d1d" kind="define"><name>CYBT_PORTING_BASE_EXCEPTION</name></member>
+    <member refid="group__platform__cfg_1gab17f6dca26d46b014fa0a42d1ab3ce87" kind="define"><name>CYBT_PORTING_HCI_IPC_REL_BUFFER</name></member>
+    <member refid="group__platform__cfg_1ga8c0ea3d77eb8e2bc7ff5e70bac444dfd" kind="define"><name>CYBT_PORTING_MAX_EXCEPTION</name></member>
   </compound>
   <compound refid="group__platform__trace" kind="group"><name>platform_trace</name>
     <member refid="group__platform__trace_1gaed69846bfed5bab2c7db57097c3dcc98" kind="typedef"><name>cybt_trace_id_t</name></member>
@@ -351,10 +317,14 @@
     <member refid="group__platform__trace_1ga0b6c96c5a43972c74fabc52924076055" kind="define"><name>BTTASK_TRACE_EVENT</name></member>
     <member refid="group__platform__trace_1ga7958ef6857cf47126bbb17b02ce8f8c6" kind="define"><name>BTTASK_TRACE_DEBUG</name></member>
   </compound>
-  <compound refid="dir_36588e4213a630c1bb8e076a76be9366" kind="dir"><name>include</name>
+  <compound refid="dir_9d21f36cd566679d106dc1c45c01f3d3" kind="dir"><name>btstack-integration</name>
   </compound>
-  <compound refid="dir_c5a52a81292cf9a5167198f4f346d6d9" kind="dir"><name>platform</name>
+  <compound refid="dir_69e9446c1dc37ab9a5101adf7eef3612" kind="dir"><name>COMPONENT_BLESS-IPC</name>
   </compound>
-  <compound refid="indexpage" kind="page"><name>index</name>
+  <compound refid="dir_764f9f1cee58e096f8d4dfd8f6b02c05" kind="dir"><name>deploy</name>
+  </compound>
+  <compound refid="dir_8ea60c9ef5173fcbbbe6fa16c7650cde" kind="dir"><name>include</name>
+  </compound>
+  <compound refid="dir_82906b02ad61294585af493a35848b8a" kind="dir"><name>platform</name>
   </compound>
 </doxygenindex>

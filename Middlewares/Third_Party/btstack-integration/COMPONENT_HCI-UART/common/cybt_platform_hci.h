@@ -51,6 +51,7 @@ typedef enum
     HCI_PACKET_TYPE_ACL      = 0x02,
     HCI_PACKET_TYPE_SCO      = 0x03,
     HCI_PACKET_TYPE_EVENT    = 0x04,
+    HCI_PACKET_TYPE_ISO      = 0x05,
     HCI_PACKET_TYPE_DIAG     = 0x07,
     HCI_PACKET_TYPE_LOOPBACK = 0xFF
 } hci_packet_type_t;
@@ -72,6 +73,15 @@ typedef struct
     uint16_t          hci_handle;
     uint16_t          content_length;
 } hci_acl_packet_header_t;
+
+/**
+ * HCI ISO packet header
+ */
+typedef struct
+{
+    uint16_t          iso_handle;
+    uint16_t          content_length;
+} hci_iso_packet_header_t;
 
 /**
  * HCI SCO packet header

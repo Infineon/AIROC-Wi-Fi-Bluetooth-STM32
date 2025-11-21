@@ -533,6 +533,7 @@ void console_thread_func( cy_thread_arg_t arg )
                 cons.console_thread_is_running = false;
                 cy_rtos_exit_thread();
             }
+            cy_rtos_delay_milliseconds(1);
        }
 #ifdef COMPONENT_CAT5
        tx_thread_relinquish();

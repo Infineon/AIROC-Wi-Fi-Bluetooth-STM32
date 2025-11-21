@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2023, Cypress Semiconductor Corporation or
+ * Copyright 2019-2025, Cypress Semiconductor Corporation or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -63,8 +63,8 @@
 #define L2CAP_CMD_AMP_MOVE_RSP              0x0F    /**< AMP Move Response */
 #define L2CAP_CMD_AMP_MOVE_CFM              0x10    /**< AMP Move Confirm */
 #define L2CAP_CMD_AMP_MOVE_CFM_RSP          0x11    /**< AMP Move Confirm Response */
-#define L2CAP_CMD_BLE_UPDATE_REQ            0x12    /**< BLE Connection Param Update Request */
-#define L2CAP_CMD_BLE_UPDATE_RSP            0x13    /**< BLE Connection Param Update Response */
+#define L2CAP_CMD_BLE_UPDATE_REQ            0x12    /**< LE Connection Param Update Request */
+#define L2CAP_CMD_BLE_UPDATE_RSP            0x13    /**< LE Connection Param Update Response */
 #define L2CAP_CMD_LE_COC_CONN_REQ           0x14    /**< LE COC Connection Request */
 #define L2CAP_CMD_LE_COC_CONN_RSP           0x15    /**< LE COC Connection Response */
 #define L2CAP_CMD_CRB_CREDITS               0x16    /**< Credits */
@@ -184,7 +184,7 @@
 #define L2CAP_CONNECTIONLESS_CID        2           /**< Connectionless CID */
 #define L2CAP_AMP_CID                   3           /**< AMP CID */
 #define L2CAP_ATT_CID                   4           /**< Attribute CID */
-#define L2CAP_BLE_SIGNALLING_CID        5           /**< BLE Signalling CID */
+#define L2CAP_BLE_SIGNALLING_CID        5           /**< LE Signalling CID */
 #define L2CAP_SMP_CID                   6           /**< SMP CID */
 #define L2CAP_SMP_BR_CID                7           /**< SMP BR CID */
 
@@ -196,7 +196,7 @@
 #define L2CAP_ASSIGNED_NUM_END          0x003E      /**< Channel Assigned Number End */
 #define L2CAP_AMP_TEST_CID              0x003F      /**< AMP Test CID */
 #define L2CAP_BASE_APPL_CID             0x0040      /**< Dynamic : Base CID */
-#define L2CAP_BLE_CONN_MAX_CID          0x007F      /**< Max BLE CID */
+#define L2CAP_BLE_CONN_MAX_CID          0x007F      /**< Max LE CID */
 
 /** @} L2CAP_PREDIFINED_CIDS */
 
@@ -211,8 +211,8 @@
 #define L2CAP_FIXED_CHNL_CNCTLESS_BIT   (1 << L2CAP_CONNECTIONLESS_CID) /**< Connectionless Reception             */
 #define L2CAP_FIXED_CHNL_AMP_BIT        (1 << L2CAP_AMP_CID)            /**< AMP Manager Supported                */
 #define L2CAP_FIXED_CHNL_ATT_BIT        (1 << L2CAP_ATT_CID)            /**< Attribute protocol Supported         */
-#define L2CAP_FIXED_CHNL_BLE_SIG_BIT    (1 << L2CAP_BLE_SIGNALLING_CID) /**< BLE Signalling Supported             */
-#define L2CAP_FIXED_CHNL_SMP_BIT        (1 << L2CAP_SMP_CID)            /**< BLE Security Manager Supported       */
+#define L2CAP_FIXED_CHNL_BLE_SIG_BIT    (1 << L2CAP_BLE_SIGNALLING_CID) /**< LE Signalling Supported             */
+#define L2CAP_FIXED_CHNL_SMP_BIT        (1 << L2CAP_SMP_CID)            /**< LE Security Manager Supported       */
 #define L2CAP_FIXED_CHNL_SMP_BR_BIT     (1 << L2CAP_SMP_BR_CID)         /**< Security Manager over BR Supported   */
 /** @} L2CAP_CHAN_MASK */
 
@@ -413,10 +413,10 @@
 #define L2CAP_CONN_BAD_CTLR_ID       5     /**< Bad Controller ID */
 
 /**  @note AMP related */
-#define L2CAP_BLE_CONN_BAD_AUTHENT      5     /**< BLE Connection Bad Authentication */
-#define L2CAP_BLE_CONN_BAD_AUTHORIZ     6     /**< BLE Connection Bad Autherization */
-#define L2CAP_BLE_CONN_BAD_KEY_SIZE     7     /**< BLE Connection Bad key size */
-#define L2CAP_BLE_CONN_BAD_ENCRYPT      8     /**< BLE Connection Bad Encryption */
+#define L2CAP_BLE_CONN_BAD_AUTHENT      5     /**< LE Connection Bad Authentication */
+#define L2CAP_BLE_CONN_BAD_AUTHORIZ     6     /**< LE Connection Bad Autherization */
+#define L2CAP_BLE_CONN_BAD_KEY_SIZE     7     /**< LE Connection Bad key size */
+#define L2CAP_BLE_CONN_BAD_ENCRYPT      8     /**< LE Connection Bad Encryption */
 #define L2CAP_BLE_CONN_INVALID_CID      9     /**< Invalid Source CID */
 #define L2CAP_BLE_CONN_CID_ALREADY_USED 10    /**< Source CID already allocated */
 #define L2CAP_BLE_CONN_BAD_PARAMS       11    /**< Bad parameters */

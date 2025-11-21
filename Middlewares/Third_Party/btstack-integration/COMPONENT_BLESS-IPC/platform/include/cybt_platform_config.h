@@ -31,10 +31,6 @@
 #include "cyhal_gpio.h"
 #include "cyhal_uart.h"
 
-#ifdef ENABLE_BT_SPY_LOG
-#define ENABLE_DEBUG_UART
-#endif
-
 /**
  *  @addtogroup    platform_cfg   Bluetooth Platform Configuration
  *
@@ -54,6 +50,21 @@
 #define CYBT_WAKE_ACTIVE_LOW          (0)
 #define CYBT_WAKE_ACTIVE_HIGH         (1)
 
+/*Controller Exceptions*/
+#define CYBT_CONTROLLER_BASE_EXCEPTION  0xD000                                // Blueooth Controller BASE exception
+#define CYBT_CONTROLLER_CORE_DUMP       CYBT_CONTROLLER_BASE_EXCEPTION + 1    // Core dump exception on BT Controller crash.
+                                                                              // Note: Typically multiple core dump exceptions will be
+                                                                              // raised by the controller to share the complete core dump data
+#define CYBT_CONTROLLER_RESTARTED       CYBT_CONTROLLER_BASE_EXCEPTION + 2    // Bluetooth Controller restart exception
+                                                                              // Note: Typically restart exception will get raised once all
+                                                                              // core dump packets are sent out by Controller
+#define CYBT_CONTROLLER_MAX_EXCEPTION   CYBT_CONTROLLER_RESTARTED + 1         // Blueooth Controller MAX exception
+
+/*Porting Layer Exceptions*/
+#define CYBT_PORTING_BASE_EXCEPTION     0xE000                                // Porting layer BASE exception
+#define CYBT_PORTING_HCI_IPC_REL_BUFFER CYBT_PORTING_BASE_EXCEPTION + 1       // HCI buffer release failure
+#define CYBT_PORTING_MAX_EXCEPTION      CYBT_PORTING_HCI_IPC_REL_BUFFER + 1   // Porting layer MAX exception
+
 /*****************************************************************************
  *                           Type Definitions
  *****************************************************************************/
@@ -66,18 +77,6 @@ typedef enum
     CYBT_HCI_UART    = 0x01,
     CYBT_HCI_IPC     = 0x02,
 } cybt_hci_transport_t;
-
-/**
- *  The Porting layer exception list which is causing by low level
- */
-typedef enum
-{
-    CYBT_NO_EXCEPTION          = 0x00,
-    CYBT_HCI_IPC_REL_BUFFER    = 0x01,
-    CYBT_CONTROLLER_CORE_DUMP  = 0x02,
-    CYBT_CONTROLLER_RESTARTED  = 0x03,
-    CYBT_MAX_EXCEPTION         = 0xFF,
-} cybt_exception_t;
 
 /**
  *  The HCI UART configuration, including:
@@ -101,19 +100,6 @@ typedef struct
     cyhal_uart_parity_t  parity;     /**< parity check control */
     bool                 flow_control;  /**< flow control status */
 } cybt_hci_uart_config_t;
-
-/**
- * Typedef for exception callback function pointer.
- * which may occur due to low level API failures and if controller triggers coredump
- *
- * @param[in]       cybt_exception_t : Reason for the exception cause
- * @param[in]       info             : Exception data buffer
- * @param[in]       length           : Exception data buffer length
- *
- * @returns         bool : [true] If app handled this error and wants to continue from porting layer,
- *                         [false] porting layer will issue assert.
- */
-typedef bool (* cybt_exception_callback_t)(cybt_exception_t error, uint8_t *info, uint32_t length);
 
 /**
  *  The configuration of BT HCI transport, to specify which interface
